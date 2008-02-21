@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<fragment>
+   <extension
+         point="org.eclipse.actf.visualization.blind.blindVisualizer">
+      <blindVisualizer
+            class="org.eclipse.actf.visualization.blind.html.BlindVisualizerHtml"
+            id="org.eclipse.actf.visualization.blind.html.blindVisualizer1"/>
+   </extension>
+
+</fragment>

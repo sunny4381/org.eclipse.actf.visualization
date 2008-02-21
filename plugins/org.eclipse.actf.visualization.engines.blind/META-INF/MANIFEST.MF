@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF Blind Visualization Engine Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.visualization.engines.blind;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.actf.common,
+ org.eclipse.actf.model.dom.html,
+ org.eclipse.actf.visualization.eval,
+ org.eclipse.actf.visualization.engines.voicebrowser,
+ org.eclipse.actf.visualization.ui.report
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.actf.visualization.engines.blind,
+ org.eclipse.actf.visualization.engines.blind.eval,
+ org.eclipse.actf.visualization.engines.blind.ui.actions,
+ org.eclipse.actf.visualization.engines.blind.util

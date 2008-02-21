@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF Lowvision Engine Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.visualization.engines.lowvision
+Bundle-Version: 0.0.1
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.actf.common,
+ org.eclipse.actf.visualization.eval
+Export-Package: org.eclipse.actf.visualization.engines.lowvision,
+ org.eclipse.actf.visualization.engines.lowvision.color,
+ org.eclipse.actf.visualization.engines.lowvision.image,
+ org.eclipse.actf.visualization.engines.lowvision.io,
+ org.eclipse.actf.visualization.engines.lowvision.operator
+Bundle-Activator: org.eclipse.actf.visualization.engines.lowvision.LowVisionPlugin
+Eclipse-LazyStart: true

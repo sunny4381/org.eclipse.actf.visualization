@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF ODF Visualization Fragment (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.visualization.blind.odfbyhtml;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Vendor: Eclipse.org
+Fragment-Host: org.eclipse.actf.visualization.blind;bundle-version="0.0.1"
+Bundle-Localization: plugin
