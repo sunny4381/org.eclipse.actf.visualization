@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+  <extension
+        point="org.eclipse.ui.preferencePages">
+     <page
+           class="org.eclipse.actf.visualization.lowvision.ui.preferences.LowVisionPreferencePage"
+           id="org.eclipse.actf.visualization.lowvision.ui.preferences.LowVisionPreferencePage"
+           name="%adesigner.preferences.lowvision.title"/>
+  </extension>
+  <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView"
+            icon="icons/simulation16.gif"
+            id="org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView"
+            name="%adesigner.lowvision.tab.title"/>
+   </extension>
+</plugin>

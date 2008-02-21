@@ -1,0 +1,25 @@
+/*******************************************************************************
+ * Copyright (c) 2004, 2008 IBM Corporation and Others
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Kentarou FUKUDA - initial API and implementation
+ *******************************************************************************/
+
+package org.eclipse.actf.visualization.eval.problem;
+
+
+public interface ILowvisionProblemSubtype {
+    public static final short LOWVISION_COLOR_PROBLEM = 1;
+    public static final short LOWVISION_BLUR_PROBLEM = 2;
+    public static final short LOWVISION_IMAGE_COLOR_PROBLEM = 3;
+    public static final short LOWVISION_FIXED_SIZE_FONT_PROBLEM = 4;
+    public static final short LOWVISION_SMALL_FONT_PROBLEM = 5;
+    public static final short LOWVISION_FIXED_SMALL_FONT_PROBLEM = 6;
+    public static final short LOWVISION_PROHIBITED_BOTH_COLORS_PROBLEM = 7;
+    public static final short LOWVISION_PROHIBITED_FOREGROUND_COLOR_PROBLEM = 8;
+    public static final short LOWVISION_PROHIBITED_BACKGROUND_COLOR_PROBLEM = 9;    
+}

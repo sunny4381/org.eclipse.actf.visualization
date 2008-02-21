@@ -1,0 +1,40 @@
+/*******************************************************************************
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Takashi ITOH - initial API and implementation
+ *******************************************************************************/
+
+package org.eclipse.actf.visualization.gui.msaa.properties.methods.ia2table;
+
+import org.eclipse.actf.accservice.swtbridge.ia2.AccessibleTable;
+import org.eclipse.actf.visualization.gui.msaa.properties.fields.AbstractInputField;
+import org.eclipse.actf.visualization.gui.msaa.properties.fields.TableRowField;
+import org.eclipse.actf.visualization.gui.msaa.properties.methods.MethodData;
+
+
+
+
+public class IA2TableUnselectRowMethod extends MethodData {
+
+    private AccessibleTable accessibleTable;
+    private TableRowField rowField;
+    
+    public IA2TableUnselectRowMethod(AccessibleTable accessibleTable) {
+        super("unselectRow",true); //$NON-NLS-1$
+        this.accessibleTable = accessibleTable;
+        rowField = new TableRowField("row",0,accessibleTable); //$NON-NLS-1$
+        setInputFields(new AbstractInputField[]{rowField});
+    }
+
+    public boolean invoke() {
+        int row = rowField.getIntValue();
+        boolean success = accessibleTable.unselectAccessibleRow(row);
+        result = formatResult(success);
+        return true;
+    }
+}

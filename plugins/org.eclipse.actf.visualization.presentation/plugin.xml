@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            name="%adesigner.room.tab.title"
+            class="org.eclipse.actf.visualization.presentation.ui.views.RoomView"
+            id="org.eclipse.actf.visualization.presentation.ui.views.RoomView">
+      </view>
+   </extension>
+
+</plugin>

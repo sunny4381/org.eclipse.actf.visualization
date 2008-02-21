@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="org.eclipse.actf.visualization.flash.ui.views.FlashDOMView"
+            icon="icons/view16/domtreeview.gif"
+            id="org.eclipse.actf.visualization.flash.ui.views.FlashDOMView"
+            name="%FlashDOMView.name"/>
+   </extension>
+	<extension point="org.eclipse.core.runtime.adapters">
+	  <factory adaptableType="org.eclipse.actf.model.flash.FlashPlayer"
+	           class="org.eclipse.actf.visualization.flash.ui.properties.FlashPropertySourceAdapterFactory">
+	    <adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
+	  </factory>
+	  <factory adaptableType="org.eclipse.actf.model.flash.FlashNode"
+	           class="org.eclipse.actf.visualization.flash.ui.properties.FlashPropertySourceAdapterFactory">
+	    <adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
+	  </factory>
+	</extension>
+ <extension
+       point="org.eclipse.ui.popupMenus">
+    <objectContribution
+          adaptable="false"
+          id="org.eclipse.actf.visualization.flash.objectContribution1"
+          objectClass="org.eclipse.actf.accservice.swtbridge.AccessibleObject">
+       <action
+           class="org.eclipse.actf.visualization.flash.ui.actions.FindFlashAction"
+           enablesFor="1"
+           icon="icons/flash16/type_flash.gif"
+           id="org.eclipse.actf.visualization.flash.action1"
+           label="%FlashFind.menu"
+           menubarPath="additions"/>
+       <visibility>
+       <objectState
+           name="findFlash"
+           value="valid"/>
+       </visibility>
+    </objectContribution>
+ </extension>
+ <extension point="org.eclipse.core.runtime.adapters">
+  <factory adaptableType="org.eclipse.actf.accservice.swtbridge.AccessibleObject"
+           class="org.eclipse.actf.visualization.flash.ui.actions.FlashFinderAdapterFactory">
+    <adapter type="org.eclipse.ui.IActionFilter"/>
+  </factory>
+ </extension>
+
+</plugin>

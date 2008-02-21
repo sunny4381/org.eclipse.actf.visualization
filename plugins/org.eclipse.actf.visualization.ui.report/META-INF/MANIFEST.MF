@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF Visualization Report Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.visualization.ui.report;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: org.eclipse.actf.visualization.ui.report.ReportPlugin
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.actf.common,
+ org.eclipse.actf.visualization.eval
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.actf.visualization.ui.report,
+ org.eclipse.actf.visualization.ui.report.table,
+ org.eclipse.actf.visualization.ui.report.views

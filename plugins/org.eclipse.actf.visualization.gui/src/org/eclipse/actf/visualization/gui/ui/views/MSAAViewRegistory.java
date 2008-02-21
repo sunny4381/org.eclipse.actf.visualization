@@ -1,0 +1,249 @@
+/*******************************************************************************
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Takashi ITOH - initial API and implementation
+ *******************************************************************************/
+package org.eclipse.actf.visualization.gui.ui.views;
+
+import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
+import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
+import org.eclipse.actf.util.win32.HighlightComposite;
+import org.eclipse.actf.visualization.gui.common.TargetWindow;
+import org.eclipse.actf.visualization.gui.msaa.checker.MSAAProblemsView;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPartReference;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.views.properties.PropertySheet;
+
+
+public class MSAAViewRegistory {
+
+    // View IDs
+    public static final String MSAAOutlineView_ID = MSAAOutlineView.ID;
+    public static final String FlashDOMView_ID = "org.eclipse.actf.visualization.flash.ui.views.FlashDOMView"; //$NON-NLS-1$
+    public static final String MSAAProblemsView_ID = MSAAProblemsView.ID;
+    public static final String MSAAPropertiesView_ID = MSAAPropertiesView.ID;
+    public static final String MSAAListView_ID = MSAAListView.ID;
+    public static final String JAWSTextView_ID = JAWSTextView.ID;
+    public static final String MSAAEventView_ID = MSAAEventView.ID;
+
+    public static AccessibleObject rootObject = null;
+	public static AccessibleObject outlineObject = null;
+    
+    private static int updateRef = 0;
+    
+    private static final Display display = Display.getCurrent();
+    private static int hwndRoot = 0;
+    private static IPartListener2 partListener = new IPartListener2() {
+            public void partActivated(IWorkbenchPartReference partRef) {
+                if( partRef instanceof IEditorReference ) {
+                    if( TargetWindow.isEmbeddedBrowser() ) {
+                        final int hwnd = TargetWindow.getRootWindow();
+                        if( hwnd != hwndRoot ) {
+                            display.timerExec("Web Browser".equals(partRef.getPartName())?3000:0,new Runnable(){ //$NON-NLS-1$
+                                public void run() {
+                                    if( !display.isDisposed() && hwnd != hwndRoot ) {
+                                        refreshRootObject();
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            }
+            public void partBroughtToTop(IWorkbenchPartReference partRef) {}
+            public void partClosed(IWorkbenchPartReference partRef) {}
+            public void partDeactivated(IWorkbenchPartReference partRef) {}
+            public void partHidden(IWorkbenchPartReference partRef) {}
+            public void partInputChanged(IWorkbenchPartReference partRef) {}
+            public void partOpened(IWorkbenchPartReference partRef) {}
+            public void partVisible(IWorkbenchPartReference partRef) {}
+        };
+    private static boolean partListening = false; 
+    
+	public static void outlineSelected(Object object ) {
+        addUpdateRef();
+        try {
+            object = adjustSelection(object);
+            if( object instanceof AccessibleObject ) {
+                outlineObject = (AccessibleObject)object;
+                showProperties(outlineObject);
+                IMSAAListView listView = (IMSAAListView)findView(MSAAListView_ID);
+                if( null != listView ) {
+                    listView.setSelection(outlineObject);
+                }
+                IJAWSTextView jawsTextView = (IJAWSTextView)findView(JAWSTextView_ID);
+                if( null != jawsTextView ) {
+                    jawsTextView.setSelection(outlineObject);
+                }
+                HighlightComposite.flashRectangle(outlineObject.getAccLocation());
+            }
+        }
+        finally {
+            releaseUpdateRef();
+        }
+	}
+	
+	public static boolean showProperties(Object input) {
+		boolean rc = false;
+        IMSAAPropertiesView propertiesView = (IMSAAPropertiesView)findView(MSAAPropertiesView_ID);
+        if( null != propertiesView ) {
+            propertiesView.setInput(input);
+            rc = true;
+        }
+        IViewPart propertySheet = findView("org.eclipse.ui.views.PropertySheet"); //$NON-NLS-1$
+        if( propertySheet instanceof PropertySheet ) {
+        	((PropertySheet)propertySheet).selectionChanged(null, new StructuredSelection(input));
+        	rc = true;
+        }
+        return rc;
+	}
+    
+    public static IViewReference findViewReference(String viewId) {
+        try {
+            IWorkbenchPage page = getActivePage();
+            if( null != page ) {
+                return page.findViewReference(viewId);
+            }
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static IViewPart findView(String viewId) {
+        try {
+            IViewReference ref = findViewReference(viewId);
+            if( null != ref ) {
+                return ref.getView(false);
+            }
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static IViewPart showView(String viewId, boolean activate) {
+        try {
+            IWorkbenchPage page = getActivePage();
+            if( null != page ) {
+                IViewPart part = page.findView(viewId); 
+                if( null != part ) {
+                    if( activate ) {
+                        page.activate(part); 
+                    }
+                    return part;
+                }
+                return page.showView(viewId,null,activate?IWorkbenchPage.VIEW_ACTIVATE:IWorkbenchPage.VIEW_CREATE);        
+            }
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public static void hideView(String viewId) {
+        try {
+            IWorkbenchPage page = getActivePage();
+            if( null != page ) {
+                IViewPart part = page.findView(viewId);
+                if( null != part ) {
+                    page.hideView(part);        
+                }
+            }
+        }
+        catch( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static AccessibleObject getRootObject() {
+        if( null == rootObject &&
+            0 != (hwndRoot = TargetWindow.getRootWindow()) ) {
+            rootObject = AccessibleObjectFactory.getAccessibleObjectFromWindow(hwndRoot);
+        }
+        if( !partListening ) {
+            try {
+                PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().addPartListener(partListener);
+                partListening = true;
+            }
+            catch( Exception e ) {
+            }
+        }
+        return rootObject;
+    }
+    
+    public static void refreshRootObject() {
+        addUpdateRef();
+        HighlightComposite.updateSuppressCount(1);
+        try {
+            if( null != rootObject ) {
+                rootObject.reset();
+                rootObject = null;
+            }
+            IMSAAOutlineView outlineView = (IMSAAOutlineView)findView(MSAAOutlineView_ID);
+            if( null != outlineView ) {
+                outlineView.refresh();
+            }
+            IMSAAProblemsView problemsView = (IMSAAProblemsView)findView(MSAAProblemsView_ID);
+            if( null != problemsView ) {
+                problemsView.refresh();
+            }
+            IFlashDOMView flashDOMView = (IFlashDOMView)findView(FlashDOMView_ID);
+            if( null != flashDOMView ) {
+                flashDOMView.refresh();
+            }
+            IJAWSTextView jawsTextView = (IJAWSTextView)findView(JAWSTextView_ID);
+            if( null != jawsTextView ) {
+                jawsTextView.refresh();
+            }
+            outlineSelected(null);
+        }
+        finally {
+            HighlightComposite.updateSuppressCount(-1);
+            releaseUpdateRef();
+        }
+    }
+    
+    public static AccessibleObject adjustSelection(Object selection) {
+        getRootObject();
+        if( selection instanceof AccessibleObject && selection != rootObject ) {
+            return (AccessibleObject)selection; 
+        }
+        if( null != rootObject ) {
+            AccessibleObject rootChildlen[] = rootObject.getChildren();
+            if( null != rootChildlen && rootChildlen.length > 0 ) {
+                return rootChildlen[0];
+            }
+        }
+        return rootObject;
+    }
+    
+    public static int addUpdateRef() {
+        return ++updateRef;
+    }
+    public static int releaseUpdateRef() {
+        return --updateRef;
+    }
+    public static int getUpdateRef() {
+        return updateRef;
+    }
+    
+    private static IWorkbenchPage getActivePage() {
+        return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+    }
+}

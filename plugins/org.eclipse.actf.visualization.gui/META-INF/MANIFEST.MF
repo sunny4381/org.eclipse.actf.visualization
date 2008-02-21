@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF GUI Accessibility Visualization Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.visualization.gui;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: org.eclipse.actf.visualization.gui.GuiPlugin
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.ui.views,
+ org.eclipse.core.runtime,
+ org.eclipse.actf.accservice.swtbridge;visibility:=reexport,
+ org.eclipse.actf.common,
+ org.eclipse.actf.ai.voice
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.actf.visualization.gui,
+ org.eclipse.actf.visualization.gui.common,
+ org.eclipse.actf.visualization.gui.flash,
+ org.eclipse.actf.visualization.gui.msaa.checker,
+ org.eclipse.actf.visualization.gui.msaa.properties,
+ org.eclipse.actf.visualization.gui.ui.actions,
+ org.eclipse.actf.visualization.gui.ui.views,
+ org.eclipse.actf.visualization.gui.util

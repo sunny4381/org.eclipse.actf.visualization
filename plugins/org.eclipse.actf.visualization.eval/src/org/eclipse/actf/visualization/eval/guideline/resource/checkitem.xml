@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ Copyright (c) 2005, 2008 IBM Corporation and others.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+
+ Contributors:
+     IBM Corporation - initial API and implementation
+-->
+<checker-config>
+  <checkitem id="C_1000.0" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="3.2" />
+    <gItem name="JIS" id="5.1(a)" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="100" />
+   </metrics>
+   <description>
+    <desc>This page seems to have several BODY elements. Please correct html.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="C_1000.1" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="3.2" />
+    <gItem name="JIS" id="5.1(a)" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="100" />
+   </metrics>
+   <description>
+    <desc>This page seems to have HEAD element under BODY element. Please correct html.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="C_1000.2" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="3.2" />
+    <gItem name="JIS" id="5.1(a)" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="100" />
+   </metrics>
+   <description>
+    <desc>This page seems to have several HTML elements. Please correct html.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="C_1000.3" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="3.2" />
+    <gItem name="JIS" id="5.1(a)" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="100" />
+   </metrics>
+   <description>
+    <desc>BODY elements seems to be not properly placed. Please correct html.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="C_1000.4" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="3.2" />
+    <gItem name="JIS" id="5.1(a)" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="100" />
+   </metrics>
+   <description>
+    <desc>This page seems to have no BODY element, or position of BODY is wrong. Please correct html.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="C_1000.5" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="3.2" />
+    <gItem name="JIS" id="5.1(a)" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" />
+   </metrics>
+   <description>
+    <desc>This page seems to have no BODY (or HEAD) element, or position of BODY is wrong. Please correct html.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="C_1000.6" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="3.2" />
+    <gItem name="JIS" id="5.1(a)" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" />
+   </metrics>
+   <description>
+    <desc>Make sure to use a public text identifier in a &amp;lt;!DOCTYPE&amp;gt; statement.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="C_1000.7" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="3.2" />
+    <gItem name="JIS" id="5.1(a)" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" />
+   </metrics>
+   <description>
+    <desc>Please provide &amp;lt;!DOCTYPE&amp;gt; statement.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_0" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="Section508" id="a" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="IBMGuideline" id="1" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2" />
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>No alternative text for an image (If the image has no information to read out, please provide alt="".): src="".</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_1" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="Section508" id="a" />
+    <gItem name="Section508" id="n" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="JIS" id="5.4(b)" />
+    <gItem name="IBMGuideline" id="7" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2" />
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>No alternative text for an image button.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_2" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="Section508" id="a" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="IBMGuideline" id="2" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2" />
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>No alternative text for an AREA: map name="".</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_4" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="IBMGuideline" id="1" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2"/>
+    <mItem name="Listenability" score="5" />
+   </metrics>
+   <description>
+    <desc>"" is not appropriate as an ALT attribute for an image.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_5" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="IBMGuideline" id="7" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2" />
+    <mItem name="Listenability" score="5" />
+   </metrics>
+   <description>
+    <desc>"" is not appropriate as an ALT attribute for an image button.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_6" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="IBMGuideline" id="2" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2" />
+    <mItem name="Listenability" score="5" />
+   </metrics>
+   <description>
+    <desc>"" is not appropriate as an ALT attribute for an AREA.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_8" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="5" />
+   </metrics>
+   <description>
+    <desc>This intra-page link is broken because of a missing destination anchor "".</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_9" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.1" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="IBMGuideline" id="1" />
+    <gItem name="IBMGuideline" id="2" />
+    <gItem name="IBMGuideline" id="7" />
+   </guideline>
+   <metrics>
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>Redundant text information: .</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_10" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="20" />
+   </metrics>
+   <description>
+    <desc>Provide skip-links such as "skip to main".</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_12" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.2(a)" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="50" />
+   </metrics>
+   <description>
+    <desc>Provide intra-page links or use headings. Because there are no effective intra-page links or headings, arrival time to some content is over 120 seconds.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_14" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.1" />
+    <gItem name="JIS" id="5.3(g)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="5" />
+    <mItem name="Listenability" score="5" />
+    <mItem name="Navigability" score="5" />
+   </metrics>
+   <description>
+    <desc>This intra-page link, "", is not accessible, since there is no readable text.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_15" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="14.1" />
+    <gItem name="JIS" id="5.9(e)" />
+   </guideline>
+   <metrics>
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>"", is inappropriate text.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_16" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="10.2" />
+    <gItem name="WCAG" id="12.4" />
+    <gItem name="Section508" id="n" />
+    <gItem name="JIS" id="5.3(b)" />
+    <gItem name="IBMGuideline" id="7" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="2" />
+   </metrics>
+   <description>
+    <desc>No ID attribute for an input element.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_17" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="5" />
+   </metrics>
+   <description>
+    <desc>seconds is too long to get to the "skip to main" link</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_18" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="5" />
+   </metrics>
+   <description>
+    <desc>This skip-link is broken because of a missing destination anchor "".</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_19" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" />
+   </metrics>
+   <description>
+    <desc>"" is not appropriate for a skip-link. It should start with "skip to ..." or "jump to ...".</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_20" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+	<mItem name="Navigability" score="30" />   	
+   </metrics>
+   <description>
+    <desc>Consider providing skip-links (such as "skip to main").</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_21" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+     	<mItem name="Navigability" />   	
+   </metrics>
+   <description>
+    <desc>There is no skip-link (such as "skip to main") in this page, but the transit time is short, seconds. Make sure of the necessity of the skip-link.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_22" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.2(a)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="10" />
+   </metrics>
+   <description>
+    <desc>Consider providing more intra-page links or using headings. Though there are some intra-page links, the arrival time to some content is over 120 seconds.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_23" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.2(a)" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="10" />
+   </metrics>
+   <description>
+    <desc>Consider providing more headings or using intra-page links. Though there are some headings, the arrival time to some content is over 120 seconds.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_24" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.2(a)" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="5" />
+   </metrics>
+   <description>
+    <desc>Consider using intra-page links or providing more headings. Though there are intra-page links and headings, the arrival time to some content is over 120 seconds.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_25" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="13.1" />
+    <gItem name="JIS" id="5.3(g)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Listenability" />
+    <mItem name="Navigability" />
+   </metrics>
+   <description>
+    <desc>This intra-page link, "", has only TITLE attribute to read out. Consider providing text in this link.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_26" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="3" />
+   </metrics>
+   <description>
+    <desc>"" is not appropriate TITLE attribute for a skip-link. It should start with "skip to ..." or "jump to ...".</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_27" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="Section508" id="a" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="IBMGuideline" id="1" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" />
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>"" might contain inappropriate text for ALT. (If the image has no information to read out, please provide alt="".)</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_29" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="WCAG" id="14.1" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="JIS" id="5.9(e)" />
+    <gItem name="IBMGuideline" id="1" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2" />
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>ALT attribute "" has inappropriate space within a word (IMAGE).</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_30" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="WCAG" id="14.1" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="JIS" id="5.9(e)" />
+    <gItem name="IBMGuideline" id="7" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2" />
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>ALT attribute "" has inappropriate space within a word (INPUT).</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_31" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="WCAG" id="14.1" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="JIS" id="5.9(e)" />
+    <gItem name="IBMGuideline" id="2" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2" />
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>ALT attribute "" has inappropriate space within a word (AREA).</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_33" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="13.6" />
+    <gItem name="Section508" id="o" />
+    <gItem name="JIS" id="5.3(h)" />
+    <gItem name="IBMGuideline" id="8" />
+   </guideline>
+   <metrics>
+    <mItem name="Navigability" score="1" />
+   </metrics>
+   <description>
+    <desc>This intra-page link does not have destination anchor "". Please insert target anchor. (This link might work as intra-page link to page top.)</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_34" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="1.1" />
+    <gItem name="JIS" id="5.4(a)" />
+    <gItem name="IBMGuideline" id="1" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="1" />
+    <mItem name="Listenability" score="1" />
+   </metrics>
+   <description>
+    <desc>Please don't separate characters except when you want to spell out the word. (ALT attribute " ").</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_35" type="error" >
+   <metrics>
+    <mItem name="Navigability" score="5" />
+   </metrics>
+   <description>
+    <desc>This intra-page link,   , might not be able to use. (Please use a small image with ALT instead of display:none or visibility:hidden)</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_36" type="error" >
+   <metrics>
+    <mItem name="Compliance" score="1" />
+    <mItem name="Listenability" score="1" />
+   </metrics>
+   <guideline>
+    <gItem name="JIS" id="5.3(g)" />
+   </guideline>   
+   <description>
+    <desc>Please provide VALUE attribute for INPUT button.</desc>
+   </description>
+  </checkitem>
+  <checkitem id="B_37" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="14.1" />
+    <gItem name="JIS" id="5.9(e)" />
+    <gItem name="IBMGuideline" id="7" />
+   </guideline>
+   <metrics>
+    <mItem name="Compliance" score="2" />
+    <mItem name="Listenability" score="2" />
+   </metrics>
+   <description>
+    <desc>VALUE attribute "" has inappropriate space within a word (INPUT).</desc>
+   </description>
+  </checkitem>
+  <checkitem id="L_1" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="2.2" />
+    <gItem name="JIS" id="5.5(c)" />
+    <gItem name="JIS" id="5.6(c)" />
+   </guideline>
+   <description>
+    <desc></desc>
+   </description>
+  </checkitem>
+  <checkitem id="L_2" type="warning" >
+   <guideline>
+    <gItem name="JIS" id="5.6(b)" />
+   </guideline>
+   <description>
+    <desc></desc>
+   </description>
+  </checkitem>
+  <checkitem id="L_3" type="warning" >
+   <guideline>
+    <gItem name="WCAG" id="2.1" />
+    <gItem name="WCAG" id="2.2" />
+    <gItem name="Section508" id="c" />
+    <gItem name="JIS" id="5.5(a)" />
+    <gItem name="JIS" id="5.5(c)" />
+    <gItem name="IBMGuideline" id="12" />
+   </guideline>
+   <description>
+    <desc></desc>
+   </description>
+  </checkitem>
+  <checkitem id="L_4" type="error" >
+   <guideline>
+    <gItem name="WCAG" id="3.4" />
+    <gItem name="JIS" id="5.6(a)" />
+   </guideline>
+   <description>
+    <desc></desc>
+   </description>
+  </checkitem>
+  <checkitem id="L_5" type="error" >
+   <guideline>
+    <gItem name="JIS" id="5.6(b)" />
+   </guideline>
+   <description>
+    <desc></desc>
+   </description>
+  </checkitem>
+  <checkitem id="L_6" type="error" >
+   <guideline>
+    <gItem name="JIS" id="5.6(a)" />
+    <gItem name="JIS" id="5.6(b)" />   
+   </guideline>
+   <description>
+    <desc></desc>
+   </description>
+  </checkitem>
+</checker-config>

@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse ACTF Presentation Visualization Plug-in (Incubation)
+Bundle-SymbolicName: org.eclipse.actf.visualization.presentation;singleton:=true
+Bundle-Version: 0.0.1
+Bundle-Activator: org.eclipse.actf.visualization.presentation.RoomPlugin
+Bundle-Vendor: Eclipse.org
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.actf.common,
+ org.eclipse.actf.visualization.engines.lowvision,
+ org.eclipse.actf.visualization.eval,
+ org.eclipse.actf.visualization.ui.report
+Eclipse-LazyStart: true
+Bundle-ClassPath: runtimes/simulator_room.jar
+Export-Package: org.eclipse.actf.visualization.presentation.ui.views

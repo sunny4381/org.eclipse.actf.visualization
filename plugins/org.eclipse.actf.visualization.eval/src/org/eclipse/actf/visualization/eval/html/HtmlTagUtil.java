@@ -1,0 +1,166 @@
+/*******************************************************************************
+ * Copyright (c) 2004, 2008 IBM Corporation and Others
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Kentarou FUKUDA - initial API and implementation
+ *******************************************************************************/
+
+package org.eclipse.actf.visualization.eval.html;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
+
+import org.eclipse.actf.util.IHtmlEventHandlerAttributes;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+
+public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
+
+    public static final String ATTR_HREF = "href";
+
+    public static final String ATTR_ALT = "alt";
+
+    public static final String ATTR_SRC = "src";
+
+    
+    public static final String FLASH_OBJECT = "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000";
+
+    public static final String FLASH_CODEBASE = "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab";
+
+    public static final String FLASH_TYPE = "application/x-shockwave-flash";
+
+    public static final String FLASH_PLUGINSPAGE = "http://www.macromedia.com/go/getflashplayer";
+
+    private static final String[] BLOCK_ELEMENT = { "address", "blockquote", "center", "dir", "div", "dl", "fieldset",
+            "form", "h1", "h2", "h3", "h4", "h5", "h6", "hr", "isindex", "menu", "noframes", "noscript", "ol", "p",
+            "pre", "table", "ul", "dd",
+            //inline? "dt",
+            "frameset", "li", "tbody", "td", "tfoot", "th", "thead", "tr" };
+
+    public static Set<String> getBlockElementSet() {
+        Set<String> blockEleSet = new HashSet<String>();
+        for (int i = 0; i < BLOCK_ELEMENT.length; i++) {
+            blockEleSet.add(BLOCK_ELEMENT[i]);
+        }
+        return (blockEleSet);
+    }
+
+    // move from checkers
+    //TODO use xpath
+    public static boolean hasAncestor(Node target, String ancesterName) {
+        boolean result = false;
+        Node tmpNode = target;
+        while (tmpNode != null) {
+            if (tmpNode.getNodeName().equals(ancesterName)) {
+                result = true;
+                break;
+            }
+            tmpNode = tmpNode.getParentNode();
+        }
+        return (result);
+    }
+
+    public static String getNoScriptText(Node target) {
+        StringBuffer tmpSB = new StringBuffer();
+        if (target.getNodeType() == Node.ELEMENT_NODE) {
+            Element tmpE = (Element) target;
+            //TBD check neighbor?
+            if (tmpE.getElementsByTagName("script").getLength() > 0) {
+                NodeList tmpNL = tmpE.getElementsByTagName("noscript");
+                for (int i = 0; i < tmpNL.getLength(); i++) {
+                    tmpSB.append(getTextAltDescendant(tmpNL.item(i)));
+                }
+            }
+        }
+        return tmpSB.toString();
+    }
+
+    public static String getTextAltDescendant(Node target) {
+        Node curNode = target.getFirstChild();
+        StringBuffer strBuf = new StringBuffer(512);
+        Stack<Node> stack = new Stack<Node>();
+        while (curNode != null) {
+            if (curNode.getNodeType() == Node.TEXT_NODE) {
+                strBuf.append(curNode.getNodeValue().trim() + " ");
+            } else if (curNode.getNodeName().equalsIgnoreCase("img")) { //$NON-NLS-1$
+                strBuf.append(((Element) curNode).getAttribute(ATTR_ALT).trim() + " "); //$NON-NLS-1$
+            }
+
+            if (curNode.hasChildNodes()) {
+                stack.push(curNode);
+                curNode = curNode.getFirstChild();
+            } else if (curNode.getNextSibling() != null) {
+                curNode = curNode.getNextSibling();
+            } else {
+                curNode = null;
+                while ((curNode == null) && (stack.size() > 0)) {
+                    curNode = (Node) stack.pop();
+                    curNode = curNode.getNextSibling();
+                }
+            }
+        }
+
+        return strBuf.toString();
+    }
+
+    public static String getTextDescendant(Node target) {
+        Node curNode = target.getFirstChild();
+        StringBuffer strBuf = new StringBuffer(512);
+        Stack<Node> stack = new Stack<Node>();
+        while (curNode != null) {
+            if (curNode.getNodeType() == Node.TEXT_NODE) {
+                strBuf.append(curNode.getNodeValue());
+            }
+
+            if (curNode.hasChildNodes()) {
+                stack.push(curNode);
+                curNode = curNode.getFirstChild();
+            } else if (curNode.getNextSibling() != null) {
+                curNode = curNode.getNextSibling();
+            } else {
+                curNode = null;
+                while ((curNode == null) && (stack.size() > 0)) {
+                    curNode = (Node) stack.pop();
+                    curNode = curNode.getNextSibling();
+                }
+            }
+        }
+
+        return strBuf.toString();
+    }
+
+    // move from checkers
+    //TODO use xpath
+
+    public static boolean hasTextDescendant(Node target) {
+        Node curNode = target.getFirstChild();
+        Stack<Node> stack = new Stack<Node>();
+        while (curNode != null) {
+            if (curNode.getNodeType() == Node.TEXT_NODE) {
+                return (true);
+            }
+
+            if (curNode.hasChildNodes()) {
+                stack.push(curNode);
+                curNode = curNode.getFirstChild();
+            } else if (curNode.getNextSibling() != null) {
+                curNode = curNode.getNextSibling();
+            } else {
+                curNode = null;
+                while ((curNode == null) && (stack.size() > 0)) {
+                    curNode = (Node) stack.pop();
+                    curNode = curNode.getNextSibling();
+                }
+            }
+        }
+        return (false);
+    }
+
+}
