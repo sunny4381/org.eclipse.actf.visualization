@@ -15,6 +15,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
+import org.eclipse.actf.model.flash.FlashAdjust;
+import org.eclipse.actf.model.flash.FlashDetect;
+import org.eclipse.actf.model.flash.FlashNode;
+import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.visualization.flash.FlashImages;
+import org.eclipse.actf.visualization.flash.Messages;
+import org.eclipse.actf.visualization.gui.GuiImages;
+import org.eclipse.actf.visualization.gui.GuiPlugin;
+import org.eclipse.actf.visualization.gui.flash.FlashFinder;
+import org.eclipse.actf.visualization.gui.flash.FlashUtil;
+import org.eclipse.actf.visualization.gui.ui.actions.RefreshRootAction;
+import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
+import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -45,22 +59,6 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.ViewPart;
-
-
-import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
-import org.eclipse.actf.model.flash.FlashAdjust;
-import org.eclipse.actf.model.flash.FlashDetect;
-import org.eclipse.actf.model.flash.FlashNode;
-import org.eclipse.actf.model.flash.FlashPlayer;
-import org.eclipse.actf.visualization.flash.FlashImages;
-import org.eclipse.actf.visualization.flash.Messages;
-import org.eclipse.actf.visualization.gui.GuiImages;
-import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.flash.FlashFinder;
-import org.eclipse.actf.visualization.gui.flash.FlashUtil;
-import org.eclipse.actf.visualization.gui.ui.actions.RefreshRootAction;
-import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
-import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
 
 
 public class FlashDOMView extends ViewPart implements IFlashDOMView {
@@ -390,7 +388,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 
 		public Object[] getChildren(Object parentElement) {
 			if( parentElement instanceof FlashNode ) {
-				return ((FlashNode)parentElement).getChildren(visualTree,informativeTree/*,debugMode*/);
+				return ((FlashNode)parentElement).getChildren(visualTree, informativeTree, FlashFinder.debugMode);
 			}
 	        return new Object[0];
 		}
@@ -404,7 +402,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 
 		public boolean hasChildren(Object element) {
 			if( element instanceof FlashNode ) {
-				return ((FlashNode)element).hasChild(visualTree);
+				return ((FlashNode)element).hasChild(visualTree, FlashFinder.debugMode);
 			}
 			return false;
 		}

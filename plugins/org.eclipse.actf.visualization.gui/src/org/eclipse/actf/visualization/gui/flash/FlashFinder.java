@@ -20,14 +20,16 @@ import org.eclipse.actf.visualization.gui.ui.views.MSAATreeContentProvider;
 
 
 public class FlashFinder {
-    public static boolean debugMode = false;
+    public static boolean debugMode = false; //TODO
     public static boolean scanAll = false;
+    
+    private boolean showOffScreen = false;  //TODO
+
     private List<AccessibleObject> result = new ArrayList<AccessibleObject>();
 
-    private boolean showOffScreen; 
     
     public void find(Object[] inputElements) {
-        showOffScreen = MSAATreeContentProvider.getDefault().showOffscreen;
+    	showOffScreen = MSAATreeContentProvider.getDefault().showOffscreen; //TODO
         for (int i = 0; i < inputElements.length; i++) {
             if (inputElements[i] instanceof AccessibleObject) {
                 AccessibleObject accObject = (AccessibleObject)inputElements[i]; 
@@ -81,5 +83,6 @@ public class FlashFinder {
     
     public Object[] getResults() {
         return result.toArray();
-    }
+    }    
+    
 }

@@ -17,8 +17,8 @@ import org.eclipse.actf.accservice.swtbridge.IA2;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.accservice.swtbridge.ia2.Accessible2;
 import org.eclipse.actf.accservice.swtbridge.ia2.IA2Util;
+import org.eclipse.actf.accservice.swtbridge.util.HTMLElementUtil;
 import org.eclipse.actf.visualization.gui.Messages;
-import org.eclipse.actf.visualization.gui.common.WebBrowserUtil;
 import org.eclipse.actf.visualization.gui.flash.FlashUtil;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
 import org.eclipse.actf.visualization.gui.ui.views.MSAATreeContentProvider;
@@ -141,7 +141,7 @@ public class ScreenReaderRenderer {
                                     if( FlashUtil.isFlash(accObject) ) {
                                         String wmode = null;
                                         if( 0 == hwnd ) {
-                                            wmode = WebBrowserUtil.getHtmlAttribute(accObject,"WMode"); //$NON-NLS-1$
+                                            wmode = HTMLElementUtil.getHtmlAttribute(accObject,"WMode"); //$NON-NLS-1$
                                         }
                                         if( null == wmode ) {
                                             AccessibleObject parentObject = accObject.getCachedParent();

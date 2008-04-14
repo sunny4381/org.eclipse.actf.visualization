@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.gui.flash;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
-import org.eclipse.actf.visualization.gui.common.WebBrowserUtil;
+import org.eclipse.actf.accservice.swtbridge.util.HTMLElementUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
@@ -34,7 +34,7 @@ public class FlashUtil {
         if( MSAA.ROLE_SYSTEM_CLIENT == accObject.getAccRole() ) {
             String description = accObject.getAccDescription();
             if( null != description && description.startsWith("PLUGIN: type=") ) { //$NON-NLS-1$
-                return null != WebBrowserUtil.getHtmlAttribute(accObject,"WMode"); //$NON-NLS-1$
+                return null != HTMLElementUtil.getHtmlAttribute(accObject,"WMode"); //$NON-NLS-1$
             }
         }
         return false;

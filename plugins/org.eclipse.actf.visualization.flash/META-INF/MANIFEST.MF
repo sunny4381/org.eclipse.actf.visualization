@@ -9,8 +9,8 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.ui.views,
- org.eclipse.actf.model.flash.bridge,
  org.eclipse.actf.common,
+ org.eclipse.actf.model.flash,
  org.eclipse.actf.visualization.gui
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.visualization.flash.ui.views
