@@ -13,7 +13,6 @@ package org.eclipse.actf.visualization.blind;
 import java.io.File;
 
 import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.visualization.IVisualizationView;
 import org.eclipse.actf.visualization.blind.ui.internal.Messages;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
@@ -21,6 +20,7 @@ import org.eclipse.actf.visualization.eval.IChecker;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.extensions.CheckerExtension;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
+import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.w3c.dom.Document;
 
 public abstract class BlindVisualizerBase implements IBlindVisualizer{

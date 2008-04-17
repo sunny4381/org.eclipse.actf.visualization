@@ -18,7 +18,6 @@ import org.eclipse.actf.mediator.Mediator;
 import org.eclipse.actf.model.IModelService;
 import org.eclipse.actf.model.ModelServiceUtils;
 import org.eclipse.actf.util.ui.DialogSave;
-import org.eclipse.actf.visualization.IVisualizationView;
 import org.eclipse.actf.visualization.blind.BlindVisualizerExtension;
 import org.eclipse.actf.visualization.blind.IBlindVisualizer;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
@@ -31,6 +30,7 @@ import org.eclipse.actf.visualization.engines.blind.html.util.VisualizeReportUti
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
+import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;

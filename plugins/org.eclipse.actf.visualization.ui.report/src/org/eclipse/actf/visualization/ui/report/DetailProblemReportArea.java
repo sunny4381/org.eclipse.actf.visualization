@@ -11,8 +11,8 @@
 package org.eclipse.actf.visualization.ui.report;
 
 import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.visualization.IVisualizationView;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
+import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;

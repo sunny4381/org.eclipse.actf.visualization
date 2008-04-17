@@ -12,11 +12,11 @@ package org.eclipse.actf.visualization.blind.ui.views;
 
 import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.util.ui.AbstractPartListener;
-import org.eclipse.actf.visualization.IVisualizationView;
-import org.eclipse.actf.visualization.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.blind.ui.internal.PartControlBlind;
 import org.eclipse.actf.visualization.blind.ui.internal.SelectionListenerBlind;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementViewerManager;
+import org.eclipse.actf.visualization.ui.IVisualizationView;
+import org.eclipse.actf.visualization.ui.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableLabelProvider;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableSorter;
 import org.eclipse.actf.visualization.ui.report.views.DetailedReportView;

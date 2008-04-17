@@ -8,6 +8,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.actf.common,
+ org.eclipse.actf.visualization,
  org.eclipse.actf.visualization.eval
 Export-Package: org.eclipse.actf.visualization.engines.lowvision,
  org.eclipse.actf.visualization.engines.lowvision.color,

@@ -11,10 +11,10 @@
 package org.eclipse.actf.visualization.presentation.ui.views;
 
 import org.eclipse.actf.mediator.MediatorEvent;
-import org.eclipse.actf.visualization.IVisualizationView;
-import org.eclipse.actf.visualization.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.presentation.ui.internal.PartControlRoom;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
+import org.eclipse.actf.visualization.ui.IVisualizationView;
+import org.eclipse.actf.visualization.ui.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableLabelProviderLV;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableSorterLV;
 import org.eclipse.jface.action.IContributionItem;

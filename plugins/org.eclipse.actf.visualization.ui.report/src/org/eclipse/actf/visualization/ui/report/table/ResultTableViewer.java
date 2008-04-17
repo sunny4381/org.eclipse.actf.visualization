@@ -15,13 +15,13 @@ import java.util.Vector;
 
 import org.eclipse.actf.model.IModelService;
 import org.eclipse.actf.model.IWebBrowserACTF;
-import org.eclipse.actf.visualization.IVisualizationView;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEvent;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener;
 import org.eclipse.actf.visualization.eval.problem.ProblemConst;
+import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.report.ReportPlugin;
 import org.eclipse.actf.visualization.ui.report.table.popup.ClearSelectionAction;
 import org.eclipse.actf.visualization.ui.report.table.popup.GuidelineSubMenu;

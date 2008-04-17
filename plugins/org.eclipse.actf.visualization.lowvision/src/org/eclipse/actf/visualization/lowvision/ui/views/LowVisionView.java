@@ -12,9 +12,9 @@
 package org.eclipse.actf.visualization.lowvision.ui.views;
 
 import org.eclipse.actf.mediator.MediatorEvent;
-import org.eclipse.actf.visualization.IVisualizationView;
-import org.eclipse.actf.visualization.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.lowvision.ui.internal.PartControlLowVision;
+import org.eclipse.actf.visualization.ui.IVisualizationView;
+import org.eclipse.actf.visualization.ui.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableLabelProviderLV;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableSorterLV;
 import org.eclipse.actf.visualization.ui.report.views.DetailedReportView;
