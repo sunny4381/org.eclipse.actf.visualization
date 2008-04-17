@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.engines.lowvision.internal.util;
 
-import org.eclipse.actf.visualization.Constants;
+import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.internal.Messages;
 
 
@@ -43,13 +43,13 @@ public class ScoreUtil {
 
 	public static String getScoreImageString(double _score) {
 		if (_score <= VERY_GOOD) {
-			return (Constants.RATING_V_GOOD );
+			return (IVisualizationConst.RATING_V_GOOD );
 		} else if (_score <= GOOD) {
-			return (Constants.RATING_GOOD );
+			return (IVisualizationConst.RATING_GOOD );
 		} else if (_score <= POOR) {
-			return (Constants.RATING_POOR );
+			return (IVisualizationConst.RATING_POOR );
 		} else {
-			return (Constants.RATING_BAD);
+			return (IVisualizationConst.RATING_BAD);
 		}
 	}
 

@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.eval.preferences;
 
-import org.eclipse.actf.visualization.Constants;
+import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.eval.internal.Messages;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
@@ -65,7 +65,7 @@ public class NavigabilityWarningDialog extends TitleAreaDialog {
 	protected Control createContents(Composite arg0) {
 		Control contents = super.createContents(arg0);
 		setMessage(
-				Messages.getString("NavigabilityWarningDialog.Message1") + Constants.LINE_SEP + Messages.getString("NavigabilityWarningDialog.Message2"), IMessageProvider.WARNING); //$NON-NLS-1$ //$NON-NLS-2$
+				Messages.getString("NavigabilityWarningDialog.Message1") + FileUtils.LINE_SEP + Messages.getString("NavigabilityWarningDialog.Message2"), IMessageProvider.WARNING); //$NON-NLS-1$ //$NON-NLS-2$
 		return contents;
 	}
 

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.presentation.ui.views;
 
+import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.visualization.IVisualizationView;
 import org.eclipse.actf.visualization.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.presentation.ui.internal.PartControlRoom;
@@ -108,6 +109,26 @@ public class RoomView extends ViewPart implements IVisualizationView {
 		if (mode == ROOM_AUDITORIUM || mode == ROOM_LARGE || mode == ROOM_SMALL) {
 			partRightRoom.getParamLowVision().setType(mode);
 		}
+	}
+
+	public void modelserviceChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modelserviceInputChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void reportChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void reportGeneratorChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

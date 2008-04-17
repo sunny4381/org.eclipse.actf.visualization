@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.visualization.lowvision.ui.views;
 
+import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.visualization.IVisualizationView;
 import org.eclipse.actf.visualization.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.lowvision.ui.internal.PartControlLowVision;
@@ -36,7 +37,7 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
     private ResultTableSorterLV viewerSorter = new ResultTableSorterLV();
     
 
-	public LowVisionView() {
+	public LowVisionView() {		
 		super();
 	}
 
@@ -44,6 +45,8 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
 		setSite(site);
 		setStatusLine();
 	}
+	
+	
 
 	public void createPartControl(Composite parent) {
 		partRightLowVision = new PartControlLowVision(this, parent);
@@ -101,5 +104,25 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
     		partRightLowVision.doSimulate();
     	}
     }
+
+	public void modelserviceChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modelserviceInputChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void reportChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void reportGeneratorChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

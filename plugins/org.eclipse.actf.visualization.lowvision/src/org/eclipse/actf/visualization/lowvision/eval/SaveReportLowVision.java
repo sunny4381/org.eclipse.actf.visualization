@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.ui.DialogSave;
-import org.eclipse.actf.visualization.Constants;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
@@ -187,42 +186,42 @@ public class SaveReportLowVision {
 			}
 			try {
 				writer.write("<SCRIPT Language=\"JavaScript\">"
-						+ Constants.LINE_SEP);
+						+ FileUtils.LINE_SEP);
 				writer.write("var divLeft = new Array("
-						+ getArrayString(data, 0) + "0);" + Constants.LINE_SEP);
+						+ getArrayString(data, 0) + "0);" + FileUtils.LINE_SEP);
 				writer.write("var divTop = new Array("
-						+ getArrayString(data, 1) + "0);" + Constants.LINE_SEP);
+						+ getArrayString(data, 1) + "0);" + FileUtils.LINE_SEP);
 				writer.write("var divWidth = new Array("
-						+ getArrayString(data, 2) + "0);" + Constants.LINE_SEP);
+						+ getArrayString(data, 2) + "0);" + FileUtils.LINE_SEP);
 				writer.write("var divHeight = new Array("
-						+ getArrayString(data, 3) + "0);" + Constants.LINE_SEP);
+						+ getArrayString(data, 3) + "0);" + FileUtils.LINE_SEP);
 				writer.write("var divArray = new Array(" + size + ");"
-						+ Constants.LINE_SEP);
+						+ FileUtils.LINE_SEP);
 				writer.write("var sLeft = new Array(" + size + ");"
-						+ Constants.LINE_SEP);
+						+ FileUtils.LINE_SEP);
 				writer.write("var sTop = new Array(" + size + ");"
-						+ Constants.LINE_SEP);
+						+ FileUtils.LINE_SEP);
 
-				writer.write("</SCRIPT>" + Constants.LINE_SEP);
+				writer.write("</SCRIPT>" + FileUtils.LINE_SEP);
 				// writer.write(
 				// "<SCRIPT Language=\"JavaScript\"
 				// src=\"lvHighlight.js\"></SCRIPT>"
 				// + ADesignerConst.LINE_SEP);
-				writer.write("<SCRIPT><!--" + Constants.LINE_SEP);
+				writer.write("<SCRIPT><!--" + FileUtils.LINE_SEP);
 				writer
 						.write("if(navigator.appName.toLowerCase().indexOf(\"microsoft\")>=0){"
-								+ Constants.LINE_SEP);
+								+ FileUtils.LINE_SEP);
 				writer.write("jsFile=\"" + imgDir + "lvHighlight.js\";"
-						+ Constants.LINE_SEP);
-				writer.write("}else{" + Constants.LINE_SEP);
+						+ FileUtils.LINE_SEP);
+				writer.write("}else{" + FileUtils.LINE_SEP);
 				writer.write("jsFile=\"" + imgDir + "lvHighlight_moz.js\";"
-						+ Constants.LINE_SEP);
-				writer.write("}" + Constants.LINE_SEP);
+						+ FileUtils.LINE_SEP);
+				writer.write("}" + FileUtils.LINE_SEP);
 				writer
 						.write("document.write(\"<script src=\"+jsFile+\"></script>\");"
-								+ Constants.LINE_SEP);
-				writer.write("-->" + Constants.LINE_SEP + "</SCRIPT>"
-						+ Constants.LINE_SEP);
+								+ FileUtils.LINE_SEP);
+				writer.write("-->" + FileUtils.LINE_SEP + "</SCRIPT>"
+						+ FileUtils.LINE_SEP);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -265,9 +264,9 @@ public class SaveReportLowVision {
 				fileOutput.write("</head>");
 				if (problemLVArray.length > 0) {
 					fileOutput.write("<body onload=\"onloadFunc()\">"
-							+ Constants.LINE_SEP);
+							+ FileUtils.LINE_SEP);
 				} else {
-					fileOutput.write("<body>" + Constants.LINE_SEP);
+					fileOutput.write("<body>" + FileUtils.LINE_SEP);
 				}
 
 				// TODO logo
@@ -283,13 +282,13 @@ public class SaveReportLowVision {
 									+ imgDir
 									+ saveImgName
 									+ "\" height=\"200\" style=\"{border:2 solid black}\">");
-					fileOutput.write("</p><hr>" + Constants.LINE_SEP);
+					fileOutput.write("</p><hr>" + FileUtils.LINE_SEP);
 				}
 
 				fileOutput.write("<DIV id=\"mother\">");
 				fileOutput.write("<img id=\"simImg\" src=\"" + imgDir
-						+ RESULT_BMP_FILE + "\"></DIV>" + Constants.LINE_SEP);
-				fileOutput.write("<hr>" + Constants.LINE_SEP);
+						+ RESULT_BMP_FILE + "\"></DIV>" + FileUtils.LINE_SEP);
+				fileOutput.write("<hr>" + FileUtils.LINE_SEP);
 
 				iColorNum = 0;
 				iFontNum = 0;
@@ -328,7 +327,7 @@ public class SaveReportLowVision {
 					fileOutput
 							.write("<th>" + ProblemConst.TITLE_AREA + "</th>");
 
-					fileOutput.write("</tr>" + Constants.LINE_SEP);
+					fileOutput.write("</tr>" + FileUtils.LINE_SEP);
 
 					LowVisionVizResourceUtil.saveErrorIcons(saveDir);
 					LowVisionVizResourceUtil.saveImages(saveDir);
@@ -404,10 +403,10 @@ public class SaveReportLowVision {
 								+ String.valueOf(problemLVArray[i].getArea())
 								+ "&nbsp;</td>");
 
-						fileOutput.write("</tr>" + Constants.LINE_SEP);
+						fileOutput.write("</tr>" + FileUtils.LINE_SEP);
 					}
 
-					fileOutput.write("</table>" + Constants.LINE_SEP);
+					fileOutput.write("</table>" + FileUtils.LINE_SEP);
 				}
 
 				if (reportImageFile != null) {
@@ -415,7 +414,7 @@ public class SaveReportLowVision {
 							saveDir + saveImgName, true);
 				}
 
-				fileOutput.write("</body>" + Constants.LINE_SEP);
+				fileOutput.write("</body>" + FileUtils.LINE_SEP);
 				fileOutput.write("</html>");
 
 				fileOutput.flush();

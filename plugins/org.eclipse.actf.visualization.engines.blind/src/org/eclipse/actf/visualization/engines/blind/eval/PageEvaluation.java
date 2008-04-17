@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import org.eclipse.actf.visualization.Constants;
+import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.actf.visualization.engines.blind.internal.Messages;
 import org.eclipse.actf.visualization.engines.blind.util.RadarChartNonSVG;
@@ -142,15 +142,15 @@ public class PageEvaluation {
 
 		int minValue = getMinScore();
 
-		String rating = Constants.RATING_BAD; //$NON-NLS-1$
+		String rating = IVisualizationConst.RATING_BAD; //$NON-NLS-1$
 
 		if (!isHasComplianceError()) {
 			if (minValue >= 90) {
-				rating = Constants.RATING_V_GOOD; //$NON-NLS-1$
+				rating = IVisualizationConst.RATING_V_GOOD; //$NON-NLS-1$
 			} else if (minValue >= 80) {
-				rating = Constants.RATING_GOOD; //$NON-NLS-1$
+				rating = IVisualizationConst.RATING_GOOD; //$NON-NLS-1$
 			} else if (minValue >= 60) {
-				rating = Constants.RATING_POOR; //$NON-NLS-1$
+				rating = IVisualizationConst.RATING_POOR; //$NON-NLS-1$
 			}
 		}
 		return (rating);

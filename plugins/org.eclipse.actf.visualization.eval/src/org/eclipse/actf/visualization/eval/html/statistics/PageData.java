@@ -16,8 +16,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.xpath.XPathUtil;
-import org.eclipse.actf.visualization.Constants;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItemVisitor;
 
@@ -115,28 +115,28 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
         StringBuffer tmpSB = new StringBuffer();
         tmpSB.append("<" + IMAGES + " " + TOTAL + "=\"" + totalImageNumber + "\" " + ERROR + "=\"" + imageAltErrorNum
                 + "\" " + MISSING + "=\"" + missingAltNum + "\" " + WRONG + "=\"" + wrongAltNum + "\" " + ">"
-                + Constants.LINE_SEP);
+                + FileUtils.LINE_SEP);
         for (Iterator i = imageDataV.iterator();i.hasNext();){
-            tmpSB.append(((ImageStatData)i.next()).getItemXML() + Constants.LINE_SEP);
+            tmpSB.append(((ImageStatData)i.next()).getItemXML() + FileUtils.LINE_SEP);
         }
         tmpSB.append("</"+IMAGES+">");
 
         tmpSB.append("<" + SKIPMAIN + " " + VALID + "=\"" + skipMainNum + "\" " + ERROR + "=\"" + brokenSkipMainNum
-                + "\" />" + Constants.LINE_SEP);
+                + "\" />" + FileUtils.LINE_SEP);
         tmpSB.append("<" + REACHINGTIME + " " + MAX + "=\"" + maxTime + "\" " + ORG_MAX + "=\"" + orgMaxTime + "\" />");
 
         if (flashV.size() > 0) {
-            tmpSB.append("<" + FLASH_INFO + " " + TOTAL + "=\"" + flashV.size() + "\">" + Constants.LINE_SEP);
+            tmpSB.append("<" + FLASH_INFO + " " + TOTAL + "=\"" + flashV.size() + "\">" + FileUtils.LINE_SEP);
             for (Iterator i = flashV.iterator(); i.hasNext();) {
-                tmpSB.append(((FlashData) i.next()).getItemXML() + Constants.LINE_SEP);
+                tmpSB.append(((FlashData) i.next()).getItemXML() + FileUtils.LINE_SEP);
             }
-            tmpSB.append("</" + FLASH_INFO + ">" + Constants.LINE_SEP);
+            tmpSB.append("</" + FLASH_INFO + ">" + FileUtils.LINE_SEP);
         }
-        tmpSB.append("<" + HEADINGS + " " + TOTAL + "=\"" + headingsV.size() + "\">" + Constants.LINE_SEP);
+        tmpSB.append("<" + HEADINGS + " " + TOTAL + "=\"" + headingsV.size() + "\">" + FileUtils.LINE_SEP);
         for (Iterator i = headingsV.iterator(); i.hasNext();) {
-            tmpSB.append(((HeadingsData) i.next()).getItemXML() + Constants.LINE_SEP);
+            tmpSB.append(((HeadingsData) i.next()).getItemXML() + FileUtils.LINE_SEP);
         }
-        tmpSB.append("</" + HEADINGS + ">" + Constants.LINE_SEP);
+        tmpSB.append("</" + HEADINGS + ">" + FileUtils.LINE_SEP);
         tmpSB.append("<"+JAVASCRIPT+" "+getAttr(EXISTENCE,hasJavascript)+"/>");
         return (tmpSB.toString());
     }

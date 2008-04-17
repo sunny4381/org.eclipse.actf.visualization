@@ -14,8 +14,8 @@ package org.eclipse.actf.visualization.eval.html.statistics;
 import java.net.URL;
 import java.util.Vector;
 
+import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.xpath.XPathUtil;
-import org.eclipse.actf.visualization.Constants;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
 import org.w3c.dom.Element;
@@ -188,11 +188,11 @@ public class ImageStatData implements IPageStatisticsTag, IIMageTag {
         if (size == 0) {
             tmpSB.append(" />");
         } else {
-            tmpSB.append(" >" + Constants.LINE_SEP);
+            tmpSB.append(" >" + FileUtils.LINE_SEP);
             for (int i = 0; i < size; i++) {
                 IProblemItem pItem = (IProblemItem) problemV.get(i);
                 tmpSB.append("<" + ERROR + " " + getAttr(ID, pItem.getId())
-                        + getAttr(TARGET_STRING, pItem.getTargetStringForHPB()) + " />" + Constants.LINE_SEP);
+                        + getAttr(TARGET_STRING, pItem.getTargetStringForHPB()) + " />" + FileUtils.LINE_SEP);
             }
             tmpSB.append("</" + IMAGE + ">");
         }

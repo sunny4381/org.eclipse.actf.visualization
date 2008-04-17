@@ -15,7 +15,6 @@ import java.util.Vector;
 
 import org.eclipse.actf.model.IModelService;
 import org.eclipse.actf.model.IWebBrowserACTF;
-import org.eclipse.actf.model.events.IModelServiceEventListener;
 import org.eclipse.actf.visualization.IVisualizationView;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
@@ -23,8 +22,6 @@ import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEvent;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener;
 import org.eclipse.actf.visualization.eval.problem.ProblemConst;
-import org.eclipse.actf.visualization.events.IVisualizationEventListener;
-import org.eclipse.actf.visualization.events.VisualizationEvent;
 import org.eclipse.actf.visualization.ui.report.ReportPlugin;
 import org.eclipse.actf.visualization.ui.report.table.popup.ClearSelectionAction;
 import org.eclipse.actf.visualization.ui.report.table.popup.GuidelineSubMenu;
@@ -41,9 +38,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-
-public class ResultTableViewer implements IGuidelineSlectionChangedListener,
-		IVisualizationEventListener, IModelServiceEventListener {
+public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 
 	private class ColumnSelectionAdapter extends SelectionAdapter {
 		private int column;
@@ -61,8 +56,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener,
 		}
 	}
 
-	private GuidelineHolder guidelineHolder = GuidelineHolder
-			.getInstance();
+	private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
 
 	private int mode = IVisualizationView.MODE_DEFAULT;
 
@@ -308,30 +302,32 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener,
 		refresh();
 	}
 
-	public void visualizerChanged(VisualizationEvent vizEvent) {
-		IVisualizationView checker = vizEvent.getVisualizationView();
-		IEvaluationResult result = vizEvent.getEvaluationResult();
-		mode = checker.getResultTableMode();
+	public void setResult(IVisualizationView vizView, IEvaluationResult result) {
+		if (vizView == null) {
+			//TODO
+		} else {
+			mode = vizView.getResultTableMode();
 
-		currentSoruceFile = result.getSourceFile();
-		isShowAllGuidelineItems = result.isShowAllGuidelineItems();
-		tableSorter = checker.getTableSorter();
+			currentSoruceFile = result.getSourceFile();
+			isShowAllGuidelineItems = result.isShowAllGuidelineItems();
+			tableSorter = vizView.getTableSorter();
 
-		if (curMode != checker.getResultTableMode()) {
-			tableViewer.setInput(new Vector());
-			changeColumnLayout();
+			if (curMode != vizView.getResultTableMode()) {
+				tableViewer.setInput(new Vector());
+				changeColumnLayout();
+			}
+
+			tableViewer.setLabelProvider(vizView.getLabelProvider());
+			tableViewer.setSorter(tableSorter);
+
+			tableViewer.setInput(result.getProblemList());
+
+			// tableSorter.reset();
+			// tableSorterLV.reset();
+
+			srcViewerForPT.setSrcChanged(true);
+			srcViewerForPT.updateSrcViewer(result.getSourceFile());
 		}
-
-		tableViewer.setLabelProvider(checker.getLabelProvider());
-		tableViewer.setSorter(tableSorter);
-
-		tableViewer.setInput(result.getProblemList());
-
-		// tableSorter.reset();
-		// tableSorterLV.reset();
-
-		srcViewerForPT.setSrcChanged(true);
-		srcViewerForPT.updateSrcViewer(result.getSourceFile());
 
 	}
 
@@ -343,14 +339,10 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener,
 		return isShowAllGuidelineItems;
 	}
 
-	public void modelserviceChanged(IModelService modelService) {
+	public void setModelService(IModelService modelService) {
 		// for HTML source viewer
-		srcHighlightAction.setEnabled(modelService instanceof IWebBrowserACTF);
-	}
-
-	public void inputChanged(IModelService modelService) {
-		// TODO Auto-generated method stub
-
+		srcHighlightAction.setEnabled(modelService != null
+				&& modelService instanceof IWebBrowserACTF);
 	}
 
 }

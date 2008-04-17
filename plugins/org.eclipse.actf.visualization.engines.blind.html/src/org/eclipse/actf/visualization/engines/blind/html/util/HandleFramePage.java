@@ -18,7 +18,7 @@ import java.io.PrintWriter;
 import java.net.URL;
 
 import org.eclipse.actf.model.IWebBrowserACTF;
-import org.eclipse.actf.visualization.Constants;
+import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -69,19 +69,19 @@ public class HandleFramePage {
 
 			fileOutput.write("<html>");
 			// " lang=\""+lang+\">"); //use var
-			fileOutput.write("<head>" + Constants.LINE_SEP);
+			fileOutput.write("<head>" + FileUtils.LINE_SEP);
 			fileOutput
 					.write("<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" >"
-							+ Constants.LINE_SEP);
+							+ FileUtils.LINE_SEP);
 			fileOutput.write("<base href=\"" + base + "\"></head>"
-					+ Constants.LINE_SEP + "<body><P>");
+					+ FileUtils.LINE_SEP + "<body><P>");
 			fileOutput.write("This page contains of "); // var
 			fileOutput.write(String.valueOf(frameList.getLength()));
 			fileOutput.write(" frames."); // var
-			fileOutput.write("<br>" + Constants.LINE_SEP);
+			fileOutput.write("<br>" + FileUtils.LINE_SEP);
 			fileOutput.write("Please select one of them."); // var
-			fileOutput.write("</P>" + Constants.LINE_SEP + "<ol>"
-					+ Constants.LINE_SEP);
+			fileOutput.write("</P>" + FileUtils.LINE_SEP + "<ol>"
+					+ FileUtils.LINE_SEP);
 
 			String strTitle, strName;
 			for (int i = 0; i < frameList.getLength(); i++) {
@@ -96,7 +96,7 @@ public class HandleFramePage {
 						+ "\">Title: \"" + strTitle + "\".<BR> Name: \""
 						+ strName + "\".<BR> src: \""
 						+ frameEl.getAttribute("src") + "\".</a>"
-						+ Constants.LINE_SEP);
+						+ FileUtils.LINE_SEP);
 			}
 			fileOutput.write("</ol></body></html>");
 

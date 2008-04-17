@@ -33,6 +33,8 @@ import org.eclipse.swt.widgets.Shell;
 public class PartControlRoom implements IVisualizationConst {
 
 	private static PartControlRoom INSTANCE = null;
+	
+	private static final CheckResultPresentation dummyResult = new CheckResultPresentation();
 
 	private PageImage targetPageImage;
 
@@ -89,8 +91,8 @@ public class PartControlRoom implements IVisualizationConst {
 		this._isInSimulate = true;
 		this._shell.setCursor(new Cursor(_shell.getDisplay(), SWT.CURSOR_WAIT));
 
+		mediator.setEvaluationResult(checker, dummyResult);
 		checkResult = new CheckResultPresentation();
-		mediator.setEvaluationResult(checker, checkResult);
 
 		roomView.clearImage();
 		_shell.getDisplay().update();

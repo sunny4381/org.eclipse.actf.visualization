@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.eval.guideline;
 
 import java.text.MessageFormat;
 
-import org.eclipse.actf.visualization.Constants;
+import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
@@ -190,21 +190,21 @@ public class EvaluationItem implements IEvaluationItem{
 
     public String toString() {
         StringBuffer tmpSB = new StringBuffer();
-        tmpSB.append(id + " " + severity + " : " + Constants.LINE_SEP);
+        tmpSB.append(id + " " + severity + " : " + FileUtils.LINE_SEP);
         for (int i = 0; i < guidelines.length; i++) {
-            tmpSB.append("  " + guidelines[i] + Constants.LINE_SEP);
+            tmpSB.append("  " + guidelines[i] + FileUtils.LINE_SEP);
         }
 
         for (int i = 0; i < tableDataGuideline.length; i++) {
-            tmpSB.append("  " + tableDataGuideline[i] + Constants.LINE_SEP);
+            tmpSB.append("  " + tableDataGuideline[i] + FileUtils.LINE_SEP);
         }
 
         for (int i = 0; i < metrics.length; i++) {
-            tmpSB.append("  " + metrics[i] + Constants.LINE_SEP);
+            tmpSB.append("  " + metrics[i] + FileUtils.LINE_SEP);
         }
 
         for (int i = 0; i < tableDataMetrics.length; i++) {
-            tmpSB.append("  " + tableDataMetrics[i] + Constants.LINE_SEP);
+            tmpSB.append("  " + tableDataMetrics[i] + FileUtils.LINE_SEP);
         }
 
         return (tmpSB.toString());

@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.visualization.engines.blind.eval;
 
+import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.ui.HighlightStringListener;
-import org.eclipse.actf.visualization.Constants;
 import org.eclipse.actf.visualization.engines.blind.internal.Messages;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
@@ -134,7 +134,7 @@ public class SummaryEvaluation {
 					aboutComp
 							.append(Messages
 									.getString("Eval.completely.compliant.with.some.errors")
-									+ Constants.LINE_SEP);
+									+ FileUtils.LINE_SEP);
 
 					if (totalAltError > 0) {
 						aboutComp
@@ -152,7 +152,7 @@ public class SummaryEvaluation {
 								"Eval.some.errors.on.metrics", new String[] {
 										noGoodMetrics.substring(0,
 												noGoodMetrics.length() - 1),
-										Constants.LINE_SEP }));
+										FileUtils.LINE_SEP }));
 					} else {
 						if (comp == 100) {
 							isGood = true;
@@ -164,7 +164,7 @@ public class SummaryEvaluation {
 									.append(Messages
 											.formatResourceString(
 													"Eval.completely.compliant.with.user.check.items",
-													Constants.LINE_SEP));
+													FileUtils.LINE_SEP));
 						}
 					}
 				}
@@ -172,17 +172,17 @@ public class SummaryEvaluation {
 				if (comp > 50) {
 					aboutComp.append(Messages
 							.getString("Eval.some.accessibility.issues")
-							+ Constants.LINE_SEP);
+							+ FileUtils.LINE_SEP);
 				} else {
 					aboutComp.append(Messages
 							.getString("Eval.many.accessibility.issues")
-							+ Constants.LINE_SEP);
+							+ FileUtils.LINE_SEP);
 				}
 
 				if (totalAltError > 0) {
 					aboutComp.append(Messages
 							.getString("Eval.confirm.alt.attributes.first")
-							+ Constants.LINE_SEP);
+							+ FileUtils.LINE_SEP);
 					aboutComp.append(getImageAltStatistics());
 				} else {
 					aboutComp.append(Messages
@@ -197,32 +197,32 @@ public class SummaryEvaluation {
 				if (pageData.getMaxTime() > 240) {
 					aboutNav.append(Messages.formatResourceString(
 							"Eval.navigability.long.time.error.msg",
-							new String[] { Constants.LINE_SEP,
-									Constants.LINE_SEP, Constants.LINE_SEP,
-									Constants.LINE_SEP })
-							+ Constants.LINE_SEP);
+							new String[] { FileUtils.LINE_SEP,
+									FileUtils.LINE_SEP, FileUtils.LINE_SEP,
+									FileUtils.LINE_SEP })
+							+ FileUtils.LINE_SEP);
 
 				} else {
 					aboutNav.append(Messages.formatResourceString(
 							"Eval.navigability.good.msg", new String[] {
-									Constants.LINE_SEP, Constants.LINE_SEP })
-							+ Constants.LINE_SEP);
+									FileUtils.LINE_SEP, FileUtils.LINE_SEP })
+							+ FileUtils.LINE_SEP);
 				}
 			} else {
 				isGood = false;
 				aboutNav.append(Messages.formatResourceString(
 						"Eval.navigability.low.score.error.msg", new String[] {
-								Constants.LINE_SEP, Constants.LINE_SEP,
-								Constants.LINE_SEP, Constants.LINE_SEP })
-						+ Constants.LINE_SEP);
+								FileUtils.LINE_SEP, FileUtils.LINE_SEP,
+								FileUtils.LINE_SEP, FileUtils.LINE_SEP })
+						+ FileUtils.LINE_SEP);
 			}
 		}
 
 		if ((hasComp || hasNav) && isGood) {
 			tmpSB.append(Messages.getString("Eval.excellent")
-					+ Constants.LINE_SEP + Constants.LINE_SEP);
+					+ FileUtils.LINE_SEP + FileUtils.LINE_SEP);
 		}
-		tmpSB.append(aboutNav + Constants.LINE_SEP);
+		tmpSB.append(aboutNav + FileUtils.LINE_SEP);
 		tmpSB.append(aboutComp);
 
 		return (tmpSB.toString());
@@ -234,34 +234,34 @@ public class SummaryEvaluation {
 		if (noImageAltCount > 0) {
 			tmpSB.append(" -"
 					+ Messages.formatResourceString(
-							"Eval.no.img.alt.error.msg", Constants.LINE_SEP));
+							"Eval.no.img.alt.error.msg", FileUtils.LINE_SEP));
 		}
 		if (wrongImageAltCount > 0) {
 			tmpSB
 					.append(" -"
 							+ Messages.formatResourceString(
 									"Eval.wrong.img.alt.error.msg",
-									Constants.LINE_SEP));
+									FileUtils.LINE_SEP));
 		}
 		if (redundantImageAltCount > 0) {
 			tmpSB.append(" -"
 					+ Messages.formatResourceString(
 							"Eval.redundant.img.al.error.msg",
-							Constants.LINE_SEP));
+							FileUtils.LINE_SEP));
 		}
-		tmpSB.append(Constants.LINE_SEP);
+		tmpSB.append(FileUtils.LINE_SEP);
 
 		if (noImageAltCount > 0) {
 			tmpSB.append(" " + Messages.getString("Eval.no.img.alt") + " "
-					+ noImageAltCount + Constants.LINE_SEP);
+					+ noImageAltCount + FileUtils.LINE_SEP);
 		}
 		if (wrongImageAltCount > 0) {
 			tmpSB.append(" " + Messages.getString("Eval.wrong.img.alt") + " "
-					+ wrongImageAltCount + Constants.LINE_SEP);
+					+ wrongImageAltCount + FileUtils.LINE_SEP);
 		}
 		if (redundantImageAltCount > 0) {
 			tmpSB.append(" " + Messages.getString("Eval.redundant.img.alt")
-					+ " " + redundantImageAltCount + Constants.LINE_SEP);
+					+ " " + redundantImageAltCount + FileUtils.LINE_SEP);
 		}
 
 		return (tmpSB.toString());

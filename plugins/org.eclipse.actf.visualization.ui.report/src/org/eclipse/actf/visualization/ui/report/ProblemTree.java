@@ -17,10 +17,9 @@ import java.util.List;
 import org.eclipse.actf.util.ui.PlatformUIUtil;
 import org.eclipse.actf.visualization.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
+import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemConst;
-import org.eclipse.actf.visualization.events.IVisualizationEventListener;
-import org.eclipse.actf.visualization.events.VisualizationEvent;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableFilter;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableViewer;
 import org.eclipse.swt.SWT;
@@ -32,10 +31,8 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.ISharedImages;
 
+public class ProblemTree {
 
-
-public class ProblemTree implements IVisualizationEventListener {
-	
 	private Tree tree;
 
 	private TreeItem nodeRoot;
@@ -47,7 +44,7 @@ public class ProblemTree implements IVisualizationEventListener {
 	private TreeItem node1_3;
 
 	private ResultTableViewer _resultTableViewer = null;
-        
+
 	public ProblemTree(Composite parent) {
 
 		tree = new Tree(parent, SWT.MULTI | SWT.BORDER);
@@ -71,7 +68,8 @@ public class ProblemTree implements IVisualizationEventListener {
 						for (int i = 0; i < targets.length; i++) {
 							TreeItem item = targets[i];
 							if (item == nodeRoot) {
-								_resultTableViewer.changeFilterType(ResultTableFilter.ALL);
+								_resultTableViewer
+										.changeFilterType(ResultTableFilter.ALL);
 								return;
 							} else if (item == node1_1) {
 								result = result | IEvaluationItem.SEV_ERROR;
@@ -94,17 +92,20 @@ public class ProblemTree implements IVisualizationEventListener {
 		tree.removeAll();
 
 		nodeRoot = new TreeItem(tree, SWT.NULL);
-		nodeRoot.setImage(PlatformUIUtil
-				.getSharedImageDescriptor(ISharedImages.IMG_OBJ_FOLDER).createImage());
-        
+		nodeRoot.setImage(PlatformUIUtil.getSharedImageDescriptor(
+				ISharedImages.IMG_OBJ_FOLDER).createImage());
+
 		node1_1 = new TreeItem(nodeRoot, SWT.NULL);
-		node1_1.setImage(EvaluationPlugin.getImageDescriptor("icons/Err.png").createImage());
+		node1_1.setImage(EvaluationPlugin.getImageDescriptor("icons/Err.png")
+				.createImage());
 
 		node1_2 = new TreeItem(nodeRoot, SWT.NULL);
-		node1_2.setImage(EvaluationPlugin.getImageDescriptor("icons/Warn.png").createImage());
+		node1_2.setImage(EvaluationPlugin.getImageDescriptor("icons/Warn.png")
+				.createImage());
 
 		node1_3 = new TreeItem(nodeRoot, SWT.NULL);
-		node1_3.setImage(EvaluationPlugin.getImageDescriptor("icons/Info.png").createImage());
+		node1_3.setImage(EvaluationPlugin.getImageDescriptor("icons/Info.png")
+				.createImage());
 
 		nodeRoot.setExpanded(true);
 
@@ -166,9 +167,7 @@ public class ProblemTree implements IVisualizationEventListener {
 		return this._resultTableViewer;
 	}
 
-    public void visualizerChanged(VisualizationEvent checkerEvent) {
-
-        _resultTableViewer.visualizerChanged(checkerEvent);        
-        changeTreeNodeAmount(checkerEvent.getEvaluationResult().getProblemList());        
-    }
+	public void setResult(IEvaluationResult result) {
+		changeTreeNodeAmount(result.getProblemList());
+	}
 }

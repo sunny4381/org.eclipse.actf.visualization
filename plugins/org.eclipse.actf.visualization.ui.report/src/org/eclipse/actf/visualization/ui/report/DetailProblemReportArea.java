@@ -11,18 +11,17 @@
 package org.eclipse.actf.visualization.ui.report;
 
 import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.events.IModelServiceEventListener;
-import org.eclipse.actf.visualization.events.IVisualizationEventListener;
-import org.eclipse.actf.visualization.events.VisualizationEvent;
+import org.eclipse.actf.visualization.IVisualizationView;
+import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 
-public class DetailProblemReportArea extends SashForm implements IVisualizationEventListener, IModelServiceEventListener {
+public class DetailProblemReportArea extends SashForm {
 
-	private ProblemTree _problemTree;
+	private ProblemTree problemTree;
     private ResultTableViewer resultTableViewer;
 
 	public DetailProblemReportArea(Composite parent, int style) {
@@ -37,29 +36,26 @@ public class DetailProblemReportArea extends SashForm implements IVisualizationE
 		gridData.horizontalSpan = 1;
 		setLayoutData(gridData);
 
-		this._problemTree = new ProblemTree(this);
+		this.problemTree = new ProblemTree(this);
 		resultTableViewer = new ResultTableViewer(this);
         
-		this._problemTree.setResultTableViewer(resultTableViewer);
+		this.problemTree.setResultTableViewer(resultTableViewer);
 		
 		setWeights(new int[] { 2, 9 });
 		
 	}
 	
-    public void visualizerChanged(VisualizationEvent checkerEvent) {
-        this._problemTree.visualizerChanged(checkerEvent);
+    public void setResult(IVisualizationView vizView, IEvaluationResult result) {
+        problemTree.setResult(result);
+        resultTableViewer.setResult(vizView, result);
     }
 
     public ProblemTree getProblemTree() {
-        return _problemTree;
+        return problemTree;
     }
 
-    public void modelserviceChanged(IModelService modelService) {
-        resultTableViewer.modelserviceChanged(modelService);
-    }
-
-	public void inputChanged(IModelService modelService) {
-		// TODO Auto-generated method stub
-		
+	public void setModelService(IModelService modelService) {
+        resultTableViewer.setModelService(modelService);		
 	}
+
 }

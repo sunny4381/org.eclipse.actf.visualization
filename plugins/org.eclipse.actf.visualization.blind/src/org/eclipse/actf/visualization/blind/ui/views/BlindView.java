@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.blind.ui.views;
 
+import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.util.ui.AbstractPartListener;
 import org.eclipse.actf.visualization.IVisualizationView;
 import org.eclipse.actf.visualization.VisualizationStatusLineContributionItem;
@@ -137,6 +138,26 @@ public class BlindView extends ViewPart implements IVisualizationView {
 		if (partRightBlind != null) {
 			partRightBlind.doVisualize();
 		}
+	}
+
+	public void modelserviceChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void modelserviceInputChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void reportChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void reportGeneratorChanged(MediatorEvent event) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

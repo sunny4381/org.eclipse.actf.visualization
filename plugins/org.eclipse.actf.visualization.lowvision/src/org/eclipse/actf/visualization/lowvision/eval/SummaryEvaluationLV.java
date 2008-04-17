@@ -13,8 +13,8 @@ package org.eclipse.actf.visualization.lowvision.eval;
 
 import java.util.List;
 
+import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.ui.HighlightStringListener;
-import org.eclipse.actf.visualization.Constants;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
 import org.eclipse.actf.visualization.lowvision.ui.internal.Messages;
@@ -101,48 +101,48 @@ public class SummaryEvaluationLV {
 			if (severeCount[1] > 0 || severeCount[3] > 0) {
 				tmpSB
 						.append(Messages
-								.getString("EvalLV.color.difficult.distinguish") + Constants.LINE_SEP); //$NON-NLS-1$
+								.getString("EvalLV.color.difficult.distinguish") + FileUtils.LINE_SEP); //$NON-NLS-1$
 			} else {
 				tmpSB
 						.append(Messages
-								.getString("EvalLV.color.might.difficult.distinguish") + Constants.LINE_SEP); //$NON-NLS-1$
+								.getString("EvalLV.color.might.difficult.distinguish") + FileUtils.LINE_SEP); //$NON-NLS-1$
 			}
 			tmpSB
-					.append(Messages.getString("EvalLV.click.detailed.report") + Constants.LINE_SEP); //$NON-NLS-1$
+					.append(Messages.getString("EvalLV.click.detailed.report") + FileUtils.LINE_SEP); //$NON-NLS-1$
 
-			tmpSB.append(Constants.LINE_SEP);
+			tmpSB.append(FileUtils.LINE_SEP);
 			if (problemCount[1] > 0) {
 				tmpSB
 						.append(Messages
-								.getString("EvalLV.text.color.combination") + " " + problemCount[1] + Constants.LINE_SEP); //$NON-NLS-1$ //$NON-NLS-2$
+								.getString("EvalLV.text.color.combination") + " " + problemCount[1] + FileUtils.LINE_SEP); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			if (problemCount[3] > 0) {
 				tmpSB
 						.append(Messages
-								.getString("EvalLV.img.color.combination") + " " + problemCount[3] + Constants.LINE_SEP); //$NON-NLS-1$ //$NON-NLS-2$
+								.getString("EvalLV.img.color.combination") + " " + problemCount[3] + FileUtils.LINE_SEP); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		} else {
 			tmpSB
 					.append(Messages
-							.getString("EvalLV.no.color.difficult.distinguish") + Constants.LINE_SEP); //$NON-NLS-1$
+							.getString("EvalLV.no.color.difficult.distinguish") + FileUtils.LINE_SEP); //$NON-NLS-1$
 		}
 
-		tmpSB.append(Constants.LINE_SEP);
+		tmpSB.append(FileUtils.LINE_SEP);
 
 		if (problemCount[5] > 0 || problemCount[6] > 0) {
 			if (severeCount[5] > 0 || severeCount[6] > 0) {
 				tmpSB
 						.append(Messages
-								.getString("EvalLV.font.too.small.to.read") + Constants.LINE_SEP); //$NON-NLS-1$
+								.getString("EvalLV.font.too.small.to.read") + FileUtils.LINE_SEP); //$NON-NLS-1$
 			} else {
 				tmpSB
 						.append(Messages
-								.getString("EvalLV.font.might.too.small.to.read") + Constants.LINE_SEP); //$NON-NLS-1$
+								.getString("EvalLV.font.might.too.small.to.read") + FileUtils.LINE_SEP); //$NON-NLS-1$
 			}
 			tmpSB
-					.append(Messages.getString("EvalLV.click.detailed.report") + Constants.LINE_SEP); //$NON-NLS-1$
+					.append(Messages.getString("EvalLV.click.detailed.report") + FileUtils.LINE_SEP); //$NON-NLS-1$
 
-			tmpSB.append(Constants.LINE_SEP);
+			tmpSB.append(FileUtils.LINE_SEP);
 			if (problemCount[5] > 0) {
 				tmpSB
 						.append(Messages.getString("EvalLV.font.too.small") + " " + problemCount[5]); //$NON-NLS-1$ //$NON-NLS-2$
@@ -154,14 +154,14 @@ public class SummaryEvaluationLV {
 			}
 		} else if (problemCount[4] > 0) {
 			tmpSB
-					.append(Messages.getString("EvalLV.page.have.fixed.font") + Constants.LINE_SEP); //$NON-NLS-1$
-			tmpSB.append(Constants.LINE_SEP);
+					.append(Messages.getString("EvalLV.page.have.fixed.font") + FileUtils.LINE_SEP); //$NON-NLS-1$
+			tmpSB.append(FileUtils.LINE_SEP);
 			tmpSB
 					.append(Messages.getString("EvalLV.font.fixed") + " " + problemCount[4]); //$NON-NLS-1$ //$NON-NLS-2$
 		} else {
 			tmpSB
 					.append(Messages
-							.getString("EvalLV.font.might.enough.to.read") + Constants.LINE_SEP); //$NON-NLS-1$
+							.getString("EvalLV.font.might.enough.to.read") + FileUtils.LINE_SEP); //$NON-NLS-1$
 		}
 
 		return (tmpSB.toString());

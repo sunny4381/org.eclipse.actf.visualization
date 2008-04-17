@@ -19,11 +19,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
+import org.eclipse.actf.mediator.IMediatorEventListener;
 import org.eclipse.actf.mediator.Mediator;
+import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.model.IModelService;
 import org.eclipse.actf.model.IWebBrowserACTF;
 import org.eclipse.actf.model.ModelServiceImageCreator;
-import org.eclipse.actf.model.events.IModelServiceEventListener;
 import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.IVisualizationView;
@@ -52,8 +53,10 @@ import org.w3c.dom.Document;
 
 
 public class PartControlLowVision implements ISelectionListener,
-		IVisualizationConst, IModelServiceEventListener {
+		IVisualizationConst, IMediatorEventListener {
 
+	private static final CheckResultLowVision dummyResult = new CheckResultLowVision();
+	
 	private String[] frameUrl;
 
 	private PageImage[] framePageImage;
@@ -263,7 +266,7 @@ public class PartControlLowVision implements ISelectionListener,
 			e.printStackTrace();
 		}
 
-		Mediator.getInstance().addModelServiceListener(this);
+		Mediator.getInstance().addMediatorEventListener(this);
 
 	}
 
@@ -306,8 +309,8 @@ public class PartControlLowVision implements ISelectionListener,
 		this._isInSimulate = true;
 		this._shell.setCursor(new Cursor(_shell.getDisplay(), SWT.CURSOR_WAIT));
 
+		Mediator.getInstance().setEvaluationResult(checker, dummyResult);
 		checkResult = new CheckResultLowVision();
-		Mediator.getInstance().setEvaluationResult(checker, checkResult);
 
 		lowVisionView.clearImage();
 		_shell.getDisplay().update();
@@ -611,12 +614,20 @@ public class PartControlLowVision implements ISelectionListener,
 		setHighlightPositions(result);
 	}
 
-	public void modelserviceChanged(IModelService modelService) {
-		lowVisionView.setTarget(modelService);
+	public void modelserviceChanged(MediatorEvent event) {
+		lowVisionView.setTarget(event.getModelServiceHolder().getModelService());
 	}
 
-	public void inputChanged(IModelService modelService) {
-		lowVisionView.setTarget(modelService);
+	public void modelserviceInputChanged(MediatorEvent event) {
+		lowVisionView.setTarget(event.getModelServiceHolder().getModelService());		
+	}
+
+	public void reportChanged(MediatorEvent event) {
+		
+	}
+
+	public void reportGeneratorChanged(MediatorEvent event) {
+		
 	}
 
 }
