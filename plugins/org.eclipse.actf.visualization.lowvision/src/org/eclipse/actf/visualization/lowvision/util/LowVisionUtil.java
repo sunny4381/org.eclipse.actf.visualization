@@ -16,7 +16,6 @@ import java.io.FileInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Vector;
 
 import org.eclipse.actf.model.IWebBrowserACTF;
@@ -99,12 +98,11 @@ public class LowVisionUtil implements IVisualizationConst{
         return (result);
     }
 
-    public static HashMap trimStyleInfoArray(HashMap target, int height) {
+    public static HashMap<String, CurrentStyles> trimStyleInfoArray(HashMap<String, CurrentStyles> target, int height) {
         HashMap<String, CurrentStyles> result = new HashMap<String, CurrentStyles>();
-        for (Iterator keyI = target.keySet().iterator(); keyI.hasNext();) {
-            String tmpKey = (String) keyI.next();
+        for (String tmpKey :  target.keySet()) {
             try {
-                CurrentStyles tmpS = (CurrentStyles) target.get(tmpKey);
+                CurrentStyles tmpS = target.get(tmpKey);
                 if (Integer.parseInt(tmpS.getOffsetTop()) <= height) {
                     result.put(tmpKey, tmpS);
                 }

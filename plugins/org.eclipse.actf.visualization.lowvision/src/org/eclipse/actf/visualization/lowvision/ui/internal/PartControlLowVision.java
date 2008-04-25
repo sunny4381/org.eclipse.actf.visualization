@@ -26,6 +26,7 @@ import org.eclipse.actf.model.IModelService;
 import org.eclipse.actf.model.IWebBrowserACTF;
 import org.eclipse.actf.model.ModelServiceImageCreator;
 import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
+import org.eclipse.actf.model.ui.editor.browser.CurrentStyles;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.TargetPage;
 import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
@@ -63,9 +64,9 @@ public class PartControlLowVision implements ISelectionListener,
 
 	private ImagePositionInfo[][] imageInfoInHtmlArray;
 
-	private HashMap[] styleInfoArray;
+	private ArrayList<HashMap<String, CurrentStyles>> styleInfoArray;
 
-	private Vector<Thread> checkThreads;
+	private Vector<ExtractCheckThread> checkThreads;
 
 	private LowVisionSimulationView lowVisionView;
 
@@ -122,7 +123,7 @@ public class PartControlLowVision implements ISelectionListener,
 				targetPage.setPageImage(framePageImage[frameId]);
 				targetPage
 						.setInteriorImagePosition(imageInfoInHtmlArray[frameId]);
-				targetPage.setCurrentStyles(styleInfoArray[frameId]);
+				targetPage.setCurrentStyles(styleInfoArray.get(frameId));
 
 				_shell.getDisplay().syncExec(new Runnable() {
 					public void run() {
@@ -235,11 +236,10 @@ public class PartControlLowVision implements ISelectionListener,
 					_shell.setCursor(null);
 					_isInSimulate = false;
 
-					for (Iterator i = checkThreads.iterator(); i.hasNext();) {
-						ExtractCheckThread tmpT = (ExtractCheckThread) i.next();
+					for (ExtractCheckThread tmpT : checkThreads){
 						tmpT.disposeTargetPage();
 					}
-					checkThreads = new Vector<Thread>();
+					checkThreads = new Vector<ExtractCheckThread>();
 				}
 			});
 		}
@@ -290,7 +290,10 @@ public class PartControlLowVision implements ISelectionListener,
 	private void allocate(int frameSize) {
 		framePageImage = new PageImage[frameSize];
 		imageInfoInHtmlArray = new ImagePositionInfo[frameSize][];
-		styleInfoArray = new HashMap[frameSize];
+		styleInfoArray = new ArrayList<HashMap<String,CurrentStyles>>(frameSize);
+		for(int i=0; i<frameSize; i++){
+			styleInfoArray.add(new HashMap<String, CurrentStyles>());
+		}
 		// htmlLine2Id = new HtmlLine2Id[frameSize];
 		// nodeId2Position = new HashMap[frameSize];
 		isFinished = new boolean[frameSize];
@@ -315,7 +318,7 @@ public class PartControlLowVision implements ISelectionListener,
 		lowVisionView.clearImage();
 		_shell.getDisplay().update();
 
-		checkThreads = new Vector<Thread>();
+		checkThreads = new Vector<ExtractCheckThread>();
 
 		IModelService modelService = mediator.getActiveModelService();
 		if (modelService == null) {
@@ -413,19 +416,19 @@ public class PartControlLowVision implements ISelectionListener,
 				if (browser != null) {
 					imageInfoInHtmlArray[frameId] = browser
 							.getAllImagePosition();
-					// styleInfoArray[frameId] = browser.getNodeStyles();//TODO
-					styleInfoArray[frameId] = new HashMap();
+					// styleInfoArray.set(frameId, browser.getNodeStyles());//TODO recover getNodeStyles function
+					styleInfoArray.set(frameId, new HashMap<String, CurrentStyles>());
 				} else {
-					styleInfoArray[frameId] = new HashMap();
+					styleInfoArray.set(frameId, new HashMap<String, CurrentStyles>());
 				}
 
 				if (lastFrame > 1) { // TODO frameURL.length?
 					imageInfoInHtmlArray[frameId] = LowVisionUtil
 							.trimInfoImageInHtml(imageInfoInHtmlArray[frameId],
 									framePageImage[frameId].getHeight());
-					styleInfoArray[frameId] = LowVisionUtil.trimStyleInfoArray(
-							styleInfoArray[frameId], framePageImage[frameId]
-									.getHeight());
+					styleInfoArray.set(frameId, LowVisionUtil.trimStyleInfoArray(
+							styleInfoArray.get(frameId), framePageImage[frameId]
+									.getHeight()));
 				}
 
 				checker.setStatusMessage(Messages
@@ -510,7 +513,7 @@ public class PartControlLowVision implements ISelectionListener,
 		new WaitExtractThread(null).start();
 	}
 
-	public void setHighlightPositions(List infoPositionSizeList) {
+	public void setHighlightPositions(List<IPositionSize> infoPositionSizeList) {
 		lowVisionView.highlight(infoPositionSizeList);
 	}
 
@@ -544,7 +547,7 @@ public class PartControlLowVision implements ISelectionListener,
 		// ADesignerMediator.getInstance().setCheckResult(checker, checkResult);
 
 		lowVisionView.clearImage();
-		checkThreads = new Vector<Thread>();
+		checkThreads = new Vector<ExtractCheckThread>();
 
 		IModelService modelService = mediator.getActiveModelService();
 		// TODO null check?
@@ -603,6 +606,7 @@ public class PartControlLowVision implements ISelectionListener,
 		}
 		ArrayList<IPositionSize> result = new ArrayList<IPositionSize>();
 
+		//TODO check
 		for (Iterator i = ((IStructuredSelection) selection).iterator(); i
 				.hasNext();) {
 			IProblemItem item = (IProblemItem) i.next();

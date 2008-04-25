@@ -12,13 +12,12 @@
 package org.eclipse.actf.visualization.lowvision.ui.internal;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.actf.mediator.Mediator;
-import org.eclipse.actf.model.ModelServiceSizeInfo;
 import org.eclipse.actf.model.IModelService;
 import org.eclipse.actf.model.IModelServiceScrollManager;
+import org.eclipse.actf.model.ModelServiceSizeInfo;
 import org.eclipse.actf.visualization.eval.problem.IPositionSize;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -63,7 +62,7 @@ public class LowVisionSimulationView {
 
 	private boolean _isLocked = false;
 
-	private List _highlightTargetList = new ArrayList();
+	private List<IPositionSize> _highlightTargetList = new ArrayList<IPositionSize>();
 
 	private LowVisionToolbar _lowVisionToolbar;
 
@@ -195,21 +194,16 @@ public class LowVisionSimulationView {
 		return _verticalBar.getSize();
 	}
 
-	protected void highlight(List target) {
+	protected void highlight(List<IPositionSize> target) {
 
 		if (target != null) {
 			// int topX = 0;
 			int topY = -1;
 
-			for (Iterator i = target.iterator(); i.hasNext();) {
-				try {
-					IPositionSize ips = (IPositionSize) i.next();
-					if (topY < 0 || topY > ips.getY()) {
-						topY = ips.getY();
-						// TODO topX = ips.getX();
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
+			for (IPositionSize ips : target) {
+				if (topY < 0 || topY > ips.getY()) {
+					topY = ips.getY();
+					// TODO topX = ips.getX();
 				}
 			}
 
@@ -257,7 +251,7 @@ public class LowVisionSimulationView {
 		if (_imageData != null) {
 			_imageData = null;
 		}
-		_highlightTargetList = new ArrayList();
+		_highlightTargetList = new ArrayList<IPositionSize>();
 		resetScrollBars();
 		_imageCanvas.redraw();
 	}
@@ -299,28 +293,22 @@ public class LowVisionSimulationView {
 								+ _imageData.y, w, h);
 
 		// Vector tmpV = lowVisionControl.getSelectedItemsInfo();
-		List tmpV = _highlightTargetList;
+		List<IPositionSize> tmpV = _highlightTargetList;
 		if (tmpV != null) {
 			event.gc.setXORMode(false);
 			event.gc.setLineWidth(2);
-			for (Iterator i = tmpV.iterator(); i.hasNext();) {
-				try {
-					IPositionSize ips = (IPositionSize) i.next();
+			for (IPositionSize ips : tmpV) {
 
-					event.gc.setForeground(_display
-							.getSystemColor(SWT.COLOR_WHITE));
-					event.gc.drawRectangle(_ix + ips.getX(), _iy + ips.getY(),
-							ips.getWidth(), ips.getHeight());
+				event.gc
+						.setForeground(_display.getSystemColor(SWT.COLOR_WHITE));
+				event.gc.drawRectangle(_ix + ips.getX(), _iy + ips.getY(), ips
+						.getWidth(), ips.getHeight());
 
-					event.gc.setForeground(_display
-							.getSystemColor(SWT.COLOR_BLACK));
-					event.gc.drawRectangle(_ix + ips.getX() - 2, _iy
-							+ ips.getY() - 2, ips.getWidth() + 4, ips
-							.getHeight() + 4);
+				event.gc
+						.setForeground(_display.getSystemColor(SWT.COLOR_BLACK));
+				event.gc.drawRectangle(_ix + ips.getX() - 2, _iy + ips.getY()
+						- 2, ips.getWidth() + 4, ips.getHeight() + 4);
 
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			}
 		}
 	}
@@ -501,12 +489,12 @@ public class LowVisionSimulationView {
 		Button button = _lowVisionToolbar.getWholePageButton();
 		Button button2 = _lowVisionToolbar.getSyncButton();
 
-		if(null==target){
+		if (null == target) {
 			button.setEnabled(false);
 			button2.setEnabled(false);
 			return;
 		}
-		
+
 		switch (target.getScrollManager().getScrollType()) {
 		case IModelServiceScrollManager.ABSOLUTE_COORDINATE:
 		case IModelServiceScrollManager.INCREMENTAL:

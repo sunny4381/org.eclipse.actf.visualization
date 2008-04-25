@@ -15,6 +15,7 @@ import java.util.Iterator;
 
 import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
 import org.eclipse.actf.visualization.eval.EvaluationResultImpl;
+import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
 
 
@@ -39,7 +40,7 @@ public class CheckResultLowVision extends EvaluationResultImpl {
                 frameOffset[i] = frameOffset[i - 1] + framePageImages[i - 1].getInt2D().height;
             }
 
-            for (Iterator i = getProblemList().iterator(); i.hasNext();) {
+            for (Iterator<IProblemItem> i = getProblemList().iterator(); i.hasNext();) {
                 try {
                     ProblemItemLV tmpP = (ProblemItemLV) i.next();
                     int frameId = tmpP.getFrameId();
@@ -52,10 +53,10 @@ public class CheckResultLowVision extends EvaluationResultImpl {
             }
         }
         
-        for (Iterator i = getProblemList().iterator(); i.hasNext();) {
-            ProblemItemLV tmpP = (ProblemItemLV) i.next();
-            System.out.println(tmpP.getFrameId()+":"+tmpP.getFrameOffset());
-        }
+//        for (Iterator<IProblemItem> i = getProblemList().iterator(); i.hasNext();) {
+//            ProblemItemLV tmpP = (ProblemItemLV) i.next();
+//            System.out.println(tmpP.getFrameId()+":"+tmpP.getFrameOffset());
+//        }
     }
 
 }
