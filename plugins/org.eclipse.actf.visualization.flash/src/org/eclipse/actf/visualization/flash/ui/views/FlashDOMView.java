@@ -364,6 +364,14 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
         };
         
 	}
+	
+	public void setDebugMode(boolean isDebug){
+		debugTreeAction.setChecked(isDebug);
+		scanWindowlessAction.setChecked(isDebug);
+		FlashFinder.debugMode = isDebug;
+		FlashFinder.scanAll = isDebug;
+		MSAAViewRegistory.refreshRootObject();
+	}
 
     private Object getSelectedItem() {
         IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
