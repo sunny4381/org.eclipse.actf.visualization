@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.gui.ui.actions;
@@ -26,11 +27,11 @@ public class ShowOffscreenAction extends Action {
     }
 
     public void adjust() {
-        setChecked(MSAATreeContentProvider.getDefault().showOffscreen);
+        setChecked(MSAATreeContentProvider.getDefault().isShowOffscreen());
     }
     
     public void run() {
-        MSAATreeContentProvider.getDefault().showOffscreen = isChecked();
+        MSAATreeContentProvider.getDefault().setShowOffscreen(isChecked());
         MSAAViewRegistory.refreshRootObject();
     }
 }

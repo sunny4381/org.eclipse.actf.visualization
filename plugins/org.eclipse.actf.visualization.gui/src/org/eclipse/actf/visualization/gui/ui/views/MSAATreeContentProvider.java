@@ -7,23 +7,25 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.gui.ui.views;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
-import org.eclipse.actf.visualization.gui.flash.FlashUtil;
+import org.eclipse.actf.accservice.swtbridge.util.FlashUtil;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 
 public class MSAATreeContentProvider implements ITreeContentProvider {
 
-    public boolean hideHtml = false;
-    public boolean showOffscreen = false;
+    private boolean hideHtml = false;
+    private boolean showOffscreen = false;
     
 	private static MSAATreeContentProvider instance =  new MSAATreeContentProvider();
 	
@@ -74,7 +76,16 @@ public class MSAATreeContentProvider implements ITreeContentProvider {
             elements = getChildren(inputElement);
         }
         if (hideHtml) {
-            return FlashUtil.getFlashElements(elements);
+        	ArrayList<AccessibleObject> result = new ArrayList<AccessibleObject>();
+        	for(Object i : elements){
+        		if(i instanceof AccessibleObject){
+        			AccessibleObject[] flashElements = FlashUtil.getFlashElements((AccessibleObject)i);
+        			for(AccessibleObject j : flashElements){
+        				result.add(j);
+        			}
+        		}
+        	}
+            return result.toArray();
         }
         return elements;
     }
@@ -94,4 +105,21 @@ public class MSAATreeContentProvider implements ITreeContentProvider {
             }
         }
     }
+
+	public boolean isHideHtml() {
+		return hideHtml;
+	}
+
+	public void setHideHtml(boolean hideHtml) {
+		this.hideHtml = hideHtml;
+	}
+
+	public boolean isShowOffscreen() {
+		return showOffscreen;
+	}
+
+	public void setShowOffscreen(boolean showOffscreen) {
+		this.showOffscreen = showOffscreen;
+		FlashUtil.setShowOffscreen(showOffscreen);
+	}
 }

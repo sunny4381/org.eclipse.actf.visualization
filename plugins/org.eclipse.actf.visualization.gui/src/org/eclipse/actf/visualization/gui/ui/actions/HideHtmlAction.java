@@ -26,11 +26,11 @@ public class HideHtmlAction extends Action {
     }
     
     public void adjust() {
-        setChecked(MSAATreeContentProvider.getDefault().hideHtml);
+        setChecked(MSAATreeContentProvider.getDefault().isHideHtml());
     }
 
     public void run() {
-        MSAATreeContentProvider.getDefault().hideHtml = isChecked(); 
+        MSAATreeContentProvider.getDefault().setHideHtml(isChecked()); 
         MSAAViewRegistory.refreshRootObject();
     }
 }

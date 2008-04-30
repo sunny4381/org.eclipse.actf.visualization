@@ -16,12 +16,12 @@ import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.IA2;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.accservice.swtbridge.ia2.Accessible2;
+import org.eclipse.actf.accservice.swtbridge.util.FlashUtil;
 import org.eclipse.actf.util.win32.HighlightComposite;
 import org.eclipse.actf.util.win32.OverlayLabel;
 import org.eclipse.actf.visualization.gui.GuiImages;
 import org.eclipse.actf.visualization.gui.GuiPlugin;
 import org.eclipse.actf.visualization.gui.Messages;
-import org.eclipse.actf.visualization.gui.flash.FlashUtil;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceConstants;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceManager;
 import org.eclipse.actf.visualization.gui.ui.actions.HideHtmlAction;
@@ -74,6 +74,10 @@ import org.eclipse.ui.part.ViewPart;
 
 public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
     public static final String ID = MSAAOutlineView.class.getName();
+
+    public static Color FLASH_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_YELLOW);
+    public static Color INVISIBLE_FLASH_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_RED);
+
     
     private TreeViewer viewer;
 
@@ -157,7 +161,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
     }
 
     public void refresh() {
-    	hideHtml = MSAATreeContentProvider.getDefault().hideHtml; 
+    	hideHtml = MSAATreeContentProvider.getDefault().isHideHtml(); 
         OverlayLabel.removeAll();
         AccessibleObject rootObject = MSAAViewRegistory.getRootObject();
         if( null != rootObject ) {
@@ -491,7 +495,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 
 		public Color getBackground(Object element) {
             if (!hideHtml && element instanceof AccessibleObject) {
-                return FlashUtil.getFlashBackground((AccessibleObject)element);
+                return getFlashBackground((AccessibleObject)element);
             }
 			return null;
 		}
@@ -535,4 +539,21 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
         }
         return element.toString();
     }
+    
+	public static Color getFlashBackground(AccessibleObject accObject) {
+	    switch( accObject.getAccRole() ) {
+	        case MSAA.ROLE_SYSTEM_WINDOW:
+	            if( FlashUtil.isFlash(accObject) ) {
+	                return FLASH_COLOR;
+	            }
+	            break;
+	        case MSAA.ROLE_SYSTEM_CLIENT:
+	            if( FlashUtil.isInvisibleFlash(accObject) ) {
+	                return INVISIBLE_FLASH_COLOR;
+	            }
+	            break;
+	    }
+	    return null;
+	}
+
 }

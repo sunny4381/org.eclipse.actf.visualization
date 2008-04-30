@@ -31,8 +31,8 @@ public class MSAAProblemChecker implements MSAAProblemConst {
     }
 
     public MSAAProblem[] getProblems() {
-    	provider.showOffscreen = true;
-    	provider.hideHtml = MSAATreeContentProvider.getDefault().hideHtml;
+    	provider.setShowOffscreen(true);
+    	provider.setHideHtml(MSAATreeContentProvider.getDefault().isHideHtml());
         return getProblem(provider.getElements(rootObject));
     }
 

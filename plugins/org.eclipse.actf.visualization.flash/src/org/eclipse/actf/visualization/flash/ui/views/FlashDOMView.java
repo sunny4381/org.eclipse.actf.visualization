@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.flash.ui.views;
 
@@ -16,16 +17,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
+import org.eclipse.actf.accservice.swtbridge.util.FlashUtil;
 import org.eclipse.actf.model.flash.FlashAdjust;
 import org.eclipse.actf.model.flash.FlashDetect;
 import org.eclipse.actf.model.flash.FlashNode;
 import org.eclipse.actf.model.flash.FlashPlayer;
 import org.eclipse.actf.visualization.flash.FlashImages;
 import org.eclipse.actf.visualization.flash.Messages;
+import org.eclipse.actf.visualization.flash.ui.properties.FlashNodePropertySource;
 import org.eclipse.actf.visualization.gui.GuiImages;
 import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.flash.FlashFinder;
-import org.eclipse.actf.visualization.gui.flash.FlashUtil;
 import org.eclipse.actf.visualization.gui.ui.actions.RefreshRootAction;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
@@ -75,6 +76,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
     private Action scanWindowlessAction;
     private Color colorFound = Display.getCurrent().getSystemColor(SWT.COLOR_CYAN);
 
+    private boolean debugMode = false;
+    
 	/**
 	 * The constructor.
 	 */
@@ -112,7 +115,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 	}
 
     public void adjustID() {
-        Object[] results = FlashUtil.getFlashElements(MSAAViewRegistory.rootObject);
+        AccessibleObject[] results = FlashUtil.getFlashElements(MSAAViewRegistory.rootObject);
         for( int i=0; i<results.length; i++ ) {
             FlashAdjust flashAdjust = new FlashAdjust(results[i]);
             flashAdjust.adjust("adesigner_flash_object"+i); //$NON-NLS-1$
@@ -351,14 +354,15 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
         
         debugTreeAction = new Action(Messages.getString("flash.debugMode"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
             public void run() {
-                FlashFinder.debugMode = debugTreeAction.isChecked();
+                debugMode = debugTreeAction.isChecked();
+                FlashNodePropertySource.setDebugMode(debugMode);
                 MSAAViewRegistory.refreshRootObject();
             }
         };
 
         scanWindowlessAction = new Action(Messages.getString("flash.scanWindowless"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
             public void run() {
-                FlashFinder.scanAll = scanWindowlessAction.isChecked();
+                FlashUtil.setScanAll(scanWindowlessAction.isChecked());
                 MSAAViewRegistory.refreshRootObject();
             }
         };
@@ -368,8 +372,9 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 	public void setDebugMode(boolean isDebug){
 		debugTreeAction.setChecked(isDebug);
 		scanWindowlessAction.setChecked(isDebug);
-		FlashFinder.debugMode = isDebug;
-		FlashFinder.scanAll = isDebug;
+		debugMode = isDebug;
+		FlashNodePropertySource.setDebugMode(isDebug);
+		FlashUtil.setScanAll(isDebug);
 		MSAAViewRegistory.refreshRootObject();
 	}
 
@@ -396,7 +401,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 
 		public Object[] getChildren(Object parentElement) {
 			if( parentElement instanceof FlashNode ) {
-				return ((FlashNode)parentElement).getChildren(visualTree, informativeTree, FlashFinder.debugMode);
+				return ((FlashNode)parentElement).getChildren(visualTree, informativeTree, debugMode);
 			}
 	        return new Object[0];
 		}
@@ -410,7 +415,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 
 		public boolean hasChildren(Object element) {
 			if( element instanceof FlashNode ) {
-				return ((FlashNode)element).hasChild(visualTree, FlashFinder.debugMode);
+				return ((FlashNode)element).hasChild(visualTree, debugMode);
 			}
 			return false;
 		}

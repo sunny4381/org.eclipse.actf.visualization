@@ -19,9 +19,9 @@ import org.eclipse.swt.widgets.Shell;
 
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
+import org.eclipse.actf.accservice.swtbridge.util.FlashUtil;
 import org.eclipse.actf.accservice.swtbridge.util.HTMLElementUtil;
 import org.eclipse.actf.visualization.flash.Messages;
-import org.eclipse.actf.visualization.gui.flash.FlashUtil;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
 

@@ -17,9 +17,9 @@ import org.eclipse.actf.accservice.swtbridge.IA2;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.accservice.swtbridge.ia2.Accessible2;
 import org.eclipse.actf.accservice.swtbridge.ia2.IA2Util;
+import org.eclipse.actf.accservice.swtbridge.util.FlashUtil;
 import org.eclipse.actf.accservice.swtbridge.util.HTMLElementUtil;
 import org.eclipse.actf.visualization.gui.Messages;
-import org.eclipse.actf.visualization.gui.flash.FlashUtil;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
 import org.eclipse.actf.visualization.gui.ui.views.MSAATreeContentProvider;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
@@ -112,7 +112,7 @@ public class ScreenReaderRenderer {
 				display.syncExec(new Runnable(){
 					public void run() {
 					    if( !(cancel || text.isDisposed() || text.getCharCount()>0) ) {
-					        appendText(Messages.getString(provider.hideHtml ? "msaa.no_flash" : "msaa.empty_page"),SWT.COLOR_GRAY,-1,false); //$NON-NLS-1$ //$NON-NLS-2$
+					        appendText(Messages.getString(provider.isHideHtml() ? "msaa.no_flash" : "msaa.empty_page"),SWT.COLOR_GRAY,-1,false); //$NON-NLS-1$ //$NON-NLS-2$
 				        }
 				    }
 				});

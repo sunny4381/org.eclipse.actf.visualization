@@ -7,18 +7,17 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.flash.ui.properties;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.model.flash.FlashNode;
 import org.eclipse.actf.model.flash.util.ASObject;
-import org.eclipse.actf.visualization.gui.flash.FlashFinder;
 import org.eclipse.actf.visualization.gui.msaa.properties.AttributePropertySource;
 import org.eclipse.swt.ole.win32.OLE;
 import org.eclipse.swt.ole.win32.Variant;
@@ -29,6 +28,8 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
 
 public class FlashNodePropertySource implements IPropertySource {
 
+	private static boolean DEBUG_MODE = false;
+	
 	private FlashNode flashNode;
 	private boolean isAccImpl;
 	
@@ -94,12 +95,11 @@ public class FlashNodePropertySource implements IPropertySource {
 				result.add(DESCRIPTORS[i]);
 			}
 		}
-		if( FlashFinder.debugMode ) {
-			Set keySet = flashNode.getKeys();
+		if( DEBUG_MODE ) {
+			Set<String> keySet = flashNode.getKeys();
 			if( null != keySet ) {
-				for( Iterator it = keySet.iterator(); it.hasNext(); ) {
-					Object key = it.next();
-					result.add(new PropertyDescriptor(key,"["+key.toString()+"]")); //$NON-NLS-1$ //$NON-NLS-2$
+				for(String key : keySet) {
+					result.add(new PropertyDescriptor(key,"["+key+"]")); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 			}
 		}
@@ -159,12 +159,10 @@ public class FlashNodePropertySource implements IPropertySource {
 			Object accInfo = flashNode.getObject("accInfo"); //$NON-NLS-1$
 			if( accInfo instanceof ASObject ) {
 				ASObject accInfoObject = ((ASObject)accInfo); 
-				Set accInfoSet = accInfoObject.getKeys();
+				Set<String> accInfoSet = accInfoObject.getKeys();
 				if( null != accInfoSet ) {
 					AttributePropertySource attrSource = new AttributePropertySource(null,accInfoObject.toString());
-					for( Iterator it = accInfoSet.iterator(); it.hasNext(); ) {
-						Object key = it.next();
-						String keyName = key.toString();
+					for(String keyName : accInfoSet) {
 						Object keyValue = accInfoObject.get(keyName);
 						if( keyValue instanceof Integer ) {
 							int intValue = ((Integer)keyValue).intValue();
@@ -229,6 +227,14 @@ public class FlashNodePropertySource implements IPropertySource {
 	}
 
 	public void setPropertyValue(Object id, Object value) {
+	}
+
+	public static boolean isDebugMode() {
+		return DEBUG_MODE;
+	}
+
+	public static void setDebugMode(boolean debug_mode) {
+		DEBUG_MODE = debug_mode;
 	}
 
 }
