@@ -16,7 +16,7 @@ import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.IA2;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.accservice.swtbridge.ia2.Accessible2;
-import org.eclipse.actf.accservice.swtbridge.util.FlashUtil;
+import org.eclipse.actf.util.win32.FlashUtil;
 import org.eclipse.actf.util.win32.HighlightComposite;
 import org.eclipse.actf.util.win32.OverlayLabel;
 import org.eclipse.actf.visualization.gui.GuiImages;

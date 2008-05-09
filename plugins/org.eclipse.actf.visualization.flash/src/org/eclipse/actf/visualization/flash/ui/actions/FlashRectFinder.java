@@ -12,6 +12,7 @@ package org.eclipse.actf.visualization.flash.ui.actions;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.ole.win32.OLE;
 import org.eclipse.swt.ole.win32.OleAutomation;
 import org.eclipse.swt.ole.win32.Variant;
 import org.eclipse.swt.widgets.Display;
@@ -19,8 +20,9 @@ import org.eclipse.swt.widgets.Shell;
 
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
-import org.eclipse.actf.accservice.swtbridge.util.FlashUtil;
-import org.eclipse.actf.accservice.swtbridge.util.HTMLElementUtil;
+import org.eclipse.actf.util.win32.FlashUtil;
+import org.eclipse.actf.util.win32.HTMLElementUtil;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.visualization.flash.Messages;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
@@ -74,7 +76,8 @@ public class FlashRectFinder {
 	}
 	
 	private void reCalculateRect() {
-        Variant varFlash = HTMLElementUtil.getHtmlElementFromObject(playerWindow);
+		IDispatch idisp = HTMLElementUtil.getHtmlElementFromObject(playerWindow);
+        Variant varFlash = new Variant((int) idisp.getPtr(), OLE.VT_DISPATCH);
         if( null != varFlash ) {
         	OleAutomation automation = varFlash.getAutomation();
         	if( null != automation ) {

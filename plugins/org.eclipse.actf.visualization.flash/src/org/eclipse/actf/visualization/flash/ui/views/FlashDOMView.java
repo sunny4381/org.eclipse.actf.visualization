@@ -17,11 +17,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
-import org.eclipse.actf.accservice.swtbridge.util.FlashUtil;
 import org.eclipse.actf.model.flash.FlashAdjust;
 import org.eclipse.actf.model.flash.FlashDetect;
 import org.eclipse.actf.model.flash.FlashNode;
 import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.util.win32.FlashUtil;
+import org.eclipse.actf.util.win32.IAccessibleObject;
 import org.eclipse.actf.visualization.flash.FlashImages;
 import org.eclipse.actf.visualization.flash.Messages;
 import org.eclipse.actf.visualization.flash.ui.properties.FlashNodePropertySource;
@@ -115,7 +116,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 	}
 
     public void adjustID() {
-        AccessibleObject[] results = FlashUtil.getFlashElements(MSAAViewRegistory.rootObject);
+        IAccessibleObject[] results = FlashUtil.getFlashElements(MSAAViewRegistory.rootObject);
         for( int i=0; i<results.length; i++ ) {
             FlashAdjust flashAdjust = new FlashAdjust(results[i]);
             flashAdjust.adjust("adesigner_flash_object"+i); //$NON-NLS-1$
@@ -426,7 +427,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
                 Object[] objects = (Object[])inputElement;
                 for( int i=0; i<objects.length; i++ ) {
                     if( objects[i] instanceof AccessibleObject ) {
-                        AccessibleObject accObject= (AccessibleObject)objects[i];
+                        IAccessibleObject accObject= (AccessibleObject)objects[i];
                         FlashPlayer player = FlashPlayer.getPlayerFromObject(accObject);
                         if( null != player ) {
                             FlashNode rootNode = player.getRootNode();

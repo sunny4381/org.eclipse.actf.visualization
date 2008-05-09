@@ -17,7 +17,8 @@ import java.util.Vector;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
-import org.eclipse.actf.accservice.swtbridge.util.FlashUtil;
+import org.eclipse.actf.util.win32.FlashUtil;
+import org.eclipse.actf.util.win32.IAccessibleObject;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
@@ -76,11 +77,11 @@ public class MSAATreeContentProvider implements ITreeContentProvider {
             elements = getChildren(inputElement);
         }
         if (hideHtml) {
-        	ArrayList<AccessibleObject> result = new ArrayList<AccessibleObject>();
+        	ArrayList<IAccessibleObject> result = new ArrayList<IAccessibleObject>();
         	for(Object i : elements){
-        		if(i instanceof AccessibleObject){
-        			AccessibleObject[] flashElements = FlashUtil.getFlashElements((AccessibleObject)i);
-        			for(AccessibleObject j : flashElements){
+        		if(i instanceof IAccessibleObject){
+        			IAccessibleObject[] flashElements = FlashUtil.getFlashElements((IAccessibleObject)i);
+        			for(IAccessibleObject j : flashElements){
         				result.add(j);
         			}
         		}
