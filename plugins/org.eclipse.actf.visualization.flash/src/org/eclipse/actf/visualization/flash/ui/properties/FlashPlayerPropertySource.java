@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.actf.model.flash.FlashPlayer;
-import org.eclipse.swt.ole.win32.OLE;
-import org.eclipse.swt.ole.win32.OleAutomation;
-import org.eclipse.swt.ole.win32.Variant;
+import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
@@ -24,7 +22,7 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
 
 public class FlashPlayerPropertySource implements IPropertySource {
 
-	private OleAutomation automation;
+	private IDispatch idispFlash;
 	
 	public static final String
 	    PID_VERSION = "VERSION", //$NON-NLS-1$
@@ -71,7 +69,7 @@ public class FlashPlayerPropertySource implements IPropertySource {
 	};
 	
 	public FlashPlayerPropertySource(FlashPlayer flashPlayer) {
-        this.automation = flashPlayer.getAutomation();
+        this.idispFlash = flashPlayer.getIDispatch();
 	}
 
 	public Object getEditableValue() {
@@ -129,18 +127,16 @@ public class FlashPlayerPropertySource implements IPropertySource {
 			propertyName = STR_WMODE;
 		}
 		if( null != variableName ) {
-            int[] idGetVariable = automation.getIDsOfNames(new String[]{"GetVariable"}); //$NON-NLS-1$
-            if( null!=idGetVariable ) {
-                Variant varImposed = automation.invoke(idGetVariable[0],new Variant[]{new Variant(variableName)}); //$NON-NLS-1$
-                strValue = getVariantString(varImposed);
-            }
+			Object objValue = idispFlash.invoke1("GetVariable", variableName);
+			if (objValue != null) {
+				strValue = (String) objValue;
+			}
 		}
 		else if( null != propertyName ) {
-            int[] idProperty = automation.getIDsOfNames(new String[]{propertyName});
-            if( null != idProperty ) {
-                Variant varValue = automation.getProperty(idProperty[0]);
-                strValue = getVariantString(varValue);
-            }
+			Object objValue = idispFlash.get("propertyName");
+			if (objValue != null) {
+				strValue = (String) objValue;
+			}
 		}
 		return strValue;//null==strValue ? "null" : strValue; //$NON-NLS-1$
 	}
@@ -154,20 +150,4 @@ public class FlashPlayerPropertySource implements IPropertySource {
 
 	public void setPropertyValue(Object id, Object value) {
 	}
-
-    private static String getVariantString(Variant var) {
-        if( null != var ) {
-            switch( var.getType() ) {
-                case OLE.VT_BSTR:
-                    return var.getString();
-                case OLE.VT_EMPTY:
-                    break;
-                case OLE.VT_I4:
-                    return Integer.toString(var.getInt());
-                default:
-                    return var.toString();
-            }
-        }
-        return ""; //$NON-NLS-1$
-    }
 }

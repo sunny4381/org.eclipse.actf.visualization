@@ -19,8 +19,6 @@ import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.model.flash.FlashNode;
 import org.eclipse.actf.model.flash.util.ASObject;
 import org.eclipse.actf.visualization.gui.msaa.properties.AttributePropertySource;
-import org.eclipse.swt.ole.win32.OLE;
-import org.eclipse.swt.ole.win32.Variant;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
@@ -194,21 +192,18 @@ public class FlashNodePropertySource implements IPropertySource {
 				methodName = "get_accDefaultAction"; //$NON-NLS-1$
 			}
 			if( null != methodName ) {
-				Variant value = flashNode.getPlayer().callMethod(flashNode.getTarget(),methodName,new Variant(0)); //$NON-NLS-1$
-				if( null != value ) {
-					switch( value.getType() ) {
-					case OLE.VT_BSTR:
-						strValue = value.getString();
-						break;
-					case OLE.VT_I4:
-						int intValue = value.getInt();
+				Object value = flashNode.getPlayer().callMethod(flashNode.getTarget(),methodName, 0); //$NON-NLS-1$
+				if (null != value ) {
+					if (value instanceof String) {
+						strValue = (String) value;
+					} else if (value instanceof Integer) {
+						int intValue = (Integer) value;
 						if( PID_ACC_ROLE.equals(id) ) {
 							strValue = MSAA.getRoleText(intValue);
 						}
 						else if( PID_ACC_STATE.equals(id) ) {
 							strValue = MSAA.getStateText(intValue);
 						}
-						break;
 					}
 				}
 			}
