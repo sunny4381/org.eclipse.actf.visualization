@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Vector;
 
-import org.eclipse.actf.model.IModelService;
 import org.eclipse.actf.model.dom.html.impl.SHDocument;
 import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
+import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.util.DebugPrintUtil;
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.html2view.Html2ViewMapMaker;
