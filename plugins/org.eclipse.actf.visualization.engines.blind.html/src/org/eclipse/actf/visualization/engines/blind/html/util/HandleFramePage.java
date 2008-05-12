@@ -17,7 +17,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URL;
 
-import org.eclipse.actf.model.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.w3c.dom.Document;

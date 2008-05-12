@@ -12,7 +12,7 @@ package org.eclipse.actf.visualization.blind;
 
 import java.io.File;
 
-import org.eclipse.actf.model.IModelService;
+import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.visualization.blind.ui.internal.Messages;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;

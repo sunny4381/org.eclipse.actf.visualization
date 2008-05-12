@@ -5,10 +5,9 @@ Bundle-SymbolicName: org.eclipse.actf.visualization.engines.blind.html;singleton
 Bundle-Version: 0.0.1
 Bundle-Activator: org.eclipse.actf.visualization.engines.blind.html.HtmlVizPlugin
 Bundle-Vendor: Eclipse.org
-Bundle-Localization: plugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.actf.common,
+ org.eclipse.actf.visualization,
  org.eclipse.actf.visualization.eval,
  org.eclipse.actf.visualization.engines.blind,
  org.eclipse.actf.visualization.engines.voicebrowser,

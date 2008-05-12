@@ -8,4 +8,4 @@ Export-Package: org.eclipse.actf.visualization,
  org.eclipse.actf.visualization.ui
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.actf.common
+ org.eclipse.actf.mediator;visibility:=reexport

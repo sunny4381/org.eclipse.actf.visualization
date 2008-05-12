@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
-import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
+import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.editor.browser.CurrentStyles;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;

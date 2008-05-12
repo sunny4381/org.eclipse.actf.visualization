@@ -16,9 +16,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IWebBrowserACTF;
-import org.eclipse.actf.model.ModelServiceUtils;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizationAttributeInfo;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -249,7 +249,7 @@ public class ElementViewerJFace {
 
         prb.highlight(tmpV);
         
-        IModelService dataSource =ModelServiceUtils.getActiveModelService();
+        IModelService dataSource = ModelServiceUtils.getActiveModelService();
         if(dataSource!=null && dataSource instanceof IWebBrowserACTF){
             ((IWebBrowserACTF)dataSource).hightlightElementByAttribute(selected.getAttribtueName(), selected.getAttributeValue());
         }

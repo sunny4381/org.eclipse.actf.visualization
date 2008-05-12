@@ -13,9 +13,9 @@ package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
 
 import java.util.List;
 
-import org.eclipse.actf.mediator.Mediator;
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.swt.SWT;
@@ -155,7 +155,7 @@ public class ViewerPanelJFace implements IViewerPanel {
     }
     
     private void recoveryHighlight(){
-        IModelService dataSource = Mediator.getInstance().getActiveModelService();
+        IModelService dataSource = ModelServiceUtils.getActiveModelService();
         
         if(dataSource != null &&dataSource instanceof IWebBrowserACTF){
             ((IWebBrowserACTF)dataSource).recoveryHighlight();

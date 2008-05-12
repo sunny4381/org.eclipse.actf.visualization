@@ -14,7 +14,7 @@ package org.eclipse.actf.visualization.gui.targetdata;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.IModelService;
+import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.util.win32.OverlayWindow;
 import org.eclipse.actf.util.win32.WindowUtil;
 import org.eclipse.actf.visualization.gui.common.TargetWindowDataProvider;

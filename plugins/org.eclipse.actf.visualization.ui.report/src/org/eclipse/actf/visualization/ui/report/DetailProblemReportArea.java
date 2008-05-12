@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.ui.report;
 
-import org.eclipse.actf.model.IModelService;
+import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableViewer;

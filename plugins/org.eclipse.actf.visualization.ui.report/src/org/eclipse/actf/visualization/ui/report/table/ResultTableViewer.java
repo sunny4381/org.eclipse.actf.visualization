@@ -13,8 +13,8 @@ package org.eclipse.actf.visualization.ui.report.table;
 import java.io.File;
 import java.util.Vector;
 
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;

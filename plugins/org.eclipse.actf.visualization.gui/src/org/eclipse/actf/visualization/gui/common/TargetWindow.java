@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.visualization.gui.common;
 
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.util.win32.WindowUtil;
 import org.eclipse.actf.visualization.gui.targetdata.GuiTargetWindowData;
 import org.eclipse.actf.visualization.gui.util.WebBrowserUtil;

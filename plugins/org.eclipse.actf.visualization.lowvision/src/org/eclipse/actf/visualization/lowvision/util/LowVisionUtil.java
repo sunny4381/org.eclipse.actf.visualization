@@ -18,11 +18,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Vector;
 
-import org.eclipse.actf.model.IWebBrowserACTF;
 import org.eclipse.actf.model.dom.html.impl.SHDocument;
 import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
-import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
+import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.editor.browser.CurrentStyles;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
 import org.w3c.dom.Element;

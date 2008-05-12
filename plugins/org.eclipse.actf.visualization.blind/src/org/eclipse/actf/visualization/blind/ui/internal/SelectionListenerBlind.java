@@ -16,9 +16,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.actf.mediator.Mediator;
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
@@ -43,8 +43,7 @@ public class SelectionListenerBlind implements ISelectionListener {
 			return;
 		}
 
-		IModelService modelService = Mediator.getInstance()
-				.getActiveModelService();
+		IModelService modelService = ModelServiceUtils.getActiveModelService();
 
 		// TODO
 		SrcViewerForPT srcViewerForPT = SrcViewerForPT.getInstance();

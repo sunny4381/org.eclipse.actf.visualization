@@ -14,8 +14,9 @@ import java.io.File;
 import java.util.List;
 
 import org.eclipse.actf.mediator.Mediator;
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.ModelServiceImageCreator;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.ModelServiceImageCreator;
+import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
 import org.eclipse.actf.visualization.engines.lowvision.io.ImageDumpUtil;
@@ -97,7 +98,7 @@ public class PartControlRoom implements IVisualizationConst {
 		roomView.clearImage();
 		_shell.getDisplay().update();
 
-		IModelService modelService = mediator.getActiveModelService();
+		IModelService modelService = ModelServiceUtils.getActiveModelService();
 		if (modelService == null) {
 			return;
 		}

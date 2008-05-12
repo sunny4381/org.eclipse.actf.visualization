@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.gui.common;
 
-import org.eclipse.actf.model.IModelService;
+import org.eclipse.actf.model.ui.IModelService;
 
 
 

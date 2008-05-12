@@ -14,10 +14,10 @@ package org.eclipse.actf.visualization.lowvision.ui.internal;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.mediator.Mediator;
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IModelServiceScrollManager;
-import org.eclipse.actf.model.ModelServiceSizeInfo;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.IModelServiceScrollManager;
+import org.eclipse.actf.model.ui.ModelServiceSizeInfo;
+import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.eval.problem.IPositionSize;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
@@ -65,8 +65,6 @@ public class LowVisionSimulationView {
 	private List<IPositionSize> _highlightTargetList = new ArrayList<IPositionSize>();
 
 	private LowVisionToolbar _lowVisionToolbar;
-
-	private Mediator mediator = Mediator.getInstance();
 
 	private IModelService target;
 
@@ -138,8 +136,7 @@ public class LowVisionSimulationView {
 
 					int ieHeight = Integer.MIN_VALUE;
 
-					IModelService modelService = mediator
-							.getActiveModelService();
+					IModelService modelService = ModelServiceUtils.getActiveModelService();
 					if (modelService != null) {
 						ieHeight = modelService.getScrollManager()
 								.getSize(true).getWholeSizeY();

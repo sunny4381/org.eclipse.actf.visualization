@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Vector;
 
-import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
+import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionCommon;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;

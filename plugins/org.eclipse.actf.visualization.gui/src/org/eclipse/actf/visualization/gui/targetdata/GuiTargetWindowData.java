@@ -13,12 +13,14 @@ package org.eclipse.actf.visualization.gui.targetdata;
 
 import java.io.File;
 
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IModelServiceScrollManager;
-import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.IModelServiceHolder;
+import org.eclipse.actf.model.ui.IModelServiceScrollManager;
+import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.util.win32.WindowUtil;
 import org.eclipse.actf.visualization.gui.Messages;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorPart;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
@@ -32,9 +34,43 @@ public class GuiTargetWindowData implements IModelService {
     private int hwnd;
     private boolean isBrowser;
     
+    private class DummyModelServiceHolder implements IModelServiceHolder{
+
+    	private GuiTargetWindowData guiTarget;
+    	
+		public DummyModelServiceHolder(GuiTargetWindowData guiTarget) {
+			this.guiTarget = guiTarget;
+		}
+    	
+		/* (non-Javadoc)
+		 * @see org.eclipse.actf.model.IModelServiceHolder#getEditorPart()
+		 */
+		public IEditorPart getEditorPart() {
+			return null;
+		}
+
+		/* (non-Javadoc)
+		 * @see org.eclipse.actf.model.IModelServiceHolder#getModelService()
+		 */
+		public IModelService getModelService() {
+			return guiTarget;
+		}
+
+		/* (non-Javadoc)
+		 * @see org.eclipse.actf.model.IModelServiceHolder#setTitle(java.lang.String)
+		 */
+		public void setEditorTitle(String title) {
+			//do nothing
+		}
+    	
+    }
+    
+    private DummyModelServiceHolder holder;
+    
     public GuiTargetWindowData(int hwnd, boolean isBrowser) {
         this.hwnd = hwnd;
         this.isBrowser = isBrowser;
+        this.holder = new DummyModelServiceHolder(this);
     }
 
     /**
@@ -177,6 +213,13 @@ public class GuiTargetWindowData implements IModelService {
 
 	public ImagePositionInfo[] getAllImagePosition() {
 		return new ImagePositionInfo[0];
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.model.IModelService#getModelServiceHolder()
+	 */
+	public IModelServiceHolder getModelServiceHolder() {
+		return holder;
 	}
     
 

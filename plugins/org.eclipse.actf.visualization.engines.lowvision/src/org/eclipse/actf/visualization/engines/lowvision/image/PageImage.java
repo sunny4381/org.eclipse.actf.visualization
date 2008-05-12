@@ -14,7 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.PrintWriter;
 import java.util.Vector;
 
-import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
+import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionCommon;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.character.CandidateCharacter;

@@ -22,11 +22,12 @@ import java.util.Vector;
 import org.eclipse.actf.mediator.IMediatorEventListener;
 import org.eclipse.actf.mediator.Mediator;
 import org.eclipse.actf.mediator.MediatorEvent;
-import org.eclipse.actf.model.IModelService;
-import org.eclipse.actf.model.IWebBrowserACTF;
-import org.eclipse.actf.model.ModelServiceImageCreator;
-import org.eclipse.actf.model.ui.editor.ImagePositionInfo;
+import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.ImagePositionInfo;
+import org.eclipse.actf.model.ui.ModelServiceImageCreator;
 import org.eclipse.actf.model.ui.editor.browser.CurrentStyles;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.TargetPage;
 import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
@@ -271,7 +272,7 @@ public class PartControlLowVision implements ISelectionListener,
 	}
 
 	public void saveReport() {
-		IModelService modelService = mediator.getActiveModelService();
+		IModelService modelService = ModelServiceUtils.getActiveModelService();
 		if (is1stSimulateDone && !isBInSimulate() && modelService != null) {
 			this._saveReportLowVision.doSave(modelService.getURL(), checkResult
 					.getProblemList(), visResultFile, reportImageFile);
@@ -320,7 +321,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 		checkThreads = new Vector<ExtractCheckThread>();
 
-		IModelService modelService = mediator.getActiveModelService();
+		IModelService modelService = ModelServiceUtils.getActiveModelService();
 		if (modelService == null) {
 			this._shell.setCursor(new Cursor(_shell.getDisplay(),
 					SWT.CURSOR_ARROW));
@@ -549,7 +550,7 @@ public class PartControlLowVision implements ISelectionListener,
 		lowVisionView.clearImage();
 		checkThreads = new Vector<ExtractCheckThread>();
 
-		IModelService modelService = mediator.getActiveModelService();
+		IModelService modelService = ModelServiceUtils.getActiveModelService();
 		// TODO null check?
 
 		if (frameUrl.length == 0) {
