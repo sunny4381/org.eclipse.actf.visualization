@@ -20,8 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
-import org.eclipse.actf.util.win32.FlashUtil;
-import org.eclipse.actf.util.win32.HTMLElementUtil;
+import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.visualization.flash.Messages;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
@@ -39,7 +38,8 @@ public class FlashRectFinder {
             	viewVisible = null != MSAAViewRegistory.showView(MSAAViewRegistory.FlashDOMView_ID,false);
             	if( viewVisible ) {
                     for (AccessibleObject accObject = (AccessibleObject) object; null != accObject; accObject = accObject.getCachedParent()) {
-        		        if (FlashUtil.isFlash(accObject)) {
+        		        
+                    	if (FlashMSAAUtil.isFlash(accObject.getPtr())) {
         		            playerWindow = accObject;
         		        }
         		        if (null == msaaRect) {
@@ -76,7 +76,8 @@ public class FlashRectFinder {
 	}
 	
 	private void reCalculateRect() {
-		IDispatch idisp = HTMLElementUtil.getHtmlElementFromObject(playerWindow);
+		System.err.println("TODO : HTML element can't be taken from window handle.");
+		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromPtr(playerWindow.getPtr());
         Variant varFlash = new Variant((int) idisp.getPtr(), OLE.VT_DISPATCH);
         if( null != varFlash ) {
         	OleAutomation automation = varFlash.getAutomation();

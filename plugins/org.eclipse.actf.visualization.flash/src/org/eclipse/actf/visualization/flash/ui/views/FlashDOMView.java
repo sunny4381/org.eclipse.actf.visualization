@@ -17,12 +17,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
+import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
 import org.eclipse.actf.model.flash.FlashAdjust;
 import org.eclipse.actf.model.flash.FlashDetect;
 import org.eclipse.actf.model.flash.FlashNode;
 import org.eclipse.actf.model.flash.FlashPlayer;
-import org.eclipse.actf.util.win32.FlashUtil;
-import org.eclipse.actf.util.win32.IAccessibleObject;
+import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.visualization.flash.FlashImages;
 import org.eclipse.actf.visualization.flash.Messages;
 import org.eclipse.actf.visualization.flash.ui.properties.FlashNodePropertySource;
@@ -116,7 +116,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 	}
 
     public void adjustID() {
-        IAccessibleObject[] results = FlashUtil.getFlashElements(MSAAViewRegistory.rootObject);
+    	FlashPlayer[] results = FlashMSAAUtil.getFlashPlayers(MSAAViewRegistory.rootObject.getWindow());
         for( int i=0; i<results.length; i++ ) {
             FlashAdjust flashAdjust = new FlashAdjust(results[i]);
             flashAdjust.adjust("adesigner_flash_object"+i); //$NON-NLS-1$
@@ -128,7 +128,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
         AccessibleObject rootObject = MSAAViewRegistory.getRootObject();
         if( null != rootObject ) {
             adjustID();
-            viewer.setInput(FlashUtil.getFlashElements(rootObject));
+            FlashPlayer[] players = FlashMSAAUtil.getFlashPlayers(rootObject.getWindow());
+            viewer.setInput(players);
             FlashDetect.showDialog();
         }
     }
@@ -363,7 +364,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 
         scanWindowlessAction = new Action(Messages.getString("flash.scanWindowless"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
             public void run() {
-                FlashUtil.setScanAll(scanWindowlessAction.isChecked());
+                FlashMSAAUtil.setScanAll(scanWindowlessAction.isChecked());
                 MSAAViewRegistory.refreshRootObject();
             }
         };
@@ -375,7 +376,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 		scanWindowlessAction.setChecked(isDebug);
 		debugMode = isDebug;
 		FlashNodePropertySource.setDebugMode(isDebug);
-		FlashUtil.setScanAll(isDebug);
+		FlashMSAAUtil.setScanAll(isDebug);
 		MSAAViewRegistory.refreshRootObject();
 	}
 
@@ -427,19 +428,19 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
                 Object[] objects = (Object[])inputElement;
                 for( int i=0; i<objects.length; i++ ) {
                     if( objects[i] instanceof AccessibleObject ) {
-                        IAccessibleObject accObject= (AccessibleObject)objects[i];
-                        FlashPlayer player = FlashPlayer.getPlayerFromObject(accObject);
-                        if( null != player ) {
-                            FlashNode rootNode = player.getRootNode();
-                            if( null != rootNode ) {
-                                if( FlashUtil.isInvisibleFlash(accObject) ) {
-                                    player.isVisible = false;
-                                }
-                                elements.add(rootNode);
+                    	// TODO
+                    } else if (objects[i] instanceof FlashPlayer) {
+                    	FlashPlayer player = (FlashPlayer) objects[i];
+
+                        FlashNode rootNode = player.getRootNode();
+                        if( null != rootNode ) {
+                            if( FlashMSAAUtil.isInvisibleFlash(player.getAccessible()) ) {
+                                player.isVisible = false;
                             }
-                            else {
-                                elements.add(player);
-                            }
+                            elements.add(rootNode);
+                        }
+                        else {
+                            elements.add(player);
                         }
                     }
                 }

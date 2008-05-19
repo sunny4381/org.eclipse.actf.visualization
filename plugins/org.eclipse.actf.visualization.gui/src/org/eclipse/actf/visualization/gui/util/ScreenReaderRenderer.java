@@ -17,8 +17,7 @@ import org.eclipse.actf.accservice.swtbridge.IA2;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.accservice.swtbridge.ia2.Accessible2;
 import org.eclipse.actf.accservice.swtbridge.ia2.IA2Util;
-import org.eclipse.actf.util.win32.FlashUtil;
-import org.eclipse.actf.util.win32.HTMLElementUtil;
+import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.visualization.gui.Messages;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
 import org.eclipse.actf.visualization.gui.ui.views.MSAATreeContentProvider;
@@ -138,10 +137,10 @@ public class ScreenReaderRenderer {
                             if( !(cancel || text.isDisposed()) ) {
                                 int hwnd = accObject.getWindow();
                                 if( hwnd != lastHwnd ) {
-                                    if( FlashUtil.isFlash(accObject) ) {
+                                    if( FlashMSAAUtil.isFlash(accObject.getPtr()) ) {
                                         String wmode = null;
                                         if( 0 == hwnd ) {
-                                            wmode = HTMLElementUtil.getHtmlAttribute(accObject,"WMode"); //$NON-NLS-1$
+                                            wmode = FlashMSAAUtil.getHtmlAttribute(accObject.getPtr(),"WMode"); //$NON-NLS-1$
                                         }
                                         if( null == wmode ) {
                                             AccessibleObject parentObject = accObject.getCachedParent();
@@ -191,7 +190,7 @@ public class ScreenReaderRenderer {
 		String outText = null==accName ? "" : accName.replace('\u00A0',' ').trim(); //$NON-NLS-1$
 		int accState = accObject.getAccState();
 		int accRole = accObject.getAccRole();
-		boolean isFlash = FlashUtil.isFlash(accObject);
+		boolean isFlash = FlashMSAAUtil.isFlash(accObject.getPtr());
 //        boolean isBrowser = WebBrowserUtil.isBrowser(accObject);
         boolean isBrowser = isBrowserContent(accObject.getClassName());
 		String prefix="", postfix=""; //$NON-NLS-1$ //$NON-NLS-2$

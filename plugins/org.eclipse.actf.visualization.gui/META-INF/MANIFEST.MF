@@ -12,7 +12,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.accservice.swtbridge;visibility:=reexport,
  org.eclipse.actf.common,
  org.eclipse.actf.ai.voice,
- org.eclipse.actf.model.ui
+ org.eclipse.actf.model.ui,
+ org.eclipse.actf.model.flash,
+ org.eclipse.actf.util.win32
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.visualization.gui,
  org.eclipse.actf.visualization.gui.common,

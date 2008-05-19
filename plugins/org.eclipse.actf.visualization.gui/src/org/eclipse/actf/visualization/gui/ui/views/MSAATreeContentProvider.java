@@ -16,96 +16,108 @@ import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
+import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
-import org.eclipse.actf.util.win32.FlashUtil;
-import org.eclipse.actf.util.win32.IAccessibleObject;
+import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-
+import org.eclipse.swt.ole.win32.OLE;
+import org.eclipse.swt.ole.win32.Variant;
 
 public class MSAATreeContentProvider implements ITreeContentProvider {
 
-    private boolean hideHtml = false;
-    private boolean showOffscreen = false;
-    
-	private static MSAATreeContentProvider instance =  new MSAATreeContentProvider();
-	
+	private boolean hideHtml = false;
+	private boolean showOffscreen = false;
+
+	private static MSAATreeContentProvider instance = new MSAATreeContentProvider();
+
 	public static MSAATreeContentProvider getDefault() {
-		if( null == instance ) {
-			instance =  new MSAATreeContentProvider();
+		if (null == instance) {
+			instance = new MSAATreeContentProvider();
 		}
 		return instance;
 	}
 
-    public Object[] getChildren(Object parentElement) {
-        if (parentElement instanceof AccessibleObject) {
-            AccessibleObject[] accChildren = ((AccessibleObject) parentElement).getChildren();
-            List<AccessibleObject> childList = new Vector<AccessibleObject>();
-            for (int i = 0; i < accChildren.length; i++) {
-                AccessibleObject accChild = accChildren[i];
-                if( null != accChild ) {
-                    int accState = accChild.getAccState();
-                    if ( 0 == (accState & MSAA.STATE_INVISIBLE)) {
-                        childList.add(accChild);
-                    }
-                    else if ( showOffscreen && 0 != (accState & MSAA.STATE_OFFSCREEN)) {
-                        childList.add(accChild);
-                    }
-                }
-            }
-            return childList.toArray();
-        }
-        return new Object[0];
-    }
+	public Object[] getChildren(Object parentElement) {
+		if (parentElement instanceof AccessibleObject) {
+			AccessibleObject[] accChildren = ((AccessibleObject) parentElement)
+					.getChildren();
+			List<AccessibleObject> childList = new Vector<AccessibleObject>();
+			for (int i = 0; i < accChildren.length; i++) {
+				AccessibleObject accChild = accChildren[i];
+				if (null != accChild) {
+					int accState = accChild.getAccState();
+					if (0 == (accState & MSAA.STATE_INVISIBLE)) {
+						childList.add(accChild);
+					} else if (showOffscreen
+							&& 0 != (accState & MSAA.STATE_OFFSCREEN)) {
+						childList.add(accChild);
+					}
+				}
+			}
+			return childList.toArray();
+		}
+		return new Object[0];
+	}
 
-    public Object getParent(Object element) {
-        return null;
-    }
+	public Object getParent(Object element) {
+		return null;
+	}
 
-    public boolean hasChildren(Object element) {
-        if (element instanceof AccessibleObject) {
-            return ((AccessibleObject) element).getChildCount() > 0;
-        }
-        return false;
-    }
+	public boolean hasChildren(Object element) {
+		if (element instanceof AccessibleObject) {
+			return ((AccessibleObject) element).getChildCount() > 0;
+		}
+		return false;
+	}
 
-    public Object[] getElements(Object inputElement) {
-        Object[] elements;
-        if (inputElement instanceof Object[]) {
-            elements = (Object[]) inputElement;
-        } else {
-            elements = getChildren(inputElement);
-        }
-        if (hideHtml) {
-        	ArrayList<IAccessibleObject> result = new ArrayList<IAccessibleObject>();
-        	for(Object i : elements){
-        		if(i instanceof IAccessibleObject){
-        			IAccessibleObject[] flashElements = FlashUtil.getFlashElements((IAccessibleObject)i);
-        			for(IAccessibleObject j : flashElements){
-        				result.add(j);
-        			}
-        		}
-        	}
-            return result.toArray();
-        }
-        return elements;
-    }
+	public Object[] getElements(Object inputElement) {
+		Object[] elements;
+		if (inputElement instanceof Object[]) {
+			elements = (Object[]) inputElement;
+		} else {
+			elements = getChildren(inputElement);
+		}
+		if (hideHtml) {
+			ArrayList<AccessibleObject> result = new ArrayList<AccessibleObject>();
+			for (Object i : elements) {
+				if (i instanceof AccessibleObject) {
 
-    public void dispose() {
-    }
+					FlashPlayer[] players = FlashMSAAUtil
+							.getFlashPlayers(((AccessibleObject) i).getWindow());
+					
+					AccessibleObject[] flashElements = new AccessibleObject[players.length];
+					for (int j = 0; j < players.length; j++) {
+						Variant v = new Variant(players[j].getAccessible().getPtr(), OLE.VT_DISPATCH);  
+						flashElements[j] = AccessibleObjectFactory
+								.getAccessibleObjectFromVariant(v);
+					}
+					for (AccessibleObject j : flashElements) {
+						result.add(j);
+					}
+				}
+			}
+			return result.toArray();
+		}
+		return elements;
+	}
 
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-        if (oldInput instanceof Object[]) {
-            oldInput = ((Object[]) oldInput)[0];
-        }
-        if (oldInput instanceof AccessibleObject) {
-            try {
-                ((AccessibleObject) oldInput).dispose();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	public void dispose() {
+	}
+
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+		if (oldInput instanceof Object[]) {
+			oldInput = ((Object[]) oldInput)[0];
+		}
+		if (oldInput instanceof AccessibleObject) {
+			try {
+				((AccessibleObject) oldInput).dispose();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	public boolean isHideHtml() {
 		return hideHtml;
@@ -121,6 +133,6 @@ public class MSAATreeContentProvider implements ITreeContentProvider {
 
 	public void setShowOffscreen(boolean showOffscreen) {
 		this.showOffscreen = showOffscreen;
-		FlashUtil.setShowOffscreen(showOffscreen);
+		FlashMSAAUtil.setShowOffscreen(showOffscreen);
 	}
 }
