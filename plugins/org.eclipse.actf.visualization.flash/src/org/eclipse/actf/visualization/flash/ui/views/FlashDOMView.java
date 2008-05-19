@@ -18,10 +18,10 @@ import java.util.List;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
-import org.eclipse.actf.model.flash.FlashAdjust;
-import org.eclipse.actf.model.flash.FlashDetect;
 import org.eclipse.actf.model.flash.FlashNode;
 import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.util.FlashAdjust;
+import org.eclipse.actf.model.flash.util.FlashDetect;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.visualization.flash.FlashImages;
 import org.eclipse.actf.visualization.flash.Messages;

@@ -18,7 +18,7 @@ import java.util.Set;
 
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.model.flash.FlashNode;
-import org.eclipse.actf.model.flash.util.ASObject;
+import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.visualization.gui.msaa.properties.AttributePropertySource;
 import org.eclipse.swt.ole.win32.OLE;
 import org.eclipse.swt.ole.win32.Variant;
