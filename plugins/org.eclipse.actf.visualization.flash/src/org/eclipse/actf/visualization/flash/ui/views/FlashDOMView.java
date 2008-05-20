@@ -201,19 +201,19 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 												Messages
 														.getString("flash.error_target_length"), new Object[] { new Integer(flashNode.getLevel()) }) + "\n" + flashNode.getTarget()); //$NON-NLS-1$ //$NON-NLS-2$
 					}
-					int x = flashNode.getX();
+					double x = flashNode.getX();
 					if (x >= flashRight + MARGIN || x < 0) {
 						continue;
 					}
-					int y = flashNode.getY();
+					double y = flashNode.getY();
 					if (y >= flashBottom + MARGIN) {
 						continue;
 					}
-					int w = flashNode.getWidth();
+					double w = flashNode.getWidth();
 					if (x + w <= flashLeft - MARGIN) {
 						continue;
 					}
-					int h = flashNode.getHeight();
+					double h = flashNode.getHeight();
 					if (y + h <= flashTop - MARGIN) {
 						continue;
 					}
@@ -250,7 +250,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 			}
 		};
 
-		private boolean isMatch(int x, int y, int w, int h) {
+		private boolean isMatch(double x, double y, double w, double h) {
 			return flashLeft - MARGIN <= x && x < flashLeft + MARGIN
 					&& flashTop - MARGIN <= y && y < flashTop + MARGIN
 					&& flashRight - MARGIN <= x + w

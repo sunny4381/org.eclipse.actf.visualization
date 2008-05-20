@@ -146,12 +146,14 @@ public class FlashNodePropertySource implements IPropertySource {
 		// }
 		else if (PID_LOCATION.equals(id)) {
 			try {
-				int x = flashNode.getX(); //$NON-NLS-1$
-				int y = flashNode.getY(); //$NON-NLS-1$
-				int w = flashNode.getWidth(); //$NON-NLS-1$
-				int h = flashNode.getHeight(); //$NON-NLS-1$
-				strValue = x
-						+ ", " + y + ", " + (x + w) + ", " + (y + h) + " (width=" + w + ", height=" + h + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+				double x = flashNode.getX(); //$NON-NLS-1$
+				double y = flashNode.getY(); //$NON-NLS-1$
+				double w = flashNode.getWidth(); //$NON-NLS-1$
+				double h = flashNode.getHeight(); //$NON-NLS-1$
+				if (Double.NaN == x) {
+					strValue = x
+							+ ", " + y + ", " + (x + w) + ", " + (y + h) + " (width=" + w + ", height=" + h + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+				}
 			} catch (Exception e) {
 			}
 		} else if (PID_WMODE.equals(id)) {
@@ -206,12 +208,12 @@ public class FlashNodePropertySource implements IPropertySource {
 					}
 				}
 			}
-		}
-		if (null == strValue) {
-			System.out.println("FlashNodePropertySource: "+id.toString());
-			//TODO
-			//strValue = flashNode.getString(id.toString());
-		}
+		} else if (null == strValue) {
+			Object obj = flashNode.getObject(id.toString());
+			if (null != obj) {
+				strValue = obj.toString();
+			}
+		}		
 		return strValue;
 	}
 
