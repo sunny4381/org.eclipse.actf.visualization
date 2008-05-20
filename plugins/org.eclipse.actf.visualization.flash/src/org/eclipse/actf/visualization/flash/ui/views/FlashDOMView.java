@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
-import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
 import org.eclipse.actf.model.flash.FlashNode;
 import org.eclipse.actf.model.flash.FlashPlayer;
 import org.eclipse.actf.model.flash.util.FlashAdjust;
@@ -159,9 +158,9 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
                 public void run() {
                     Object currentInput = viewer.getInput();
                     if( currentInput instanceof Object[] ) {
-                        List list = Arrays.asList((Object[])currentInput);
+                        List<Object> list = Arrays.asList((Object[])currentInput);
                         if( !list.contains(objUnknown) ) {
-                            ArrayList newList = new ArrayList(list);
+                            ArrayList<Object> newList = new ArrayList<Object>(list);
                             newList.add(objUnknown);
                             viewer.setInput(newList.toArray());
                         }
@@ -423,7 +422,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 		}
 
 		public Object[] getElements(Object inputElement) {
-            List elements = new ArrayList();
+            List<Object> elements = new ArrayList<Object>();
             if( inputElement instanceof Object[] ){
                 Object[] objects = (Object[])inputElement;
                 for( int i=0; i<objects.length; i++ ) {
@@ -468,7 +467,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
                 if( -1 != accRole ) {
                     return GuiImages.roleIcon(accRole);
                 }
-                else if( flashNode.getAccInfo().hasOnRelease() ) {
+                else if( flashNode.hasOnRelease() ) {
                     iconType = FlashImages.TYPE_button;
                 }
             }
