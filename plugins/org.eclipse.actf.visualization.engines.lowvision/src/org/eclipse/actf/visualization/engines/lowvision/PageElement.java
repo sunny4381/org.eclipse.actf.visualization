@@ -14,7 +14,7 @@ package org.eclipse.actf.visualization.engines.lowvision;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import org.eclipse.actf.model.ui.editor.browser.CurrentStyles;
+import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.visualization.engines.lowvision.checker.W3CColorChecker;
 import org.eclipse.actf.visualization.engines.lowvision.color.ColorCSS;
 import org.eclipse.actf.visualization.engines.lowvision.color.ColorException;
@@ -63,7 +63,7 @@ public class PageElement {
 
 	private String id = null; // eclipse-actf-id
 
-	private CurrentStyles style = null;
+	private ICurrentStyles style = null;
 
 	private String tagName = null;
 
@@ -80,7 +80,7 @@ public class PageElement {
 
 	private int backgroundColor = UNSET_COLOR;
 
-	public PageElement(String _key, CurrentStyles _cs) throws ImageException {
+	public PageElement(String _key, ICurrentStyles _cs) throws ImageException {
 		id = _key;
 		style = _cs;
 

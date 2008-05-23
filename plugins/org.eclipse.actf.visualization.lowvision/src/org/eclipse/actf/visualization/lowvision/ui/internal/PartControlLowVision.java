@@ -25,7 +25,7 @@ import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.ModelServiceImageCreator;
-import org.eclipse.actf.model.ui.editor.browser.CurrentStyles;
+import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.IVisualizationConst;
@@ -65,7 +65,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 	private ImagePositionInfo[][] imageInfoInHtmlArray;
 
-	private ArrayList<HashMap<String, CurrentStyles>> styleInfoArray;
+	private ArrayList<HashMap<String, ICurrentStyles>> styleInfoArray;
 
 	private Vector<ExtractCheckThread> checkThreads;
 
@@ -291,9 +291,9 @@ public class PartControlLowVision implements ISelectionListener,
 	private void allocate(int frameSize) {
 		framePageImage = new PageImage[frameSize];
 		imageInfoInHtmlArray = new ImagePositionInfo[frameSize][];
-		styleInfoArray = new ArrayList<HashMap<String,CurrentStyles>>(frameSize);
+		styleInfoArray = new ArrayList<HashMap<String,ICurrentStyles>>(frameSize);
 		for(int i=0; i<frameSize; i++){
-			styleInfoArray.add(new HashMap<String, CurrentStyles>());
+			styleInfoArray.add(new HashMap<String, ICurrentStyles>());
 		}
 		// htmlLine2Id = new HtmlLine2Id[frameSize];
 		// nodeId2Position = new HashMap[frameSize];
@@ -418,9 +418,9 @@ public class PartControlLowVision implements ISelectionListener,
 					imageInfoInHtmlArray[frameId] = browser
 							.getAllImagePosition();
 					// styleInfoArray.set(frameId, browser.getNodeStyles());//TODO recover getNodeStyles function
-					styleInfoArray.set(frameId, new HashMap<String, CurrentStyles>());
+					styleInfoArray.set(frameId, new HashMap<String, ICurrentStyles>());
 				} else {
-					styleInfoArray.set(frameId, new HashMap<String, CurrentStyles>());
+					styleInfoArray.set(frameId, new HashMap<String, ICurrentStyles>());
 				}
 
 				if (lastFrame > 1) { // TODO frameURL.length?

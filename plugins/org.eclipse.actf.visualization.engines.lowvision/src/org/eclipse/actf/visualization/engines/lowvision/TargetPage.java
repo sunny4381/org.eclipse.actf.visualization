@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.actf.model.ui.ImagePositionInfo;
-import org.eclipse.actf.model.ui.editor.browser.CurrentStyles;
+import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
@@ -124,7 +124,7 @@ public class TargetPage {
 		for (int i = 0; i < len; i++) {
 			try {
 				pageElements[i] = new PageElement((String) (keyArray[i]),
-						(CurrentStyles) (_styleMap.get(keyArray[i])));
+						(ICurrentStyles) (_styleMap.get(keyArray[i])));
 			} catch (ImageException e) {
 				e.printStackTrace();
 				pageElements[i] = null;

@@ -21,7 +21,7 @@ import java.util.Vector;
 import org.eclipse.actf.model.dom.html.impl.SHDocument;
 import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
-import org.eclipse.actf.model.ui.editor.browser.CurrentStyles;
+import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
@@ -98,11 +98,11 @@ public class LowVisionUtil implements IVisualizationConst{
         return (result);
     }
 
-    public static HashMap<String, CurrentStyles> trimStyleInfoArray(HashMap<String, CurrentStyles> target, int height) {
-        HashMap<String, CurrentStyles> result = new HashMap<String, CurrentStyles>();
+    public static HashMap<String, ICurrentStyles> trimStyleInfoArray(HashMap<String, ICurrentStyles> target, int height) {
+        HashMap<String, ICurrentStyles> result = new HashMap<String, ICurrentStyles>();
         for (String tmpKey :  target.keySet()) {
             try {
-                CurrentStyles tmpS = target.get(tmpKey);
+                ICurrentStyles tmpS = target.get(tmpKey);
                 if (Integer.parseInt(tmpS.getOffsetTop()) <= height) {
                     result.put(tmpKey, tmpS);
                 }
