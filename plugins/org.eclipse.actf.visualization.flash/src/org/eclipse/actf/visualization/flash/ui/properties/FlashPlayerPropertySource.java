@@ -115,7 +115,7 @@ public class FlashPlayerPropertySource implements IPropertySource {
 		if (null != variableName) {
 			strValue = flashPlayer.getVariable(variableName);
 		} else if (null != propertyName) {
-			strValue = flashPlayer.getProperty(propertyName);
+			strValue = flashPlayer.getPlayerProperty(propertyName);
 		}
 		return strValue;// null==strValue ? "null" : strValue; //$NON-NLS-1$
 	}

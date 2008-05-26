@@ -21,8 +21,6 @@ import org.eclipse.actf.model.flash.FlashAccInfo;
 import org.eclipse.actf.model.flash.FlashNode;
 import org.eclipse.actf.model.flash.as.ASObject;
 import org.eclipse.actf.visualization.gui.msaa.properties.AttributePropertySource;
-import org.eclipse.swt.ole.win32.OLE;
-import org.eclipse.swt.ole.win32.Variant;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
@@ -193,7 +191,7 @@ public class FlashNodePropertySource implements IPropertySource {
 			}
 			if (null != methodName) {
 				Object value = flashNode.getPlayer().callMethod(
-						flashNode.getTarget(), methodName, 0); //$NON-NLS-1$
+						flashNode.getTarget(), methodName); //$NON-NLS-1$
 
 				if (null != value) {
 					if (value instanceof String) {
