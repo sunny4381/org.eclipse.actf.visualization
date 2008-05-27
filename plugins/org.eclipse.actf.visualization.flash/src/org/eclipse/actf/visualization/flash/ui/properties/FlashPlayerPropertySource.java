@@ -7,17 +7,16 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
- *    Daisuke SATO
+ *    Daisuke SATO- initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation 
  *******************************************************************************/
 package org.eclipse.actf.visualization.flash.ui.properties;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.flash.FlashPlayer;
-import org.eclipse.swt.ole.win32.OLE;
-import org.eclipse.swt.ole.win32.OleAutomation;
-import org.eclipse.swt.ole.win32.Variant;
+import org.eclipse.actf.model.flash.IFlashConst;
+import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
@@ -39,7 +38,7 @@ public class FlashPlayerPropertySource implements IPropertySource {
 
 	public static final String STR_VERSION = "$version", // 0 //$NON-NLS-1$
 			STR_AVAILABLE = "Eclipse_ACTF_is_available", // 1 //$NON-NLS-1$
-			STR_DEBUG = "aDesignerError", // 2 //$NON-NLS-1$
+			STR_DEBUG = IFlashConst.ATTR_ERROR, // 2 //$NON-NLS-1$
 			STR_ID = "id", // 3 //$NON-NLS-1$
 			STR_ALLOW_ACCESS = "AllowScriptAccess", // 4 //$NON-NLS-1$
 			STR_TAGNAME = "tagName", // 5 //$NON-NLS-1$
@@ -64,8 +63,9 @@ public class FlashPlayerPropertySource implements IPropertySource {
 			new PropertyDescriptor(PID_READY_STATE, STR_READY_STATE),
 			new PropertyDescriptor(PID_WMODE, STR_WMODE) };
 
-	private FlashPlayer flashPlayer;
-	public FlashPlayerPropertySource(FlashPlayer flashPlayer) {
+	private IFlashPlayer flashPlayer;
+
+	public FlashPlayerPropertySource(IFlashPlayer flashPlayer) {
 		this.flashPlayer = flashPlayer;
 	}
 
@@ -85,12 +85,11 @@ public class FlashPlayerPropertySource implements IPropertySource {
 
 	public Object getPropertyValue(Object id) {
 		String strValue = null;
-		String variableName = null;
 		String propertyName = null;
 		if (PID_VERSION.equals(id)) {
-			variableName = "$version"; //$NON-NLS-1$
-		} else if (PID_AVAILABLE.equals(id)) {
-			variableName = STR_AVAILABLE;
+			return flashPlayer.getPlayerVersion();
+//		} else if (PID_AVAILABLE.equals(id)) {
+//			//TODO implement isAvailable?
 		} else if (PID_DEBUG.equals(id)) {
 			propertyName = STR_DEBUG;
 		} else if (PID_ID.equals(id)) {
@@ -112,9 +111,8 @@ public class FlashPlayerPropertySource implements IPropertySource {
 		} else if (PID_WMODE.equals(id)) {
 			propertyName = STR_WMODE;
 		}
-		if (null != variableName) {
-			strValue = flashPlayer.getVariable(variableName);
-		} else if (null != propertyName) {
+		
+		if (null != propertyName) {
 			strValue = flashPlayer.getPlayerProperty(propertyName);
 		}
 		return strValue;// null==strValue ? "null" : strValue; //$NON-NLS-1$
@@ -128,21 +126,5 @@ public class FlashPlayerPropertySource implements IPropertySource {
 	}
 
 	public void setPropertyValue(Object id, Object value) {
-	}
-
-	private static String getVariantString(Variant var) {
-		if (null != var) {
-			switch (var.getType()) {
-			case OLE.VT_BSTR:
-				return var.getString();
-			case OLE.VT_EMPTY:
-				break;
-			case OLE.VT_I4:
-				return Integer.toString(var.getInt());
-			default:
-				return var.toString();
-			}
-		}
-		return ""; //$NON-NLS-1$
 	}
 }

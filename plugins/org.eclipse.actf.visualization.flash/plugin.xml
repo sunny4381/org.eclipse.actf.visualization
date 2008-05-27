@@ -11,11 +11,11 @@
             name="%FlashDOMView.name"/>
    </extension>
 	<extension point="org.eclipse.core.runtime.adapters">
-	  <factory adaptableType="org.eclipse.actf.model.flash.FlashPlayer"
+	  <factory adaptableType="org.eclipse.actf.model.flash.IFlashPlayer"
 	           class="org.eclipse.actf.visualization.flash.ui.properties.FlashPropertySourceAdapterFactory">
 	    <adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
 	  </factory>
-	  <factory adaptableType="org.eclipse.actf.model.flash.FlashNode"
+	  <factory adaptableType="org.eclipse.actf.model.flash.ASNode"
 	           class="org.eclipse.actf.visualization.flash.ui.properties.FlashPropertySourceAdapterFactory">
 	    <adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
 	  </factory>

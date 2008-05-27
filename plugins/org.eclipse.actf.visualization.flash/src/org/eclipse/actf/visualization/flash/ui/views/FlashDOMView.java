@@ -17,9 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
-import org.eclipse.actf.model.flash.FlashAccInfo;
-import org.eclipse.actf.model.flash.FlashNode;
+import org.eclipse.actf.model.flash.ASAccInfo;
+import org.eclipse.actf.model.flash.ASNode;
 import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.IASBridge;
+import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.model.flash.util.FlashAdjust;
 import org.eclipse.actf.model.flash.util.FlashDetect;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
@@ -100,9 +102,9 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 				if (selection instanceof IStructuredSelection) {
 					Object selectedItem = ((IStructuredSelection) selection)
 							.getFirstElement();
-					if (selectedItem instanceof FlashNode) {
-						((FlashNode) selectedItem).setMarker();
-					} else if (!(selectedItem instanceof FlashPlayer)) {
+					if (selectedItem instanceof ASNode) {
+						((ASNode) selectedItem).setMarker();
+					} else if (!(selectedItem instanceof IFlashPlayer)) {
 						return;
 					}
 					MSAAViewRegistory.showProperties(selectedItem);
@@ -117,7 +119,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 	}
 
 	public void adjustID() {
-		FlashPlayer[] results = FlashMSAAUtil
+		IFlashPlayer[] results = FlashMSAAUtil
 				.getFlashPlayers(MSAAViewRegistory.rootObject.getWindow());
 		for (int i = 0; i < results.length; i++) {
 			FlashAdjust flashAdjust = new FlashAdjust(results[i]);
@@ -130,7 +132,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 		AccessibleObject rootObject = MSAAViewRegistory.getRootObject();
 		if (null != rootObject) {
 			adjustID();
-			FlashPlayer[] players = FlashMSAAUtil.getFlashPlayers(rootObject
+			IFlashPlayer[] players = FlashMSAAUtil.getFlashPlayers(rootObject
 					.getWindow());
 			viewer.setInput(players);
 			FlashDetect.showDialog();
@@ -193,7 +195,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 			for (int i = 0; i < items.length; i++) {
 				TreeItem item = items[i];
 				try {
-					FlashNode flashNode = (FlashNode) item.getData();
+					ASNode flashNode = (ASNode) item.getData();
 					if (flashNode.getLevel() >= 40) {
 						throw new Error(
 								MessageFormat
@@ -416,23 +418,23 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 		public boolean informativeTree = false;
 
 		public Object[] getChildren(Object parentElement) {
-			if (parentElement instanceof FlashNode) {
-				return ((FlashNode) parentElement).getChildren(visualTree,
+			if (parentElement instanceof ASNode) {
+				return ((ASNode) parentElement).getChildren(visualTree,
 						informativeTree, debugMode);
 			}
 			return new Object[0];
 		}
 
 		public Object getParent(Object element) {
-			if (element instanceof FlashNode) {
-				return ((FlashNode) element).getParent();
+			if (element instanceof ASNode) {
+				return ((ASNode) element).getParent();
 			}
 			return null;
 		}
 
 		public boolean hasChildren(Object element) {
-			if (element instanceof FlashNode) {
-				return ((FlashNode) element).hasChild(visualTree, debugMode);
+			if (element instanceof ASNode) {
+				return ((ASNode) element).hasChild(visualTree, debugMode);
 			}
 			return false;
 		}
@@ -444,10 +446,10 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 				for (int i = 0; i < objects.length; i++) {
 					if (objects[i] instanceof AccessibleObject) {
 						// TODO
-					} else if (objects[i] instanceof FlashPlayer) {
+					} else if (objects[i] instanceof IFlashPlayer) {
 						FlashPlayer player = (FlashPlayer) objects[i];
 
-						FlashNode rootNode = player.getRootNode();
+						ASNode rootNode = player.getRootNode();
 						if (null != rootNode) {
 							if (FlashMSAAUtil.isInvisibleFlash(player
 									.getAccessible())) {
@@ -473,12 +475,12 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 
 	private static String getNodeImage(Object element) {
 		String iconType = null;
-		if (element instanceof FlashNode) {
-			FlashNode flashNode = ((FlashNode) element);
+		if (element instanceof ASNode) {
+			ASNode flashNode = ((ASNode) element);
 			String type = flashNode.getType();
 			if ("movieclip".equals(type)) { //$NON-NLS-1$
 				iconType = type;
-				FlashAccInfo accInfo = flashNode.getAccInfo();
+				ASAccInfo accInfo = flashNode.getAccInfo();
 				if (accInfo != null) {
 					int accRole = accInfo.getRole();
 					if (-1 != accRole) {
@@ -513,15 +515,15 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 			} else {
 				iconType = FlashImages.TYPE_others;
 			}
-		} else if (element instanceof FlashPlayer) {
+		} else if (element instanceof IFlashPlayer) {
 			iconType = FlashImages.TYPE_flash;
 		}
 		return null != iconType ? FlashImages.flashIcon(iconType) : null;
 	}
 
 	private static String getNodeText(Object element) {
-		if (element instanceof FlashNode) {
-			FlashNode flashNode = (FlashNode) element;
+		if (element instanceof ASNode) {
+			ASNode flashNode = (ASNode) element;
 			StringBuffer sb = new StringBuffer();
 			String text = flashNode.getText();
 			if (null != text) {
@@ -556,8 +558,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 				sb.append(")"); //$NON-NLS-1$
 			}
 			return sb.toString();
-		} else if (element instanceof FlashPlayer) {
-			return ((FlashPlayer) element).getErrorText();
+		} else if (element instanceof IFlashPlayer) {
+			return ((IFlashPlayer) element).getErrorText();
 		}
 		if (null == element)
 			return "null"; //$NON-NLS-1$
@@ -565,12 +567,12 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 	}
 
 	public String getNodeError(Object element) {
-		if (element instanceof FlashNode) {
-			FlashNode flashNode = (FlashNode) element;
+		if (element instanceof ASNode) {
+			ASNode flashNode = (ASNode) element;
 			if (!flashNode.getPlayer().isVisible) {
 				return FlashImages.OVER_BLACK;
 			}
-			FlashAccInfo accInfo = flashNode.getAccInfo();
+			ASAccInfo accInfo = flashNode.getAccInfo();
 			
 			if (flashNode.isUIComponent()) {
 				if (null == accInfo || -1 == accInfo.getRole()) {
@@ -599,7 +601,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 					"_accImpl".equals(objectName)) { //$NON-NLS-1$
 				return FlashImages.OVER_GREEN;
 			}
-		} else if (element instanceof FlashPlayer) {
+		} else if (element instanceof IFlashPlayer) {
 			return FlashImages.OVER_BLACK;
 		}
 		return null;

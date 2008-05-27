@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.actf.accservice.swtbridge.MSAA;
-import org.eclipse.actf.model.flash.FlashAccInfo;
-import org.eclipse.actf.model.flash.FlashNode;
-import org.eclipse.actf.model.flash.as.ASObject;
+import org.eclipse.actf.model.flash.ASAccInfo;
+import org.eclipse.actf.model.flash.ASNode;
+import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.visualization.gui.msaa.properties.AttributePropertySource;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -29,7 +29,7 @@ public class FlashNodePropertySource implements IPropertySource {
 
 	private static boolean DEBUG_MODE = false;
 
-	private FlashNode flashNode;
+	private ASNode flashNode;
 	private boolean isAccImpl;
 
 	public static final String PID_OBJECTNAME = "OBJECTNAME", //$NON-NLS-1$
@@ -84,7 +84,7 @@ public class FlashNodePropertySource implements IPropertySource {
 			new PropertyDescriptor(PID_WMODE, "wmode") // 15 //$NON-NLS-1$
 	};
 
-	public FlashNodePropertySource(FlashNode flashNode) {
+	public FlashNodePropertySource(ASNode flashNode) {
 		this.flashNode = flashNode;
 		this.isAccImpl = "_accImpl".equals(flashNode.getObjectName()); //$NON-NLS-1$
 	}
@@ -159,7 +159,7 @@ public class FlashNodePropertySource implements IPropertySource {
 				strValue = flashNode.getPlayer().getWMode();
 			}
 		} else if (PID_ACC_INFO.equals(id)) {
-			FlashAccInfo accInfo = flashNode.getAccInfo(); //$NON-NLS-1$
+			ASAccInfo accInfo = flashNode.getAccInfo(); //$NON-NLS-1$
 			if (null != accInfo) {
 				AttributePropertySource attrSource = new AttributePropertySource(
 						null, accInfo.toString());
@@ -168,9 +168,9 @@ public class FlashNodePropertySource implements IPropertySource {
 					Object keyValue = accInfo.get(keyName);
 					if (keyValue instanceof Integer) {
 						int intValue = ((Integer) keyValue).intValue();
-						if (ASObject.ACCINFO_ROLE.equals(keyName)) { //$NON-NLS-1$
+						if (IFlashConst.ACCINFO_ROLE.equals(keyName)) { //$NON-NLS-1$
 							keyValue = MSAA.getRoleText(intValue);
-						} else if (ASObject.ACCINFO_STATE.equals(keyName)) { //$NON-NLS-1$
+						} else if (IFlashConst.ACCINFO_STATE.equals(keyName)) { //$NON-NLS-1$
 							keyValue = MSAA.getStateText(intValue);
 						}
 					}

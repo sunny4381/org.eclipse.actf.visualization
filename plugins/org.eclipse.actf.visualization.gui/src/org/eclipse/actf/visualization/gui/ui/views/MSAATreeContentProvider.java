@@ -18,7 +18,7 @@ import java.util.Vector;
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
-import org.eclipse.actf.model.flash.FlashPlayer;
+import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -84,7 +84,7 @@ public class MSAATreeContentProvider implements ITreeContentProvider {
 			for (Object i : elements) {
 				if (i instanceof AccessibleObject) {
 
-					FlashPlayer[] players = FlashMSAAUtil
+					IFlashPlayer[] players = FlashMSAAUtil
 							.getFlashPlayers(((AccessibleObject) i).getWindow());
 					
 					AccessibleObject[] flashElements = new AccessibleObject[players.length];
