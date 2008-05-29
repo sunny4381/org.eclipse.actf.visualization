@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.actf.mediator.Mediator;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
-import org.eclipse.actf.util.ui.DialogSave;
+import org.eclipse.actf.ui.util.DialogSave;
 import org.eclipse.actf.visualization.blind.BlindVisualizerExtension;
 import org.eclipse.actf.visualization.blind.IBlindVisualizer;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;

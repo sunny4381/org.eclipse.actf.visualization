@@ -11,7 +11,7 @@
 package org.eclipse.actf.visualization.gui.preferences;
 
 
-import org.eclipse.actf.util.ui.GroupFieldEditorPreferencePage;
+import org.eclipse.actf.ui.preferences.GroupFieldEditorPreferencePage;
 import org.eclipse.actf.visualization.gui.GuiPlugin;
 import org.eclipse.actf.visualization.gui.Messages;
 import org.eclipse.jface.preference.BooleanFieldEditor;

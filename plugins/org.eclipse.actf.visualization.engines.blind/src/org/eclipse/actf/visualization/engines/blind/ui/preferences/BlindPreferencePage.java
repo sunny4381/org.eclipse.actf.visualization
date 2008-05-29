@@ -13,8 +13,8 @@ package org.eclipse.actf.visualization.engines.blind.ui.preferences;
 
 import java.util.Locale;
 
-import org.eclipse.actf.util.ui.GroupFieldEditorPreferencePage;
-import org.eclipse.actf.util.ui.ScaleFieldEditorWithValue;
+import org.eclipse.actf.ui.preferences.GroupFieldEditorPreferencePage;
+import org.eclipse.actf.ui.preferences.ScaleFieldEditorWithValue;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.actf.visualization.engines.blind.internal.Messages;
 import org.eclipse.actf.visualization.engines.blind.util.ParamBlind;

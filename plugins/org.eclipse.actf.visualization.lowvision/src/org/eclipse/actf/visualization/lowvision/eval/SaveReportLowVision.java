@@ -17,8 +17,8 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.List;
 
+import org.eclipse.actf.ui.util.DialogSave;
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.util.ui.DialogSave;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;

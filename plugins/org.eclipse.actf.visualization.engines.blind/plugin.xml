@@ -4,6 +4,7 @@
   <extension
         point="org.eclipse.ui.preferencePages">
      <page
+           category="org.eclipse.actf.ui.preferences.RootPreferencePage"
            class="org.eclipse.actf.visualization.engines.blind.ui.preferences.BlindPreferencePage"
            id="org.eclipse.actf.visualization.engines.blind.ui.preferences.BlindPreferencePage"
            name="%adesigner.preferences.blind.title"/>

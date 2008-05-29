@@ -48,6 +48,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
+            category="org.eclipse.actf.ui.preferences.RootPreferencePage"
             class="org.eclipse.actf.visualization.gui.preferences.GuiPreferencePage"
             id="org.eclipse.actf.visualization.gui.preferences.GuiPreferencePage"
             name="%MSAAPreferencePage.name"/>

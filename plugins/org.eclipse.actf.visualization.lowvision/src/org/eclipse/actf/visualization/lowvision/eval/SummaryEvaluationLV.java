@@ -13,8 +13,8 @@ package org.eclipse.actf.visualization.lowvision.eval;
 
 import java.util.List;
 
+import org.eclipse.actf.ui.util.HighlightStringListener;
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.util.ui.HighlightStringListener;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
 import org.eclipse.actf.visualization.lowvision.ui.internal.Messages;

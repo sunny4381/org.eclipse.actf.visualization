@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
 
-import org.eclipse.actf.util.ui.IDialogConstants;
+import org.eclipse.actf.ui.util.IDialogConstants;
 
 public interface IViewerPanel {
 	final static String TITLE_NAME = "ID/AccessKey/Class/CSS Inspector";

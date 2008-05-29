@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
-import org.eclipse.actf.util.ui.HighlightStringListener;
+import org.eclipse.actf.ui.util.HighlightStringListener;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItemVisitor;
 import org.eclipse.swt.custom.LineStyleListener;

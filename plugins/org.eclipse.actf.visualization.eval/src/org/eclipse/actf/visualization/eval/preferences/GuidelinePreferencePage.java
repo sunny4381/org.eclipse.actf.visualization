@@ -13,8 +13,8 @@ package org.eclipse.actf.visualization.eval.preferences;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.actf.util.ui.GroupFieldEditorPreferencePage;
-import org.eclipse.actf.util.ui.IDialogConstants;
+import org.eclipse.actf.ui.preferences.GroupFieldEditorPreferencePage;
+import org.eclipse.actf.ui.util.IDialogConstants;
 import org.eclipse.actf.visualization.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;

@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.visualization.lowvision.ui.actions;
 
-import org.eclipse.actf.util.ui.Messages;
-import org.eclipse.actf.util.ui.PreferenceUtils;
+import org.eclipse.actf.ui.util.Messages;
+import org.eclipse.actf.ui.util.PreferenceUtils;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
 import org.eclipse.actf.visualization.lowvision.ui.preferences.LowVisionPreferencePage;
 import org.eclipse.jface.action.Action;

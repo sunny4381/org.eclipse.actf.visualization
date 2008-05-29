@@ -5,6 +5,7 @@
   <extension
         point="org.eclipse.ui.preferencePages">
      <page
+           category="org.eclipse.actf.ui.preferences.RootPreferencePage"
            class="org.eclipse.actf.visualization.eval.preferences.GuidelinePreferencePage"
            id="org.eclipse.actf.visualization.eval.preferences.GuidelinePreferencePage"
            name="%preferences.guideline.title"/>

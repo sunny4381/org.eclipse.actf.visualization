@@ -4,6 +4,7 @@
   <extension
         point="org.eclipse.ui.preferencePages">
      <page
+           category="org.eclipse.actf.ui.preferences.RootPreferencePage"
            class="org.eclipse.actf.visualization.lowvision.ui.preferences.LowVisionPreferencePage"
            id="org.eclipse.actf.visualization.lowvision.ui.preferences.LowVisionPreferencePage"
            name="%adesigner.preferences.lowvision.title"/>

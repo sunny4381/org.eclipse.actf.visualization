@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.engines.blind.ui.preferences;
 
 import java.util.TreeSet;
 
-import org.eclipse.actf.util.ui.IDialogConstants;
+import org.eclipse.actf.ui.util.IDialogConstants;
 import org.eclipse.actf.visualization.engines.blind.internal.Messages;
 import org.eclipse.actf.visualization.engines.blind.util.TextChecker;
 import org.eclipse.swt.SWT;

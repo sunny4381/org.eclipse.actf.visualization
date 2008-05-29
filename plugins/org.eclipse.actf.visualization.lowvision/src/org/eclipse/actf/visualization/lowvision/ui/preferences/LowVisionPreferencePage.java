@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.lowvision.ui.preferences;
 
 import java.io.File;
 
-import org.eclipse.actf.util.ui.IDialogConstants;
+import org.eclipse.actf.ui.util.IDialogConstants;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;

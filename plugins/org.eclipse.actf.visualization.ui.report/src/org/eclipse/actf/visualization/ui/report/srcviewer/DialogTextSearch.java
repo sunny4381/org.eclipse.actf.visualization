@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.ui.report.srcviewer;
 
-import org.eclipse.actf.util.ui.IDialogConstants;
+import org.eclipse.actf.ui.util.IDialogConstants;
 import org.eclipse.actf.visualization.ui.report.internal.Messages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;

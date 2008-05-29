@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.blind.ui.actions;
 
-import org.eclipse.actf.util.ui.Messages;
+import org.eclipse.actf.ui.util.Messages;
 import org.eclipse.actf.visualization.blind.ui.internal.PartControlBlind;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.jface.action.Action;
