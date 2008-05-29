@@ -9,7 +9,7 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.ui.views,
- org.eclipse.actf.common,
+ org.eclipse.actf.core,
  org.eclipse.actf.model.flash,
  org.eclipse.actf.visualization.gui,
  org.eclipse.actf.util.win32,

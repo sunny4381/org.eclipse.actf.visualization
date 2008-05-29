@@ -6,7 +6,7 @@ Bundle-Version: 0.0.1
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.actf.common,
+ org.eclipse.actf.core,
  org.eclipse.actf.visualization,
  org.eclipse.actf.visualization.eval,
  org.eclipse.actf.model.ui

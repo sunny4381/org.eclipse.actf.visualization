@@ -14,7 +14,7 @@ package org.eclipse.actf.visualization.eval.extensions;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.util.DebugPrintUtil;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.eval.IChecker;
 import org.eclipse.actf.visualization.eval.ICheckerInfoProvider;

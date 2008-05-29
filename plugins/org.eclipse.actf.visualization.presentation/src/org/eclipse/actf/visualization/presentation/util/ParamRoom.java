@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.presentation.util;
 
-import org.eclipse.actf.util.DebugPrintUtil;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 

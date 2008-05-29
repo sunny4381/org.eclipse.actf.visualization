@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
 
-import org.eclipse.actf.util.DebugPrintUtil;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.eval.ICheckerInfoProvider;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;

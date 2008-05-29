@@ -12,7 +12,7 @@ package org.eclipse.actf.visualization.ui.report;
 
 import java.io.File;
 
-import org.eclipse.actf.util.DebugPrintUtil;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;

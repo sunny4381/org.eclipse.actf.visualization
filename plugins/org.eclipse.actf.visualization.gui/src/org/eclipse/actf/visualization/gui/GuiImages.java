@@ -14,7 +14,7 @@ import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.actf.util.DebugPrintUtil;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;

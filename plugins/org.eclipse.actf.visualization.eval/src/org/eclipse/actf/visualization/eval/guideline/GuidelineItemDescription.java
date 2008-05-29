@@ -14,7 +14,7 @@ package org.eclipse.actf.visualization.eval.guideline;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.actf.util.DebugPrintUtil;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.eval.ICheckerInfoProvider;
 import org.eclipse.actf.visualization.eval.extensions.CheckerExtension;
 
