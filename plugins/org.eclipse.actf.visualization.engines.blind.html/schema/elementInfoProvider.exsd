@@ -57,7 +57,7 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.eclipse.actf.util.ui.IElementViewerInfoProvider"/>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerInfoProvider"/>
                </appInfo>
             </annotation>
          </attribute>

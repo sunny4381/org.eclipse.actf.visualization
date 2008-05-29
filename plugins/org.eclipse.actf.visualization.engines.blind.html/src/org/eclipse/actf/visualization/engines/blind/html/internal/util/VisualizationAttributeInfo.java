@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import org.eclipse.actf.util.ui.IElementViewerAccessKeyInfo;
-import org.eclipse.actf.util.ui.IElementViewerIdInfo;
-import org.eclipse.actf.util.ui.IElementViewerInfoProvider;
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementInfoProviderExtension;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerAccessKeyInfo;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerIdInfo;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerInfoProvider;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

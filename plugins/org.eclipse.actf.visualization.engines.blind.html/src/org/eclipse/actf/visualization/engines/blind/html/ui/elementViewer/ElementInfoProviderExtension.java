@@ -14,7 +14,6 @@ package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.util.ui.IElementViewerInfoProvider;
 import org.eclipse.actf.visualization.engines.blind.html.HtmlVizPlugin;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
