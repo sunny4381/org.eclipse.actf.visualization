@@ -15,7 +15,6 @@ package org.eclipse.actf.visualization.flash.ui.properties;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -24,8 +23,7 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
 public class FlashPlayerPropertySource implements IPropertySource {
 
 	public static final String PID_VERSION = "VERSION", //$NON-NLS-1$
-			PID_AVAILABLE = "AVAILABLE", //$NON-NLS-1$
-			PID_DEBUG = "DEBUG", //$NON-NLS-1$
+			PID_STATUS = "STATUS", //$NON-NLS-1$
 			PID_ID = "ID", //$NON-NLS-1$
 			PID_ALLOW_ACCESS = "ALLOW_ACCESS", //$NON-NLS-1$
 			PID_TAGNAME = "TAGNAME", //$NON-NLS-1$
@@ -37,8 +35,7 @@ public class FlashPlayerPropertySource implements IPropertySource {
 			PID_WMODE = "WMODE"; //$NON-NLS-1$
 
 	public static final String STR_VERSION = "$version", // 0 //$NON-NLS-1$
-			STR_AVAILABLE = "Eclipse_ACTF_is_available", // 1 //$NON-NLS-1$
-			STR_DEBUG = IFlashConst.ATTR_ERROR, // 2 //$NON-NLS-1$
+			STR_STATUS = "status", // 2 //$NON-NLS-1$
 			STR_ID = "id", // 3 //$NON-NLS-1$
 			STR_ALLOW_ACCESS = "AllowScriptAccess", // 4 //$NON-NLS-1$
 			STR_TAGNAME = "tagName", // 5 //$NON-NLS-1$
@@ -51,8 +48,7 @@ public class FlashPlayerPropertySource implements IPropertySource {
 
 	private static final IPropertyDescriptor[] DESCRIPTORS = new IPropertyDescriptor[] {
 			new PropertyDescriptor(PID_VERSION, STR_VERSION),
-			new PropertyDescriptor(PID_AVAILABLE, STR_AVAILABLE),
-			new PropertyDescriptor(PID_DEBUG, STR_DEBUG),
+			new PropertyDescriptor(PID_STATUS, STR_STATUS),
 			new PropertyDescriptor(PID_ID, STR_ID),
 			new PropertyDescriptor(PID_ALLOW_ACCESS, STR_ALLOW_ACCESS),
 			new PropertyDescriptor(PID_TAGNAME, STR_TAGNAME),
@@ -88,10 +84,8 @@ public class FlashPlayerPropertySource implements IPropertySource {
 		String propertyName = null;
 		if (PID_VERSION.equals(id)) {
 			return flashPlayer.getPlayerVersion();
-//		} else if (PID_AVAILABLE.equals(id)) {
-//			//TODO implement isAvailable?
-		} else if (PID_DEBUG.equals(id)) {
-			propertyName = STR_DEBUG;
+		} else if (PID_STATUS.equals(id)) {
+			return flashPlayer.getStatus();
 		} else if (PID_ID.equals(id)) {
 			propertyName = STR_ID;
 		} else if (PID_ALLOW_ACCESS.equals(id)) {

@@ -19,8 +19,6 @@ public interface IFlashDOMView {
 
     public void findRectangle(Rectangle flashRect, Object objUnknown);
 
-    public void adjustID();
-    
     public void refresh();
     
     public void addWindowlessElement(Object objUnknown);

@@ -21,7 +21,6 @@ import org.eclipse.actf.model.flash.ASAccInfo;
 import org.eclipse.actf.model.flash.ASNode;
 import org.eclipse.actf.model.flash.FlashPlayerFactory;
 import org.eclipse.actf.model.flash.IFlashPlayer;
-import org.eclipse.actf.model.flash.util.FlashAdjust;
 import org.eclipse.actf.model.flash.util.FlashDetect;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.visualization.flash.FlashImages;
@@ -117,20 +116,9 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 		refresh();
 	}
 
-	public void adjustID() {
-		IFlashPlayer[] results = FlashMSAAUtil
-				.getFlashPlayers(MSAAViewRegistory.rootObject.getWindow());
-		for (int i = 0; i < results.length; i++) {
-			FlashAdjust flashAdjust = new FlashAdjust(results[i]);
-			flashAdjust.adjust("adesigner_flash_object" + i); //$NON-NLS-1$
-			flashAdjust.dispose();
-		}
-	}
-
 	public void refresh() {
 		AccessibleObject rootObject = MSAAViewRegistory.getRootObject();
 		if (null != rootObject) {
-			adjustID();
 			IFlashPlayer[] players = FlashMSAAUtil.getFlashPlayers(rootObject
 					.getWindow());
 			viewer.setInput(players);
@@ -560,7 +548,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 			}
 			return sb.toString();
 		} else if (element instanceof IFlashPlayer) {
-			return ((IFlashPlayer) element).getErrorText();
+			return ((IFlashPlayer) element).getStatus();
 		}
 		if (null == element)
 			return "null"; //$NON-NLS-1$
