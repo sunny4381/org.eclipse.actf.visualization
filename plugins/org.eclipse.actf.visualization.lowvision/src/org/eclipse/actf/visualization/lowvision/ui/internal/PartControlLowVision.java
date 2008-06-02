@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.eclipse.actf.mediator.IMediatorEventListener;
@@ -65,7 +66,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 	private ImagePositionInfo[][] imageInfoInHtmlArray;
 
-	private ArrayList<HashMap<String, ICurrentStyles>> styleInfoArray;
+	private ArrayList<Map<String, ICurrentStyles>> styleInfoArray;
 
 	private Vector<ExtractCheckThread> checkThreads;
 
@@ -291,7 +292,7 @@ public class PartControlLowVision implements ISelectionListener,
 	private void allocate(int frameSize) {
 		framePageImage = new PageImage[frameSize];
 		imageInfoInHtmlArray = new ImagePositionInfo[frameSize][];
-		styleInfoArray = new ArrayList<HashMap<String,ICurrentStyles>>(frameSize);
+		styleInfoArray = new ArrayList<Map<String,ICurrentStyles>>(frameSize);
 		for(int i=0; i<frameSize; i++){
 			styleInfoArray.add(new HashMap<String, ICurrentStyles>());
 		}
@@ -417,8 +418,8 @@ public class PartControlLowVision implements ISelectionListener,
 				if (browser != null) {
 					imageInfoInHtmlArray[frameId] = browser
 							.getAllImagePosition();
-					// styleInfoArray.set(frameId, browser.getNodeStyles());//TODO recover getNodeStyles function
-					styleInfoArray.set(frameId, new HashMap<String, ICurrentStyles>());
+					styleInfoArray.set(frameId, browser.getStyleInfo().getCurrentStyles());
+					//styleInfoArray.set(frameId, new HashMap<String, ICurrentStyles>());
 				} else {
 					styleInfoArray.set(frameId, new HashMap<String, ICurrentStyles>());
 				}

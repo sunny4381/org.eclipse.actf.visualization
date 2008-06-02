@@ -15,8 +15,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 import org.eclipse.actf.model.ui.ImagePositionInfo;
@@ -36,7 +37,6 @@ import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblem
 import org.eclipse.actf.visualization.engines.lowvision.util.DecisionMaker;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
-
 
 public class TargetPage {
 	private static final int UNSET = -1;
@@ -117,18 +117,19 @@ public class TargetPage {
 		return (pageElements);
 	}
 
-	public void setCurrentStyles(HashMap _styleMap) {
-		Object[] keyArray = _styleMap.keySet().toArray();
-		int len = keyArray.length;
+	public void setCurrentStyles(Map<String, ICurrentStyles> _styleMap) {
+		Set<String> keySet = _styleMap.keySet();
+		int len = keySet.size();
 		pageElements = new PageElement[len];
-		for (int i = 0; i < len; i++) {
+		int i = 0;
+		for (String key : keySet) {
 			try {
-				pageElements[i] = new PageElement((String) (keyArray[i]),
-						(ICurrentStyles) (_styleMap.get(keyArray[i])));
+				pageElements[i] = new PageElement(key, _styleMap.get(key));
 			} catch (ImageException e) {
 				e.printStackTrace();
 				pageElements[i] = null;
 			}
+			i++;
 		}
 	}
 
@@ -286,7 +287,8 @@ public class TargetPage {
 			throws LowVisionException {
 
 		StringBuffer sb = new StringBuffer();
-		sb.append("<HTML>\n<HEAD>\n<TITLE>Report from LowVision Evaulator</TITLE>\n");
+		sb
+				.append("<HTML>\n<HEAD>\n<TITLE>Report from LowVision Evaulator</TITLE>\n");
 		sb.append("</HEAD><BODY>");
 		// TODO
 		sb.append("</BODY>\n</HTML>\n");
@@ -303,7 +305,7 @@ public class TargetPage {
 	}
 
 	public void makeAndStoreReport(String _path, String _htmlName,
-			String _imgName, List _problemGroupArray) throws LowVisionException {
+			String _imgName, List<IProblemItem> _problemGroupArray) throws LowVisionException {
 		boolean doMakeProblemMap = true;
 		if (this.pageImage == null)
 			doMakeProblemMap = false;
@@ -352,11 +354,9 @@ public class TargetPage {
 					int groupWidth = curProblem.getWidth();
 					int groupHeight = curProblem.getHeight();
 					/*
-					 *  TODO consideration for inline element
-					 *   x+width or y+height might
-					 *    exseed the page size
-					 *    overlap the next block level element
-					 *    etc.
+					 * TODO consideration for inline element x+width or y+height
+					 * might exseed the page size overlap the next block level
+					 * element etc.
 					 */
 					int rightLimit = groupX + groupWidth;
 					if (pageWidth < rightLimit)
@@ -387,7 +387,7 @@ public class TargetPage {
 				}
 			}
 
-			double scaleDouble = (double) (scale * scale); 
+			double scaleDouble = (double) (scale * scale);
 			for (int j = 0; j < mapHeight; j++) {
 				for (int i = 0; i < mapWidth; i++) {
 					scoreMap.data[j][i] = DecisionMaker
@@ -408,7 +408,8 @@ public class TargetPage {
 		scoreMap = null;
 
 		StringBuffer sb = new StringBuffer();
-		sb.append("<HTML>\n<HEAD>\n<TITLE>Report from LowVision Evaulator</TITLE>\n");
+		sb
+				.append("<HTML>\n<HEAD>\n<TITLE>Report from LowVision Evaulator</TITLE>\n");
 		sb.append("<STYLE type=\"text/css\">\n");
 		sb.append("IMG {border:2 solid black}\n");
 		sb.append("</STYLE>\n");
