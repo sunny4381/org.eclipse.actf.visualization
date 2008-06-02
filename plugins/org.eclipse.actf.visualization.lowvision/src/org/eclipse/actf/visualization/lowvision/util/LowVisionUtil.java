@@ -103,7 +103,7 @@ public class LowVisionUtil implements IVisualizationConst{
         for (String tmpKey :  target.keySet()) {
             try {
                 ICurrentStyles tmpS = target.get(tmpKey);
-                if (Integer.parseInt(tmpS.getOffsetTop()) <= height) {
+                if (tmpS.getRectangle().y <= height) {
                     result.put(tmpKey, tmpS);
                 }
             } catch (Exception e) {

@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.engines.lowvision;
@@ -31,6 +32,7 @@ import org.eclipse.actf.visualization.engines.lowvision.problem.ProhibitedBothCo
 import org.eclipse.actf.visualization.engines.lowvision.problem.ProhibitedForegroundColorProblem;
 import org.eclipse.actf.visualization.engines.lowvision.problem.SmallFontProblem;
 import org.eclipse.actf.visualization.engines.lowvision.util.LengthUtil;
+import org.eclipse.swt.graphics.Rectangle;
 
 /*
  * informations from HTML DOM
@@ -90,10 +92,12 @@ public class PageElement {
 	}
 
 	private void setDimension() {
-		x = Integer.parseInt(style.getOffsetLeft());
-		y = Integer.parseInt(style.getOffsetTop());
-		width = Integer.parseInt(style.getOffsetWidth());
-		height = Integer.parseInt(style.getOffsetHeight());
+		//TODO confirm
+		Rectangle rect = style.getRectangle();
+		x = rect.x;
+		y = rect.y;
+		width = rect.width;
+		height = rect.height;
 	}
 
 	private void setColors() throws ImageException {
