@@ -10,19 +10,19 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.eval;
 
-import org.eclipse.actf.model.ui.editor.browser.BrowserAndStyleInfo;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo;
 import org.eclipse.actf.visualization.eval.html.HtmlEvalUtil;
 import org.w3c.dom.Document;
 
 public class HtmlCheckTargetImpl extends CheckTargetImpl implements
 		IHtmlCheckTarget {
 
-	private BrowserAndStyleInfo browserStyleInfo;
+	private IWebBrowserStyleInfo browserStyleInfo;
 
 	private HtmlEvalUtil htmlEvalUtil;
 
 	public HtmlCheckTargetImpl(Document target, String targetUrl,
-			BrowserAndStyleInfo browserStyleInfo, HtmlEvalUtil htmlEvalUtil) {
+			IWebBrowserStyleInfo browserStyleInfo, HtmlEvalUtil htmlEvalUtil) {
 		super(target, targetUrl);
 		this.browserStyleInfo = browserStyleInfo;
 		this.htmlEvalUtil = htmlEvalUtil;
@@ -32,7 +32,7 @@ public class HtmlCheckTargetImpl extends CheckTargetImpl implements
 		return htmlEvalUtil;
 	}
 
-	public BrowserAndStyleInfo getBrowserAndStyleInfo() {
+	public IWebBrowserStyleInfo getBrowserAndStyleInfo() {
 		return browserStyleInfo;
 	}
 

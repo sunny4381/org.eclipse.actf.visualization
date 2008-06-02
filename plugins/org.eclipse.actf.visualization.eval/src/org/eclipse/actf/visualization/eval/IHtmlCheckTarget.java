@@ -10,12 +10,12 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.eval;
 
-import org.eclipse.actf.model.ui.editor.browser.BrowserAndStyleInfo;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo;
 import org.eclipse.actf.visualization.eval.html.HtmlEvalUtil;
 
 public interface IHtmlCheckTarget extends ICheckTarget {
 
-	BrowserAndStyleInfo getBrowserAndStyleInfo();
+	IWebBrowserStyleInfo getBrowserAndStyleInfo();
 
 	HtmlEvalUtil getHtmlEvalUtil();
 
