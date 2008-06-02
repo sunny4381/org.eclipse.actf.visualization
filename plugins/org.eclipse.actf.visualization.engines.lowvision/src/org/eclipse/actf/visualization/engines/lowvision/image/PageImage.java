@@ -398,14 +398,13 @@ public class PageImage implements LowVisionCommon {
 		/*
 		 * Other character candidates (do not belong to Container)
 		 */
-		Vector tmpSMCharacterVector = makeSMCharacterVector(
+		Vector<CharacterSM> tmpSMCharacterVector = makeSMCharacterVector(
 				candidateCharacterVector, candidateUnderlinedCharacterVector);
 		this.candidateCharacterVector.removeAllElements();
 		this.candidateUnderlinedCharacterVector.removeAllElements();
 		int tmpTmpSMVecSize = tmpSMCharacterVector.size();
 		for (int k = tmpTmpSMVecSize - 1; k >= 0; k--) {
-			CharacterSM tmpSM = (CharacterSM) (tmpSMCharacterVector
-					.elementAt(k));
+			CharacterSM tmpSM = tmpSMCharacterVector.elementAt(k);
 			if (!(DecisionMaker.isSMCharacter(tmpSM))) {
 				tmpSMCharacterVector.removeElementAt(k);
 			}
@@ -509,13 +508,16 @@ public class PageImage implements LowVisionCommon {
 							CandidateUnderlinedCharacter cuc = new CandidateUnderlinedCharacter(
 									this, cc2, fg);
 							cuc.setContainer(curCont);
-							Vector sscVec = removeUnderlineAndGenerateSS(cuc);
-							for (int m = 0; m < sscVec.size(); m++) {
-								curCont.ssCharacterVector
-										.addElement((CharacterSS) (sscVec
-												.elementAt(m)));
-							}
-							sscVec.removeAllElements();
+							// Vector<CharacterSS> sscVec =
+							// removeUnderlineAndGenerateSS(cuc);
+							// for (int m = 0; m < sscVec.size(); m++) {
+							// curCont.ssCharacterVector
+							// .addElement((CharacterSS) (sscVec
+							// .elementAt(m)));
+							// }
+							// sscVec.removeAllElements();
+							curCont.ssCharacterVector
+									.addAll(removeUnderlineAndGenerateSS(cuc));
 						}
 					}
 				}
@@ -523,14 +525,14 @@ public class PageImage implements LowVisionCommon {
 
 			// remaining candidates -> SM Character
 			// TODO check more
-			Vector tmpVec = makeSMCharacterVector(
+			Vector<CharacterSM> tmpVec = makeSMCharacterVector(
 					curCont.candidateCharacterVector,
 					curCont.candidateUnderlinedCharacterVector);
 			curCont.candidateCharacterVector.removeAllElements();
 			curCont.candidateUnderlinedCharacterVector.removeAllElements();
 			int tmpVecSize = tmpVec.size();
 			for (int l = tmpVecSize - 1; l >= 0; l--) {
-				CharacterSM smc = (CharacterSM) (tmpVec.elementAt(l));
+				CharacterSM smc = tmpVec.elementAt(l);
 				if (smc.getForegroundColor() == curCont.getColor()) {
 					// remove elements (same color with Container)
 					// (e.g., hole of 'A','R' etc.)
@@ -739,11 +741,15 @@ public class PageImage implements LowVisionCommon {
 					.elementAt(k);
 			if (_cc.equals(cuChar.cc)) {
 				// (confirmed) Underlined SS Character
-				Vector sscVec = removeUnderlineAndGenerateSS(cuChar);
-				for (int l = 0; l < sscVec.size(); l++) {
-					_cont.ssCharacterVector.addElement((CharacterSS) (sscVec
-							.elementAt(l)));
-				}
+				// Vector<CharacterSS> sscVec =
+				// removeUnderlineAndGenerateSS(cuChar);
+				// for (int l = 0; l < sscVec.size(); l++) {
+				// _cont.ssCharacterVector.addElement((CharacterSS) (sscVec
+				// .elementAt(l)));
+				// }
+				_cont.ssCharacterVector
+						.addAll(removeUnderlineAndGenerateSS(cuChar));
+
 				_cont.candidateUnderlinedCharacterVector.removeElementAt(k);
 				return (true);
 			}
@@ -792,7 +798,8 @@ public class PageImage implements LowVisionCommon {
 	}
 
 	// Create SM Characters from candidateCharacter/candidateUnderlinedCharacter
-	private Vector makeSMCharacterVector(Vector<CandidateCharacter> _cVec,
+	private Vector<CharacterSM> makeSMCharacterVector(
+			Vector<CandidateCharacter> _cVec,
 			Vector<CandidateUnderlinedCharacter> _uVec) throws ImageException {
 		Vector<CharacterSM> tmpVec = new Vector<CharacterSM>();
 		int numRemainingChar = _cVec.size();
@@ -805,10 +812,12 @@ public class PageImage implements LowVisionCommon {
 		int numRemainingUnderlinedChar = _uVec.size();
 		for (int k = 0; k < numRemainingUnderlinedChar; k++) {
 			CandidateUnderlinedCharacter cuChar = _uVec.elementAt(k);
-			Vector smcVec = removeUnderlineAndGenerateSM(cuChar);
-			for (int l = 0; l < smcVec.size(); l++) {
-				tmpVec.addElement((CharacterSM) (smcVec.elementAt(l)));
-			}
+			// Vector<CharacterSM> smcVec =
+			// removeUnderlineAndGenerateSM(cuChar);
+			// for (int l = 0; l < smcVec.size(); l++) {
+			// tmpVec.addElement((CharacterSM) (smcVec.elementAt(l)));
+			// }
+			tmpVec.addAll(removeUnderlineAndGenerateSM(cuChar));
 		}
 
 		return (tmpVec);
@@ -926,7 +935,7 @@ public class PageImage implements LowVisionCommon {
 		return (li);
 	}
 
-	private Vector removeUnderlineAndGenerateSS(
+	private Vector<CharacterSS> removeUnderlineAndGenerateSS(
 			CandidateUnderlinedCharacter _cuChar) throws ImageException {
 		Vector<CharacterSS> ssVec = new Vector<CharacterSS>();
 		int offsetX = _cuChar.cc.left;
@@ -948,7 +957,7 @@ public class PageImage implements LowVisionCommon {
 		return (ssVec);
 	}
 
-	private Vector removeUnderlineAndGenerateSM(
+	private Vector<CharacterSM> removeUnderlineAndGenerateSM(
 			CandidateUnderlinedCharacter _cuChar) throws ImageException {
 		Vector<CharacterSM> smVec = new Vector<CharacterSM>();
 		int offsetX = _cuChar.cc.left;
