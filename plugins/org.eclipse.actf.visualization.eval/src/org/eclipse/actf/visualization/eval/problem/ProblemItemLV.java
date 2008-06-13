@@ -12,6 +12,7 @@
 package org.eclipse.actf.visualization.eval.problem;
 
 import org.eclipse.actf.visualization.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.ui.IPositionSize;
 import org.eclipse.swt.graphics.Image;
 
 

@@ -18,7 +18,7 @@ import java.util.List;
 import org.eclipse.actf.mediator.Mediator;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
-import org.eclipse.actf.visualization.eval.problem.IPositionSize;
+import org.eclipse.actf.visualization.ui.IPositionSize;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.events.MouseEvent;

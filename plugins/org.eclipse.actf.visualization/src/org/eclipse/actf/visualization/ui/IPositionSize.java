@@ -9,11 +9,11 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval.problem;
+package org.eclipse.actf.visualization.ui;
 
 
 public interface IPositionSize {
-
+	
     /**
      * @return size of Item
      */

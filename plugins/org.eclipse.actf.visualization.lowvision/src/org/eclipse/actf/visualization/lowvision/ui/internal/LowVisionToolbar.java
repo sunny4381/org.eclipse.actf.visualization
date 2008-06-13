@@ -29,8 +29,6 @@ public class LowVisionToolbar extends Composite {
 
 	private Button _wholePageButton;
 
-	private Button _syncButton;
-
 	private PartControlLowVision lowVisionCtrl;
 
 	public LowVisionToolbar(Composite parent, int style,
@@ -78,18 +76,6 @@ public class LowVisionToolbar extends Composite {
 		gridData.horizontalAlignment = GridData.CENTER;
 		this._wholePageButton.setLayoutData(gridData);
 		this._wholePageButton.setSelection(true);
-
-		this._syncButton = new Button(this, SWT.CHECK);
-		this._syncButton.setText(Messages
-				.getString("LowVisionView.Synchronous_view_5")); //$NON-NLS-1$
-		gridData = new GridData();
-		gridData.horizontalAlignment = GridData.CENTER;
-		this._syncButton.setLayoutData(gridData);
-		this._syncButton.setSelection(true);
-	}
-
-	public Button getSyncButton() {
-		return this._syncButton;
 	}
 
 	public Button getWholePageButton() {

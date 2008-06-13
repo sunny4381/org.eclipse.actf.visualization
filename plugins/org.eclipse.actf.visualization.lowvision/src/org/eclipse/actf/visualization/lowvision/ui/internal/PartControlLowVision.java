@@ -33,7 +33,6 @@ import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.TargetPage;
 import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
 import org.eclipse.actf.visualization.engines.lowvision.io.ImageDumpUtil;
-import org.eclipse.actf.visualization.eval.problem.IPositionSize;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
 import org.eclipse.actf.visualization.lowvision.eval.CheckResultLowVision;
@@ -42,6 +41,7 @@ import org.eclipse.actf.visualization.lowvision.eval.SummaryEvaluationLV;
 import org.eclipse.actf.visualization.lowvision.util.LowVisionUtil;
 import org.eclipse.actf.visualization.lowvision.util.ParamLowVision;
 import org.eclipse.actf.visualization.lowvision.util.SimulateLowVision;
+import org.eclipse.actf.visualization.ui.IPositionSize;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -104,6 +104,8 @@ public class PartControlLowVision implements ISelectionListener,
 	private Mediator mediator = Mediator.getInstance();
 
 	private IWebBrowserACTF webBrowser = null;
+	
+	private IModelService targetModelService;
 
 	private class ExtractCheckThread extends Thread {
 		int frameId;
@@ -322,19 +324,17 @@ public class PartControlLowVision implements ISelectionListener,
 
 		checkThreads = new Vector<ExtractCheckThread>();
 
-		IModelService modelService = ModelServiceUtils.getActiveModelService();
-		if (modelService == null) {
+		targetModelService = ModelServiceUtils.getActiveModelService();
+		if (targetModelService == null) {
 			this._shell.setCursor(new Cursor(_shell.getDisplay(),
 					SWT.CURSOR_ARROW));
 			this._isInSimulate = false;
 			return;
 		}
 
-		lowVisionView.setTarget(modelService);
-
 		webBrowser = null;
-		if (modelService instanceof IWebBrowserACTF) {
-			webBrowser = (IWebBrowserACTF) modelService;
+		if (targetModelService instanceof IWebBrowserACTF) {
+			webBrowser = (IWebBrowserACTF) targetModelService;
 		}
 
 		frameUrl = new String[0];
@@ -359,7 +359,7 @@ public class PartControlLowVision implements ISelectionListener,
 			allocate(1);
 		}
 
-		targetUrlS = modelService.getURL();
+		targetUrlS = targetModelService.getURL();
 
 		if (webBrowser != null) {
 			try {
@@ -376,7 +376,7 @@ public class PartControlLowVision implements ISelectionListener,
 		if (frameSize == 0) {
 			frameUrl = new String[1];
 			frameUrl[0] = targetUrlS;
-			prepareInt2Ds(modelService, 0, 0);
+			prepareInt2Ds(targetModelService, 0, 0);
 		} else {
 			if (webBrowser != null) {
 				// TODO replace with WaitForBrowserReadyHandler
@@ -502,8 +502,7 @@ public class PartControlLowVision implements ISelectionListener,
 					pageImageWhole, paramLowVision, visResultFile
 							.getAbsolutePath());
 			if (imageDataArray.length > 0) {
-				lowVisionView.displayImage(imageDataArray[0]);
-				lowVisionView.resetScrollBars();
+				lowVisionView.displayImage(imageDataArray[0], targetModelService);
 				imageDataArray = null;
 			}
 		} catch (Exception e) {
@@ -621,11 +620,11 @@ public class PartControlLowVision implements ISelectionListener,
 	}
 
 	public void modelserviceChanged(MediatorEvent event) {
-		lowVisionView.setTarget(event.getModelServiceHolder().getModelService());
+		lowVisionView.setCurrentModelService(event.getModelServiceHolder().getModelService());
 	}
 
 	public void modelserviceInputChanged(MediatorEvent event) {
-		lowVisionView.setTarget(event.getModelServiceHolder().getModelService());		
+		lowVisionView.setCurrentModelService(event.getModelServiceHolder().getModelService());		
 	}
 
 	public void reportChanged(MediatorEvent event) {
