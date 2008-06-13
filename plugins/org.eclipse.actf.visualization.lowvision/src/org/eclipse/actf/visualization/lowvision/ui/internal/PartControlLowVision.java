@@ -393,8 +393,6 @@ public class PartControlLowVision implements ISelectionListener,
 					.setStatusMessage(Messages
 							.getString("LowVisionView.dump_the_image_in_the_web_browser._26"));
 
-			modelService
-					.setScrollbarWidth(lowVisionView.getVarticalBarSize().x);
 			ModelServiceImageCreator imgCreator = new ModelServiceImageCreator(
 					modelService);
 			imgCreator.getScreenImageAsBMP(dumpImageFile, lowVisionView

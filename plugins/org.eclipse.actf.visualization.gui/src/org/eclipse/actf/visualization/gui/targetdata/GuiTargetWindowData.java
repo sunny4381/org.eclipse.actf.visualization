@@ -201,12 +201,6 @@ public class GuiTargetWindowData implements IModelService {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#setScrollbarWidth(int)
-     */
-    public void setScrollbarWidth(int width) {
-    }
-
 	public File saveOriginalDocument(String file) {
 		return null;
 	}

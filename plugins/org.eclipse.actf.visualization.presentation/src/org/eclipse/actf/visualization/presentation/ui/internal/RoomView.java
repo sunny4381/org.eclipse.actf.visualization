@@ -58,8 +58,7 @@ public class RoomView {
 		compositeLowVisionHalf2.setLayout(gridLayout);
 
 		// Canvas to show the image.
-		this._imageCanvas = new VisualizationCanvas(compositeLowVisionHalf2,
-				SWT.V_SCROLL | SWT.H_SCROLL);
+		this._imageCanvas = new VisualizationCanvas(compositeLowVisionHalf2);
 		gridData = new GridData();
 		gridData.horizontalSpan = 1;
 		gridData.horizontalAlignment = GridData.FILL;

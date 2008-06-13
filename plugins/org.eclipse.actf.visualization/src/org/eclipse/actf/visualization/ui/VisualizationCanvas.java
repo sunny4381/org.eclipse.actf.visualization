@@ -60,12 +60,16 @@ public class VisualizationCanvas extends Canvas {
 
 	private boolean sync = true;
 
+	public VisualizationCanvas(Composite parent) {
+		this(parent, SWT.NONE);
+	}
+
 	/**
 	 * @param parent
 	 * @param style
 	 */
 	public VisualizationCanvas(Composite parent, int style) {
-		super(parent, style);
+		super(parent, SWT.V_SCROLL | SWT.H_SCROLL | style);
 		display = parent.getDisplay();
 		init();
 

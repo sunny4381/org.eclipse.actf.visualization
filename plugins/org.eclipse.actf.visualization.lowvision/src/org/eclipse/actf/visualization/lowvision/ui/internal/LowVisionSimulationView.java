@@ -61,9 +61,7 @@ public class LowVisionSimulationView {
 		compositeLowVisionHalf2.setLayout(gridLayout);
 
 		// Canvas to show the image.
-		_imageCanvas = new VisualizationCanvas(compositeLowVisionHalf2, SWT.V_SCROLL
-				| SWT.H_SCROLL);
-		// | SWT.NO_REDRAW_RESIZE
+		_imageCanvas = new VisualizationCanvas(compositeLowVisionHalf2);
 		gridData = new GridData();
 		gridData.horizontalSpan = 1;
 		gridData.horizontalAlignment = GridData.FILL;
@@ -102,11 +100,11 @@ public class LowVisionSimulationView {
 	public void setWholePage(boolean isWholePage) {
 		this._lowVisionToolbar.getWholePageButton().setSelection(isWholePage);
 	}
-	
+
 	protected void setCurrentModelService(IModelService current) {
-		
+
 		_imageCanvas.setCurrentModelService(current);
-		
+
 		Button button = _lowVisionToolbar.getWholePageButton();
 
 		if (null == current) {

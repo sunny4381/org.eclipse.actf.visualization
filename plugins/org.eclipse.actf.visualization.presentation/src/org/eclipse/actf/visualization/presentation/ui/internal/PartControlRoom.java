@@ -114,7 +114,6 @@ public class PartControlRoom implements IVisualizationConst {
 					.setStatusMessage(RoomPlugin
 							.getResourceString("PartRightRoom.dump_the_image_in_the_web_browser._26"));
 
-			modelService.setScrollbarWidth(roomView.getVarticalBarSize().x);
 			ModelServiceImageCreator imgCreator = new ModelServiceImageCreator(
 					modelService);
 			imgCreator.getScreenImageAsBMP(dumpImageFile, false);
