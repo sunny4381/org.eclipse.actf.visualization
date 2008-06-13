@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Daisuke SATO - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.presentation.ui.views;
 
@@ -24,7 +25,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
-
 
 public class RoomView extends ViewPart implements IVisualizationView {
 
@@ -112,23 +112,19 @@ public class RoomView extends ViewPart implements IVisualizationView {
 	}
 
 	public void modelserviceChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
+		partRightRoom.setCurrentModelService(event.getModelServiceHolder()
+				.getModelService());
 	}
 
 	public void modelserviceInputChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
+		partRightRoom.setCurrentModelService(event.getModelServiceHolder()
+				.getModelService());
 	}
 
 	public void reportChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public void reportGeneratorChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

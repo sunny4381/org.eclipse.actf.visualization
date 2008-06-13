@@ -54,12 +54,11 @@ import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.w3c.dom.Document;
 
-
 public class PartControlLowVision implements ISelectionListener,
 		IVisualizationConst, IMediatorEventListener {
 
 	private static final CheckResultLowVision dummyResult = new CheckResultLowVision();
-	
+
 	private String[] frameUrl;
 
 	private PageImage[] framePageImage;
@@ -104,7 +103,7 @@ public class PartControlLowVision implements ISelectionListener,
 	private Mediator mediator = Mediator.getInstance();
 
 	private IWebBrowserACTF webBrowser = null;
-	
+
 	private IModelService targetModelService;
 
 	private class ExtractCheckThread extends Thread {
@@ -240,7 +239,7 @@ public class PartControlLowVision implements ISelectionListener,
 					_shell.setCursor(null);
 					_isInSimulate = false;
 
-					for (ExtractCheckThread tmpT : checkThreads){
+					for (ExtractCheckThread tmpT : checkThreads) {
 						tmpT.disposeTargetPage();
 					}
 					checkThreads = new Vector<ExtractCheckThread>();
@@ -294,8 +293,8 @@ public class PartControlLowVision implements ISelectionListener,
 	private void allocate(int frameSize) {
 		framePageImage = new PageImage[frameSize];
 		imageInfoInHtmlArray = new ImagePositionInfo[frameSize][];
-		styleInfoArray = new ArrayList<Map<String,ICurrentStyles>>(frameSize);
-		for(int i=0; i<frameSize; i++){
+		styleInfoArray = new ArrayList<Map<String, ICurrentStyles>>(frameSize);
+		for (int i = 0; i < frameSize; i++) {
 			styleInfoArray.add(new HashMap<String, ICurrentStyles>());
 		}
 		// htmlLine2Id = new HtmlLine2Id[frameSize];
@@ -418,19 +417,22 @@ public class PartControlLowVision implements ISelectionListener,
 				if (browser != null) {
 					imageInfoInHtmlArray[frameId] = browser
 							.getAllImagePosition();
-					styleInfoArray.set(frameId, browser.getStyleInfo().getCurrentStyles());
-					//styleInfoArray.set(frameId, new HashMap<String, ICurrentStyles>());
+					styleInfoArray.set(frameId, browser.getStyleInfo()
+							.getCurrentStyles());
+					// styleInfoArray.set(frameId, new HashMap<String,
+					// ICurrentStyles>());
 				} else {
-					styleInfoArray.set(frameId, new HashMap<String, ICurrentStyles>());
+					styleInfoArray.set(frameId,
+							new HashMap<String, ICurrentStyles>());
 				}
 
 				if (lastFrame > 1) { // TODO frameURL.length?
 					imageInfoInHtmlArray[frameId] = LowVisionUtil
 							.trimInfoImageInHtml(imageInfoInHtmlArray[frameId],
 									framePageImage[frameId].getHeight());
-					styleInfoArray.set(frameId, LowVisionUtil.trimStyleInfoArray(
-							styleInfoArray.get(frameId), framePageImage[frameId]
-									.getHeight()));
+					styleInfoArray.set(frameId, LowVisionUtil
+							.trimStyleInfoArray(styleInfoArray.get(frameId),
+									framePageImage[frameId].getHeight()));
 				}
 
 				checker.setStatusMessage(Messages
@@ -502,7 +504,8 @@ public class PartControlLowVision implements ISelectionListener,
 					pageImageWhole, paramLowVision, visResultFile
 							.getAbsolutePath());
 			if (imageDataArray.length > 0) {
-				lowVisionView.displayImage(imageDataArray[0], targetModelService);
+				lowVisionView.displayImage(imageDataArray[0],
+						targetModelService);
 				imageDataArray = null;
 			}
 		} catch (Exception e) {
@@ -600,6 +603,7 @@ public class PartControlLowVision implements ISelectionListener,
 		this.dump_image_size = dump_image_size;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		if (selection == null || !(selection instanceof IStructuredSelection)) {
 			System.err.println(this.getClass().getName() + ":" + "Iselection");
@@ -607,7 +611,7 @@ public class PartControlLowVision implements ISelectionListener,
 		}
 		ArrayList<IPositionSize> result = new ArrayList<IPositionSize>();
 
-		//TODO check
+		// TODO check
 		for (Iterator i = ((IStructuredSelection) selection).iterator(); i
 				.hasNext();) {
 			IProblemItem item = (IProblemItem) i.next();
@@ -620,19 +624,21 @@ public class PartControlLowVision implements ISelectionListener,
 	}
 
 	public void modelserviceChanged(MediatorEvent event) {
-		lowVisionView.setCurrentModelService(event.getModelServiceHolder().getModelService());
+		lowVisionView.setCurrentModelService(event.getModelServiceHolder()
+				.getModelService());
 	}
 
 	public void modelserviceInputChanged(MediatorEvent event) {
-		lowVisionView.setCurrentModelService(event.getModelServiceHolder().getModelService());		
+		lowVisionView.setCurrentModelService(event.getModelServiceHolder()
+				.getModelService());
 	}
 
 	public void reportChanged(MediatorEvent event) {
-		
+
 	}
 
 	public void reportGeneratorChanged(MediatorEvent event) {
-		
+
 	}
 
 }

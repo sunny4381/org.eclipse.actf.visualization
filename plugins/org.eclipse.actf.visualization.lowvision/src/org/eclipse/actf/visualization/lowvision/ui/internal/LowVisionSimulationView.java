@@ -103,7 +103,7 @@ public class LowVisionSimulationView {
 		this._lowVisionToolbar.getWholePageButton().setSelection(isWholePage);
 	}
 	
-	public void setCurrentModelService(IModelService current) {
+	protected void setCurrentModelService(IModelService current) {
 		
 		_imageCanvas.setCurrentModelService(current);
 		

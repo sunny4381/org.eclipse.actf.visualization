@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Daisuke SATO - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.presentation.ui.internal;
 
@@ -24,6 +25,7 @@ import org.eclipse.actf.visualization.presentation.RoomPlugin;
 import org.eclipse.actf.visualization.presentation.eval.CheckResultPresentation;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
 import org.eclipse.actf.visualization.presentation.util.SimulateRoom;
+import org.eclipse.actf.visualization.ui.IPositionSize;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
@@ -34,7 +36,7 @@ import org.eclipse.swt.widgets.Shell;
 public class PartControlRoom implements IVisualizationConst {
 
 	private static PartControlRoom INSTANCE = null;
-	
+
 	private static final CheckResultPresentation dummyResult = new CheckResultPresentation();
 
 	private PageImage targetPageImage;
@@ -154,7 +156,7 @@ public class PartControlRoom implements IVisualizationConst {
 			ImageData[] imageDataArray = SimulateRoom.doSimulate(
 					pageImageWhole, paramRoom, vizResultFile.getAbsolutePath());
 			if (imageDataArray.length > 0) {
-				roomView.displayImage(imageDataArray[0]);
+				roomView.displayImage(imageDataArray[0], modelService);
 			}
 			imageDataArray = null;
 		} catch (Exception e) {
@@ -191,7 +193,7 @@ public class PartControlRoom implements IVisualizationConst {
 
 	}
 
-	public void setHighlightPositions(List infoPositionSizeList) {
+	public void setHighlightPositions(List<IPositionSize> infoPositionSizeList) {
 		roomView.highlight(infoPositionSizeList);
 	}
 
@@ -213,6 +215,10 @@ public class PartControlRoom implements IVisualizationConst {
 		if (!_isInSimulate) {
 			checker.setInfoMessage(paramRoom.toString());
 		}
+	}
+
+	public void setCurrentModelService(IModelService modelService) {
+		roomView.setCurrentModelService(modelService);
 	}
 
 }
