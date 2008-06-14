@@ -14,7 +14,6 @@ package org.eclipse.actf.visualization.eval;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
@@ -22,9 +21,6 @@ import org.eclipse.actf.ui.util.HighlightStringListener;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItemVisitor;
 import org.eclipse.swt.custom.LineStyleListener;
-
-
-
 
 public class EvaluationResultImpl implements IEvaluationResult {
 
@@ -92,8 +88,8 @@ public class EvaluationResultImpl implements IEvaluationResult {
 	}
 
 	public void accept(IProblemItemVisitor visitor) {
-		for (Iterator i = _problemList.iterator(); i.hasNext();) {
-			((IProblemItem) i.next()).accept(visitor);
+		for (IProblemItem i : _problemList) {
+			i.accept(visitor);
 		}
 	}
 
@@ -135,13 +131,13 @@ public class EvaluationResultImpl implements IEvaluationResult {
 	}
 
 	public boolean addAssociateFile(File target) {
-		if(target!=null){
+		if (target != null) {
 			return (associateFileV.add(target));
 		}
 		return false;
 	}
 
-	public File[] getAssociateFiles(){ 
+	public File[] getAssociateFiles() {
 		return associateFileV.toArray(new File[associateFileV.size()]);
 	}
 

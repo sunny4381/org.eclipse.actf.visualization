@@ -20,6 +20,7 @@ import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEvent;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener;
+import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemConst;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.report.ReportPlugin;
@@ -313,7 +314,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			tableSorter = vizView.getTableSorter();
 
 			if (curMode != vizView.getResultTableMode()) {
-				tableViewer.setInput(new Vector());
+				tableViewer.setInput(new Vector<IProblemItem>());
 				changeColumnLayout();
 			}
 
