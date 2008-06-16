@@ -77,7 +77,7 @@ public class VisualizeMapUtil {
         }
     }
 
-    public static Map createMapTextMap(Document doc) {
+    public static Map<String, String> createMapTextMap(Document doc) {
         Map<String, String> mapTextMap = new HashMap<String, String>();
         NodeList nl = doc.getElementsByTagName("area");
         int size = nl.getLength();

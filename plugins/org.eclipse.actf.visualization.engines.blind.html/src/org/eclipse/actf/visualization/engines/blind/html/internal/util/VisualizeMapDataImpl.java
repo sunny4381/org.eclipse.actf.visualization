@@ -13,7 +13,6 @@ package org.eclipse.actf.visualization.engines.blind.html.internal.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -52,56 +51,56 @@ public class VisualizeMapDataImpl implements IVisualizeMapData {
 
     }
 
-    protected Map getOrig2ResultMap() {
+    protected Map<Node, Node> getOrig2ResultMap() {
         return (orig2resultMap);
     }
 
     /**
      * @return Returns the accId2idMap.
      */
-    protected Map getAccId2IdMap() {
+    protected Map<Integer, Integer> getAccId2IdMap() {
         return accId2id;
     }
 
     /**
      * @return Returns the id2accIdMap.
      */
-    public Map getId2AccIdMap() {
+    public Map<Integer, Integer> getId2AccIdMap() {
         return id2accId;
     }
 
     /* (non-Javadoc)
 	 * @see org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData#getOrig2idMap()
 	 */
-    public Map getOrig2idMap() {
+    public Map<Node, Integer> getOrig2idMap() {
         return orig2idMap;
     }
 
     /**
      * @return Returns the result2idMap.
      */
-    public Map getResult2idMap() {
+    public Map<Node, Integer> getResult2idMap() {
         return result2idMap;
     }
 
     /**
      * @return Returns the intraPageLinkMap.
      */
-    protected Map getIntraPageLinkMap() {
+    protected Map<Node, Node> getIntraPageLinkMap() {
         return intraPageLinkMap;
     }
 
     /**
      * @return Returns the nodeInfoList.
      */
-    public List getNodeInfoList() {
+    public List<VisualizationNodeInfo> getNodeInfoList() {
         return nodeInfoList;
     }
 
     /**
      * @return Returns the node2infoMap.
      */
-    protected Map getNode2infoMap() {
+    protected Map<Node, VisualizationNodeInfo> getNode2infoMap() {
         return node2infoMap;
     }
 
@@ -186,10 +185,8 @@ public class VisualizeMapDataImpl implements IVisualizeMapData {
     }
 
     public void makeIdMapping(String targetIdS){
-		Set nodeSet = getResult2idMap().keySet();
-		Iterator it = nodeSet.iterator();
-		while (it.hasNext()) {
-			Node node = (Node) it.next();
+		Set<Node> nodeSet = getResult2idMap().keySet();
+		for (Node node : nodeSet) {
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
 				Integer targetId = getIdOfNode(node);
 				Element tmpE = (Element) node;

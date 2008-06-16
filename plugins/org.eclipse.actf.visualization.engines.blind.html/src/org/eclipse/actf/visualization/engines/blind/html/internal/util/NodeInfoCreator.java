@@ -35,7 +35,7 @@ public class NodeInfoCreator {
 
 	private static final String LIST_TAGS = "ul|ol|dl";
 
-	private static final Set BLOCK_TAG_SET = HtmlTagUtil.getBlockElementSet();
+	private static final Set<String> BLOCK_TAG_SET = HtmlTagUtil.getBlockElementSet();
 
 	private VisualizeMapDataImpl mapData;
 
@@ -43,7 +43,7 @@ public class NodeInfoCreator {
 
 	private List<IProblemItem> problems;
 
-	private Set invisibleIdSet;
+	private Set<String> invisibleIdSet;
 
 	private TextCounter textCounter;
 
@@ -51,7 +51,7 @@ public class NodeInfoCreator {
 	 * 
 	 */
 	public NodeInfoCreator(VisualizeMapDataImpl mapData, TextChecker textChecker,
-			List<IProblemItem> problems, Set invisibleIdSet,
+			List<IProblemItem> problems, Set<String> invisibleIdSet,
 			ParamBlind paramBlind) {
 		this.mapData = mapData;
 		this.textChecker = textChecker;
@@ -271,7 +271,7 @@ public class NodeInfoCreator {
 		int origTotalWords = 0;
 		int origTotalLines = 0;
 
-		Map mapTextMap = VisualizeMapUtil.createMapTextMap(doc);
+		Map<String, String> mapTextMap = VisualizeMapUtil.createMapTextMap(doc);
 
 		NodeList bodyNl = doc.getElementsByTagName("body");
 		if (bodyNl.getLength() > 0) {

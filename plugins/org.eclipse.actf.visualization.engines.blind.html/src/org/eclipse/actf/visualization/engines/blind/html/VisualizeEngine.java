@@ -71,7 +71,7 @@ public class VisualizeEngine {
 
 	private List<IProblemItem> problems = null;
 
-	private Vector html2viewMapV = new Vector();
+	private Vector<Html2ViewMapData> html2viewMapV = new Vector<Html2ViewMapData>();
 
 	private VisualizeMapDataImpl mapData = null;
 
@@ -89,7 +89,7 @@ public class VisualizeEngine {
 
 	private int iMaxTimeLeaf;
 
-	private Set invisibleIdSet = new HashSet();
+	private Set<String> invisibleIdSet = new HashSet<String>();
 
 	private TextChecker textChecker;
 
@@ -118,10 +118,9 @@ public class VisualizeEngine {
 	private void initCheckItems() {
 		Arrays.fill(checkItems, false);
 
-		Set itemSet = guidelineHolder.getMatchedCheckitemSet();
+		Set<IEvaluationItem> itemSet = guidelineHolder.getMatchedCheckitemSet();
 
-		for (Iterator i = itemSet.iterator(); i.hasNext();) {
-			IEvaluationItem cItem = (IEvaluationItem) i.next();
+		for (IEvaluationItem cItem : itemSet) {
 			// System.out.println(cItem.getId());
 			String id = cItem.getId();
 			if (id.matches(CHECK_ITEM_PATTERN)) {
@@ -291,8 +290,8 @@ public class VisualizeEngine {
 						html2viewMapV);
 			}
 
-			for (Iterator i = problems.iterator(); i.hasNext();) {
-				BlindProblem tmpBP = (BlindProblem) i.next();
+			for (IProblemItem i : problems) {
+				BlindProblem tmpBP = (BlindProblem) i;
 				tmpBP.prepareHighlight();
 				if (id2line != null) {
 					tmpBP.setLineNumber(id2line);
@@ -519,7 +518,7 @@ public class VisualizeEngine {
 
 		int orgMaxTime = 0;
 
-		List elementList = mapData.getNodeInfoList();
+		List<VisualizationNodeInfo> elementList = mapData.getNodeInfoList();
 		int size = elementList.size();
 		for (int i = 0; i < size; i++) {
 
@@ -558,7 +557,7 @@ public class VisualizeEngine {
 	 * @param invisibleIdSet
 	 *            The invisibleIdSet to set.
 	 */
-	public void setInvisibleIdSet(Set invisibleIdSet) {
+	public void setInvisibleIdSet(Set<String> invisibleIdSet) {
 		this.invisibleIdSet = invisibleIdSet;
 	}
 
@@ -569,7 +568,7 @@ public class VisualizeEngine {
 		return mapData;
 	}
 
-	public void setHtml2viewMapV(Vector html2viewMapV) {
+	public void setHtml2viewMapV(Vector<Html2ViewMapData> html2viewMapV) {
 		this.html2viewMapV = html2viewMapV;
 	}
 

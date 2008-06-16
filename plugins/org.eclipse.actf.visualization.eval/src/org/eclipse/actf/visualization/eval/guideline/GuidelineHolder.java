@@ -15,7 +15,6 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
@@ -37,14 +36,14 @@ public class GuidelineHolder {
 	private IPreferenceStore preferenceStore = EvaluationPlugin.getDefault()
 			.getPreferenceStore();
 
-	private ICheckerInfoProvider[] checkerInfos = CheckerExtension.getCheckerInfoProviders();
+	private ICheckerInfoProvider[] checkerInfos = CheckerExtension
+			.getCheckerInfoProviders();
 
 	public static void main(String args[]) {
 		GuidelineHolder gh = getInstance();
 
-		for (Iterator i = gh.checkitemMap.keySet().iterator(); i.hasNext();) {
-			IEvaluationItem tmpCI = (IEvaluationItem) gh.checkitemMap.get(i
-					.next());
+		for (String key : gh.checkitemMap.keySet()) {
+			IEvaluationItem tmpCI = (IEvaluationItem) gh.checkitemMap.get(key);
 			if (!gh.enabledCheckitemSet.contains(tmpCI)) {
 				System.out.println(tmpCI);
 			}
@@ -115,7 +114,8 @@ public class GuidelineHolder {
 		for (ICheckerInfoProvider checkerInfo : checkerInfos) {
 			InputStream[] iss = checkerInfo.getGuidelineInputStreams();
 			if (null != iss) {
-				DebugPrintUtil.devOrDebugPrintln(checkerInfo.getClass().getName()
+				DebugPrintUtil.devOrDebugPrintln(checkerInfo.getClass()
+						.getName()
 						+ ":" + iss.length);
 				for (InputStream tmpIs : iss) {
 					readGuidelines(tmpIs);
@@ -190,9 +190,11 @@ public class GuidelineHolder {
 		enabledMetrics = new boolean[metricsNameSet.size()];
 		Arrays.fill(enabledMetrics, true);
 
-		for (Iterator i = checkitemMap.values().iterator(); i.hasNext();) {
-			EvaluationItem tmpItem = (EvaluationItem) i.next();
-			tmpItem.initTableData(guidelineNames, metricsNames);
+		for (IEvaluationItem tmpItem : checkitemMap.values()) {
+			if (tmpItem instanceof EvaluationItem) {
+				((EvaluationItem) tmpItem).initTableData(guidelineNames,
+						metricsNames);
+			}
 		}
 
 		initGuidelineNameLevel2checkItem();
@@ -356,7 +358,7 @@ public class GuidelineHolder {
 		}
 	}
 
-	public Set getMatchedCheckitemSet() {
+	public Set<IEvaluationItem> getMatchedCheckitemSet() {
 		// 061018 kf
 		// return enabledCheckitemSet;
 		return matchedCheckitemSet;
@@ -367,9 +369,8 @@ public class GuidelineHolder {
 	}
 
 	private void initGuidelineNameLevel2checkItem() {
-		for (Iterator i = guidelineMaps.values().iterator(); i.hasNext();) {
-			((GuidelineData) i.next()).setCheckItems(checkitemMap.values(),
-					metricsNames);
+		for (GuidelineData data : guidelineMaps.values()) {
+			data.setCheckItems(checkitemMap.values(), metricsNames);
 		}
 
 	}
@@ -538,10 +539,8 @@ public class GuidelineHolder {
 
 	private void notifyGuidelineSelectionChange() {
 		GuidelineSelectionChangedEvent event = new GuidelineSelectionChangedEvent();
-		for (Iterator i = guidelineSelectionChangedListenerSet.iterator(); i
-				.hasNext();) {
-			((IGuidelineSlectionChangedListener) i.next())
-					.selectionChanged(event);
+		for (IGuidelineSlectionChangedListener listener : guidelineSelectionChangedListenerSet) {
+			listener.selectionChanged(event);
 		}
 	}
 

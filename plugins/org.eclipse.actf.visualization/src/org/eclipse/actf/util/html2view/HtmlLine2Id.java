@@ -21,11 +21,11 @@ public class HtmlLine2Id {
 	private boolean is1base;	//line count start from 1 (bobby)
 	
 	//(1,1) base
-	public HtmlLine2Id(Vector tmpV) {
+	public HtmlLine2Id(Vector<Html2ViewMapData> tmpV) {
 		this(tmpV,true);
 	}
 
-	public HtmlLine2Id(Vector tmpV, boolean is1base){
+	public HtmlLine2Id(Vector<Html2ViewMapData> tmpV, boolean is1base){
 		this.is1base = is1base; 
 		try{
 			size = tmpV.size();
@@ -39,7 +39,7 @@ public class HtmlLine2Id {
 		}
 	}
 
-	public Vector getId(int target){
+	public Vector<Integer> getId(int target){
 		int line = target;
 		if(is1base){
 			line--;

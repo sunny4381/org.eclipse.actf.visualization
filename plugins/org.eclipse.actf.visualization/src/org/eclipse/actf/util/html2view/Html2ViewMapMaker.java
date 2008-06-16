@@ -85,23 +85,23 @@ public class Html2ViewMapMaker {
 		}
 	}
 
-	public Vector makeMap(String filename, String resultFileName,
+	public Vector<Html2ViewMapData> makeMap(String filename, String resultFileName,
 			String baseUrl, String tmpDir) {
 		return (makeMap(filename, resultFileName, baseUrl, tmpDir, true));
 	}
 
-	public Vector makeMap(String filename, String resultFileName,
+	public Vector<Html2ViewMapData> makeMap(String filename, String resultFileName,
 			String baseUrl, String tmpDir, boolean useTmpDir) {
 		changeBase = true;
 		this.baseUrl = baseUrl;
 		return (makeMapLocal(filename, resultFileName, tmpDir, useTmpDir));
 	}
 
-	public Vector makeMap(String filename, String resultFileName, String tmpDir) {
+	public Vector<Html2ViewMapData> makeMap(String filename, String resultFileName, String tmpDir) {
 		return (makeMap(filename, resultFileName, tmpDir, true));
 	}
 
-	public Vector makeMap(String filename, String resultFileName,
+	public Vector<Html2ViewMapData> makeMap(String filename, String resultFileName,
 			String tmpDir, boolean useTmpDir) {
 		changeBase = false;
 		return (makeMapLocal(filename, resultFileName, tmpDir, useTmpDir));
@@ -130,7 +130,7 @@ public class Html2ViewMapMaker {
 	}
 
 	// TODO throw syntactic error
-	private Vector makeMapLocal(String filename, String resultFileName,
+	private Vector<Html2ViewMapData> makeMapLocal(String filename, String resultFileName,
 			String tmpDir, boolean useTmpDir) {
 
 		PrintWriter htmlWriter;
@@ -183,10 +183,10 @@ public class Html2ViewMapMaker {
 			htmlWriter = new PrintWriter(bos);
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
-			return new Vector();
+			return new Vector<Html2ViewMapData>();
 		} catch (UnsupportedEncodingException uee) {
 			uee.printStackTrace();
-			return new Vector();
+			return new Vector<Html2ViewMapData>();
 		}
 
 		try {
@@ -238,7 +238,7 @@ public class Html2ViewMapMaker {
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
-				return (new Vector());
+				return (new Vector<Html2ViewMapData>());
 			}
 		} finally {
 			try {
