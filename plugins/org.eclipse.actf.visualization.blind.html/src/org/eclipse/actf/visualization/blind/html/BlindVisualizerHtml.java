@@ -23,6 +23,8 @@ import org.eclipse.actf.model.dom.html.impl.SHDocument;
 import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.util.dom.DomPrintUtil;
+import org.eclipse.actf.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.util.html2view.Html2ViewMapMaker;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.IVisualizationConst;
@@ -90,7 +92,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 			Html2ViewMapMaker h2vmm = new Html2ViewMapMaker();
 
-			Vector html2ViewMapV = new Vector();
+			Vector<Html2ViewMapData> html2ViewMapV = new Vector<Html2ViewMapData>();
 			HtmlParserUtil hpu = new HtmlParserUtil();
 			HtmlErrorLogListener errorLogListener = new HtmlErrorLogListener();
 			hpu.addErrorLogListener(errorLogListener);
@@ -165,7 +167,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			// }
 			// engine.setInvisibleIdSet(invisibleIdSet);
 
-			engine.setInvisibleIdSet(new HashSet());
+			engine.setInvisibleIdSet(new HashSet<String>());
 
 			engine.setPageData(pageData);
 			engine.calculate();
@@ -238,12 +240,18 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			resultFile = BlindVizEnginePlugin.createTempFile(
 					IVisualizationConst.PREFIX_RESULT,
 					IVisualizationConst.SUFFIX_HTML);
-			File tmpFile = BlindVizEnginePlugin.createTempFile("tmp",
-					IVisualizationConst.SUFFIX_HTML);
+//			File tmpFile = BlindVizEnginePlugin.createTempFile("tmp",
+//					IVisualizationConst.SUFFIX_HTML);
 
 			try {
-				HtmlParserUtil.saveHtmlDocumentAsUTF8(
-						(SHDocument) resultDocument, tmpFile, resultFile);
+//				HtmlParserUtil.saveHtmlDocumentAsUTF8(
+//						(SHDocument) resultDocument, tmpFile, resultFile);
+				PrintWriter tmpPW = new PrintWriter(new OutputStreamWriter(new FileOutputStream(resultFile),"UTF8"));				
+				DomPrintUtil dpu = new DomPrintUtil(resultDocument);
+				tmpPW.println(dpu.toXMLString());
+				tmpPW.flush();
+				tmpPW.close();
+				
 			} catch (Exception e3) {
 				DebugPrintUtil
 						.devOrDebugPrintln("error: saveHtmlDocumentAsUTF8");
