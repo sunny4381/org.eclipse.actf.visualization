@@ -11,7 +11,6 @@
 package org.eclipse.actf.visualization.flash.ui.properties;
 
 import org.eclipse.actf.model.flash.ASNode;
-import org.eclipse.actf.model.flash.IASBridge;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.ui.views.properties.IPropertySource;

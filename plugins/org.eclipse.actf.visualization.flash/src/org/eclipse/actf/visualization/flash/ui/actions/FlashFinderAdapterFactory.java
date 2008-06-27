@@ -17,11 +17,13 @@ import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 
 public class FlashFinderAdapterFactory implements IAdapterFactory, IActionFilter {
 
-    public Class[] getAdapterList() {
+    @SuppressWarnings("unchecked")
+	public Class[] getAdapterList() {
         return new Class[] { IActionFilter.class };
     }
 
-    public Object getAdapter(Object adaptableObject, Class adapterType) {
+    @SuppressWarnings("unchecked")
+	public Object getAdapter(Object adaptableObject, Class adapterType) {
         if (adaptableObject instanceof AccessibleObject && IActionFilter.class == adapterType) {
             return this;
         }
