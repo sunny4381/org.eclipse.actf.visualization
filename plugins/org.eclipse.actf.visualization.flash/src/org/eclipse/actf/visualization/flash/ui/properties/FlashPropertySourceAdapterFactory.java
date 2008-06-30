@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.flash.ui.properties;
 
-import org.eclipse.actf.model.flash.ASNode;
+import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.core.runtime.IAdapterFactory;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -24,8 +24,8 @@ public class FlashPropertySourceAdapterFactory implements IAdapterFactory {
 				return new FlashPlayerPropertySource(
 						(IFlashPlayer) adaptableObject);
 			}
-			if (adaptableObject instanceof ASNode) {
-				return new FlashNodePropertySource((ASNode) adaptableObject);
+			if (adaptableObject instanceof IASNode) {
+				return new FlashNodePropertySource((IASNode) adaptableObject);
 			}
 		}
 		return null;

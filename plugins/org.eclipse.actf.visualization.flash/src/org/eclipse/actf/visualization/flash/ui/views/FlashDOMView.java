@@ -18,8 +18,8 @@ import java.util.List;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.model.flash.ASAccInfo;
-import org.eclipse.actf.model.flash.ASNode;
 import org.eclipse.actf.model.flash.FlashPlayerFactory;
+import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.model.flash.util.FlashDetect;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
@@ -100,8 +100,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 				if (selection instanceof IStructuredSelection) {
 					Object selectedItem = ((IStructuredSelection) selection)
 							.getFirstElement();
-					if (selectedItem instanceof ASNode) {
-						((ASNode) selectedItem).setMarker();
+					if (selectedItem instanceof IASNode) {
+						((IASNode) selectedItem).setMarker();
 					} else if (!(selectedItem instanceof IFlashPlayer)) {
 						return;
 					}
@@ -182,7 +182,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 			for (int i = 0; i < items.length; i++) {
 				TreeItem item = items[i];
 				try {
-					ASNode flashNode = (ASNode) item.getData();
+					IASNode flashNode = (IASNode) item.getData();
 					if (flashNode.getLevel() >= 40) {
 						throw new Error(
 								MessageFormat
@@ -405,23 +405,23 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 		public boolean informativeTree = false;
 
 		public Object[] getChildren(Object parentElement) {
-			if (parentElement instanceof ASNode) {
-				return ((ASNode) parentElement).getChildren(visualTree,
+			if (parentElement instanceof IASNode) {
+				return ((IASNode) parentElement).getChildren(visualTree,
 						informativeTree, debugMode);
 			}
 			return new Object[0];
 		}
 
 		public Object getParent(Object element) {
-			if (element instanceof ASNode) {
-				return ((ASNode) element).getParent();
+			if (element instanceof IASNode) {
+				return ((IASNode) element).getParent();
 			}
 			return null;
 		}
 
 		public boolean hasChildren(Object element) {
-			if (element instanceof ASNode) {
-				return ((ASNode) element).hasChild(visualTree, debugMode);
+			if (element instanceof IASNode) {
+				return ((IASNode) element).hasChild(visualTree, debugMode);
 			}
 			return false;
 		}
@@ -440,7 +440,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 						player = (IFlashPlayer) objects[i];
 					}
 					if (null != player) {
-						ASNode rootNode = player.getRootNode();
+						IASNode rootNode = player.getRootNode();
 						if (null != rootNode) {
 							elements.add(rootNode);
 						} else {
@@ -464,8 +464,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 
 	private static String getNodeImage(Object element) {
 		String iconType = null;
-		if (element instanceof ASNode) {
-			ASNode flashNode = ((ASNode) element);
+		if (element instanceof IASNode) {
+			IASNode flashNode = ((IASNode) element);
 			String type = flashNode.getType();
 			if ("movieclip".equals(type)) { //$NON-NLS-1$
 				iconType = type;
@@ -511,8 +511,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 	}
 
 	private static String getNodeText(Object element) {
-		if (element instanceof ASNode) {
-			ASNode flashNode = (ASNode) element;
+		if (element instanceof IASNode) {
+			IASNode flashNode = (IASNode) element;
 			StringBuffer sb = new StringBuffer();
 			String text = flashNode.getText();
 			if (null != text) {
@@ -556,8 +556,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 	}
 
 	public String getNodeError(Object element) {
-		if (element instanceof ASNode) {
-			ASNode flashNode = (ASNode) element;
+		if (element instanceof IASNode) {
+			IASNode flashNode = (IASNode) element;
 			if (!flashNode.getPlayer().isVisible()) {
 				return FlashImages.OVER_BLACK;
 			}

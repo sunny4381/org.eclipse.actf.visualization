@@ -18,7 +18,7 @@ import java.util.Set;
 
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.model.flash.ASAccInfo;
-import org.eclipse.actf.model.flash.ASNode;
+import org.eclipse.actf.model.flash.IASNode;
 import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.visualization.gui.msaa.properties.AttributePropertySource;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
@@ -29,7 +29,7 @@ public class FlashNodePropertySource implements IPropertySource, IFlashConst {
 
 	private static boolean DEBUG_MODE = false;
 
-	private ASNode flashNode;
+	private IASNode flashNode;
 
 	public static final String PID_LOCATION = "Location", //$NON-NLS-1$
 			PID_TABINDEX = "tabIndex"; //$NON-NLS-1$
@@ -55,7 +55,7 @@ public class FlashNodePropertySource implements IPropertySource, IFlashConst {
 			new PropertyDescriptor(ATTR_WMODE, ATTR_WMODE) // 15 //$NON-NLS-1$
 	};
 
-	public FlashNodePropertySource(ASNode flashNode) {
+	public FlashNodePropertySource(IASNode flashNode) {
 		this.flashNode = flashNode;
 	}
 
