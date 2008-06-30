@@ -15,39 +15,34 @@ package org.eclipse.actf.visualization.flash.ui.properties;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.PropertyDescriptor;
 
-public class FlashPlayerPropertySource implements IPropertySource {
+public class FlashPlayerPropertySource implements IPropertySource, IFlashConst {
 
-	public static final String PID_VERSION = "VERSION", //$NON-NLS-1$
-			PID_STATUS = "STATUS", //$NON-NLS-1$
+	public static final String PID_STATUS = "STATUS", //$NON-NLS-1$
 			PID_ID = "ID", //$NON-NLS-1$
 			PID_ALLOW_ACCESS = "ALLOW_ACCESS", //$NON-NLS-1$
 			PID_TAGNAME = "TAGNAME", //$NON-NLS-1$
 			PID_CLASSID = "CLASSID", //$NON-NLS-1$
 			PID_CODEBASE = "CODEBASE", //$NON-NLS-1$
 			PID_TYPE = "TYPE", //$NON-NLS-1$
-			PID_MOVIE = "MOVIE", //$NON-NLS-1$
-			PID_READY_STATE = "READY_STATE", //$NON-NLS-1$
-			PID_WMODE = "WMODE"; //$NON-NLS-1$
+			PID_MOVIE = "MOVIE"; //$NON-NLS-1$
 
-	public static final String STR_VERSION = "$version", // 0 //$NON-NLS-1$
-			STR_STATUS = "status", // 2 //$NON-NLS-1$
+	public static final String STR_STATUS = "status", // 2 //$NON-NLS-1$
 			STR_ID = "id", // 3 //$NON-NLS-1$
 			STR_ALLOW_ACCESS = "AllowScriptAccess", // 4 //$NON-NLS-1$
 			STR_TAGNAME = "tagName", // 5 //$NON-NLS-1$
 			STR_CLASSID = "classid", // 6 //$NON-NLS-1$
 			STR_CODEBASE = "codeBase", // 7 //$NON-NLS-1$
 			STR_TYPE = "type", // 8 //$NON-NLS-1$
-			STR_MOVIE = "movie", // 9 //$NON-NLS-1$
-			STR_READY_STATE = "ReadyState", // 10 //$NON-NLS-1$
-			STR_WMODE = "wmode"; // 11 //$NON-NLS-1$
+			STR_MOVIE = "movie"; // 11 //$NON-NLS-1$
 
 	private static final IPropertyDescriptor[] DESCRIPTORS = new IPropertyDescriptor[] {
-			new PropertyDescriptor(PID_VERSION, STR_VERSION),
+			new PropertyDescriptor(PLAYER_VERSION, "Flash player version"),
 			new PropertyDescriptor(PID_STATUS, STR_STATUS),
 			new PropertyDescriptor(PID_ID, STR_ID),
 			new PropertyDescriptor(PID_ALLOW_ACCESS, STR_ALLOW_ACCESS),
@@ -56,8 +51,8 @@ public class FlashPlayerPropertySource implements IPropertySource {
 			new PropertyDescriptor(PID_CODEBASE, STR_CODEBASE),
 			new PropertyDescriptor(PID_TYPE, STR_TYPE),
 			new PropertyDescriptor(PID_MOVIE, STR_MOVIE),
-			new PropertyDescriptor(PID_READY_STATE, STR_READY_STATE),
-			new PropertyDescriptor(PID_WMODE, STR_WMODE) };
+			new PropertyDescriptor(READY_STATE, READY_STATE),
+			new PropertyDescriptor(ATTR_WMODE, ATTR_WMODE) };
 
 	private IFlashPlayer flashPlayer;
 
@@ -82,7 +77,7 @@ public class FlashPlayerPropertySource implements IPropertySource {
 	public Object getPropertyValue(Object id) {
 		String strValue = null;
 		String propertyName = null;
-		if (PID_VERSION.equals(id)) {
+		if (PLAYER_VERSION.equals(id)) {
 			return flashPlayer.getPlayerVersion();
 		} else if (PID_STATUS.equals(id)) {
 			return flashPlayer.getStatus();
@@ -100,10 +95,10 @@ public class FlashPlayerPropertySource implements IPropertySource {
 			propertyName = STR_TYPE;
 		} else if (PID_MOVIE.equals(id)) {
 			propertyName = STR_MOVIE;
-		} else if (PID_READY_STATE.equals(id)) {
-			propertyName = STR_READY_STATE;
-		} else if (PID_WMODE.equals(id)) {
-			propertyName = STR_WMODE;
+		} else if (READY_STATE.equals(id)) {
+			propertyName = READY_STATE;
+		} else if (ATTR_WMODE.equals(id)) {
+			return flashPlayer.getWMode();
 		}
 		
 		if (null != propertyName) {
