@@ -134,6 +134,12 @@ public class FlashNodePropertySource implements IPropertySource, IFlashConst {
 							keyValue = MSAA.getStateText(intValue);
 						}
 					}
+					//TODO
+					if(keyValue instanceof String){
+						if(((String)keyValue).length()==0){
+							continue;
+						}
+					}
 					attrSource.put(keyName, keyValue);
 				}
 				return attrSource;
