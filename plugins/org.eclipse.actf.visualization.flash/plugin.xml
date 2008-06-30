@@ -15,7 +15,7 @@
 	           class="org.eclipse.actf.visualization.flash.ui.properties.FlashPropertySourceAdapterFactory">
 	    <adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
 	  </factory>
-	  <factory adaptableType="org.eclipse.actf.model.flash.ASNode"
+	  <factory adaptableType="org.eclipse.actf.model.flash.IASNode"
 	           class="org.eclipse.actf.visualization.flash.ui.properties.FlashPropertySourceAdapterFactory">
 	    <adapter type="org.eclipse.ui.views.properties.IPropertySource"/>
 	  </factory>
