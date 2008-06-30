@@ -20,6 +20,7 @@ import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.model.flash.ASAccInfo;
 import org.eclipse.actf.model.flash.FlashPlayerFactory;
 import org.eclipse.actf.model.flash.IASNode;
+import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.model.flash.util.FlashDetect;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
@@ -62,7 +63,8 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.ViewPart;
 
-public class FlashDOMView extends ViewPart implements IFlashDOMView {
+public class FlashDOMView extends ViewPart implements IFlashDOMView,
+		IFlashConst {
 	public static final String ID = FlashDOMView.class.getName();
 
 	private TreeViewer viewer;
@@ -467,7 +469,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 		if (element instanceof IASNode) {
 			IASNode flashNode = ((IASNode) element);
 			String type = flashNode.getType();
-			if ("movieclip".equals(type)) { //$NON-NLS-1$
+			String className = flashNode.getClassName();
+			if (ASNODE_TYPE_MOVIECLIP.equals(type)) { //$NON-NLS-1$
 				iconType = type;
 				ASAccInfo accInfo = flashNode.getAccInfo();
 				if (accInfo != null) {
@@ -477,14 +480,13 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 					}
 				}
 				if (flashNode.hasOnRelease()) {
-					iconType = FlashImages.TYPE_button;
+					iconType = ASNODE_CLASS_BUTTON;
 				}
-			} else if ("object".equals(type)) { //$NON-NLS-1$
+			} else if (ASNODE_TYPE_OBJECT.equals(type)) { //$NON-NLS-1$
 				iconType = type;
-				String className = flashNode.getClassName();
-				if ("Button".equals(className)) { //$NON-NLS-1$
-					iconType = FlashImages.TYPE_button;
-				} else if (className.startsWith("TextField")) { //$NON-NLS-1$
+				if (ASNODE_CLASS_BUTTON.equals(className)) { //$NON-NLS-1$
+					iconType = ASNODE_CLASS_BUTTON;
+				} else if (className.startsWith(ASNODE_CLASS_TEXTFIELD)) { //$NON-NLS-1$
 					iconType = FlashImages.TYPE_text;
 				} else {
 					String objectName = flashNode.getObjectName();
@@ -493,14 +495,32 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView {
 						iconType = FlashImages.TYPE_accprops;
 					}
 				}
-			} else if ("function".equals(type) || //$NON-NLS-1$
-					"string".equals(type)) { //$NON-NLS-1$
+			} else if (ASNODE_TYPE_FUNCTION.equals(type) || //$NON-NLS-1$
+					ASNODE_TYPE_STRING.equals(type)) { //$NON-NLS-1$
 				iconType = type;
-			} else if ("number".equals(type) || //$NON-NLS-1$
-					"null".equals(type) || //$NON-NLS-1$
-					"boolean".equals(type) || //$NON-NLS-1$
-					"undefined".equals(type)) { //$NON-NLS-1$
+			} else if (ASNODE_TYPE_NUMBER.equals(type) || //$NON-NLS-1$
+					ASNODE_TYPE_NULL.equals(type) || //$NON-NLS-1$
+					ASNODE_TYPE_BOOLEAN.equals(type) || //$NON-NLS-1$
+					ASNODE_TYPE_UNDEFINED.equals(type)) { //$NON-NLS-1$
 				iconType = FlashImages.TYPE_variable;
+			} else if ("displayobject".equals(type)) { //$NON-NLS-1$
+				if (className.contains(ASNODE_CLASS_TEXTFIELD)) { //$NON-NLS-1$
+					iconType = FlashImages.TYPE_text;
+				} else if (className.contains(ASNODE_CLASS_SHAPE)) {
+					iconType = ASNODE_CLASS_SHAPE;
+				} else {
+					iconType = ASNODE_TYPE_MOVIECLIP;
+					ASAccInfo accInfo = flashNode.getAccInfo();
+					if (accInfo != null) {
+						int accRole = accInfo.getRole();
+						if (-1 != accRole) {
+							return GuiImages.roleIcon(accRole);
+						}
+					}
+					if (flashNode.hasOnRelease()) {
+						iconType = ASNODE_CLASS_BUTTON;
+					}
+				}
 			} else {
 				iconType = FlashImages.TYPE_others;
 			}

@@ -35,13 +35,8 @@ public final class FlashImages {
 	public static final String FLASH_TYPE = 		"icons/flash16/type_{0}.gif"; //$NON-NLS-1$
 	
 	public static final String TYPE_accprops = 		"accprops"; //$NON-NLS-1$
-	public static final String TYPE_button = 		"button"; //$NON-NLS-1$
 	public static final String TYPE_flash = 		"flash"; //$NON-NLS-1$
-	public static final String TYPE_function = 		"function"; //$NON-NLS-1$
-	public static final String TYPE_movieclip = 	"movieclip"; //$NON-NLS-1$
-	public static final String TYPE_object = 		"object"; //$NON-NLS-1$
 	public static final String TYPE_others = 		"others"; //$NON-NLS-1$
-	public static final String TYPE_string = 		"string"; //$NON-NLS-1$
 	public static final String TYPE_text = 			"text"; //$NON-NLS-1$
 	public static final String TYPE_variable = 		"variable"; //$NON-NLS-1$
 	
