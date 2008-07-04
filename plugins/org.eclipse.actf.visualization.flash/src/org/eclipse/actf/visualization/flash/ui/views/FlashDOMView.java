@@ -8,6 +8,7 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
+ *    Shin SAITO - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.flash.ui.views;
 
@@ -123,6 +124,9 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		if (null != rootObject) {
 			IFlashPlayer[] players = FlashMSAAUtil.getFlashPlayers(rootObject
 					.getWindow());
+			for (int i = 0; i < players.length; i++) {
+				players[i].clearAllMarkers();
+			}
 			viewer.setInput(players);
 			FlashDetect.showDialog();
 		}
