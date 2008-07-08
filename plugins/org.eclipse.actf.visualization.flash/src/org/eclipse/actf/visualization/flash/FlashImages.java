@@ -23,80 +23,77 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.OverlayIcon;
 
-
-
 public final class FlashImages {
-	
-    public static final String OVER_RED =       	"icons/ovr16/red.gif"; //$NON-NLS-1$
-    public static final String OVER_YELLOW =    	"icons/ovr16/yellow.gif"; //$NON-NLS-1$
-    public static final String OVER_GREEN =     	"icons/ovr16/green.gif"; //$NON-NLS-1$
-    public static final String OVER_BLACK =     	"icons/ovr16/black.gif"; //$NON-NLS-1$
-	
-	public static final String FLASH_TYPE = 		"icons/flash16/type_{0}.gif"; //$NON-NLS-1$
-	
-	public static final String TYPE_accprops = 		"accprops"; //$NON-NLS-1$
-	public static final String TYPE_flash = 		"flash"; //$NON-NLS-1$
-	public static final String TYPE_others = 		"others"; //$NON-NLS-1$
-	public static final String TYPE_text = 			"text"; //$NON-NLS-1$
-	public static final String TYPE_variable = 		"variable"; //$NON-NLS-1$
-	
-	public static final ISharedImages sharedImages = PlatformUI.getWorkbench().getSharedImages();
+
+	public static final String OVER_RED = "icons/ovr16/red.gif"; //$NON-NLS-1$
+	public static final String OVER_YELLOW = "icons/ovr16/yellow.gif"; //$NON-NLS-1$
+	public static final String OVER_GREEN = "icons/ovr16/green.gif"; //$NON-NLS-1$
+	public static final String OVER_BLACK = "icons/ovr16/black.gif"; //$NON-NLS-1$
+
+	public static final String FLASH_TYPE = "icons/flash16/type_{0}.gif"; //$NON-NLS-1$
+
+	public static final String TYPE_flash = "flash"; //$NON-NLS-1$
+
+	public static final ISharedImages sharedImages = PlatformUI.getWorkbench()
+			.getSharedImages();
 	public static Map<String, Image> imageMap = new HashMap<String, Image>();
-	
-    public static Image getImage(String path) {
-        if( null == path ) {
-            return null;
-        }
-        Image image = (Image)imageMap.get(path);
-        if( null == image) {
-            ImageDescriptor descriptor = getImageDescriptor(path);
-            if( null != descriptor ) {
-                image = descriptor.createImage(true);
-                imageMap.put(path,image);
-            }
-        }
-        return image;
-    }
-    
-    public static Image getImage(String basePath, String overlayPath, Point size) {
-        if( null == basePath || null == overlayPath ) {
-            return null;
-        }
-        String totalPath = basePath+"|"+overlayPath; //$NON-NLS-1$
-        Image image = (Image)imageMap.get(totalPath);
-        if( null == image) {
-            ImageDescriptor descriptor = getImageDescriptor(basePath);
-            if( null != descriptor ) {
-                ImageDescriptor overlayDescriptor = getImageDescriptor(overlayPath);
-                if( null != overlayDescriptor ) {
-                    descriptor = new OverlayIcon(descriptor, overlayDescriptor, size);
-                    image = descriptor.createImage(true);
-                }
-            }
-            imageMap.put(totalPath,image);
-        }
-        return image;
-    }
-	
+
+	public static Image getImage(String path) {
+		if (null == path) {
+			return null;
+		}
+		Image image = (Image) imageMap.get(path);
+		if (null == image) {
+			ImageDescriptor descriptor = getImageDescriptor(path);
+			if (null != descriptor) {
+				image = descriptor.createImage(true);
+				imageMap.put(path, image);
+			}
+		}
+		return image;
+	}
+
+	public static Image getImage(String basePath, String overlayPath, Point size) {
+		if (null == basePath || null == overlayPath) {
+			return null;
+		}
+		String totalPath = basePath + "|" + overlayPath; //$NON-NLS-1$
+		Image image = (Image) imageMap.get(totalPath);
+		if (null == image) {
+			ImageDescriptor descriptor = getImageDescriptor(basePath);
+			if (null != descriptor) {
+				ImageDescriptor overlayDescriptor = getImageDescriptor(overlayPath);
+				if (null != overlayDescriptor) {
+					descriptor = new OverlayIcon(descriptor, overlayDescriptor,
+							size);
+					image = descriptor.createImage(true);
+				}
+			}
+			imageMap.put(totalPath, image);
+		}
+		return image;
+	}
+
 	public static ImageDescriptor getImageDescriptor(String path) {
 		ImageDescriptor descriptor = FlashPlugin.getImageDescriptor(path);
-		if( null != descriptor ) {
-            return descriptor;
+		if (null != descriptor) {
+			return descriptor;
 		}
-        return GuiImages.getImageDescriptor(path);
+		return GuiImages.getImageDescriptor(path);
 	}
 
 	public static String flashIcon(String typeString) {
 		return getFilename(FLASH_TYPE, typeString);
 	}
-	
+
 	public static String getFilename(String format, String name) {
-		String path = MessageFormat.format(format, new Object[]{name.toLowerCase()});
-		if( null != getImageDescriptor(path) ) {
+		String path = MessageFormat.format(format, new Object[] { name
+				.toLowerCase() });
+		if (null != getImageDescriptor(path)) {
 			return path;
 		}
-        DebugPrintUtil.devOrDebugPrintln("Missing Flash icon "+path); //$NON-NLS-1$
-        return null;
+		DebugPrintUtil.devOrDebugPrintln("Missing Flash icon " + path); //$NON-NLS-1$
+		return null;
 	}
-	
+
 }

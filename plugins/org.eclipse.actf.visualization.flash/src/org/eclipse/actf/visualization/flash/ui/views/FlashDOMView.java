@@ -471,62 +471,14 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 	private static String getNodeImage(Object element) {
 		String iconType = null;
 		if (element instanceof IASNode) {
-			IASNode flashNode = ((IASNode) element);
-			String type = flashNode.getType();
-			String className = flashNode.getClassName();
-			if (ASNODE_TYPE_MOVIECLIP.equals(type)) { //$NON-NLS-1$
-				iconType = type;
-				ASAccInfo accInfo = flashNode.getAccInfo();
-				if (accInfo != null) {
-					int accRole = accInfo.getRole();
-					if (-1 != accRole) {
-						return GuiImages.roleIcon(accRole);
-					}
+			iconType = ((IASNode) element).getIconType();
+			if (iconType.startsWith(ASNODE_ICON_ACCROLE)) {
+				try {
+					String tmpS = iconType.substring(ASNODE_ICON_ACCROLE
+							.length());
+					return GuiImages.roleIcon(Integer.parseInt(tmpS));
+				} catch (Exception e) {
 				}
-				if (flashNode.hasOnRelease()) {
-					iconType = ASNODE_CLASS_BUTTON;
-				}
-			} else if (ASNODE_TYPE_OBJECT.equals(type)) { //$NON-NLS-1$
-				iconType = type;
-				if (ASNODE_CLASS_BUTTON.equals(className)) { //$NON-NLS-1$
-					iconType = ASNODE_CLASS_BUTTON;
-				} else if (className.startsWith(ASNODE_CLASS_TEXTFIELD)) { //$NON-NLS-1$
-					iconType = FlashImages.TYPE_text;
-				} else {
-					String objectName = flashNode.getObjectName();
-					if ("_accProps".equals(objectName) || //$NON-NLS-1$
-							"_accImpl".equals(objectName)) { //$NON-NLS-1$
-						iconType = FlashImages.TYPE_accprops;
-					}
-				}
-			} else if (ASNODE_TYPE_FUNCTION.equals(type) || //$NON-NLS-1$
-					ASNODE_TYPE_STRING.equals(type)) { //$NON-NLS-1$
-				iconType = type;
-			} else if (ASNODE_TYPE_NUMBER.equals(type) || //$NON-NLS-1$
-					ASNODE_TYPE_NULL.equals(type) || //$NON-NLS-1$
-					ASNODE_TYPE_BOOLEAN.equals(type) || //$NON-NLS-1$
-					ASNODE_TYPE_UNDEFINED.equals(type)) { //$NON-NLS-1$
-				iconType = FlashImages.TYPE_variable;
-			} else if ("displayobject".equals(type)) { //$NON-NLS-1$
-				if (className.contains(ASNODE_CLASS_TEXTFIELD)) { //$NON-NLS-1$
-					iconType = FlashImages.TYPE_text;
-				} else if (className.contains(ASNODE_CLASS_SHAPE)) {
-					iconType = ASNODE_CLASS_SHAPE;
-				} else {
-					iconType = ASNODE_TYPE_MOVIECLIP;
-					ASAccInfo accInfo = flashNode.getAccInfo();
-					if (accInfo != null) {
-						int accRole = accInfo.getRole();
-						if (-1 != accRole) {
-							return GuiImages.roleIcon(accRole);
-						}
-					}
-					if (flashNode.hasOnRelease()) {
-						iconType = ASNODE_CLASS_BUTTON;
-					}
-				}
-			} else {
-				iconType = FlashImages.TYPE_others;
 			}
 		} else if (element instanceof IFlashPlayer) {
 			iconType = FlashImages.TYPE_flash;
