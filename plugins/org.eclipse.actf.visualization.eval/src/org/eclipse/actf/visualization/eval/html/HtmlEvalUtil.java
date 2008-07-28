@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.Vector;
 
@@ -30,6 +29,7 @@ import org.eclipse.actf.visualization.eval.html.statistics.ImageStatData;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.html.HTMLImageElement;
 
@@ -68,7 +68,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private URL baseUrl;
 
-	private Map document2IdMap;
+	private Map<Node, Integer> document2IdMap;
 
 	private boolean isDBCS;
 
@@ -132,8 +132,6 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private String[] javascriptHref_strings;
 
-	private Set blockEleSet;
-
 	private String curUrl;
 
 	private double invalidLinkRatio;
@@ -147,7 +145,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	private HashSet<String> notExistHrefSet = new HashSet<String>();
 
 	public HtmlEvalUtil(Document target, Document resultDoc, String curUrl,
-			Map document2IdMap, Document origDom, Document ieDom,
+			Map<Node, Integer> document2IdMap, Document origDom, Document ieDom,
 			PageData pageData, boolean isDBCS, boolean isIEDom) {
 		this(target, resultDoc, curUrl, document2IdMap, origDom, ieDom,
 				pageData, 0, null, isDBCS, isIEDom);
@@ -157,7 +155,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 * 
 	 */
 	public HtmlEvalUtil(Document target, Document resultDoc, String curUrl,
-			Map document2IdMap, Document origDom, Document ieDom,
+			Map<Node, Integer> document2IdMap, Document origDom, Document ieDom,
 			PageData pageData, int invisibleElementCount,
 			String[] invisibleLinkStrings, boolean isDBCS, boolean isIEDom) {
 		this.target = target;
@@ -326,8 +324,6 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 			}
 		}
-
-		blockEleSet = getBlockElementSet();
 
 		embed_elements = getElementsArray(target, "embed");
 		for (int i = 0; i < embed_elements.length; i++) {
@@ -593,10 +589,6 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		return baseUrl;
 	}
 
-	public Set getBlockEleSet() {
-		return blockEleSet;
-	}
-
 	public Element[] getBody_elements() {
 		return body_elements;
 	}
@@ -617,7 +609,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		return curUrl;
 	}
 
-	public Map getDocument2IdMap() {
+	public Map<Node, Integer> getDocument2IdMap() {
 		return document2IdMap;
 	}
 
@@ -669,7 +661,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		return isIEDom;
 	}
 
-	public HashSet getNotExistHrefSet() {
+	public HashSet<String> getNotExistHrefSet() {
 		return notExistHrefSet;
 	}
 

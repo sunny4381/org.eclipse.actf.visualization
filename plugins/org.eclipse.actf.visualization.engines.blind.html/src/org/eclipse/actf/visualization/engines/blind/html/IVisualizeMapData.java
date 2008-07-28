@@ -20,7 +20,7 @@ public interface IVisualizeMapData {
 	/**
 	 * @return Returns the orig2idMap.
 	 */
-	public abstract Map getOrig2idMap();
+	public abstract Map<Node, Integer> getOrig2idMap();
 
 	public abstract void addReplacedNodeMapping(Node result, Node replacement);
 

@@ -23,6 +23,7 @@ import org.eclipse.actf.model.dom.html.impl.SHDocument;
 import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.util.FileUtils;
+import org.eclipse.actf.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.util.html2view.Html2ViewMapMaker;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.IVisualizationConst;
@@ -81,7 +82,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 					.copyFile(odf_html_fileS, tmpDirS + HTML_SOURCE_FILE, true);
 
 			Html2ViewMapMaker h2vmm = new Html2ViewMapMaker();
-			Vector html2ViewMapV = new Vector();
+			Vector<Html2ViewMapData> html2ViewMapV = new Vector<Html2ViewMapData>();
 
 			HtmlParserUtil hpu = new HtmlParserUtil();
 			HtmlErrorLogListener errorLogListener = new HtmlErrorLogListener();
@@ -114,7 +115,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			engine.setTargetUrl(targetUrl);
 			engine.setDocument(document);
 			engine.setHtml2viewMapV(html2ViewMapV);
-			engine.setInvisibleIdSet(new HashSet());
+			engine.setInvisibleIdSet(new HashSet<String>());
 			engine.setPageData(pageData);
 			engine.calculate();
 
