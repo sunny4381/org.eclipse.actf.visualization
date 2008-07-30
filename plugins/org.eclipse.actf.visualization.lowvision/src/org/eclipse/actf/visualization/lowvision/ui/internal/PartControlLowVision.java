@@ -20,9 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import org.eclipse.actf.mediator.IMediatorEventListener;
 import org.eclipse.actf.mediator.Mediator;
-import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.ModelServiceImageCreator;
@@ -55,7 +53,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.w3c.dom.Document;
 
 public class PartControlLowVision implements ISelectionListener,
-		IVisualizationConst, IMediatorEventListener {
+		IVisualizationConst {
 
 	private static final CheckResultLowVision dummyResult = new CheckResultLowVision();
 
@@ -268,8 +266,6 @@ public class PartControlLowVision implements ISelectionListener,
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		Mediator.getInstance().addMediatorEventListener(this);
 
 	}
 
@@ -621,22 +617,8 @@ public class PartControlLowVision implements ISelectionListener,
 		setHighlightPositions(result);
 	}
 
-	public void modelserviceChanged(MediatorEvent event) {
-		lowVisionView.setCurrentModelService(event.getModelServiceHolder()
-				.getModelService());
-	}
-
-	public void modelserviceInputChanged(MediatorEvent event) {
-		lowVisionView.setCurrentModelService(event.getModelServiceHolder()
-				.getModelService());
-	}
-
-	public void reportChanged(MediatorEvent event) {
-
-	}
-
-	public void reportGeneratorChanged(MediatorEvent event) {
-
+	public void setCurrentModelService(IModelService modelService) {
+		lowVisionView.setCurrentModelService(modelService);
 	}
 
 }

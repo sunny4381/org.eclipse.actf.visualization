@@ -26,18 +26,16 @@ import org.eclipse.ui.IViewSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 
-
 public class LowVisionView extends ViewPart implements IVisualizationView {
 
 	public static final String ID = LowVisionView.class.getName();
-    
-    private PartControlLowVision partRightLowVision;
-    
-    private IBaseLabelProvider baseLabelProvider = new ResultTableLabelProviderLV();
-    private ResultTableSorterLV viewerSorter = new ResultTableSorterLV();
-    
 
-	public LowVisionView() {		
+	private PartControlLowVision partRightLowVision;
+
+	private IBaseLabelProvider baseLabelProvider = new ResultTableLabelProviderLV();
+	private ResultTableSorterLV viewerSorter = new ResultTableSorterLV();
+
+	public LowVisionView() {
 		super();
 	}
 
@@ -45,19 +43,19 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
 		setSite(site);
 		setStatusLine();
 	}
-	
-	
 
 	public void createPartControl(Composite parent) {
 		partRightLowVision = new PartControlLowVision(this, parent);
-        //TODO
-        getSite().getPage().addSelectionListener(DetailedReportView.ID, partRightLowVision);
-//        ((IViewSite)getSite()).getActionBars().setGlobalActionHandler("visualizationAction", new Action(){
-//            public void run() {
-//                partRightLowVision.doSimulate();
-//            }
-//        }
-//        );
+		// TODO
+		getSite().getPage().addSelectionListener(DetailedReportView.ID,
+				partRightLowVision);
+		// ((IViewSite)getSite()).getActionBars().setGlobalActionHandler("visualizationAction",
+		// new Action(){
+		// public void run() {
+		// partRightLowVision.doSimulate();
+		// }
+		// }
+		// );
 
 	}
 
@@ -65,64 +63,73 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
 	}
 
 	public void setStatusMessage(String statusMessage) {
-		IContributionItem[] items = getViewSite().getActionBars().getStatusLineManager().getItems();
+		IContributionItem[] items = getViewSite().getActionBars()
+				.getStatusLineManager().getItems();
 		for (int i = 0; i < items.length; i++) {
-			if (null != items[i] && items[i].getId().equals(VisualizationStatusLineContributionItem.ID + ID)) {
-				((VisualizationStatusLineContributionItem) items[i]).setStatusMessage(statusMessage);
+			if (null != items[i]
+					&& items[i].getId().equals(
+							VisualizationStatusLineContributionItem.ID + ID)) {
+				((VisualizationStatusLineContributionItem) items[i])
+						.setStatusMessage(statusMessage);
 			}
 		}
 	}
 
 	public void setInfoMessage(String infoMessage) {
-		IContributionItem[] items = getViewSite().getActionBars().getStatusLineManager().getItems();
+		IContributionItem[] items = getViewSite().getActionBars()
+				.getStatusLineManager().getItems();
 		for (int i = 0; i < items.length; i++) {
-			if (null != items[i] && items[i].getId().equals(VisualizationStatusLineContributionItem.ID + ID)) {
-				((VisualizationStatusLineContributionItem) items[i]).setInfoMessage(infoMessage);
+			if (null != items[i]
+					&& items[i].getId().equals(
+							VisualizationStatusLineContributionItem.ID + ID)) {
+				((VisualizationStatusLineContributionItem) items[i])
+						.setInfoMessage(infoMessage);
 			}
 		}
 	}
-	
+
 	private void setStatusLine() {
-		getViewSite().getActionBars().getStatusLineManager().add(new VisualizationStatusLineContributionItem(ID));
+		getViewSite().getActionBars().getStatusLineManager().add(
+				new VisualizationStatusLineContributionItem(ID));
 	}
 
-    public IBaseLabelProvider getLabelProvider() {
-        return baseLabelProvider;
-    }
+	public IBaseLabelProvider getLabelProvider() {
+		return baseLabelProvider;
+	}
 
-    public ViewerSorter getTableSorter() {
-        viewerSorter.reset();
-        return viewerSorter;
-    }
+	public ViewerSorter getTableSorter() {
+		viewerSorter.reset();
+		return viewerSorter;
+	}
 
-    public int getResultTableMode() {
-        return MODE_LOWVISION;
-    }
-    
-    public void doVisualize(){
-    	if(partRightLowVision!=null){
-    		partRightLowVision.doSimulate();
-    	}
-    }
+	public int getResultTableMode() {
+		return MODE_LOWVISION;
+	}
+
+	public void doVisualize() {
+		if (partRightLowVision != null) {
+			partRightLowVision.doSimulate();
+		}
+	}
 
 	public void modelserviceChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
+		partRightLowVision.setCurrentModelService(event.getModelServiceHolder()
+				.getModelService());
 	}
 
 	public void modelserviceInputChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
+		partRightLowVision.setCurrentModelService(event.getModelServiceHolder()
+				.getModelService());
 	}
 
 	public void reportChanged(MediatorEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void reportGeneratorChanged(MediatorEvent event) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
