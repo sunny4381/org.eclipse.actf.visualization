@@ -24,17 +24,7 @@ public class GuiPlugin extends AbstractUIPlugin {
 	//The shared instance.
 	private static GuiPlugin plugin;
     
-    //Images
-    public static final ImageDescriptor IMAGE_OVERLAY =     getImageDescriptor("icons/action16/overlay.gif"); //$NON-NLS-1$
-    public static final ImageDescriptor IMAGE_REFRESH =     getImageDescriptor("icons/action16/refresh.gif"); //$NON-NLS-1$
-    public static final ImageDescriptor IMAGE_CLEAR =       getImageDescriptor("icons/action16/clear.gif"); //$NON-NLS-1$
-    public static final ImageDescriptor IMAGE_EXPAND_ALL =  getImageDescriptor("icons/action16/expandall.gif"); //$NON-NLS-1$
-    public static final ImageDescriptor IMAGE_COLLAPSE_ALL =getImageDescriptor("icons/action16/collapseall.gif"); //$NON-NLS-1$
-    public static final ImageDescriptor IMAGE_SPEAK =       getImageDescriptor("icons/action16/speak.gif"); //$NON-NLS-1$
-    public static final ImageDescriptor IMAGE_STOP =        getImageDescriptor("icons/action16/stop.gif"); //$NON-NLS-1$
-    public static final ImageDescriptor IMAGE_CHECKER =     getImageDescriptor("icons/action16/checker.gif"); //$NON-NLS-1$
-	
-	/**
+    /**
 	 * The constructor.
 	 */
 	public GuiPlugin() {

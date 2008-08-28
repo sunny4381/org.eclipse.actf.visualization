@@ -8,13 +8,14 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.gui;
+package org.eclipse.actf.visualization.gui.internal.util;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.actf.util.logging.DebugPrintUtil;
+import org.eclipse.actf.visualization.gui.GuiPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
@@ -22,6 +23,17 @@ import org.eclipse.ui.PlatformUI;
 
 
 public final class GuiImages {
+	
+	//Images
+	public static final ImageDescriptor IMAGE_OVERLAY =     GuiPlugin.getImageDescriptor("icons/action16/overlay.gif"); //$NON-NLS-1$
+	public static final ImageDescriptor IMAGE_REFRESH =     GuiPlugin.getImageDescriptor("icons/action16/refresh.gif"); //$NON-NLS-1$
+	public static final ImageDescriptor IMAGE_CLEAR =       GuiPlugin.getImageDescriptor("icons/action16/clear.gif"); //$NON-NLS-1$
+	public static final ImageDescriptor IMAGE_EXPAND_ALL =  GuiPlugin.getImageDescriptor("icons/action16/expandall.gif"); //$NON-NLS-1$
+	public static final ImageDescriptor IMAGE_COLLAPSE_ALL =GuiPlugin.getImageDescriptor("icons/action16/collapseall.gif"); //$NON-NLS-1$
+	public static final ImageDescriptor IMAGE_SPEAK =       GuiPlugin.getImageDescriptor("icons/action16/speak.gif"); //$NON-NLS-1$
+	public static final ImageDescriptor IMAGE_STOP =        GuiPlugin.getImageDescriptor("icons/action16/stop.gif"); //$NON-NLS-1$
+	public static final ImageDescriptor IMAGE_CHECKER =     GuiPlugin.getImageDescriptor("icons/action16/checker.gif"); //$NON-NLS-1$
+
 	
 	public static final String ACC_ROLE = "icons/acc16/role_{0}.gif"; //$NON-NLS-1$
 	
@@ -67,5 +79,6 @@ public final class GuiImages {
 		DebugPrintUtil.devOrDebugPrintln("Missing MSAA icon "+path); //$NON-NLS-1$
 		return null;
 	}
+
 	
 }

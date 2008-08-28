@@ -25,11 +25,11 @@ import org.eclipse.actf.model.flash.IFlashConst;
 import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.model.flash.util.FlashDetect;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
-import org.eclipse.actf.visualization.flash.FlashImages;
-import org.eclipse.actf.visualization.flash.Messages;
+import org.eclipse.actf.visualization.flash.internal.FlashImages;
+import org.eclipse.actf.visualization.flash.internal.Messages;
 import org.eclipse.actf.visualization.flash.ui.properties.FlashNodePropertySource;
-import org.eclipse.actf.visualization.gui.GuiImages;
-import org.eclipse.actf.visualization.gui.GuiPlugin;
+import org.eclipse.actf.visualization.gui.IGuiViewIDs;
+import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
 import org.eclipse.actf.visualization.gui.ui.actions.RefreshRootAction;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
@@ -115,7 +115,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		makeActions();
 		hookContextMenu();
 		contributeToActionBars();
-		MSAAViewRegistory.findView(MSAAViewRegistory.MSAAOutlineView_ID);
+		MSAAViewRegistory.findView(IGuiViewIDs.ID_OUTLINEVIEW);
 		refresh();
 	}
 
@@ -324,7 +324,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 		expandAllAction.setToolTipText(Messages.getString("msaa.expand_all")); //$NON-NLS-1$
-		expandAllAction.setImageDescriptor(GuiPlugin.IMAGE_EXPAND_ALL);
+		expandAllAction.setImageDescriptor(GuiImages.IMAGE_EXPAND_ALL);
 
 		collapseAllAction = new Action(Messages.getString("msaa.collapse_all")) { //$NON-NLS-1$
 			public void run() {
@@ -337,7 +337,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		};
 		collapseAllAction.setToolTipText(Messages
 				.getString("msaa.collapse_all")); //$NON-NLS-1$
-		collapseAllAction.setImageDescriptor(GuiPlugin.IMAGE_COLLAPSE_ALL);
+		collapseAllAction.setImageDescriptor(GuiImages.IMAGE_COLLAPSE_ALL);
 
 		refreshAction = new RefreshRootAction();
 

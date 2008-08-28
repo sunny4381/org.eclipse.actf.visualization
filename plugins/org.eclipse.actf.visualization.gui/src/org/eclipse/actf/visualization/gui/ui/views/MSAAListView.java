@@ -17,8 +17,9 @@ import java.util.Vector;
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.util.win32.HighlightComposite;
-import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.IGuiViewIDs;
+import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -61,9 +62,7 @@ import org.eclipse.ui.part.ViewPart;
 
 
 public class MSAAListView extends ViewPart implements IMSAAListView {
-    public static final String ID = MSAAListView.class.getName();
-
-	private static final String[] HEADINGS =	{ "#", Messages.getString("msaa.name"), Messages.getString("msaa.role"), Messages.getString("msaa.state"), "X", "Y", "W", "H"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+    private static final String[] HEADINGS =	{ "#", Messages.getString("msaa.name"), Messages.getString("msaa.role"), Messages.getString("msaa.state"), "X", "Y", "W", "H"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
     private static final int[] WEIGHTS =		{ 1,5,5,5,1,1,1,1 };
     private static final int[] ALIGNMENTS =	{ SWT.RIGHT, SWT.LEFT, SWT.LEFT, SWT.LEFT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT };
 
@@ -130,7 +129,7 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 		            if (selectedElement instanceof AccessibleObject) {
 		                AccessibleObject object = (AccessibleObject) selectedElement;
 		                if (null != object) {
-                            IMSAAOutlineView outlineView = (IMSAAOutlineView)MSAAViewRegistory.findView(MSAAViewRegistory.MSAAOutlineView_ID);
+                            IMSAAOutlineView outlineView = (IMSAAOutlineView)MSAAViewRegistory.findView(IGuiViewIDs.ID_OUTLINEVIEW);
                             if( null != outlineView ) {
                                 outlineView.setSelection(object);
                             }
@@ -219,7 +218,7 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
             }
         };
         refreshAction.setToolTipText(Messages.getString("msaa.refresh")); //$NON-NLS-1$
-        refreshAction.setImageDescriptor(GuiPlugin.IMAGE_REFRESH);
+        refreshAction.setImageDescriptor(GuiImages.IMAGE_REFRESH);
 	}
 	
 	private class MSAASiblingContentAndLabelProvider extends LabelProvider implements IStructuredContentProvider,

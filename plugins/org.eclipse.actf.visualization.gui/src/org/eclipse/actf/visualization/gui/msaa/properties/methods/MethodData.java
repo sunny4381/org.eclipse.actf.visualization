@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.gui.msaa.properties.methods;
 import java.text.MessageFormat;
 
 import org.eclipse.actf.accservice.swtbridge.IA2;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.actf.visualization.gui.msaa.properties.fields.AbstractInputField;
 import org.eclipse.actf.visualization.gui.msaa.properties.fields.IA2CoordTypeField;
 import org.eclipse.actf.visualization.gui.msaa.properties.fields.IA2ScrollTypeField;

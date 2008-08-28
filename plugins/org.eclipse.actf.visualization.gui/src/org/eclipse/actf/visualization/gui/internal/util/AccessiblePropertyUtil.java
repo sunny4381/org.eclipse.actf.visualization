@@ -8,7 +8,7 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.gui.util;
+package org.eclipse.actf.visualization.gui.internal.util;
 
 import org.eclipse.actf.visualization.gui.msaa.properties.AccessibleObjectPropertySource;
 import org.eclipse.actf.visualization.gui.ui.views.PropertyTreeContentProvider;

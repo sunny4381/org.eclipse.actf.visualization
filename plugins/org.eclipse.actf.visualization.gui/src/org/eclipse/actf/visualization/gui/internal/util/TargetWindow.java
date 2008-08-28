@@ -9,13 +9,13 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.gui.common;
+package org.eclipse.actf.visualization.gui.internal.util;
 
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.util.win32.WindowUtil;
+import org.eclipse.actf.visualization.gui.TargetWindowDataProvider;
 import org.eclipse.actf.visualization.gui.targetdata.GuiTargetWindowData;
-import org.eclipse.actf.visualization.gui.util.WebBrowserUtil;
 import org.eclipse.swt.widgets.Composite;
 
 

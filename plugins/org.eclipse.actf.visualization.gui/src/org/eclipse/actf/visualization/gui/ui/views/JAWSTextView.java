@@ -16,13 +16,15 @@ import org.eclipse.actf.ai.voice.IVoice;
 import org.eclipse.actf.ai.voice.IVoiceEventListener;
 import org.eclipse.actf.ai.voice.VoicePlugin;
 import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.IGuiViewIDs;
+import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.ScreenReaderRenderer;
+import org.eclipse.actf.visualization.gui.internal.util.TextMap;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceConstants;
 import org.eclipse.actf.visualization.gui.ui.actions.HideHtmlAction;
 import org.eclipse.actf.visualization.gui.ui.actions.RefreshRootAction;
 import org.eclipse.actf.visualization.gui.ui.actions.ShowOffscreenAction;
-import org.eclipse.actf.visualization.gui.util.ScreenReaderRenderer;
-import org.eclipse.actf.visualization.gui.util.TextMap;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -57,9 +59,7 @@ import org.eclipse.ui.part.ViewPart;
 
 
 public class JAWSTextView extends ViewPart implements IJAWSTextView {
-    public static final String ID = JAWSTextView.class.getName();
-    
-	private StyledText text;
+    private StyledText text;
 	private RefreshRootAction refreshAction;
     private ShowOffscreenAction showOffscreenAction;
     private HideHtmlAction hideHtmlAction;
@@ -94,7 +94,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
 		makeActions();
 		hookContextMenu();
 		contributeToActionBars();
-        MSAAViewRegistory.findView(MSAAViewRegistory.MSAAOutlineView_ID);
+        MSAAViewRegistory.findView(IGuiViewIDs.ID_OUTLINEVIEW);
 		refresh();
 		text.addKeyListener(new KeyAdapter(){
             public void keyPressed(KeyEvent e) {
@@ -143,7 +143,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
 			lastSelection = newSelection;
 			AccessibleObject accObject = textMap.getAccessibleObject(newSelection);
 			if( null != accObject ) {
-		        IMSAAOutlineView outlineView = (IMSAAOutlineView)MSAAViewRegistory.findView(MSAAViewRegistory.MSAAOutlineView_ID);
+		        IMSAAOutlineView outlineView = (IMSAAOutlineView)MSAAViewRegistory.findView(IGuiViewIDs.ID_OUTLINEVIEW);
 		        if( null != outlineView ) {
 		        	ignoreSelection = true;
 		        	try {
@@ -320,7 +320,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
 			}
 		};
 		speakAllAction.setToolTipText(Messages.getString("msaa.speak_tip")); //$NON-NLS-1$
-		speakAllAction.setImageDescriptor(GuiPlugin.IMAGE_SPEAK);
+		speakAllAction.setImageDescriptor(GuiImages.IMAGE_SPEAK);
 		
 		stopAction = new Action(Messages.getString("msaa.stop")) { //$NON-NLS-1$
 			public void run() {
@@ -329,7 +329,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
 			}
 		};
 		stopAction.setToolTipText(Messages.getString("msaa.stop_tip")); //$NON-NLS-1$
-		stopAction.setImageDescriptor(GuiPlugin.IMAGE_STOP);
+		stopAction.setImageDescriptor(GuiImages.IMAGE_STOP);
 		
         final Shell shell = this.getViewSite().getShell();
         openPreferencesAction = new Action(Messages.getString("msaa.preferences")) { //$NON-NLS-1$

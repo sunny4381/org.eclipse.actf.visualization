@@ -39,9 +39,9 @@
             category="org.eclipse.actf.visualization.gui.ui.views"
             name="%MSAAEventView.name"/>
       <view
-            class="org.eclipse.actf.visualization.gui.msaa.checker.MSAAProblemsView"
+            class="org.eclipse.actf.visualization.gui.ui.views.MSAAProblemsView"
             icon="icons/view16/problems.gif"
-            id="org.eclipse.actf.visualization.gui.msaa.checker.MSAAProblemsView"
+            id="org.eclipse.actf.visualization.gui.ui.views.MSAAProblemsView"
             category="org.eclipse.actf.visualization.gui.ui.views"
             name="%MSAAProblemsView.name"/>
    </extension>
@@ -94,7 +94,7 @@
    </extension>
    <extension
          point="org.eclipse.ui.startup">
-      <startup class="org.eclipse.actf.visualization.gui.Startup"/>
+      <startup class="org.eclipse.actf.visualization.gui.internal.util.Startup"/>
    </extension>
    <extension
          point="org.eclipse.actf.visualization.gui.targetWindowData">

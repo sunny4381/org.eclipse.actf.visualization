@@ -15,9 +15,9 @@ import java.util.Comparator;
 
 import org.eclipse.actf.util.win32.HighlightComposite;
 import org.eclipse.actf.util.win32.WindowUtil;
-import org.eclipse.actf.visualization.gui.Messages;
-import org.eclipse.actf.visualization.gui.common.TargetWindow;
-import org.eclipse.actf.visualization.gui.common.TargetWindowDataCollector;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.TargetWindow;
+import org.eclipse.actf.visualization.gui.internal.util.TargetWindowDataCollector;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceConstants;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceManager;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;

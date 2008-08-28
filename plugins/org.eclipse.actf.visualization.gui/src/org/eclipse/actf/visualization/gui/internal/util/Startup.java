@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.gui;
+package org.eclipse.actf.visualization.gui.internal.util;
 
 import org.eclipse.actf.util.win32.HighlightComposite;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;

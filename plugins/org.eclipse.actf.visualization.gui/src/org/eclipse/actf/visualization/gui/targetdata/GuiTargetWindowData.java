@@ -18,7 +18,7 @@ import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.util.win32.WindowUtil;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorPart;
 import org.w3c.dom.Document;

@@ -8,7 +8,7 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.gui.util;
+package org.eclipse.actf.visualization.gui.internal.util;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.util.win32.WindowUtil;

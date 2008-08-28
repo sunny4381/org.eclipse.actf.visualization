@@ -7,14 +7,15 @@
  *
  * Contributors:
  *    Takashi ITOH - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.gui.ui.views;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
 import org.eclipse.actf.util.win32.HighlightComposite;
-import org.eclipse.actf.visualization.gui.common.TargetWindow;
-import org.eclipse.actf.visualization.gui.msaa.checker.MSAAProblemsView;
+import org.eclipse.actf.visualization.gui.IGuiViewIDs;
+import org.eclipse.actf.visualization.gui.internal.util.TargetWindow;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorReference;
@@ -27,16 +28,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.PropertySheet;
 
 
-public class MSAAViewRegistory {
-
-    // View IDs
-    public static final String MSAAOutlineView_ID = MSAAOutlineView.ID;
-    public static final String FlashDOMView_ID = "org.eclipse.actf.visualization.flash.ui.views.FlashDOMView"; //$NON-NLS-1$
-    public static final String MSAAProblemsView_ID = MSAAProblemsView.ID;
-    public static final String MSAAPropertiesView_ID = MSAAPropertiesView.ID;
-    public static final String MSAAListView_ID = MSAAListView.ID;
-    public static final String JAWSTextView_ID = JAWSTextView.ID;
-    public static final String MSAAEventView_ID = MSAAEventView.ID;
+public class MSAAViewRegistory implements IGuiViewIDs{
 
     public static AccessibleObject rootObject = null;
 	public static AccessibleObject outlineObject = null;
@@ -79,11 +71,11 @@ public class MSAAViewRegistory {
             if( object instanceof AccessibleObject ) {
                 outlineObject = (AccessibleObject)object;
                 showProperties(outlineObject);
-                IMSAAListView listView = (IMSAAListView)findView(MSAAListView_ID);
+                IMSAAListView listView = (IMSAAListView)findView(ID_SIBLINGSVIEW);
                 if( null != listView ) {
                     listView.setSelection(outlineObject);
                 }
-                IJAWSTextView jawsTextView = (IJAWSTextView)findView(JAWSTextView_ID);
+                IJAWSTextView jawsTextView = (IJAWSTextView)findView(ID_SUMMARYVIEW);
                 if( null != jawsTextView ) {
                     jawsTextView.setSelection(outlineObject);
                 }
@@ -97,7 +89,7 @@ public class MSAAViewRegistory {
 	
 	public static boolean showProperties(Object input) {
 		boolean rc = false;
-        IMSAAPropertiesView propertiesView = (IMSAAPropertiesView)findView(MSAAPropertiesView_ID);
+        IMSAAPropertiesView propertiesView = (IMSAAPropertiesView)findView(ID_PROPERTIESVIEW);
         if( null != propertiesView ) {
             propertiesView.setInput(input);
             rc = true;
@@ -195,19 +187,19 @@ public class MSAAViewRegistory {
                 rootObject.reset();
                 rootObject = null;
             }
-            IMSAAOutlineView outlineView = (IMSAAOutlineView)findView(MSAAOutlineView_ID);
+            IMSAAOutlineView outlineView = (IMSAAOutlineView)findView(ID_OUTLINEVIEW);
             if( null != outlineView ) {
                 outlineView.refresh();
             }
-            IMSAAProblemsView problemsView = (IMSAAProblemsView)findView(MSAAProblemsView_ID);
+            IMSAAProblemsView problemsView = (IMSAAProblemsView)findView(ID_REPORTVIEW);
             if( null != problemsView ) {
                 problemsView.refresh();
             }
-            IFlashDOMView flashDOMView = (IFlashDOMView)findView(FlashDOMView_ID);
+            IFlashDOMView flashDOMView = (IFlashDOMView)findView(ID_FLASHDOMVIEW);
             if( null != flashDOMView ) {
                 flashDOMView.refresh();
             }
-            IJAWSTextView jawsTextView = (IJAWSTextView)findView(JAWSTextView_ID);
+            IJAWSTextView jawsTextView = (IJAWSTextView)findView(ID_SUMMARYVIEW);
             if( null != jawsTextView ) {
                 jawsTextView.refresh();
             }

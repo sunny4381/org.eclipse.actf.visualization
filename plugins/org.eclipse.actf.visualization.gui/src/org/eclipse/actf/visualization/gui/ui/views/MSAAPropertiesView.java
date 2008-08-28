@@ -15,8 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -49,9 +49,7 @@ import org.eclipse.ui.views.properties.IPropertySheetEntry;
 
 
 public class MSAAPropertiesView extends ViewPart implements IMSAAPropertiesView {
-    public static final String ID = MSAAPropertiesView.class.getName();
-
-	private PropertyTreeViewer viewer;
+    private PropertyTreeViewer viewer;
 	private Action refreshAction;
 	private Action showNullAction;
 	private Action changeColorAction;
@@ -149,7 +147,7 @@ public class MSAAPropertiesView extends ViewPart implements IMSAAPropertiesView 
 			}
 		};
 		refreshAction.setToolTipText(Messages.getString("msaa.refresh")); //$NON-NLS-1$
-		refreshAction.setImageDescriptor(GuiPlugin.IMAGE_REFRESH);
+		refreshAction.setImageDescriptor(GuiImages.IMAGE_REFRESH);
 		
 		showNullAction = new Action(Messages.getString("msaa.showNull"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
 			public void run() {

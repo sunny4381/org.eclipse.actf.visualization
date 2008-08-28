@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.gui.preferences;
 
 import org.eclipse.actf.ui.preferences.GroupFieldEditorPreferencePage;
 import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FontFieldEditor;
 import org.eclipse.swt.SWT;

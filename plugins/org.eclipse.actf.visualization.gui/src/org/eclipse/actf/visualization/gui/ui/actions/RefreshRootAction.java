@@ -11,8 +11,8 @@
 
 package org.eclipse.actf.visualization.gui.ui.actions;
 
-import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
 import org.eclipse.jface.action.Action;
 
@@ -24,7 +24,7 @@ public class RefreshRootAction extends Action {
     public RefreshRootAction() {
         super(Messages.getString("msaa.refresh")); //$NON-NLS-1$
         setToolTipText(Messages.getString("msaa.refresh")); //$NON-NLS-1$
-        setImageDescriptor(GuiPlugin.IMAGE_REFRESH);
+        setImageDescriptor(GuiImages.IMAGE_REFRESH);
     }
 
     public void run() {

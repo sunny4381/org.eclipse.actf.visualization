@@ -9,10 +9,11 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.flash;
+package org.eclipse.actf.visualization.gui.internal.util;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
 
 
 public class Messages {
@@ -25,9 +26,6 @@ public class Messages {
 
     public static String getString(String key) {
         try {
-            if( key.startsWith("msaa.") ) {//$NON-NLS-1$
-                return org.eclipse.actf.visualization.gui.Messages.getString(key);
-            }
             return RESOURCE_BUNDLE.getString(key);
         } catch (MissingResourceException e) {
             return '!' + key + '!';

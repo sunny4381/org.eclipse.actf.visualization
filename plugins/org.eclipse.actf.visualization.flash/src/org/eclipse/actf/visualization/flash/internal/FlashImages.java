@@ -8,20 +8,21 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.flash;
+package org.eclipse.actf.visualization.flash.internal;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.actf.util.logging.DebugPrintUtil;
-import org.eclipse.actf.visualization.gui.GuiImages;
+import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.internal.OverlayIcon;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public final class FlashImages {
 
@@ -75,7 +76,9 @@ public final class FlashImages {
 	}
 
 	public static ImageDescriptor getImageDescriptor(String path) {
-		ImageDescriptor descriptor = FlashPlugin.getImageDescriptor(path);
+		ImageDescriptor descriptor = AbstractUIPlugin
+				.imageDescriptorFromPlugin(
+						"org.eclipse.actf.visualization.flash", path);
 		if (null != descriptor) {
 			return descriptor;
 		}

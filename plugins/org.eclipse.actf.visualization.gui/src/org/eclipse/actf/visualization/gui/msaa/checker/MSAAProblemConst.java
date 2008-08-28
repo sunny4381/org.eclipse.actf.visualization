@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.gui.msaa.checker;
 
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 
 public interface MSAAProblemConst {
     public static final int MSAA_ERROR = 1;

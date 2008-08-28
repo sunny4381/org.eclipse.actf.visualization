@@ -19,15 +19,15 @@ import org.eclipse.actf.accservice.swtbridge.ia2.Accessible2;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.util.win32.HighlightComposite;
 import org.eclipse.actf.util.win32.OverlayLabel;
-import org.eclipse.actf.visualization.gui.GuiImages;
-import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.IGuiViewIDs;
+import org.eclipse.actf.visualization.gui.internal.util.AccessiblePropertyUtil;
+import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceConstants;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceManager;
 import org.eclipse.actf.visualization.gui.ui.actions.HideHtmlAction;
 import org.eclipse.actf.visualization.gui.ui.actions.RefreshRootAction;
 import org.eclipse.actf.visualization.gui.ui.actions.ShowOffscreenAction;
-import org.eclipse.actf.visualization.gui.util.AccessiblePropertyUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -73,8 +73,6 @@ import org.eclipse.ui.part.ViewPart;
 
 
 public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
-    public static final String ID = MSAAOutlineView.class.getName();
-
     public static Color FLASH_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_YELLOW);
     public static Color INVISIBLE_FLASH_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_RED);
 
@@ -148,7 +146,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
         hookContextMenu();
         contributeToActionBars();
         MSAAViewRegistory.refreshRootObject();
-        MSAAViewRegistory.showView(MSAAViewRegistory.MSAAEventView_ID, false);    }
+        MSAAViewRegistory.showView(IGuiViewIDs.ID_EVENTVIEW, false);    }
 
     private void refreshLabels() {
         if (showLabelsAction.isChecked()) {
@@ -278,7 +276,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
             }
         };
         expandAllAction.setToolTipText(Messages.getString("msaa.expand_all")); //$NON-NLS-1$
-        expandAllAction.setImageDescriptor(GuiPlugin.IMAGE_EXPAND_ALL);
+        expandAllAction.setImageDescriptor(GuiImages.IMAGE_EXPAND_ALL);
 
         collapseAllAction = new Action(Messages.getString("msaa.collapse_all")) { //$NON-NLS-1$
             public void run() {
@@ -290,7 +288,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
             }
         };
         collapseAllAction.setToolTipText(Messages.getString("msaa.collapse_all")); //$NON-NLS-1$
-        collapseAllAction.setImageDescriptor(GuiPlugin.IMAGE_COLLAPSE_ALL);
+        collapseAllAction.setImageDescriptor(GuiImages.IMAGE_COLLAPSE_ALL);
 
         refreshAction = new RefreshRootAction();
 
@@ -301,14 +299,14 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
         runCheckerAction = new Action(Messages.getString("msaa.checker")) { //$NON-NLS-1$
             public void run() {
                 IMSAAProblemsView problemsView = (IMSAAProblemsView) MSAAViewRegistory.showView(
-                        MSAAViewRegistory.MSAAProblemsView_ID, true);
+                        IGuiViewIDs.ID_REPORTVIEW, true);
                 if (null != problemsView) {
                     problemsView.refresh();
                 }
             }
         };
         runCheckerAction.setToolTipText(Messages.getString("msaa.checker_tip")); //$NON-NLS-1$
-        runCheckerAction.setImageDescriptor(GuiPlugin.IMAGE_CHECKER);
+        runCheckerAction.setImageDescriptor(GuiImages.IMAGE_CHECKER);
 
         showLabelsAction = new Action(Messages.getString("msaa.show_tree"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
             public void run() {
@@ -316,15 +314,15 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
             }
         };
         showLabelsAction.setToolTipText(Messages.getString("msaa.show_tree")); //$NON-NLS-1$
-        showLabelsAction.setImageDescriptor(GuiPlugin.IMAGE_OVERLAY);
+        showLabelsAction.setImageDescriptor(GuiImages.IMAGE_OVERLAY);
         shell.addShellListener(new ShellAdapter(){
             public void shellActivated(ShellEvent e) {
-                if( MSAAViewRegistory.MSAAOutlineView_ID.equals(OverlayLabel.getOwnerId()) ) {
+                if( IGuiViewIDs.ID_OUTLINEVIEW.equals(OverlayLabel.getOwnerId()) ) {
                     showOverlayLabels();
                 }
             }
             public void shellDeactivated(ShellEvent e) {
-                if( MSAAViewRegistory.MSAAOutlineView_ID.equals(OverlayLabel.getOwnerId()) ) {
+                if( IGuiViewIDs.ID_OUTLINEVIEW.equals(OverlayLabel.getOwnerId()) ) {
                     OverlayLabel.removeAll(false);
                 }
             }
@@ -344,7 +342,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
         OverlayLabel.removeAll();
         if (showLabelsAction.isChecked()) {
             new LabelOverlay().showLabels(viewer.getTree().getSelection());
-            OverlayLabel.setOwnerId(MSAAViewRegistory.MSAAOutlineView_ID);
+            OverlayLabel.setOwnerId(IGuiViewIDs.ID_OUTLINEVIEW);
         }
     }
     

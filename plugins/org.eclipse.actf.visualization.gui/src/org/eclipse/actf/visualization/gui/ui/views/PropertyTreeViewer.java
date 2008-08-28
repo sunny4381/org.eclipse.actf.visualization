@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.gui.ui.views;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.actf.visualization.gui.msaa.properties.IPropertyInvoke;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;

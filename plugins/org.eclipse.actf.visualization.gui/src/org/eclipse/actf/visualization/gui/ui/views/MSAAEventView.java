@@ -32,10 +32,12 @@ import org.eclipse.actf.accservice.swtbridge.ia2.TextSegment;
 import org.eclipse.actf.ai.voice.VoicePlugin;
 import org.eclipse.actf.util.win32.WindowUtil;
 import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.IGuiViewIDs;
+import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.ScreenReaderRenderer;
+import org.eclipse.actf.visualization.gui.internal.util.TTSMonitor;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceConstants;
-import org.eclipse.actf.visualization.gui.util.ScreenReaderRenderer;
-import org.eclipse.actf.visualization.gui.util.TTSMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -76,9 +78,7 @@ import org.eclipse.ui.part.ViewPart;
 
 
 public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessibleEventListener {
-    public static final String ID = MSAAEventView.class.getName();
-
-	private StyledText text;
+    private StyledText text;
 	private Action clearAction;
 	private Action speakEventAction;
     private Action openPreferencesAction;
@@ -180,7 +180,7 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
 		};
 		clearAction.setText(Messages.getString("msaa.clear")); //$NON-NLS-1$
 		clearAction.setToolTipText(Messages.getString("msaa.clear_tip")); //$NON-NLS-1$
-		clearAction.setImageDescriptor(GuiPlugin.IMAGE_CLEAR);
+		clearAction.setImageDescriptor(GuiImages.IMAGE_CLEAR);
 		
 		speakEventAction = new Action(Messages.getString("msaa.speak_event"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
 			public void run() {
@@ -335,7 +335,7 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
                     case MSAA.EVENT_OBJECT_FOCUS:
                         Accessible2 accExt = accObject.getAccessible2();
                         if( null != accExt ) {
-                            IMSAAOutlineView outlineView = (IMSAAOutlineView)MSAAViewRegistory.findView(MSAAViewRegistory.MSAAOutlineView_ID);
+                            IMSAAOutlineView outlineView = (IMSAAOutlineView)MSAAViewRegistory.findView(IGuiViewIDs.ID_OUTLINEVIEW);
                             if( null != outlineView ) {
                                 AccessibleObject accTarget = getCachedChildFromUID(MSAAViewRegistory.rootObject,accExt.getUniqueID());
                                 outlineView.setSelection(accTarget);

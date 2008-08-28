@@ -8,7 +8,7 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.gui.util;
+package org.eclipse.actf.visualization.gui.internal.util;
 
 import java.text.MessageFormat;
 
@@ -18,7 +18,7 @@ import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.accservice.swtbridge.ia2.Accessible2;
 import org.eclipse.actf.accservice.swtbridge.ia2.IA2Util;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.IGuiViewIDs;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
 import org.eclipse.actf.visualization.gui.ui.views.MSAATreeContentProvider;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
@@ -43,7 +43,7 @@ public class ScreenReaderRenderer {
     private static final int IDLE_WAIT = 5; 
     private static final int BUSY_WAIT = 500; 
     public static int waitMS = IDLE_WAIT;
-    private IFlashDOMView flashDOMView = (IFlashDOMView)MSAAViewRegistory.findView(MSAAViewRegistory.FlashDOMView_ID);
+    private IFlashDOMView flashDOMView = (IFlashDOMView)MSAAViewRegistory.findView(IGuiViewIDs.ID_FLASHDOMVIEW);
 	
     private static final String[] BROWSER_CONTENT_CLASSNAMES = new String[] { 
         "Internet Explorer_Server",  //$NON-NLS-1$

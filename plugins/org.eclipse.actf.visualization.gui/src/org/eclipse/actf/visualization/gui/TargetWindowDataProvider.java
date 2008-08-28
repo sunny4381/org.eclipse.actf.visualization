@@ -11,24 +11,27 @@
 
 package org.eclipse.actf.visualization.gui;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.actf.model.ui.IModelService;
 
 
 
-public class Messages {
-    private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+public abstract class TargetWindowDataProvider {
 
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
-
-    private Messages() {
+    /**
+     * Get all ModelService
+     * @return array of IModelService
+     * getActiveModelService is called if null is returned
+     */
+    public IModelService[] getModelService() {
+        return null;
     }
-
-    public static String getString(String key) {
-        try {
-            return RESOURCE_BUNDLE.getString(key);
-        } catch (MissingResourceException e) {
-            return '!' + key + '!';
-        }
+    
+    /**
+     * Get current active Data source
+     * @return IModelService
+     */
+    public IModelService getActiveModelService() {
+        return null;
     }
+    
 }

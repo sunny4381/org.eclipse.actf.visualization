@@ -8,22 +8,21 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.gui.msaa.checker;
+package org.eclipse.actf.visualization.gui.ui.views;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.util.win32.HighlightComposite;
 import org.eclipse.actf.util.win32.OverlayLabel;
-import org.eclipse.actf.visualization.gui.GuiPlugin;
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.IGuiViewIDs;
+import org.eclipse.actf.visualization.gui.internal.util.AccessiblePropertyUtil;
+import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
+import org.eclipse.actf.visualization.gui.msaa.checker.MSAAProblem;
+import org.eclipse.actf.visualization.gui.msaa.checker.MSAAProblemChecker;
+import org.eclipse.actf.visualization.gui.msaa.checker.MSAAProblemConst;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceConstants;
 import org.eclipse.actf.visualization.gui.preferences.GuiPreferenceManager;
-import org.eclipse.actf.visualization.gui.ui.views.AccessibleObjectSelectionProvider;
-import org.eclipse.actf.visualization.gui.ui.views.IMSAAOutlineView;
-import org.eclipse.actf.visualization.gui.ui.views.IMSAAProblemsView;
-import org.eclipse.actf.visualization.gui.ui.views.MSAAOutlineView;
-import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
-import org.eclipse.actf.visualization.gui.util.AccessiblePropertyUtil;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -75,8 +74,6 @@ import org.eclipse.ui.part.ViewPart;
 
 
 public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSAAProblemConst {
-    public static final String ID = MSAAProblemsView.class.getName();
-    
     private static final String[] HEADINGS = { "", Messages.getString("msaa.description"), "Name", "Role", "State", "X", "Y", "W", "H" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
 
     private static final int[] WEIGHTS = { 1, 10, 5, 5, 5, 1, 1, 1, 1 };
@@ -146,7 +143,7 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
                     if (selectedElement instanceof MSAAProblem) {
                         AccessibleObject object = ((MSAAProblem) selectedElement).getErrorObject();
                         if (null != object) {
-                            IMSAAOutlineView outlineView = (IMSAAOutlineView)MSAAViewRegistory.findView(MSAAViewRegistory.MSAAOutlineView_ID);
+                            IMSAAOutlineView outlineView = (IMSAAOutlineView)MSAAViewRegistory.findView(IGuiViewIDs.ID_OUTLINEVIEW);
                             if( null != outlineView ) {
                                 outlineView.setSelection(object);
                             }
@@ -191,7 +188,7 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
             for( int errorCode = MSAAProblemConst.MSAA_ERROR; errorCode<=MSAA_INFORMATION; errorCode++ ) {
                 createOverlayLabels(items, currentItem, errorCode);
             }
-            OverlayLabel.setOwnerId(MSAAViewRegistory.MSAAProblemsView_ID);
+            OverlayLabel.setOwnerId(IGuiViewIDs.ID_REPORTVIEW);
         }
     }
     
@@ -327,7 +324,7 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
             }
         };
         refreshAction.setToolTipText(Messages.getString("msaa.refresh")); //$NON-NLS-1$
-        refreshAction.setImageDescriptor(GuiPlugin.IMAGE_REFRESH);
+        refreshAction.setImageDescriptor(GuiImages.IMAGE_REFRESH);
 
         showLabelsAction = new Action(Messages.getString("msaa.show_problem"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
             public void run() {
@@ -335,15 +332,15 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
             }
         };
         showLabelsAction.setToolTipText(Messages.getString("msaa.show_problem")); //$NON-NLS-1$
-        showLabelsAction.setImageDescriptor(GuiPlugin.IMAGE_OVERLAY);
+        showLabelsAction.setImageDescriptor(GuiImages.IMAGE_OVERLAY);
         shell.addShellListener(new ShellAdapter(){
             public void shellActivated(ShellEvent e) {
-                if( MSAAViewRegistory.MSAAProblemsView_ID.equals(OverlayLabel.getOwnerId()) ) {
+                if( IGuiViewIDs.ID_REPORTVIEW.equals(OverlayLabel.getOwnerId()) ) {
                     showOverlayLabels();
                 }
             }
             public void shellDeactivated(ShellEvent e) {
-                if( MSAAViewRegistory.MSAAProblemsView_ID.equals(OverlayLabel.getOwnerId()) ) {
+                if( IGuiViewIDs.ID_REPORTVIEW.equals(OverlayLabel.getOwnerId()) ) {
                     OverlayLabel.removeAll(false);
                 }
             }

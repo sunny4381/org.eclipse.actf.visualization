@@ -12,7 +12,7 @@
 
 package org.eclipse.actf.visualization.gui.ui.actions;
 
-import org.eclipse.actf.visualization.gui.Messages;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.actf.visualization.gui.ui.views.MSAATreeContentProvider;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
 import org.eclipse.jface.action.Action;

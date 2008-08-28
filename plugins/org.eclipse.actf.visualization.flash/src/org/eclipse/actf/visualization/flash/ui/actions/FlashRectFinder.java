@@ -15,7 +15,8 @@ package org.eclipse.actf.visualization.flash.ui.actions;
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
-import org.eclipse.actf.visualization.flash.Messages;
+import org.eclipse.actf.visualization.flash.internal.Messages;
+import org.eclipse.actf.visualization.gui.IGuiViewIDs;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
 import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -34,9 +35,9 @@ public class FlashRectFinder {
 	public FlashRectFinder(Object object) {
 		if (object instanceof AccessibleObject) {
 			if (null != MSAAViewRegistory
-					.findViewReference(MSAAViewRegistory.FlashDOMView_ID)) {
+					.findViewReference(IGuiViewIDs.ID_FLASHDOMVIEW)) {
 				viewVisible = null != MSAAViewRegistory.showView(
-						MSAAViewRegistory.FlashDOMView_ID, false);
+						IGuiViewIDs.ID_FLASHDOMVIEW, false);
 				if (viewVisible) {
 					for (AccessibleObject accObject = (AccessibleObject) object; null != accObject; accObject = accObject
 							.getCachedParent()) {
@@ -67,7 +68,7 @@ public class FlashRectFinder {
 			} else {
 				reCalculateRect();
 				IFlashDOMView flashDOMView = (IFlashDOMView) MSAAViewRegistory
-						.showView(MSAAViewRegistory.FlashDOMView_ID, true);
+						.showView(IGuiViewIDs.ID_FLASHDOMVIEW, true);
 				if (null != flashDOMView) {
 					Rectangle playerRect = playerWindow.getAccLocation();
 					msaaRect.x -= playerRect.x;
