@@ -94,7 +94,7 @@ public class PartControlRoom implements IVisualizationConst {
 		this._isInSimulate = true;
 		this._shell.setCursor(new Cursor(_shell.getDisplay(), SWT.CURSOR_WAIT));
 
-		mediator.setEvaluationResult(checker, dummyResult);
+		mediator.setReport(checker, dummyResult);
 		checkResult = new CheckResultPresentation();
 
 		roomView.clearImage();
@@ -181,7 +181,7 @@ public class PartControlRoom implements IVisualizationConst {
 		checkResult.setSummaryReportUrl(RoomPlugin.getDirectory("html") + html);
 		// TODO
 		checkResult.setSummaryReportText("");
-		Mediator.getInstance().setEvaluationResult(checker, checkResult);
+		Mediator.getInstance().setReport(checker, checkResult);
 
 		checker
 				.setStatusMessage(RoomPlugin

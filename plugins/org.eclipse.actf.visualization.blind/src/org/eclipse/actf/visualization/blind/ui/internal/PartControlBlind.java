@@ -109,7 +109,7 @@ public class PartControlBlind implements IHighlightElementListener {
 		maxReachingTimeS = "";
 
 		checkResult = new EvaluationResultBlind();
-		mediator.setEvaluationResult(vizView, checkResult);// clear result
+		mediator.setReport(vizView, checkResult);// clear result
 		_blindBrowser.navigate("about:blank");
 
 		_canSave = false;
@@ -172,7 +172,7 @@ public class PartControlBlind implements IHighlightElementListener {
 
 			// TODO encoding
 			SaveReportBlind.saveReport((Document) resultDoc.cloneNode(true),
-					mediator.getEvaluationResult(vizView), sFileName,
+					mediator.getReport(vizView), sFileName,
 					imageBriefDir, maxReachingTimeS, _pageEval, bAccessory);
 
 			vizView.setStatusMessage(Messages
@@ -203,7 +203,7 @@ public class PartControlBlind implements IHighlightElementListener {
 					_checkResult.setSummaryReportText(_pageEval.getSummary());
 					_checkResult.setLineStyleListener(SummaryEvaluation
 							.getHighLightStringListener());
-					mediator.setEvaluationResult(vizView, _checkResult);
+					mediator.setReport(vizView, _checkResult);
 
 					vizView.setStatusMessage(Messages
 							.getString("BlindView.Done"));

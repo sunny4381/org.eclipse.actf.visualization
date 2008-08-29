@@ -229,7 +229,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 					checkResult.setSummaryReportUrl(reportFile
 							.getAbsolutePath());
-					mediator.setEvaluationResult(checker, checkResult);
+					mediator.setReport(checker, checkResult);
 
 					checker
 							.setStatusMessage(Messages
@@ -311,7 +311,7 @@ public class PartControlLowVision implements ISelectionListener,
 		this._isInSimulate = true;
 		this._shell.setCursor(new Cursor(_shell.getDisplay(), SWT.CURSOR_WAIT));
 
-		Mediator.getInstance().setEvaluationResult(checker, dummyResult);
+		Mediator.getInstance().setReport(checker, dummyResult);
 		checkResult = new CheckResultLowVision();
 
 		lowVisionView.clearImage();
