@@ -11,7 +11,7 @@
 package org.eclipse.actf.visualization.gui.preferences;
 
 import org.eclipse.actf.accservice.swtbridge.MSAA;
-import org.eclipse.actf.visualization.gui.GuiPlugin;
+import org.eclipse.actf.visualization.gui.internal.GuiPlugin;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 

@@ -11,7 +11,7 @@
 package org.eclipse.actf.visualization.gui.preferences;
 
 import org.eclipse.actf.util.win32.OverlayWindow;
-import org.eclipse.actf.visualization.gui.GuiPlugin;
+import org.eclipse.actf.visualization.gui.internal.GuiPlugin;
 import org.eclipse.actf.visualization.gui.ui.actions.WindowListAction;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;

@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.actf.util.logging.DebugPrintUtil;
-import org.eclipse.actf.visualization.gui.GuiPlugin;
+import org.eclipse.actf.visualization.gui.internal.GuiPlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.ISharedImages;
