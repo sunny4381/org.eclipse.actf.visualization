@@ -9,11 +9,12 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.blind;
+package org.eclipse.actf.visualization.blind.internal;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.actf.visualization.blind.IBlindVisualizer;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;

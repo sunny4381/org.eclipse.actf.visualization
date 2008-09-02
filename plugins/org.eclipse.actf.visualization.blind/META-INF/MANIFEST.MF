@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse ACTF Blind Visualization Plugin (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.visualization.blind;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.actf.visualization.blind.BlindVizPlugin
+Bundle-Activator: org.eclipse.actf.visualization.blind.internal.BlindVizPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -16,3 +16,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.visualization.ui.report,
  org.eclipse.actf.ui
 Eclipse-LazyStart: true
+Export-Package: org.eclipse.actf.visualization.blind

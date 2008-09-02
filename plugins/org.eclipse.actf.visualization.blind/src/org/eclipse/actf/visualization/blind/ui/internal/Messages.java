@@ -15,7 +15,7 @@ import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.actf.visualization.blind.BlindVizPlugin;
+import org.eclipse.actf.visualization.blind.internal.BlindVizPlugin;
 
 public class Messages {
 	private static final String BUNDLE_NAME = BlindVizPlugin.PLUGIN_ID+".ui.internal.messages"; //$NON-NLS-1$

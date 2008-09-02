@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.blind;
+package org.eclipse.actf.visualization.blind.internal;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
