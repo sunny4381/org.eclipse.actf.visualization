@@ -9,7 +9,6 @@ Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.views,
  org.eclipse.core.runtime,
- org.eclipse.actf.accservice.swtbridge,
  org.eclipse.actf.core,
  org.eclipse.actf.ai.voice,
  org.eclipse.actf.model.ui,
@@ -17,4 +16,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.util.win32,
  org.eclipse.actf.ui
 Eclipse-LazyStart: true
-Export-Package: org.eclipse.actf.visualization.gui
+Export-Package:  org.eclipse.actf.visualization.gui
