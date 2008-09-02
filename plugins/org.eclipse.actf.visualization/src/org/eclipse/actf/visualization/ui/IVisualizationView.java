@@ -15,17 +15,27 @@ import org.eclipse.actf.mediator.IACTFReportGenerator;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ViewerSorter;
 
-public interface IVisualizationView extends IACTFReportGenerator{
-    public static final int MODE_DEFAULT = 0;
-    public static final int MODE_LOWVISION = 1;
-    
-    IBaseLabelProvider getLabelProvider();
-    ViewerSorter getTableSorter();
-    
-    public void setStatusMessage(String statusMessage);
-    public void setInfoMessage(String infoMessage);
-    
-    int getResultTableMode();    
-    void doVisualize();
-    
+public interface IVisualizationView extends IACTFReportGenerator {
+	public static final String ID_BLINDVIEW = "org.eclipse.actf.visualization.blind.ui.views.BlindView";
+	public static final String ID_LOWVISIONVIEW = "org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView";
+	public static final String ID_PRESENTATIONVIEW = "org.eclipse.actf.visualization.presentation.ui.views.RoomView";
+	
+	public static final int MODE_DEFAULT = 0;
+	public static final int MODE_LOWVISION = 1;
+
+
+	IBaseLabelProvider getLabelProvider();
+
+	ViewerSorter getTableSorter();
+
+	public void setStatusMessage(String statusMessage);
+
+	public void setInfoMessage(String infoMessage);
+	
+	public void setVisualizeMode(int mode);
+
+	int getResultTableMode();
+
+	void doVisualize();
+
 }

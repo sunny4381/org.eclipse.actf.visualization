@@ -11,6 +11,8 @@
 
 package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
 
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfo;
+
 
 public interface IVisualizeStyleInfoListener {
     void update(VisualizeStyleInfo styleInfo);

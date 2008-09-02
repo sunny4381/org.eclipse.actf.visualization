@@ -10,12 +10,13 @@
  *******************************************************************************/
 
 
-package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
+package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 
 import java.util.Enumeration;
 import java.util.HashSet;
 
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizationAttributeInfo;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerInfoProvider;
 import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;

@@ -32,10 +32,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
-
 public class BlindView extends ViewPart implements IVisualizationView {
-
-	public static final String ID = BlindView.class.getName();
 
 	private IBaseLabelProvider baseLabelProvider;
 
@@ -79,7 +76,8 @@ public class BlindView extends ViewPart implements IVisualizationView {
 		for (int i = 0; i < items.length; i++) {
 			if (null != items[i]
 					&& items[i].getId().equals(
-							VisualizationStatusLineContributionItem.ID + ID)) {
+							VisualizationStatusLineContributionItem.ID
+									+ IVisualizationView.ID_BLINDVIEW)) {
 				((VisualizationStatusLineContributionItem) items[i])
 						.setStatusMessage(statusMessage);
 			}
@@ -92,7 +90,8 @@ public class BlindView extends ViewPart implements IVisualizationView {
 		for (int i = 0; i < items.length; i++) {
 			if (null != items[i]
 					&& items[i].getId().equals(
-							VisualizationStatusLineContributionItem.ID + ID)) {
+							VisualizationStatusLineContributionItem.ID
+									+ IVisualizationView.ID_BLINDVIEW)) {
 				((VisualizationStatusLineContributionItem) items[i])
 						.setInfoMessage(infoMessage);
 			}
@@ -118,7 +117,8 @@ public class BlindView extends ViewPart implements IVisualizationView {
 
 	private void setStatusLine() {
 		getViewSite().getActionBars().getStatusLineManager().add(
-				new VisualizationStatusLineContributionItem(ID));
+				new VisualizationStatusLineContributionItem(
+						IVisualizationView.ID_BLINDVIEW));
 	}
 
 	public IBaseLabelProvider getLabelProvider() {
@@ -141,23 +141,23 @@ public class BlindView extends ViewPart implements IVisualizationView {
 	}
 
 	public void modelserviceChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	public void modelserviceInputChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
 	}
 
 	public void reportChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
+		// TODO implement report update here
 	}
 
 	public void reportGeneratorChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
-		
+		// do nothing
+	}
+
+	public void setVisualizeMode(int mode) {
+		// do nothing
 	}
 
 }

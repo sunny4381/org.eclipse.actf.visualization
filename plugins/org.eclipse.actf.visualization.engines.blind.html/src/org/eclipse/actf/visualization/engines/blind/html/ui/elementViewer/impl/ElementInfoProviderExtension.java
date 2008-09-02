@@ -9,12 +9,13 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
+package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.actf.visualization.engines.blind.html.HtmlVizPlugin;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerInfoProvider;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;

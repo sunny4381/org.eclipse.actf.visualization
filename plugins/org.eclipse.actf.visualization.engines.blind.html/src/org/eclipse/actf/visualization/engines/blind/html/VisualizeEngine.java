@@ -23,8 +23,8 @@ import java.util.Vector;
 
 import org.eclipse.actf.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
-import org.eclipse.actf.visualization.engines.blind.html.eval.ImgChecker;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.DocumentCleaner;
+import org.eclipse.actf.visualization.engines.blind.html.internal.util.ImgChecker;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.LinkAnalyzer;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.NodeInfoCreator;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizationNodeInfo;
@@ -33,8 +33,8 @@ import org.eclipse.actf.visualization.engines.blind.html.internal.util.Visualize
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizeMapDataImpl;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizeMapUtil;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizeViewUtil;
-import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.VisualizeStyleInfo;
-import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.VisualizeStyleInfoManager;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfo;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfoManager;
 import org.eclipse.actf.visualization.engines.blind.html.util.Id2LineViaAccId;
 import org.eclipse.actf.visualization.engines.blind.util.ParamBlind;
 import org.eclipse.actf.visualization.engines.blind.util.TextChecker;

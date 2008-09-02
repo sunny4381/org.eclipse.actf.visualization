@@ -133,7 +133,8 @@ public class PartControlBlind implements IHighlightElementListener {
 					vizView.setStatusMessage(Messages
 							.getString("BlindView.Now_rendering"));
 					CreateReport cr = new CreateReport(checkResult, new File(
-							BlindVizEnginePlugin.getTempDirectory(), BLIND_REPORT_FILE));
+							BlindVizEnginePlugin.getTempDirectory(),
+							BLIND_REPORT_FILE));
 					if (isShowResult) {
 						_blindBrowser.navigate(resultFilePath);
 						_shell.getDisplay().asyncExec(cr);
@@ -172,8 +173,8 @@ public class PartControlBlind implements IHighlightElementListener {
 
 			// TODO encoding
 			SaveReportBlind.saveReport((Document) resultDoc.cloneNode(true),
-					mediator.getReport(vizView), sFileName,
-					imageBriefDir, maxReachingTimeS, _pageEval, bAccessory);
+					mediator.getReport(vizView), sFileName, imageBriefDir,
+					maxReachingTimeS, _pageEval, bAccessory);
 
 			vizView.setStatusMessage(Messages
 					.getString("BlindView.end_saving_file")); // //$NON-NLS-1$
@@ -191,8 +192,8 @@ public class PartControlBlind implements IHighlightElementListener {
 		}
 
 		public void run() {
-			_pageEval = PageEvaluation.createPageReport(_checkResult
-					.getProblemList(), _pageData);
+			_pageEval = new PageEvaluation(_checkResult.getProblemList(),
+					_pageData);
 			VisualizeReportUtil.createReport(this.targetFile, _pageEval);
 			_shell.getDisplay().asyncExec(new Runnable() {
 				public void run() {

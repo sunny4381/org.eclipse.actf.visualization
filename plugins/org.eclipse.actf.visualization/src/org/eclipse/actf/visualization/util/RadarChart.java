@@ -8,7 +8,7 @@
  * Contributors:
  *    Junji MAEDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.blind.util;
+package org.eclipse.actf.visualization.util;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -28,7 +28,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class RadarChartNonSVG {
+public class RadarChart {
 	
 	//TODO move to common util
 	
@@ -90,7 +90,7 @@ public class RadarChartNonSVG {
 
 	private boolean smoothing = true; // hidden selection
 
-	public RadarChartNonSVG(String[] _names, int[] _values) throws Exception {
+	public RadarChart(String[] _names, int[] _values) throws Exception {
 		names = _names;
 		values = _values;
 		numItems = values.length;

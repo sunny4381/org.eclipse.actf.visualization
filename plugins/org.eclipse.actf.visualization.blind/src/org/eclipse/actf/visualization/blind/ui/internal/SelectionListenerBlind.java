@@ -37,6 +37,7 @@ public class SelectionListenerBlind implements ISelectionListener {
 		this.prb = prb;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		if (selection == null || !(selection instanceof IStructuredSelection)) {
 			System.err.println(this.getClass().getName() + ":" + "Iselection");

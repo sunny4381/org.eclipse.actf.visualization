@@ -11,6 +11,10 @@
 
 package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
 
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.IViewerPanel;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.ViewerPanelJFace;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfo;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfoManager;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 

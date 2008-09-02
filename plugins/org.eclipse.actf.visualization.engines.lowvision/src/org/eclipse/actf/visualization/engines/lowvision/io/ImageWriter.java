@@ -20,6 +20,7 @@ import org.eclipse.actf.visualization.engines.lowvision.image.BinaryImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageUtil;
 import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.engines.lowvision.internal.io.BMPWriter;
+import org.eclipse.actf.visualization.engines.lowvision.internal.io.IoUtil;
 import org.eclipse.actf.visualization.engines.lowvision.internal.io.JPEGWriter;
 import org.eclipse.actf.visualization.engines.lowvision.internal.io.PBMWriter;
 

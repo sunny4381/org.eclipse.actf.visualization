@@ -18,6 +18,7 @@ import org.eclipse.actf.visualization.engines.lowvision.image.ImageUtil;
 import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.engines.lowvision.internal.io.BMPReader;
 import org.eclipse.actf.visualization.engines.lowvision.internal.io.ImageFileReader;
+import org.eclipse.actf.visualization.engines.lowvision.internal.io.IoUtil;
 import org.eclipse.actf.visualization.engines.lowvision.internal.io.JPEGReader;
 import org.eclipse.actf.visualization.engines.lowvision.internal.io.PBMReader;
 

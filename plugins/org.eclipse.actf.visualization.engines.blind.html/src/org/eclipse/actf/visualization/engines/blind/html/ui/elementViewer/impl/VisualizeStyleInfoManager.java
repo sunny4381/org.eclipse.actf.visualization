@@ -9,10 +9,12 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
+package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IVisualizeStyleInfoListener;
 
 
 public class VisualizeStyleInfoManager {

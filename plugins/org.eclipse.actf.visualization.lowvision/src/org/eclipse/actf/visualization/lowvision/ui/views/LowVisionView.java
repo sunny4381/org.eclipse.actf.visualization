@@ -28,8 +28,6 @@ import org.eclipse.ui.part.ViewPart;
 
 public class LowVisionView extends ViewPart implements IVisualizationView {
 
-	public static final String ID = LowVisionView.class.getName();
-
 	private PartControlLowVision partRightLowVision;
 
 	private IBaseLabelProvider baseLabelProvider = new ResultTableLabelProviderLV();
@@ -68,7 +66,8 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
 		for (int i = 0; i < items.length; i++) {
 			if (null != items[i]
 					&& items[i].getId().equals(
-							VisualizationStatusLineContributionItem.ID + ID)) {
+							VisualizationStatusLineContributionItem.ID
+									+ IVisualizationView.ID_LOWVISIONVIEW)) {
 				((VisualizationStatusLineContributionItem) items[i])
 						.setStatusMessage(statusMessage);
 			}
@@ -81,7 +80,8 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
 		for (int i = 0; i < items.length; i++) {
 			if (null != items[i]
 					&& items[i].getId().equals(
-							VisualizationStatusLineContributionItem.ID + ID)) {
+							VisualizationStatusLineContributionItem.ID
+									+ IVisualizationView.ID_LOWVISIONVIEW)) {
 				((VisualizationStatusLineContributionItem) items[i])
 						.setInfoMessage(infoMessage);
 			}
@@ -90,7 +90,8 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
 
 	private void setStatusLine() {
 		getViewSite().getActionBars().getStatusLineManager().add(
-				new VisualizationStatusLineContributionItem(ID));
+				new VisualizationStatusLineContributionItem(
+						IVisualizationView.ID_LOWVISIONVIEW));
 	}
 
 	public IBaseLabelProvider getLabelProvider() {
@@ -123,13 +124,16 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
 	}
 
 	public void reportChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
+		// TODO implement report update here
 
 	}
 
 	public void reportGeneratorChanged(MediatorEvent event) {
-		// TODO Auto-generated method stub
+		//do nothing
+	}
 
+	public void setVisualizeMode(int mode) {
+		// do nothing
 	}
 
 }

@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
+package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;

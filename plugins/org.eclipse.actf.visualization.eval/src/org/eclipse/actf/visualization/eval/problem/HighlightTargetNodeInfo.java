@@ -65,13 +65,13 @@ public class HighlightTargetNodeInfo {
         }
     }
 
-    public HighlightTargetId[] getHighlightTargetIds(Map node2Id) {
+    public HighlightTargetId[] getHighlightTargetIds(Map<Node, Integer> node2Id) {
         HighlightTargetId[] result = new HighlightTargetId[0];
         switch (mode) {
         case SINGLE:
             if (node2Id != null && node2Id.containsKey(targetNode)) {
                 try {
-                    int nodeId = ((Integer) node2Id.get(targetNode)).intValue();
+                    int nodeId = node2Id.get(targetNode).intValue();
                     result = new HighlightTargetId[1];
                     result[0] = new HighlightTargetId(nodeId, nodeId);
                 } catch (Exception e) {
@@ -85,12 +85,12 @@ public class HighlightTargetNodeInfo {
                 int start = 0;
                 int end = 0;
                 try {
-                    start = ((Integer) node2Id.get(startTarget)).intValue();
+                    start = node2Id.get(startTarget).intValue();
                     state += 1;
                 } catch (Exception e) {
                 }
                 try {
-                    end = ((Integer) node2Id.get(endTarget)).intValue();
+                    end = node2Id.get(endTarget).intValue();
                     state += 2;
                 } catch (Exception e) {
                 }
@@ -119,7 +119,7 @@ public class HighlightTargetNodeInfo {
             for (int i = 0; i < targets.length; i++) {
                 if (node2Id != null && node2Id.containsKey(targets[i])) {
                     try {
-                        int nodeId = ((Integer) node2Id.get(targets[i])).intValue();
+                        int nodeId = node2Id.get(targets[i]).intValue();
                         tmpV.add(new HighlightTargetId(nodeId, nodeId));
                     } catch (Exception e) {
                     }
@@ -134,7 +134,7 @@ public class HighlightTargetNodeInfo {
         return result;
     }
     
-    public HighlightTargetSourceInfo[] getHighlightTargetSourceInfo(Vector html2ViewMapDataV){
+    public HighlightTargetSourceInfo[] getHighlightTargetSourceInfo(Vector<Html2ViewMapData> html2ViewMapDataV){
         HighlightTargetSourceInfo[] result = new HighlightTargetSourceInfo[0];
         switch (mode) {
         case SINGLE:
@@ -172,14 +172,14 @@ public class HighlightTargetNodeInfo {
         return result;        
     }
     
-    private Html2ViewMapData getViewMapData(Node targetN, Vector html2ViewMapDataV) {
+    private Html2ViewMapData getViewMapData(Node targetN, Vector<Html2ViewMapData> html2ViewMapDataV) {
         if (targetN != null && html2ViewMapDataV != null) {
             try {
                 String targetId = ((Element) targetN).getAttribute(Html2ViewMapData.ACTF_ID);
                 if (!targetId.equals("")) {
                     int target = Integer.parseInt(targetId);
                     if (target > -1 && target < html2ViewMapDataV.size()) {
-                        Html2ViewMapData h2vmd = (Html2ViewMapData) html2ViewMapDataV.get(target);
+                        Html2ViewMapData h2vmd = html2ViewMapDataV.get(target);
                         return h2vmd;
                     }
                 } else {

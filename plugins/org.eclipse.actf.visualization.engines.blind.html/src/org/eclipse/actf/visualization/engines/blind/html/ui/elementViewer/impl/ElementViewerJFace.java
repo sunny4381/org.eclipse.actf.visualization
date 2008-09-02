@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
+package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,6 +20,7 @@ import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizationAttributeInfo;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IHighlightElementListener;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;

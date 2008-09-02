@@ -13,23 +13,20 @@ package org.eclipse.actf.visualization.engines.blind.eval;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.actf.visualization.engines.blind.internal.Messages;
-import org.eclipse.actf.visualization.engines.blind.util.RadarChartNonSVG;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-
+import org.eclipse.actf.visualization.util.RadarChart;
 
 public class PageEvaluation {
 
-	private GuidelineHolder guidelineHolder = GuidelineHolder
-			.getInstance();
+	private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
 
 	private PageData pageData;
 
@@ -39,9 +36,11 @@ public class PageEvaluation {
 
 	private int[] scores = new int[metricsSize];
 
-	public PageEvaluation(PageData pageData) {
+	public PageEvaluation(List<IProblemItem> problems, PageData pageData) {
 		this.pageData = pageData;
 		Arrays.fill(scores, 100);
+
+		createPageReport(problems, pageData);
 	}
 
 	public void addProblem(IProblemItem pti) {
@@ -104,8 +103,7 @@ public class PageEvaluation {
 	private int getMinScore() {
 		int minValue = 100;
 
-		boolean[] enabled = GuidelineHolder.getInstance()
-				.getMatchedMetrics();
+		boolean[] enabled = GuidelineHolder.getInstance().getMatchedMetrics();
 
 		for (int i = 0; i < metricsSize; i++) {
 			if (enabled[i] && minValue > scores[i]) {
@@ -156,27 +154,18 @@ public class PageEvaluation {
 		return (rating);
 	}
 
-	// TODO move to constructor
-	public static PageEvaluation createPageReport(List problems,
-			PageData pageData) {
-		PageEvaluation eval = new PageEvaluation(pageData);
-		return createPageReport(problems, pageData, eval);
-	}
-
-	protected static PageEvaluation createPageReport(List problems,
-			PageData pageData, PageEvaluation eval) {
-		for (Iterator i = problems.iterator(); i.hasNext();) {
-			eval.addProblem((IProblemItem) i.next());
+	private void createPageReport(List<IProblemItem> problems, PageData pageData) {
+		for (IProblemItem item : problems) {
+			this.addProblem(item);
 		}
 
-		eval.setInvalidLinkRatio(pageData.getInvalidLinkRatio());
+		this.setInvalidLinkRatio(pageData.getInvalidLinkRatio());
 
-		eval.checkMinus();
+		this.checkMinus();
 
-		boolean[] enabled = GuidelineHolder.getInstance()
-				.getMatchedMetrics();
-		String[] metrics = eval.getMetrics();
-		int[] scores = eval.getScores();
+		boolean[] enabled = GuidelineHolder.getInstance().getMatchedMetrics();
+		String[] metrics = this.getMetrics();
+		int[] scores = this.getScores();
 
 		Vector<String> metricsV = new Vector<String>();
 		Vector<Integer> scoresV = new Vector<Integer>();
@@ -196,7 +185,7 @@ public class PageEvaluation {
 		}
 
 		try {
-			RadarChartNonSVG chart = new RadarChartNonSVG(metrics, scores);
+			RadarChart chart = new RadarChart(metrics, scores);
 
 			// TODO use tmp file
 			chart.writeToPNG(new File(BlindVizEnginePlugin.getTempDirectory(),
@@ -205,7 +194,6 @@ public class PageEvaluation {
 			// e.printStackTrace();
 			// TODO create empty png
 		}
-		return (eval);
 	}
 
 	public String[] getMetrics() {

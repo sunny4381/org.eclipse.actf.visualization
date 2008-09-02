@@ -208,7 +208,7 @@ public class BlindProblem extends ProblemItemImpl implements IProblemItem {
      * 
      * @return List
      */
-    public List getNodeList() {
+    public List<Node> getNodeList() {
         return nodeList;
     }
 

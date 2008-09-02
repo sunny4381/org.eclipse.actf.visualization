@@ -12,8 +12,8 @@
 package org.eclipse.actf.visualization.presentation.ui.views;
 
 import org.eclipse.actf.mediator.MediatorEvent;
+import org.eclipse.actf.visualization.presentation.IPresentationVisualizationModes;
 import org.eclipse.actf.visualization.presentation.ui.internal.PartControlRoom;
-import org.eclipse.actf.visualization.presentation.util.ParamRoom;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableLabelProviderLV;
@@ -27,14 +27,6 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.part.ViewPart;
 
 public class RoomView extends ViewPart implements IVisualizationView {
-
-	public static final String ID = RoomView.class.getName();
-
-	public static final int ROOM_SMALL = ParamRoom.ROOM_SMALL;
-
-	public static final int ROOM_LARGE = ParamRoom.ROOM_MIDDLE;
-
-	public static final int ROOM_AUDITORIUM = ParamRoom.ROOM_LARGE;
 
 	private IBaseLabelProvider baseLabelProvider = new ResultTableLabelProviderLV();
 
@@ -64,7 +56,7 @@ public class RoomView extends ViewPart implements IVisualizationView {
 		for (int i = 0; i < items.length; i++) {
 			if (null != items[i]
 					&& items[i].getId().equals(
-							VisualizationStatusLineContributionItem.ID + ID)) {
+							VisualizationStatusLineContributionItem.ID + IVisualizationView.ID_PRESENTATIONVIEW)) {
 				((VisualizationStatusLineContributionItem) items[i])
 						.setStatusMessage(statusMessage);
 			}
@@ -77,7 +69,7 @@ public class RoomView extends ViewPart implements IVisualizationView {
 		for (int i = 0; i < items.length; i++) {
 			if (null != items[i]
 					&& items[i].getId().equals(
-							VisualizationStatusLineContributionItem.ID + ID)) {
+							VisualizationStatusLineContributionItem.ID + IVisualizationView.ID_PRESENTATIONVIEW)) {
 				((VisualizationStatusLineContributionItem) items[i])
 						.setInfoMessage(infoMessage);
 			}
@@ -86,7 +78,7 @@ public class RoomView extends ViewPart implements IVisualizationView {
 
 	private void setStatusLine() {
 		getViewSite().getActionBars().getStatusLineManager().add(
-				new VisualizationStatusLineContributionItem(ID));
+				new VisualizationStatusLineContributionItem(IVisualizationView.ID_PRESENTATIONVIEW));
 	}
 
 	public IBaseLabelProvider getLabelProvider() {
@@ -106,7 +98,7 @@ public class RoomView extends ViewPart implements IVisualizationView {
 	}
 
 	public void setVisualizeMode(int mode) {
-		if (mode == ROOM_AUDITORIUM || mode == ROOM_LARGE || mode == ROOM_SMALL) {
+		if (mode == IPresentationVisualizationModes.AUDITORIUM || mode == IPresentationVisualizationModes.LARGE_ROOM || mode == IPresentationVisualizationModes.SMALL_ROOM) {
 			partRightRoom.getParamLowVision().setType(mode);
 		}
 	}

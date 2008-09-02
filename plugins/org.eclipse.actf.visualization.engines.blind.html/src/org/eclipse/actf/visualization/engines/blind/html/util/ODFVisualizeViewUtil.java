@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Tatsuya ISHIHARA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.engines.blind.html.util;
@@ -24,7 +25,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class ODFVisualizeViewUtil {
-	public static void visualizeError(Document resultDoc, List problems) {
+	public static void visualizeError(Document resultDoc, List<IProblemItem> problems) {
 		final String NO_ALT_IMAGE = "10101";
 
 		int size = problems.size();

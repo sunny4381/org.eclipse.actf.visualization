@@ -9,7 +9,7 @@
  *    Junji MAEDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.lowvision.io;
+package org.eclipse.actf.visualization.engines.lowvision.internal.io;
 
 public class IoUtil {
 	public static final short TYPE_UNKNOWN = 0;

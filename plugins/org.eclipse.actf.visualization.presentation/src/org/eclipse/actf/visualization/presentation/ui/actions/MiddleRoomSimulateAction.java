@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.presentation.ui.actions;
 
-import org.eclipse.actf.visualization.presentation.RoomPlugin;
+import org.eclipse.actf.visualization.presentation.internal.RoomPlugin;
 import org.eclipse.actf.visualization.presentation.ui.internal.PartControlRoom;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
 import org.eclipse.jface.action.Action;

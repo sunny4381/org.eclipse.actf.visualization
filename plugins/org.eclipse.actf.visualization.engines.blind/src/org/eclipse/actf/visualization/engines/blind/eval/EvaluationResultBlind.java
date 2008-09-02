@@ -38,9 +38,9 @@ public class EvaluationResultBlind extends EvaluationResultImpl {
         super.setProblemList(problemList);
     }
 
-    private void stripProblem(Collection c){
+    private void stripProblem(Collection<IProblemItem> c){
         GuidelineHolder holder = GuidelineHolder.getInstance();
-        for (Iterator i = c.iterator(); i.hasNext();) {
+        for (Iterator<IProblemItem> i = c.iterator(); i.hasNext();) {
             try {
                 IProblemItem tmpItem = (IProblemItem) i.next();
                 if (holder.isMatchedCheckItem(tmpItem.getEvaluationItem())) {

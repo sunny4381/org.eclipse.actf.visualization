@@ -8,7 +8,7 @@
  * Contributors:
  *    Daisuke SATO - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.presentation;
+package org.eclipse.actf.visualization.presentation.internal;
 
 import java.io.File;
 import java.io.IOException;

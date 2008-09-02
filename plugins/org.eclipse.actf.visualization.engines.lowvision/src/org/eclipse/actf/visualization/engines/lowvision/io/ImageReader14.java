@@ -21,6 +21,7 @@ import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageUtil;
 import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.engines.lowvision.internal.io.BMPReader;
+import org.eclipse.actf.visualization.engines.lowvision.internal.io.IoUtil;
 import org.eclipse.actf.visualization.engines.lowvision.internal.io.PBMReader;
 
 public class ImageReader14 {

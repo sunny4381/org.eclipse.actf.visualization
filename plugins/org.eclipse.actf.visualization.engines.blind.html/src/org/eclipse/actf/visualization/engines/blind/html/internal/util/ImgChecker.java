@@ -9,21 +9,20 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.eval;
+package org.eclipse.actf.visualization.engines.blind.html.internal.util;
 
 import java.util.Map;
 import java.util.Vector;
 
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
-import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizationNodeInfo;
+import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
 import org.eclipse.actf.visualization.engines.blind.util.TextChecker;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 
 public class ImgChecker {
 
@@ -37,7 +36,7 @@ public class ImgChecker {
 
 	// private Map idMap;
 
-	private Map mapMap;
+	private Map<String, Element> mapMap;
 
 	private TextChecker textChecker;
 
@@ -58,7 +57,7 @@ public class ImgChecker {
 	 * @param baseUrl
 	 * @param checkItems
 	 */
-	public ImgChecker(IVisualizeMapData mapData, Map mapMap,
+	public ImgChecker(IVisualizeMapData mapData, Map<String, Element> mapMap,
 			TextChecker textChecker, Vector<IProblemItem> problemV,
 			String baseUrl, boolean[] checkItems) {
 
