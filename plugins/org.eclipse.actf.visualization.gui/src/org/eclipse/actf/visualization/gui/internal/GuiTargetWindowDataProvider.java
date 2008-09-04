@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.gui.targetdata;
+package org.eclipse.actf.visualization.gui.internal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.util.win32.OverlayWindow;
 import org.eclipse.actf.util.win32.WindowUtil;
+import org.eclipse.actf.visualization.gui.GuiTargetWindowData;
 import org.eclipse.actf.visualization.gui.TargetWindowDataProvider;
 import org.eclipse.actf.visualization.gui.internal.util.WebBrowserUtil;
 

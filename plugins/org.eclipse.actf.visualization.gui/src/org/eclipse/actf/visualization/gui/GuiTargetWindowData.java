@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.gui.targetdata;
+package org.eclipse.actf.visualization.gui;
 
 import java.io.File;
 
