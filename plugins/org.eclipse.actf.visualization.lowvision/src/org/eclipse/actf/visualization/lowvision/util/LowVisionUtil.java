@@ -19,13 +19,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
 
-import org.eclipse.actf.model.dom.html.impl.SHDocument;
-import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
+import org.eclipse.actf.model.dom.html.HTMLParserFactory;
+import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
@@ -45,15 +46,16 @@ public class LowVisionUtil implements IVisualizationConst{
 
             webBrowser.saveDocumentAsHTMLFile(runtimeHtmlFile.getAbsolutePath());
 
-            HtmlParserUtil hpu = new HtmlParserUtil();
-            hpu.parse(new FileInputStream(runtimeHtmlFile));
+            IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
+            htmlParser.parse(new FileInputStream(runtimeHtmlFile));
 
             //TODO from Mediator
-            SHDocument document = hpu.getSHDocument();
+            Document document = htmlParser.getDocument();
+            Element documentElement = document.getDocumentElement();
 
-            NodeList frameList = document.getElementsByName("frame"); //$NON-NLS-1$
+            NodeList frameList = documentElement.getElementsByTagName("frame"); //$NON-NLS-1$
             try {
-                NodeList baseNL = document.getElementsByName("base");
+                NodeList baseNL = documentElement.getElementsByTagName("base");
                 if (baseNL.getLength() > 0) {
                     Element baseE = (Element) baseNL.item(baseNL.getLength() - 1);
                     String baseUrlS = baseE.getAttribute("href");
@@ -79,7 +81,7 @@ public class LowVisionUtil implements IVisualizationConst{
                     e2.printStackTrace();
                 }
             }
-            hpu = null;
+            htmlParser = null;
             return (result);
         } catch (Exception e1) {
             e1.printStackTrace();

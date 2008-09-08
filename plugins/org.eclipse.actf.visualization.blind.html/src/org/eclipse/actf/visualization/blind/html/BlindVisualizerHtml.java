@@ -12,15 +12,12 @@ package org.eclipse.actf.visualization.blind.html;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Vector;
 
-import org.eclipse.actf.model.dom.html.impl.SHDocument;
-import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
+import org.eclipse.actf.model.dom.html.HTMLParserFactory;
+import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.util.dom.DomPrintUtil;
@@ -93,9 +90,9 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			Html2ViewMapMaker h2vmm = new Html2ViewMapMaker();
 
 			Vector<Html2ViewMapData> html2ViewMapV = new Vector<Html2ViewMapData>();
-			HtmlParserUtil hpu = new HtmlParserUtil();
+			IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
 			HtmlErrorLogListener errorLogListener = new HtmlErrorLogListener();
-			hpu.addErrorLogListener(errorLogListener);
+			htmlParser.addErrorLogListener(errorLogListener);
 			String targetFile = tmpDirS + MAPPED_HTML_FILE_PRE + frameId
 					+ ".html";
 
@@ -121,16 +118,19 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 				ieDom = webBrowser.getLiveDocument();
 
 				// TODO replace with DomByCom (need clone/write support)
-				HtmlParserUtil tmpHPU = new HtmlParserUtil();
-				tmpHPU.parse(new FileInputStream(tmpDirS + IE_HTML_FILE));
-				document = tmpHPU.getSHDocument();
+				IHTMLParser tmpHtmlParser = HTMLParserFactory
+						.createHTMLParser();
+				tmpHtmlParser
+						.parse(new FileInputStream(tmpDirS + IE_HTML_FILE));
+				document = tmpHtmlParser.getDocument();
 
-				tmpHPU.parse(new FileInputStream(tmpDirS + ORIG_HTML_FILE));
-				originalDocument = tmpHPU.getSHDocument();
+				tmpHtmlParser.parse(new FileInputStream(tmpDirS
+						+ ORIG_HTML_FILE));
+				originalDocument = tmpHtmlParser.getDocument();
 
 			} else {
-				hpu.parse(new FileInputStream(targetFile));
-				document = hpu.getSHDocument();
+				htmlParser.parse(new FileInputStream(targetFile));
+				document = htmlParser.getDocument();
 				originalDocument = document;
 				ieDom = webBrowser.getLiveDocument();
 			}
@@ -240,30 +240,18 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			resultFile = BlindVizEnginePlugin.createTempFile(
 					IVisualizationConst.PREFIX_RESULT,
 					IVisualizationConst.SUFFIX_HTML);
-//			File tmpFile = BlindVizEnginePlugin.createTempFile("tmp",
-//					IVisualizationConst.SUFFIX_HTML);
+			// File tmpFile = BlindVizEnginePlugin.createTempFile("tmp",
+			// IVisualizationConst.SUFFIX_HTML);
 
 			try {
-//				HtmlParserUtil.saveHtmlDocumentAsUTF8(
-//						(SHDocument) resultDocument, tmpFile, resultFile);
-				PrintWriter tmpPW = new PrintWriter(new OutputStreamWriter(new FileOutputStream(resultFile),"UTF8"));				
+				// HtmlParserUtil.saveHtmlDocumentAsUTF8(
+				// (SHDocument) resultDocument, tmpFile, resultFile);
 				DomPrintUtil dpu = new DomPrintUtil(resultDocument);
-				tmpPW.println(dpu.toXMLString());
-				tmpPW.flush();
-				tmpPW.close();
-				
+				dpu.writeToFile(resultFile);
+
 			} catch (Exception e3) {
 				DebugPrintUtil
 						.devOrDebugPrintln("error: saveHtmlDocumentAsUTF8");
-				try {
-					PrintWriter pw = new PrintWriter(new OutputStreamWriter(
-							new FileOutputStream(resultFile), "UTF-8"));
-					((SHDocument) resultDocument).printAsSGML(pw, true);
-					pw.flush();
-					pw.close();
-				} catch (Exception e4) {
-
-				}
 			}
 
 			if (hasFrame) {

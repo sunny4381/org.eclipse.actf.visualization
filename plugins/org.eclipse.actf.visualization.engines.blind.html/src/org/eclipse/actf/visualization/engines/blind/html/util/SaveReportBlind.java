@@ -19,9 +19,8 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import org.eclipse.actf.mediator.IACTFReport;
-import org.eclipse.actf.model.dom.html.impl.SHDocument;
-import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
 import org.eclipse.actf.util.FileUtils;
+import org.eclipse.actf.util.dom.DomPrintUtil;
 import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
 import org.eclipse.actf.visualization.engines.blind.util.BlindVizResourceUtil;
@@ -54,8 +53,8 @@ public class SaveReportBlind {
 			boolean bAccessory) {
 		if (null != checkResult && checkResult instanceof IEvaluationResult) {
 
-			IEvaluationResult evalResult = (IEvaluationResult)checkResult;
-			
+			IEvaluationResult evalResult = (IEvaluationResult) checkResult;
+
 			String saveDir = sFileName.substring(0, sFileName
 					.lastIndexOf(File.separator) + 1);
 			String imageDir = saveDir + imageBriefDir;
@@ -396,9 +395,17 @@ public class SaveReportBlind {
 				trElement.appendChild(tdElement);
 			}
 
-			HtmlParserUtil.saveHtmlDocumentAsUTF8((SHDocument) result,
-					BlindVizEnginePlugin.getTempDirectoryString()
-							+ "saveResultTmp.html", sFileName);
+			// HtmlParserUtil.saveSGMLDocumentAsUTF8((IHTMLDocumentACTF) result,
+			// BlindVizEnginePlugin.getTempDirectoryString()
+			// + "saveResultTmp.html", sFileName);
+
+			DomPrintUtil dpu = new DomPrintUtil(result);
+			try {
+				dpu.writeToFile(sFileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		}
 
 	}

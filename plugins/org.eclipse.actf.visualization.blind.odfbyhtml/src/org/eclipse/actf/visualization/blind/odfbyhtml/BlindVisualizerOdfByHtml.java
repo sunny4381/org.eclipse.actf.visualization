@@ -12,17 +12,15 @@ package org.eclipse.actf.visualization.blind.odfbyhtml;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Vector;
 
-import org.eclipse.actf.model.dom.html.impl.SHDocument;
-import org.eclipse.actf.model.dom.html.util.HtmlParserUtil;
+import org.eclipse.actf.model.dom.html.HTMLParserFactory;
+import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.util.FileUtils;
+import org.eclipse.actf.util.dom.DomPrintUtil;
 import org.eclipse.actf.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.util.html2view.Html2ViewMapMaker;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
@@ -84,9 +82,9 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			Html2ViewMapMaker h2vmm = new Html2ViewMapMaker();
 			Vector<Html2ViewMapData> html2ViewMapV = new Vector<Html2ViewMapData>();
 
-			HtmlParserUtil hpu = new HtmlParserUtil();
+			IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
 			HtmlErrorLogListener errorLogListener = new HtmlErrorLogListener();
-			hpu.addErrorLogListener(errorLogListener);
+			htmlParser.addErrorLogListener(errorLogListener);
 			String targetFile = tmpDirS + MAPPED_HTML_FILE_PRE + ".html";
 
 			html2ViewMapV = h2vmm.makeMap(ODF_HTML_FILE_NAME,
@@ -95,9 +93,9 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 				targetFile = odf_html_fileS;
 			}
 
-			HtmlParserUtil tmpHPU = new HtmlParserUtil();
-			tmpHPU.parse(new FileInputStream(targetFile));
-			Document document = tmpHPU.getSHDocument();
+			IHTMLParser tmpHtmlParser = HTMLParserFactory.createHTMLParser();
+			tmpHtmlParser.parse(new FileInputStream(targetFile));
+			Document document = tmpHtmlParser.getDocument();
 
 			if (document == null) {
 				return ERROR;
@@ -173,11 +171,13 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 					IVisualizationConst.SUFFIX_HTML);
 
 			try {
-				PrintWriter pw = new PrintWriter(new OutputStreamWriter(
-						new FileOutputStream(resultFile), "UTF-8"));
-				((SHDocument) resultDocument).printAsSGML(pw, true);
-				pw.flush();
-				pw.close();
+				// PrintWriter pw = new PrintWriter(new OutputStreamWriter(
+				// new FileOutputStream(resultFile), "UTF-8"));
+				// ((IHTMLDocumentACTF) resultDocument).printAsSGML(pw, true);
+				// pw.flush();
+				// pw.close();
+				DomPrintUtil dpu = new DomPrintUtil(resultDocument);
+				dpu.writeToFile(resultFile);
 			} catch (Exception e3) {
 				e3.printStackTrace();
 			}

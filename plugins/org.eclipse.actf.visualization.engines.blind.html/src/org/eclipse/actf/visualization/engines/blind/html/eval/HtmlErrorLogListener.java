@@ -13,8 +13,8 @@ package org.eclipse.actf.visualization.engines.blind.html.eval;
 
 import java.util.Vector;
 
-import org.eclipse.actf.model.dom.sgml.IErrorLogListener;
-import org.eclipse.actf.model.dom.sgml.ISGMLConstants;
+import org.eclipse.actf.model.dom.html.IErrorLogListener;
+import org.eclipse.actf.model.dom.html.IParserError;
 import org.eclipse.actf.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
@@ -40,13 +40,13 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 	private boolean flag = true;
 
 	public void errorLog(int arg0, String arg1) {
-		if (arg0 != ISGMLConstants.ILLEGAL_ATTRIBUTE || arg1.indexOf(Html2ViewMapData.ACTF_ID) < 0) {
+		if (arg0 != IParserError.ILLEGAL_ATTRIBUTE || arg1.indexOf(Html2ViewMapData.ACTF_ID) < 0) {
 			// TODO create HTML problems
 			switch (arg0) {
-			case ISGMLConstants.DOCTYPE_MISSED:
+			case IParserError.DOCTYPE_MISSED:
 				isNoDoctype = true;
 				break;
-			case ISGMLConstants.ILLEGAL_DOCTYPE:
+			case IParserError.ILLEGAL_DOCTYPE:
 				if (arg1.indexOf("Invalid DOCTYPE declaration.") > -1) {
 					isNonPublic = true;
 				} else if (arg1.matches(".*Instead of \".*\" use \".*\" as a DTD.")) {
@@ -59,7 +59,7 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 					}
 				}
 				break;
-			case ISGMLConstants.ILLEGAL_CHILD:
+			case IParserError.ILLEGAL_CHILD:
                 //TBD "li" case (C_1000.7)
                 //System.out.println(arg0+" : "+arg1);
 				if (arg1.matches(".*<head.*> must be before <body.*")) {
