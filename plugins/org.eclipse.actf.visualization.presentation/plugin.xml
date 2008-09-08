@@ -5,9 +5,10 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            name="%adesigner.room.tab.title"
+            category="org.eclipse.actf.visualization.ui.views"
             class="org.eclipse.actf.visualization.presentation.ui.views.RoomView"
-            id="org.eclipse.actf.visualization.presentation.ui.views.RoomView">
+            id="org.eclipse.actf.visualization.presentation.ui.views.RoomView"
+            name="%adesigner.room.tab.title">
       </view>
    </extension>
 

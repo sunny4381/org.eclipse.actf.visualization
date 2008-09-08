@@ -12,6 +12,7 @@
   <extension
          point="org.eclipse.ui.views">
       <view
+            category="org.eclipse.actf.visualization.ui.views"
             class="org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView"
             icon="icons/simulation16.gif"
             id="org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView"

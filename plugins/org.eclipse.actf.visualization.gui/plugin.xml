@@ -4,45 +4,41 @@
    <extension-point id="targetWindowData" name="DataSource for Target Window" schema="schema/targetWindowData.exsd"/>
    <extension
          point="org.eclipse.ui.views">
-      <category
-            name="%Accessibility"
-            id="org.eclipse.actf.visualization.gui.ui.views">
-      </category>
       <view
             class="org.eclipse.actf.visualization.gui.ui.views.MSAAListView"
             icon="icons/view16/list.gif"
             id="org.eclipse.actf.visualization.gui.ui.views.MSAAListView"
-            category="org.eclipse.actf.visualization.gui.ui.views"
+            category="org.eclipse.actf.visualization.ui.views"
             name="%MSAAListView.name"/>
       <view
             class="org.eclipse.actf.visualization.gui.ui.views.MSAAOutlineView"
             icon="icons/view16/outline.gif"
             id="org.eclipse.actf.visualization.gui.ui.views.MSAAOutlineView"
-            category="org.eclipse.actf.visualization.gui.ui.views"
+            category="org.eclipse.actf.visualization.ui.views"
             name="%MSAAOutlineView.name"/>
       <view
             class="org.eclipse.actf.visualization.gui.ui.views.MSAAPropertiesView"
             icon="icons/view16/properties.gif"
             id="org.eclipse.actf.visualization.gui.ui.views.MSAAPropertiesView"
-            category="org.eclipse.actf.visualization.gui.ui.views"
+            category="org.eclipse.actf.visualization.ui.views"
             name="%MSAAPropertiesView.name"/>
       <view
             class="org.eclipse.actf.visualization.gui.ui.views.JAWSTextView"
             icon="icons/view16/reader.gif"
             id="org.eclipse.actf.visualization.gui.ui.views.JAWSTextView"
-            category="org.eclipse.actf.visualization.gui.ui.views"
+            category="org.eclipse.actf.visualization.ui.views"
             name="%JAWSTextView.name"/>
       <view
             class="org.eclipse.actf.visualization.gui.ui.views.MSAAEventView"
             icon="icons/view16/events.gif"
             id="org.eclipse.actf.visualization.gui.ui.views.MSAAEventView"
-            category="org.eclipse.actf.visualization.gui.ui.views"
+            category="org.eclipse.actf.visualization.ui.views"
             name="%MSAAEventView.name"/>
       <view
             class="org.eclipse.actf.visualization.gui.ui.views.MSAAProblemsView"
             icon="icons/view16/problems.gif"
             id="org.eclipse.actf.visualization.gui.ui.views.MSAAProblemsView"
-            category="org.eclipse.actf.visualization.gui.ui.views"
+            category="org.eclipse.actf.visualization.ui.views"
             name="%MSAAProblemsView.name"/>
    </extension>
    <extension

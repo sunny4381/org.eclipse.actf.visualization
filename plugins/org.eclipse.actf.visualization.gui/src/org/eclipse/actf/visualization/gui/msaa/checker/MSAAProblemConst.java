@@ -34,6 +34,8 @@ public interface MSAAProblemConst {
     public static final int MSAA_PROB_NO_TEXT_LINK = 6;
 
     public static final int MSAA_PROB_NO_TITLE_FRAME = 7;
+    
+    public static final int MSAA_INVISIBLE_FLASH = 8;
 
     public static final String[] DESCRIPTIONS = { Messages.getString("msaa.no_alt_for_button"), //$NON-NLS-1$
             Messages.getString("msaa.no_alt_for_graphic"), //$NON-NLS-1$
@@ -42,6 +44,7 @@ public interface MSAAProblemConst {
             Messages.getString("msaa.no_alt_for_form_control"), //$NON-NLS-1$
             Messages.getString("msaa.no_title_for_table"), //$NON-NLS-1$
             Messages.getString("msaa.no_text_for_link"), //$NON-NLS-1$
-            Messages.getString("msaa.no_title_for_frame") //$NON-NLS-1$
+            Messages.getString("msaa.no_title_for_frame"), //$NON-NLS-1$
+            Messages.getString("msaa.invisible_flash")
     };
 }
