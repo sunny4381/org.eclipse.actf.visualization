@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.internal.util;
+package org.eclipse.actf.visualization.internal.engines.blind.html.util;
 
 import java.io.File;
 import java.io.FileOutputStream;

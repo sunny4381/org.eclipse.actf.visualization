@@ -62,7 +62,7 @@ public class BlindView extends ViewPart implements IVisualizationView {
 				new SelectionListenerBlind(partRightBlind));
 
 		// for element viewer
-		elementViewerManager.setPartRightBlind(partRightBlind);
+		elementViewerManager.setHighlightElementListener(partRightBlind);
 		addPartListener();
 
 	}

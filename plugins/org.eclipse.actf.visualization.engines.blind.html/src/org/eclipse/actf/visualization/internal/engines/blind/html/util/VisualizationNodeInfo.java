@@ -10,7 +10,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.internal.util;
+package org.eclipse.actf.visualization.internal.engines.blind.html.util;
 
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
 import org.w3c.dom.Node;

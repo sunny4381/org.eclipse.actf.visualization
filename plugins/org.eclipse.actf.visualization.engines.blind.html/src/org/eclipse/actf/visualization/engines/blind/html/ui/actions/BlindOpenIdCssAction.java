@@ -12,8 +12,8 @@
 package org.eclipse.actf.visualization.engines.blind.html.ui.actions;
 
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
-import org.eclipse.actf.visualization.engines.blind.html.internal.Messages;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementViewerManager;
+import org.eclipse.actf.visualization.internal.engines.blind.html.Messages;
 import org.eclipse.jface.action.Action;
 
 public class BlindOpenIdCssAction extends Action {

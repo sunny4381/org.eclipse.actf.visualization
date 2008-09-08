@@ -23,7 +23,7 @@ public class ElementViewerManager implements IVisualizeStyleInfoListener {
 
 	private IViewerPanel viewerPanel;
 
-	private IHighlightElementListener prb;
+	private IHighlightElementListener highlightElementListener;
 
 	private VisualizeStyleInfo styleInfo;
 
@@ -41,15 +41,15 @@ public class ElementViewerManager implements IVisualizeStyleInfoListener {
 		shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
 	}
 
-	public void setPartRightBlind(IHighlightElementListener prb) {
-		this.prb = prb;
+	public void setHighlightElementListener(IHighlightElementListener hel) {
+		this.highlightElementListener = hel;
 	}
 
 	public void openElementViewer() {
 		if (isExist()) {
 			viewerPanel.forceActive();
 		} else {
-			viewerPanel = new ViewerPanelJFace(shell, styleInfo, prb);
+			viewerPanel = new ViewerPanelJFace(shell, styleInfo, highlightElementListener);
 		}
 	}
 

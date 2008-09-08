@@ -1,4 +1,4 @@
-package org.eclipse.actf.visualization.engines.blind.html;
+package org.eclipse.actf.visualization.internal.engines.blind.html;
 
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;

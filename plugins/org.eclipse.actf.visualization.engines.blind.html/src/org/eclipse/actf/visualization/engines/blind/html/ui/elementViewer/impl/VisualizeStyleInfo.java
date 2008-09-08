@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
-import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizationAttributeInfo;
+import org.eclipse.actf.visualization.internal.engines.blind.html.util.VisualizationAttributeInfo;
 import org.w3c.dom.Document;
 
 

@@ -12,7 +12,7 @@ package org.eclipse.actf.visualization.engines.blind.html;
 
 import java.util.Map;
 
-import org.eclipse.actf.visualization.engines.blind.html.internal.util.VisualizationNodeInfo;
+import org.eclipse.actf.visualization.internal.engines.blind.html.util.VisualizationNodeInfo;
 import org.w3c.dom.Node;
 
 public interface IVisualizeMapData {
