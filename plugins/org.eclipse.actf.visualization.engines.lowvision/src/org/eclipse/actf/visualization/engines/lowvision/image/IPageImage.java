@@ -15,8 +15,8 @@ import java.util.List;
 
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemException;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
 
 public interface IPageImage {
 

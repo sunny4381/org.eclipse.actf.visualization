@@ -12,12 +12,12 @@ package org.eclipse.actf.visualization.internal.engines.lowvision.image;
 
 import java.util.Vector;
 
-import org.eclipse.actf.visualization.engines.lowvision.character.CandidateCharacter;
-import org.eclipse.actf.visualization.engines.lowvision.character.CandidateUnderlinedCharacter;
-import org.eclipse.actf.visualization.engines.lowvision.character.CharacterMS;
-import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSM;
-import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSS;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CandidateCharacter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CandidateUnderlinedCharacter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterMS;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterSM;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterSS;
 
 public class Container extends PageComponent {
 	private int color;

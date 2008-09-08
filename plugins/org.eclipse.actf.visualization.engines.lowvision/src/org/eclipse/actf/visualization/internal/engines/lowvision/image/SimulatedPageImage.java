@@ -21,8 +21,8 @@ import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.internal.io.ImageReader;
-import org.eclipse.actf.visualization.engines.lowvision.operator.LowVisionFilter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.io.ImageReader;
+import org.eclipse.actf.visualization.internal.engines.lowvision.operator.LowVisionFilter;
 
 /*
  * Contain simulation result

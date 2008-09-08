@@ -13,17 +13,14 @@ package org.eclipse.actf.visualization.internal.engines.lowvision;
 
 import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
-import org.eclipse.actf.visualization.engines.lowvision.character.CharacterMS;
-import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSM;
-import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSS;
-import org.eclipse.actf.visualization.engines.lowvision.color.ColorException;
-import org.eclipse.actf.visualization.engines.lowvision.color.ColorIRGB;
-import org.eclipse.actf.visualization.engines.lowvision.color.ColorLAB;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.problem.ColorProblem;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblem;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterMS;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterSM;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterSS;
+import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorIRGB;
+import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorLAB;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.BinaryImage;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Container;
@@ -31,6 +28,9 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.image.LineSegme
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Topology;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Vector3D;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ColorProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
 
 /**
  * Check color combination by using threshold (in LowvisionCommon)

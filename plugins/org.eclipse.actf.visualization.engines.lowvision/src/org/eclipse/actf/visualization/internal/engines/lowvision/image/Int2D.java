@@ -18,7 +18,7 @@ import java.awt.image.WritableRaster;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
 import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.internal.io.BMPWriter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.io.BMPWriter;
 
 /*
  * data[y][x] = BufferdImage.TYPE_INT_RGB (null, R, G, B)

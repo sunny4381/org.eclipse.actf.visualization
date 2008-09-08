@@ -18,8 +18,8 @@ import java.io.PrintWriter;
 import java.util.Stack;
 import java.util.Vector;
 
-import org.eclipse.actf.visualization.engines.lowvision.color.ColorUtil;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorUtil;
 
 /*
  * Labeled image obtained by connected component detection.

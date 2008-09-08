@@ -19,22 +19,22 @@ import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.character.CandidateCharacter;
-import org.eclipse.actf.visualization.engines.lowvision.character.CandidateUnderlinedCharacter;
-import org.eclipse.actf.visualization.engines.lowvision.character.CharacterMS;
-import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSM;
-import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSS;
-import org.eclipse.actf.visualization.engines.lowvision.checker.CharacterChecker;
 import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.internal.io.ImageReader;
-import org.eclipse.actf.visualization.engines.lowvision.internal.util.DebugUtil;
-import org.eclipse.actf.visualization.engines.lowvision.internal.util.LowVisionProblemConverter;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemException;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemGroup;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.DebugUtil;
 import org.eclipse.actf.visualization.internal.engines.lowvision.DecisionMaker;
+import org.eclipse.actf.visualization.internal.engines.lowvision.LowVisionProblemConverter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CandidateCharacter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CandidateUnderlinedCharacter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterMS;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterSM;
+import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterSS;
+import org.eclipse.actf.visualization.internal.engines.lowvision.checker.CharacterChecker;
+import org.eclipse.actf.visualization.internal.engines.lowvision.io.ImageReader;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
 
 /*
  * Rednered image of Web page

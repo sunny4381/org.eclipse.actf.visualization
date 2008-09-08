@@ -25,19 +25,19 @@ import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.internal.io.ImageWriter;
-import org.eclipse.actf.visualization.engines.lowvision.internal.util.DebugUtil;
-import org.eclipse.actf.visualization.engines.lowvision.internal.util.LowVisionProblemConverter;
-import org.eclipse.actf.visualization.engines.lowvision.internal.util.ScoreUtil;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblem;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemException;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemGroup;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
+import org.eclipse.actf.visualization.internal.engines.lowvision.DebugUtil;
 import org.eclipse.actf.visualization.internal.engines.lowvision.DecisionMaker;
+import org.eclipse.actf.visualization.internal.engines.lowvision.LowVisionProblemConverter;
 import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
+import org.eclipse.actf.visualization.internal.engines.lowvision.ScoreUtil;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.SimulatedPageImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.io.ImageWriter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
 
 public class TargetPage {
 	private static final int UNSET = -1;

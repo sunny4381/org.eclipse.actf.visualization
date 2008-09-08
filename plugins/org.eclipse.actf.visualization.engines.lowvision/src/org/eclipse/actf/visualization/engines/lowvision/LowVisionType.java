@@ -17,9 +17,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
-import org.eclipse.actf.visualization.engines.lowvision.operator.CVDOp;
-import org.eclipse.actf.visualization.engines.lowvision.operator.ColorFilterOp;
-import org.eclipse.actf.visualization.engines.lowvision.operator.GlareOp;
+import org.eclipse.actf.visualization.internal.engines.lowvision.operator.CVDOp;
+import org.eclipse.actf.visualization.internal.engines.lowvision.operator.ColorFilterOp;
+import org.eclipse.actf.visualization.internal.engines.lowvision.operator.GlareOp;
 
 /*
  * Define lowvision simulation type

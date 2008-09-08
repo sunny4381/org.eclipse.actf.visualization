@@ -20,14 +20,14 @@ import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.color.ColorIRGB;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.operator.LowVisionFilter;
-import org.eclipse.actf.visualization.engines.lowvision.problem.ImageColorProblem;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblem;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemException;
-import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemGroup;
 import org.eclipse.actf.visualization.internal.engines.lowvision.DecisionMaker;
+import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorIRGB;
+import org.eclipse.actf.visualization.internal.engines.lowvision.operator.LowVisionFilter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ImageColorProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
 
 public class InteriorImage extends PageComponent {
 

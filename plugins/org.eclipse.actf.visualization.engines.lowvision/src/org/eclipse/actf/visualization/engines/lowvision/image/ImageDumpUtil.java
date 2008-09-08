@@ -11,10 +11,10 @@
 
 package org.eclipse.actf.visualization.engines.lowvision.image;
 
-import org.eclipse.actf.visualization.engines.lowvision.internal.Messages;
-import org.eclipse.actf.visualization.engines.lowvision.internal.io.BMPReader;
+import org.eclipse.actf.visualization.internal.engines.lowvision.Messages;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.io.BMPReader;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;

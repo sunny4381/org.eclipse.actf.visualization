@@ -13,8 +13,8 @@ package org.eclipse.actf.visualization.engines.lowvision.image;
 import java.io.InputStream;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
-import org.eclipse.actf.visualization.engines.lowvision.internal.io.BMPReader;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.internal.engines.lowvision.io.BMPReader;
 
 public class Int2DFactory {
 
