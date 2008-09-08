@@ -11,7 +11,6 @@
 
 package org.eclipse.actf.visualization.eval.problem;
 
-import org.eclipse.actf.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
 import org.eclipse.actf.visualization.eval.guideline.EvaluationItem;
@@ -21,6 +20,7 @@ import org.eclipse.actf.visualization.eval.problem.HighlightTargetNodeInfo;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItemVisitor;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.eclipse.swt.graphics.Image;
 import org.w3c.dom.Node;
 

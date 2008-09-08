@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
@@ -186,7 +186,7 @@ public class VisualizeViewUtil {
 		try {
 			PrintWriter pw;
 
-			File valiantFile = BlindVizEnginePlugin.createTempFile("variant",
+			File valiantFile = BlindVizResourceUtil.createTempFile("variant",
 					".js");
 			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(
 					valiantFile), "UTF-8"));

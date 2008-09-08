@@ -11,25 +11,22 @@
 
 package org.eclipse.actf.visualization.engines.blind.html.ui.actions;
 
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.html.internal.Messages;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementViewerManager;
 import org.eclipse.jface.action.Action;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-
-
 
 public class BlindOpenIdCssAction extends Action {
 
 	public BlindOpenIdCssAction() {
 		setToolTipText(Messages.getString("BlindView.Open_ID"));
-		//TODO
-		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(BlindVizEnginePlugin.PLUGIN_ID, "icons/ButtonIdCss.png"));
+		setImageDescriptor(BlindVizResourceUtil
+				.getImageDescriptor("icons/ButtonIdCss.png"));
 		setText("ID/CSS");
 	}
 
 	public void run() {
-        ElementViewerManager.getInstance().openElementViewer();
+		ElementViewerManager.getInstance().openElementViewer();
 	}
 
 }

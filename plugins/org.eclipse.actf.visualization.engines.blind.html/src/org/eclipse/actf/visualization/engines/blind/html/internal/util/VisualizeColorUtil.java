@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
-import org.eclipse.actf.visualization.engines.blind.util.ParamBlind;
 import org.eclipse.swt.graphics.RGB;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;

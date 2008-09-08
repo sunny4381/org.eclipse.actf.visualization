@@ -21,7 +21,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import org.eclipse.actf.util.html2view.Html2ViewMapData;
+import org.eclipse.actf.visualization.engines.blind.ParamBlind;
+import org.eclipse.actf.visualization.engines.blind.TextChecker;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.DocumentCleaner;
 import org.eclipse.actf.visualization.engines.blind.html.internal.util.ImgChecker;
@@ -36,8 +37,6 @@ import org.eclipse.actf.visualization.engines.blind.html.internal.util.Visualize
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfo;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfoManager;
 import org.eclipse.actf.visualization.engines.blind.html.util.Id2LineViaAccId;
-import org.eclipse.actf.visualization.engines.blind.util.ParamBlind;
-import org.eclipse.actf.visualization.engines.blind.util.TextChecker;
 import org.eclipse.actf.visualization.engines.voicebrowser.JWAT;
 import org.eclipse.actf.visualization.engines.voicebrowser.JWATController;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
@@ -47,6 +46,7 @@ import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;

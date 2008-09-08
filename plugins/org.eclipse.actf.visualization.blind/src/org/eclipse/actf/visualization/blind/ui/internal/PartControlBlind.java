@@ -20,7 +20,7 @@ import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.ui.util.DialogSave;
 import org.eclipse.actf.visualization.blind.IBlindVisualizer;
 import org.eclipse.actf.visualization.blind.internal.BlindVisualizerExtension;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
 import org.eclipse.actf.visualization.engines.blind.eval.SummaryEvaluation;
@@ -133,7 +133,7 @@ public class PartControlBlind implements IHighlightElementListener {
 					vizView.setStatusMessage(Messages
 							.getString("BlindView.Now_rendering"));
 					CreateReport cr = new CreateReport(checkResult, new File(
-							BlindVizEnginePlugin.getTempDirectory(),
+							BlindVizResourceUtil.getTempDirectory(),
 							BLIND_REPORT_FILE));
 					if (isShowResult) {
 						_blindBrowser.navigate(resultFilePath);

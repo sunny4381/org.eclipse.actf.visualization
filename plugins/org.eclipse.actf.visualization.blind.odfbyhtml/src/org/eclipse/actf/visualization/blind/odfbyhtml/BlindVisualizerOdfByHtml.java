@@ -21,14 +21,12 @@ import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.dom.DomPrintUtil;
-import org.eclipse.actf.util.html2view.Html2ViewMapData;
-import org.eclipse.actf.util.html2view.Html2ViewMapMaker;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.blind.BlindVisualizerBase;
 import org.eclipse.actf.visualization.blind.IBlindVisualizer;
 import org.eclipse.actf.visualization.blind.ui.internal.Messages;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
@@ -42,6 +40,8 @@ import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetNodeInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapMaker;
 import org.w3c.dom.Document;
 
 public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
@@ -166,7 +166,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 
 			// TODO move (add Icons into result doc) here
 
-			resultFile = BlindVizEnginePlugin.createTempFile(
+			resultFile = BlindVizResourceUtil.createTempFile(
 					IVisualizationConst.PREFIX_RESULT,
 					IVisualizationConst.SUFFIX_HTML);
 

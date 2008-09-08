@@ -8,10 +8,10 @@
  * Contributors:
  *    Hironobu TAKAGI - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.blind.util;
+package org.eclipse.actf.visualization.engines.blind;
 
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.actf.visualization.engines.blind.ui.preferences.IBlindPreferenceConstants;
+import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;

@@ -9,16 +9,16 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind;
+package org.eclipse.actf.visualization.internal.engines.blind;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 import org.eclipse.actf.util.FileUtils;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
+import org.eclipse.actf.visualization.engines.blind.TextChecker;
 import org.eclipse.actf.visualization.engines.blind.ui.preferences.IBlindPreferenceConstants;
-import org.eclipse.actf.visualization.engines.blind.util.BlindVizResourceUtil;
-import org.eclipse.actf.visualization.engines.blind.util.TextChecker;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
@@ -131,13 +131,5 @@ public class BlindVizEnginePlugin extends AbstractUIPlugin {
 		}
 		return tmpDir;
 	}
-	
-	// TODO use creteTempFile
-	public static String getTempDirectoryString() {
-		if (getTempDirectory() == null) {
-			createTempDirectory();
-		}
-		return getTempDirectory().getAbsolutePath() + File.separator;
-	}
-	
+		
 }

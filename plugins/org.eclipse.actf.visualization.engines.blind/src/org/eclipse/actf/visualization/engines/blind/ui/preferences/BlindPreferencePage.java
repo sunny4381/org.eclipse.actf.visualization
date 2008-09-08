@@ -15,9 +15,9 @@ import java.util.Locale;
 
 import org.eclipse.actf.ui.preferences.GroupFieldEditorPreferencePage;
 import org.eclipse.actf.ui.preferences.ScaleFieldEditorWithValue;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
-import org.eclipse.actf.visualization.engines.blind.internal.Messages;
-import org.eclipse.actf.visualization.engines.blind.util.ParamBlind;
+import org.eclipse.actf.visualization.engines.blind.ParamBlind;
+import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.internal.engines.blind.Messages;
 import org.eclipse.jface.preference.ColorFieldEditor;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.jface.util.PropertyChangeEvent;

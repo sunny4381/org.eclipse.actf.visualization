@@ -14,11 +14,11 @@ package org.eclipse.actf.visualization.engines.blind.html.util;
 
 import java.util.List;
 
-import org.eclipse.actf.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.util.xpath.XPathUtil;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

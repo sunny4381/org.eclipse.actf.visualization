@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import org.eclipse.actf.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.visualization.engines.blind.html.util.Id2LineViaAccId;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

@@ -4,10 +4,10 @@ Bundle-Name: ACTF Visualization Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.visualization;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Eclipse.org
-Export-Package: org.eclipse.actf.util.html2view,
- org.eclipse.actf.visualization,
+Export-Package: org.eclipse.actf.visualization,
  org.eclipse.actf.visualization.ui,
- org.eclipse.actf.visualization.util
+ org.eclipse.actf.visualization.util,
+ org.eclipse.actf.visualization.util.html2view
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.actf.mediator;visibility:=reexport

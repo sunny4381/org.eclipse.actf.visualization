@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.engines.blind.ui.preferences;
 
 import java.util.Locale;
 
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 

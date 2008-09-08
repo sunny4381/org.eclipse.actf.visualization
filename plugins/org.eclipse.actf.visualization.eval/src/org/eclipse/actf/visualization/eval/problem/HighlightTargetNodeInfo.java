@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
-import org.eclipse.actf.util.html2view.Html2ViewMapData;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

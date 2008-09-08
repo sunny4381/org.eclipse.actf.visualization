@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.eval.problem;
 
-import org.eclipse.actf.util.html2view.Html2ViewMapData;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 
 
 

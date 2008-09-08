@@ -14,8 +14,8 @@ package org.eclipse.actf.visualization.engines.blind.ui.preferences;
 import java.util.TreeSet;
 
 import org.eclipse.actf.ui.util.IDialogConstants;
-import org.eclipse.actf.visualization.engines.blind.internal.Messages;
-import org.eclipse.actf.visualization.engines.blind.util.TextChecker;
+import org.eclipse.actf.visualization.engines.blind.TextChecker;
+import org.eclipse.actf.visualization.internal.engines.blind.Messages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;

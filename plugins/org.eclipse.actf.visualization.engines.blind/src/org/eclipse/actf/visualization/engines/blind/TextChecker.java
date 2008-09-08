@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.util;
+package org.eclipse.actf.visualization.engines.blind;
 
 import java.io.InputStream;
 import java.util.HashSet;
@@ -17,8 +17,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.actf.visualization.engines.blind.ui.preferences.IBlindPreferenceConstants;
+import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;

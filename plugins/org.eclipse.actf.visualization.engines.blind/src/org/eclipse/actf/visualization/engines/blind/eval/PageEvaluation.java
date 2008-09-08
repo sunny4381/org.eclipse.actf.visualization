@@ -17,11 +17,11 @@ import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.actf.visualization.IVisualizationConst;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
-import org.eclipse.actf.visualization.engines.blind.internal.Messages;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.internal.engines.blind.Messages;
 import org.eclipse.actf.visualization.util.RadarChart;
 
 public class PageEvaluation {

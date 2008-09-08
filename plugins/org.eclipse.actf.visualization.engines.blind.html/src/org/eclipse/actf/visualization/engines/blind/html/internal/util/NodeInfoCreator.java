@@ -16,9 +16,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import org.eclipse.actf.visualization.engines.blind.ParamBlind;
+import org.eclipse.actf.visualization.engines.blind.TextChecker;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
-import org.eclipse.actf.visualization.engines.blind.util.ParamBlind;
-import org.eclipse.actf.visualization.engines.blind.util.TextChecker;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
 import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
 import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;

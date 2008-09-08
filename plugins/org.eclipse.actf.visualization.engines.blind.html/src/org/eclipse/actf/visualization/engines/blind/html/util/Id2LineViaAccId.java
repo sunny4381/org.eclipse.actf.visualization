@@ -14,7 +14,7 @@ package org.eclipse.actf.visualization.engines.blind.html.util;
 import java.util.Map;
 import java.util.Vector;
 
-import org.eclipse.actf.util.html2view.Html2ViewMapData;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 
 public class Id2LineViaAccId {
 	private Map<Integer, Integer> id2AccId;

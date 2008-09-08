@@ -14,7 +14,7 @@ import java.io.File;
 
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.visualization.blind.ui.internal.Messages;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
 import org.eclipse.actf.visualization.eval.IChecker;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
@@ -26,7 +26,7 @@ import org.w3c.dom.Document;
 public abstract class BlindVisualizerBase implements IBlindVisualizer{
 
 	protected IChecker[] checkers = CheckerExtension.getCheckers();
-	protected String tmpDirS = BlindVizEnginePlugin.getTempDirectoryString();
+	protected String tmpDirS = BlindVizResourceUtil.getTempDirectory().getAbsolutePath() + File.separator;
 	protected String targetUrl = "";
 	protected IModelService modelService;
 

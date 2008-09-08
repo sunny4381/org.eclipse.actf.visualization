@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.util.html2view;
+package org.eclipse.actf.visualization.util.html2view;
 
 import java.util.Vector;
 

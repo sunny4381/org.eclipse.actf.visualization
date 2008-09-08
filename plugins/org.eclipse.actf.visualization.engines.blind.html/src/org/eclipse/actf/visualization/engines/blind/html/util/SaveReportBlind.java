@@ -21,9 +21,8 @@ import java.util.List;
 import org.eclipse.actf.mediator.IACTFReport;
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.dom.DomPrintUtil;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
-import org.eclipse.actf.visualization.engines.blind.util.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
@@ -102,7 +101,7 @@ public class SaveReportBlind {
 					// e.printStackTrace();
 				}
 
-				FileUtils.copyFile(new File(BlindVizEnginePlugin
+				FileUtils.copyFile(new File(BlindVizResourceUtil
 						.getTempDirectory(), "pagerating.png"), imageDir
 						+ reportImgSaveName, true);
 

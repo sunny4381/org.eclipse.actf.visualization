@@ -13,25 +13,22 @@ package org.eclipse.actf.visualization.blind.ui.actions;
 
 import org.eclipse.actf.visualization.blind.ui.internal.Messages;
 import org.eclipse.actf.visualization.blind.ui.internal.PartControlBlind;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.jface.action.Action;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-
-
 
 public class BlindVisualizationAction extends Action {
-    PartControlBlind prb;
+	PartControlBlind prb;
 
-    public BlindVisualizationAction(PartControlBlind prb) {
-        setToolTipText(Messages.getString("BlindView.Visualize_4")); //$NON-NLS-1$
-        //TODO
-        setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(BlindVizEnginePlugin.PLUGIN_ID, "icons/visualize_A.png"));
-        setText(Messages.getString("BlindVisualizationAction.0")); //$NON-NLS-1$
-        this.prb = prb;
-    }
+	public BlindVisualizationAction(PartControlBlind prb) {
+		setToolTipText(Messages.getString("BlindView.Visualize_4")); //$NON-NLS-1$
+		setImageDescriptor(BlindVizResourceUtil
+				.getImageDescriptor("icons/visualize_A.png"));
+		setText(Messages.getString("BlindVisualizationAction.0")); //$NON-NLS-1$
+		this.prb = prb;
+	}
 
-    public void run() {
-        prb.doVisualize();
-    }
+	public void run() {
+		prb.doVisualize();
+	}
 
 }

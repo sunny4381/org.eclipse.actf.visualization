@@ -19,7 +19,7 @@ import java.net.URL;
 
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -35,7 +35,7 @@ public class HandleFramePage {
 
 			NodeList frameList = document.getElementsByTagName("frame");
 
-			String sFileName = BlindVizEnginePlugin.getTempDirectory()
+			String sFileName = BlindVizResourceUtil.getTempDirectory()
 					+ "frameList.html";
 
 			String base = webBrowser.getURL();

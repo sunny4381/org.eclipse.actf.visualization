@@ -14,10 +14,10 @@ package org.eclipse.actf.visualization.engines.blind.html.internal.util;
 import java.util.Map;
 import java.util.Vector;
 
+import org.eclipse.actf.visualization.engines.blind.TextChecker;
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
-import org.eclipse.actf.visualization.engines.blind.util.TextChecker;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

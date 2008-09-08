@@ -16,7 +16,7 @@ import java.util.List;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IHighlightElementListener;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.swt.SWT;
@@ -33,162 +33,161 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-
 
 public class ViewerPanelJFace implements IViewerPanel {
-    private Shell shell;
+	private Shell shell;
 
-    private List idList;
+	private List idList;
 
-    private IHighlightElementListener prb;
+	private IHighlightElementListener prb;
 
-    private ElementViewerJFace idViewer;
+	private ElementViewerJFace idViewer;
 
-    private ElementViewerJFace akeyViewer;
+	private ElementViewerJFace akeyViewer;
 
-    private ElementViewerJFace classViewer;
+	private ElementViewerJFace classViewer;
 
-    private CSSViewer cssViewer;
-    
-    private boolean isDisposed = false;
+	private CSSViewer cssViewer;
 
-    public ViewerPanelJFace(Shell _shell, VisualizeStyleInfo styleInfo, IHighlightElementListener _prb) {
+	private boolean isDisposed = false;
 
-        if (styleInfo == null) {
-            styleInfo = new VisualizeStyleInfo();
-            idList = null;
-        } else {
-            idList = styleInfo.getOrigIdList();
-        }
-        
-        prb = _prb;
-        shell = new Shell(_shell, SWT.MIN | SWT.MAX | SWT.RESIZE | SWT.CLOSE);
-        shell.setLayout(new GridLayout());
+	public ViewerPanelJFace(Shell _shell, VisualizeStyleInfo styleInfo,
+			IHighlightElementListener _prb) {
 
-        shell.setText(TITLE_NAME);
-        //TODO
-        shell.setImage(AbstractUIPlugin.imageDescriptorFromPlugin(BlindVizEnginePlugin.PLUGIN_ID, "icons/excla_squ.png").createImage());
+		if (styleInfo == null) {
+			styleInfo = new VisualizeStyleInfo();
+			idList = null;
+		} else {
+			idList = styleInfo.getOrigIdList();
+		}
 
-        shell.setLocation(100, 100);
+		prb = _prb;
+		shell = new Shell(_shell, SWT.MIN | SWT.MAX | SWT.RESIZE | SWT.CLOSE);
+		shell.setLayout(new GridLayout());
 
-        Composite composite = new Composite(shell, SWT.NULL);
-        composite.setLayoutData(new GridData(GridData.FILL_BOTH));
-        GridLayout gridLayout1 = new GridLayout();
-        gridLayout1.numColumns = 1;
-        composite.setLayout(gridLayout1);
+		shell.setText(TITLE_NAME);
+		shell.setImage(BlindVizResourceUtil.getImageDescriptor(
+				"icons/excla_squ.png").createImage());
 
-        TabFolder viewerFolder = new TabFolder(composite, SWT.NULL);
-        GridData gridData = new GridData(GridData.FILL_BOTH);
-        // gridData.heightHint = 300;
-        viewerFolder.setLayoutData(gridData);
+		shell.setLocation(100, 100);
 
-        TabItem tabItemEle = new TabItem(viewerFolder, SWT.NULL);
-        tabItemEle.setText(ID_TAB_TITLE);
-        idViewer = new ElementViewerJFace(viewerFolder, prb);
+		Composite composite = new Composite(shell, SWT.NULL);
+		composite.setLayoutData(new GridData(GridData.FILL_BOTH));
+		GridLayout gridLayout1 = new GridLayout();
+		gridLayout1.numColumns = 1;
+		composite.setLayout(gridLayout1);
 
-        idViewer.setCategoryColWidth(100);
-        idViewer.setDescColWidth(0);
-        idViewer.setContentProvider(new ArrayContentProvider());
-        idViewer.setLabelProvider(new ElementLabelAndColorProvider());
-        idViewer.setElementList(idList);
-        tabItemEle.setControl(idViewer.getComposite());
+		TabFolder viewerFolder = new TabFolder(composite, SWT.NULL);
+		GridData gridData = new GridData(GridData.FILL_BOTH);
+		// gridData.heightHint = 300;
+		viewerFolder.setLayoutData(gridData);
 
-        TabItem tabItemAKey = new TabItem(viewerFolder, SWT.NULL);
-        tabItemAKey.setText(ACCESSKEY_TAB_TITLE);
-        akeyViewer = new ElementViewerJFace(viewerFolder, prb);
-        akeyViewer.setCategoryColWidth(0);
-        akeyViewer.setDescColWidth(150);
-        akeyViewer.setContentProvider(new ArrayContentProvider());
-        akeyViewer.setLabelProvider(new ElementLabelAndColorProvider());
-        akeyViewer.setElementList(styleInfo.getAccesskeyList());
-        tabItemAKey.setControl(akeyViewer.getComposite());
+		TabItem tabItemEle = new TabItem(viewerFolder, SWT.NULL);
+		tabItemEle.setText(ID_TAB_TITLE);
+		idViewer = new ElementViewerJFace(viewerFolder, prb);
 
-        TabItem tabItemClass = new TabItem(viewerFolder, SWT.NULL);
-        tabItemClass.setText(CLASS_TAB_TITLE);
-        classViewer = new ElementViewerJFace(viewerFolder, prb);
-        classViewer.setCategoryColWidth(0);
-        classViewer.setDescColWidth(0);
-        classViewer.setContentProvider(new ArrayContentProvider());
-        classViewer.setLabelProvider(new ElementLabelAndColorProvider());
-        classViewer.setElementList(styleInfo.getClassList());
-        tabItemClass.setControl(classViewer.getComposite());
+		idViewer.setCategoryColWidth(100);
+		idViewer.setDescColWidth(0);
+		idViewer.setContentProvider(new ArrayContentProvider());
+		idViewer.setLabelProvider(new ElementLabelAndColorProvider());
+		idViewer.setElementList(idList);
+		tabItemEle.setControl(idViewer.getComposite());
 
-        TabItem tabItemCss = new TabItem(viewerFolder, SWT.NULL);
-        tabItemCss.setText(CSS_TAB_TITLE);
-        cssViewer = new CSSViewer(viewerFolder);
-        cssViewer.setCssSet(styleInfo.getImportedCssSet());
-        tabItemCss.setControl(cssViewer.getCompositeCss());
+		TabItem tabItemAKey = new TabItem(viewerFolder, SWT.NULL);
+		tabItemAKey.setText(ACCESSKEY_TAB_TITLE);
+		akeyViewer = new ElementViewerJFace(viewerFolder, prb);
+		akeyViewer.setCategoryColWidth(0);
+		akeyViewer.setDescColWidth(150);
+		akeyViewer.setContentProvider(new ArrayContentProvider());
+		akeyViewer.setLabelProvider(new ElementLabelAndColorProvider());
+		akeyViewer.setElementList(styleInfo.getAccesskeyList());
+		tabItemAKey.setControl(akeyViewer.getComposite());
 
-        viewerFolder.addSelectionListener(new SelectionAdapter() {
-            public void widgetSelected(SelectionEvent event) {
-                if (idList != null) {
-                    recoveryHighlight();
-                }
-            }
-        });
+		TabItem tabItemClass = new TabItem(viewerFolder, SWT.NULL);
+		tabItemClass.setText(CLASS_TAB_TITLE);
+		classViewer = new ElementViewerJFace(viewerFolder, prb);
+		classViewer.setCategoryColWidth(0);
+		classViewer.setDescColWidth(0);
+		classViewer.setContentProvider(new ArrayContentProvider());
+		classViewer.setLabelProvider(new ElementLabelAndColorProvider());
+		classViewer.setElementList(styleInfo.getClassList());
+		tabItemClass.setControl(classViewer.getComposite());
 
-        Button closeButton = new Button(composite, SWT.NULL);
-        closeButton.setText(CLOSE_BUTTON);
-        gridData = new GridData(GridData.HORIZONTAL_ALIGN_END);
-        closeButton.setLayoutData(gridData);
-        closeButton.addMouseListener(new MouseAdapter() {
-            public void mouseUp(MouseEvent e) {
-                shell.dispose();
-            }
-        });
+		TabItem tabItemCss = new TabItem(viewerFolder, SWT.NULL);
+		tabItemCss.setText(CSS_TAB_TITLE);
+		cssViewer = new CSSViewer(viewerFolder);
+		cssViewer.setCssSet(styleInfo.getImportedCssSet());
+		tabItemCss.setControl(cssViewer.getCompositeCss());
 
-        //TODO move to manager?
-        shell.addDisposeListener(new DisposeListener() {
-            public void widgetDisposed(DisposeEvent arg0) {
-                if (null != idList) {
-                    recoveryHighlight();
-                }
-                //prb.setViewerPanel(null);
-                isDisposed = true;
-            }
-        });
+		viewerFolder.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent event) {
+				if (idList != null) {
+					recoveryHighlight();
+				}
+			}
+		});
 
-        shell.setSize(450, 420);
+		Button closeButton = new Button(composite, SWT.NULL);
+		closeButton.setText(CLOSE_BUTTON);
+		gridData = new GridData(GridData.HORIZONTAL_ALIGN_END);
+		closeButton.setLayoutData(gridData);
+		closeButton.addMouseListener(new MouseAdapter() {
+			public void mouseUp(MouseEvent e) {
+				shell.dispose();
+			}
+		});
 
-        shell.open();
+		// TODO move to manager?
+		shell.addDisposeListener(new DisposeListener() {
+			public void widgetDisposed(DisposeEvent arg0) {
+				if (null != idList) {
+					recoveryHighlight();
+				}
+				// prb.setViewerPanel(null);
+				isDisposed = true;
+			}
+		});
 
-    }
-    
-    private void recoveryHighlight(){
-        IModelService dataSource = ModelServiceUtils.getActiveModelService();
-        
-        if(dataSource != null &&dataSource instanceof IWebBrowserACTF){
-            ((IWebBrowserACTF)dataSource).recoveryHighlight();
-        }
-        prb.clearHighlight();
-    }
+		shell.setSize(450, 420);
 
-    public void asyncUpdateValue(VisualizeStyleInfo styleInfo) {
-        final VisualizeStyleInfo _styleInfo = styleInfo;
-        shell.getDisplay().asyncExec(new Thread() {
-            public void run() {
-                idList = _styleInfo.getOrigIdList();
-                idViewer.setElementList(idList);
-                akeyViewer.setElementList(_styleInfo.getAccesskeyList());
-                classViewer.setElementList(_styleInfo.getClassList());
-                cssViewer.setCssSet(_styleInfo.getImportedCssSet());
-            }
-        });
-    }
+		shell.open();
 
-    public void forceActive() {
-        shell.setMinimized(false);
-        shell.setVisible(true);
-        shell.forceActive();
-    }
+	}
 
-    public void hide() {
-        shell.setVisible(false);
-    }
+	private void recoveryHighlight() {
+		IModelService dataSource = ModelServiceUtils.getActiveModelService();
 
-    public boolean isDisposed() {
-        return isDisposed;
-    }
+		if (dataSource != null && dataSource instanceof IWebBrowserACTF) {
+			((IWebBrowserACTF) dataSource).recoveryHighlight();
+		}
+		prb.clearHighlight();
+	}
+
+	public void asyncUpdateValue(VisualizeStyleInfo styleInfo) {
+		final VisualizeStyleInfo _styleInfo = styleInfo;
+		shell.getDisplay().asyncExec(new Thread() {
+			public void run() {
+				idList = _styleInfo.getOrigIdList();
+				idViewer.setElementList(idList);
+				akeyViewer.setElementList(_styleInfo.getAccesskeyList());
+				classViewer.setElementList(_styleInfo.getClassList());
+				cssViewer.setCssSet(_styleInfo.getImportedCssSet());
+			}
+		});
+	}
+
+	public void forceActive() {
+		shell.setMinimized(false);
+		shell.setVisible(true);
+		shell.forceActive();
+	}
+
+	public void hide() {
+		shell.setVisible(false);
+	}
+
+	public boolean isDisposed() {
+		return isDisposed;
+	}
 
 }

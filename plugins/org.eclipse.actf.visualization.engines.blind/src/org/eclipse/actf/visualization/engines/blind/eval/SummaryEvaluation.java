@@ -13,9 +13,9 @@ package org.eclipse.actf.visualization.engines.blind.eval;
 
 import org.eclipse.actf.ui.util.HighlightStringListener;
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.visualization.engines.blind.internal.Messages;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
+import org.eclipse.actf.visualization.internal.engines.blind.Messages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;

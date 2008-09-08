@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.engines.blind.html.internal.util;
 
 import java.util.StringTokenizer;
 
-import org.eclipse.actf.visualization.engines.blind.util.ParamBlind;
+import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 
 
 

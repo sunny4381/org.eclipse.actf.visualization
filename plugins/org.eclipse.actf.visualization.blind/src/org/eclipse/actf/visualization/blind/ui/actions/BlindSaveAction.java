@@ -13,25 +13,22 @@ package org.eclipse.actf.visualization.blind.ui.actions;
 
 import org.eclipse.actf.ui.util.Messages;
 import org.eclipse.actf.visualization.blind.ui.internal.PartControlBlind;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
+import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.jface.action.Action;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
-
-
 
 public class BlindSaveAction extends Action {
-    PartControlBlind prb;
-    
+	PartControlBlind prb;
+
 	public BlindSaveAction(PartControlBlind prb) {
 		setToolTipText(Messages.getString("Tooltip.Save")); //$NON-NLS-1$
-		//TODO
-		setImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(BlindVizEnginePlugin.PLUGIN_ID, "icons/ButtonSave.png"));
+		setImageDescriptor(BlindVizResourceUtil
+				.getImageDescriptor("icons/ButtonSave.png"));
 		setText(Messages.getString("MenuConst.Save")); //$NON-NLS-1$
-        this.prb = prb;
+		this.prb = prb;
 	}
 
 	public void run() {
-        prb.doSave();
+		prb.doSave();
 	}
 
 }

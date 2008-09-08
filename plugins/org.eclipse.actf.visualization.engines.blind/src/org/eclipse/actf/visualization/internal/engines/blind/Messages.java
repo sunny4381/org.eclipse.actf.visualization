@@ -9,16 +9,15 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.internal;
+package org.eclipse.actf.visualization.internal.engines.blind;
 
 import java.text.MessageFormat;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 
 public class Messages {
-	private static final String BUNDLE_NAME = BlindVizEnginePlugin.PLUGIN_ID+".internal.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
 			.getBundle(BUNDLE_NAME);

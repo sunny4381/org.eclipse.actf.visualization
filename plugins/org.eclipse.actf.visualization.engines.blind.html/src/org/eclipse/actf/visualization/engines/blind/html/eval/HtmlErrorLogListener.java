@@ -15,10 +15,10 @@ import java.util.Vector;
 
 import org.eclipse.actf.model.dom.html.IErrorLogListener;
 import org.eclipse.actf.model.dom.html.IParserError;
-import org.eclipse.actf.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 
 
 

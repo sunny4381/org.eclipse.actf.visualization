@@ -13,8 +13,8 @@ package org.eclipse.actf.visualization.engines.blind.ui.actions;
 
 import org.eclipse.actf.ui.util.Messages;
 import org.eclipse.actf.ui.util.PreferenceUtils;
-import org.eclipse.actf.visualization.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.actf.visualization.engines.blind.ui.preferences.BlindPreferencePage;
+import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.jface.action.Action;
 
 public class BlindSettingAction extends Action {
