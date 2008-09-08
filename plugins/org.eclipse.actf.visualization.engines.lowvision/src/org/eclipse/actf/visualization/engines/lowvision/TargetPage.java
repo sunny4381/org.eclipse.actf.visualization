@@ -33,7 +33,6 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.LowVisionProble
 import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
 import org.eclipse.actf.visualization.internal.engines.lowvision.ScoreUtil;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
-import org.eclipse.actf.visualization.internal.engines.lowvision.image.SimulatedPageImage;
 import org.eclipse.actf.visualization.internal.engines.lowvision.io.ImageWriter;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
@@ -162,18 +161,6 @@ public class TargetPage {
 
 	public void clearAllowedBackgroundColors() {
 		allowedBackgroundColors = null;
-	}
-
-	public String getOverallRatingString() {
-		return (overallRatingString);
-	}
-
-	public SimulatedPageImage simulate(LowVisionType _lvType)
-			throws ImageException {
-		if (this.pageImage == null) {
-			return (null);
-		}
-		return (new SimulatedPageImage(this.pageImage, _lvType));
 	}
 
 	public List<IProblemItem> check(LowVisionType _lvType, String urlS,
