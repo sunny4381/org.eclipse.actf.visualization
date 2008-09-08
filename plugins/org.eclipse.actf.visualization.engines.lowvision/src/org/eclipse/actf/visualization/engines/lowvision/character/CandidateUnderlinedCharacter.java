@@ -11,10 +11,10 @@
 
 package org.eclipse.actf.visualization.engines.lowvision.character;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.ConnectedComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.Container;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 
 /*
  * Character candidate with underline(SS, SM, part of MS(rare case))
@@ -22,7 +22,7 @@ import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
 public class CandidateUnderlinedCharacter extends PageComponent {
 	private int foregroundColor = -1;
 
-	public CandidateUnderlinedCharacter(PageImage _pi, ConnectedComponent _cc,
+	public CandidateUnderlinedCharacter(IPageImage _pi, ConnectedComponent _cc,
 			int _color) {
 		super(CANDIDATE_UNDERLINED_CHARACTER_TYPE, _pi);
 		cc = _cc;

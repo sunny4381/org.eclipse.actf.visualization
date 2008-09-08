@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.lowvision.eval;
 
 import java.util.Iterator;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.eval.EvaluationResultImpl;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
@@ -28,7 +28,7 @@ public class CheckResultLowVision extends EvaluationResultImpl {
         setShowAllGuidelineItems(true);
     }
     
-    public void setFrameOffsetToProblems(PageImage[] framePageImages){
+    public void setFrameOffsetToProblems(IPageImage[] framePageImages){
         int frameOffset[];
 
         if (null != framePageImages) {
@@ -37,7 +37,7 @@ public class CheckResultLowVision extends EvaluationResultImpl {
             frameOffset[0] = 0;
 
             for (int i = 1; i < framePageImages.length; i++) {
-                frameOffset[i] = frameOffset[i - 1] + framePageImages[i - 1].getInt2D().height;
+                frameOffset[i] = frameOffset[i - 1] + framePageImages[i - 1].getInt2D().getHeight();
             }
 
             for (Iterator<IProblemItem> i = getProblemList().iterator(); i.hasNext();) {

@@ -12,9 +12,9 @@
 package org.eclipse.actf.visualization.engines.lowvision.problem;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.PageElement;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageComponent;
 import org.eclipse.actf.visualization.engines.lowvision.internal.Messages;
+import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 
 public class ProhibitedBackgroundColorProblem extends LowVisionProblem{
 	private int foregroundColor = -1;

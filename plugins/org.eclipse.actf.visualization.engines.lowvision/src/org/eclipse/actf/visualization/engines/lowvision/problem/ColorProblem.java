@@ -12,12 +12,12 @@
 package org.eclipse.actf.visualization.engines.lowvision.problem;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.PageElement;
 import org.eclipse.actf.visualization.engines.lowvision.character.CharacterMS;
 import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSM;
 import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSS;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageComponent;
 import org.eclipse.actf.visualization.engines.lowvision.internal.Messages;
+import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 
 
 public class ColorProblem extends LowVisionProblem{

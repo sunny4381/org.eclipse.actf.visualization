@@ -19,8 +19,8 @@ import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.ModelServiceImageCreator;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.IVisualizationConst;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
-import org.eclipse.actf.visualization.engines.lowvision.io.ImageDumpUtil;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.ImageDumpUtil;
 import org.eclipse.actf.visualization.presentation.eval.CheckResultPresentation;
 import org.eclipse.actf.visualization.presentation.internal.RoomPlugin;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
@@ -39,7 +39,7 @@ public class PartControlRoom implements IVisualizationConst {
 
 	private static final CheckResultPresentation dummyResult = new CheckResultPresentation();
 
-	private PageImage targetPageImage;
+	private IPageImage targetPageImage;
 
 	private RoomView roomView;
 
@@ -140,7 +140,7 @@ public class PartControlRoom implements IVisualizationConst {
 
 	private void doSimulateAfterHalf(IModelService modelService) {
 		// TODO
-		PageImage pageImageWhole = targetPageImage;
+		IPageImage pageImageWhole = targetPageImage;
 
 		checker
 				.setStatusMessage(RoomPlugin

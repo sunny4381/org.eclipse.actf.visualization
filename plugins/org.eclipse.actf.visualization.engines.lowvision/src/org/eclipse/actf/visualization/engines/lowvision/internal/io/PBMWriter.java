@@ -14,8 +14,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.BinaryImage;
-import org.eclipse.actf.visualization.engines.lowvision.io.LowVisionIOException;
+import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.BinaryImage;
 
 /*
  * write PBM file ("P1")

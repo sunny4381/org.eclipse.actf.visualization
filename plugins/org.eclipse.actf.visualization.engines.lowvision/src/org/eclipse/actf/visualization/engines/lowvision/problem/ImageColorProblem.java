@@ -12,12 +12,13 @@
 package org.eclipse.actf.visualization.engines.lowvision.problem;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.image.BinaryImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.ConnectedComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
-import org.eclipse.actf.visualization.engines.lowvision.image.InteriorImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.InteriorImageComponent;
+import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.internal.Messages;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.BinaryImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.InteriorImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.InteriorImageComponent;
 
 
 public class ImageColorProblem extends LowVisionProblem{
@@ -57,12 +58,12 @@ public class ImageColorProblem extends LowVisionProblem{
 	}
 
 	//for debug
-	public Int2D showProblemImage(){
+	public IInt2D showProblemImage(){
 		Int2D whiteI2d = null;
 		try{
 			InteriorImage ii = (InteriorImage)(this.pageComponent);
 			Int2D simI2d = ii.simulate(this.lowVisionType);
-			whiteI2d = new Int2D( simI2d.width, simI2d.height );
+			whiteI2d = new Int2D( simI2d.getWidth(), simI2d.getHeight() );
 			int numCC = imageComponent1.getNumConnectedComponents();
 			ConnectedComponent[] ccArray = imageComponent1.getConnectedComponents();
 			for( int k=0; k<numCC; k++ ){
@@ -76,7 +77,7 @@ public class ImageColorProblem extends LowVisionProblem{
 				for( int j=0; j<ccHeight; j++ ){
 					for( int i=0; i<ccWidth; i++ ){
 						if( ccData[j][i] != 0 ){
-							whiteI2d.data[j+ccTop][i+ccLeft] = simI2d.data[j+ccTop][i+ccLeft];
+							whiteI2d.getData()[j+ccTop][i+ccLeft] = simI2d.getData()[j+ccTop][i+ccLeft];
 						}
 					}
 				}
@@ -95,7 +96,7 @@ public class ImageColorProblem extends LowVisionProblem{
 				for( int j=0; j<ccHeight; j++ ){
 					for( int i=0; i<ccWidth; i++ ){
 						if( ccData[j][i] != 0 ){
-							whiteI2d.data[j+ccTop][i+ccLeft] = simI2d.data[j+ccTop][i+ccLeft];
+							whiteI2d.getData()[j+ccTop][i+ccLeft] = simI2d.getData()[j+ccTop][i+ccLeft];
 						}
 					}
 				}

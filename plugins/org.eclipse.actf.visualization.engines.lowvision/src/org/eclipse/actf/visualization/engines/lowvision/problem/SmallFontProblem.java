@@ -12,8 +12,8 @@
 package org.eclipse.actf.visualization.engines.lowvision.problem;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.PageElement;
 import org.eclipse.actf.visualization.engines.lowvision.internal.Messages;
+import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
 
 /*
  * detected by using HTML DOM

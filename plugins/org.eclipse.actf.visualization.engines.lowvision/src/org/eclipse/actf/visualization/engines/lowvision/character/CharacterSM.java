@@ -11,13 +11,14 @@
 
 package org.eclipse.actf.visualization.engines.lowvision.character;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.ConnectedComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.Topology;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Topology;
 
 /*
  * Character (single fg color/multi bg color)
@@ -50,12 +51,12 @@ public class CharacterSM extends PageComponent {
 		}
 	}
 
-	public CharacterSM(CandidateCharacter _cChar, Int2D _pixel)
+	public CharacterSM(CandidateCharacter _cChar, IInt2D _pixel)
 			throws ImageException {
-		this(_cChar, _pixel.data);
+		this(_cChar, _pixel.getData());
 	}
 
-	public CharacterSM(PageImage _pi, ConnectedComponent _cc, Container _cont,
+	public CharacterSM(IPageImage _pi, ConnectedComponent _cc, Container _cont,
 			int _color, int[][] _pixel) throws ImageException {
 		super(SM_CHARACTER_TYPE, _pi);
 		cc = _cc;
@@ -76,9 +77,9 @@ public class CharacterSM extends PageComponent {
 		}
 	}
 
-	public CharacterSM(PageImage _pi, ConnectedComponent _cc, Container _cont,
-			int _color, Int2D _pixel) throws ImageException {
-		this(_pi, _cc, _cont, _color, _pixel.data);
+	public CharacterSM(IPageImage _pi, ConnectedComponent _cc, Container _cont,
+			int _color, IInt2D _pixel) throws ImageException {
+		this(_pi, _cc, _cont, _color, _pixel.getData());
 	}
 
 	public int getForegroundColor() {
@@ -89,11 +90,11 @@ public class CharacterSM extends PageComponent {
 		return (image);
 	}
 
-	public Int2D getInt2D() throws ImageException {
+	public IInt2D getInt2D() throws ImageException {
 		return (new Int2D(cc.getShape().getWidth(), cc.getShape().getHeight(), image));
 	}
 
-	public Int2D makeMarginedImage(int _margin) throws ImageException {
+	public IInt2D makeMarginedImage(int _margin) throws ImageException {
 		if (_margin == 0) {
 			return (getInt2D());
 		}
@@ -107,25 +108,25 @@ public class CharacterSM extends PageComponent {
 		Int2D i2d = new Int2D(largeW, largeH);
 		for (int j = 0; j < h; j++) {
 			for (int i = 0; i < w; i++) {
-				i2d.data[j + _margin][i + _margin] = image[j][i];
+				i2d.getData()[j + _margin][i + _margin] = image[j][i];
 			}
 			for (int i = 0; i < _margin; i++) {
-				i2d.data[j + _margin][i] = image[j][0];
-				i2d.data[j + _margin][largeW - 1 - i] = image[j][w - 1];
+				i2d.getData()[j + _margin][i] = image[j][0];
+				i2d.getData()[j + _margin][largeW - 1 - i] = image[j][w - 1];
 			}
 		}
 		for (int i = 0; i < w; i++) {
 			for (int j = 0; j < _margin; j++) {
-				i2d.data[j][i + _margin] = image[0][i];
-				i2d.data[largeH - 1 - j][i + _margin] = image[h - 1][i];
+				i2d.getData()[j][i + _margin] = image[0][i];
+				i2d.getData()[largeH - 1 - j][i + _margin] = image[h - 1][i];
 			}
 		}
 		for (int j = 0; j < _margin; j++) {
 			for (int i = 0; i < _margin; i++) {
-				i2d.data[j][i] = image[0][0];
-				i2d.data[j][largeW - 1 - i] = image[0][w - 1];
-				i2d.data[largeH - 1 - j][i] = image[h - 1][0];
-				i2d.data[largeH - 1 - j][largeW - 1 - i] = image[h - 1][w - 1];
+				i2d.getData()[j][i] = image[0][0];
+				i2d.getData()[j][largeW - 1 - i] = image[0][w - 1];
+				i2d.getData()[largeH - 1 - j][i] = image[h - 1][0];
+				i2d.getData()[largeH - 1 - j][largeW - 1 - i] = image[h - 1][w - 1];
 			}
 		}
 		return (i2d);

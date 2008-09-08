@@ -18,8 +18,8 @@ import java.io.InputStreamReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.BinaryImage;
-import org.eclipse.actf.visualization.engines.lowvision.io.LowVisionIOException;
+import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.BinaryImage;
 
 
 public class PBMReader{

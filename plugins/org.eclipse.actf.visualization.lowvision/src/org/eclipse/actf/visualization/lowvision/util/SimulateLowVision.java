@@ -11,12 +11,13 @@
 
 package org.eclipse.actf.visualization.lowvision.util;
 
+import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
+import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.ImageDumpUtil;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.SimulatedPageImage;
-import org.eclipse.actf.visualization.engines.lowvision.io.ImageDumpUtil;
-import org.eclipse.actf.visualization.engines.lowvision.io.LowVisionIOException;
+import org.eclipse.actf.visualization.engines.lowvision.image.Int2DFactory;
+import org.eclipse.actf.visualization.engines.lowvision.image.PageImageFactory;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
@@ -24,17 +25,17 @@ import org.eclipse.swt.widgets.Display;
 
 public class SimulateLowVision {
 
-	//separated from Lowvision part
-	
-	public static synchronized Int2D getSimulatedInt2D(PageImage target,
+	// separated from Lowvision part
+
+	public static synchronized IInt2D getSimulatedInt2D(IPageImage target,
 			ParamLowVision currentSetting) {
 
-		Int2D result = new Int2D(0, 0);
+		IInt2D result = Int2DFactory.createInt2D(0, 0);
 
 		try {
-			SimulatedPageImage simulatedPageImage;
-			simulatedPageImage = new SimulatedPageImage(target, currentSetting
-					.getLowVisionType());
+			IPageImage simulatedPageImage = PageImageFactory
+					.createSimulationPageImage(target, currentSetting
+							.getLowVisionType());
 			result = simulatedPageImage.getInt2D();
 		} catch (ImageException ie) {
 			ie.printStackTrace();
@@ -43,14 +44,14 @@ public class SimulateLowVision {
 		return result;
 	}
 
-	public static synchronized ImageData[] doSimulate(PageImage target,
+	public static synchronized ImageData[] doSimulate(IPageImage target,
 			ParamLowVision currentSetting, String fileName) {
 
 		ImageData[] imageDataArray = new ImageData[0];
 
 		// TODO use memory
 		try {
-			Int2D int2d_sim = getSimulatedInt2D(target, currentSetting);
+			IInt2D int2d_sim = getSimulatedInt2D(target, currentSetting);
 			if (ImageDumpUtil.isLV16BIT()) {
 				int2d_sim.writeToBMPFile(fileName, 16);
 			} else {
@@ -65,16 +66,15 @@ public class SimulateLowVision {
 		return imageDataArray;
 	}
 
-	public static synchronized Image doSimulate(PageImage target,
+	public static synchronized Image doSimulate(IPageImage target,
 			ParamLowVision currentSetting, Display display, String fileS) {
 
 		Image image = null;
 
 		try {
-			SimulatedPageImage simulatedPageImage;
-			simulatedPageImage = new SimulatedPageImage(target, currentSetting
+			IPageImage simulatedPageImage = PageImageFactory.createSimulationPageImage(target, currentSetting
 					.getLowVisionType());
-			Int2D int2d_sim = simulatedPageImage.getInt2D();
+			IInt2D int2d_sim = simulatedPageImage.getInt2D();
 
 			// TODO do not use file
 
@@ -95,13 +95,13 @@ public class SimulateLowVision {
 		return image;
 	}
 
-	public static PageImage getPageImage(String fileName, boolean withoutFrame) {
+	public static IPageImage getPageImage(String fileName, boolean withoutFrame) {
 
-		PageImage pageImage = null;
+		IPageImage pageImage = null;
 
 		try {
-			Int2D int2d = Int2D.readFromBMPFile(fileName);
-			pageImage = new PageImage(int2d, withoutFrame);
+			IInt2D int2d = Int2DFactory.createInt2D(fileName);
+			pageImage = PageImageFactory.createPageImage(int2d, withoutFrame);
 		} catch (LowVisionIOException lvioe) {
 			lvioe.printStackTrace();
 		}

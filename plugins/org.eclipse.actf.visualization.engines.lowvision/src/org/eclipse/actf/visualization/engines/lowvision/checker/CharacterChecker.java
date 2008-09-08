@@ -16,28 +16,29 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.Vector;
 
-import org.eclipse.actf.visualization.engines.lowvision.LowVisionCommon;
+import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.character.CharacterMS;
 import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSM;
 import org.eclipse.actf.visualization.engines.lowvision.character.CharacterSS;
 import org.eclipse.actf.visualization.engines.lowvision.color.ColorIRGB;
-import org.eclipse.actf.visualization.engines.lowvision.image.BinaryImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.ConnectedComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.Topology;
 import org.eclipse.actf.visualization.engines.lowvision.operator.LowVisionFilter;
 import org.eclipse.actf.visualization.engines.lowvision.problem.BlurProblem;
 import org.eclipse.actf.visualization.engines.lowvision.problem.ColorProblem;
 import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemException;
 import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemGroup;
-import org.eclipse.actf.visualization.engines.lowvision.util.DecisionMaker;
+import org.eclipse.actf.visualization.internal.engines.lowvision.DecisionMaker;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.BinaryImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Topology;
 
-public class CharacterChecker implements LowVisionCommon {
+public class CharacterChecker implements ILowVisionConstant {
 
 	// separated from PageImage
 
@@ -175,7 +176,7 @@ public class CharacterChecker implements LowVisionCommon {
 		if (_lvType.getEyesight()) {
 			margin = _lvType.getEyesightRadius();
 		}
-		Int2D beforeI2d = _msc.makeMarginedImage(margin * 2);
+		IInt2D beforeI2d = _msc.makeMarginedImage(margin * 2);
 
 		// simulation
 		LowVisionFilter lvFilter = new LowVisionFilter(_lvType);
@@ -193,14 +194,14 @@ public class CharacterChecker implements LowVisionCommon {
 		 * Create BinaryImage from simulated image (with 1 margin)
 		 * (cut most outside margin <- blacken by BlurOp)
 		 */
-		int afterWidth = afterI2d.width - 2 * margin;
-		int afterHeight = afterI2d.height - 2 * margin;
+		int afterWidth = afterI2d.getWidth() - 2 * margin;
+		int afterHeight = afterI2d.getHeight() - 2 * margin;
 		BinaryImage bin = new BinaryImage(afterWidth, afterHeight);
 		HashMap<Integer, Boolean> answerMap = new HashMap<Integer, Boolean>();
 		try {
 			for (int j = 0; j < afterHeight; j++) {
 				for (int i = 0; i < afterWidth; i++) {
-					int pixel = afterI2d.data[j + margin][i + margin];
+					int pixel = afterI2d.getData()[j + margin][i + margin];
 					if (pixel == _bg) {
 						continue;
 					} else {
@@ -267,7 +268,7 @@ public class CharacterChecker implements LowVisionCommon {
 		if (_lvType.getEyesight()) {
 			margin = _lvType.getEyesightRadius();
 		}
-		Int2D beforeI2d = _smc.makeMarginedImage(margin * 2);
+		IInt2D beforeI2d = _smc.makeMarginedImage(margin * 2);
 
 		// simulation
 		LowVisionFilter lvFilter = new LowVisionFilter(_lvType);
@@ -285,14 +286,14 @@ public class CharacterChecker implements LowVisionCommon {
 		 * Create BinaryImage from simulated image (with 1 margin)
 		 * (cut most outside margin <- blacken by BlurOp)
 		 */
-		int afterWidth = afterI2d.width - 2 * margin;
-		int afterHeight = afterI2d.height - 2 * margin;
+		int afterWidth = afterI2d.getWidth() - 2 * margin;
+		int afterHeight = afterI2d.getHeight() - 2 * margin;
 		BinaryImage bin = new BinaryImage(afterWidth, afterHeight);
 		HashMap<Integer, Boolean> answerMap = new HashMap<Integer, Boolean>();
 		try {
 			for (int j = 0; j < afterHeight; j++) {
 				for (int i = 0; i < afterWidth; i++) {
-					int pixel = afterI2d.data[j + margin][i + margin];
+					int pixel = afterI2d.getData()[j + margin][i + margin];
 					if (pixel == _fg) {
 						bin.data[j][i] = 1;
 						continue;
@@ -355,7 +356,7 @@ public class CharacterChecker implements LowVisionCommon {
 		if (_lvType.getEyesight()) {
 			margin = _lvType.getEyesightRadius();
 		}
-		Int2D beforeI2d = _ssc.makeMarginedImage(margin * 2);
+		IInt2D beforeI2d = _ssc.makeMarginedImage(margin * 2);
 
 		// simulation
 		LowVisionFilter lvFilter = new LowVisionFilter(_lvType);
@@ -373,14 +374,14 @@ public class CharacterChecker implements LowVisionCommon {
 		 * Create BinaryImage from simulated image (with 1 margin) (cut most
 		 * outside margin <- blacken by BlurOp)
 		 */
-		int afterWidth = afterI2d.width - 2 * margin;
-		int afterHeight = afterI2d.height - 2 * margin;
+		int afterWidth = afterI2d.getWidth() - 2 * margin;
+		int afterHeight = afterI2d.getHeight() - 2 * margin;
 		BinaryImage bin = new BinaryImage(afterWidth, afterHeight);
 		HashMap<Integer, Boolean> answerMap = new HashMap<Integer, Boolean>();
 		try {
 			for (int j = 0; j < afterHeight; j++) {
 				for (int i = 0; i < afterWidth; i++) {
-					int pixel = afterI2d.data[j + margin][i + margin];
+					int pixel = afterI2d.getData()[j + margin][i + margin];
 					if (pixel == _bg) {
 						continue;
 					} else {

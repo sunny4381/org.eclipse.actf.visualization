@@ -20,10 +20,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
 import org.eclipse.actf.visualization.engines.lowvision.internal.util.DebugUtil;
 import org.eclipse.actf.visualization.engines.lowvision.internal.util.DosUtil;
-import org.eclipse.actf.visualization.engines.lowvision.io.LowVisionIOException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 
 public class BMPReader {
 	
@@ -463,7 +463,7 @@ public class BMPReader {
 			if (bitCount == 8) {
 				for (int j = imageHeight - 1; j >= 0; j--) {
 					for (int i = 0; i < imageWidth; i++) {
-						destImage.data[imageHeight - j - 1][i] = colorTable[srcArray[j][i]];
+						destImage.getData()[imageHeight - j - 1][i] = colorTable[srcArray[j][i]];
 					}
 				}
 			} else if (bitCount == 16) { // 2004/12(4)
@@ -475,7 +475,7 @@ public class BMPReader {
 						int g = (i16 >> 5) & 0x1f;
 						int r = (i16 >> 10) & 0x1f;
 						int pixel = r << 19 | g << 11 | b << 3;
-						destImage.data[imageHeight - j - 1][i] = pixel;
+						destImage.getData()[imageHeight - j - 1][i] = pixel;
 					}
 				}
 			} else if (bitCount == 24) {
@@ -485,7 +485,7 @@ public class BMPReader {
 						pixel |= ((int) (srcArray[j][i * 3]) & 0xff); // b
 						pixel |= ((int) (srcArray[j][i * 3 + 1]) & 0xff) << 8; // g
 						pixel |= ((int) (srcArray[j][i * 3 + 2]) & 0xff) << 16; // r
-						destImage.data[imageHeight - j - 1][i] = pixel;
+						destImage.getData()[imageHeight - j - 1][i] = pixel;
 					}
 				}
 			} else if (bitCount == 32) {
@@ -495,7 +495,7 @@ public class BMPReader {
 						pixel |= ((int) (srcArray[j][i * 4]) & 0xff); // b
 						pixel |= ((int) (srcArray[j][i * 4 + 1]) & 0xff) << 8; // g
 						pixel |= ((int) (srcArray[j][i * 4 + 2]) & 0xff) << 16; // r
-						destImage.data[imageHeight - j - 1][i] = pixel;
+						destImage.getData()[imageHeight - j - 1][i] = pixel;
 					}
 				}
 			}

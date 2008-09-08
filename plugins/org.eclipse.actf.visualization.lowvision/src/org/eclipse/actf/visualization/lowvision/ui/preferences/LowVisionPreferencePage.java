@@ -13,10 +13,11 @@ package org.eclipse.actf.visualization.lowvision.ui.preferences;
 
 import java.io.File;
 
-import org.eclipse.actf.ui.util.IDialogConstants;
 import org.eclipse.actf.visualization.IVisualizationConst;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.Int2DFactory;
+import org.eclipse.actf.visualization.engines.lowvision.image.PageImageFactory;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
 import org.eclipse.actf.visualization.lowvision.ui.internal.Messages;
 import org.eclipse.actf.visualization.lowvision.ui.internal.PartControlLowVision;
@@ -46,9 +47,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Slider;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
-
 
 public class LowVisionPreferencePage extends PreferencePage implements
 		IWorkbenchPreferencePage {
@@ -98,7 +97,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 	private Slider _colorFilterSlider;
 
-	private PageImage _samplePageImage;
+	private IPageImage _samplePageImage;
 
 	private ImageData[] _sampleImageData;
 
@@ -150,23 +149,6 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 		createSampleImagePart(composite);
 
-		Composite buttonComposite = new Composite(parent, SWT.NONE);
-		GridData gridData = new GridData(SWT.FILL, SWT.FILL, false, false);
-		gridData.horizontalIndent = 10;
-		gridData.verticalIndent = 5;
-		buttonComposite.setLayoutData(gridData);
-		layout = new GridLayout();
-		layout.numColumns = 1;
-		buttonComposite.setLayout(layout);
-
-		Button helpButton = new Button(buttonComposite, SWT.PUSH);
-		helpButton.setText(IDialogConstants.HELP);
-		helpButton.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent e) {
-				openHelp();
-			}
-		});
-
 		return parent;
 	}
 
@@ -181,22 +163,22 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 	private void initSampleImage() {
 
-		Int2D int2D = null;
+		IInt2D int2D = null;
 
 		Bundle lvBundle = LowVisionVizPlugin.getDefault().getBundle();
 
 		try {
-			int2D = Int2D.readFromBMPInputStream(FileLocator.openStream(
-					lvBundle, new Path(
+			int2D = Int2DFactory
+					.createInt2D(FileLocator.openStream(lvBundle, new Path(
 							"vizResources/images/LowVisionSample.bmp"), false));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		if (null != int2D) {
-			this._samplePageImage = new PageImage(int2D, false);
+			this._samplePageImage = PageImageFactory.createPageImage(int2D, false);
 		} else {
-			this._samplePageImage = new PageImage();
+			this._samplePageImage = PageImageFactory.createPageImage();
 		}
 
 		_sampleImageData = new ImageData[0];
@@ -218,12 +200,6 @@ public class LowVisionPreferencePage extends PreferencePage implements
 			}
 		}
 
-	}
-
-	private void openHelp() {
-		// TODO customize
-		PlatformUI.getWorkbench().getHelpSystem().displayHelpResource(
-				"/org.eclipse.actf.examples.adesigner.doc/docs/parametersLv.html");
 	}
 
 	private void createSettingControlsPart(Composite parent) {

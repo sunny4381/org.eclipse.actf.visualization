@@ -29,8 +29,8 @@ import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.TargetPage;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
-import org.eclipse.actf.visualization.engines.lowvision.io.ImageDumpUtil;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.ImageDumpUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
 import org.eclipse.actf.visualization.lowvision.eval.CheckResultLowVision;
@@ -59,7 +59,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 	private String[] frameUrl;
 
-	private PageImage[] framePageImage;
+	private IPageImage[] framePageImage;
 
 	private ImagePositionInfo[][] imageInfoInHtmlArray;
 
@@ -287,7 +287,7 @@ public class PartControlLowVision implements ISelectionListener,
 	}
 
 	private void allocate(int frameSize) {
-		framePageImage = new PageImage[frameSize];
+		framePageImage = new IPageImage[frameSize];
 		imageInfoInHtmlArray = new ImagePositionInfo[frameSize][];
 		styleInfoArray = new ArrayList<Map<String, ICurrentStyles>>(frameSize);
 		for (int i = 0; i < frameSize; i++) {
@@ -468,7 +468,7 @@ public class PartControlLowVision implements ISelectionListener,
 	}
 
 	private void doSimulateAfterHalf() {
-		PageImage pageImageWhole;
+		IPageImage pageImageWhole;
 		if (framePageImage.length > 1) {
 			File mergedImageFile;
 			try {

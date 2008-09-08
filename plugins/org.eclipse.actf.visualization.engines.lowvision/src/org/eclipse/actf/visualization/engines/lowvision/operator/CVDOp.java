@@ -20,7 +20,8 @@ import org.eclipse.actf.visualization.engines.lowvision.color.ColorException;
 import org.eclipse.actf.visualization.engines.lowvision.color.ColorIRGB;
 import org.eclipse.actf.visualization.engines.lowvision.color.ColorSRGB;
 import org.eclipse.actf.visualization.engines.lowvision.color.ColorYXY;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 
 /*
  * simulate color vision deficiency
@@ -109,29 +110,29 @@ public class CVDOp implements ILowVisionOperator{
 		return( destImage );
     } // filter( BufferedImage, BufferedImage )
 
-	public Int2D filter( Int2D _src, Int2D _dest ) throws LowVisionException{
+	public IInt2D filter( Int2D _src, Int2D _dest ) throws LowVisionException{
 		if( type != 1 && type != 2 && type != 3 ){
 			throw new LowVisionException( "Invalid type: " + type );
 		}
 		
 		Int2D destImage = _dest;
 		if( _dest == null ){
-			destImage = new Int2D( _src.width, _src.height );
+			destImage = new Int2D( _src.getWidth(), _src.getHeight() );
 		}
 
 		HashMap<Integer, Integer> pixelMap = new HashMap<Integer, Integer>();
-		for( int j=0; j<_src.height; j++ ){
-			for( int i=0; i<_src.width; i++ ){
-				int srcColor =_src.data[j][i];
+		for( int j=0; j<_src.getHeight(); j++ ){
+			for( int i=0; i<_src.getWidth(); i++ ){
+				int srcColor =_src.getData()[j][i];
 				Integer srcPixel = new Integer( srcColor );
 				Integer destPixel  = (Integer)(pixelMap.get(srcPixel));
 				if( destPixel == null ){ 
 					int destColor = convertColor( srcColor, type );
-					destImage.data[j][i] = destColor;
+					destImage.getData()[j][i] = destColor;
 					pixelMap.put( srcPixel, new Integer(destColor) );
 				}
 				else{ 
-					destImage.data[j][i] = destPixel.intValue();
+					destImage.getData()[j][i] = destPixel.intValue();
 				}
 			}
 		}

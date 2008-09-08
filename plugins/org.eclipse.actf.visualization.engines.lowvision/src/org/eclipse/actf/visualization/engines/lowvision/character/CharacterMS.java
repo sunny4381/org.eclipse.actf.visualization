@@ -11,13 +11,14 @@
 
 package org.eclipse.actf.visualization.engines.lowvision.character;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.ConnectedComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.Topology;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Topology;
 
 /*
  * Character (multi fg color/single bg color)
@@ -31,7 +32,7 @@ public class CharacterMS extends PageComponent {
 
 	private int[][] image = null;
 
-	public CharacterMS(PageImage _pi, ConnectedComponent _cc, Container _cont,
+	public CharacterMS(IPageImage _pi, ConnectedComponent _cc, Container _cont,
 			int[][] _pixel) throws ImageException {
 		super(MS_CHARACTER_TYPE, _pi);
 		cc = _cc;
@@ -66,9 +67,9 @@ public class CharacterMS extends PageComponent {
 		}
 	}
 
-	public CharacterMS(PageImage _pi, ConnectedComponent _cc, Container _cont,
-			Int2D _pixel) throws ImageException {
-		this(_pi, _cc, _cont, _pixel.data);
+	public CharacterMS(IPageImage _pi, ConnectedComponent _cc, Container _cont,
+			IInt2D _pixel) throws ImageException {
+		this(_pi, _cc, _cont, _pixel.getData());
 	}
 
 	public int getBackgroundColor() {
@@ -79,11 +80,11 @@ public class CharacterMS extends PageComponent {
 		return (foregroundColor);
 	}
 
-	public Int2D getInt2D() throws ImageException {
+	public IInt2D getInt2D() throws ImageException {
 		return (new Int2D(cc.getShape().getWidth(), cc.getShape().getHeight(), image));
 	}
 
-	public Int2D makeMarginedImage(int _margin) throws ImageException {
+	public IInt2D makeMarginedImage(int _margin) throws ImageException {
 		if (_margin == 0) {
 			return (getInt2D());
 		}
@@ -95,7 +96,7 @@ public class CharacterMS extends PageComponent {
 		i2d.fill(backgroundColor);
 		for (int j = 0; j < cc.getShape().getHeight(); j++) {
 			for (int i = 0; i < cc.getShape().getWidth(); i++) {
-				i2d.data[j + _margin][i + _margin] = image[j][i];
+				i2d.getData()[j + _margin][i + _margin] = image[j][i];
 			}
 		}
 		return (i2d);

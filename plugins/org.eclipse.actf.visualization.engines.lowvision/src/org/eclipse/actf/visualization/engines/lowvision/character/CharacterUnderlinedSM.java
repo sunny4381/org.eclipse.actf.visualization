@@ -11,9 +11,9 @@
 
 package org.eclipse.actf.visualization.engines.lowvision.character;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.ConnectedComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 
 /*
  * Character (single fg color/multi bg color with underline)
@@ -23,7 +23,7 @@ class CharacterUnderlinedSM extends PageComponent {
 
 	int[][] image;
 
-	public CharacterUnderlinedSM(PageImage _pi, ConnectedComponent _cc,
+	public CharacterUnderlinedSM(IPageImage _pi, ConnectedComponent _cc,
 			int _color) {
 		super(CANDIDATE_UNDERLINED_CHARACTER_TYPE, _pi);
 		cc = _cc;

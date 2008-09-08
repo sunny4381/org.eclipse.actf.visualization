@@ -18,17 +18,13 @@ import org.eclipse.actf.visualization.engines.lowvision.internal.Messages;
 
 public class ScoreUtil {
 
-	static final double MIN_OVERALL_SCORE_A = 5.0;
+	static final int VERY_GOOD = 500;
 
-	static final double MIN_OVERALL_SCORE_B = 30.0;
+	static final int GOOD = 2000;
 
-	static final double VERY_GOOD = 5.0;
-
-	static final double GOOD = 20.0;
-
-	static final double POOR = 30.0;
+	static final int POOR = 3000;
         
-	public static String getScoreString(double _score) {
+	public static String getScoreString(int _score) {
 		if (_score <= VERY_GOOD) {
 			return (Messages.getString("PageEvaluation.Excellent"));
 		} else if (_score <= GOOD) {
@@ -41,7 +37,7 @@ public class ScoreUtil {
 
 	}
 
-	public static String getScoreImageString(double _score) {
+	public static String getScoreImageString(int _score) {
 		if (_score <= VERY_GOOD) {
 			return (IVisualizationConst.RATING_V_GOOD );
 		} else if (_score <= GOOD) {

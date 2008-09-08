@@ -19,10 +19,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.ImageUtil;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
 import org.eclipse.actf.visualization.engines.lowvision.internal.util.DosUtil;
-import org.eclipse.actf.visualization.engines.lowvision.io.LowVisionIOException;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.ImageUtil;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 
 public class BMPWriter {
 	private static final int DEFAULT_BITCOUNT = 24;

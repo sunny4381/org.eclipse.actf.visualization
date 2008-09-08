@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.engines.lowvision.problem;
 
 import java.util.Vector;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 
 /*
  * Group of LV problems
@@ -132,7 +132,7 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 			return;
 		}
 
-		PageImage pi = problems[0].pageComponent.getPageImage();
+		IPageImage pi = problems[0].pageComponent.getPageImage();
 		if (problemType == LowVisionProblem.LOWVISION_IMAGE_COLOR_PROBLEM) {
 			priority = 0;
 		} else {

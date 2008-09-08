@@ -11,10 +11,10 @@
 
 package org.eclipse.actf.visualization.engines.lowvision.character;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.ConnectedComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.Container;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 
 /*
  * Character candidate (SS, SM, part of MS)
@@ -23,7 +23,7 @@ import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
 public class CandidateCharacter extends PageComponent{
 	private int foregroundColor = -1;
 
-	public CandidateCharacter( PageImage _pi, ConnectedComponent _cc, int _color ){
+	public CandidateCharacter( IPageImage _pi, ConnectedComponent _cc, int _color ){
 		super( CANDIDATE_CHARACTER_TYPE, _pi );
 		cc = _cc;
 		foregroundColor = _color;

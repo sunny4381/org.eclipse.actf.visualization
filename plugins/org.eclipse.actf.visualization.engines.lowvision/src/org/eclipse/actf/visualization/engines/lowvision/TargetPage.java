@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,26 +23,26 @@ import java.util.Vector;
 
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.SimulatedPageImage;
+import org.eclipse.actf.visualization.engines.lowvision.internal.io.ImageWriter;
 import org.eclipse.actf.visualization.engines.lowvision.internal.util.DebugUtil;
 import org.eclipse.actf.visualization.engines.lowvision.internal.util.LowVisionProblemConverter;
 import org.eclipse.actf.visualization.engines.lowvision.internal.util.ScoreUtil;
-import org.eclipse.actf.visualization.engines.lowvision.io.ImageWriter;
-import org.eclipse.actf.visualization.engines.lowvision.io.LowVisionIOException;
 import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemException;
 import org.eclipse.actf.visualization.engines.lowvision.problem.LowVisionProblemGroup;
-import org.eclipse.actf.visualization.engines.lowvision.util.DecisionMaker;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
+import org.eclipse.actf.visualization.internal.engines.lowvision.DecisionMaker;
+import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.SimulatedPageImage;
 
 public class TargetPage {
 	private static final int UNSET = -1;
 
-	private PageImage pageImage = null; // rendered image in browser
+	private IPageImage pageImage = null; // rendered image in browser
 
 	private ImagePositionInfo[] tmpInteriorImagePositions = null;
 
@@ -66,11 +67,11 @@ public class TargetPage {
 		pageImage.disposeInt2D();
 	}
 
-	public PageImage getPageImage() {
+	public IPageImage getPageImage() {
 		return (pageImage);
 	}
 
-	public void setPageImage(PageImage _pi) {
+	public void setPageImage(IPageImage _pi) {
 		pageImage = _pi;
 		if (pageImage != null) {
 			if (pageImage.isInteriorImageArraySet()) {
@@ -111,10 +112,6 @@ public class TargetPage {
 		} else {
 			this.tmpInteriorImagePositions = infoArray;
 		}
-	}
-
-	public PageElement[] getPageElements() {
-		return (pageElements);
 	}
 
 	public void setCurrentStyles(Map<String, ICurrentStyles> _styleMap) {
@@ -182,15 +179,11 @@ public class TargetPage {
 	public List<IProblemItem> check(LowVisionType _lvType, String urlS,
 			int frameId) {
 
-		// TODO LowVisionProblem/LowVisionProblemGroup
-
-		LowVisionProblemGroup[] pageImageProblemArray = null;
-		LowVisionProblemGroup[] pageElementProblemArray = null;
-		LowVisionProblemGroup[] answerProblemArray = null;
+		List<IProblemItem> problemList = new ArrayList<IProblemItem>();
 
 		if (pageImage != null) {
 			try {
-				pageImageProblemArray = pageImage.checkCharacters(_lvType);
+				problemList = pageImage.checkCharacters(_lvType, urlS, frameId);
 			} catch (LowVisionProblemException lvpe) {
 				lvpe.printStackTrace();
 			} catch (ImageException ie) {
@@ -228,52 +221,25 @@ public class TargetPage {
 			}
 
 			int totalSize = pageElementProblemVec.size();
-			pageElementProblemArray = new LowVisionProblemGroup[totalSize];
-			for (int i = 0; i < totalSize; i++) {
-				pageElementProblemArray[i] = (LowVisionProblemGroup) (pageElementProblemVec
-						.elementAt(i));
-			}
+			LowVisionProblemGroup[] pageElementProblemArray = new LowVisionProblemGroup[totalSize];
+			pageElementProblemVec.toArray(pageElementProblemArray);
+
+			problemList.addAll(LowVisionProblemConverter.convert(
+					pageElementProblemArray, urlS, frameId));
+
 		}
 
-		int len1 = 0;
-		if (pageImageProblemArray != null) {
-			len1 = pageImageProblemArray.length;
-		}
-		int len2 = 0;
-		if (pageElementProblemArray != null) {
-			len2 = pageElementProblemArray.length;
-		}
+		calcOverallRating(problemList);
 
-		answerProblemArray = new LowVisionProblemGroup[len1 + len2];
-		for (int i = 0; i < len1; i++) {
-			answerProblemArray[i] = pageImageProblemArray[i];
-		}
-		for (int i = 0; i < len2; i++) {
-			answerProblemArray[len1 + i] = pageElementProblemArray[i];
-		}
-
-		pageImageProblemArray = null;
-		pageElementProblemArray = null;
-
-		calcOverallRating(answerProblemArray);
-
-		return (LowVisionProblemConverter.convert(answerProblemArray, urlS,
-				frameId));
+		return (problemList);
 	}
 
-	private void calcOverallRating(LowVisionProblemGroup[] _problemGroupArray) {
-		int len = 0;
-		if (_problemGroupArray != null) {
-			len = _problemGroupArray.length;
-		}
-
-		double totalSeverity = 0.0;
-		for (int k = 0; k < len; k++) {
-			LowVisionProblemGroup curGroup = _problemGroupArray[k];
-			if (curGroup == null) {
-				continue;
+	private void calcOverallRating(List<IProblemItem> problemList) {
+		int totalSeverity = 0;
+		for (IProblemItem item : problemList) {
+			if (item instanceof ProblemItemLV) {
+				totalSeverity += ((ProblemItemLV)item).getSeverityLV();
 			}
-			totalSeverity += curGroup.getProbability();
 		}
 		overallRatingString = ScoreUtil.getScoreString(totalSeverity);
 		overallRatingImageString = ScoreUtil.getScoreImageString(totalSeverity);
@@ -305,7 +271,8 @@ public class TargetPage {
 	}
 
 	public void makeAndStoreReport(String _path, String _htmlName,
-			String _imgName, List<IProblemItem> _problemGroupArray) throws LowVisionException {
+			String _imgName, List<IProblemItem> _problemGroupArray)
+			throws LowVisionException {
 		boolean doMakeProblemMap = true;
 		if (this.pageImage == null)
 			doMakeProblemMap = false;
@@ -369,7 +336,7 @@ public class TargetPage {
 							// scoreMap.data[j+groupY][i+groupX] = fillingColor;
 							// debug
 							try {
-								scoreMap.data[j / scale][i / scale] += curProblem
+								scoreMap.getData()[j / scale][i / scale] += curProblem
 										.getSeverityLV();
 							} catch (Exception e) {
 								e.printStackTrace();
@@ -390,8 +357,8 @@ public class TargetPage {
 			double scaleDouble = (double) (scale * scale);
 			for (int j = 0; j < mapHeight; j++) {
 				for (int i = 0; i < mapWidth; i++) {
-					scoreMap.data[j][i] = DecisionMaker
-							.getScoreMapColor(((double) (scoreMap.data[j][i]))
+					scoreMap.getData()[j][i] = DecisionMaker
+							.getScoreMapColor(((double) (scoreMap.getData()[j][i]))
 									/ 100.0 / scaleDouble);
 				}
 			}

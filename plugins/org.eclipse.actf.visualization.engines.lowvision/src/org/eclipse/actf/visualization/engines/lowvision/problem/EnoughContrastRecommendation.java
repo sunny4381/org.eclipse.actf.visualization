@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.engines.lowvision.problem;
 
-import org.eclipse.actf.visualization.engines.lowvision.LowVisionCommon;
+import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
 import org.eclipse.actf.visualization.engines.lowvision.color.ColorException;
 import org.eclipse.actf.visualization.engines.lowvision.color.ColorIRGB;
 import org.eclipse.actf.visualization.engines.lowvision.color.ColorLAB;
@@ -39,7 +39,7 @@ public class EnoughContrastRecommendation extends LowVisionRecommendation{
 		try{
 			ColorLAB foreLAB = (new ColorIRGB(originalForegroundColor)).toXYZ().toLAB();
 			ColorLAB backLAB = (new ColorIRGB(originalBackgroundColor)).toXYZ().toLAB();
-			if( ColorLAB.deltaL(foreLAB, backLAB) >= LowVisionCommon.RECOMMENDED_DELTA_L_FOR_TEXT ){
+			if( ColorLAB.deltaL(foreLAB, backLAB) >= ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT ){
 				recommendedForegroundColor = originalForegroundColor;
 				recommendedBackgroundColor = originalBackgroundColor;
 				return;
@@ -51,27 +51,27 @@ public class EnoughContrastRecommendation extends LowVisionRecommendation{
 			float backA = backLAB.getA();
 			float backB = backLAB.getB();
 			if( foreL > backL ){
-				if( backL >= LowVisionCommon.MID_L ){
-					backL = foreL - LowVisionCommon.RECOMMENDED_DELTA_L_FOR_TEXT;
+				if( backL >= ILowVisionConstant.MID_L ){
+					backL = foreL - ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
-				else if( foreL <= LowVisionCommon.MID_L ){
-					foreL = backL + LowVisionCommon.RECOMMENDED_DELTA_L_FOR_TEXT;
+				else if( foreL <= ILowVisionConstant.MID_L ){
+					foreL = backL + ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
 				else{
-					foreL = (foreL+backL+LowVisionCommon.RECOMMENDED_DELTA_L_FOR_TEXT)/2.0f;
-					backL = foreL - LowVisionCommon.RECOMMENDED_DELTA_L_FOR_TEXT;
+					foreL = (foreL+backL+ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT)/2.0f;
+					backL = foreL - ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
 			}
 			else{ // (foreL <= backL)
-				if( foreL >= LowVisionCommon.MID_L ){
-					foreL = backL - LowVisionCommon.RECOMMENDED_DELTA_L_FOR_TEXT;
+				if( foreL >= ILowVisionConstant.MID_L ){
+					foreL = backL - ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
-				else if( backL <= LowVisionCommon.MID_L ){
-					backL = foreL + LowVisionCommon.RECOMMENDED_DELTA_L_FOR_TEXT;
+				else if( backL <= ILowVisionConstant.MID_L ){
+					backL = foreL + ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
 				else{
-					backL = (foreL+backL+LowVisionCommon.RECOMMENDED_DELTA_L_FOR_TEXT)/2.0f;
-					foreL = backL - LowVisionCommon.RECOMMENDED_DELTA_L_FOR_TEXT;
+					backL = (foreL+backL+ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT)/2.0f;
+					foreL = backL - ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
 			}
 			recommendedForegroundColor = (new ColorLAB(foreL, foreA, foreB)).toXYZ().toIRGB().toInt();

@@ -15,12 +15,12 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.PageElement;
-import org.eclipse.actf.visualization.engines.lowvision.image.ConnectedComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2D;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageComponent;
-import org.eclipse.actf.visualization.engines.lowvision.image.PageImage;
+import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.eval.problem.ILowvisionProblemSubtype;
+import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 
 
 public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
@@ -30,7 +30,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
     //061024
     public static final short LOWVISION_PROBLEM = 0;
     
-	PageImage pageImage = null; 
+	IPageImage pageImage = null; 
 	LowVisionType lowVisionType = null;
 	short problemType; 
 	short componentType = PageComponent.UNDEFINED_TYPE; 
@@ -122,7 +122,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 	public String getDescription() throws LowVisionProblemException{
 		return( description );
 	}
-	public PageImage getPageImage(){
+	public IPageImage getPageImage(){
 		return( pageImage );
 	}
 	public int getX(){
@@ -244,12 +244,12 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 		int y1 = y0+getHeight();
 		int color = PROBLEM_COLORS[problemType];
 		for( int i=x0; i<x1; i++ ){
-			_img.data[y0][i] = color;
-			_img.data[y1-1][i] = color;
+			_img.getData()[y0][i] = color;
+			_img.getData()[y1-1][i] = color;
 		}
 		for( int j=y0; j<y1; j++ ){
-			_img.data[j][x0] = color;
-			_img.data[j][x1-1] = color;
+			_img.getData()[j][x0] = color;
+			_img.getData()[j][x1-1] = color;
 		}
 	}
 	
