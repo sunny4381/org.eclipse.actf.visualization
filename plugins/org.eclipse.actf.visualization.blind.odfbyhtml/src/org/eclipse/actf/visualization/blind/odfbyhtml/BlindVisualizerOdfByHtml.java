@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.actf.model.dom.html.HTMLParserFactory;
@@ -31,7 +32,7 @@ import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.HtmlErrorLogListener;
-import org.eclipse.actf.visualization.engines.blind.html.util.ODFVisualizeViewUtil;
+import org.eclipse.actf.visualization.engines.blind.html.util.VisualizeReportUtil;
 import org.eclipse.actf.visualization.eval.CheckTargetImpl;
 import org.eclipse.actf.visualization.eval.ICheckTarget;
 import org.eclipse.actf.visualization.eval.IChecker;
@@ -40,6 +41,7 @@ import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetNodeInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
 import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.visualization.util.html2view.Html2ViewMapMaker;
 import org.w3c.dom.Document;
@@ -50,6 +52,8 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 	private final String ODF_HTML_FILE_NAME = "ODF.html";
 
 	private final String odf_html_fileS = tmpDirS + ODF_HTML_FILE_NAME;
+
+	private final String NO_ALT_IMAGE = "10101";
 
 	public boolean setModelService(IModelService targetModel) {
 		if (super.setModelService(targetModel)) {
@@ -149,7 +153,8 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 							- startTime);
 				}
 			}
-			ODFVisualizeViewUtil.visualizeError(resultDocument, tmpResults);
+			
+			visualizeError(resultDocument, tmpResults);
 
 			// TODO support blind biz -> visitor
 			for (int i = 0; i < tmpResults.size(); i++) {
@@ -194,4 +199,20 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 		return (null != modelService && modelService.getCurrentMIMEType()
 				.startsWith("application/vnd.oasis.opendocument."));
 	}
+
+	private void visualizeError(Document resultDoc, List<IProblemItem> problems) {
+
+		int size = problems.size();
+
+		for (int i = 0; i < size; i++) {
+			Object obj = problems.get(i);
+			if (obj instanceof ProblemItemImpl) {
+				ProblemItemImpl prob = (ProblemItemImpl) obj;
+				if (prob.getId().equals("O_" + NO_ALT_IMAGE)) {
+					VisualizeReportUtil.visualizeError(resultDoc, prob);
+				}
+			}
+		}
+	}
+
 }

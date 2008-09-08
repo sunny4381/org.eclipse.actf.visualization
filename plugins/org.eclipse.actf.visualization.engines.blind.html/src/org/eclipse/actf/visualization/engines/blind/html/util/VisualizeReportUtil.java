@@ -22,133 +22,170 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.eclipse.actf.util.xpath.XPathUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
+import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
+import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-
+import org.w3c.dom.NodeList;
 
 public class VisualizeReportUtil {
 
-    // move from VisualizeEngine
+	// move from VisualizeEngine
 
-    public static void createReport(File targetFile, PageEvaluation pageEval) {
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            DOMImplementation domImpl = builder.getDOMImplementation();
-            Document document = domImpl.createDocument("", "html", null);
+	public static void createReport(File targetFile, PageEvaluation pageEval) {
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory
+					.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			DOMImplementation domImpl = builder.getDOMImplementation();
+			Document document = domImpl.createDocument("", "html", null);
 
-            Node rootN = document.getDocumentElement();
+			Node rootN = document.getDocumentElement();
 
-            Element head = document.createElement("head");
-            Element meta = document.createElement("meta");
-            meta.setAttribute("http-equiv", "Content-type");
-            meta.setAttribute("content", "text/html; charset=UTF-8");
-            head.appendChild(meta);
-            Element title = document.createElement("title");
-            title.appendChild(document.createTextNode("Overall rating"));
-            head.appendChild(title);
-            rootN.appendChild(head);
+			Element head = document.createElement("head");
+			Element meta = document.createElement("meta");
+			meta.setAttribute("http-equiv", "Content-type");
+			meta.setAttribute("content", "text/html; charset=UTF-8");
+			head.appendChild(meta);
+			Element title = document.createElement("title");
+			title.appendChild(document.createTextNode("Overall rating"));
+			head.appendChild(title);
+			rootN.appendChild(head);
 
-            Element body = document.createElement("body");
-            rootN.appendChild(body);
+			Element body = document.createElement("body");
+			rootN.appendChild(body);
 
-            Element div = document.createElement("div");
-            Element starImg = document.createElement("img");
-            starImg.setAttribute("src", "img/" + pageEval.getRatingIcon());
-            starImg.setAttribute("alt", "");
-            div.appendChild(starImg);
+			Element div = document.createElement("div");
+			Element starImg = document.createElement("img");
+			starImg.setAttribute("src", "img/" + pageEval.getRatingIcon());
+			starImg.setAttribute("alt", "");
+			div.appendChild(starImg);
 
-            //for not svg util
-            Element b = document.createElement("b");
-            b.appendChild(document.createTextNode(//"Page Rating: " +
-                    " " + pageEval.getOverallRating()));
-            div.appendChild(b);
-            //p.appendChild(document.createElement("br"));
-            body.appendChild(div);
+			// for not svg util
+			Element b = document.createElement("b");
+			b.appendChild(document.createTextNode(// "Page Rating: " +
+					" " + pageEval.getOverallRating()));
+			div.appendChild(b);
+			// p.appendChild(document.createElement("br"));
+			body.appendChild(div);
 
-            //TODO temp
-            int count = 0;
-            boolean enabledMetrics[] = GuidelineHolder.getInstance().getMatchedMetrics();
-            for (int i = 0; i < enabledMetrics.length; i++) {
-                if (enabledMetrics[i]) {
-                    count++;
-                }
-            }
-            if (count > 2) {
-                Element img = document.createElement("img");
-                img.setAttribute("src", "./pagerating.png");
-                img.setAttribute("alt", "");
-                body.appendChild(img);
-            }
+			// TODO temp
+			int count = 0;
+			boolean enabledMetrics[] = GuidelineHolder.getInstance()
+					.getMatchedMetrics();
+			for (int i = 0; i < enabledMetrics.length; i++) {
+				if (enabledMetrics[i]) {
+					count++;
+				}
+			}
+			if (count > 2) {
+				Element img = document.createElement("img");
+				img.setAttribute("src", "./pagerating.png");
+				img.setAttribute("alt", "");
+				body.appendChild(img);
+			}
 
-            body.appendChild(document.createElement("hr"));
+			body.appendChild(document.createElement("hr"));
 
-            appendRatingTable(pageEval.getAllResult(), document, body);
+			appendRatingTable(pageEval.getAllResult(), document, body);
 
-            TransformerFactory transFactory = TransformerFactory.newInstance();
-            Transformer transformer = transFactory.newTransformer();
-            DOMSource source = new DOMSource(document);
-            FileOutputStream os = new FileOutputStream(targetFile);
-            OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
-            StreamResult result = new StreamResult(osw);
-            transformer.transform(source, result);
-            osw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			TransformerFactory transFactory = TransformerFactory.newInstance();
+			Transformer transformer = transFactory.newTransformer();
+			DOMSource source = new DOMSource(document);
+			FileOutputStream os = new FileOutputStream(targetFile);
+			OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+			StreamResult result = new StreamResult(osw);
+			transformer.transform(source, result);
+			osw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    }
+	}
 
-    public static void appendRatingTableAndTitle(PageEvaluation pageEval, String imageBriefDir, Document document,
-            Node target) {
+	public static void appendRatingTableAndTitle(PageEvaluation pageEval,
+			String imageBriefDir, Document document, Node target) {
 
-        String[] ratingStr = pageEval.getAllResult();
+		String[] ratingStr = pageEval.getAllResult();
 
-        Element p = document.createElement("div");
-        Element img = document.createElement("img");
-        img.setAttribute("src", imageBriefDir + pageEval.getRatingIcon());
-        img.setAttribute("alt", "");
-        p.appendChild(img);
+		Element p = document.createElement("div");
+		Element img = document.createElement("img");
+		img.setAttribute("src", imageBriefDir + pageEval.getRatingIcon());
+		img.setAttribute("alt", "");
+		p.appendChild(img);
 
-        Element b = document.createElement("b");
-        b.appendChild(document.createTextNode(ratingStr[0] + ": " + ratingStr[1]));
-        p.appendChild(b);
-        target.appendChild(p);
+		Element b = document.createElement("b");
+		b.appendChild(document.createTextNode(ratingStr[0] + ": "
+				+ ratingStr[1]));
+		p.appendChild(b);
+		target.appendChild(p);
 
-        appendRatingTable(ratingStr, document, target);
+		appendRatingTable(ratingStr, document, target);
 
-    }
+	}
 
-    private static void appendRatingTable(String[] ratingStr, Document document, Node target) {
-        Element table = document.createElement("table");
-        table.setAttribute("border", "1");
-        Element tr = document.createElement("tr");
-        Element th = document.createElement("th");
-        th.appendChild(document.createTextNode("evaluation"));
-        tr.appendChild(th);
-        th = document.createElement("th");
-        th.appendChild(document.createTextNode("score"));
-        tr.appendChild(th);
-        table.appendChild(tr);
+	private static void appendRatingTable(String[] ratingStr,
+			Document document, Node target) {
+		Element table = document.createElement("table");
+		table.setAttribute("border", "1");
+		Element tr = document.createElement("tr");
+		Element th = document.createElement("th");
+		th.appendChild(document.createTextNode("evaluation"));
+		tr.appendChild(th);
+		th = document.createElement("th");
+		th.appendChild(document.createTextNode("score"));
+		tr.appendChild(th);
+		table.appendChild(tr);
 
-        int size = ratingStr.length / 2;
+		int size = ratingStr.length / 2;
 
-        for (int i = 1; i < size; i++) {
-            tr = document.createElement("tr");
-            Element td = document.createElement("td");
-            td.appendChild(document.createTextNode(ratingStr[i * 2]));
-            tr.appendChild(td);
-            td = document.createElement("td");
-            td.appendChild(document.createTextNode(ratingStr[i * 2 + 1]));
-            tr.appendChild(td);
-            table.appendChild(tr);
-        }
-        target.appendChild(table);
-    }
+		for (int i = 1; i < size; i++) {
+			tr = document.createElement("tr");
+			Element td = document.createElement("td");
+			td.appendChild(document.createTextNode(ratingStr[i * 2]));
+			tr.appendChild(td);
+			td = document.createElement("td");
+			td.appendChild(document.createTextNode(ratingStr[i * 2 + 1]));
+			tr.appendChild(td);
+			table.appendChild(tr);
+		}
+		target.appendChild(table);
+	}
+
+	public static void visualizeError(Document resultDoc, IProblemItem problem) {
+		Element imageElem = (Element) problem.getTargetNode();
+		if (imageElem != null) {
+			Element frameElem = (Element) imageElem.getParentNode();
+			String idS = frameElem.getAttribute(Html2ViewMapData.ACTF_ID);
+			if (idS.length() > 0) {
+				Integer idObj = new Integer(idS);
+				NodeList nl = XPathUtil.evalXPathNodeList(resultDoc
+						.getDocumentElement(), "//*[@"
+						+ Html2ViewMapData.ACTF_ID + "='" + idObj + "']/span");
+				if ((nl != null) && (nl.getLength() == 1)) {
+					Element frameElemResultDoc = (Element) nl.item(0);
+					Element img = createErrorImageElement(frameElemResultDoc,
+							problem, idObj);
+					frameElemResultDoc.appendChild(img);
+				}
+			}
+		}
+	}
+
+	private static Element createErrorImageElement(Node target,
+			IProblemItem prob, Integer idObj) {
+		Element img = target.getOwnerDocument().createElement("img");
+		img.setAttribute("alt", "error");
+		img.setAttribute("title", prob.getDescription());
+		img.setAttribute("onmouseover", "updateBaloon('id" + idObj + "');");
+		img.setAttribute("src", "img/" + VisualizeEngine.ERROR_ICON_NAME);
+		return (img);
+	}
 
 }
