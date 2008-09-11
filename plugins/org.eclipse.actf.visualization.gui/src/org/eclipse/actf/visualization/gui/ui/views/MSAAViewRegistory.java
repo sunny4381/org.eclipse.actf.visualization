@@ -212,16 +212,16 @@ public class MSAAViewRegistory implements IGuiViewIDs {
 				flashDOMView.refresh();
 			}
 
-			IMSAAProblemsView problemsView = (IMSAAProblemsView) findView(ID_REPORTVIEW);	
+			IMSAAProblemsView problemsView = (IMSAAProblemsView) findView(ID_REPORTVIEW);
 			if (null != problemsView) {
-						problemsView.refresh();						
+				problemsView.refresh();
 			}
 
 			IJAWSTextView jawsTextView = (IJAWSTextView) findView(ID_SUMMARYVIEW);
 			if (null != jawsTextView) {
 				jawsTextView.refresh();
 			}
-			
+
 			outlineSelected(null);
 		} finally {
 			HighlightComposite.updateSuppressCount(-1);
