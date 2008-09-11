@@ -22,7 +22,6 @@ import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.swt.internal.ole.win32.IDispatch;
 import org.eclipse.swt.ole.win32.Variant;
 
 public class MSAATreeContentProvider implements ITreeContentProvider {
@@ -90,7 +89,7 @@ public class MSAATreeContentProvider implements ITreeContentProvider {
 
 					AccessibleObject[] flashElements = new AccessibleObject[players.length];
 					for (int j = 0; j < players.length; j++) {
-						Variant v = new Variant(new IDispatch(players[j]
+						Variant v = new Variant(new org.eclipse.swt.internal.ole.win32.IDispatch(players[j]
 								.getAccessible().getPtr()));
 						flashElements[j] = AccessibleObjectFactory
 								.getAccessibleObjectFromVariant(v);

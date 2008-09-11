@@ -34,10 +34,10 @@ public class MSAAProblemChecker implements MSAAProblemConst {
 	public MSAAProblem[] getProblems() {
 		provider.setShowOffscreen(true);
 		provider.setHideHtml(MSAATreeContentProvider.getDefault().isHideHtml());
-		return getProblem(provider.getElements(rootObject));
+		return getProblem(provider.getElements(rootObject), false);
 	}
 
-	public MSAAProblem[] getProblem(Object[] children) {
+	public MSAAProblem[] getProblem(Object[] children, boolean isFlash) {
 		List<MSAAProblem> problems = new ArrayList<MSAAProblem>();
 
 		if (children != null) {
@@ -45,16 +45,19 @@ public class MSAAProblemChecker implements MSAAProblemConst {
 				AccessibleObject ao = (AccessibleObject) children[i];
 				if (ao == null)
 					continue;
-				if (0 != (ao.getAccState() & MSAA.STATE_INVISIBLE))
+				if (0 != (ao.getAccState() & MSAA.STATE_INVISIBLE)
+						&& 0 == (ao.getAccState() & MSAA.STATE_OFFSCREEN))
 					continue;
 
-				String accName = null;
-
-				accName = ao.getAccName();
+				String accName = ao.getAccName();
 
 				int role = ao.getAccRole();
 				switch (role) {
 				case MSAA.ROLE_SYSTEM_WINDOW:
+					if (FlashMSAAUtil.isFlash(ao.getPtr())) {
+						isFlash = true;
+					}
+					break;
 				case MSAA.ROLE_SYSTEM_CELL:
 				case MSAA.ROLE_SYSTEM_STATICTEXT:
 				case MSAA.ROLE_SYSTEM_SEPARATOR:
@@ -71,7 +74,8 @@ public class MSAAProblemChecker implements MSAAProblemConst {
 				case MSAA.ROLE_SYSTEM_CLIENT:
 					if (FlashMSAAUtil.isInvisibleFlash(ao.getPtr())) {
 						problems.add(new MSAAProblem(MSAA_ERROR,
-								MSAA_INVISIBLE_FLASH, ao));
+								MSAA_PROB_INVISIBLE_FLASH, ao));
+						isFlash = true;
 					}
 					break;
 				default: {
@@ -80,8 +84,13 @@ public class MSAAProblemChecker implements MSAAProblemConst {
 							problems.add(new MSAAProblem(MSAA_ERROR,
 									MSAA_PROB_NO_ALT_BUTTON, ao));
 						else if (role == MSAA.ROLE_SYSTEM_GRAPHIC)
-							problems.add(new MSAAProblem(MSAA_WARNING,
-									MSAA_PROB_NO_ALT_GRAHPIC, ao));
+							if(isFlash){
+								problems.add(new MSAAProblem(MSAA_ERROR,
+										MSAA_PROB_NO_ALT_FLASH_IMAGE, ao));																
+							}else{
+								problems.add(new MSAAProblem(MSAA_WARNING,
+										MSAA_PROB_NO_ALT_GRAHPIC, ao));								
+							}
 						else if (role == MSAA.ROLE_SYSTEM_COMBOBOX)
 							problems.add(new MSAAProblem(MSAA_ERROR,
 									MSAA_PROB_NO_ALT_FORM_CONTROL, ao));
@@ -126,7 +135,7 @@ public class MSAAProblemChecker implements MSAAProblemConst {
 				}
 				}
 				problems.addAll(Arrays.asList(getProblem(provider
-						.getChildren(ao))));
+						.getChildren(ao),isFlash)));
 			}
 		}
 		return (MSAAProblem[]) problems

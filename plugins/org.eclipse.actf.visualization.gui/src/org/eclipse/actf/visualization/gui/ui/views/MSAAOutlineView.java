@@ -73,7 +73,7 @@ import org.eclipse.ui.part.ViewPart;
 
 public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 	public static Color FLASH_COLOR = Display.getCurrent().getSystemColor(
-			SWT.COLOR_YELLOW);
+			SWT.COLOR_CYAN);
 	public static Color INVISIBLE_FLASH_COLOR = Display.getCurrent()
 			.getSystemColor(SWT.COLOR_RED);
 
@@ -97,8 +97,6 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 	private boolean suppressLabelAdjust = false;
 
 	private boolean ignoreSelection = false;
-
-	private boolean hideHtml = false;
 
 	/**
 	 * The constructor.
@@ -163,7 +161,6 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 	}
 
 	public void refresh() {
-		hideHtml = MSAATreeContentProvider.getDefault().isHideHtml();
 		OverlayLabel.removeAll();
 		AccessibleObject rootObject = MSAAViewRegistory.getRootObject();
 		if (null != rootObject) {
@@ -530,7 +527,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 		}
 
 		public Color getBackground(Object element) {
-			if (!hideHtml && element instanceof AccessibleObject) {
+			if (element instanceof AccessibleObject) {
 				return getFlashBackground((AccessibleObject) element);
 			}
 			return null;
@@ -576,7 +573,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 		return element.toString();
 	}
 
-	public static Color getFlashBackground(AccessibleObject accObject) {
+	private Color getFlashBackground(AccessibleObject accObject) {
 		switch (accObject.getAccRole()) {
 		case MSAA.ROLE_SYSTEM_WINDOW:
 			if (FlashMSAAUtil.isFlash(accObject.getPtr())) {

@@ -21,7 +21,6 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.OverlayIcon;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public final class FlashImages {
@@ -54,6 +53,7 @@ public final class FlashImages {
 		return image;
 	}
 
+	@SuppressWarnings("restriction")
 	public static Image getImage(String basePath, String overlayPath, Point size) {
 		if (null == basePath || null == overlayPath) {
 			return null;
@@ -65,8 +65,8 @@ public final class FlashImages {
 			if (null != descriptor) {
 				ImageDescriptor overlayDescriptor = getImageDescriptor(overlayPath);
 				if (null != overlayDescriptor) {
-					descriptor = new OverlayIcon(descriptor, overlayDescriptor,
-							size);
+					descriptor = new org.eclipse.ui.internal.OverlayIcon(
+							descriptor, overlayDescriptor, size);
 					image = descriptor.createImage(true);
 				}
 			}

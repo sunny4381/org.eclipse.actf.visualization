@@ -79,6 +79,7 @@ public class FlashRectFinder {
 		}
 	}
 
+	@SuppressWarnings("restriction")
 	private void reCalculateRect() {
 		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromPtr(playerWindow
 				.getPtr());

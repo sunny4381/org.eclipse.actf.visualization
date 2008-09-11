@@ -118,6 +118,10 @@ public class FlashNodePropertySource implements IPropertySource, IFlashConst {
 			if (null == flashNode.getParent()) {
 				strValue = flashNode.getPlayer().getWMode();
 			}
+		} else if (PID_TABINDEX.equals(id)){
+			if(flashNode.getTabIndex()>-1){
+				strValue = String.valueOf(flashNode.getTabIndex());
+			}
 		} else if (ASNODE_ACCINFO.equals(id)) {
 			ASAccInfo accInfo = flashNode.getAccInfo(); //$NON-NLS-1$
 			if (null != accInfo) {

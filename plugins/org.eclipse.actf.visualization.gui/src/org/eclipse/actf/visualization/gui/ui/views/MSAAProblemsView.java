@@ -76,7 +76,7 @@ import org.eclipse.ui.part.ViewPart;
 public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSAAProblemConst {
     private static final String[] HEADINGS = { "", Messages.getString("msaa.description"), "Name", "Role", "State", "X", "Y", "W", "H" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
 
-    private static final int[] WEIGHTS = { 1, 10, 5, 5, 5, 1, 1, 1, 1 };
+    private static final int[] WEIGHTS = { 1, 15, 8, 6, 10, 2, 2, 2, 2 };
 
     private static final int[] ALIGNMENTS = { SWT.RIGHT, SWT.LEFT, SWT.LEFT, SWT.LEFT, SWT.LEFT, SWT.RIGHT, SWT.RIGHT,
             SWT.RIGHT, SWT.RIGHT };
@@ -472,7 +472,8 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
     private class MSAAProblemsViewerSorter extends ViewerSorter {
         public int sortingColumn = 0;
 
-        public int compare(Viewer viewer, Object e1, Object e2) {
+        @SuppressWarnings("unchecked")
+		public int compare(Viewer viewer, Object e1, Object e2) {
             if (0 != sortingColumn && viewer instanceof TableViewer) {
                 IBaseLabelProvider labelProvider = ((TableViewer) viewer).getLabelProvider();
                 if (labelProvider instanceof ITableLabelProvider) {
@@ -494,7 +495,7 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
                     case 2:
                     case 3:
                     case 4:
-                        result = collator.compare(s1, s2);
+                        result = getComparator().compare(s1, s2);
                         break;
                     }
                     return sortingColumn > 0 ? result : -result;
