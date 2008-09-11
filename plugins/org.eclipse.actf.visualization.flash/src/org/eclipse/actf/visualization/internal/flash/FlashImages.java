@@ -8,7 +8,7 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.flash.internal;
+package org.eclipse.actf.visualization.internal.flash;
 
 import java.text.MessageFormat;
 import java.util.HashMap;

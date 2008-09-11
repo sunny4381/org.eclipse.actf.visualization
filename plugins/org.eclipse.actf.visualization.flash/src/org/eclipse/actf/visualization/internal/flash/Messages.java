@@ -9,14 +9,14 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.flash.internal;
+package org.eclipse.actf.visualization.internal.flash;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 
 public class Messages {
-    private static final String BUNDLE_NAME = "org.eclipse.actf.visualization.flash.internal.messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = "org.eclipse.actf.visualization.internal.flash.messages"; //$NON-NLS-1$
 
     private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
 
