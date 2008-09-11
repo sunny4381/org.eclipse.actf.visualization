@@ -8,7 +8,7 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser.internal;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import org.eclipse.actf.visualization.engines.voicebrowser.Context;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
@@ -20,7 +20,7 @@ import org.w3c.dom.Node;
 public class StaticTABLERenderer implements IElementRenderer {
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionIn(Element, Context, MessageCollection)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context, MessageCollection)
 	 */
 	public PacketCollection getPacketCollectionIn(
 		Element element,
@@ -136,7 +136,7 @@ public class StaticTABLERenderer implements IElementRenderer {
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionOut(Element, Context, MessageCollection)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element, Context, MessageCollection)
 	 */
 	public PacketCollection getPacketCollectionOut(
 		Element element,
@@ -154,7 +154,7 @@ public class StaticTABLERenderer implements IElementRenderer {
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextIn(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextIn(Context)
 	 */
 	public void setContextIn(Element element, Context curContext) {
 		curContext.setStartSelect(true);
@@ -163,7 +163,7 @@ public class StaticTABLERenderer implements IElementRenderer {
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextOut(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextOut(Context)
 	 */
 	public void setContextOut(Element element, Context curContext) {
 		curContext.setStartSelect(true);

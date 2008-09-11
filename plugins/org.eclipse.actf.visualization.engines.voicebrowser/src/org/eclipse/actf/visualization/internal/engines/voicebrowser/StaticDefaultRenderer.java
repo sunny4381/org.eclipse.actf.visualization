@@ -8,58 +8,55 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser.internal;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import org.eclipse.actf.visualization.engines.voicebrowser.Context;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
 import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
 import org.w3c.dom.Element;
 
-public class StaticBRRenderer implements IElementRenderer {
+
+public class StaticDefaultRenderer implements IElementRenderer {
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionIn(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context, MessageCollection)
 	 */
 	public PacketCollection getPacketCollectionIn(
 		Element element,
-		Context curContext,
+		Context ctx,
 		String url,
 		MessageCollection mc) {
-		if (curContext.isLineDelimiter()) {
-			setContextIn(element, curContext);
+
+		String result = OutLoud.buildResultString(mc, url, element, null, null);
+		if (result != null)
+			result = result.trim();
+		if (result != null && result.length() > 0)
+			return new PacketCollection(new Packet(element, result, ctx, true));
+		else
 			return null;
-		} else {
-			setContextIn(element, curContext);
-			Packet newPacket = new Packet(element, "", curContext, true);
-			return new PacketCollection(newPacket);
-		}
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionOut(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element, Context, MessageCollection)
 	 */
 	public PacketCollection getPacketCollectionOut(
 		Element element,
-		Context curContext,
+		Context ctx,
 		String url,
 		MessageCollection mc) {
-		setContextOut(element, curContext);
 		return null;
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextIn(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextIn(Context)
 	 */
 	public void setContextIn(Element element, Context curContext) {
-		curContext.setGoChild(true);
-		curContext.setLineDelimiter(true);
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextOut(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextOut(Context)
 	 */
 	public void setContextOut(Element element, Context curContext) {
-		curContext.setGoChild(true);
-		curContext.setLineDelimiter(false);
 	}
+
 }

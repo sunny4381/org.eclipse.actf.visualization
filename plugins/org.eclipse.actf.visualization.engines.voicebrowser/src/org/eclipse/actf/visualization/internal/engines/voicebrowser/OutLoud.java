@@ -8,7 +8,7 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser.internal;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import java.io.File;
 import java.io.FileReader;

@@ -8,7 +8,7 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser.internal;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import org.eclipse.actf.visualization.engines.voicebrowser.Context;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
@@ -21,7 +21,7 @@ import org.w3c.dom.NodeList;
 public class StaticMAPRenderer implements IElementRenderer {
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionIn(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionIn(
 		Element element,
@@ -77,7 +77,7 @@ public class StaticMAPRenderer implements IElementRenderer {
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionOut(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionOut(
 		Element element,
@@ -97,7 +97,7 @@ public class StaticMAPRenderer implements IElementRenderer {
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextIn(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextIn(Context)
 	 */
 	public void setContextIn(Element element, Context ctx) {
 		ctx.setStartSelect(true);
@@ -107,7 +107,7 @@ public class StaticMAPRenderer implements IElementRenderer {
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextOut(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextOut(Context)
 	 */
 	public void setContextOut(Element element, Context ctx) {
 		ctx.setStartSelect(false);

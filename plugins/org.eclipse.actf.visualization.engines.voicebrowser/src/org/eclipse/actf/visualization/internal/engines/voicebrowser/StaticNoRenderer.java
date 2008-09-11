@@ -8,62 +8,52 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser.internal;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import org.eclipse.actf.visualization.engines.voicebrowser.Context;
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
 import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
 import org.w3c.dom.Element;
 
 
-public class StaticPRenderer implements IElementRenderer {
+public class StaticNoRenderer implements IElementRenderer {
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionIn(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionIn(
 		Element element,
-		Context ctx,
+		Context curContext,
 		String url,
 		MessageCollection mc) {
-		setContextIn(element, ctx);
-		Packet newPacket = new Packet(element, "", ctx, true);
-		return new PacketCollection(newPacket);
+		setContextIn(element, curContext);
+		return null;
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionOut(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionOut(
 		Element element,
-		Context ctx,
+		Context curContext,
 		String url,
 		MessageCollection mc) {
-
-		if (ctx.isLineDelimiter()) {
-			return null;
-		} else {
-			setContextOut(element, ctx);
-			Packet newPacket = new Packet(element, "", ctx, false);
-			return new PacketCollection(newPacket);
-		}
+		setContextOut(element, curContext);
+		return null;
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextIn(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextIn(Context)
 	 */
 	public void setContextIn(Element element, Context curContext) {
 		curContext.setGoChild(true);
-		curContext.setLineDelimiter(true);
-		curContext.setLinkTag(false);
+		curContext.setLineDelimiter(false);
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextOut(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextOut(Context)
 	 */
 	public void setContextOut(Element element, Context curContext) {
 		curContext.setGoChild(true);
-		curContext.setLineDelimiter(true);
-		curContext.setLinkTag(false);
+		curContext.setLineDelimiter(false);
 	}
 }

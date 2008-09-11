@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.engines.voicebrowser;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.internal.JWATControllerImpl;
+import org.eclipse.actf.visualization.internal.engines.voicebrowser.JWATControllerImpl;
 
 public class JWAT {
 

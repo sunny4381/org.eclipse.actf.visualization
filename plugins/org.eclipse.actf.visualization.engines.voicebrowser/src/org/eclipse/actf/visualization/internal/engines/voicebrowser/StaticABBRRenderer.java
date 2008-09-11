@@ -8,18 +8,19 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser.internal;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import org.eclipse.actf.visualization.engines.voicebrowser.Context;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
 import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
-import org.w3c.dom.*;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
-
-public class StaticTEXTAREARenderer implements IElementRenderer {
+public class StaticABBRRenderer implements IElementRenderer {
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionIn(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, CurrentCursor, Context)
 	 */
 	public PacketCollection getPacketCollectionIn(
 		Element element,
@@ -30,31 +31,33 @@ public class StaticTEXTAREARenderer implements IElementRenderer {
 		// set `context in' flags
 		setContextIn(element, curContext);
 
-		// build result string
-		String result = null;
+		// get alt attribute
+		NamedNodeMap attrs = element.getAttributes();
+		Node node = attrs.getNamedItem("title");
+		if (node == null)
+			return null;
 
-		Node node = element.getFirstChild();
-		if (node != null && node.getNodeType() == Node.TEXT_NODE) {
-			String nodeValue = node.getNodeValue();
-			nodeValue = nodeValue.trim();
-			if (nodeValue.length() > 0) {
-				result =
-					OutLoud.buildResultString(
-						mc,
-						url,
-						element,
-						null,
-						"hasstr",
-						"name=str1",
-						nodeValue);
-				if (result == null && OutLoud.hprDefltMsg)
-					result = "[TextArea: " + nodeValue + "]";
-			}
-		}
-		if (result == null) {
-			result = OutLoud.buildResultString(mc, url, element, null, "nostr");
-			if (result == null && OutLoud.hprDefltMsg)
-				result = "[TextArea.]";
+		// get title string
+		String str = node.getNodeValue();
+		str = TextUtil.trim(str);
+		if (str.length() == 0)
+			return null;
+
+		// build result string
+		String result =
+			OutLoud.buildResultString(
+				mc,
+				url,
+				element,
+				null,
+				null,
+				"<name=str1>",
+				str);
+		if (result == null && OutLoud.hprDefltMsg) {
+			if (element.getNodeName().toLowerCase().equals("abbr"))
+				result = "(Abbreviation: " + str + ".)";
+			else
+				result = "(Acronym: " + str + ".)";
 		}
 		if (result != null)
 			result = result.trim();
@@ -63,35 +66,32 @@ public class StaticTEXTAREARenderer implements IElementRenderer {
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionOut(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element, CurrentCursor, Context)
 	 */
 	public PacketCollection getPacketCollectionOut(
 		Element element,
 		Context curContext,
 		String url,
 		MessageCollection mc) {
+
 		setContextOut(element, curContext);
 
 		return null;
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextIn(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextIn(Context)
 	 */
 	public void setContextIn(Element element, Context curContext) {
 		curContext.setGoChild(true);
-		curContext.setLineDelimiter(true);
-		curContext.setLinkTag(true);
+		curContext.setLineDelimiter(false);
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextOut(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextOut(Context)
 	 */
 	public void setContextOut(Element element, Context curContext) {
 		curContext.setGoChild(true);
-		//		curContext.setLineDelimiter(false);
-		//		curContext.setLinkTag(true);
-		curContext.setLineDelimiter(true);
-		curContext.setLinkTag(false);
+		curContext.setLineDelimiter(false);
 	}
 }

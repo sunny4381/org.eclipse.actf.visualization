@@ -8,7 +8,7 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser.internal;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import org.eclipse.actf.visualization.engines.voicebrowser.Context;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
@@ -16,10 +16,10 @@ import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
 import org.w3c.dom.Element;
 
 
-public class StaticDefaultRenderer implements IElementRenderer {
+public class StaticHRenderer implements IElementRenderer {
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionIn(Element, Context, MessageCollection)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionIn(
 		Element element,
@@ -27,36 +27,44 @@ public class StaticDefaultRenderer implements IElementRenderer {
 		String url,
 		MessageCollection mc) {
 
-		String result = OutLoud.buildResultString(mc, url, element, null, null);
-		if (result != null)
-			result = result.trim();
-		if (result != null && result.length() > 0)
-			return new PacketCollection(new Packet(element, result, ctx, true));
-		else
-			return null;
+		setContextIn(element, ctx);
+		Packet newPacket = new Packet(element, "", ctx, true);
+		return new PacketCollection(newPacket);
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionOut(Element, Context, MessageCollection)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionOut(
 		Element element,
 		Context ctx,
 		String url,
 		MessageCollection mc) {
-		return null;
+		if (ctx.isLineDelimiter()) {
+			return null;
+		} else {
+			setContextOut(element, ctx);
+			Packet newPacket = new Packet(element, "", ctx, false);
+			return new PacketCollection(newPacket);
+		}
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextIn(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextIn(Context)
 	 */
 	public void setContextIn(Element element, Context curContext) {
+		curContext.setGoChild(true);
+		curContext.setLineDelimiter(false);
+		curContext.setLinkTag(false);
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextOut(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextOut(Context)
 	 */
 	public void setContextOut(Element element, Context curContext) {
+		curContext.setGoChild(true);
+		curContext.setLineDelimiter(true);
+		curContext.setLinkTag(false);
 	}
 
 }

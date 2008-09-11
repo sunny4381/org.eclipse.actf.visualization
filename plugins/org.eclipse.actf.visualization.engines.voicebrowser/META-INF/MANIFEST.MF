@@ -3,10 +3,9 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse ACTF Voice Browser Engine Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.visualization.engines.voicebrowser
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.actf.visualization.engines.voicebrowser.JwatPlugin
 Bundle-Vendor: Eclipse.org
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.actf.ai.voice
-Eclipse-LazyStart: true
+Eclipse-LazyStart: false
 Export-Package: org.eclipse.actf.visualization.engines.voicebrowser

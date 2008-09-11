@@ -8,19 +8,17 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser.internal;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import org.eclipse.actf.visualization.engines.voicebrowser.Context;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
 import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
-public class StaticABBRRenderer implements IElementRenderer {
+public class StaticFORMRenderer implements IElementRenderer {
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionIn(Element, CurrentCursor, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionIn(
 		Element element,
@@ -31,17 +29,8 @@ public class StaticABBRRenderer implements IElementRenderer {
 		// set `context in' flags
 		setContextIn(element, curContext);
 
-		// get alt attribute
-		NamedNodeMap attrs = element.getAttributes();
-		Node node = attrs.getNamedItem("title");
-		if (node == null)
-			return null;
-
-		// get title string
-		String str = node.getNodeValue();
-		str = TextUtil.trim(str);
-		if (str.length() == 0)
-			return null;
+		// get the form number
+		int num = DomUtil.getFormNum(element);
 
 		// build result string
 		String result =
@@ -49,16 +38,14 @@ public class StaticABBRRenderer implements IElementRenderer {
 				mc,
 				url,
 				element,
+				"in",
 				null,
-				null,
-				"<name=str1>",
-				str);
-		if (result == null && OutLoud.hprDefltMsg) {
-			if (element.getNodeName().toLowerCase().equals("abbr"))
-				result = "(Abbreviation: " + str + ".)";
-			else
-				result = "(Acronym: " + str + ".)";
-		}
+				"name=num1",
+				Integer.toString(num));
+
+		if (result == null && OutLoud.hprDefltMsg)
+			result = "(Start of form " + num + ".)";
+
 		if (result != null)
 			result = result.trim();
 		return new PacketCollection(
@@ -66,7 +53,7 @@ public class StaticABBRRenderer implements IElementRenderer {
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionOut(Element, CurrentCursor, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionOut(
 		Element element,
@@ -74,24 +61,50 @@ public class StaticABBRRenderer implements IElementRenderer {
 		String url,
 		MessageCollection mc) {
 
+		// set `context out' flags
 		setContextOut(element, curContext);
 
-		return null;
+		// get the form number
+		int num = DomUtil.getFormNum(element);
+
+		// build result string
+		String result =
+			OutLoud.buildResultString(
+				mc,
+				url,
+				element,
+				"out",
+				null,
+				"name=num1",
+				Integer.toString(num));
+		if (result == null && OutLoud.hprDefltMsg)
+			result = "(End of form " + num + ".)";
+
+		if (result != null)
+			result = result.trim();
+
+		return new PacketCollection(
+			new Packet(element, result, curContext, true));
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextIn(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextIn(Context)
 	 */
 	public void setContextIn(Element element, Context curContext) {
+		curContext.setStartSelect(true);
 		curContext.setGoChild(true);
-		curContext.setLineDelimiter(false);
+		curContext.setInsideForm(true);
+		curContext.setLineDelimiter(true);
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextOut(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextOut(Context)
 	 */
 	public void setContextOut(Element element, Context curContext) {
+		curContext.setStartSelect(true);
 		curContext.setGoChild(true);
-		curContext.setLineDelimiter(false);
+		curContext.setInsideForm(false);
+		//		curContext.setLineDelimiter(false);
+		curContext.setLineDelimiter(true);
 	}
 }

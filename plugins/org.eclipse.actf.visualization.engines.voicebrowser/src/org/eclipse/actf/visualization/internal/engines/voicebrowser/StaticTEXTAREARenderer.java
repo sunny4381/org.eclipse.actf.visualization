@@ -8,7 +8,7 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser.internal;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import org.eclipse.actf.visualization.engines.voicebrowser.Context;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
@@ -16,10 +16,10 @@ import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
 import org.w3c.dom.*;
 
 
-public class StaticOPTIONRenderer implements IElementRenderer {
+public class StaticTEXTAREARenderer implements IElementRenderer {
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionIn(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionIn(
 		Element element,
@@ -32,52 +32,29 @@ public class StaticOPTIONRenderer implements IElementRenderer {
 
 		// build result string
 		String result = null;
-		String selstr = null;
 
 		Node node = element.getFirstChild();
 		if (node != null && node.getNodeType() == Node.TEXT_NODE) {
-			selstr = node.getNodeValue();
-			if (selstr.length() > 0) {
-				selstr = TextUtil.substitute(selstr, "\n", "");
-				selstr = TextUtil.trim(selstr);
-			}
-
-			int selected = 0;
-			NamedNodeMap attList = element.getAttributes();
-			for (int j = 0; j < attList.getLength(); j++) {
-				Attr att = (Attr) attList.item(j);
-				if (att.getName().equals("selected")) {
-					result =
-						OutLoud.buildResultString(
-							mc,
-							url,
-							element,
-							null,
-							"on",
-							"name=str1",
-							selstr);
-					if (result == null && OutLoud.hprDefltMsg) {
-						result = selstr + " [Selected.]";
-					}
-					selected++;
-					break;
-				}
-			}
-			if (selected == 0) {
-				curContext.setStringOutput(false);
+			String nodeValue = node.getNodeValue();
+			nodeValue = nodeValue.trim();
+			if (nodeValue.length() > 0) {
 				result =
 					OutLoud.buildResultString(
 						mc,
 						url,
 						element,
 						null,
-						"off",
+						"hasstr",
 						"name=str1",
-						selstr);
-				if (result == null && OutLoud.hprDefltMsg) {
-					result = selstr + " [Off.]";
-				}
+						nodeValue);
+				if (result == null && OutLoud.hprDefltMsg)
+					result = "[TextArea: " + nodeValue + "]";
 			}
+		}
+		if (result == null) {
+			result = OutLoud.buildResultString(mc, url, element, null, "nostr");
+			if (result == null && OutLoud.hprDefltMsg)
+				result = "[TextArea.]";
 		}
 		if (result != null)
 			result = result.trim();
@@ -86,7 +63,7 @@ public class StaticOPTIONRenderer implements IElementRenderer {
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#getPacketCollectionOut(Element, Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element, Context)
 	 */
 	public PacketCollection getPacketCollectionOut(
 		Element element,
@@ -94,24 +71,27 @@ public class StaticOPTIONRenderer implements IElementRenderer {
 		String url,
 		MessageCollection mc) {
 		setContextOut(element, curContext);
+
 		return null;
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextIn(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextIn(Context)
 	 */
 	public void setContextIn(Element element, Context curContext) {
-		curContext.setGoChild(false);
+		curContext.setGoChild(true);
 		curContext.setLineDelimiter(true);
 		curContext.setLinkTag(true);
 	}
 
 	/**
-	 * @see org.eclipse.actf.visualization.engines.voicebrowser.internal.IElementRenderer#setContextOut(Context)
+	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#setContextOut(Context)
 	 */
 	public void setContextOut(Element element, Context curContext) {
 		curContext.setGoChild(true);
-		curContext.setLineDelimiter(false);
+		//		curContext.setLineDelimiter(false);
+		//		curContext.setLinkTag(true);
+		curContext.setLineDelimiter(true);
 		curContext.setLinkTag(false);
 	}
 }
