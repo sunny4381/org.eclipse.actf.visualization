@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.internal.engines.lowvision.problem;
 
-import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
+import org.eclipse.actf.visualization.internal.engines.lowvision.DecisionMaker;
 import org.eclipse.actf.visualization.internal.engines.lowvision.Messages;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorIRGB;
@@ -19,6 +19,10 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorLAB;
 
 
 public class EnoughContrastRecommendation extends LowVisionRecommendation{
+
+	public static final float RECOMMENDED_DELTA_L_FOR_TEXT = DecisionMaker.MAX_ENOUGH_DELTA_L_FOR_TEXT + 5.0f;
+	public static final float MID_L = 50.0f;
+
 	private int originalForegroundColor = -1;
 	private int originalBackgroundColor = -1;
 	private int recommendedForegroundColor = -1; 
@@ -39,7 +43,7 @@ public class EnoughContrastRecommendation extends LowVisionRecommendation{
 		try{
 			ColorLAB foreLAB = (new ColorIRGB(originalForegroundColor)).toXYZ().toLAB();
 			ColorLAB backLAB = (new ColorIRGB(originalBackgroundColor)).toXYZ().toLAB();
-			if( ColorLAB.deltaL(foreLAB, backLAB) >= ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT ){
+			if( ColorLAB.deltaL(foreLAB, backLAB) >= EnoughContrastRecommendation.RECOMMENDED_DELTA_L_FOR_TEXT ){
 				recommendedForegroundColor = originalForegroundColor;
 				recommendedBackgroundColor = originalBackgroundColor;
 				return;
@@ -51,27 +55,27 @@ public class EnoughContrastRecommendation extends LowVisionRecommendation{
 			float backA = backLAB.getA();
 			float backB = backLAB.getB();
 			if( foreL > backL ){
-				if( backL >= ILowVisionConstant.MID_L ){
-					backL = foreL - ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
+				if( backL >= EnoughContrastRecommendation.MID_L ){
+					backL = foreL - EnoughContrastRecommendation.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
-				else if( foreL <= ILowVisionConstant.MID_L ){
-					foreL = backL + ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
+				else if( foreL <= EnoughContrastRecommendation.MID_L ){
+					foreL = backL + EnoughContrastRecommendation.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
 				else{
-					foreL = (foreL+backL+ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT)/2.0f;
-					backL = foreL - ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
+					foreL = (foreL+backL+EnoughContrastRecommendation.RECOMMENDED_DELTA_L_FOR_TEXT)/2.0f;
+					backL = foreL - EnoughContrastRecommendation.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
 			}
 			else{ // (foreL <= backL)
-				if( foreL >= ILowVisionConstant.MID_L ){
-					foreL = backL - ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
+				if( foreL >= EnoughContrastRecommendation.MID_L ){
+					foreL = backL - EnoughContrastRecommendation.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
-				else if( backL <= ILowVisionConstant.MID_L ){
-					backL = foreL + ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
+				else if( backL <= EnoughContrastRecommendation.MID_L ){
+					backL = foreL + EnoughContrastRecommendation.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
 				else{
-					backL = (foreL+backL+ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT)/2.0f;
-					foreL = backL - ILowVisionConstant.RECOMMENDED_DELTA_L_FOR_TEXT;
+					backL = (foreL+backL+EnoughContrastRecommendation.RECOMMENDED_DELTA_L_FOR_TEXT)/2.0f;
+					foreL = backL - EnoughContrastRecommendation.RECOMMENDED_DELTA_L_FOR_TEXT;
 				}
 			}
 			recommendedForegroundColor = (new ColorLAB(foreL, foreA, foreB)).toXYZ().toIRGB().toInt();

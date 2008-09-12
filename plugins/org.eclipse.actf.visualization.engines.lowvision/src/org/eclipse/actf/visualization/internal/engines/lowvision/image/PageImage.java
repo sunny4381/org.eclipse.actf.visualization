@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Vector;
 
 import org.eclipse.actf.model.ui.ImagePositionInfo;
-import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
@@ -40,11 +39,22 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisi
  * Rednered image of Web page
  * 
  */
-public class PageImage implements ILowVisionConstant, IPageImage {
+public class PageImage implements IPageImage {
 	public static final boolean DO_CHECK_CHARACTERS = false;
-
 	public static final boolean DO_CHECK_IMAGES = true;
 
+	// scroll bar
+	private static int SURROUNDINGS_WIDTH = 2;
+	private static int SCROLL_BAR_WIDTH = 20;
+	private static boolean REMOVE_SURROUNDINGS = true;
+	private static boolean REMOVE_SCROLL_BAR_AT_RIGHT = false;
+	private static boolean REMOVE_SCROLL_BAR_AT_BOTTOM = false;
+
+	// TODO relative value?
+	// the color which have only small portions in image is not handled as text candidate
+	private static int THRESHOLD_MIN_OCCURRENCES = 300;
+
+	
 	// private static final boolean DO_CHAR_TEST = false;
 
 	public IInt2D pixel = null;
@@ -88,9 +98,9 @@ public class PageImage implements ILowVisionConstant, IPageImage {
 	public PageImage(IInt2D _i2d, boolean _removeScrollBar) {
 		IInt2D i2d = null;
 		if (_removeScrollBar) {
-			if (ILowVisionConstant.REMOVE_SURROUNDINGS) {
+			if (REMOVE_SURROUNDINGS) {
 				try {
-					i2d = _i2d.cutMargin(ILowVisionConstant.SURROUNDINGS_WIDTH);
+					i2d = _i2d.cutMargin(SURROUNDINGS_WIDTH);
 				} catch (ImageException ie) {
 					// ie.printStackTrace();
 					i2d = _i2d;
@@ -98,9 +108,9 @@ public class PageImage implements ILowVisionConstant, IPageImage {
 			} else {
 				i2d = _i2d;
 			}
-			if (ILowVisionConstant.REMOVE_SCROLL_BAR_AT_RIGHT) {
-				Int2D tmpI2d = new Int2D(i2d.getWidth()
-						- ILowVisionConstant.SCROLL_BAR_WIDTH, i2d.getHeight());
+			if (REMOVE_SCROLL_BAR_AT_RIGHT) {
+				Int2D tmpI2d = new Int2D(i2d.getWidth() - SCROLL_BAR_WIDTH, i2d
+						.getHeight());
 				for (int j = 0; j < tmpI2d.getHeight(); j++) {
 					for (int i = 0; i < tmpI2d.getWidth(); i++) {
 						tmpI2d.getData()[j][i] = i2d.getData()[j][i];
@@ -108,9 +118,9 @@ public class PageImage implements ILowVisionConstant, IPageImage {
 				}
 				i2d = tmpI2d;
 			}
-			if (ILowVisionConstant.REMOVE_SCROLL_BAR_AT_BOTTOM) {
+			if (REMOVE_SCROLL_BAR_AT_BOTTOM) {
 				Int2D tmpI2d = new Int2D(i2d.getWidth(), i2d.getHeight()
-						- ILowVisionConstant.SCROLL_BAR_WIDTH);
+						- SCROLL_BAR_WIDTH);
 				for (int j = 0; j < tmpI2d.getHeight(); j++) {
 					for (int i = 0; i < tmpI2d.getWidth(); i++) {
 						tmpI2d.getData()[j][i] = i2d.getData()[j][i];
@@ -156,7 +166,9 @@ public class PageImage implements ILowVisionConstant, IPageImage {
 		return (ImageUtil.int2DToBufferedImage(pixel));
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.image.IPageImage#getInt2D()
 	 */
 	public IInt2D getInt2D() {
@@ -242,14 +254,14 @@ public class PageImage implements ILowVisionConstant, IPageImage {
 		int numImages = imagePositions.length;
 		Vector<InteriorImage> imageVector = new Vector<InteriorImage>();
 
-		if (ILowVisionConstant.REMOVE_SURROUNDINGS) {
+		if (REMOVE_SURROUNDINGS) {
 			for (int k = 0; k < numImages; k++) {
 				ImagePositionInfo pos = imagePositions[k];
-				pos.setX(pos.getX() - ILowVisionConstant.SURROUNDINGS_WIDTH);
+				pos.setX(pos.getX() - SURROUNDINGS_WIDTH);
 				if (pos.getX() < 0) {
 					pos.setX(0);
 				}
-				pos.setY(pos.getY() - ILowVisionConstant.SURROUNDINGS_WIDTH);
+				pos.setY(pos.getY() - SURROUNDINGS_WIDTH);
 				if (pos.getY() < 0) {
 					pos.setY(0);
 				}
@@ -310,7 +322,7 @@ public class PageImage implements ILowVisionConstant, IPageImage {
 		numProcessedColors = len;
 		ColorHistogramBin[] histoArray = histogram.getSortedArrayByOccurrence();
 		for (int i = 0; i < len; i++) {
-			if (histoArray[i].occurrence < THRESHOLD_MIN_OCCURRENCES) {
+			if (histoArray[i].occurrence < PageImage.THRESHOLD_MIN_OCCURRENCES) {
 				numProcessedColors = i;
 				break;
 			}
@@ -844,8 +856,9 @@ public class PageImage implements ILowVisionConstant, IPageImage {
 		return (null);
 	}
 
-	public List<IProblemItem> checkCharacters(LowVisionType _lvType, String urlS, int frameId)
-			throws ImageException, LowVisionProblemException {
+	public List<IProblemItem> checkCharacters(LowVisionType _lvType,
+			String urlS, int frameId) throws ImageException,
+			LowVisionProblemException {
 		LowVisionProblemGroup[] charProblemGroupArray = null;
 		LowVisionProblemGroup[] imgProblemGroupArray = null;
 		LowVisionProblemGroup[] answerArray = null;

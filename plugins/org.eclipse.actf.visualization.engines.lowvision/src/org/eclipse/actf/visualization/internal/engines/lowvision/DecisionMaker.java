@@ -11,7 +11,6 @@
 
 package org.eclipse.actf.visualization.internal.engines.lowvision;
 
-import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
@@ -36,12 +35,60 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisi
  * Check color combination by using threshold (in LowvisionCommon)
  * 
  */
-public class DecisionMaker implements ILowVisionConstant {
+public class DecisionMaker {
+
+	// thresholds for char check
+	public static final double THRESHOLD_MIN_CHAR_RATIO = 0.1;
+	public static final double THRESHOLD_MAX_CHAR_RATIO = 10.0;
+	public static final double THRESHOLD_MIN_CONTAINER_DENSITY = 0.4;
+	public static final double THRESHOLD_MAX_CHARACTER_DENSITY = 0.75;
+	public static final double THRESHOLD_MIN_THINNING_RATIO = 0.25; // 
+	public static final double THRESHOLD_MIN_UNDERLINE_POSITION = 0.85;
+	public static final double THRESHOLD_MIN_UNDERLINE_WIDTH_RATIO = 0.95;
+	public static final double THRESHOLD_MIN_UNDERLINE_RATIO = 3.0;
+	public static final int THRESHOLD_MIN_CHAR_WIDTH = 5;
+	public static final int THRESHOLD_MAX_CHAR_WIDTH = 72;
+	public static final int THRESHOLD_MIN_CHAR_HEIGHT = 5;
+	public static final int THRESHOLD_MAX_CHAR_HEIGHT = 100;
+	public static final int THRESHOLD_MAX_THINNED_BRANCHES = 8;
+	public static final int THRESHOLD_MAX_THINNED_CROSSES = 8;
+	public static final int THRESHOLD_MIN_MSCHAR_WIDTH = 10;
+	public static final int THRESHOLD_MIN_MSCHAR_HEIGHT = 10;
+	public static final int THRESHOLD_MAX_MSCHAR_HEIGHT = 100;
+	public static final int THRESHOLD_MIN_SMCHAR_WIDTH = 10;
+	public static final int THRESHOLD_MIN_SMCHAR_HEIGHT = 10;
+	public static final int THRESHOLD_MAX_SMCHAR_HEIGHT = 100;
+
+	// check fg/bg color
+	public static final double THRESHOLD_FOREGROUND_RATIO = 0.25;
+	// error margin
+	public static final double THRESHOLD_FOREGROUND_ERROR_MARGIN = 1.5;
+	public static final float THRESHOLD_LIMIT_BLURRED_WIDTH_RATIO = 3.0f;
+	public static final float THRESHOLD_LIMIT_BLURRED_HEIGHT_RATIO = 3.0f;
+	// Problem grouping
+	public static final int THRESHOLD_MAX_CHARACTER_SPACE = 7; // word
+	public static final int THRESHOLD_MAX_REGION_ELEMENT_SPACE = 80;
+	public static final int THRESHOLD_MAX_GROUPED_CONTAINER_WIDTH = 300;
+	public static final int THRESHOLD_MAX_GROUPED_CONTAINER_HEIGHT = 300;
+
+	// severity/color mapping
+	public static final double SCORE_ORANGE = 0.5;
+	public static final double SCORE_RED = 1.0;
+
+	// color combination check (image)
+	public static final float ENOUGH_DELTA_E_FOR_IMAGE = 40.0f;
+	// color combination check (text)
+	public static final float MIN_ENOUGH_DELTA_L_FOR_TEXT = 20.0f; // enough L
+																	// (L*a*b*)
+	public static final float MAX_ENOUGH_DELTA_L_FOR_TEXT = 40.0f; // (L*a*b*)
+	public static final float ENOUGH_DELTA_E_FOR_TEXT = 100.0f; // (L*a*b*)
+	public static final float ENOUGH_DELTA_H_FOR_TEXT = 100.0f; // (L*a*b*)
+
 	// // for PageImage
 	//
 	// check connected component or not
-	public static short judgeComponentType(ConnectedComponent _cc, IPageImage _pi)
-			throws ImageException {
+	public static short judgeComponentType(ConnectedComponent _cc,
+			IPageImage _pi) throws ImageException {
 		return (judgeComponentType(_cc, _pi, false));
 	}
 
@@ -54,8 +101,8 @@ public class DecisionMaker implements ILowVisionConstant {
 		int cHeight = shape.getHeight();
 
 		// very small
-		if (cWidth < THRESHOLD_MIN_CHAR_WIDTH
-				|| cHeight < THRESHOLD_MIN_CHAR_HEIGHT) {
+		if (cWidth < DecisionMaker.THRESHOLD_MIN_CHAR_WIDTH
+				|| cHeight < DecisionMaker.THRESHOLD_MIN_CHAR_HEIGHT) {
 			return (PageComponent.OTHER_TYPE );
 		}
 
@@ -71,21 +118,21 @@ public class DecisionMaker implements ILowVisionConstant {
 		double position = (double) (horSeg.getLeftPoint().getY())
 				/ (double) cHeight;
 		double ratio = (double) cWidth / (double) cHeight;
-		if (widthRatio >= THRESHOLD_MIN_UNDERLINE_WIDTH_RATIO
-				&& position >= THRESHOLD_MIN_UNDERLINE_POSITION
-				&& ratio >= THRESHOLD_MIN_UNDERLINE_RATIO
-				&& density < THRESHOLD_MIN_CONTAINER_DENSITY) {
+		if (widthRatio >= DecisionMaker.THRESHOLD_MIN_UNDERLINE_WIDTH_RATIO
+				&& position >= DecisionMaker.THRESHOLD_MIN_UNDERLINE_POSITION
+				&& ratio >= DecisionMaker.THRESHOLD_MIN_UNDERLINE_RATIO
+				&& density < DecisionMaker.THRESHOLD_MIN_CONTAINER_DENSITY) {
 			return (PageComponent.CANDIDATE_UNDERLINED_CHARACTER_TYPE );
 		}
 
 		// container
-		if ((cWidth > THRESHOLD_MAX_CHAR_WIDTH || cHeight > THRESHOLD_MAX_CHAR_HEIGHT)) {
+		if ((cWidth > DecisionMaker.THRESHOLD_MAX_CHAR_WIDTH || cHeight > DecisionMaker.THRESHOLD_MAX_CHAR_HEIGHT)) {
 			return (PageComponent.CONTAINER_TYPE );
 		}
 
 		// small (might be line)
-		if (ratio < THRESHOLD_MIN_CHAR_RATIO
-				|| THRESHOLD_MAX_CHAR_RATIO < ratio) {
+		if (ratio < DecisionMaker.THRESHOLD_MIN_CHAR_RATIO
+				|| DecisionMaker.THRESHOLD_MAX_CHAR_RATIO < ratio) {
 			return (PageComponent.OTHER_TYPE );
 		}
 
@@ -114,15 +161,15 @@ public class DecisionMaker implements ILowVisionConstant {
 
 		// thinning
 		ConnectedComponent thinCc = _cc.thinning();
-		if ((double) (thinCc.getCount()) / (double) (_cc.getCount()) < THRESHOLD_MIN_THINNING_RATIO) {
+		if ((double) (thinCc.getCount()) / (double) (_cc.getCount()) < DecisionMaker.THRESHOLD_MIN_THINNING_RATIO) {
 			return (PageComponent.OTHER_TYPE );
 		}
 
 		Topology thinTopo = new Topology(thinCc);
-		if (thinTopo.getNumBranches() > THRESHOLD_MAX_THINNED_BRANCHES) {
+		if (thinTopo.getNumBranches() > DecisionMaker.THRESHOLD_MAX_THINNED_BRANCHES) {
 			return (PageComponent.OTHER_TYPE );
 		}
-		if (thinTopo.getNumCrosses() > THRESHOLD_MAX_THINNED_CROSSES) {
+		if (thinTopo.getNumCrosses() > DecisionMaker.THRESHOLD_MAX_THINNED_CROSSES) {
 			return (PageComponent.OTHER_TYPE );
 		}
 
@@ -153,11 +200,11 @@ public class DecisionMaker implements ILowVisionConstant {
 		int cHeight = shape.getHeight();
 
 		// too small
-		if (cWidth < THRESHOLD_MIN_MSCHAR_WIDTH
-				|| cHeight < THRESHOLD_MIN_MSCHAR_HEIGHT) {
+		if (cWidth < DecisionMaker.THRESHOLD_MIN_MSCHAR_WIDTH
+				|| cHeight < DecisionMaker.THRESHOLD_MIN_MSCHAR_HEIGHT) {
 			return (false);
 		}
-		if (cHeight > THRESHOLD_MAX_MSCHAR_HEIGHT) {
+		if (cHeight > DecisionMaker.THRESHOLD_MAX_MSCHAR_HEIGHT) {
 			return (false);
 		}
 		/*
@@ -177,7 +224,7 @@ public class DecisionMaker implements ILowVisionConstant {
 		ConnectedComponent thinCc = curCc.thinning();
 		double ratio = (double) (thinCc.getCount())
 				/ (double) (curCc.getCount());
-		if (ratio < THRESHOLD_MIN_THINNING_RATIO) {
+		if (ratio < DecisionMaker.THRESHOLD_MIN_THINNING_RATIO) {
 			return (true);
 		}
 		return (false);
@@ -190,8 +237,9 @@ public class DecisionMaker implements ILowVisionConstant {
 		int sumB = 0;
 		int w = _smc.getWidth();
 		int h = _smc.getHeight();
-		if (w < THRESHOLD_MIN_SMCHAR_WIDTH || h < THRESHOLD_MIN_SMCHAR_HEIGHT
-				|| h > THRESHOLD_MAX_SMCHAR_HEIGHT) {
+		if (w < DecisionMaker.THRESHOLD_MIN_SMCHAR_WIDTH
+				|| h < DecisionMaker.THRESHOLD_MIN_SMCHAR_HEIGHT
+				|| h > DecisionMaker.THRESHOLD_MAX_SMCHAR_HEIGHT) {
 			return (false);
 		}
 		ConnectedComponent cc = _smc.getConnectedComponent();
@@ -242,13 +290,13 @@ public class DecisionMaker implements ILowVisionConstant {
 		// double deltaH = ColorLAB.deltaH( _c1, _c2 );
 
 		// minimum delta of brightness
-		if (deltaL < MIN_ENOUGH_DELTA_L_FOR_TEXT) {
+		if (deltaL < DecisionMaker.MIN_ENOUGH_DELTA_L_FOR_TEXT) {
 			return (false);
 		}
 
 		// enough chroma/hue difference
 		// (required delta of brightness becomes small)
-		if (deltaE >= ENOUGH_DELTA_E_FOR_TEXT) {
+		if (deltaE >= DecisionMaker.ENOUGH_DELTA_E_FOR_TEXT) {
 			return (true);
 		}
 		// if( deltaH >= ENOUGH_DELTA_H_FOR_TEXT ){
@@ -296,10 +344,10 @@ public class DecisionMaker implements ILowVisionConstant {
 	// obtain threshold of brightness from chroma/hue
 	public static double calcThresholdLforText(ColorLAB _c1, ColorLAB _c2) {
 		double deltaE = ColorLAB.deltaE(_c1, _c2);
-		double thresholdL = (MIN_ENOUGH_DELTA_L_FOR_TEXT - MAX_ENOUGH_DELTA_L_FOR_TEXT)
-				/ ENOUGH_DELTA_E_FOR_TEXT
+		double thresholdL = (DecisionMaker.MIN_ENOUGH_DELTA_L_FOR_TEXT - DecisionMaker.MAX_ENOUGH_DELTA_L_FOR_TEXT)
+				/ DecisionMaker.ENOUGH_DELTA_E_FOR_TEXT
 				* deltaE
-				+ MAX_ENOUGH_DELTA_L_FOR_TEXT;
+				+ DecisionMaker.MAX_ENOUGH_DELTA_L_FOR_TEXT;
 		if (thresholdL < 0.0) {
 			thresholdL = 0.0;
 		}
@@ -353,7 +401,7 @@ public class DecisionMaker implements ILowVisionConstant {
 	}
 
 	public static double calcColorDistanceForImage(ColorLAB _c1, ColorLAB _c2) {
-		return (ColorLAB.deltaE(_c1, _c2) / ENOUGH_DELTA_E_FOR_IMAGE);
+		return (ColorLAB.deltaE(_c1, _c2) / DecisionMaker.ENOUGH_DELTA_E_FOR_IMAGE);
 	}
 
 	public static double calcColorDistanceForImage(int _c1, int _c2)
@@ -386,7 +434,7 @@ public class DecisionMaker implements ILowVisionConstant {
 
 			double distance = Vector3D
 					.magnitude(Vector3D.subtract(foreV, colV));
-			if (distance <= THRESHOLD_FOREGROUND_ERROR_MARGIN) {
+			if (distance <= DecisionMaker.THRESHOLD_FOREGROUND_ERROR_MARGIN) {
 				return (true);
 			} else {
 				return (false);
@@ -404,12 +452,12 @@ public class DecisionMaker implements ILowVisionConstant {
 			e.printStackTrace();
 		}
 
-		if (rCol * sinTheta > THRESHOLD_FOREGROUND_ERROR_MARGIN) {
+		if (rCol * sinTheta > DecisionMaker.THRESHOLD_FOREGROUND_ERROR_MARGIN) {
 			return (false);
 		}
 
 		double ratio = rCol * cosTheta / rFore;
-		if (ratio < THRESHOLD_FOREGROUND_RATIO || 1.0 < ratio) {
+		if (ratio < DecisionMaker.THRESHOLD_FOREGROUND_RATIO || 1.0 < ratio) {
 			return (false);
 		}
 
@@ -428,8 +476,9 @@ public class DecisionMaker implements ILowVisionConstant {
 	public static int calcSearchMinX(int _origLeft, int _origWidth,
 			int _pageWidth) {
 		int tmpX = _origLeft
-				- Math.round((THRESHOLD_LIMIT_BLURRED_WIDTH_RATIO - 1.0f)
-						/ 2.0f * _origWidth);
+				- Math
+						.round((DecisionMaker.THRESHOLD_LIMIT_BLURRED_WIDTH_RATIO - 1.0f)
+								/ 2.0f * _origWidth);
 		if (tmpX < 0) {
 			tmpX = 0;
 		}
@@ -440,8 +489,9 @@ public class DecisionMaker implements ILowVisionConstant {
 			int _pageWidth) {
 		int tmpX = _origLeft
 				+ _origWidth
-				+ Math.round((THRESHOLD_LIMIT_BLURRED_WIDTH_RATIO - 1.0f)
-						/ 2.0f * _origWidth);
+				+ Math
+						.round((DecisionMaker.THRESHOLD_LIMIT_BLURRED_WIDTH_RATIO - 1.0f)
+								/ 2.0f * _origWidth);
 		if (tmpX > _pageWidth - 1) {
 			tmpX = _pageWidth - 1;
 		}
@@ -451,8 +501,9 @@ public class DecisionMaker implements ILowVisionConstant {
 	public static int calcSearchMinY(int _origTop, int _origHeight,
 			int _pageHeight) {
 		int tmpY = _origTop
-				- Math.round((THRESHOLD_LIMIT_BLURRED_HEIGHT_RATIO - 1.0f)
-						/ 2.0f * _origHeight);
+				- Math
+						.round((DecisionMaker.THRESHOLD_LIMIT_BLURRED_HEIGHT_RATIO - 1.0f)
+								/ 2.0f * _origHeight);
 		if (tmpY < 0) {
 			tmpY = 0;
 		}
@@ -463,8 +514,9 @@ public class DecisionMaker implements ILowVisionConstant {
 			int _pageHeight) {
 		int tmpY = _origTop
 				+ _origHeight
-				+ Math.round((THRESHOLD_LIMIT_BLURRED_HEIGHT_RATIO - 1.0f)
-						/ 2.0f * _origHeight);
+				+ Math
+						.round((DecisionMaker.THRESHOLD_LIMIT_BLURRED_HEIGHT_RATIO - 1.0f)
+								/ 2.0f * _origHeight);
 		if (tmpY > _pageHeight - 1) {
 			tmpY = _pageHeight - 1;
 		}
@@ -555,8 +607,8 @@ public class DecisionMaker implements ILowVisionConstant {
 		Container cont = null;
 		cont = _p1.getPageComponent().getContainer();
 		if (cont != null) {
-			if (cont.getWidth() <= THRESHOLD_MAX_GROUPED_CONTAINER_WIDTH
-					&& cont.getHeight() <= THRESHOLD_MAX_GROUPED_CONTAINER_HEIGHT) {
+			if (cont.getWidth() <= DecisionMaker.THRESHOLD_MAX_GROUPED_CONTAINER_WIDTH
+					&& cont.getHeight() <= DecisionMaker.THRESHOLD_MAX_GROUPED_CONTAINER_HEIGHT) {
 				return (true);
 			}
 		}
@@ -570,58 +622,59 @@ public class DecisionMaker implements ILowVisionConstant {
 		int top2 = _p2.getY();
 		int bottom2 = top2 + _p2.getHeight() - 1;
 
-		if (left1 - right2 > THRESHOLD_MAX_REGION_ELEMENT_SPACE
-				|| left2 - right1 > THRESHOLD_MAX_REGION_ELEMENT_SPACE) {
+		if (left1 - right2 > DecisionMaker.THRESHOLD_MAX_REGION_ELEMENT_SPACE
+				|| left2 - right1 > DecisionMaker.THRESHOLD_MAX_REGION_ELEMENT_SPACE) {
 			return (false);
 		}
-		if (top1 - bottom2 > THRESHOLD_MAX_REGION_ELEMENT_SPACE
-				|| top2 - bottom1 > THRESHOLD_MAX_REGION_ELEMENT_SPACE) {
+		if (top1 - bottom2 > DecisionMaker.THRESHOLD_MAX_REGION_ELEMENT_SPACE
+				|| top2 - bottom1 > DecisionMaker.THRESHOLD_MAX_REGION_ELEMENT_SPACE) {
 			return (false);
 		}
 
 		return (true);
 	}
 
-//	/*
-//	 * same Y region, near (X) -> word
-//	 */
-//	public static boolean areSameGroupProblems(LowVisionProblem _p1,
-//			LowVisionProblem _p2) throws ImageException { //
-//		if (_p1.isGroup() || _p2.isGroup()) {
-//			throw new ImageException("ProblemGroup cannot be grouped any more.");
-//		}
-//		if (_p1.getLowVisionProblemType() != _p2.getLowVisionProblemType()) {
-//			return (false);
-//		}
-//
-//		int left1 = _p1.getX();
-//		int right1 = left1 + _p1.getWidth() - 1;
-//		int top1 = _p1.getY();
-//		int bottom1 = top1 + _p1.getHeight() - 1;
-//		int left2 = _p2.getX();
-//		int right2 = left2 + _p2.getWidth() - 1;
-//		int top2 = _p2.getY();
-//		int bottom2 = top2 + _p2.getHeight() - 1;
-//		if (left1 - right2 > THRESHOLD_MAX_CHARACTER_SPACE
-//				|| left2 - right1 > THRESHOLD_MAX_CHARACTER_SPACE) {
-//			return (false);
-//		}
-//		if (bottom1 < top2 || bottom2 < top1) {
-//			return (false);
-//		}
-//		return (true);
-//	}
+	// /*
+	// * same Y region, near (X) -> word
+	// */
+	// public static boolean areSameGroupProblems(LowVisionProblem _p1,
+	// LowVisionProblem _p2) throws ImageException { //
+	// if (_p1.isGroup() || _p2.isGroup()) {
+	// throw new ImageException("ProblemGroup cannot be grouped any more.");
+	// }
+	// if (_p1.getLowVisionProblemType() != _p2.getLowVisionProblemType()) {
+	// return (false);
+	// }
+	//
+	// int left1 = _p1.getX();
+	// int right1 = left1 + _p1.getWidth() - 1;
+	// int top1 = _p1.getY();
+	// int bottom1 = top1 + _p1.getHeight() - 1;
+	// int left2 = _p2.getX();
+	// int right2 = left2 + _p2.getWidth() - 1;
+	// int top2 = _p2.getY();
+	// int bottom2 = top2 + _p2.getHeight() - 1;
+	// if (left1 - right2 > THRESHOLD_MAX_CHARACTER_SPACE
+	// || left2 - right1 > THRESHOLD_MAX_CHARACTER_SPACE) {
+	// return (false);
+	// }
+	// if (bottom1 < top2 || bottom2 < top1) {
+	// return (false);
+	// }
+	// return (true);
+	// }
 
-	//return color for the score map
+	// return color for the score map
 	public static int getScoreMapColor(double _score) {
 		if (_score <= 0.0) {
 			return (0x00aaaaaa);
-		} else if (_score < SCORE_ORANGE) {
+		} else if (_score < DecisionMaker.SCORE_ORANGE) {
 			return (0x00ffff00);
-		} else if (_score < SCORE_RED) {
+		} else if (_score < DecisionMaker.SCORE_RED) {
 			return (0x00ff7700);
 		} else {
 			return (0x00ff0000);
 		}
 	}
+
 }

@@ -16,7 +16,6 @@ import java.util.HashMap;
 import java.util.Stack;
 import java.util.Vector;
 
-import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
@@ -38,9 +37,15 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisi
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
 
-public class CharacterChecker implements ILowVisionConstant {
+public class CharacterChecker {
 
 	// separated from PageImage
+
+	/*
+	 * Extract method for SM char is not perfect. (e.g., extract chars with
+	 * shadow, etc...) So, set strict threshold.
+	 */
+	public static final double THRESHOLD_MIN_SM_COLOR_PROBLEM_RATIO = 0.8;
 
 	private PageImage pageImage;
 
@@ -165,12 +170,12 @@ public class CharacterChecker implements ILowVisionConstant {
 	private LowVisionProblem simulateAndCheckMSCharacter(CharacterMS _msc,
 			LowVisionType _lvType, int _bg) throws ImageException,
 			LowVisionProblemException {
-		/* Color change-> already simulated & checked*/		
+		/* Color change-> already simulated & checked */
 
 		if (!_lvType.doBlur()) {
 			return (null);
 		}
-		
+
 		// add margin (for Blur filter)
 		int margin = 0;
 		if (_lvType.getEyesight()) {
@@ -191,8 +196,8 @@ public class CharacterChecker implements ILowVisionConstant {
 		}
 
 		/*
-		 * Create BinaryImage from simulated image (with 1 margin)
-		 * (cut most outside margin <- blacken by BlurOp)
+		 * Create BinaryImage from simulated image (with 1 margin) (cut most
+		 * outside margin <- blacken by BlurOp)
 		 */
 		int afterWidth = afterI2d.getWidth() - 2 * margin;
 		int afterHeight = afterI2d.getHeight() - 2 * margin;
@@ -257,8 +262,8 @@ public class CharacterChecker implements ILowVisionConstant {
 	private LowVisionProblem simulateAndCheckSMCharacter(CharacterSM _smc,
 			LowVisionType _lvType, int _fg) throws ImageException,
 			LowVisionProblemException {
-		/* Color change-> already simulated & checked*/				
-		
+		/* Color change-> already simulated & checked */
+
 		if (!_lvType.doBlur()) {
 			return (null);
 		}
@@ -283,8 +288,8 @@ public class CharacterChecker implements ILowVisionConstant {
 		}
 
 		/*
-		 * Create BinaryImage from simulated image (with 1 margin)
-		 * (cut most outside margin <- blacken by BlurOp)
+		 * Create BinaryImage from simulated image (with 1 margin) (cut most
+		 * outside margin <- blacken by BlurOp)
 		 */
 		int afterWidth = afterI2d.getWidth() - 2 * margin;
 		int afterHeight = afterI2d.getHeight() - 2 * margin;
@@ -501,9 +506,9 @@ public class CharacterChecker implements ILowVisionConstant {
 
 				double badRatio = (double) badCount
 						/ (double) (w * h - _smc.cc.getCount());
-				if (badRatio >= THRESHOLD_MIN_SM_COLOR_PROBLEM_RATIO) {
-					double probability = (badRatio - THRESHOLD_MIN_SM_COLOR_PROBLEM_RATIO)
-							/ (1.0 - THRESHOLD_MIN_SM_COLOR_PROBLEM_RATIO);
+				if (badRatio >= CharacterChecker.THRESHOLD_MIN_SM_COLOR_PROBLEM_RATIO) {
+					double probability = (badRatio - CharacterChecker.THRESHOLD_MIN_SM_COLOR_PROBLEM_RATIO)
+							/ (1.0 - CharacterChecker.THRESHOLD_MIN_SM_COLOR_PROBLEM_RATIO);
 					return (new ColorProblem(_smc, _lvType, probability));
 				}
 			} catch (Exception e) {

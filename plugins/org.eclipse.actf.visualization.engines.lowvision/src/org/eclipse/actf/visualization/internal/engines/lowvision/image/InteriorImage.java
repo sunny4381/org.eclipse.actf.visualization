@@ -17,7 +17,6 @@ import java.util.Comparator;
 import java.util.Vector;
 
 import org.eclipse.actf.model.ui.ImagePositionInfo;
-import org.eclipse.actf.visualization.engines.lowvision.ILowVisionConstant;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
@@ -33,6 +32,17 @@ public class InteriorImage extends PageComponent {
 
 	public static final int UNSET = -1;
 
+	// check color combination (image)
+	// See InteriorImage.java
+	public static final double THRESHOLD_MIN_IMAGE_COLOR_PROBLEM_PROBABILITY = 0.2;
+
+	//// InteriorImage
+	// minimum pixels/occupation to be considered as LargeComponent
+	public static final int THRESHOLD_MIN_LARGE_COMPONENT_PIXELS = 100;
+
+	public static final double THRESHOLD_MIN_LARGE_COMPONENT_OCCUPATION = 0.0005;
+
+	
 	int left = UNSET; // relative position
 
 	int top = UNSET; // relative position
@@ -136,7 +146,7 @@ public class InteriorImage extends PageComponent {
 		int numProcessedColors = histoSize;
 		ColorHistogramBin[] histoArray = histo.getSortedArrayByOccurrence();
 		for (int i = 0; i < histoSize; i++) {
-			if (histoArray[i].occurrence < ILowVisionConstant.THRESHOLD_MIN_LARGE_COMPONENT_PIXELS) {
+			if (histoArray[i].occurrence < InteriorImage.THRESHOLD_MIN_LARGE_COMPONENT_PIXELS) {
 				numProcessedColors = i;
 				break;
 			}
@@ -156,7 +166,7 @@ public class InteriorImage extends PageComponent {
 
 			for (int l = 0; l < numComponents; l++) {
 				ConnectedComponent curCc = components[l];
-				if (curCc.getCount() >= ILowVisionConstant.THRESHOLD_MIN_LARGE_COMPONENT_PIXELS) {
+				if (curCc.getCount() >= InteriorImage.THRESHOLD_MIN_LARGE_COMPONENT_PIXELS) {
 					currentVector.addElement(curCc);
 				}
 			}
@@ -164,7 +174,7 @@ public class InteriorImage extends PageComponent {
 			if (currentVector.size() > 0) {
 				InteriorImageComponent iic = new InteriorImageComponent(this,
 						curColor, currentVector);
-				if (iic.occupation >= ILowVisionConstant.THRESHOLD_MIN_LARGE_COMPONENT_OCCUPATION) {
+				if (iic.occupation >= InteriorImage.THRESHOLD_MIN_LARGE_COMPONENT_OCCUPATION) {
 					largeComponentVector.addElement(iic);
 				}
 				currentVector.removeAllElements();
@@ -229,7 +239,7 @@ public class InteriorImage extends PageComponent {
 						double probability = 1.0 - DecisionMaker
 								.calcColorDistanceForImage(convColor1,
 										convColor2);
-						if (probability < ILowVisionConstant.THRESHOLD_MIN_IMAGE_COLOR_PROBLEM_PROBABILITY) {
+						if (probability < InteriorImage.THRESHOLD_MIN_IMAGE_COLOR_PROBLEM_PROBABILITY) {
 							continue;
 						}
 
