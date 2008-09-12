@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report;
+package org.eclipse.actf.visualization.internal.ui.report;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -20,8 +20,8 @@ import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemConst;
-import org.eclipse.actf.visualization.ui.report.table.ResultTableFilter;
-import org.eclipse.actf.visualization.ui.report.table.ResultTableViewer;
+import org.eclipse.actf.visualization.internal.ui.report.table.ResultTableFilter;
+import org.eclipse.actf.visualization.internal.ui.report.table.ResultTableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;

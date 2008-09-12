@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report.table;
+package org.eclipse.actf.visualization.internal.ui.report.table;
 
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.jface.viewers.Viewer;

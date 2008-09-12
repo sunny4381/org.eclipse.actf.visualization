@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report.srcviewer;
+package org.eclipse.actf.visualization.internal.ui.report.srcviewer;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,7 +20,7 @@ import java.util.Vector;
 
 import org.eclipse.actf.util.JapaneseEncodingDetector;
 import org.eclipse.actf.visualization.IVisualizationConst;
-import org.eclipse.actf.visualization.ui.report.internal.Messages;
+import org.eclipse.actf.visualization.internal.ui.report.Messages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;

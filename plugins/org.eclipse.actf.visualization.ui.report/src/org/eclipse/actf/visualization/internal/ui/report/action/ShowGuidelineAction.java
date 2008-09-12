@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report.table.popup;
+package org.eclipse.actf.visualization.internal.ui.report.action;
 
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
 import org.eclipse.jface.action.Action;

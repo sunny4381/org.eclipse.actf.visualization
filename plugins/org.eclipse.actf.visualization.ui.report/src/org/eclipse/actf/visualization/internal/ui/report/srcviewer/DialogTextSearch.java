@@ -8,10 +8,10 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report.srcviewer;
+package org.eclipse.actf.visualization.internal.ui.report.srcviewer;
 
 import org.eclipse.actf.ui.util.IDialogConstants;
-import org.eclipse.actf.visualization.ui.report.internal.Messages;
+import org.eclipse.actf.visualization.internal.ui.report.Messages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyEvent;

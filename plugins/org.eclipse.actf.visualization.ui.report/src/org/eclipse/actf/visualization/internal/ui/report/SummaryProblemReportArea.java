@@ -8,7 +8,7 @@
  * Contributors:
  *    Norimasa HAYASHIDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report;
+package org.eclipse.actf.visualization.internal.ui.report;
 
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.swt.SWT;

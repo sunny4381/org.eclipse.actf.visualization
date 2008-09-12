@@ -8,12 +8,12 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report;
+package org.eclipse.actf.visualization.internal.ui.report;
 
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
+import org.eclipse.actf.visualization.internal.ui.report.table.ResultTableViewer;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
-import org.eclipse.actf.visualization.ui.report.table.ResultTableViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.GridData;

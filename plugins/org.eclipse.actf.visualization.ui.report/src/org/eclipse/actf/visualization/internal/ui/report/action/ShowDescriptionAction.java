@@ -9,13 +9,13 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.ui.report.table.popup;
+package org.eclipse.actf.visualization.internal.ui.report.action;
 
 import java.util.List;
 
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemConst;
-import org.eclipse.actf.visualization.ui.report.internal.Messages;
+import org.eclipse.actf.visualization.internal.ui.report.Messages;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;

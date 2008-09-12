@@ -15,7 +15,7 @@ import org.eclipse.actf.mediator.IACTFReportViewer;
 import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.visualization.eval.EvaluationResultImpl;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
-import org.eclipse.actf.visualization.ui.report.SummaryProblemReportArea;
+import org.eclipse.actf.visualization.internal.ui.report.SummaryProblemReportArea;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;

@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report.table;
+package org.eclipse.actf.visualization.internal.ui.report.table;
 
 import java.io.File;
 import java.util.Vector;
@@ -22,12 +22,15 @@ import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEv
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemConst;
+import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
+import org.eclipse.actf.visualization.internal.ui.report.action.ClearSelectionAction;
+import org.eclipse.actf.visualization.internal.ui.report.action.GuidelineSubMenu;
+import org.eclipse.actf.visualization.internal.ui.report.action.ShowDescriptionAction;
+import org.eclipse.actf.visualization.internal.ui.report.action.SrcHighlightAction;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
-import org.eclipse.actf.visualization.ui.report.ReportPlugin;
-import org.eclipse.actf.visualization.ui.report.table.popup.ClearSelectionAction;
-import org.eclipse.actf.visualization.ui.report.table.popup.GuidelineSubMenu;
-import org.eclipse.actf.visualization.ui.report.table.popup.ShowDescriptionAction;
-import org.eclipse.actf.visualization.ui.report.table.popup.SrcHighlightAction;
+import org.eclipse.actf.visualization.ui.report.table.IResultTableSorter;
+import org.eclipse.actf.visualization.ui.report.table.ResultTableSorter;
+import org.eclipse.actf.visualization.ui.report.table.SrcViewerForPT;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.TableViewer;

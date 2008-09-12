@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report.table.popup;
+package org.eclipse.actf.visualization.internal.ui.report.action;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +17,8 @@ import java.util.List;
 
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.ui.report.internal.Messages;
-import org.eclipse.actf.visualization.ui.report.table.ResultTableViewer;
+import org.eclipse.actf.visualization.internal.ui.report.Messages;
+import org.eclipse.actf.visualization.internal.ui.report.table.ResultTableViewer;
 import org.eclipse.actf.visualization.ui.report.table.SrcViewerForPT;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;

@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.ui.report.table;
 import org.eclipse.actf.visualization.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.ui.report.ReportPlugin;
+import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;

@@ -8,7 +8,7 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report;
+package org.eclipse.actf.visualization.internal.ui.report;
 
 import java.io.File;
 
