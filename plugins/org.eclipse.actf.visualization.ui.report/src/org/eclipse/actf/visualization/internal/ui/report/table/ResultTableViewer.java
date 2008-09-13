@@ -25,7 +25,7 @@ import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEv
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.ProblemConst;
+import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
 import org.eclipse.actf.visualization.internal.ui.report.action.ClearSelectionAction;
 import org.eclipse.actf.visualization.internal.ui.report.action.GuidelineSubMenu;
@@ -197,7 +197,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			columns[i].setResizable(true);
 		}
 
-		columns[curPos].setText(ProblemConst.TITLE_HIGHLIGHT);
+		columns[curPos].setText(IProblemConst.TITLE_HIGHLIGHT);
 		columns[curPos].setWidth(25);
 		curPos++;
 
@@ -254,11 +254,11 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			curPos++;
 		}
 
-		columns[curPos].setText(ProblemConst.TITLE_LINE);
+		columns[curPos].setText(IProblemConst.TITLE_LINE);
 		columns[curPos].setWidth(60);
 		curPos++;
 
-		columns[curPos].setText(ProblemConst.TITLE_DESCRIPTION);
+		columns[curPos].setText(IProblemConst.TITLE_DESCRIPTION);
 		columns[curPos].setWidth(1000);
 		curPos++;
 
@@ -279,7 +279,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			columns[i].setResizable(true);
 		}
 
-		columns[curPos].setText(ProblemConst.TITLE_ICON);
+		columns[curPos].setText(IProblemConst.TITLE_ICON);
 		columns[curPos].setWidth(45);
 		curPos++;
 
@@ -290,26 +290,26 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			curPos++;
 		}
 
-		columns[curPos].setText(ProblemConst.TITLE_SEVERITY);
+		columns[curPos].setText(IProblemConst.TITLE_SEVERITY);
 		columns[curPos].setWidth(60);
 		curPos++;
-		columns[curPos].setText(ProblemConst.TITLE_FORECOLOR);
+		columns[curPos].setText(IProblemConst.TITLE_FORECOLOR);
 		columns[curPos].setWidth(100);
 		curPos++;
-		columns[curPos].setText(ProblemConst.TITLE_BACKCOLOR);
+		columns[curPos].setText(IProblemConst.TITLE_BACKCOLOR);
 		columns[curPos].setWidth(100);
 		curPos++;
-		columns[curPos].setText(ProblemConst.TITLE_X);
+		columns[curPos].setText(IProblemConst.TITLE_X);
 		columns[curPos].setWidth(50);
 		curPos++;
-		columns[curPos].setText(ProblemConst.TITLE_Y);
+		columns[curPos].setText(IProblemConst.TITLE_Y);
 		columns[curPos].setWidth(50);
 		curPos++;
-		columns[curPos].setText(ProblemConst.TITLE_AREA);
+		columns[curPos].setText(IProblemConst.TITLE_AREA);
 		columns[curPos].setWidth(70);
 		curPos++;
 
-		columns[curPos].setText(ProblemConst.TITLE_DESCRIPTION);
+		columns[curPos].setText(IProblemConst.TITLE_DESCRIPTION);
 		columns[curPos].setWidth(1000);
 		curPos++;
 

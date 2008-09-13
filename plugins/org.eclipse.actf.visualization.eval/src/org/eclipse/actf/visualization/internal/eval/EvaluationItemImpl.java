@@ -9,23 +9,24 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval.guideline;
+package org.eclipse.actf.visualization.internal.eval;
 
 import java.text.MessageFormat;
 
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.visualization.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineItemDescription;
+import org.eclipse.actf.visualization.internal.eval.guideline.MetricsItem;
 import org.eclipse.swt.graphics.Image;
 
 
 
-public class EvaluationItem implements IEvaluationItem{
+public class EvaluationItemImpl implements IEvaluationItem{
 
     private String id = "";
 
-    private GuidelineItem[] guidelines = new GuidelineItem[0];
+    private GuidelineItemImpl[] guidelines = new GuidelineItemImpl[0];
 
     private MetricsItem[] metrics = new MetricsItem[0];
 
@@ -46,7 +47,7 @@ public class EvaluationItem implements IEvaluationItem{
     /**
      * @param id
      */
-    public EvaluationItem(String id, String severity) {
+    public EvaluationItemImpl(String id, String severity) {
         this.id = id;
         setSeverity(severity);        
         description = GuidelineItemDescription.getDescription(id);
@@ -60,11 +61,11 @@ public class EvaluationItem implements IEvaluationItem{
             return (description);
     }
 
-    public GuidelineItem[] getGuidelines() {
+    public GuidelineItemImpl[] getGuidelines() {
         return guidelines;
     }
 
-    protected void setGuidelines(GuidelineItem[] guidelines) {
+    public void setGuidelines(GuidelineItemImpl[] guidelines) {
         this.guidelines = guidelines;
     }
 
@@ -102,11 +103,11 @@ public class EvaluationItem implements IEvaluationItem{
         return metrics;
     }
 
-    protected void setMetrics(MetricsItem[] metrics) {
+    public void setMetrics(MetricsItem[] metrics) {
         this.metrics = metrics;
     }
 
-    protected void initTableData(String[] guidelineNames, String[] metricsNames) {
+    public void initTableData(String[] guidelineNames, String[] metricsNames) {
         tableDataGuideline = new String[guidelineNames.length];
         tableDataMetrics = new String[metricsNames.length];
         metricsScores = new int[metricsNames.length];

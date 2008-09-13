@@ -12,7 +12,7 @@
 package org.eclipse.actf.visualization.eval.preferences;
 
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.visualization.eval.internal.Messages;
+import org.eclipse.actf.visualization.internal.eval.Messages;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.TitleAreaDialog;

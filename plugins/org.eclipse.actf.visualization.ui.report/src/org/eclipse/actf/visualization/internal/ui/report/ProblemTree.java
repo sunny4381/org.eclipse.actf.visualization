@@ -15,11 +15,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.actf.ui.util.PlatformUIUtil;
-import org.eclipse.actf.visualization.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.ProblemConst;
+import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.internal.ui.report.table.ResultTableFilter;
 import org.eclipse.actf.visualization.internal.ui.report.table.ResultTableViewer;
 import org.eclipse.swt.SWT;
@@ -30,6 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 public class ProblemTree {
 
@@ -96,16 +97,16 @@ public class ProblemTree {
 				ISharedImages.IMG_OBJ_FOLDER).createImage());
 
 		node1_1 = new TreeItem(nodeRoot, SWT.NULL);
-		node1_1.setImage(EvaluationPlugin.getImageDescriptor("icons/Err.png")
-				.createImage());
+		node1_1.setImage(AbstractUIPlugin.imageDescriptorFromPlugin(
+				EvaluationUtil.PLUGIN_ID, "icons/Err.png").createImage());
 
 		node1_2 = new TreeItem(nodeRoot, SWT.NULL);
-		node1_2.setImage(EvaluationPlugin.getImageDescriptor("icons/Warn.png")
-				.createImage());
+		node1_2.setImage(AbstractUIPlugin.imageDescriptorFromPlugin(
+				EvaluationUtil.PLUGIN_ID, "icons/Warn.png").createImage());
 
 		node1_3 = new TreeItem(nodeRoot, SWT.NULL);
-		node1_3.setImage(EvaluationPlugin.getImageDescriptor("icons/Info.png")
-				.createImage());
+		node1_3.setImage(AbstractUIPlugin.imageDescriptorFromPlugin(
+				EvaluationUtil.PLUGIN_ID, "icons/Info.png").createImage());
 
 		nodeRoot.setExpanded(true);
 
@@ -152,10 +153,10 @@ public class ProblemTree {
 
 		int all = error + user + info;
 
-		nodeRoot.setText(ProblemConst.ALL_ERRORS + "  (" + all + ")");
-		node1_1.setText(ProblemConst.ESSENTIAL + "  (" + error + ")");
-		node1_2.setText(ProblemConst.USER_CHECK + "  (" + user + ")");
-		node1_3.setText(ProblemConst.INFO + " (" + info + ")");
+		nodeRoot.setText(IProblemConst.ALL_ERRORS + "  (" + all + ")");
+		node1_1.setText(IProblemConst.ESSENTIAL + "  (" + error + ")");
+		node1_2.setText(IProblemConst.USER_CHECK + "  (" + user + ")");
+		node1_3.setText(IProblemConst.INFO + " (" + info + ")");
 
 	}
 

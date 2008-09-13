@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval.guideline;
+package org.eclipse.actf.visualization.internal.eval.guideline;
 
 
 public class MetricsItem {

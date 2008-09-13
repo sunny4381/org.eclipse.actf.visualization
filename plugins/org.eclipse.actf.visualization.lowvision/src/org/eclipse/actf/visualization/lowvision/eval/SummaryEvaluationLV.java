@@ -16,7 +16,7 @@ import java.util.List;
 import org.eclipse.actf.ui.util.HighlightStringListener;
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
+import org.eclipse.actf.visualization.eval.problem.IProblemItemImage;
 import org.eclipse.actf.visualization.lowvision.ui.internal.Messages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -64,14 +64,14 @@ public class SummaryEvaluationLV {
 		return (hlsl);
 	}
 
-	private ProblemItemLV[] _problems = new ProblemItemLV[0];
+	private IProblemItemImage[] _problems = new IProblemItemImage[0];
 
 	public SummaryEvaluationLV(List<IProblemItem> problemList) {
 		try {
-			_problems = new ProblemItemLV[problemList.size()];
+			_problems = new IProblemItemImage[problemList.size()];
 			problemList.toArray(_problems);
 		} catch (Exception e) {
-			_problems = new ProblemItemLV[0];
+			_problems = new IProblemItemImage[0];
 		}
 	}
 
@@ -86,7 +86,7 @@ public class SummaryEvaluationLV {
 		int severeCount[] = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 
 		for (int i = 0; i < _problems.length; i++) {
-			ProblemItemLV curProblem = _problems[i];
+			IProblemItemImage curProblem = _problems[i];
 			problemCount[curProblem.getSubType()]++;
 			if (curProblem.getSeverityLV() > 49) {
 				severeCount[curProblem.getSubType()]++;

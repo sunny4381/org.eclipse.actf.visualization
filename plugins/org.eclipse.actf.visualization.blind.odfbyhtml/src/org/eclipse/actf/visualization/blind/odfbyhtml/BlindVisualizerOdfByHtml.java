@@ -34,9 +34,9 @@ import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.HtmlErrorLogListener;
 import org.eclipse.actf.visualization.engines.blind.html.util.VisualizeReportUtil;
 import org.eclipse.actf.visualization.eval.CheckTargetImpl;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.ICheckTarget;
 import org.eclipse.actf.visualization.eval.IChecker;
-import org.eclipse.actf.visualization.eval.extensions.CheckerExtension;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetNodeInfo;
@@ -141,7 +141,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			ICheckTarget checkTarget = new CheckTargetImpl(odfDoc, modelService
 					.getURL());
 			checkTarget.setAdditionalDocument("html", document);
-			IChecker[] checkers = CheckerExtension.getCheckers();
+			IChecker[] checkers = EvaluationUtil.getCheckers();
 			for (int i = 0; i < checkers.length; i++) {
 				// TODO mimetype -> ???
 				if (checkers[i].isTargetFormat(modelService

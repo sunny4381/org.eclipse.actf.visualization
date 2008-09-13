@@ -11,7 +11,7 @@
 package org.eclipse.actf.visualization.ui.report.table;
 
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
-import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
+import org.eclipse.actf.visualization.eval.problem.IProblemItemImage;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
@@ -39,7 +39,7 @@ public class ResultTableLabelProviderLV extends LabelProvider implements ITableL
      *      int)
      */
     public Image getColumnImage(Object arg0, int arg1) {
-        ProblemItemLV tmpItem = (ProblemItemLV) arg0;
+        IProblemItemImage tmpItem = (IProblemItemImage) arg0;
         if (arg1 == 0) {
             return (tmpItem.getImageIcon());
         }
@@ -53,7 +53,7 @@ public class ResultTableLabelProviderLV extends LabelProvider implements ITableL
      *      int)
      */
     public String getColumnText(Object arg0, int arg1) {
-        ProblemItemLV tmpItem = (ProblemItemLV) arg0;
+        IProblemItemImage tmpItem = (IProblemItemImage) arg0;
 
         //TODO
         if (arg1 == 0) {

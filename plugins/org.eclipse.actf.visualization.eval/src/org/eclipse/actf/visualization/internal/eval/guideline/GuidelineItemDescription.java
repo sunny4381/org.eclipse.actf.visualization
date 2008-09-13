@@ -9,18 +9,18 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval.guideline;
+package org.eclipse.actf.visualization.internal.eval.guideline;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.eval.ICheckerInfoProvider;
-import org.eclipse.actf.visualization.eval.extensions.CheckerExtension;
+import org.eclipse.actf.visualization.internal.eval.CheckerExtension;
 
 public class GuidelineItemDescription {
 
-	private static final String BUNDLE_NAME = "org.eclipse.actf.visualization.eval.guideline.resource.description"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "description"; //$NON-NLS-1$
 
 	private static final String EMPTY_STRING = "";
 

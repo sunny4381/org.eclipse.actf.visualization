@@ -11,7 +11,7 @@
 package org.eclipse.actf.visualization.ui.report.table;
 
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
-import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
+import org.eclipse.actf.visualization.eval.problem.IProblemItemImage;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 
@@ -60,8 +60,8 @@ public class ResultTableSorterLV extends ViewerSorter implements IResultTableSor
         int result = 0;
         if (arg1 != null && arg2 != null) {
             try {
-                ProblemItemLV tmp1 = (ProblemItemLV) arg1;
-                ProblemItemLV tmp2 = (ProblemItemLV) arg2;
+                IProblemItemImage tmp1 = (IProblemItemImage) arg1;
+                IProblemItemImage tmp2 = (IProblemItemImage) arg2;
 
                 if (curColumn == 0) {
                     result = compareInt(tmp1.getIconId(), tmp2.getIconId());

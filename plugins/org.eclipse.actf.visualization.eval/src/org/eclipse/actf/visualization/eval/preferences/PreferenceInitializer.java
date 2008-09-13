@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.eval.preferences;
 
-import org.eclipse.actf.visualization.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.internal.eval.EvaluationPlugin;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
 

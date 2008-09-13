@@ -26,8 +26,15 @@ import org.xml.sax.Attributes;
 
 
 
-public class ImageStatData implements IPageStatisticsTag, IIMageTag {
+public class ImageStatData implements IPageStatisticsTag {
 
+	public static final String ISMAP = "ismap";
+
+	public static final String USEMAP ="usemap";
+
+	public static final String LONGDESC = "longdesc";
+
+	
     protected String altS = "";
 
     protected Element ancestorLink = null;
@@ -85,10 +92,10 @@ public class ImageStatData implements IPageStatisticsTag, IIMageTag {
         if (hasAlt = target.hasAttribute(ALT)) {
             altS = target.getAlt();
         }
-        if (hasLongDesc = target.hasAttribute(LONGDESC)) {
+        if (hasLongDesc = target.hasAttribute(ImageStatData.LONGDESC)) {
             longDescS = target.getLongDesc();
         }
-        if (hasUseMap = target.hasAttribute(USEMAP)) {
+        if (hasUseMap = target.hasAttribute(ImageStatData.USEMAP)) {
             useMapS = target.getUseMap();
         }
 
@@ -165,7 +172,7 @@ public class ImageStatData implements IPageStatisticsTag, IIMageTag {
 
     public String getItemXML() {
         StringBuffer tmpSB = new StringBuffer("<" + IMAGE + " " + getAttr(SRC, srcS) + getAttr(URL, urlS)
-                + getAttr(ISMAP, isMap));
+                + getAttr(ImageStatData.ISMAP, isMap));
         if (hasAlt) {
             tmpSB.append(getAttr(ALT, altS));
         }
@@ -179,10 +186,10 @@ public class ImageStatData implements IPageStatisticsTag, IIMageTag {
             tmpSB.append(getAttr(DEST, destUrlS));
         }
         if (hasLongDesc) {
-            tmpSB.append(getAttr(LONGDESC, longDescS));
+            tmpSB.append(getAttr(ImageStatData.LONGDESC, longDescS));
         }
         if (hasUseMap) {
-            tmpSB.append(getAttr(USEMAP, useMapS));
+            tmpSB.append(getAttr(ImageStatData.USEMAP, useMapS));
         }
         int size = problemV.size();
         if (size == 0) {
@@ -203,7 +210,7 @@ public class ImageStatData implements IPageStatisticsTag, IIMageTag {
         return longDescS;
     }
 
-    public Vector getProblemV() {
+    public Vector<IProblemItem> getProblemV() {
         return this.problemV;
     }
 

@@ -13,7 +13,25 @@ package org.eclipse.actf.visualization.eval.html.statistics;
 
 import org.eclipse.actf.util.xpath.XPathUtil;
 
-public class FlashData implements IPageStatisticsTag, IFlashTag {
+public class FlashData implements IPageStatisticsTag {
+
+	public static final String FLASH_IS_OBJECT = "isObject";
+
+	public static final String FLASH_QUALITY = "quality";
+
+	public static final String FLASH_SALIGN = "salign";
+
+	public static final String FLASH_WMODE = "wmode";
+
+	public static final String FLASH_MENU = "menu";
+
+	public static final String FLASH_LOOP = "loop";
+
+	public static final String FLASH_PLAY = "play";
+
+	public static final String FLASH_SWLIVECONNECT = "swliveconnect";
+
+	public static final String FLASH_WITHEMBED = "withEmbed";
 
 	private String src = "";// movie
 
@@ -178,10 +196,10 @@ public class FlashData implements IPageStatisticsTag, IFlashTag {
 
 	public String getItemXML() {
 		StringBuffer tmpSB = new StringBuffer("<" + FLASH + " " + SRC + "=\""
-				+ XPathUtil.canonicalize(src) + "\" " + FLASH_IS_OBJECT + "=\""
-				+ isObject + "\" ");
+				+ XPathUtil.canonicalize(src) + "\" "
+				+ FlashData.FLASH_IS_OBJECT + "=\"" + isObject + "\" ");
 		if (isObject && withEmbed) {
-			tmpSB.append(FLASH_WITHEMBED + "=\"true\" ");
+			tmpSB.append(FlashData.FLASH_WITHEMBED + "=\"true\" ");
 		}
 		// TODO
 		tmpSB.append("/>");

@@ -16,16 +16,16 @@ import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.visualization.blind.ui.internal.Messages;
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.IChecker;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
-import org.eclipse.actf.visualization.eval.extensions.CheckerExtension;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.w3c.dom.Document;
 
 public abstract class BlindVisualizerBase implements IBlindVisualizer{
 
-	protected IChecker[] checkers = CheckerExtension.getCheckers();
+	protected IChecker[] checkers = EvaluationUtil.getCheckers();
 	protected String tmpDirS = BlindVizResourceUtil.getTempDirectory().getAbsolutePath() + File.separator;
 	protected String targetUrl = "";
 	protected IModelService modelService;

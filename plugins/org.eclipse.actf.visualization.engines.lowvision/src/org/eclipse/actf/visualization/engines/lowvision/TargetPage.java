@@ -26,7 +26,7 @@ import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
+import org.eclipse.actf.visualization.eval.problem.IProblemItemImage;
 import org.eclipse.actf.visualization.internal.engines.lowvision.DebugUtil;
 import org.eclipse.actf.visualization.internal.engines.lowvision.DecisionMaker;
 import org.eclipse.actf.visualization.internal.engines.lowvision.LowVisionProblemConverter;
@@ -37,6 +37,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.io.ImageWriter;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ProblemItemLV;
 
 public class TargetPage {
 	private static final int UNSET = -1;
@@ -225,7 +226,7 @@ public class TargetPage {
 		int totalSeverity = 0;
 		for (IProblemItem item : problemList) {
 			if (item instanceof ProblemItemLV) {
-				totalSeverity += ((ProblemItemLV)item).getSeverityLV();
+				totalSeverity += ((IProblemItemImage)item).getSeverityLV();
 			}
 		}
 		overallRatingString = ScoreUtil.getScoreString(totalSeverity);

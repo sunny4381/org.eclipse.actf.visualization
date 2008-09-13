@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval.guideline;
+package org.eclipse.actf.visualization.internal.eval.guideline;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -20,6 +20,8 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
+import org.eclipse.actf.visualization.internal.eval.GuidelineItemImpl;
 import org.eclipse.ui.PlatformUI;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -92,7 +94,7 @@ public class GuidelineItemReader extends DefaultHandler {
 
     private Vector<String> mimeV = new Vector<String>();
 
-    private IGuidelineItem curItem = new GuidelineItem("");
+    private IGuidelineItem curItem = new GuidelineItemImpl("");
 
     private Stack<Short> statusStack = new Stack<Short>();
 
@@ -267,7 +269,7 @@ public class GuidelineItemReader extends DefaultHandler {
         if (qName.equalsIgnoreCase(GITEM)) {
             statusStack.push(new Short(status));
             status = IN_ITEM;
-            curItem = new GuidelineItem(guidelineName);
+            curItem = new GuidelineItemImpl(guidelineName);
             curItem.setLevel(getAttribute(attributes, LEVEL));
             curItem.setId(getAttribute(attributes, ID));
         } else if (qName.equalsIgnoreCase(HELP_URL)) {

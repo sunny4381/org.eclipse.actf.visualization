@@ -11,10 +11,10 @@
 
 package org.eclipse.actf.visualization.eval.problem;
 
-import org.eclipse.actf.visualization.eval.internal.Messages;
+import org.eclipse.actf.visualization.internal.eval.Messages;
 
 
-public class ProblemConst {
+public interface IProblemConst {
     public static final String ALL_ERRORS = Messages.getString("ProblemConst.All_Errors_1"); //$NON-NLS-1$
 
     public static final String ESSENTIAL = Messages.getString("ProblemConst.Essential_2"); //$NON-NLS-1$

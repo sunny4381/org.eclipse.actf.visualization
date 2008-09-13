@@ -21,9 +21,9 @@ import org.eclipse.actf.ui.util.DialogSave;
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
+import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.ProblemConst;
-import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
+import org.eclipse.actf.visualization.eval.problem.IProblemItemImage;
 import org.eclipse.actf.visualization.lowvision.ui.internal.Messages;
 import org.eclipse.actf.visualization.lowvision.util.LowVisionVizResourceUtil;
 import org.eclipse.swt.widgets.Shell;
@@ -174,7 +174,7 @@ public class SaveReportLowVision {
 		}
 
 		private void prepareJavaScript(Writer writer,
-				ProblemItemLV[] problemArray, String imgDir) {
+				IProblemItemImage[] problemArray, String imgDir) {
 
 			int size = problemArray.length;
 			int[][] data = new int[size][4]; // left,top,width,height
@@ -255,7 +255,7 @@ public class SaveReportLowVision {
 				fileOutput.write("<html><head><title>Report (LowVision) of "
 						+ currentUrlS + "</title>");
 
-				ProblemItemLV[] problemLVArray = new ProblemItemLV[problemList
+				IProblemItemImage[] problemLVArray = new IProblemItemImage[problemList
 						.size()];
 				problemList.toArray(problemLVArray);
 
@@ -299,7 +299,7 @@ public class SaveReportLowVision {
 
 					fileOutput.write("<tr>");
 					fileOutput
-							.write("<th>" + ProblemConst.TITLE_ICON + "</th>");
+							.write("<th>" + IProblemConst.TITLE_ICON + "</th>");
 
 					GuidelineData[] guidelineDataArray = guidelineHolder
 							.getGuidelineData();
@@ -309,23 +309,23 @@ public class SaveReportLowVision {
 								+ "</th>");
 					}
 
-					fileOutput.write("<th>" + ProblemConst.TITLE_DESCRIPTION
+					fileOutput.write("<th>" + IProblemConst.TITLE_DESCRIPTION
 							+ "</th>");
 
-					fileOutput.write("<th>" + ProblemConst.TITLE_SEVERITY
+					fileOutput.write("<th>" + IProblemConst.TITLE_SEVERITY
 							+ "</th>");
-					fileOutput.write("<th>" + ProblemConst.TITLE_FORECOLOR
-							+ "</th>");
-
-					fileOutput.write("<th>" + ProblemConst.TITLE_BACKCOLOR
+					fileOutput.write("<th>" + IProblemConst.TITLE_FORECOLOR
 							+ "</th>");
 
-					fileOutput.write("<th>" + ProblemConst.TITLE_X + "</th>");
+					fileOutput.write("<th>" + IProblemConst.TITLE_BACKCOLOR
+							+ "</th>");
 
-					fileOutput.write("<th>" + ProblemConst.TITLE_Y + "</th>");
+					fileOutput.write("<th>" + IProblemConst.TITLE_X + "</th>");
+
+					fileOutput.write("<th>" + IProblemConst.TITLE_Y + "</th>");
 
 					fileOutput
-							.write("<th>" + ProblemConst.TITLE_AREA + "</th>");
+							.write("<th>" + IProblemConst.TITLE_AREA + "</th>");
 
 					fileOutput.write("</tr>" + FileUtils.LINE_SEP);
 
@@ -341,7 +341,7 @@ public class SaveReportLowVision {
 						int currentIcon = 0;
 						String strIconName = "";// TODO
 						switch (iconId) {
-						case ProblemItemLV.ICON_IRO:
+						case IProblemItemImage.ICON_IRO:
 							iColorNum++;
 							currentIcon = 0;
 							if (problemLVArray[i].isCanHighlight()) {
@@ -350,7 +350,7 @@ public class SaveReportLowVision {
 								strIconName = "ErrIro21.gif";
 							}
 							break;
-						case ProblemItemLV.ICON_BOKE:
+						case IProblemItemImage.ICON_BOKE:
 							iFontNum++;
 							currentIcon = 1;
 							if (problemLVArray[i].isCanHighlight()) {

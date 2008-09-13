@@ -15,7 +15,7 @@ import java.util.Vector;
 
 import org.eclipse.actf.model.dom.html.IErrorLogListener;
 import org.eclipse.actf.model.dom.html.IParserError;
-import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
 import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
@@ -112,7 +112,7 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 	public Vector<IProblemItem> getHtmlProblemVector() {
 		if(flag){
 			// (IE based LIVE DOM)->DOCTYPE was removed by IE
-			if (EvaluationPreferencesUtil.isOriginalDOM()
+			if (EvaluationUtil.isOriginalDOM()
 					&& isNoDoctypeDeclaration()) {
 				if (isInvalidDoctype() || isNonPublicDoctype()) {
 					problemV.add(new ProblemItemImpl("C_1000.6"));

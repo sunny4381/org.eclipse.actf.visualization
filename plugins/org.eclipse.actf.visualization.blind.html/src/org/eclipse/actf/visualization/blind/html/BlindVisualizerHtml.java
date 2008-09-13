@@ -33,7 +33,7 @@ import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.HtmlErrorLogListener;
 import org.eclipse.actf.visualization.engines.blind.html.util.HandleFramePage;
-import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.HtmlCheckTargetImpl;
 import org.eclipse.actf.visualization.eval.IHtmlCheckTarget;
 import org.eclipse.actf.visualization.eval.IHtmlChecker;
@@ -97,7 +97,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 					+ ".html";
 
 			boolean isIEhtml = false;
-			if (EvaluationPreferencesUtil.isOriginalDOM()) {
+			if (EvaluationUtil.isOriginalDOM()) {
 				html2ViewMapV = h2vmm.makeMap(ORIG_HTML_FILE,
 						MAPPED_HTML_FILE_PRE + frameId + ".html", tmpDirS);
 				// decode miss
@@ -224,7 +224,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 				if (nodeInfo != null) {
 					tmpItem.setHighlightTargetIds(nodeInfo
 							.getHighlightTargetIds(mapData.getOrig2idMap()));
-					if (EvaluationPreferencesUtil.isOriginalDOM()) {
+					if (EvaluationUtil.isOriginalDOM()) {
 						tmpItem.setHighlightTargetSourceInfo(nodeInfo
 								.getHighlightTargetSourceInfo(html2ViewMapV));
 					}

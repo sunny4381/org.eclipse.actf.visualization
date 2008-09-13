@@ -8,8 +8,9 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.eval;
+package org.eclipse.actf.visualization.internal.eval;
 
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -18,9 +19,6 @@ import org.osgi.framework.BundleContext;
  * The activator class controls the plug-in life cycle
  */
 public class EvaluationPlugin extends AbstractUIPlugin {
-
-	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.eval";
 
 	// The shared instance
 	private static EvaluationPlugin plugin;
@@ -66,6 +64,6 @@ public class EvaluationPlugin extends AbstractUIPlugin {
      * @return the image descriptor
      */
     public static ImageDescriptor getImageDescriptor(String path) {
-        return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
+        return AbstractUIPlugin.imageDescriptorFromPlugin(EvaluationUtil.PLUGIN_ID, path);
     }
 }

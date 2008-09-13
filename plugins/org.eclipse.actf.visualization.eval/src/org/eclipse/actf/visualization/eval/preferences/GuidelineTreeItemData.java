@@ -14,7 +14,7 @@ package org.eclipse.actf.visualization.eval.preferences;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.actf.visualization.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.internal.eval.EvaluationPlugin;
 import org.eclipse.swt.graphics.Image;
 
 
@@ -44,7 +44,7 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
 
     private IGuidelineTreeItem _parent = null;
 
-    private List _children = null;
+    private List<IGuidelineTreeItem> _children = null;
 
     private boolean _isEnabled = false;
     
@@ -62,7 +62,7 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
     
     public GuidelineTreeItemData(String name) {
         setName(name);
-        this._children = new ArrayList();
+        this._children = new ArrayList<IGuidelineTreeItem>();
     }
 
     public IGuidelineTreeItem getParent() {
@@ -74,7 +74,7 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
         this._parent = this;
     }
 
-    public List getChildren() {
+    public List<IGuidelineTreeItem> getChildren() {
         return this._children;
     }
 

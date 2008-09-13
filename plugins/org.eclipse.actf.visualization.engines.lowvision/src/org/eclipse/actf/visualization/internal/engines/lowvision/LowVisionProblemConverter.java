@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ColorProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ProblemItemLV;
 
 
 

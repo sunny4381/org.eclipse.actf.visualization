@@ -11,9 +11,12 @@
 
 package org.eclipse.actf.visualization.internal.engines.lowvision.problem;
 
-import org.eclipse.actf.visualization.eval.problem.ProblemException;
 
-public class LowVisionProblemException extends ProblemException{
+public class LowVisionProblemException extends Exception{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7337672152876700847L;
 	public LowVisionProblemException(){
 		super();
 	}

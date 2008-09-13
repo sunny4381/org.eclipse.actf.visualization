@@ -23,14 +23,14 @@ import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.dom.DomPrintUtil;
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
-import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.ProblemConst;
+import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -250,13 +250,13 @@ public class SaveReportBlind {
 				tableElement.appendChild(trElement);
 				Element tdElement = result.createElement("th");
 				tdElement.appendChild(result
-						.createTextNode(ProblemConst.TITLE_ICON));
+						.createTextNode(IProblemConst.TITLE_ICON));
 				trElement.appendChild(tdElement);
 
-				if (EvaluationPreferencesUtil.isOriginalDOM()) {
+				if (EvaluationUtil.isOriginalDOM()) {
 					tdElement = result.createElement("th");
 					tdElement.appendChild(result
-							.createTextNode(ProblemConst.TITLE_LINE));
+							.createTextNode(IProblemConst.TITLE_LINE));
 					trElement.appendChild(tdElement);
 				}
 
@@ -274,7 +274,7 @@ public class SaveReportBlind {
 
 				tdElement = result.createElement("th");
 				tdElement.appendChild(result
-						.createTextNode(ProblemConst.TITLE_DESCRIPTION));
+						.createTextNode(IProblemConst.TITLE_DESCRIPTION));
 				trElement.appendChild(tdElement);
 
 				// int iconId; //TODO
@@ -348,7 +348,7 @@ public class SaveReportBlind {
 						tdElement.appendChild(imgElement);
 					}
 
-					if (EvaluationPreferencesUtil.isOriginalDOM()) {
+					if (EvaluationUtil.isOriginalDOM()) {
 						tdElement = result.createElement("td");
 						String sTmp = current.getLineStrMulti();
 						if (sTmp != null && !sTmp.equals("")) {

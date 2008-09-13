@@ -12,7 +12,7 @@ package org.eclipse.actf.visualization.internal.ui.report.srcviewer;
 
 import java.io.File;
 
-import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
 import org.eclipse.swt.events.ShellAdapter;
@@ -110,7 +110,7 @@ public class SrcViewerForPT {
     }
 
     public void highlightSrcViewer(HighlightTargetSourceInfo[] sourceInfos, File target) {
-        if (_srcViewerShell != null && !_srcViewerShell.isDisposed() && EvaluationPreferencesUtil.isOriginalDOM()) {
+        if (_srcViewerShell != null && !_srcViewerShell.isDisposed() && EvaluationUtil.isOriginalDOM()) {
 
             if(curTarget!=target){
                 srcChanged =true;

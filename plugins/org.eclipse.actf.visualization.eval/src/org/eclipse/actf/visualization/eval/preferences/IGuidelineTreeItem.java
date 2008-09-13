@@ -21,5 +21,5 @@ public interface IGuidelineTreeItem {
 
     public IGuidelineTreeItem getParent();
 
-    public List getChildren();
+    public List<IGuidelineTreeItem> getChildren();
 }

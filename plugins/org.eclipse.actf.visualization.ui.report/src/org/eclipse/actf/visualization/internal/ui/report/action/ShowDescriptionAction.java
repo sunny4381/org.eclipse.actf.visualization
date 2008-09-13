@@ -14,7 +14,7 @@ package org.eclipse.actf.visualization.internal.ui.report.action;
 import java.util.List;
 
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.ProblemConst;
+import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.internal.ui.report.Messages;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -60,7 +60,7 @@ public class ShowDescriptionAction extends Action {
      * @see org.eclipse.jface.action.Action#run()
      */
     public void run() {
-        MessageDialog.openInformation(tableViewer.getControl().getShell(),ProblemConst.TITLE_DESCRIPTION,curItem.getDescription());
+        MessageDialog.openInformation(tableViewer.getControl().getShell(),IProblemConst.TITLE_DESCRIPTION,curItem.getDescription());
     }
     
     public void setIProblemItem(IProblemItem target){

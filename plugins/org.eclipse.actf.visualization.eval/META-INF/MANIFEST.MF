@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Eclipse ACTF Usability Evaluator Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.visualization.eval;singleton:=true
 Bundle-Version: 0.0.1.qualifier
-Bundle-Activator: org.eclipse.actf.visualization.eval.EvaluationPlugin
+Bundle-Activator: org.eclipse.actf.visualization.internal.eval.EvaluationPlugin
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: plugin
 Require-Bundle: org.eclipse.ui,
@@ -12,7 +12,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.ui
 Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.visualization.eval,
- org.eclipse.actf.visualization.eval.extensions,
  org.eclipse.actf.visualization.eval.guideline,
  org.eclipse.actf.visualization.eval.html,
  org.eclipse.actf.visualization.eval.html.statistics,

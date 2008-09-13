@@ -9,12 +9,12 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval.guideline;
+package org.eclipse.actf.visualization.internal.eval;
 
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
 
 
-public class GuidelineItem implements IGuidelineItem {
+public class GuidelineItemImpl implements IGuidelineItem {
 
     private String guidelineName;
 
@@ -28,7 +28,7 @@ public class GuidelineItem implements IGuidelineItem {
      * @param id
      * @param guidelineName
      */
-    public GuidelineItem(String guidelineName) {
+    public GuidelineItemImpl(String guidelineName) {
         this.guidelineName = guidelineName;
         this.id = "";
         this.level = "";

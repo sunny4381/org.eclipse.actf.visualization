@@ -31,7 +31,7 @@ import org.eclipse.actf.visualization.engines.voicebrowser.JWAT;
 import org.eclipse.actf.visualization.engines.voicebrowser.JWATController;
 import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
 import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
-import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
@@ -285,7 +285,7 @@ public class VisualizeEngine {
 
 			// TODO merge with visualizeError
 			Id2LineViaAccId id2line = null;
-			if (EvaluationPreferencesUtil.isOriginalDOM()) {
+			if (EvaluationUtil.isOriginalDOM()) {
 				id2line = new Id2LineViaAccId(mapData.getId2AccIdMap(),
 						html2viewMapV);
 			}

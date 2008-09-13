@@ -12,14 +12,8 @@
 package org.eclipse.actf.visualization.eval.problem;
 
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
-import org.eclipse.actf.visualization.eval.IGuidelineItem;
-import org.eclipse.actf.visualization.eval.guideline.EvaluationItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
-import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
-import org.eclipse.actf.visualization.eval.problem.HighlightTargetNodeInfo;
-import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
-import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.IProblemItemVisitor;
+import org.eclipse.actf.visualization.internal.eval.EvaluationItemImpl;
 import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.eclipse.swt.graphics.Image;
 import org.w3c.dom.Node;
@@ -58,10 +52,10 @@ public class ProblemItemImpl implements IProblemItem {
      * 
      */
     public ProblemItemImpl(String id) {
-        checkItem = GUIDELINE_HOLDER.getCheckItem(id);
+        checkItem = GUIDELINE_HOLDER.getEvaluationItem(id);
 
         if (checkItem == null) {
-            checkItem = new EvaluationItem("unknown", EvaluationItem.SEV_INFO_STR);
+            checkItem = new EvaluationItemImpl("unknown", EvaluationItemImpl.SEV_INFO_STR);
             System.err.println("Problem Item: unknown id \"" + id + "\"");
 
         } else {
@@ -85,10 +79,6 @@ public class ProblemItemImpl implements IProblemItem {
 
     public String[] getTableDataGuideline() {
         return checkItem.getTableDataGuideline();
-    }
-
-    public String[] getTableDataMetrics() {
-        return checkItem.getTableDataMetrics();
     }
 
     public int[] getMetricsScores() {
@@ -260,10 +250,4 @@ public class ProblemItemImpl implements IProblemItem {
         }
     }
 
-    public IGuidelineItem[] getGuidelines() {
-        if(checkItem!=null){
-            return checkItem.getGuidelines();
-        }
-        return new IGuidelineItem[0];
-    }
 }

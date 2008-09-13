@@ -11,8 +11,11 @@
 
 package org.eclipse.actf.visualization.eval.guideline;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -21,13 +24,20 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import org.eclipse.actf.util.logging.DebugPrintUtil;
-import org.eclipse.actf.visualization.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.eval.ICheckerInfoProvider;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
-import org.eclipse.actf.visualization.eval.extensions.CheckerExtension;
 import org.eclipse.actf.visualization.eval.preferences.ICheckerPreferenceConstants;
+import org.eclipse.actf.visualization.internal.eval.CheckerExtension;
+import org.eclipse.actf.visualization.internal.eval.EvaluationItemImpl;
+import org.eclipse.actf.visualization.internal.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.internal.eval.guideline.CheckItemReader;
+import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineDataComparator;
+import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineItemReader;
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.osgi.framework.Bundle;
 
 public class GuidelineHolder {
 
@@ -98,18 +108,21 @@ public class GuidelineHolder {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	private GuidelineHolder() {
+		Bundle bundle = EvaluationPlugin.getDefault().getBundle();
+		Enumeration<URL> guidelines = bundle.findEntries(
+				"resources/guidelines", "*.xml", false);
 
-		InputStream is = GuidelineItem.class
-				.getResourceAsStream("resource/wcag10.xml");
-		readGuidelines(is);
-		is = GuidelineItem.class.getResourceAsStream("resource/section508.xml");
-		readGuidelines(is);
-		is = GuidelineItem.class.getResourceAsStream("resource/jis.xml");
-		readGuidelines(is);
-		is = GuidelineItem.class
-				.getResourceAsStream("resource/IBMGuideline.xml");
-		readGuidelines(is);
+		InputStream is;
+
+		while (guidelines.hasMoreElements()) {
+			try {
+				readGuidelines(guidelines.nextElement().openStream());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		for (ICheckerInfoProvider checkerInfo : checkerInfos) {
 			InputStream[] iss = checkerInfo.getGuidelineInputStreams();
@@ -152,47 +165,50 @@ public class GuidelineHolder {
 
 		// check item config
 
-		is = GuidelineItem.class.getResourceAsStream("resource/checkitem.xml");
+		try {
+			is = FileLocator.openStream(bundle, new Path(
+					"resources/checkitem.xml"), false);
+			CheckItemReader cir = CheckItemReader.parse(is, this);
+			Set<String> metricsNameSet = new HashSet<String>();
+			if (cir.isSucceed()) {
+				checkitemMap = cir.getCheckItemMap();
+				metricsNameSet = cir.getMetricsSet();
 
-		CheckItemReader cir = CheckItemReader.parse(is, this);
-		Set<String> metricsNameSet = new HashSet<String>();
-		if (cir.isSucceed()) {
-			checkitemMap = cir.getCheckItemMap();
-			metricsNameSet = cir.getMetricsSet();
-
-			for (ICheckerInfoProvider checkerInfo : checkerInfos) {
-				InputStream[] iss = checkerInfo.getCheckItemInputStreams();
-				if (null != iss) {
-					System.out.println(checkerInfo.getClass().getName() + ":"
-							+ iss.length);
-					for (InputStream tmpIs : iss) {
-						try {
-							cir = CheckItemReader.parse(tmpIs, this);
-						} catch (Exception e) {
-							System.out.println("can't parse: "
-									+ checkerInfo.getClass().getName());
-						}
-						if (cir.isSucceed()) {
-							checkitemMap.putAll(cir.getCheckItemMap());
-							metricsNameSet.addAll(cir.getMetricsSet());
+				for (ICheckerInfoProvider checkerInfo : checkerInfos) {
+					InputStream[] iss = checkerInfo.getCheckItemInputStreams();
+					if (null != iss) {
+						System.out.println(checkerInfo.getClass().getName()
+								+ ":" + iss.length);
+						for (InputStream tmpIs : iss) {
+							try {
+								cir = CheckItemReader.parse(tmpIs, this);
+							} catch (Exception e) {
+								System.out.println("can't parse: "
+										+ checkerInfo.getClass().getName());
+							}
+							if (cir.isSucceed()) {
+								checkitemMap.putAll(cir.getCheckItemMap());
+								metricsNameSet.addAll(cir.getMetricsSet());
+							}
 						}
 					}
 				}
-			}
 
-		} else {
-			// TODO error report
+				metricsNames = new String[metricsNameSet.size()];
+				metricsNameSet.toArray(metricsNames);
+
+				enabledMetrics = new boolean[metricsNameSet.size()];
+				Arrays.fill(enabledMetrics, true);
+			} else {
+				// TODO error report
+			}
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 
-		metricsNames = new String[metricsNameSet.size()];
-		metricsNameSet.toArray(metricsNames);
-
-		enabledMetrics = new boolean[metricsNameSet.size()];
-		Arrays.fill(enabledMetrics, true);
-
 		for (IEvaluationItem tmpItem : checkitemMap.values()) {
-			if (tmpItem instanceof EvaluationItem) {
-				((EvaluationItem) tmpItem).initTableData(guidelineNames,
+			if (tmpItem instanceof EvaluationItemImpl) {
+				((EvaluationItemImpl) tmpItem).initTableData(guidelineNames,
 						metricsNames);
 			}
 		}
@@ -225,9 +241,9 @@ public class GuidelineHolder {
 		return (null);
 	}
 
-	public EvaluationItem getCheckItem(String id) {
+	public IEvaluationItem getEvaluationItem(String id) {
 		if (checkitemMap.containsKey(id)) {
-			return ((EvaluationItem) checkitemMap.get(id));
+			return (checkitemMap.get(id));
 		}
 		return (null);
 	}
@@ -293,7 +309,7 @@ public class GuidelineHolder {
 
 	private void addEnabledItems(GuidelineData data) {
 		if (data.isEnabled()) {
-			enabledCheckitemSet.addAll(data.getCheckItemSet());
+			enabledCheckitemSet.addAll(data.getEvaluationItemSet());
 			enabledGuidelineitemSet.addAll(data.getGuidelineItemMap().values());
 		}
 	}
@@ -308,7 +324,7 @@ public class GuidelineHolder {
 			GuidelineData data = leafGuidelineArray[i];
 			data.setCurrentMIMEtype(currentMimeType);
 			if (data.isMatched()) {
-				matchedCheckitemSet.addAll(data.getCheckItemSet());
+				matchedCheckitemSet.addAll(data.getEvaluationItemSet());
 				matchedGuidelineitemSet.addAll(data.getGuidelineItemMap()
 						.values());
 				for (int j = 0; j < metricsNames.length; j++) {
@@ -370,7 +386,7 @@ public class GuidelineHolder {
 
 	private void initGuidelineNameLevel2checkItem() {
 		for (GuidelineData data : guidelineMaps.values()) {
-			data.setCheckItems(checkitemMap.values(), metricsNames);
+			data.setEvaluationItems(checkitemMap.values(), metricsNames);
 		}
 
 	}

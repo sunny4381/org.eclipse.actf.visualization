@@ -9,13 +9,13 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval.extensions;
+package org.eclipse.actf.visualization.internal.eval;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.actf.util.logging.DebugPrintUtil;
-import org.eclipse.actf.visualization.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.IChecker;
 import org.eclipse.actf.visualization.eval.ICheckerInfoProvider;
 import org.eclipse.core.runtime.IConfigurationElement;
@@ -83,7 +83,7 @@ public class CheckerExtension {
 			return extensions;
 
 		IExtension[] tmpExtensions = Platform.getExtensionRegistry()
-				.getExtensionPoint(EvaluationPlugin.PLUGIN_ID, EXTENSION_NAME)
+				.getExtensionPoint(EvaluationUtil.PLUGIN_ID, EXTENSION_NAME)
 				.getExtensions();
 
 		DebugPrintUtil.devOrDebugPrintln("Checker extensions:"

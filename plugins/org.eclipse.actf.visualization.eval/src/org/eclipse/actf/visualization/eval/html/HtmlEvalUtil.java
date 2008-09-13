@@ -21,10 +21,9 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import org.eclipse.actf.util.xpath.XPathUtil;
-import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.html.statistics.FlashData;
 import org.eclipse.actf.visualization.eval.html.statistics.HeadingsData;
-import org.eclipse.actf.visualization.eval.html.statistics.IPageStatisticsTag;
 import org.eclipse.actf.visualization.eval.html.statistics.ImageStatData;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.w3c.dom.Document;
@@ -215,7 +214,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		tmpNL = target.getElementsByTagName("img"); //$NON-NLS-1$
 		length = tmpNL.getLength();
 		img_elements = new HTMLImageElement[length];
-		Vector<IPageStatisticsTag> tmpV = new Vector<IPageStatisticsTag>();
+		Vector<ImageStatData> tmpV = new Vector<ImageStatData>();
 		HashMap<HTMLImageElement, ImageStatData> tmpMap = new HashMap<HTMLImageElement, ImageStatData>();
 		HashMap<Element, ImageStatData> linkImgMap = new HashMap<Element, ImageStatData>();
 		for (int i = 0; i < length; i++) {
@@ -227,7 +226,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 				linkImgMap.put(isd.getAncestorLink(), isd);
 			}
 		}
-		pageData.setImageDataV(tmpV);
+		pageData.setImageData(tmpV);
 		pageData.setImageDataMap(tmpMap);
 		pageData.setLinkImageDataMap(linkImgMap);
 
@@ -342,14 +341,14 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		NodeList headingsNL = XPathUtil.evalXPathNodeList(target,
 				"//h1|//h2|//h3|//h4|//h5|//h6");
 		length = headingsNL.getLength();
-		tmpV = new Vector<IPageStatisticsTag>();
+		Vector<HeadingsData>tmpV2 = new Vector<HeadingsData>();
 		headings = new Element[headingsNL.getLength()];
 		for (int i = 0; i < length; i++) {
 			Element tmpE = (Element) headingsNL.item(i);
 			headings[i] = tmpE;
-			tmpV.add(new HeadingsData(tmpE, getTextAltDescendant(tmpE)));
+			tmpV2.add(new HeadingsData(tmpE, getTextAltDescendant(tmpE)));
 		}
-		pageData.setHeadingsV(tmpV);
+		pageData.setHeadingsData(tmpV2);
 
 		collectScriptElements();
 		calcDomDifference();
@@ -434,7 +433,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private void calcDomDifference() {
 
-		if (EvaluationPreferencesUtil.isOriginalDOM()) {
+		if (EvaluationUtil.isOriginalDOM()) {
 			// target = orig DOM
 			if (isIEDom||null==ieDom) {
 				// parse error

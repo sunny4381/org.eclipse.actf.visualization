@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval.guideline;
+package org.eclipse.actf.visualization.internal.eval.guideline;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -23,6 +23,9 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
+import org.eclipse.actf.visualization.internal.eval.EvaluationItemImpl;
+import org.eclipse.actf.visualization.internal.eval.GuidelineItemImpl;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -81,7 +84,7 @@ public class CheckItemReader extends DefaultHandler {
 
 	private String curValue = "";
 
-	private EvaluationItem curItem = new EvaluationItem("", "");
+	private EvaluationItemImpl curItem = new EvaluationItemImpl("", "");
 
 	private short status = -1;
 
@@ -139,7 +142,7 @@ public class CheckItemReader extends DefaultHandler {
 			}
 		} else if (qName.equals(GUIDELINE)) {
 
-			GuidelineItem[] gis = new GuidelineItem[guidelineV.size()];
+			GuidelineItemImpl[] gis = new GuidelineItemImpl[guidelineV.size()];
 			guidelineV.toArray(gis);
 			curItem.setGuidelines(gis);
 
@@ -198,7 +201,7 @@ public class CheckItemReader extends DefaultHandler {
 			}
 		} else if (qName.equals(CHECK_ITEM)) {
 
-			curItem = new EvaluationItem(getValue(ID, attributes), getValue(TYPE, attributes));
+			curItem = new EvaluationItemImpl(getValue(ID, attributes), getValue(TYPE, attributes));
 
 			statusStack.push(new Short(status));
 			status = IN_DEFAULT;

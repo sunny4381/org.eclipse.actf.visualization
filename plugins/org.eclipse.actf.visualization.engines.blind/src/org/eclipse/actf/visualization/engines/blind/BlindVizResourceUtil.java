@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.engines.blind;
 import java.io.File;
 
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.visualization.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -24,7 +24,7 @@ import org.osgi.framework.Bundle;
 public class BlindVizResourceUtil {
 
 	public static void saveImages(String path) {
-		Bundle bundleChecker = Platform.getBundle(EvaluationPlugin.PLUGIN_ID);
+		Bundle bundleChecker = Platform.getBundle(EvaluationUtil.PLUGIN_ID);
 
 		FileUtils.saveToFile(bundleChecker, new Path("icons/Err.png"), false,
 				path + "Err.png", true);

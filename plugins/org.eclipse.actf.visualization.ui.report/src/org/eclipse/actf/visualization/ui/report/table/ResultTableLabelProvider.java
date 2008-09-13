@@ -10,7 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.ui.report.table;
 
-import org.eclipse.actf.visualization.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
@@ -35,7 +35,7 @@ public class ResultTableLabelProvider extends LabelProvider implements ITableLab
         IProblemItem tmpItem = (IProblemItem)arg0;
         if(arg1==0){
             if(tmpItem.isCanHighlight()){
-                return (ReportPlugin.imageDescriptorFromPlugin(EvaluationPlugin.PLUGIN_ID, "icons/star.gif").createImage());
+                return (ReportPlugin.imageDescriptorFromPlugin(EvaluationUtil.PLUGIN_ID, "icons/star.gif").createImage());
             }
         }else if(arg1<metricsFinPos){            
             return(tmpItem.getEvaluationItem().getMetricsIcons()[arg1-1]);

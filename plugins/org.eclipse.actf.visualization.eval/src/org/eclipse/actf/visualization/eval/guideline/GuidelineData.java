@@ -15,227 +15,227 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 
+import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
 import org.eclipse.swt.graphics.Image;
 
-
-
 public class GuidelineData {
 
-    private String guidelineName;
+	private String guidelineName;
 
-    private int id; // define sort order
+	private int id; // define sort order
 
-    //TODO nest
-    private String levelStr = null;
+	// TODO nest
+	private String levelStr = null;
 
-    private String[] levels;
+	private String[] levels;
 
-    private String[] mimetypes;
+	private String[] mimetypes;
 
-    private String description;
+	private String description;
 
-    private String category;
+	private String category;
 
-    private boolean isEnabled = false;
+	private boolean isEnabled = false;
 
-    private GuidelineData[] subLevelDataArray = new GuidelineData[0];
+	private GuidelineData[] subLevelDataArray = new GuidelineData[0];
 
-    private boolean[] hasMetrics;
+	private boolean[] hasMetrics;
 
-    private HashSet<EvaluationItem> checkItemSet = new HashSet<EvaluationItem>();
+	private HashSet<IEvaluationItem> checkItemSet = new HashSet<IEvaluationItem>();
 
-    private Map<String, IGuidelineItem> guidelineItemMap = new HashMap<String, IGuidelineItem>();
+	private Map<String, IGuidelineItem> guidelineItemMap = new HashMap<String, IGuidelineItem>();
 
-    private String currentMIMEtype = "text/html";
+	private String currentMIMEtype = "text/html";
 
-    /**
-     * @param guidelineName
-     * @param levels
-     * @param guidelineItemMap
-     */
-    public GuidelineData(String guidelineName, int id, String category, String description, String[] levels,
-            String[] categories, String[] descriptions, String[] mimetypes, Map<String, IGuidelineItem> guidelineItemMap) {
-        this.guidelineName = guidelineName;
-        this.guidelineItemMap = guidelineItemMap;
-        this.levels = levels;
-        this.mimetypes = mimetypes;
-        this.id = id;
-        this.category = category;
-        this.description = description;
-        
-        subLevelDataArray = new GuidelineData[levels.length];
-        for (int i = 0; i < levels.length; i++) {
-            subLevelDataArray[i] = new GuidelineData(guidelineName, id, levels[i], categories[i], descriptions[i],
-                    mimetypes, guidelineItemMap);
-        }
+	/**
+	 * @param guidelineName
+	 * @param levels
+	 * @param guidelineItemMap
+	 */
+	public GuidelineData(String guidelineName, int id, String category,
+			String description, String[] levels, String[] categories,
+			String[] descriptions, String[] mimetypes,
+			Map<String, IGuidelineItem> guidelineItemMap) {
+		this.guidelineName = guidelineName;
+		this.guidelineItemMap = guidelineItemMap;
+		this.levels = levels;
+		this.mimetypes = mimetypes;
+		this.id = id;
+		this.category = category;
+		this.description = description;
 
-        // for(int i=0;i<levels.length;i++){
-        // System.out.println(guidelineName+"("+levels[i]+"):"+guidelineItems[i].size());
-        // }
-    }
+		subLevelDataArray = new GuidelineData[levels.length];
+		for (int i = 0; i < levels.length; i++) {
+			subLevelDataArray[i] = new GuidelineData(guidelineName, id,
+					levels[i], categories[i], descriptions[i], mimetypes,
+					guidelineItemMap);
+		}
 
-    private GuidelineData(String guidelineName, int id, String levelStr, String categoryStr, String descriptionStr,
-            String[] mimetypes, Map guidelineItemMap) {
-        this.guidelineName = guidelineName;
-        this.id = id;
-        this.mimetypes = mimetypes;
-        this.category = categoryStr;
-        this.description = descriptionStr;
+		// for(int i=0;i<levels.length;i++){
+		// System.out.println(guidelineName+"("+levels[i]+"):"+guidelineItems[i].size());
+		// }
+	}
 
-        // TODO
-        if (levelStr == null) {
-            this.levelStr = "";
-        } else {
-            this.levelStr = levelStr;
-        }
+	private GuidelineData(String guidelineName, int id, String levelStr,
+			String categoryStr, String descriptionStr, String[] mimetypes,
+			Map<String, IGuidelineItem> guidelineItemMap) {
+		this.guidelineName = guidelineName;
+		this.id = id;
+		this.mimetypes = mimetypes;
+		this.category = categoryStr;
+		this.description = descriptionStr;
 
-        for (Iterator it = guidelineItemMap.values().iterator(); it.hasNext();) {
-            IGuidelineItem item = (IGuidelineItem) it.next();
-            if (item.getLevel().equals(levelStr)) {
-                this.guidelineItemMap.put(item.getId(), item);
-            }
-        }
-    }
+		// TODO
+		if (levelStr == null) {
+			this.levelStr = "";
+		} else {
+			this.levelStr = levelStr;
+		}
 
-    public IGuidelineItem getGuidelineItem(String id) {
-        return ((IGuidelineItem) guidelineItemMap.get(id));
-    }
+		for (IGuidelineItem item : guidelineItemMap.values()) {
+			if (item.getLevel().equals(levelStr)) {
+				this.guidelineItemMap.put(item.getId(), item);
+			}
+		}
+	}
 
-    public Map<String, IGuidelineItem> getGuidelineItemMap() {
-        return guidelineItemMap;
-    }
+	public IGuidelineItem getGuidelineItem(String id) {
+		return ((IGuidelineItem) guidelineItemMap.get(id));
+	}
 
-    public String getGuidelineName() {
-        return guidelineName;
-    }
+	public Map<String, IGuidelineItem> getGuidelineItemMap() {
+		return guidelineItemMap;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public String getGuidelineName() {
+		return guidelineName;
+	}
 
-    // TODO
-    public String[] getLevels() {
-        return levels;
-    }
+	public int getId() {
+		return id;
+	}
 
-    // TODO
-    public boolean hasLevel() {
-        return (0 != levels.length);
-    }
+	// TODO
+	public String[] getLevels() {
+		return levels;
+	}
 
-    public String[] getMIMEtypes() {
-        return mimetypes;
-    }
+	// TODO
+	public boolean hasLevel() {
+		return (0 != levels.length);
+	}
 
-    public boolean isEnabled() {
-        if (subLevelDataArray.length > 0) {
-            for (int i = 0; i < subLevelDataArray.length; i++) {
-                if (subLevelDataArray[i].isEnabled()) {
-                    return true;
-                }
-            }
-            return false;
-        }
+	public String[] getMIMEtypes() {
+		return mimetypes;
+	}
 
-        return isEnabled;
-    }
+	public boolean isEnabled() {
+		if (subLevelDataArray.length > 0) {
+			for (int i = 0; i < subLevelDataArray.length; i++) {
+				if (subLevelDataArray[i].isEnabled()) {
+					return true;
+				}
+			}
+			return false;
+		}
 
-    public boolean isMatched() {
-        return (isEnabled() && isTargetMIMEtype(currentMIMEtype));
-    }
+		return isEnabled;
+	}
 
-    protected void setEnabled(boolean isEnabled) {
-        this.isEnabled = isEnabled;
-    }
+	public boolean isMatched() {
+		return (isEnabled() && isTargetMIMEtype(currentMIMEtype));
+	}
 
-    public GuidelineData getSubLevelData(String levelStr) {
-        for (int i = 0; i < subLevelDataArray.length; i++) {
-            if (subLevelDataArray[i].getLevelStr().equalsIgnoreCase(levelStr)) {
-                return (subLevelDataArray[i]);
-            }
-        }
-        return (null);
-    }
+	protected void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
 
-    protected void setCheckItems(Collection checkItemCollection, String[] metrics) {
-        hasMetrics = new boolean[metrics.length];
-        Arrays.fill(hasMetrics, false);
+	public GuidelineData getSubLevelData(String levelStr) {
+		for (int i = 0; i < subLevelDataArray.length; i++) {
+			if (subLevelDataArray[i].getLevelStr().equalsIgnoreCase(levelStr)) {
+				return (subLevelDataArray[i]);
+			}
+		}
+		return (null);
+	}
 
-        for (Iterator i = checkItemCollection.iterator(); i.hasNext();) {
-            try {
-                EvaluationItem item = (EvaluationItem) i.next();
-                IGuidelineItem[] guidelineArray = item.getGuidelines();
-                for (int j = 0; j < guidelineArray.length; j++) {
-                    if (this.guidelineName.equals(guidelineArray[j].getGuidelineName())) {
-                        if (levelStr == null || levelStr.equals(guidelineArray[j].getLevel())) {
-                            Image[] icons = item.getMetricsIcons();
-                            for (int l = 0; l < metrics.length; l++) {
-                                if (icons[l] != null) {
-                                    hasMetrics[l] = true;
-                                }
-                            }
-                            checkItemSet.add(item);
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+	protected void setEvaluationItems(
+			Collection<IEvaluationItem> checkItemCollection, String[] metrics) {
+		hasMetrics = new boolean[metrics.length];
+		Arrays.fill(hasMetrics, false);
 
-        for (int i = 0; i < subLevelDataArray.length; i++) {
-            subLevelDataArray[i].setCheckItems(checkItemCollection, metrics);
-        }
+		for (IEvaluationItem item : checkItemCollection) {
+			IGuidelineItem[] guidelineArray = item.getGuidelines();
+			for (int j = 0; j < guidelineArray.length; j++) {
+				if (this.guidelineName.equals(guidelineArray[j]
+						.getGuidelineName())) {
+					if (levelStr == null
+							|| levelStr.equals(guidelineArray[j].getLevel())) {
+						Image[] icons = item.getMetricsIcons();
+						for (int l = 0; l < metrics.length; l++) {
+							if (icons[l] != null) {
+								hasMetrics[l] = true;
+							}
+						}
+						checkItemSet.add(item);
+					}
+				}
+			}
+		}
 
-        // System.out.println(guidelineName + " " + levelStr + ":" +
-        // checkItemSet.size());
-        // for (int i = 0; i < metrics.length; i++) {
-        // System.out.println(guidelineName + " " + levelStr + ":" + metrics[i]
-        // + "\t" + hasMetrics[i]);
-        // }
+		for (int i = 0; i < subLevelDataArray.length; i++) {
+			subLevelDataArray[i].setEvaluationItems(checkItemCollection,
+					metrics);
+		}
 
-    }
+		// System.out.println(guidelineName + " " + levelStr + ":" +
+		// checkItemSet.size());
+		// for (int i = 0; i < metrics.length; i++) {
+		// System.out.println(guidelineName + " " + levelStr + ":" + metrics[i]
+		// + "\t" + hasMetrics[i]);
+		// }
 
-    public String getLevelStr() {
-        return levelStr;
-    }
+	}
 
-    /**
-     * @return Returns the checkItemSet.
-     */
-    public HashSet<EvaluationItem> getCheckItemSet() {
-        return checkItemSet;
-    }
+	public String getLevelStr() {
+		return levelStr;
+	}
 
-    /**
-     * @return Returns the hasMetrics.
-     */
-    public boolean[] getCorrespondingMetrics() {
-        return hasMetrics;
-    }
+	/**
+	 * @return Returns the evaluation item set.
+	 */
+	public HashSet<IEvaluationItem> getEvaluationItemSet() {
+		return checkItemSet;
+	}
 
-    public boolean isTargetMIMEtype(String mimetype) {
-        for (int i = 0; i < mimetypes.length; i++) {
-            if (mimetypes[i].equals(mimetype)) {
-                return (true);
-            }
-        }
-        return (false);
-    }
+	/**
+	 * @return Returns the hasMetrics.
+	 */
+	public boolean[] getCorrespondingMetrics() {
+		return hasMetrics;
+	}
 
-    protected void setCurrentMIMEtype(String currentMIMEtype) {
-        this.currentMIMEtype = currentMIMEtype;
-    }
+	public boolean isTargetMIMEtype(String mimetype) {
+		for (int i = 0; i < mimetypes.length; i++) {
+			if (mimetypes[i].equals(mimetype)) {
+				return (true);
+			}
+		}
+		return (false);
+	}
 
-    public String getCategory() {
-        return category;
-    }
+	protected void setCurrentMIMEtype(String currentMIMEtype) {
+		this.currentMIMEtype = currentMIMEtype;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getCategory() {
+		return category;
+	}
+
+	public String getDescription() {
+		return description;
+	}
 }

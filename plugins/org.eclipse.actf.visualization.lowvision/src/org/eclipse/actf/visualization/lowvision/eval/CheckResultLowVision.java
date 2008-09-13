@@ -16,7 +16,7 @@ import java.util.Iterator;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.eval.EvaluationResultImpl;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.ProblemItemLV;
+import org.eclipse.actf.visualization.eval.problem.IProblemItemImage;
 
 
 
@@ -42,7 +42,7 @@ public class CheckResultLowVision extends EvaluationResultImpl {
 
             for (Iterator<IProblemItem> i = getProblemList().iterator(); i.hasNext();) {
                 try {
-                    ProblemItemLV tmpP = (ProblemItemLV) i.next();
+                	IProblemItemImage tmpP = (IProblemItemImage) i.next();
                     int frameId = tmpP.getFrameId();
                     if (frameId > -1 && frameId < frameOffset.length) {
                         tmpP.setFrameOffset(frameOffset[frameId]);

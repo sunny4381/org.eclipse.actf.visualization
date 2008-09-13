@@ -12,7 +12,7 @@
 package org.eclipse.actf.visualization.lowvision.util;
 
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.visualization.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -24,7 +24,7 @@ import org.osgi.framework.Bundle;
 public class LowVisionVizResourceUtil {
 
     public static void saveErrorIcons(String path) {
-        Bundle bundleChecker = Platform.getBundle(EvaluationPlugin.PLUGIN_ID);
+        Bundle bundleChecker = Platform.getBundle(EvaluationUtil.PLUGIN_ID);
         FileUtils.saveToFile(bundleChecker, new Path("icons/lowvision/HiIro21.gif"), false, path + "HiIro21.gif", true);
         FileUtils.saveToFile(bundleChecker, new Path("icons/lowvision/HiBoke21.gif"), false, path + "HiBoke21.gif",
                 true);
@@ -36,7 +36,7 @@ public class LowVisionVizResourceUtil {
     }
 
     public static void saveImages(String path) {
-        Bundle bundleChecker = Platform.getBundle(EvaluationPlugin.PLUGIN_ID);
+        Bundle bundleChecker = Platform.getBundle(EvaluationUtil.PLUGIN_ID);
 
         FileUtils.saveToFile(bundleChecker, new Path("icons/rating/Bad.png"), false, path + "Bad.png", true);
         FileUtils.saveToFile(bundleChecker, new Path("icons/rating/Good.png"), false, path + "Good.png", true);
