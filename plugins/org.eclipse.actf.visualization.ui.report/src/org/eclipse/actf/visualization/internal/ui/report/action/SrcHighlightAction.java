@@ -18,8 +18,8 @@ import java.util.List;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.internal.ui.report.Messages;
+import org.eclipse.actf.visualization.internal.ui.report.srcviewer.SrcViewerForPT;
 import org.eclipse.actf.visualization.internal.ui.report.table.ResultTableViewer;
-import org.eclipse.actf.visualization.ui.report.table.SrcViewerForPT;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
@@ -46,13 +46,12 @@ public class SrcHighlightAction extends Action {
      * 
      * @see org.eclipse.jface.action.Action#run()
      */
-    public void run() {
+    @SuppressWarnings("unchecked")
+	public void run() {
 
         if (_srcViewer != null) {
 
             _srcViewer.openSrcViewer();
-
-            // TODO use event
 
             List targetList = ((IStructuredSelection) _tableView.getSelection()).toList();
             ArrayList<HighlightTargetSourceInfo> srcLineArray = new ArrayList<HighlightTargetSourceInfo>();

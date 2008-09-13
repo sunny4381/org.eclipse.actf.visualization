@@ -12,7 +12,6 @@
 package org.eclipse.actf.visualization.blind.ui.internal;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -20,9 +19,7 @@ import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
-import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.ui.report.table.SrcViewerForPT;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISelectionListener;
@@ -46,10 +43,6 @@ public class SelectionListenerBlind implements ISelectionListener {
 
 		IModelService modelService = ModelServiceUtils.getActiveModelService();
 
-		// TODO
-		SrcViewerForPT srcViewerForPT = SrcViewerForPT.getInstance();
-		ArrayList<HighlightTargetSourceInfo> srcLineList = new ArrayList<HighlightTargetSourceInfo>();
-
 		if (modelService != null && modelService instanceof IWebBrowserACTF) {
 			((IWebBrowserACTF) modelService).recoveryHighlight();
 		}
@@ -66,8 +59,6 @@ public class SelectionListenerBlind implements ISelectionListener {
 				IProblemItem tmpItem = (IProblemItem) target;
 				if (prb.getCheckResult().getProblemList().contains(tmpItem)) {
 					targetNode = tmpItem.getTargetNode();
-					srcLineList.addAll(Arrays.asList(tmpItem
-							.getHighlightTargetSoruceInfo()));
 
 					if (tmpItem.isCanHighlight()) {
 						HighlightTargetId[] ids = tmpItem
@@ -78,15 +69,6 @@ public class SelectionListenerBlind implements ISelectionListener {
 					}
 				}
 			}
-		}
-
-		// TODO
-		if (srcViewerForPT != null) {
-			HighlightTargetSourceInfo[] srcInfo = new HighlightTargetSourceInfo[srcLineList
-					.size()];
-			srcLineList.toArray(srcInfo);
-			srcViewerForPT.highlightSrcViewer(srcInfo, prb.getCheckResult()
-					.getSourceFile());
 		}
 
 		HighlightTargetId[] targets = new HighlightTargetId[validIdList.size()];

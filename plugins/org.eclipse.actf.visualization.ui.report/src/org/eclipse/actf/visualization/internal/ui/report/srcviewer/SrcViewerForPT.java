@@ -8,14 +8,13 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.ui.report.table;
+package org.eclipse.actf.visualization.internal.ui.report.srcviewer;
 
 import java.io.File;
 
 import org.eclipse.actf.visualization.eval.EvaluationPreferencesUtil;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
-import org.eclipse.actf.visualization.internal.ui.report.srcviewer.SrcViewer;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.layout.FillLayout;

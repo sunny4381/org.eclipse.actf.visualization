@@ -11,6 +11,9 @@
 package org.eclipse.actf.visualization.internal.ui.report.table;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Vector;
 
 import org.eclipse.actf.model.ui.IModelService;
@@ -20,6 +23,7 @@ import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEvent;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener;
+import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemConst;
 import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
@@ -27,12 +31,16 @@ import org.eclipse.actf.visualization.internal.ui.report.action.ClearSelectionAc
 import org.eclipse.actf.visualization.internal.ui.report.action.GuidelineSubMenu;
 import org.eclipse.actf.visualization.internal.ui.report.action.ShowDescriptionAction;
 import org.eclipse.actf.visualization.internal.ui.report.action.SrcHighlightAction;
+import org.eclipse.actf.visualization.internal.ui.report.srcviewer.SrcViewerForPT;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.report.table.IResultTableSorter;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableSorter;
-import org.eclipse.actf.visualization.ui.report.table.SrcViewerForPT;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
@@ -110,6 +118,31 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 		table.setMenu(popupMenu.createContextMenu(table));
 
 		guidelineHolder.addGuidelineSelectionChangedListener(this);
+
+		tableViewer
+				.addSelectionChangedListener(new ISelectionChangedListener() {
+					@SuppressWarnings("unchecked")
+					public void selectionChanged(SelectionChangedEvent event) {
+						ISelection selection = event.getSelection();
+						if (srcViewerForPT != null
+								&& selection instanceof IStructuredSelection) {
+							ArrayList<HighlightTargetSourceInfo> srcLineArray = new ArrayList<HighlightTargetSourceInfo>();
+							for (Iterator i = ((IStructuredSelection) selection)
+									.iterator(); i.hasNext();) {
+								IProblemItem tmpItem = (IProblemItem) i.next();
+								srcLineArray.addAll(Arrays.asList(tmpItem
+										.getHighlightTargetSoruceInfo()));
+							}
+
+							HighlightTargetSourceInfo[] target = new HighlightTargetSourceInfo[srcLineArray
+									.size()];
+							srcLineArray.toArray(target);
+							srcViewerForPT.highlightSrcViewer(target,
+									getCurrentSoruceFile());
+						}
+					}
+				});
+
 	}
 
 	public TableViewer getTableViewer() {
@@ -308,7 +341,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 
 	public void setResult(IVisualizationView vizView, IEvaluationResult result) {
 		if (vizView == null) {
-			//TODO
+			// TODO
 		} else {
 			mode = vizView.getResultTableMode();
 
