@@ -190,7 +190,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		// + ": checker engine init");
 
 		NodeList tmpNL = XPathUtil.evalXPathNodeList(target, ".//" + "a"
-				+ XPathUtil.predAttExists(ATTR_HREF));
+				+ ("[@" + ATTR_HREF + "]"));
 		int length = tmpNL.getLength();
 
 		if (length > 0) {
@@ -445,7 +445,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			// trim()?
 
 			NodeList ieNL = XPathUtil.evalXPathNodeList(ieDom, ".//" + "a"
-					+ XPathUtil.predAttExists(ATTR_HREF));
+					+ ("[@" + ATTR_HREF + "]"));
 			int size = ieNL.getLength();
 			for (int i = 0; i < size; i++) {
 				Element tmpE = (Element) ieNL.item(i);
@@ -457,7 +457,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		} else {
 			// target = IE DOM
 			NodeList orgNL = XPathUtil.evalXPathNodeList(origDom, ".//" + "a"
-					+ XPathUtil.predAttExists(ATTR_HREF));
+					+ ("[@" + ATTR_HREF + "]"));
 			int size = orgNL.getLength();
 			TreeSet<String> existSet = new TreeSet<String>();
 			for (int i = 0; i < size; i++) {

@@ -26,85 +26,83 @@ public class BlindVizResourceUtil {
 	public static void saveImages(String path) {
 		Bundle bundleChecker = Platform.getBundle(EvaluationUtil.PLUGIN_ID);
 
-		FileUtils.saveToFile(bundleChecker, new Path("icons/Err.png"), false,
-				path + "Err.png", true);
-		FileUtils.saveToFile(bundleChecker, new Path("icons/Warn.png"), false,
-				path + "Warn.png", true);
-		FileUtils.saveToFile(bundleChecker, new Path("icons/Info.png"), false,
-				path + "Info.png", true);
-		FileUtils.saveToFile(bundleChecker, new Path("icons/star.gif"), false,
-				path + "star.gif", true);
-
-		FileUtils.saveToFile(bundleChecker, new Path("icons/rating/Bad.png"),
-				false, path + "Bad.png", true);
-		FileUtils.saveToFile(bundleChecker, new Path("icons/rating/Good.png"),
-				false, path + "Good.png", true);
-		FileUtils.saveToFile(bundleChecker, new Path("icons/rating/Poor.png"),
-				false, path + "Poor.png", true);
-		FileUtils.saveToFile(bundleChecker, new Path(
-				"icons/rating/VeryGood.png"), false, path + "VeryGood.png",
+		FileUtils.copyFile(bundleChecker, new Path("icons/Err.png"), path + "Err.png",
 				true);
+		FileUtils.copyFile(bundleChecker, new Path("icons/Warn.png"), path + "Warn.png",
+				true);
+		FileUtils.copyFile(bundleChecker, new Path("icons/Info.png"), path + "Info.png",
+				true);
+		FileUtils.copyFile(bundleChecker, new Path("icons/star.gif"), path + "star.gif",
+				true);
+
+		FileUtils.copyFile(bundleChecker, new Path("icons/rating/Bad.png"),
+				path + "Bad.png", true);
+		FileUtils.copyFile(bundleChecker, new Path("icons/rating/Good.png"),
+				path + "Good.png", true);
+		FileUtils.copyFile(bundleChecker, new Path("icons/rating/Poor.png"),
+				path + "Poor.png", true);
+		FileUtils.copyFile(bundleChecker, new Path(
+				"icons/rating/VeryGood.png"), path + "VeryGood.png", true);
 
 		Bundle bundleBlind = Platform.getBundle(BlindVizEnginePlugin.PLUGIN_ID);
 
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/images/clear.gif"), false, path + "clear.gif",
-				true);
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/images/clear.gif"), path + "clear.gif", true);
 		FileUtils
-				.saveToFile(bundleBlind, new Path(
-						"vizResources/images/dest.gif"), false, path
+				.copyFile(bundleBlind, new Path(
+						"vizResources/images/dest.gif"), path
 						+ "dest.gif", true);
 		FileUtils
-				.saveToFile(bundleBlind, new Path(
-						"vizResources/images/draw.gif"), false, path
+				.copyFile(bundleBlind, new Path(
+						"vizResources/images/draw.gif"), path
 						+ "draw.gif", true);
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/images/exclawhite21.gif"), false, path
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/images/exclawhite21.gif"), path
 				+ "exclawhite21.gif", true);
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/images/face-sad.gif"), false, path
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/images/face-sad.gif"), path
 				+ "face-sad.gif", true);
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/images/face-smile.gif"), false, path
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/images/face-smile.gif"), path
 				+ "face-smile.gif", true);
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/images/face-usual.gif"), false, path
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/images/face-usual.gif"), path
 				+ "face-usual.gif", true);
 		FileUtils
-				.saveToFile(bundleBlind, new Path(
-						"vizResources/images/jump.gif"), false, path
+				.copyFile(bundleBlind, new Path(
+						"vizResources/images/jump.gif"), path
 						+ "jump.gif", true);
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/images/line_filled.gif"), false, path
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/images/line_filled.gif"), path
 				+ "line_filled.gif", true);
 		FileUtils
-				.saveToFile(bundleBlind, new Path(
-						"vizResources/images/logo.gif"), false, path
+				.copyFile(bundleBlind, new Path(
+						"vizResources/images/logo.gif"), path
 						+ "logo.gif", true);
 		FileUtils
-				.saveToFile(bundleBlind, new Path(
-						"vizResources/images/move.gif"), false, path
+				.copyFile(bundleBlind, new Path(
+						"vizResources/images/move.gif"), path
 						+ "move.gif", true);
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/images/refresh.gif"), false,
-				path + "refresh.gif", true);
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/images/refresh.gif"), path + "refresh.gif",
+				true);
 		FileUtils
-				.saveToFile(bundleBlind, new Path(
-						"vizResources/images/stop.gif"), false, path
+				.copyFile(bundleBlind, new Path(
+						"vizResources/images/stop.gif"), path
 						+ "stop.gif", true);
 
 	}
 
 	public static void saveScripts(String path) {
 		Bundle bundleBlind = Platform.getBundle(BlindVizEnginePlugin.PLUGIN_ID);
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/scripts/highlight.js"), false, path
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/scripts/highlight.js"), path
 				+ "highlight.js", true);
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/scripts/highlight_moz.js"), false, path
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/scripts/highlight_moz.js"), path
 				+ "highlight_moz.js", true);
-		FileUtils.saveToFile(bundleBlind, new Path(
-				"vizResources/scripts/highlight-dummy.js"), false, path
+		FileUtils.copyFile(bundleBlind, new Path(
+				"vizResources/scripts/highlight-dummy.js"), path
 				+ "highlight-dummy.js", true);
 
 	}

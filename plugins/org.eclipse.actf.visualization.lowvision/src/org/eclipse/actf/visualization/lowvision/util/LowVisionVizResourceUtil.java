@@ -25,32 +25,27 @@ public class LowVisionVizResourceUtil {
 
     public static void saveErrorIcons(String path) {
         Bundle bundleChecker = Platform.getBundle(EvaluationUtil.PLUGIN_ID);
-        FileUtils.saveToFile(bundleChecker, new Path("icons/lowvision/HiIro21.gif"), false, path + "HiIro21.gif", true);
-        FileUtils.saveToFile(bundleChecker, new Path("icons/lowvision/HiBoke21.gif"), false, path + "HiBoke21.gif",
-                true);
-        FileUtils.saveToFile(bundleChecker, new Path("icons/lowvision/ErrIro21.gif"), false, path + "ErrIro21.gif",
-                true);
-        FileUtils.saveToFile(bundleChecker, new Path("icons/lowvision/ErrBoke21.gif"), false, path + "ErrBoke21.gif",
-                true);
+        FileUtils.copyFile(bundleChecker, new Path("icons/lowvision/HiIro21.gif"), path + "HiIro21.gif", true);
+        FileUtils.copyFile(bundleChecker, new Path("icons/lowvision/HiBoke21.gif"), path + "HiBoke21.gif", true);
+        FileUtils.copyFile(bundleChecker, new Path("icons/lowvision/ErrIro21.gif"), path + "ErrIro21.gif", true);
+        FileUtils.copyFile(bundleChecker, new Path("icons/lowvision/ErrBoke21.gif"), path + "ErrBoke21.gif", true);
 
     }
 
     public static void saveImages(String path) {
         Bundle bundleChecker = Platform.getBundle(EvaluationUtil.PLUGIN_ID);
 
-        FileUtils.saveToFile(bundleChecker, new Path("icons/rating/Bad.png"), false, path + "Bad.png", true);
-        FileUtils.saveToFile(bundleChecker, new Path("icons/rating/Good.png"), false, path + "Good.png", true);
-        FileUtils.saveToFile(bundleChecker, new Path("icons/rating/Poor.png"), false, path + "Poor.png", true);
-        FileUtils.saveToFile(bundleChecker, new Path("icons/rating/VeryGood.png"), false, path + "VeryGood.png", true);
+        FileUtils.copyFile(bundleChecker, new Path("icons/rating/Bad.png"), path + "Bad.png", true);
+        FileUtils.copyFile(bundleChecker, new Path("icons/rating/Good.png"), path + "Good.png", true);
+        FileUtils.copyFile(bundleChecker, new Path("icons/rating/Poor.png"), path + "Poor.png", true);
+        FileUtils.copyFile(bundleChecker, new Path("icons/rating/VeryGood.png"), path + "VeryGood.png", true);
     }
 
     public static void saveScripts(String path) {
         Bundle lvBundle = Platform.getBundle(LowVisionVizPlugin.PLUGIN_ID);
 
-        FileUtils.saveToFile(lvBundle, new Path("vizResources/scripts/lvHighlight.js"), false, path + "lvHighlight.js",
-                true);
-        FileUtils.saveToFile(lvBundle, new Path("vizResources/scripts/lvHighlight_moz.js"), false, path + "lvHighlight_moz.js",
-                true);
+        FileUtils.copyFile(lvBundle, new Path("vizResources/scripts/lvHighlight.js"), path + "lvHighlight.js", true);
+        FileUtils.copyFile(lvBundle, new Path("vizResources/scripts/lvHighlight_moz.js"), path + "lvHighlight_moz.js", true);
 
     }
 
