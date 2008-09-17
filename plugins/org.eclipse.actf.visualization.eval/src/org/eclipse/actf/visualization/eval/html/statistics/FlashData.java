@@ -11,7 +11,7 @@
 
 package org.eclipse.actf.visualization.eval.html.statistics;
 
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.visualization.internal.eval.XMLStringUtil;
 
 public class FlashData implements IPageStatisticsTag {
 
@@ -196,7 +196,7 @@ public class FlashData implements IPageStatisticsTag {
 
 	public String getItemXML() {
 		StringBuffer tmpSB = new StringBuffer("<" + FLASH + " " + SRC + "=\""
-				+ XPathUtil.canonicalize(src) + "\" "
+				+ XMLStringUtil.canonicalize(src) + "\" "
 				+ FlashData.FLASH_IS_OBJECT + "=\"" + isObject + "\" ");
 		if (isObject && withEmbed) {
 			tmpSB.append(FlashData.FLASH_WITHEMBED + "=\"true\" ");

@@ -12,7 +12,7 @@
 package org.eclipse.actf.visualization.eval.html.statistics;
 
 import org.eclipse.actf.util.xpath.XPathCreator;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.visualization.internal.eval.XMLStringUtil;
 import org.w3c.dom.Element;
 import org.xml.sax.Attributes;
 
@@ -75,7 +75,7 @@ public class HeadingsData implements IPageStatisticsTag {
 	}
 
 	private String getAttr(String name, String value) {
-		return ((name + "=\"" + XPathUtil.canonicalize(value) + "\" "));
+		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" "));
 	}
 
 	public String getItemXML() {

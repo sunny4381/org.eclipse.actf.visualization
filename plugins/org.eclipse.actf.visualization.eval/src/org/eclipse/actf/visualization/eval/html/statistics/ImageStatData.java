@@ -15,262 +15,267 @@ import java.net.URL;
 import java.util.Vector;
 
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
+import org.eclipse.actf.visualization.internal.eval.XMLStringUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.html.HTMLAnchorElement;
 import org.w3c.dom.html.HTMLImageElement;
 import org.xml.sax.Attributes;
 
-
-
 public class ImageStatData implements IPageStatisticsTag {
 
 	public static final String ISMAP = "ismap";
 
-	public static final String USEMAP ="usemap";
+	public static final String USEMAP = "usemap";
 
 	public static final String LONGDESC = "longdesc";
 
-	
-    protected String altS = "";
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService.compile("ancestor::a");
 
-    protected Element ancestorLink = null;
+	protected String altS = "";
 
-    protected String destUrlS = "";
+	protected Element ancestorLink = null;
 
-    protected boolean hasAlt = false;
+	protected String destUrlS = "";
 
-    protected boolean hasHeight = false;
+	protected boolean hasAlt = false;
 
-    protected boolean hasLongDesc = false;
+	protected boolean hasHeight = false;
 
-    protected boolean hasUseMap = false;
+	protected boolean hasLongDesc = false;
 
-    protected boolean hasWidth = false;
+	protected boolean hasUseMap = false;
 
-    protected String heightS = "";
+	protected boolean hasWidth = false;
 
-    protected boolean isInLink = false;
+	protected String heightS = "";
 
-    protected boolean isMap = false;
+	protected boolean isInLink = false;
 
-    protected String longDescS = "";
+	protected boolean isMap = false;
 
-    // for problem statistics
-    protected Vector<IProblemItem> problemV = new Vector<IProblemItem>();
+	protected String longDescS = "";
 
-    protected String srcS = "";
+	// for problem statistics
+	protected Vector<IProblemItem> problemV = new Vector<IProblemItem>();
 
-    protected String urlS = "";
+	protected String srcS = "";
 
-    protected String useMapS = "";
+	protected String urlS = "";
 
-    protected String widthS = "";
+	protected String useMapS = "";
 
+	protected String widthS = "";
 
-    protected ImageStatData() {
-    }
+	protected ImageStatData() {
+	}
 
-    /**
-     * @param tagName
-     * @param text
-     */
-    public ImageStatData(HTMLImageElement target, URL baseURL) {
+	/**
+	 * @param tagName
+	 * @param text
+	 */
+	public ImageStatData(HTMLImageElement target, URL baseURL) {
 
-        srcS = target.getSrc();
-        urlS = srcS;
-        try {
-            urlS = new URL(baseURL, urlS).toString();
-        } catch (Exception e) {
-        }
+		srcS = target.getSrc();
+		urlS = srcS;
+		try {
+			urlS = new URL(baseURL, urlS).toString();
+		} catch (Exception e) {
+		}
 
-        //System.out.println(urlS);
+		// System.out.println(urlS);
 
-        if (hasAlt = target.hasAttribute(ALT)) {
-            altS = target.getAlt();
-        }
-        if (hasLongDesc = target.hasAttribute(ImageStatData.LONGDESC)) {
-            longDescS = target.getLongDesc();
-        }
-        if (hasUseMap = target.hasAttribute(ImageStatData.USEMAP)) {
-            useMapS = target.getUseMap();
-        }
+		if (hasAlt = target.hasAttribute(ALT)) {
+			altS = target.getAlt();
+		}
+		if (hasLongDesc = target.hasAttribute(ImageStatData.LONGDESC)) {
+			longDescS = target.getLongDesc();
+		}
+		if (hasUseMap = target.hasAttribute(ImageStatData.USEMAP)) {
+			useMapS = target.getUseMap();
+		}
 
-        if (hasWidth = target.hasAttribute(WIDTH)) {
-            widthS = target.getWidth();
-        }
+		if (hasWidth = target.hasAttribute(WIDTH)) {
+			widthS = target.getWidth();
+		}
 
-        if (hasHeight = target.hasAttribute(HEIGHT)) {
-            heightS = target.getHeight();
-        }
+		if (hasHeight = target.hasAttribute(HEIGHT)) {
+			heightS = target.getHeight();
+		}
 
-        isMap = target.getIsMap();
+		isMap = target.getIsMap();
 
-        NodeList tmpNL = XPathUtil.evalXPathNodeList(target, "ancestor::a");
-        //XPathUtil.showNodeList(tmpNL,true);
-        int len = tmpNL.getLength();
-        if (len > 0) {
-            HTMLAnchorElement tmpE = (HTMLAnchorElement) tmpNL.item(0);
-            if (isInLink = tmpE.hasAttribute(HREF)) {
-                destUrlS = tmpE.getHref();
-                ancestorLink = tmpE;
-                try {
-                    destUrlS = new URL(baseURL, destUrlS).toString();
-                } catch (Exception e) {
-                }
-            }
-        }
-    }
+		NodeList tmpNL = xpathService.evalForNodeList(EXP1, target);
+		// XPathUtil.showNodeList(tmpNL,true);
+		int len = tmpNL.getLength();
+		if (len > 0) {
+			HTMLAnchorElement tmpE = (HTMLAnchorElement) tmpNL.item(0);
+			if (isInLink = tmpE.hasAttribute(HREF)) {
+				destUrlS = tmpE.getHref();
+				ancestorLink = tmpE;
+				try {
+					destUrlS = new URL(baseURL, destUrlS).toString();
+				} catch (Exception e) {
+				}
+			}
+		}
+	}
 
-    public void addProblemItem(Attributes atts) throws StatisticsDataFormatException {
-        String idS = atts.getValue(ID);
-        String targetS = atts.getValue(TARGET_STRING);
+	public void addProblemItem(Attributes atts)
+			throws StatisticsDataFormatException {
+		String idS = atts.getValue(ID);
+		String targetS = atts.getValue(TARGET_STRING);
 
-        if (idS != null) {
-            IProblemItem tmpItem = new ProblemItemImpl(idS);
-            if (!tmpItem.getId().equals("unknown")) {
-                if (targetS != null) {
-                    tmpItem.setTargetStringForHPB(targetS);
-                }
-                addProblemItem(tmpItem);
-                return;
-            }
-        }
-        throw new StatisticsDataFormatException();
-    }
+		if (idS != null) {
+			IProblemItem tmpItem = new ProblemItemImpl(idS);
+			if (!tmpItem.getId().equals("unknown")) {
+				if (targetS != null) {
+					tmpItem.setTargetStringForHPB(targetS);
+				}
+				addProblemItem(tmpItem);
+				return;
+			}
+		}
+		throw new StatisticsDataFormatException();
+	}
 
-    public void addProblemItem(IProblemItem problemItem) {
-        problemV.add(problemItem);
-    }
+	public void addProblemItem(IProblemItem problemItem) {
+		problemV.add(problemItem);
+	}
 
-    public String getAltS() {
-        return this.altS;
-    }
+	public String getAltS() {
+		return this.altS;
+	}
 
-    public Element getAncestorLink() {
-        return ancestorLink;
-    }
+	public Element getAncestorLink() {
+		return ancestorLink;
+	}
 
-    private String getAttr(String name, boolean value) {
-        return (getAttr(name, Boolean.toString(value)));
-    }
+	private String getAttr(String name, boolean value) {
+		return (getAttr(name, Boolean.toString(value)));
+	}
 
-    private String getAttr(String name, String value) {
-        return ((name + "=\"" + XPathUtil.canonicalize(value) + "\" "));
-    }
+	private String getAttr(String name, String value) {
+		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" "));
+	}
 
-    public String getDestUrlS() {
-        return destUrlS;
-    }
+	public String getDestUrlS() {
+		return destUrlS;
+	}
 
-    public String getHeightS() {
-        return heightS;
-    }
+	public String getHeightS() {
+		return heightS;
+	}
 
-    public String getItemXML() {
-        StringBuffer tmpSB = new StringBuffer("<" + IMAGE + " " + getAttr(SRC, srcS) + getAttr(URL, urlS)
-                + getAttr(ImageStatData.ISMAP, isMap));
-        if (hasAlt) {
-            tmpSB.append(getAttr(ALT, altS));
-        }
-        if (hasWidth) {
-            tmpSB.append(getAttr(WIDTH, widthS));
-        }
-        if (hasHeight) {
-            tmpSB.append(getAttr(HEIGHT, heightS));
-        }
-        if (isInLink) {
-            tmpSB.append(getAttr(DEST, destUrlS));
-        }
-        if (hasLongDesc) {
-            tmpSB.append(getAttr(ImageStatData.LONGDESC, longDescS));
-        }
-        if (hasUseMap) {
-            tmpSB.append(getAttr(ImageStatData.USEMAP, useMapS));
-        }
-        int size = problemV.size();
-        if (size == 0) {
-            tmpSB.append(" />");
-        } else {
-            tmpSB.append(" >" + FileUtils.LINE_SEP);
-            for (int i = 0; i < size; i++) {
-                IProblemItem pItem = (IProblemItem) problemV.get(i);
-                tmpSB.append("<" + ERROR + " " + getAttr(ID, pItem.getId())
-                        + getAttr(TARGET_STRING, pItem.getTargetStringForHPB()) + " />" + FileUtils.LINE_SEP);
-            }
-            tmpSB.append("</" + IMAGE + ">");
-        }
-        return (tmpSB.toString());
-    }
+	public String getItemXML() {
+		StringBuffer tmpSB = new StringBuffer("<" + IMAGE + " "
+				+ getAttr(SRC, srcS) + getAttr(URL, urlS)
+				+ getAttr(ImageStatData.ISMAP, isMap));
+		if (hasAlt) {
+			tmpSB.append(getAttr(ALT, altS));
+		}
+		if (hasWidth) {
+			tmpSB.append(getAttr(WIDTH, widthS));
+		}
+		if (hasHeight) {
+			tmpSB.append(getAttr(HEIGHT, heightS));
+		}
+		if (isInLink) {
+			tmpSB.append(getAttr(DEST, destUrlS));
+		}
+		if (hasLongDesc) {
+			tmpSB.append(getAttr(ImageStatData.LONGDESC, longDescS));
+		}
+		if (hasUseMap) {
+			tmpSB.append(getAttr(ImageStatData.USEMAP, useMapS));
+		}
+		int size = problemV.size();
+		if (size == 0) {
+			tmpSB.append(" />");
+		} else {
+			tmpSB.append(" >" + FileUtils.LINE_SEP);
+			for (int i = 0; i < size; i++) {
+				IProblemItem pItem = (IProblemItem) problemV.get(i);
+				tmpSB.append("<" + ERROR + " " + getAttr(ID, pItem.getId())
+						+ getAttr(TARGET_STRING, pItem.getTargetStringForHPB())
+						+ " />" + FileUtils.LINE_SEP);
+			}
+			tmpSB.append("</" + IMAGE + ">");
+		}
+		return (tmpSB.toString());
+	}
 
-    public String getLongDescS() {
-        return longDescS;
-    }
+	public String getLongDescS() {
+		return longDescS;
+	}
 
-    public Vector<IProblemItem> getProblemV() {
-        return this.problemV;
-    }
+	public Vector<IProblemItem> getProblemV() {
+		return this.problemV;
+	}
 
-    public String getSrcS() {
-        return srcS;
-    }
+	public String getSrcS() {
+		return srcS;
+	}
 
-    public String getUrlS() {
-        return this.urlS;
-    }
+	public String getUrlS() {
+		return this.urlS;
+	}
 
-    public String getUseMapS() {
-        return useMapS;
-    }
+	public String getUseMapS() {
+		return useMapS;
+	}
 
-    public String getWidthS() {
-        return widthS;
-    }
+	public String getWidthS() {
+		return widthS;
+	}
 
-    public boolean isHasAlt() {
-        return this.hasAlt;
-    }
+	public boolean isHasAlt() {
+		return this.hasAlt;
+	}
 
-    public boolean isHasHeight() {
-        return hasHeight;
-    }
+	public boolean isHasHeight() {
+		return hasHeight;
+	}
 
-    public boolean isHasLongDesc() {
-        return hasLongDesc;
-    }
+	public boolean isHasLongDesc() {
+		return hasLongDesc;
+	}
 
-    public boolean isHasUseMap() {
-        return hasUseMap;
-    }
+	public boolean isHasUseMap() {
+		return hasUseMap;
+	}
 
-    public boolean isHasWidth() {
-        return hasWidth;
-    }
+	public boolean isHasWidth() {
+		return hasWidth;
+	}
 
-    public boolean isInLink() {
-        return isInLink;
-    }
+	public boolean isInLink() {
+		return isInLink;
+	}
 
-    public boolean isMap() {
-        return isMap;
-    }
+	public boolean isMap() {
+		return isMap;
+	}
 
-    public void setHasHeight(boolean hasHeight) {
-        this.hasHeight = hasHeight;
-    }
+	public void setHasHeight(boolean hasHeight) {
+		this.hasHeight = hasHeight;
+	}
 
-    public void setHasWidth(boolean hasWidth) {
-        this.hasWidth = hasWidth;
-    }
+	public void setHasWidth(boolean hasWidth) {
+		this.hasWidth = hasWidth;
+	}
 
-    public void setHeightS(String heightS) {
-        this.heightS = heightS;
-    }
+	public void setHeightS(String heightS) {
+		this.heightS = heightS;
+	}
 
-    public void setWidthS(String widthS) {
-        this.widthS = widthS;
-    }
+	public void setWidthS(String widthS) {
+		this.widthS = widthS;
+	}
 }

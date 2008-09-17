@@ -20,7 +20,8 @@ import java.util.Map;
 import java.util.TreeSet;
 import java.util.Vector;
 
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.html.statistics.FlashData;
 import org.eclipse.actf.visualization.eval.html.statistics.HeadingsData;
@@ -56,6 +57,13 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	public static final String[] EVENT_FOCUS = { ATTR_ONFOCUS, ATTR_ONBLUR,
 			ATTR_ONSELECT };
+
+	private static final XPathService xpathService = XPathServiceFactory
+			.newService();
+	private static final Object EXP1 = xpathService.compile(".//a[@"
+			+ ATTR_HREF + "]");
+	private static final Object EXP2 = xpathService
+			.compile("//h1|//h2|//h3|//h4|//h5|//h6");
 
 	private Document target;
 
@@ -144,8 +152,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	private HashSet<String> notExistHrefSet = new HashSet<String>();
 
 	public HtmlEvalUtil(Document target, Document resultDoc, String curUrl,
-			Map<Node, Integer> document2IdMap, Document origDom, Document ieDom,
-			PageData pageData, boolean isDBCS, boolean isIEDom) {
+			Map<Node, Integer> document2IdMap, Document origDom,
+			Document ieDom, PageData pageData, boolean isDBCS, boolean isIEDom) {
 		this(target, resultDoc, curUrl, document2IdMap, origDom, ieDom,
 				pageData, 0, null, isDBCS, isIEDom);
 	}
@@ -154,8 +162,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 * 
 	 */
 	public HtmlEvalUtil(Document target, Document resultDoc, String curUrl,
-			Map<Node, Integer> document2IdMap, Document origDom, Document ieDom,
-			PageData pageData, int invisibleElementCount,
+			Map<Node, Integer> document2IdMap, Document origDom,
+			Document ieDom, PageData pageData, int invisibleElementCount,
 			String[] invisibleLinkStrings, boolean isDBCS, boolean isIEDom) {
 		this.target = target;
 		this.resultDoc = resultDoc;
@@ -189,8 +197,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		// System.out.println(df.format(new Date(System.currentTimeMillis()))
 		// + ": checker engine init");
 
-		NodeList tmpNL = XPathUtil.evalXPathNodeList(target, ".//" + "a"
-				+ ("[@" + ATTR_HREF + "]"));
+		NodeList tmpNL = xpathService.evalForNodeList(EXP1, target);
 		int length = tmpNL.getLength();
 
 		if (length > 0) {
@@ -338,10 +345,9 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			}
 		}
 
-		NodeList headingsNL = XPathUtil.evalXPathNodeList(target,
-				"//h1|//h2|//h3|//h4|//h5|//h6");
+		NodeList headingsNL = xpathService.evalForNodeList(EXP2, target);
 		length = headingsNL.getLength();
-		Vector<HeadingsData>tmpV2 = new Vector<HeadingsData>();
+		Vector<HeadingsData> tmpV2 = new Vector<HeadingsData>();
 		headings = new Element[headingsNL.getLength()];
 		for (int i = 0; i < length; i++) {
 			Element tmpE = (Element) headingsNL.item(i);
@@ -365,7 +371,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	}
 
 	private Element[] getElementsArrayByXPath(Document target, String xpath) {
-		NodeList tmpNL = XPathUtil.evalXPathNodeList(target, xpath);
+		NodeList tmpNL = xpathService.evalPathForNodeList(xpath, target);
 		int length = tmpNL.getLength();
 		Element[] result = new Element[length];
 		for (int i = 0; i < length; i++) {
@@ -435,7 +441,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 		if (EvaluationUtil.isOriginalDOM()) {
 			// target = orig DOM
-			if (isIEDom||null==ieDom) {
+			if (isIEDom || null == ieDom) {
 				// parse error
 				return;
 			}
@@ -444,8 +450,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 					.asList(aWithHref_hrefs));
 			// trim()?
 
-			NodeList ieNL = XPathUtil.evalXPathNodeList(ieDom, ".//" + "a"
-					+ ("[@" + ATTR_HREF + "]"));
+			NodeList ieNL = xpathService.evalForNodeList(EXP1, ieDom);
 			int size = ieNL.getLength();
 			for (int i = 0; i < size; i++) {
 				Element tmpE = (Element) ieNL.item(i);
@@ -456,8 +461,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			}
 		} else {
 			// target = IE DOM
-			NodeList orgNL = XPathUtil.evalXPathNodeList(origDom, ".//" + "a"
-					+ ("[@" + ATTR_HREF + "]"));
+			NodeList orgNL = xpathService.evalForNodeList(EXP1, origDom);
 			int size = orgNL.getLength();
 			TreeSet<String> existSet = new TreeSet<String>();
 			for (int i = 0; i < size; i++) {

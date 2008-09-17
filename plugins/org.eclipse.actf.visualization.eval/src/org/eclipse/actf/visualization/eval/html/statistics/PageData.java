@@ -16,9 +16,9 @@ import java.util.Map;
 import java.util.Vector;
 
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.util.xpath.XPathUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItemVisitor;
+import org.eclipse.actf.visualization.internal.eval.XMLStringUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.html.HTMLImageElement;
 
@@ -153,7 +153,7 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 	}
 
 	private String getAttr(String name, String value) {
-		return ((name + "=\"" + XPathUtil.canonicalize(value) + "\" "));
+		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" "));
 	}
 
 	public int getSkipMainNum() {

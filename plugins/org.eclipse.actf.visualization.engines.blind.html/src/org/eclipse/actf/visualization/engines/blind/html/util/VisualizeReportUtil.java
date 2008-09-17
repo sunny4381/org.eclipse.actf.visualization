@@ -22,7 +22,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.eclipse.actf.util.xpath.XPathUtil;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
@@ -165,9 +165,11 @@ public class VisualizeReportUtil {
 			String idS = frameElem.getAttribute(Html2ViewMapData.ACTF_ID);
 			if (idS.length() > 0) {
 				Integer idObj = new Integer(idS);
-				NodeList nl = XPathUtil.evalXPathNodeList(resultDoc
-						.getDocumentElement(), "//*[@"
-						+ Html2ViewMapData.ACTF_ID + "='" + idObj + "']/span");
+				NodeList nl = XPathServiceFactory.newService()
+						.evalPathForNodeList(
+								"//*[@" + Html2ViewMapData.ACTF_ID + "='"
+										+ idObj + "']/span",
+								resultDoc.getDocumentElement());
 				if ((nl != null) && (nl.getLength() == 1)) {
 					Element frameElemResultDoc = (Element) nl.item(0);
 					Element img = createErrorImageElement(frameElemResultDoc,
