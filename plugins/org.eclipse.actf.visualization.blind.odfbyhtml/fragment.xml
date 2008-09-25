@@ -4,8 +4,7 @@
    <extension
          point="org.eclipse.actf.visualization.blind.blindVisualizer">
       <blindVisualizer
-            class="org.eclipse.actf.visualization.blind.odfbyhtml.BlindVisualizerOdfByHtml"
-            id="org.eclipse.actf.visualization.blind.html.blindVisualizer2"/>
+            class="org.eclipse.actf.visualization.blind.odfbyhtml.BlindVisualizerOdfByHtml"/>
    </extension>
 
 </fragment>
