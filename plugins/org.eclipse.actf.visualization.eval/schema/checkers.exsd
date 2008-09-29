@@ -3,10 +3,10 @@
 <schema targetNamespace="org.eclipse.actf.visualization.eval">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.eclipse.actf.visualization.eval" id="checkers" name="checkers"/>
+         <meta.schema plugin="org.eclipse.actf.visualization.eval" id="checkers" name="Accessibility Checkers"/>
       </appInfo>
       <documentation>
-         [Enter description of this extension point.]
+         This extension point is used to add new accessibility checker implementation.
       </documentation>
    </annotation>
 
@@ -47,7 +47,7 @@
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the name of a class that implements &lt;samp&gt;org.eclipse.actf.visualization.eval.IChecker&lt;/samp&gt;.
                </documentation>
                <appInfo>
                   <meta.attribute kind="java" basedOn=":org.eclipse.actf.visualization.eval.IChecker"/>
@@ -57,7 +57,7 @@
          <attribute name="infoprovider" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the name of a class that implements &lt;samp&gt;org.eclipse.actf.visualization.eval.ICheckerInfoProvider&lt;/samp&gt;.
                </documentation>
                <appInfo>
                   <meta.attribute kind="java" basedOn=":org.eclipse.actf.visualization.eval.ICheckerInfoProvider"/>
@@ -72,7 +72,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         
       </documentation>
    </annotation>
 
@@ -81,7 +81,15 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         [Enter extension point usage example here.]
+         The following is an example of an extension definition:
+&lt;pre&gt;
+   &lt;extension
+         point=&quot;org.eclipse.actf.visualization.eval.checkers&quot;&gt;
+      &lt;checker
+            infoprovider=&quot;org.eclipse.actf.examples.adesigner.eval.html.HtmlCheckerInfoProvider&quot;
+            class=&quot;org.eclipse.actf.examples.adesigner.eval.html.Checker&quot;/&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
       </documentation>
    </annotation>
 
@@ -90,7 +98,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         [Enter API information here.]
+         The contributor will add new accessibility checker by implementing &lt;samp&gt;IChecker&lt;/samp&gt;. &lt;samp&gt;ICheckerInfoProvider&lt;/samp&gt; is used to provide check item information, such as error descriptions, guideline information, check item mapping.
       </documentation>
    </annotation>
 
@@ -99,7 +107,8 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         [Enter information about supplied implementation of this extension point.]
+         ACTF provides two example implementations
+&lt;samp&gt;org.eclipse.actf.examples.adesigner.eval.html&lt;/samp&gt; and &lt;samp&gt;org.eclipse.actf.examples.adesigner.eval.odf&lt;/samp&gt;.
       </documentation>
    </annotation>
 

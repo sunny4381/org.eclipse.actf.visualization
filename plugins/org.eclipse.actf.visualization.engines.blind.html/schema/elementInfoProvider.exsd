@@ -6,7 +6,7 @@
          <meta.schema plugin="org.eclipse.actf.visualization.engines.blind.html" id="elementInfoProvider" name="ElementInfoProvider"/>
       </appInfo>
       <documentation>
-         [Enter description of this extension point.]
+         This extension point is used to add additional information to IDs/Access Keys shown in ElementViewer by using IElementViewerInfoProvider.
       </documentation>
    </annotation>
 
@@ -47,7 +47,7 @@
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  
+                  the name of a class that implements &lt;samp&gt;org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerInfoProvider&lt;/samp&gt;.
                </documentation>
                <appInfo>
                   <meta.attribute kind="java" basedOn=":org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerInfoProvider"/>
@@ -62,7 +62,7 @@
          <meta.section type="since"/>
       </appInfo>
       <documentation>
-         [Enter the first release in which this extension point appears.]
+         
       </documentation>
    </annotation>
 
@@ -71,7 +71,14 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         [Enter extension point usage example here.]
+         The following is an example of an extension definition:
+&lt;pre&gt;
+   &lt;extension
+         point=&quot;org.eclipse.actf.visualization.engines.blind.html.elementInfoProvider&quot;&gt;
+      &lt;provider
+            class=&quot;org.eclipse.actf.example.MyElementInfoProvider&quot;/&gt;
+   &lt;/extension&gt;
+&lt;/pre&gt;
       </documentation>
    </annotation>
 
@@ -80,7 +87,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         [Enter API information here.]
+         The contributor will provide additional information by implementing &lt;samp&gt;IElementViewerInfoProvider&lt;/samp&gt;.
       </documentation>
    </annotation>
 
@@ -89,7 +96,7 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         [Enter information about supplied implementation of this extension point.]
+         
       </documentation>
    </annotation>
 

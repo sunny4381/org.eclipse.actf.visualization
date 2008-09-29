@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-   <extension-point id="checkers" name="checkers" schema="schema/checkers.exsd"/>
+   <extension-point id="checkers" name="Accessibility Checkers" schema="schema/checkers.exsd"/>
   <extension
         point="org.eclipse.ui.preferencePages">
      <page
