@@ -14,7 +14,7 @@ import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
 import org.eclipse.actf.ai.voice.IVoice;
 import org.eclipse.actf.ai.voice.IVoiceEventListener;
-import org.eclipse.actf.ai.voice.VoicePlugin;
+import org.eclipse.actf.ai.voice.VoiceUtil;
 import org.eclipse.actf.visualization.gui.IGuiViewIDs;
 import org.eclipse.actf.visualization.gui.internal.GuiPlugin;
 import org.eclipse.actf.visualization.gui.internal.util.GuiImages;
@@ -127,7 +127,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
             }
 		});
 		
-		VoicePlugin.getVoice().setEventListener(new IVoiceEventListener(){
+		VoiceUtil.getVoice().setEventListener(new IVoiceEventListener(){
 			public void indexReceived(final int index) {
 				text.getDisplay().asyncExec(new Runnable(){
 					public void run() {
@@ -186,7 +186,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
 	}
 
 	public void setSelection(AccessibleObject object) {
-		VoicePlugin.getVoice().stop();
+		VoiceUtil.getVoice().stop();
 		if( ignoreSelection ) return;
         object = MSAAViewRegistory.adjustSelection(object);
 		if( null != object ) {
@@ -207,7 +207,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
 	
 	public void refresh() {
         AccessibleObject object = MSAAViewRegistory.adjustSelection(null);
-		VoicePlugin.getVoice().stop();
+        VoiceUtil.getVoice().stop();
         if( null == object ) {
             setText(Messages.getString("msaa.jaws.notarget"),SWT.COLOR_DARK_GRAY); //$NON-NLS-1$
         }
@@ -299,7 +299,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
         
 		speakAction = new Action(Messages.getString("msaa.speak_here")) { //$NON-NLS-1$
 			public void run() {
-				IVoice voice = VoicePlugin.getVoice();
+				IVoice voice = VoiceUtil.getVoice();
 				try {
 					voice.stop();
 					int lineCount = text.getLineCount();
@@ -324,7 +324,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
 		
 		stopAction = new Action(Messages.getString("msaa.stop")) { //$NON-NLS-1$
 			public void run() {
-				VoicePlugin.getVoice().stop();
+				VoiceUtil.getVoice().stop();
 				selectLine(-1);
 			}
 		};

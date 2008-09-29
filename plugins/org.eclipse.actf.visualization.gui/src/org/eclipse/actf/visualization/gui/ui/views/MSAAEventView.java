@@ -29,7 +29,7 @@ import org.eclipse.actf.accservice.swtbridge.event.IAccessibleEventMonitor;
 import org.eclipse.actf.accservice.swtbridge.ia2.Accessible2;
 import org.eclipse.actf.accservice.swtbridge.ia2.AccessibleText;
 import org.eclipse.actf.accservice.swtbridge.ia2.TextSegment;
-import org.eclipse.actf.ai.voice.VoicePlugin;
+import org.eclipse.actf.ai.voice.VoiceUtil;
 import org.eclipse.actf.util.win32.WindowUtil;
 import org.eclipse.actf.visualization.gui.IGuiViewIDs;
 import org.eclipse.actf.visualization.gui.internal.GuiPlugin;
@@ -419,7 +419,7 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
 				text.setSelection(text.getCharCount());
                 if( speakEventAction.isChecked() ) {
                     if( null != str && str.length() > 0 ) {
-                        VoicePlugin.getVoice().speak(str,true);
+                    	VoiceUtil.getVoice().speak(str,true);
                     }
                 }
 			}
@@ -498,7 +498,7 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
                     text.setStyleRange(range);
                     text.setSelection(text.getCharCount());
                     if( speakEventAction.isChecked() ) {
-                        VoicePlugin.getVoice().speak(speakText,true);
+                    	VoiceUtil.getVoice().speak(speakText,true);
                     }
                 }
             });
