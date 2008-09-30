@@ -23,14 +23,20 @@ import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.w3c.dom.Document;
 
-public abstract class BlindVisualizerBase implements IBlindVisualizer{
+/**
+ * Abstract implementation of {@link IBlindVisualizer}. Contributors need to
+ * implement <samp>visualize</samp> method to suit to their purpose.
+ */
+public abstract class BlindVisualizerBase implements IBlindVisualizer {
 
 	protected IChecker[] checkers = EvaluationUtil.getCheckers();
-	protected String tmpDirS = BlindVizResourceUtil.getTempDirectory().getAbsolutePath() + File.separator;
+	protected String tmpDirS = BlindVizResourceUtil.getTempDirectory()
+			.getAbsolutePath()
+			+ File.separator;
 	protected String targetUrl = "";
 	protected IModelService modelService;
 
-	//for reuslt
+	// for reuslt
 	protected IEvaluationResult checkResult = new EvaluationResultBlind();
 	protected Document resultDocument;
 	protected PageData pageData;
@@ -38,31 +44,40 @@ public abstract class BlindVisualizerBase implements IBlindVisualizer{
 	protected File resultFile;
 
 	private IVisualizationView vizView;
-	
+
+	/**
+	 * Check if the target {@link IModelService} is supported by the
+	 * implementation. Contributors must implement this method.
+	 * 
+	 * @param modelService
+	 *            target {@link IModelService}
+	 * @return true if the target {@link IModelService} is supported by the
+	 *         implementation
+	 */
 	protected abstract boolean isTarget(IModelService modelService);
-	
-	public boolean setModelService(IModelService targetModel){
+
+	public boolean setModelService(IModelService targetModel) {
 		modelService = null;
-		targetUrl="";
+		targetUrl = "";
 		if (!isTarget(targetModel)) {
 			return false;
 		}
-		
+
 		modelService = targetModel;
 		targetUrl = targetModel.getURL();
 		return true;
 	}
 
-	public void setVisualizationView(IVisualizationView targetView){
+	public void setVisualizationView(IVisualizationView targetView) {
 		vizView = targetView;
 	}
-	
-	public String createMaxTimeString() {
+
+	public String getMaxReachingTime() {
 		return Messages.formatResourceString("BlindView.Maximum_Time",
 				maxReachingTime);
 	}
 
-	public IEvaluationResult getCheckResult() {
+	public IEvaluationResult getEvaluationResult() {
 		return checkResult;
 	}
 
@@ -77,15 +92,15 @@ public abstract class BlindVisualizerBase implements IBlindVisualizer{
 	public File getResultFile() {
 		return resultFile;
 	}
-	
-	protected void setStatusMessage(String message){
-		if(null!=vizView){
+
+	protected void setStatusMessage(String message) {
+		if (null != vizView) {
 			vizView.setStatusMessage(message);
 		}
 	}
 
-	protected void setInfoMessage(String message){
-		if(null!=vizView){
+	protected void setInfoMessage(String message) {
+		if (null != vizView) {
 			vizView.setInfoMessage(message);
 		}
 	}

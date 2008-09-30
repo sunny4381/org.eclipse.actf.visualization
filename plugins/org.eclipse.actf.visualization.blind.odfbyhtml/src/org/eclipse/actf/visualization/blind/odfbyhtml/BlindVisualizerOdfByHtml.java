@@ -55,6 +55,10 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 
 	private final String NO_ALT_IMAGE = "10101";
 
+	private static final String MAPPED_HTML_FILE_PRE = "MappedHTML";
+
+	private static final String HTML_SOURCE_FILE = "source.html";
+
 	public boolean setModelService(IModelService targetModel) {
 		if (super.setModelService(targetModel)) {
 			if (targetUrl.startsWith("file://")) {
@@ -122,7 +126,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			engine.calculate();
 
 			maxReachingTime = engine.getMaxTime();
-			setInfoMessage(createMaxTimeString());
+			setInfoMessage(getMaxReachingTime());
 
 			resultDocument = engine.getResult();
 			checkResult.setProblemList(engine.getProbelems());
@@ -153,7 +157,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 							- startTime);
 				}
 			}
-			
+
 			visualizeError(resultDocument, tmpResults);
 
 			// TODO support blind biz -> visitor

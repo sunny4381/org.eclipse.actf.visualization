@@ -51,9 +51,13 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 	public static final int FRAME = 1;
 
-	public static final String ORIG_HTML_FILE = "origSource.html";
+	private static final String ORIG_HTML_FILE = "origSource.html";
 
-	public static final String IE_HTML_FILE = "ieSource.html";
+	private static final String IE_HTML_FILE = "ieSource.html";
+
+	private static final String MAPPED_HTML_FILE_PRE = "MappedHTML";
+
+	private static final String HTML_SOURCE_FILE = "source.html";
 
 	private IWebBrowserACTF webBrowser;
 
@@ -173,7 +177,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			engine.calculate();
 
 			maxReachingTime = engine.getMaxTime();
-			setInfoMessage(createMaxTimeString());
+			setInfoMessage(getMaxReachingTime());
 
 			resultDocument = engine.getResult();
 			checkResult.setProblemList(engine.getProbelems());

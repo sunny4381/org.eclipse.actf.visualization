@@ -123,9 +123,9 @@ public class PartControlBlind implements IHighlightElementListener {
 				ret = bvh.visualize();
 
 				_pageData = bvh.getPageData();
-				checkResult = bvh.getCheckResult();
+				checkResult = bvh.getEvaluationResult();
 				resultDoc = bvh.getResultDocument();
-				maxReachingTimeS = bvh.createMaxTimeString();
+				maxReachingTimeS = bvh.getMaxReachingTime();
 
 				resultFilePath = bvh.getResultFile().getAbsolutePath();
 
