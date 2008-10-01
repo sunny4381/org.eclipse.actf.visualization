@@ -10,10 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.Context;
-import org.eclipse.actf.visualization.engines.voicebrowser.JWATController;
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IVoiceBrowserController;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -43,7 +40,7 @@ public class StaticIMGRenderer implements IElementRenderer {
 		altstr = altNode.getNodeValue();
 		altstr = TextUtil.trim(altstr);
 		if (altstr.length() == 0) {
-			if (OutLoud.jwat_mode == JWATController.JAWS_MODE) {
+			if (OutLoud.jwat_mode == IVoiceBrowserController.SCREEN_READER_MODE) {
 
 				Node node = element.getParentNode();
 				for (;;) {

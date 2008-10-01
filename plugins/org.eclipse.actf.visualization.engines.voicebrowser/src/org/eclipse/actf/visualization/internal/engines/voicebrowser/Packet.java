@@ -8,13 +8,15 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
+import org.eclipse.actf.visualization.engines.voicebrowser.IContext;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.w3c.dom.Node;
 
-public class Packet {
+public class Packet implements IPacket {
 	private Node node;
 	private String text;
-	private Context context;
+	private IContext context;
 	private boolean isStartTag;
 
 	/**
@@ -26,7 +28,7 @@ public class Packet {
 	public Packet(
 		Node curNode,
 		String curText,
-		Context ctx,
+		IContext ctx,
 		boolean isstarttag) {
 		context = new Context(ctx);
 		node = curNode;
@@ -34,57 +36,52 @@ public class Packet {
 		isStartTag = isstarttag;
 	}
 
-	/**
-	 * Returns the text.
-	 * @return String
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacket#getText()
 	 */
 	public String getText() {
 		return text;
 	}
 
-	/**
-	 * Sets the text.
-	 * @param text The text to set
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacket#getContext()
 	 */
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	/**
-	 * Returns the context.
-	 * @return Context
-	 */
-	public Context getContext() {
+	public IContext getContext() {
 		return context;
 	}
 
-	/**
-	 * Sets the context.
-	 * @param context The context to set
-	 */
-	public void setContext(Context context) {
-		this.context = context;
-	}
 
-	/**
-	 * Returns the node.
-	 * @return Node
+//	 * Sets the text.
+//	 * @param text The text to set
+//	 */
+//	public void setText(String text) {
+//		this.text = text;
+//	}
+//	/**
+//	 * Sets the context.
+//	 * @param context The context to set
+//	 */
+//	public void setContext(IContext context) {
+//		this.context = context;
+//	}
+//	/**
+//	 * Sets the node.
+//	 * @param node The node to set
+//	 */
+//	public void setNode(Node node) {
+//		this.node = node;
+//	}
+
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacket#getNode()
 	 */
 	public Node getNode() {
 		return node;
 	}
 
-	/**
-	 * Sets the node.
-	 * @param node The node to set
-	 */
-	public void setNode(Node node) {
-		this.node = node;
-	}
-
-	/**
-	 * Returns the isStartTag.
-	 * @return boolean
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacket#isStartTag()
 	 */
 	public boolean isStartTag() {
 		return isStartTag;

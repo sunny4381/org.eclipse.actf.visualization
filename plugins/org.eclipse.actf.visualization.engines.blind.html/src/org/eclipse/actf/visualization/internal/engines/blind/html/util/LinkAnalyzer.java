@@ -23,8 +23,8 @@ import java.util.Vector;
 
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
 import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
@@ -54,7 +54,7 @@ public class LinkAnalyzer {
 
 	private Document doc;
 
-	private PacketCollection allPc;
+	private IPacketCollection allPc;
 
 	private VisualizeMapDataImpl mapData;
 
@@ -73,7 +73,7 @@ public class LinkAnalyzer {
 	/**
 	 * 
 	 */
-	public LinkAnalyzer(Document result, PacketCollection allPc,
+	public LinkAnalyzer(Document result, IPacketCollection allPc,
 			VisualizeMapDataImpl mapData, List<IProblemItem> problems,
 			Set invisibleIdSet, ParamBlind paramBlind, PageData pageData) {
 		this.doc = result;
@@ -106,7 +106,7 @@ public class LinkAnalyzer {
 					int size = allPc.size();
 					if (info != null) {
 						for (int j = info.getPacketId(); j < size; j++) {
-							Packet p = (Packet) allPc.get(j);
+							IPacket p = (IPacket) allPc.get(j);
 							String str = p.getText();
 							if (str != null) {
 								sb.append(str);

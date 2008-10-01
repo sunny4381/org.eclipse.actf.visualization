@@ -12,14 +12,17 @@ package org.eclipse.actf.visualization.engines.voicebrowser;
 
 import org.eclipse.actf.visualization.internal.engines.voicebrowser.JWATControllerImpl;
 
-public class JWAT {
+/**
+ * Factory class of VoiceBrowserController.
+ */
+public class VoiceBrowserControllerFactory {
 
 	/**
-	 * Method createJWATController.
+	 * Create instance of VoiceBrowserController.
 	 * 
-	 * @return JWATController
+	 * @return {@link IVoiceBrowserController} instance
 	 */
-	static public JWATController createJWATController() {
+	static public IVoiceBrowserController createVoiceBrowserController() {
 		return new JWATControllerImpl();
 	}
 }

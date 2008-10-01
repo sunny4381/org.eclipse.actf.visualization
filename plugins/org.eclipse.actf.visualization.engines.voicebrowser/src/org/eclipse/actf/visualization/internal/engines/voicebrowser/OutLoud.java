@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.JWATController;
+import org.eclipse.actf.visualization.engines.voicebrowser.IVoiceBrowserController;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -28,7 +28,7 @@ import org.xml.sax.InputSource;
 
 public class OutLoud {
 
-	public static int jwat_mode = JWATController.HPR_MODE;
+	public static int jwat_mode = IVoiceBrowserController.HPR_MODE;
 	public static boolean hprDefltMsg = true;
 	public static String name = "default";
 	public static String description = null;
@@ -156,9 +156,9 @@ public class OutLoud {
 		Document document;
 		try {
 			String dtdpath = path + "jwat.dtd";
-			if (mode == JWATController.HPR_MODE) {
+			if (mode == IVoiceBrowserController.HPR_MODE) {
 				path += "jwat_hpr.xml";
-			} else if (mode == JWATController.JAWS_MODE) {
+			} else if (mode == IVoiceBrowserController.SCREEN_READER_MODE) {
 				path += "jwat_jaws.xml";
 			}
 			File f = new File(path);

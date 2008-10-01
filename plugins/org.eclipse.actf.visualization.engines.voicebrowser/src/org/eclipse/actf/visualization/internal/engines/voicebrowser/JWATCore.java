@@ -14,9 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.Context;
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -328,9 +326,9 @@ public class JWATCore {
 			}
 
 			int size = pc.size();
-			Node n = ((Packet) p.get(0)).getNode();
+			Node n = ((IPacket) p.get(0)).getNode();
 			for (int i = 0; i < size; i++) {
-				if (n == ((Packet) pc.get(i)).getNode()) {
+				if (n == ((IPacket) pc.get(i)).getNode()) {
 					return i;
 				}
 			}

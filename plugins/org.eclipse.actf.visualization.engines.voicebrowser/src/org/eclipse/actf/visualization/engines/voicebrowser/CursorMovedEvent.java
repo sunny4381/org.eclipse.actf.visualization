@@ -7,38 +7,24 @@
  *
  * Contributors:
  *    Hironobu TAKAGI - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.engines.voicebrowser;
 
-import java.util.EventObject;
-
-public class CursorMovedEvent extends EventObject {
-	
-	private int cCursorPos;
-
-	/**
-	 * Constructor for CursorChangedEvent.
-	 * @param source
-	 */
-	public CursorMovedEvent(Object source, int pos) {
-		super(source);
-			cCursorPos = pos;
-	}
+/**
+ * The event sent by a voice browser controller. This event is occurred when the
+ * cursor position in voice browser is changed.
+ * 
+ * @see CursorListener
+ * @see IVoiceBrowserController
+ */
+public interface CursorMovedEvent {
 
 	/**
-	 * Returns the cCursorPos.
-	 * @return int
+	 * Returns the current cursor position.
+	 * 
+	 * @return current cursor position
 	 */
-	public int getCCursorPos() {
-		return cCursorPos;
-	}
-
-	/**
-	 * @see java.lang.Object#toString()
-	 */
-	public String toString() {
-		return (getClass().getName() +
-                "[source=" + getSource() + ",cCursorPos=" + cCursorPos + "]");
-	}
+	public abstract int getCurrentCursorPosision();
 
 }

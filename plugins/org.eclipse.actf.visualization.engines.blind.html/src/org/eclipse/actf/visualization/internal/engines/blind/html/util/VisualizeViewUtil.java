@@ -25,8 +25,8 @@ import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.w3c.dom.Document;
@@ -418,7 +418,7 @@ public class VisualizeViewUtil {
 	}
 
 	public static Document returnTextView(Document result,
-			PacketCollection allPc, String baseUrl) {
+			IPacketCollection allPc, String baseUrl) {
 		NodeList bodyNl = result.getElementsByTagName("body");
 
 		// TODO remove second Body, script, etc.
@@ -434,7 +434,7 @@ public class VisualizeViewUtil {
 			boolean brFlag = false;
 			boolean insideLink = false;
 			for (int i = 0; i < size; i++) {
-				Packet p = (Packet) allPc.get(i);
+				IPacket p = (IPacket) allPc.get(i);
 
 				if (p.getContext().isLinkTag()) {
 					insideLink = true;

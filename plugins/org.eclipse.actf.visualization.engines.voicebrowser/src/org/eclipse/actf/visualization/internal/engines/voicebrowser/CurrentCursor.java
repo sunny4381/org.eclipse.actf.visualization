@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -78,7 +77,7 @@ public class CurrentCursor {
 	 */
 	public Node getNode(int pos) {
 		if (pos < pc.size()) {
-			return ((Packet) pc.get(pos)).getNode();
+			return ((IPacket) pc.get(pos)).getNode();
 		} else {
 			return null;
 		}

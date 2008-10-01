@@ -19,8 +19,8 @@ import java.util.Stack;
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 import org.eclipse.actf.visualization.engines.blind.TextChecker;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
 import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.w3c.dom.Document;
@@ -90,7 +90,7 @@ public class NodeInfoCreator {
 		return false;
 	}
 
-	public void prepareNodeInfo(PacketCollection pc) {
+	public void prepareNodeInfo(IPacketCollection pc) {
 		// node - nodeInfo
 		int size = 0;
 
@@ -105,10 +105,10 @@ public class NodeInfoCreator {
 		int previousLineNumber = 0;
 
 		String prevText = null;
-		Packet prevPacket = null;
+		IPacket prevPacket = null;
 
 		for (int it = 0; it < size; it++) {
-			Packet p = (Packet) pc.get(it);
+			IPacket p = (IPacket) pc.get(it);
 
 			Node node = p.getNode();
 			if (node.getNodeType() == Node.ELEMENT_NODE) {

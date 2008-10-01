@@ -8,17 +8,22 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import java.util.ArrayList;
 
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
 import org.w3c.dom.Node;
 
+public class PacketCollection extends ArrayList<IPacket> implements
+		IPacketCollection {
 
-public class PacketCollection extends ArrayList<Packet> {
+	private static final long serialVersionUID = 673397303905161652L;
 
 	/**
 	 * Method PacketCollection.
+	 * 
 	 * @param text
 	 */
 	public PacketCollection(Packet text) {
@@ -34,15 +39,8 @@ public class PacketCollection extends ArrayList<Packet> {
 	}
 
 	/**
-	 * Method getText.
-	 * @return String
-	 */
-	public String getText() {
-		return "";
-	}
-
-	/**
 	 * Method add.
+	 * 
 	 * @param p
 	 * @return boolean
 	 */
@@ -52,6 +50,7 @@ public class PacketCollection extends ArrayList<Packet> {
 
 	/**
 	 * Method addAll.
+	 * 
 	 * @param c
 	 * @return boolean
 	 */
@@ -59,15 +58,15 @@ public class PacketCollection extends ArrayList<Packet> {
 		return super.addAll(c);
 	}
 
-	/**
-	 * Method isLineDelimiter.
-	 * @param i
-	 * @return boolean
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection#isLineDelimiter(int)
 	 */
 	public boolean isLineDelimiter(int i) {
 		try {
 			if (i < this.size())
-				return ((Packet) get(i)).getContext().isLineDelimiter();
+				return ((IPacket) get(i)).getContext().isLineDelimiter();
 			else
 				return false;
 		} catch (Exception e) {
@@ -76,15 +75,15 @@ public class PacketCollection extends ArrayList<Packet> {
 		}
 	}
 
-	/**
-	 * Method isLinkTag.
-	 * @param i
-	 * @return boolean
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection#isLinkTag(int)
 	 */
 	public boolean isLinkTag(int i) {
 		try {
 			if (i < this.size())
-				return ((Packet) get(i)).getContext().isLinkTag();
+				return ((IPacket) get(i)).getContext().isLinkTag();
 			else
 				return false;
 		} catch (Exception e) {
@@ -93,15 +92,15 @@ public class PacketCollection extends ArrayList<Packet> {
 		}
 	}
 
-	/**
-	 * Method isInsideForm.
-	 * @param i
-	 * @return boolean
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection#isInsideForm(int)
 	 */
 	public boolean isInsideForm(int i) {
 		try {
 			if (i < this.size())
-				return ((Packet) get(i)).getContext().isInsideForm();
+				return ((IPacket) get(i)).getContext().isInsideForm();
 			else
 				return false;
 		} catch (Exception e) {
@@ -110,15 +109,15 @@ public class PacketCollection extends ArrayList<Packet> {
 		}
 	}
 
-	/**
-	 * Method isInsideAnchor.
-	 * @param i
-	 * @return boolean
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection#isInsideAnchor(int)
 	 */
 	public boolean isInsideAnchor(int i) {
 		try {
 			if (i < this.size())
-				return ((Packet) get(i)).getContext().isInsideAnchor();
+				return ((IPacket) get(i)).getContext().isInsideAnchor();
 			else
 				return false;
 		} catch (Exception e) {
@@ -127,15 +126,10 @@ public class PacketCollection extends ArrayList<Packet> {
 		}
 	}
 
-	/**
-	 * Method isStartSelect.
-	 * @param i
-	 * @return boolean
-	 */
 	public boolean isStartSelect(int i) {
 		try {
 			if (i < this.size())
-				return ((Packet) get(i)).getContext().isStartSelect();
+				return ((IPacket) get(i)).getContext().isStartSelect();
 			else
 				return false;
 		} catch (Exception e) {
@@ -144,15 +138,10 @@ public class PacketCollection extends ArrayList<Packet> {
 		}
 	}
 
-	/**
-	 * Method isStringOutput.
-	 * @param i
-	 * @return boolean
-	 */
 	public boolean isStringOutput(int i) {
 		try {
 			if (i < this.size())
-				return ((Packet) get(i)).getContext().isStringOutput();
+				return ((IPacket) get(i)).getContext().isStringOutput();
 			else
 				return false;
 		} catch (Exception e) {
@@ -161,16 +150,17 @@ public class PacketCollection extends ArrayList<Packet> {
 		}
 	}
 
-	/**
-	 * Method getFirstNode.
-	 * @return Node
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection#getFirstNode()
 	 */
 	public Node getFirstNode() {
 		try {
 			int size = this.size();
 			for (int i = 0; i < size; i++) {
 				if (((Packet) this.get(i)).isStartTag()) {
-					return ((Packet) this.get(i)).getNode();
+					return (this.get(i)).getNode();
 				}
 			}
 			return null;
@@ -183,16 +173,17 @@ public class PacketCollection extends ArrayList<Packet> {
 		}
 	}
 
-	/**
-	 * Method getLastNode.
-	 * @return Node
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection#getLastNode()
 	 */
 	public Node getLastNode() {
 		try {
 			int size = this.size();
 			for (int i = size - 1; i >= 0; i--) {
 				if (((Packet) this.get(i)).isStartTag()) {
-					return ((Packet) this.get(i)).getNode();
+					return (this.get(i)).getNode();
 				}
 			}
 			return null;
@@ -205,15 +196,16 @@ public class PacketCollection extends ArrayList<Packet> {
 		}
 	}
 
-	/**
-	 * Method getTopNodePosition.
-	 * @return int
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection#getTopNodePosition()
 	 */
 	public int getTopNodePosition() {
 		try {
 			int size = this.size();
 			for (int i = 0; i < size; i++) {
-				String str = ((Packet) this.get(i)).getText();
+				String str = (this.get(i)).getText();
 				if (str != null && str.length() > 0) {
 					if (this.isInsideAnchor(i)) {
 						for (int j = i; j >= 0; j--)
@@ -233,16 +225,17 @@ public class PacketCollection extends ArrayList<Packet> {
 		}
 	}
 
-	/**
-	 * Method getBottomNodePosition.
-	 * @return int
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection#getBottomNodePosition()
 	 */
 	public int getBottomNodePosition() {
 		try {
 			int size = this.size();
 			boolean found = false;
 			for (int i = size - 1; i >= 0; i--) {
-				String str = ((Packet) this.get(i)).getText();
+				String str = (this.get(i)).getText();
 				if (((str != null) && (str.length() > 0)))
 					found = true;
 				if (found) {
@@ -251,7 +244,7 @@ public class PacketCollection extends ArrayList<Packet> {
 							return i;
 						else {
 							if (this.isLinkTag(i + 1)
-								&& (i + 2 < size && this.isLinkTag(i + 2)))
+									&& (i + 2 < size && this.isLinkTag(i + 2)))
 								return i + 2;
 							else
 								return i + 1;
@@ -277,7 +270,7 @@ public class PacketCollection extends ArrayList<Packet> {
 		int size = this.size();
 		for (int i = 0; i < size; i++) {
 			try {
-				sbuf.append(((Packet) this.get(i)).toString());
+				sbuf.append((this.get(i)).toString());
 				sbuf.append("\n");
 			} catch (ClassCastException cce) {
 				sbuf.append("error: " + i + "the object is not a packet.\n");
@@ -286,16 +279,16 @@ public class PacketCollection extends ArrayList<Packet> {
 		return sbuf.toString();
 	}
 
-	/**
-	 * Method getNodePosition.
-	 * @param node
-	 * @return int
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection#getNodePosition(org.w3c.dom.Node)
 	 */
 	public int getNodePosition(Node node) {
 		try {
 			int size = this.size();
 			for (int i = 0; i < size; i++) {
-				if (node == ((Packet) this.get(i)).getNode()) {
+				if (node == (this.get(i)).getNode()) {
 					// System.out.println ("found: " + i + "/" + size);
 					return i;
 				}

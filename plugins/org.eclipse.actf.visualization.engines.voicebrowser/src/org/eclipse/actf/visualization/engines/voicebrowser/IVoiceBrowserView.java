@@ -10,17 +10,30 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.engines.voicebrowser;
 
-public interface View {
+/**
+ * The interface to add voice browser text view to a voice browser controller.
+ * 
+ * @see IVoiceBrowserController
+ */
+public interface IVoiceBrowserView {
 
 	/**
-	 * Method drawText.
+	 * Voice browser controller invokes this method to hand out reading text to
+	 * voice browser text view. The implementation will show this text into
+	 * view.
+	 * 
 	 * @param text
+	 *            reading text
 	 */
 	void drawText(String text);
 
 	/**
-	 * Method drawAppendText.
+	 * Voice browser controller invokes this method to hand out additional reading
+	 * text to append current text in voice browser text view. The
+	 * implementation will append this text into view.
+	 * 
 	 * @param text
+	 *            additional reading text
 	 */
 	void drawAppendText(String text);
 }

@@ -10,10 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.Context;
-import org.eclipse.actf.visualization.engines.voicebrowser.JWATController;
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IVoiceBrowserController;
 import org.w3c.dom.Element;
 
 
@@ -42,7 +39,7 @@ public class StaticTRRenderer implements IElementRenderer {
 		setContextOut(element, ctx);
 
 		if (element.getNodeName().toLowerCase().equals("tr")
-			&& OutLoud.jwat_mode == JWATController.JAWS_MODE) {
+			&& OutLoud.jwat_mode == IVoiceBrowserController.SCREEN_READER_MODE) {
 			String result =
 				OutLoud.buildResultString(mc, url, element, "out", null);
 

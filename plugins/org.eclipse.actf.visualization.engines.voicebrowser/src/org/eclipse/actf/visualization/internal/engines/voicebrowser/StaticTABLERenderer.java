@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.Context;
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,23 +7,37 @@
  *
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.engines.voicebrowser;
 
 import org.w3c.dom.Node;
 
 /**
- * Interface to obtain a range of Nodes that a voice browser controller is
- * currently reading.
+ * The interface to hold audio packet information.
  */
-public interface SelectionObserver {
+public interface IPacket {
 
 	/**
-	 * A voice browser controller hands over a range of Nodes that it is currently
-	 * reading.
+	 * Returns the text of this audio packet.
 	 * 
-	 * @param firstNode
-	 * @param lastNode
+	 * @return the text of this audio packet
 	 */
-	void setRange(Node firstNode, Node lastNode);
+	public abstract String getText();
+
+	/**
+	 * Returns the current context of this audio packet
+	 * 
+	 * @return the current context
+	 * @see IContext
+	 */
+	public abstract IContext getContext();
+
+	/**
+	 * Returns the corresponding node of this audio packet
+	 * 
+	 * @return corresponding node
+	 */
+	public abstract Node getNode();
+
 }

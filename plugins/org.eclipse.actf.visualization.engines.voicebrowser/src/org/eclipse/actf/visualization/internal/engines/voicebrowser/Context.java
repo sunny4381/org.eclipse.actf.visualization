@@ -8,9 +8,14 @@
  * Contributors:
  *    Masahide WASHIZAWA - initial API and implementation
  *******************************************************************************/
-package org.eclipse.actf.visualization.engines.voicebrowser;
+package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
-public class Context {
+import org.eclipse.actf.visualization.engines.voicebrowser.IContext;
+
+/**
+ * Context in the voice browser engine.
+ */
+public class Context implements IContext {
 	private boolean insideForm = false;
 	private boolean linkTag = false;
 	private boolean insideAnchor = false;
@@ -27,9 +32,11 @@ public class Context {
 
 	/**
 	 * Constructor for Context.
-	 * @param ctx source context instance to be copied.s
+	 * 
+	 * @param ctx
+	 *            source context instance to be copied.
 	 */
-	public Context(Context ctx) {
+	public Context(IContext ctx) {
 		insideForm = ctx.isInsideForm();
 		insideAnchor = ctx.isInsideAnchor();
 		lineDelimiter = ctx.isLineDelimiter();
@@ -39,9 +46,8 @@ public class Context {
 		goChild = ctx.isGoChild();
 	}
 
-	/**
-	 * Returns the insideForm.
-	 * @return boolean
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IContext#isInsideForm()
 	 */
 	public boolean isInsideForm() {
 		return insideForm;
@@ -49,15 +55,16 @@ public class Context {
 
 	/**
 	 * Sets the insideForm.
-	 * @param i The insideForm to set
+	 * 
+	 * @param i
+	 *            The insideForm to set
 	 */
 	public void setInsideForm(boolean i) {
 		insideForm = i;
 	}
 
-	/**
-	 * Returns the goChild.
-	 * @return boolean
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IContext#isGoChild()
 	 */
 	public boolean isGoChild() {
 		return goChild;
@@ -65,15 +72,16 @@ public class Context {
 
 	/**
 	 * Sets the goChild.
-	 * @param goChild The goChild to set
+	 * 
+	 * @param goChild
+	 *            The goChild to set
 	 */
 	public void setGoChild(boolean goChild) {
 		this.goChild = goChild;
 	}
 
-	/**
-	 * Returns the lineDelimiter.
-	 * @return boolean
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IContext#isLineDelimiter()
 	 */
 	public boolean isLineDelimiter() {
 		return lineDelimiter;
@@ -81,15 +89,16 @@ public class Context {
 
 	/**
 	 * Sets the lineDelimiter.
-	 * @param lineDelimiter The lineDelimiter to set
+	 * 
+	 * @param lineDelimiter
+	 *            The lineDelimiter to set
 	 */
 	public void setLineDelimiter(boolean lineDelimiter) {
 		this.lineDelimiter = lineDelimiter;
 	}
 
-	/**
-	 * Returns the linkTag.
-	 * @return boolean
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IContext#isLinkTag()
 	 */
 	public boolean isLinkTag() {
 		return linkTag;
@@ -97,15 +106,16 @@ public class Context {
 
 	/**
 	 * Sets the linkTag.
-	 * @param linkTag The linkTag to set
+	 * 
+	 * @param linkTag
+	 *            The linkTag to set
 	 */
 	public void setLinkTag(boolean linkTag) {
 		this.linkTag = linkTag;
 	}
 
-	/**
-	 * Returns the insideAnchor.
-	 * @return boolean
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IContext#isInsideAnchor()
 	 */
 	public boolean isInsideAnchor() {
 		return insideAnchor;
@@ -113,15 +123,16 @@ public class Context {
 
 	/**
 	 * Sets the insideAnchor.
-	 * @param insideAnchor The insideAnchor to set
+	 * 
+	 * @param insideAnchor
+	 *            The insideAnchor to set
 	 */
 	public void setInsideAnchor(boolean insideAnchor) {
 		this.insideAnchor = insideAnchor;
 	}
 
-	/**
-	 * Returns the startSelect.
-	 * @return boolean
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IContext#isStartSelect()
 	 */
 	public boolean isStartSelect() {
 		return startSelect;
@@ -129,15 +140,16 @@ public class Context {
 
 	/**
 	 * Sets the startSelect.
-	 * @param startSelect The startSelect to set
+	 * 
+	 * @param startSelect
+	 *            The startSelect to set
 	 */
 	public void setStartSelect(boolean startSelect) {
 		this.startSelect = startSelect;
 	}
 
-	/**
-	 * Returns the stringOutput.
-	 * @return boolean
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IContext#isStringOutput()
 	 */
 	public boolean isStringOutput() {
 		return stringOutput;
@@ -145,7 +157,9 @@ public class Context {
 
 	/**
 	 * Sets the stringOutput.
-	 * @param stringOutput The stringOutput to set
+	 * 
+	 * @param stringOutput
+	 *            The stringOutput to set
 	 */
 	public void setStringOutput(boolean stringOutput) {
 		this.stringOutput = stringOutput;
@@ -153,6 +167,7 @@ public class Context {
 
 	/**
 	 * Convert object into a string
+	 * 
 	 * @return converted string
 	 */
 	public String toString() {

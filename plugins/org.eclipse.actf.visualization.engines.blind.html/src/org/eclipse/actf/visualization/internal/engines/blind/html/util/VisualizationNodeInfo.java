@@ -12,7 +12,7 @@
 
 package org.eclipse.actf.visualization.internal.engines.blind.html.util;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.w3c.dom.Node;
 
 
@@ -38,7 +38,7 @@ public class VisualizationNodeInfo {
 
     private int packetId;
 
-    private Packet packet = null;
+    private IPacket packet = null;
 
     private Node node = null; // only when packet is null
 
@@ -290,7 +290,7 @@ public class VisualizationNodeInfo {
      * 
      * @return Packet
      */
-    public Packet getPacket() {
+    public IPacket getPacket() {
         return packet;
     }
 
@@ -300,7 +300,7 @@ public class VisualizationNodeInfo {
      * @param packet
      *            The packet to set
      */
-    public void setPacket(Packet packet) {
+    public void setPacket(IPacket packet) {
         this.packet = packet;
     }
 

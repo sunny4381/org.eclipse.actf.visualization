@@ -27,10 +27,10 @@ import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfo;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfoManager;
 import org.eclipse.actf.visualization.engines.blind.html.util.Id2LineViaAccId;
-import org.eclipse.actf.visualization.engines.voicebrowser.JWAT;
-import org.eclipse.actf.visualization.engines.voicebrowser.JWATController;
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IVoiceBrowserController;
+import org.eclipse.actf.visualization.engines.voicebrowser.VoiceBrowserControllerFactory;
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
@@ -77,11 +77,11 @@ public class VisualizeEngine {
 
 	private VisualizeStyleInfo styleInfo;
 
-	private JWATController jwatc = null;
+	private IVoiceBrowserController jwatc = null;
 
 	private boolean fIsActivating = false;
 
-	private PacketCollection allPc = null;
+	private IPacketCollection allPc = null;
 
 	private boolean servletMode = false;
 
@@ -158,12 +158,12 @@ public class VisualizeEngine {
 		VisualizeMapUtil.createNode2NodeMap(document, result, mapData);
 	}
 
-	private void cleanupPacketCollection(PacketCollection pc) {
+	private void cleanupPacketCollection(IPacketCollection pc) {
 		// remove text in noscript tag
 		if (pc != null) {
 			int size = pc.size();
 			for (int i = size - 1; i >= 0; i--) {
-				Packet p = (Packet) pc.get(i);
+				IPacket p = (IPacket) pc.get(i);
 
 				Node tmpNode = p.getNode();
 				while (tmpNode != null) {
@@ -475,7 +475,7 @@ public class VisualizeEngine {
 		fIsActivating = true;
 		if (jwatc == null) {
 			try {
-				jwatc = JWAT.createJWATController();
+				jwatc = VoiceBrowserControllerFactory.createVoiceBrowserController();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

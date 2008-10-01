@@ -10,8 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.Packet;
-import org.eclipse.actf.visualization.engines.voicebrowser.PacketCollection;
+import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -128,7 +127,7 @@ public class DomUtil {
 			return;
 		if (pc != null && pc.size() > 0) {
 			for (int i = 0; i < pc.size(); i++) {
-				Packet p = (Packet) pc.get(i);
+				IPacket p = (IPacket) pc.get(i);
 				String str = p.getText();
 				System.out.println("[" + i + "] <" + str + ">");
 			}
