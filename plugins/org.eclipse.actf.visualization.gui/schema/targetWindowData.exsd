@@ -6,7 +6,7 @@
          <meta.schema plugin="org.eclipse.actf.visualization.gui" id="targetWindowData" name="DataSource for Target Window"/>
       </appInfo>
       <documentation>
-         This extension point is used to add new ModelService for Target Window.
+         This extension point is used to add new Target Window for GUI Visualization.
       </documentation>
    </annotation>
 
@@ -85,7 +85,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         The contributor need to extend &lt;samp&gt;TargetWindowDataProvider&lt;/samp&gt;. 
+         The contributor need to extend &lt;samp&gt;TargetWindowDataProvider&lt;/samp&gt;.
       </documentation>
    </annotation>
 
@@ -94,7 +94,7 @@
          <meta.section type="implementation"/>
       </appInfo>
       <documentation>
-         ACTF provides default implementation within the plugin (org.eclipse.actf.visualization.gui.internal.GuiTargetWindowDataProvider).
+         ACTF provides default implementation within the plugin (org.eclipse.actf.visualization.gui.internal.GuiTargetWindowDataProvider). 
 
 The example implementation is also available at &lt;samp&gt;org.eclipse.actf.examples.adesigner.extension.ADesignerTargetWindowDataProvider&lt;/samp&gt;
       </documentation>

@@ -24,182 +24,228 @@ import org.eclipse.ui.IEditorPart;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-
-
-
+/**
+ * 
+ */
 public class GuiTargetWindowData implements IModelService {
 
-    private static final String categoryBrowser = Messages.getString("msaa.external_browsers"); //$NON-NLS-1$
-    private static final String categoryWindow = Messages.getString("msaa.external_windows"); //$NON-NLS-1$
-    private int hwnd;
-    private boolean isBrowser;
-    
-    private class DummyModelServiceHolder implements IModelServiceHolder{
+	private static final String categoryBrowser = Messages
+			.getString("msaa.external_browsers"); //$NON-NLS-1$
+	private static final String categoryWindow = Messages
+			.getString("msaa.external_windows"); //$NON-NLS-1$
+	private int hwnd;
+	private boolean isBrowser;
 
-    	private GuiTargetWindowData guiTarget;
-    	
+	private class DummyModelServiceHolder implements IModelServiceHolder {
+
+		private GuiTargetWindowData guiTarget;
+
 		public DummyModelServiceHolder(GuiTargetWindowData guiTarget) {
 			this.guiTarget = guiTarget;
 		}
-    	
-		/* (non-Javadoc)
+
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see org.eclipse.actf.model.IModelServiceHolder#getEditorPart()
 		 */
 		public IEditorPart getEditorPart() {
 			return null;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see org.eclipse.actf.model.IModelServiceHolder#getModelService()
 		 */
 		public IModelService getModelService() {
 			return guiTarget;
 		}
 
-		/* (non-Javadoc)
+		/*
+		 * (non-Javadoc)
+		 * 
 		 * @see org.eclipse.actf.model.IModelServiceHolder#setTitle(java.lang.String)
 		 */
 		public void setEditorTitle(String title) {
-			//do nothing
+			// do nothing
 		}
-    	
-    }
-    
-    private DummyModelServiceHolder holder;
-    
-    public GuiTargetWindowData(int hwnd, boolean isBrowser) {
-        this.hwnd = hwnd;
-        this.isBrowser = isBrowser;
-        this.holder = new DummyModelServiceHolder(this);
-    }
 
-    /**
-     * Get category string for menu bar
-     * @return
-     */
-    public String getCategory() {
-    	return isBrowser ? categoryBrowser : categoryWindow; 
-    }
+	}
 
-    /**
-     * Check if this data source is Web browser
-     * @return
-     */
-    public boolean isBrowser() {
-        return isBrowser;
-    }
+	private DummyModelServiceHolder holder;
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getTitle()
-     */
-    public String getTitle() {
-        if( 0 != hwnd ) {
-            String title = WindowUtil.GetWindowText(hwnd);
-            if( title.length()==0 ) {
-                title = Messages.getString("msaa.NAMELESS"); //$NON-NLS-1$
-            }
-            return title + " ("+WindowUtil.GetWindowClassName(hwnd)+")"; //$NON-NLS-1$ //$NON-NLS-2$
-        }
-        return null;
-    }
-    
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getID()
-     */
-    public String getID() {
-        return getCategory()+"/"+Integer.toString(hwnd); //$NON-NLS-1$
-    }
+	/**
+	 * Constructor of the class.
+	 * 
+	 * @param hwnd Window handle of the target window
+	 * @param isBrowser set true if the target window is a Web browser
+	 */
+	public GuiTargetWindowData(int hwnd, boolean isBrowser) {
+		this.hwnd = hwnd;
+		this.isBrowser = isBrowser;
+		this.holder = new DummyModelServiceHolder(this);
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getAttribute(java.lang.String)
-     */
-    public Object getAttribute(String name) {
-    	if( IModelService.ATTR_WINDOWHANDLE.equals(name) ) {
-    		return new Integer(hwnd);
-    	}
-        return null;
-    }
+	/**
+	 * Get category string for menu bar
+	 * 
+	 * @return category
+	 */
+	public String getCategory() {
+		return isBrowser ? categoryBrowser : categoryWindow;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getCurrentMIMEType()
-     */
-    public String getCurrentMIMEType() {
-        return null;
-    }
+	/**
+	 * Check if this data source is Web browser
+	 * 
+	 * @return true if this data source is Web browser
+	 */
+	public boolean isBrowser() {
+		return isBrowser;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getDocument()
-     */
-    public Document getDocument() {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getTitle()
+	 */
+	public String getTitle() {
+		if (0 != hwnd) {
+			String title = WindowUtil.GetWindowText(hwnd);
+			if (title.length() == 0) {
+				title = Messages.getString("msaa.NAMELESS"); //$NON-NLS-1$
+			}
+			return title + " (" + WindowUtil.GetWindowClassName(hwnd) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
+		}
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getLiveDocument()
-     */
-    public Document getLiveDocument() {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getID()
+	 */
+	public String getID() {
+		return getCategory() + "/" + Integer.toString(hwnd); //$NON-NLS-1$
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getScrollManager()
-     */
-    public IModelServiceScrollManager getScrollManager() {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getAttribute(java.lang.String)
+	 */
+	public Object getAttribute(String name) {
+		if (IModelService.ATTR_WINDOWHANDLE.equals(name)) {
+			return new Integer(hwnd);
+		}
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getSupportExtensions()
-     */
-    public String[] getSupportExtensions() {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getCurrentMIMEType()
+	 */
+	public String getCurrentMIMEType() {
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getSupportMIMETypes()
-     */
-    public String[] getSupportMIMETypes() {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getDocument()
+	 */
+	public Document getDocument() {
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getTargetComposite()
-     */
-    public Composite getTargetComposite() {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getLiveDocument()
+	 */
+	public Document getLiveDocument() {
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#getURL()
-     */
-    public String getURL() {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getScrollManager()
+	 */
+	public IModelServiceScrollManager getScrollManager() {
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#jumpToNode(org.w3c.dom.Node)
-     */
-    public void jumpToNode(Node target) {
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getSupportExtensions()
+	 */
+	public String[] getSupportExtensions() {
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#open(java.io.File)
-     */
-    public void open(File target) {
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getSupportMIMETypes()
+	 */
+	public String[] getSupportMIMETypes() {
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#open(java.lang.String)
-     */
-    public void open(String url) {
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getTargetComposite()
+	 */
+	public Composite getTargetComposite() {
+		return null;
+	}
 
-    /* (non-Javadoc)
-     * @see org.eclipse.actf.model.IModelService#saveDocumentAsHTMLFile(java.lang.String)
-     */
-    public File saveDocumentAsHTMLFile(String file) {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#getURL()
+	 */
+	public String getURL() {
+		return null;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#jumpToNode(org.w3c.dom.Node)
+	 */
+	public void jumpToNode(Node target) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#open(java.io.File)
+	 */
+	public void open(File target) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#open(java.lang.String)
+	 */
+	public void open(String url) {
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.model.IModelService#saveDocumentAsHTMLFile(java.lang.String)
+	 */
+	public File saveDocumentAsHTMLFile(String file) {
+		return null;
+	}
 
 	public File saveOriginalDocument(String file) {
 		return null;
@@ -209,12 +255,13 @@ public class GuiTargetWindowData implements IModelService {
 		return new ImagePositionInfo[0];
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.eclipse.actf.model.IModelService#getModelServiceHolder()
 	 */
 	public IModelServiceHolder getModelServiceHolder() {
 		return holder;
 	}
-    
 
 }

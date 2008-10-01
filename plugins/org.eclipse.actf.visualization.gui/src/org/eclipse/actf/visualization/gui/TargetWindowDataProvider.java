@@ -13,25 +13,31 @@ package org.eclipse.actf.visualization.gui;
 
 import org.eclipse.actf.model.ui.IModelService;
 
-
-
+/**
+ * Abstract class to add new Target Window for GUI Visualization. Contributors
+ * need to implement this class and register the implementation to
+ * <samp>org.eclipse.actf.visualization.gui.targetWindowData</samp> extension
+ * point.
+ */
 public abstract class TargetWindowDataProvider {
 
-    /**
-     * Get all ModelService
-     * @return array of IModelService
-     * getActiveModelService is called if null is returned
-     */
-    public IModelService[] getModelService() {
-        return null;
-    }
-    
-    /**
-     * Get current active Data source
-     * @return IModelService
-     */
-    public IModelService getActiveModelService() {
-        return null;
-    }
-    
+	/**
+	 * Get all ModelService
+	 * 
+	 * @return array of IModelService. getActiveModelService is called if null
+	 *         is returned by this method
+	 */
+	public IModelService[] getModelService() {
+		return null;
+	}
+
+	/**
+	 * Get current active Data source
+	 * 
+	 * @return IModelService
+	 */
+	public IModelService getActiveModelService() {
+		return null;
+	}
+
 }
