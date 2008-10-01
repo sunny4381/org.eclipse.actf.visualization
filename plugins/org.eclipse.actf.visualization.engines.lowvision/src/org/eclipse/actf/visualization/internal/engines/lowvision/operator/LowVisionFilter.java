@@ -26,21 +26,28 @@ public class LowVisionFilter {
 
 	Vector<String> simVector = new Vector<String>();
 
+	private static final String TYPE_SENIOR_FILTER = "senior_color";
+
+	private static final String TYPE_CVD = "color";
+
+	private static final String TYPE_EYESIGHT = "focus";
+
+	private static final String TYPE_GLARE = "glare";
+
 	public LowVisionFilter(LowVisionType _t) {
 		type = _t;
 		if (type.countTypes() > 0) {
-			if (type.getColorFilter()) {
-				simVector
-						.addElement(new String(LowVisionType.COLOR_FILTER_STR));
+			if (type.doColorFilter()) {
+				simVector.addElement(TYPE_SENIOR_FILTER);
 			}
-			if (type.getGlare()) {
-				simVector.addElement(new String(LowVisionType.GLARE_STR));
+			if (type.doGlare()) {
+				simVector.addElement(TYPE_GLARE);
 			}
-			if (type.getCVD()) {
-				simVector.addElement(new String(LowVisionType.CVD_STR));
+			if (type.doCVD()) {
+				simVector.addElement(TYPE_CVD);
 			}
-			if (type.getEyesight()) {
-				simVector.addElement(new String(LowVisionType.EYESIGHT_STR));
+			if (type.doEyesight()) {
+				simVector.addElement(TYPE_EYESIGHT);
 			}
 		}
 	}
@@ -83,19 +90,19 @@ public class LowVisionFilter {
 	// do image simulation for _type
 	private BufferedImage oneFilter(String _type, BufferedImage _src,
 			BufferedImage _dest) throws LowVisionException, ColorException {
-		if (_type.equals(LowVisionType.COLOR_FILTER_STR)) {
+		if (_type.equals(LowVisionFilter.TYPE_SENIOR_FILTER)) {
 			ColorFilterOp cfop = new ColorFilterOp();
 			cfop.setRatio(type.getColorFilterRGB());
 			return (cfop.filter(_src, _dest));
-		} else if (_type.equals(LowVisionType.GLARE_STR)) {
+		} else if (_type.equals(LowVisionFilter.TYPE_GLARE)) {
 			// debug
 			// DebugUtil.errMsg( this, "Glare is invoked." );
 			GlareOp gop = new GlareOp(type.getGlareDegree());
 			return (gop.filter(_src, _dest));
-		} else if (_type.equals(LowVisionType.CVD_STR)) {
+		} else if (_type.equals(LowVisionFilter.TYPE_CVD)) {
 			CVDOp cop = new CVDOp(type.getCVDType());
 			return (cop.filter(_src, _dest));
-		} else if (_type.equals(LowVisionType.EYESIGHT_STR)) {
+		} else if (_type.equals(LowVisionFilter.TYPE_EYESIGHT)) {
 			BlurOp bop = new BlurOp(type);
 			return (bop.filter(_src, _dest));
 		} else {

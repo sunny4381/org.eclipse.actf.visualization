@@ -11,30 +11,27 @@
 
 package org.eclipse.actf.visualization.engines.lowvision;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.StringTokenizer;
-
 import org.eclipse.actf.visualization.internal.engines.lowvision.operator.CVDOp;
 import org.eclipse.actf.visualization.internal.engines.lowvision.operator.ColorFilterOp;
 import org.eclipse.actf.visualization.internal.engines.lowvision.operator.GlareOp;
 
-/*
- * Define lowvision simulation type
+/**
+ * This class defines low vision simulation type
  */
 public class LowVisionType {
 
-	public static final String COLOR_FILTER_STR = "senior_color";
-
-	public static final String CVD_STR = "color";
-
-	public static final String EYESIGHT_STR = "focus";
-
-	public static final String GLARE_STR = "glare";
-
-	// private static final String FIELD_STR = "field";
+	/**
+	 * Color vision deficiency type: Protan
+	 */
+	public static final int CVD_PROTAN = 1;
+	/**
+	 * Color vision deficiency type: Deutan
+	 */
+	public static final int CVD_DEUTAN = 2;
+	/**
+	 * Color vision deficiency type: Tritan
+	 */
+	public static final int CVD_TRITAN = 3;
 
 	private static final double EYESIGHT_DEGREE_MARGIN = 0.1;
 
@@ -83,36 +80,48 @@ public class LowVisionType {
 
 	private double eyeDisplayDistance = EYE_DISPLAY_DISTANCE;
 
+	/**
+	 * Constructor of LowVisionType
+	 */
 	public LowVisionType() {
 	}
 
-	public LowVisionType(String _fileName) throws LowVisionException {
-		BufferedReader br = null;
-		try {
-			br = new BufferedReader(new FileReader(_fileName));
-		} catch (FileNotFoundException fne) {
-			fne.printStackTrace();
-			throw new LowVisionException("File not found.");
-		}
-		read(br);
-	}
-
-	public LowVisionType(BufferedReader _br) throws LowVisionException {
-		read(_br);
-	}
-
-	public boolean getEyesight() {
+	/**
+	 * Check if an eyesight type simulation is enabled
+	 * 
+	 * @return true if the simulation is enabled
+	 */
+	public boolean doEyesight() {
 		return (eyesight);
 	}
 
-	public void setEyesight(boolean _b) {
-		eyesight = _b;
+	/**
+	 * Turn on/off an eyesight type simulation
+	 * 
+	 * @param enable
+	 *            set true to turn on
+	 */
+	public void setEyesight(boolean enable) {
+		eyesight = enable;
 	}
 
+	/**
+	 * Get target eyesight degree of eyesight type simulation
+	 * 
+	 * @return eyesight degree
+	 */
 	public float getEyesightDegree() {
 		return (eyesightDegree);
 	}
 
+	/**
+	 * Set target eyesight degree of eyesight type simulation
+	 * 
+	 * @param _deg
+	 *            target eyesight degree
+	 * @throws LowVisionException
+	 *             if target degree is not positive value
+	 */
 	public void setEyesightDegree(float _deg) throws LowVisionException {
 		if (_deg <= 0.0) {
 			throw new LowVisionException("Eyesight degree must be positive.");
@@ -123,14 +132,29 @@ public class LowVisionType {
 		eyesightLength = calcUndistinguishableLength(eyesightDegree);
 	}
 
+	/**
+	 * Get indistinguishable pixel size for target eyesight degree
+	 * 
+	 * @return indistinguishable pixel size
+	 */
 	public double getEyesightPixel() {
 		return (eyesightPixel);
 	}
 
+	/**
+	 * Get indistinguishable radius for target eyesight degree
+	 * 
+	 * @return indistinguishable radius
+	 */
 	public int getEyesightRadius() {
 		return (eyesightRadius);
 	}
 
+	/**
+	 * Get indistinguishable length for target eyesight degree
+	 * 
+	 * @return indistinguishable length
+	 */
 	public double getEyesightLength() {
 		return (eyesightLength);
 	}
@@ -138,7 +162,8 @@ public class LowVisionType {
 	private double calcUndistinguishablePixel(double _degree) {
 		double degree = _degree + EYESIGHT_DEGREE_MARGIN;
 		double thetaD = 1.0 / degree; // distinguishable degree (arcmin)
-		double thetaR = thetaD * Math.PI / 10800.0; // distinguishable degree(radian)
+		double thetaR = thetaD * Math.PI / 10800.0; // distinguishable
+		// degree(radian)
 		return (2.0 * Math.tan(thetaR / 2.0) * displayResolution
 				* eyeDisplayDistance / displayHeight);
 	}
@@ -157,39 +182,80 @@ public class LowVisionType {
 		 */
 	}
 
-	public boolean getCVD() {
+	/**
+	 * Check if a color vision deficiency type simulation is enabled
+	 * 
+	 * @return true if the simulation is enabled
+	 */
+	public boolean doCVD() {
 		return (CVD);
 	}
 
-	public void setCVD(boolean _b) {
-		CVD = _b;
+	/**
+	 * Turn on/off a color vision deficiency type simulation
+	 * 
+	 * @param enable
+	 *            set true to turn on
+	 */
+	public void setCVD(boolean enable) {
+		CVD = enable;
 	}
 
+	/**
+	 * Get target color vision deficiency type
+	 * 
+	 * @return color vision deficiency type
+	 */
 	public int getCVDType() {
 		return (CVDType);
 	}
 
-	public void setCVDType(int _i) throws LowVisionException {
-		if (_i != 1 && _i != 2 && _i != 3) {
+	/**
+	 * Set target color vision deficiency type
+	 * 
+	 * @param cvd_type
+	 *            target color vision deficiency type
+	 * @throws LowVisionException
+	 *             if target type is not CVD_DEUTAN,CVD_PROTAN, or CVD_TRITAN
+	 */
+	public void setCVDType(int cvd_type) throws LowVisionException {
+		if (cvd_type != 1 && cvd_type != 2 && cvd_type != 3) {
 			throw new LowVisionException("CVD type must be 1,2, or 3");
 		}
-		CVDType = _i;
+		CVDType = cvd_type;
 	}
 
-	public boolean getColorFilter() {
+	/**
+	 * Check if a color filter type simulation is enabled
+	 * 
+	 * @return true if the simulation is enabled
+	 */
+	public boolean doColorFilter() {
 		return (colorFilter);
 	}
 
-	public void setColorFilter(boolean _b) {
-		colorFilter = _b;
+	/**
+	 * Turn on/off a color filter type simulation
+	 * 
+	 * @param enable
+	 *            set true to turn on
+	 */
+	public void setColorFilter(boolean enable) {
+		colorFilter = enable;
 	}
 
+	/**
+	 * Get color filter value array (Red, Green and Blue). Each filter value is
+	 * within range of [0.0, 1.0].
+	 * 
+	 * @return color filter value array
+	 */
 	public float[] getColorFilterRGB() {
 		float[] rgb = { colorFilterR, colorFilterG, colorFilterB };
 		return (rgb);
 	}
 
-	public void setColorFilterRGB(float _r, float _g, float _b)
+	private void setColorFilterRGB(float _r, float _g, float _b)
 			throws LowVisionException {
 		if (_r < 0.0 || 1.0 < _r)
 			throw new LowVisionException("Value of R(" + _r
@@ -205,14 +271,14 @@ public class LowVisionType {
 		colorFilterB = _b;
 	}
 
-	public void setColorFilterRGB(float[] rgb) throws LowVisionException {
-		if (rgb.length != 3) {
-			throw new LowVisionException("The parameter's length must be 3.");
-		}
-		setColorFilterRGB(rgb[0], rgb[1], rgb[2]);
-	}
-
-
+	/**
+	 * Set degree of color filter
+	 * 
+	 * @param _degree
+	 *            degree of color filter
+	 * @throws LowVisionException
+	 *             if resulting filter value exceeds the range of [0.0, 1.0].
+	 */
 	public void setColorFilterDegree(float _degree) throws LowVisionException {
 		// TODO check color filter values
 		float bDegree = _degree;
@@ -221,87 +287,49 @@ public class LowVisionType {
 		setColorFilterRGB(rgDegree, rgDegree, bDegree);
 	}
 
-	public boolean getGlare() {
+	/**
+	 * Check if a glare type simulation is enabled
+	 * 
+	 * @return true if the simulation is enabled
+	 */
+	public boolean doGlare() {
 		return (glare);
 	}
 
-	public void setGlare(boolean _g) {
-		glare = _g;
+	/**
+	 * Turn on/off a glare type simulation
+	 * 
+	 * @param enable
+	 *            set true to turn on
+	 */
+	public void setGlare(boolean enable) {
+		glare = enable;
 	}
 
+	/**
+	 * Get target degree of glare
+	 * 
+	 * @return degree of glare
+	 */
 	public float getGlareDegree() {
 		return (glareDegree);
 	}
 
+	/**
+	 * Set target degree of glare
+	 * 
+	 * @param _deg
+	 *            target degree of glare
+	 */
 	public void setGlareDegree(float _deg) {
 		glareDegree = _deg;
 	}
 
-	//read simulation type from config file
-	public void read(BufferedReader _br) throws LowVisionException {
-		String oneLine = null;
-		try {
-			while ((oneLine = _br.readLine()) != null) {
-				StringTokenizer st = new StringTokenizer(oneLine);
-				String typeName = st.nextToken().toLowerCase();
-				if (typeName.equals(COLOR_FILTER_STR)) {
-					readColorFilter(st);
-				} else if (typeName.equals(CVD_STR)) {
-					readCVD(st);
-				} else if (typeName.equals(EYESIGHT_STR)) {
-					readEyesight(st);
-				} else if (typeName.equals(GLARE_STR)) {
-					readGlare(st);
-				} else {
-					throw new LowVisionException("Unknown type: " + typeName);
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new LowVisionException("IO Error occurred while reading.");
-		}
-	}
-
-	private void readColorFilter(StringTokenizer _st) throws LowVisionException {
-		if (_st.countTokens() != 3) {
-			throw new LowVisionException("Color filter needs three parameters.");
-		}
-		float tmpR = Float.parseFloat(_st.nextToken());
-		float tmpG = Float.parseFloat(_st.nextToken());
-		float tmpB = Float.parseFloat(_st.nextToken());
-		setColorFilterRGB(tmpR, tmpG, tmpB);
-		colorFilter = true;
-	}
-
-	private void readCVD(StringTokenizer _st) throws LowVisionException {
-		if (_st.countTokens() != 1) {
-			throw new LowVisionException("CVD needs only one parameter(type).");
-		}
-		int type = Integer.parseInt(_st.nextToken());
-		setCVDType(type); 
-		CVD = true;
-	}
-
-	private void readEyesight(StringTokenizer _st) throws LowVisionException {
-		if (_st.countTokens() != 1) {
-			throw new LowVisionException(
-					"Eyesight needs only one parameter(degree).");
-		}
-		float tmp = Float.parseFloat(_st.nextToken());
-		setEyesightDegree(tmp);
-		eyesight = true;
-	}
-
-	private void readGlare(StringTokenizer _st) throws LowVisionException {
-		if (_st.countTokens() != 1) {
-			throw new LowVisionException(
-					"Glare needs only one parameter(degree).");
-		}
-		float tmp = Float.parseFloat(_st.nextToken());
-		setGlareDegree(tmp);
-		glare = true;
-	}
-
+	/**
+	 * Get number of enabled simulation types
+	 * 
+	 * @return number of enabled simulation types
+	 */
 	public int countTypes() {
 		int num = 0;
 
@@ -317,17 +345,37 @@ public class LowVisionType {
 		return (num);
 	}
 
+	/**
+	 * Check if a blur type simulation is enabled
+	 * 
+	 * @return true if the simulation is enabled
+	 */
 	public boolean doBlur() {
 		return (eyesight);
 	}
 
+	/**
+	 * Check if at least one of color related simulation (color vision
+	 * deficiency, color filter, or glare) is enabled
+	 * 
+	 * @return true if color related simulation is enabled
+	 */
 	public boolean doChangeColors() {
 		return (CVD || colorFilter || glare);
 	}
 
-	// need to use same order as in the LowVisionFilter
+	/**
+	 * Convert target color based on current low vision simulation type
+	 * configuration
+	 * 
+	 * @param _src
+	 *            target color
+	 * @return resulting color
+	 * @throws LowVisionException
+	 */
 	public int convertColor(int _src) throws LowVisionException {
 		int dest = _src;
+		// need to use same order as in the LowVisionFilter
 		if (colorFilter) {
 			dest = ColorFilterOp.convertColor(dest, colorFilterR, colorFilterG,
 					colorFilterB);
@@ -339,36 +387,6 @@ public class LowVisionType {
 			dest = CVDOp.convertColor(dest, CVDType);
 		}
 		return (dest);
-	}
-
-	public static int convertColor(int _src, LowVisionType _lvt)
-			throws LowVisionException {
-		return (_lvt.convertColor(_src));
-	}
-
-	public LowVisionType extractColorTypes() {
-		if (!doChangeColors()) {
-			return (null);
-		}
-		LowVisionType lv = null;
-		try {
-			lv = new LowVisionType();
-			if (this.colorFilter) {
-				lv.setColorFilter(true);
-				lv.setColorFilterRGB(this.getColorFilterRGB());
-			}
-			if (this.CVD) {
-				lv.setCVD(true);
-				lv.setCVDType(this.getCVDType());
-			}
-			if (this.glare) {
-				lv.setGlare(true);
-				lv.setGlareDegree(this.glareDegree);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return (lv);
 	}
 
 	public String toString() {
@@ -392,27 +410,60 @@ public class LowVisionType {
 		return (sb.toString());
 	}
 
+	/**
+	 * Get height of target display. Default value is 20.8cm (14.1 inches).
+	 * 
+	 * @return height of target display
+	 */
 	public double getDisplayHeight() {
 		return displayHeight;
 	}
 
+	/**
+	 * Get vertical resolution of target display. Default value is 1024.
+	 * 
+	 * @return vertical resolution of target display
+	 */
 	public int getDisplayResolution() {
 		return displayResolution;
 	}
 
+	/**
+	 * Get distance between user's eye and display. Default value is 30cm.
+	 * 
+	 * @return distance between user's eye and display
+	 */
 	public double getEyeDisplayDistance() {
 		return eyeDisplayDistance;
 	}
 
-	public void setDisplayHeight(double displayHeight) {
-		this.displayHeight = displayHeight;
+	/**
+	 * Set display height in target environment
+	 * 
+	 * @param height
+	 *            target display height
+	 */
+	public void setDisplayHeight(double height) {
+		this.displayHeight = height;
 	}
 
-	public void setDisplayResolution(int displayResolution) {
-		this.displayResolution = displayResolution;
+	/**
+	 * Set resolution of target display
+	 * 
+	 * @param resolution
+	 *            resolution of target display
+	 */
+	public void setDisplayResolution(int resolution) {
+		this.displayResolution = resolution;
 	}
 
-	public void setEyeDisplayDistance(double eyeDisplayDistance) {
-		this.eyeDisplayDistance = eyeDisplayDistance;
+	/**
+	 * Set distance between user's eye and display
+	 * 
+	 * @param distance
+	 *            distance between user's eye and display
+	 */
+	public void setEyeDisplayDistance(double distance) {
+		this.eyeDisplayDistance = distance;
 	}
 }

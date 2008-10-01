@@ -11,14 +11,28 @@
 
 package org.eclipse.actf.visualization.engines.lowvision;
 
-public class LowVisionIOException extends Exception{
+/**
+ * This exception is thrown when a low vision simulation did not completes
+ * successfully because of IO error.
+ */
+public class LowVisionIOException extends Exception {
 	private static final long serialVersionUID = 5761285571988623445L;
 
-	public LowVisionIOException(){
+	/**
+	 * Constructor of Exception
+	 */
+	public LowVisionIOException() {
 		super();
 	}
-	public LowVisionIOException( String _s ){
-		super(_s);
+
+	/**
+	 * Constructor of Exception
+	 * 
+	 * @param msg
+	 *            exception message
+	 */
+	public LowVisionIOException(String msg) {
+		super(msg);
 	}
 
 }

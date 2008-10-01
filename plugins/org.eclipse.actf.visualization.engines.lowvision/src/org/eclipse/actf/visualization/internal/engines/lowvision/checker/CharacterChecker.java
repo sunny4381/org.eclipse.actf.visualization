@@ -178,7 +178,7 @@ public class CharacterChecker {
 
 		// add margin (for Blur filter)
 		int margin = 0;
-		if (_lvType.getEyesight()) {
+		if (_lvType.doEyesight()) {
 			margin = _lvType.getEyesightRadius();
 		}
 		IInt2D beforeI2d = _msc.makeMarginedImage(margin * 2);
@@ -270,7 +270,7 @@ public class CharacterChecker {
 
 		// add margin (for Blur filter)
 		int margin = 0;
-		if (_lvType.getEyesight()) {
+		if (_lvType.doEyesight()) {
 			margin = _lvType.getEyesightRadius();
 		}
 		IInt2D beforeI2d = _smc.makeMarginedImage(margin * 2);
@@ -358,7 +358,7 @@ public class CharacterChecker {
 
 		// add margin
 		int margin = 0;
-		if (_lvType.getEyesight()) {
+		if (_lvType.doEyesight()) {
 			margin = _lvType.getEyesightRadius();
 		}
 		IInt2D beforeI2d = _ssc.makeMarginedImage(margin * 2);
