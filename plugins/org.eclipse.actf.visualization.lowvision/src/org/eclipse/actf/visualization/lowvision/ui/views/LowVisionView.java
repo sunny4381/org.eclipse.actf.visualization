@@ -17,7 +17,6 @@ import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableLabelProviderLV;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableSorterLV;
-import org.eclipse.actf.visualization.ui.report.views.DetailedReportView;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ViewerSorter;
@@ -45,7 +44,7 @@ public class LowVisionView extends ViewPart implements IVisualizationView {
 	public void createPartControl(Composite parent) {
 		partRightLowVision = new PartControlLowVision(this, parent);
 		// TODO
-		getSite().getPage().addSelectionListener(DetailedReportView.ID,
+		getSite().getPage().addSelectionListener(IVisualizationView.DETAILED_REPROT_VIEW_ID,
 				partRightLowVision);
 		// ((IViewSite)getSite()).getActionBars().setGlobalActionHandler("visualizationAction",
 		// new Action(){

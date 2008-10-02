@@ -23,8 +23,6 @@ import org.eclipse.ui.part.ViewPart;
 public class SummaryReportView extends ViewPart implements
 		IACTFReportViewer {
 
-	public static final String ID = SummaryReportView.class.getName();
-
 	private IEvaluationResult curResult = null;
 
 	private static final IEvaluationResult dummyResult = new EvaluationResultImpl();

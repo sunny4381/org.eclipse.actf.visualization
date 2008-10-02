@@ -34,6 +34,9 @@ public interface IVisualizationView extends IACTFReportGenerator {
 	 */
 	public static final String ID_PRESENTATIONVIEW = "org.eclipse.actf.visualization.presentation.ui.views.RoomView";
 
+	
+	
+	
 	/**
 	 * ID of default mode
 	 */
@@ -42,6 +45,11 @@ public interface IVisualizationView extends IACTFReportGenerator {
 	 * ID of low vision mode
 	 */
 	public static final int MODE_LOWVISION = 1;
+	/**
+	 * 
+	 */
+	public static final String DETAILED_REPROT_VIEW_ID = "org.eclipse.actf.visualization.ui.report.views.DetailedReportView";
+	public static final String SUMMARY_REPORT_VIEW_ID = "org.eclipse.actf.visualization.ui.report.views.SummaryReportView";
 
 	/**
 	 * Get label provider to show evaluation result

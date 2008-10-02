@@ -21,10 +21,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
+/**
+ *
+ */
 public class DetailedReportView extends ViewPart implements
 		IACTFReportViewer {
-
-	public static final String ID = DetailedReportView.class.getName();
 
 	private IEvaluationResult curResult = null;
 
@@ -32,6 +33,9 @@ public class DetailedReportView extends ViewPart implements
 
 	private DetailProblemReportArea problemArea;
 
+	/**
+	 * 
+	 */
 	public DetailedReportView() {
 		super();
 	}

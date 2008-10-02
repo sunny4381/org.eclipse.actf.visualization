@@ -15,115 +15,125 @@ import org.eclipse.actf.visualization.eval.problem.IProblemItemImage;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 
+/**
+ * Viewer sorter implementation for image related accessibility issues
+ * 
+ * @see IResultTableSorter
+ * @see IProblemItemImage
+ */
+public class ResultTableSorterLV extends ViewerSorter implements
+		IResultTableSorter {
 
+	private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
 
-public class ResultTableSorterLV extends ViewerSorter implements IResultTableSorter{
+	private boolean inverse = false;
 
-    private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
+	private int curColumn = 0;
 
-    private boolean inverse = false;
+	private int guidelineFinPos;
 
-    private int curColumn = 0;
+	/**
+	 * Constructor of the class
+	 */
+	public ResultTableSorterLV() {
+		super();
+		guidelineFinPos = 1 + guidelineHolder.getGuidelineData().length;
+	}
 
-    private int guidelineFinPos;
+	// TODO levels then itemName
+	private int compareString(String guide1, String guide2) {
 
-    /**
-     *  
-     */
-    public ResultTableSorterLV() {
-        super();
-        guidelineFinPos = 1 + guidelineHolder.getGuidelineData().length;
-    }
+		if (guide1.length() == 0 && guide2.length() != 0) {
+			return (1);
+		} else if (guide1.length() != 0 && guide2.length() == 0) {
+			return (-1);
+		}
+		return (guide1.compareTo(guide2));
+	}
 
-    //TODO levels then itemName
-    private int compareString(String guide1, String guide2) {
+	private int compareInt(int type1, int type2) {
+		return (type1 - type2);
+	}
 
-        if (guide1.length() == 0 && guide2.length() != 0) {
-            return (1);
-        } else if (guide1.length() != 0 && guide2.length() == 0) {
-            return (-1);
-        }
-        return (guide1.compareTo(guide2));
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.viewers.ViewerSorter#compare(org.eclipse.jface.viewers.Viewer,
+	 *      java.lang.Object, java.lang.Object)
+	 */
+	public int compare(Viewer arg0, Object arg1, Object arg2) {
+		int result = 0;
+		if (arg1 != null && arg2 != null) {
+			try {
+				IProblemItemImage tmp1 = (IProblemItemImage) arg1;
+				IProblemItemImage tmp2 = (IProblemItemImage) arg2;
 
-    private int compareInt(int type1, int type2) {
-        return (type1 - type2);
-    }
+				if (curColumn == 0) {
+					result = compareInt(tmp1.getIconId(), tmp2.getIconId());
+				} else if (curColumn < guidelineFinPos) {
+					// TODO sync with label
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.viewers.ViewerSorter#compare(org.eclipse.jface.viewers.Viewer,
-     *      java.lang.Object, java.lang.Object)
-     */
-    public int compare(Viewer arg0, Object arg1, Object arg2) {
-        int result = 0;
-        if (arg1 != null && arg2 != null) {
-            try {
-                IProblemItemImage tmp1 = (IProblemItemImage) arg1;
-                IProblemItemImage tmp2 = (IProblemItemImage) arg2;
+					result = compareString(
+							tmp1.getEvaluationItem().getTableDataGuideline()[curColumn - 1],
+							tmp2.getEvaluationItem().getTableDataGuideline()[curColumn - 1]);
 
-                if (curColumn == 0) {
-                    result = compareInt(tmp1.getIconId(), tmp2.getIconId());
-                } else if (curColumn < guidelineFinPos) {
-                    //TODO sync with label
+				} else {
+					switch (curColumn - guidelineFinPos) {
+					case 0:
+						result = compareInt(tmp1.getSeverityLV(), tmp2
+								.getSeverityLV());
+						break;
+					case 1:
+						result = compareString(tmp1.getForegroundS(), tmp2
+								.getForegroundS());
+						break;
+					case 2:
+						result = compareString(tmp1.getBackgroundS(), tmp2
+								.getBackgroundS());
+						break;
+					case 3:
+						result = compareInt(tmp1.getX(), tmp2.getX());
+						break;
+					case 4:
+						result = compareInt(tmp1.getY(), tmp2.getY());
+						break;
+					case 5:
+						result = compareInt(tmp1.getArea(), tmp2.getArea());
+						break;
+					case 6:
+						result = compareString(tmp1.getDescription(), tmp2
+								.getDescription());
+						break;
+					}
+				}
 
-                    result = compareString(tmp1.getEvaluationItem().getTableDataGuideline()[curColumn - 1], tmp2
-                            .getEvaluationItem().getTableDataGuideline()[curColumn - 1]);
+				if (result == 0) {
+					result = tmp1.getSerialNumber() - tmp2.getSerialNumber();
+				}
 
-                } else {
-                    switch (curColumn - guidelineFinPos) {
-                    case 0:
-                        result = compareInt(tmp1.getSeverityLV(), tmp2.getSeverityLV());
-                        break;
-                    case 1:
-                        result = compareString(tmp1.getForegroundS(), tmp2.getForegroundS());
-                        break;
-                    case 2:
-                        result = compareString(tmp1.getBackgroundS(), tmp2.getBackgroundS());
-                        break;
-                    case 3:
-                        result = compareInt(tmp1.getX(), tmp2.getX());
-                        break;
-                    case 4:
-                        result = compareInt(tmp1.getY(), tmp2.getY());
-                        break;
-                    case 5:
-                        result = compareInt(tmp1.getArea(), tmp2.getArea());
-                        break;
-                    case 6:
-                        result = compareString(tmp1.getDescription(), tmp2.getDescription());
-                        break;
-                    }
-                }
+				if (inverse) {
+					return (-result);
+				} else {
+					return (result);
+				}
+			} catch (Exception e) {
+			}
+		}
+		return super.compare(arg0, arg1, arg2);
+	}
 
-                if (result == 0) {
-                    result = tmp1.getSerialNumber() - tmp2.getSerialNumber();
-                }
+	public void setCurColumn(int curColumn) {
+		if (this.curColumn == curColumn) {
+			inverse = !inverse;
+		} else {
+			inverse = false;
+			this.curColumn = curColumn;
+		}
+	}
 
-                if (inverse) {
-                    return (-result);
-                } else {
-                    return (result);
-                }
-            } catch (Exception e) {
-            }
-        }
-        return super.compare(arg0, arg1, arg2);
-    }
-    
-    public void setCurColumn(int curColumn) {
-        if (this.curColumn == curColumn) {
-            inverse = !inverse;
-        } else {
-            inverse = false;
-            this.curColumn = curColumn;
-        }
-    }
-
-    public void reset() {
-        curColumn = -1;
-        inverse = false;
-    }
+	public void reset() {
+		curColumn = -1;
+		inverse = false;
+	}
 
 }

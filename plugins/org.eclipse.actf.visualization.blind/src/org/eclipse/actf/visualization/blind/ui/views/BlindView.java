@@ -19,7 +19,6 @@ import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableLabelProvider;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableSorter;
-import org.eclipse.actf.visualization.ui.report.views.DetailedReportView;
 import org.eclipse.jface.action.IContributionItem;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ViewerSorter;
@@ -58,7 +57,7 @@ public class BlindView extends ViewPart implements IVisualizationView {
 		partRightBlind = new PartControlBlind(this, parent);
 
 		// TODO use mediator
-		getSite().getPage().addSelectionListener(DetailedReportView.ID,
+		getSite().getPage().addSelectionListener(IVisualizationView.DETAILED_REPROT_VIEW_ID,
 				new SelectionListenerBlind(partRightBlind));
 
 		// for element viewer

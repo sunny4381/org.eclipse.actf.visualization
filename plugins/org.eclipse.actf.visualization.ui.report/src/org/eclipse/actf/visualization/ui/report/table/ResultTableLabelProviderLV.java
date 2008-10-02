@@ -16,73 +16,77 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
+/**
+ * A label provide implementation for image related accessibility issues
+ * 
+ * @see IProblemItemImage
+ */
+public class ResultTableLabelProviderLV extends LabelProvider implements
+		ITableLabelProvider {
 
+	private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
 
-public class ResultTableLabelProviderLV extends LabelProvider implements ITableLabelProvider {
+	private int guidelineFinPos;
 
-    private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
+	/**
+	 * Constructor of the class
+	 */
+	public ResultTableLabelProviderLV() {
+		super();
+		guidelineFinPos = 1 + guidelineHolder.getGuidelineData().length;
+	}
 
-    private int guidelineFinPos;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object,
+	 *      int)
+	 */
+	public Image getColumnImage(Object arg0, int arg1) {
+		IProblemItemImage tmpItem = (IProblemItemImage) arg0;
+		if (arg1 == 0) {
+			return (tmpItem.getImageIcon());
+		}
+		return null;
+	}
 
-    /**
-     *  
-     */
-    public ResultTableLabelProviderLV() {
-        super();
-        guidelineFinPos = 1 + guidelineHolder.getGuidelineData().length;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object,
+	 *      int)
+	 */
+	public String getColumnText(Object arg0, int arg1) {
+		IProblemItemImage tmpItem = (IProblemItemImage) arg0;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object,
-     *      int)
-     */
-    public Image getColumnImage(Object arg0, int arg1) {
-        IProblemItemImage tmpItem = (IProblemItemImage) arg0;
-        if (arg1 == 0) {
-            return (tmpItem.getImageIcon());
-        }
-        return null;
-    }
+		// TODO
+		if (arg1 == 0) {
+			//
+		} else if (arg1 < guidelineFinPos) {
+			return (tmpItem.getEvaluationItem().getTableDataGuideline()[arg1 - 1]);
+		} else {
+			switch (arg1 - guidelineFinPos) {
+			case 0:
+				return (Integer.toString(tmpItem.getSeverityLV()));
+			case 1:
+				return (tmpItem.getForegroundS());
+			case 2:
+				return (tmpItem.getBackgroundS());
+			case 3:
+				return (Integer.toString(tmpItem.getX()));
+			case 4:
+				return (Integer.toString(tmpItem.getY()));
+			case 5:
+				return (Integer.toString(tmpItem.getArea()));
+			case 6:
+				return (tmpItem.getDescription());
+			default:
+				return ("");
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object,
-     *      int)
-     */
-    public String getColumnText(Object arg0, int arg1) {
-        IProblemItemImage tmpItem = (IProblemItemImage) arg0;
+			}
+		}
 
-        //TODO
-        if (arg1 == 0) {
-            //
-        } else if (arg1 < guidelineFinPos) {
-            return(tmpItem.getEvaluationItem().getTableDataGuideline()[arg1-1]);
-        } else {
-            switch (arg1 - guidelineFinPos) {
-            case 0:
-                return (Integer.toString(tmpItem.getSeverityLV()));
-            case 1:
-                return (tmpItem.getForegroundS());
-            case 2:
-                return (tmpItem.getBackgroundS());
-            case 3:
-                return (Integer.toString(tmpItem.getX()));
-            case 4:
-                return (Integer.toString(tmpItem.getY()));
-            case 5:
-                return (Integer.toString(tmpItem.getArea()));
-            case 6:
-                return (tmpItem.getDescription());
-                default:
-                    return("");
-
-            }
-        }
-
-        return "";
-    }
+		return "";
+	}
 
 }

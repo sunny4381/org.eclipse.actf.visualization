@@ -18,12 +18,18 @@ import org.eclipse.swt.graphics.Image;
 
 
 
+/**
+ *
+ */
 public class MetricsLabelProvider extends LabelProvider implements ITableLabelProvider {
 
     private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
 
     private int numMetrics;
 
+    /**
+     * 
+     */
     public MetricsLabelProvider() {
         super();
         numMetrics = guidelineHolder.getMetricsNames().length;

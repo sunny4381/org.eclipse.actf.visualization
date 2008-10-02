@@ -11,8 +11,23 @@
 
 package org.eclipse.actf.visualization.ui.report.table;
 
-
+/**
+ * Interface used for sorting evaluation result by selected column.
+ * 
+ * @see ResultTableSorterBase
+ * @see ResultTableSorterLV
+ */
 public interface IResultTableSorter {
-    public void setCurColumn(int curColumn);
-    public void reset();
+	/**
+	 * This method will be called by result table viewer when the target column
+	 * is selected by user.
+	 * 
+	 * @param curColumn
+	 */
+	public void setCurColumn(int curColumn);
+
+	/**
+	 * This method will be called by result table viewer to reset sort order.
+	 */
+	public void reset();
 }
