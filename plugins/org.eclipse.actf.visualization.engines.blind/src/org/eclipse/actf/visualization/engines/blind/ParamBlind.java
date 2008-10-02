@@ -16,89 +16,109 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceConverter;
 import org.eclipse.swt.graphics.RGB;
 
-
+/**
+ * This class stores configuration parameters of blind usability visualization
+ */
 public class ParamBlind {
 
-    public static final int EN = 0;
+	public static final int EN = 0;
 
-    public static final int JP = 1;
-    
-    public static String BLIND_LAYOUT_MODE = IBlindPreferenceConstants.BLIND_LAYOUT_MODE;
+	public static final int JP = 1;
 
-    public static String BLIND_BROWSER_MODE = IBlindPreferenceConstants.BLIND_BROWSER_MODE;
+	public static String BLIND_LAYOUT_MODE = IBlindPreferenceConstants.BLIND_LAYOUT_MODE;
 
-    private static ParamBlind INSTANCE;
-    
-    public boolean oReplaceImage;
+	public static String BLIND_BROWSER_MODE = IBlindPreferenceConstants.BLIND_BROWSER_MODE;
 
-    public boolean oVisualizArrival; // Visualize arrival time (default on)
+	private static ParamBlind INSTANCE;
 
-    public int iLanguage; //
+	public boolean oReplaceImage;
 
-    public String visualizeMode;
+	public boolean oVisualizArrival; // Visualize arrival time (default on)
 
-    public boolean bVisualizeTime;
+	public int iLanguage; //
 
-    public boolean bColorizeTags;
+	public String visualizeMode;
 
-    public boolean bVisualizeTable;
+	public boolean bVisualizeTime;
 
-    public int iMaxTime;
+	public boolean bColorizeTags;
 
-    public RGB maxTimeColor;
+	public boolean bVisualizeTable;
 
-    public RGB tableHeaderColor;
+	public int iMaxTime;
 
-    public RGB headingTagsColor;
+	public RGB maxTimeColor;
 
-    public RGB inputTagsColor;
+	public RGB tableHeaderColor;
 
-    public RGB labelTagsColor;
+	public RGB headingTagsColor;
 
-    public RGB tableBorderColor;
+	public RGB inputTagsColor;
 
-    public static ParamBlind getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new ParamBlind();
-        }
-        return (INSTANCE);
-    }
+	public RGB labelTagsColor;
 
-    public static void refresh(){
-        ParamBlind pb = getInstance();
-        setValues(pb);
-    }
+	public RGB tableBorderColor;
 
-    private static void setValues(ParamBlind pb){
-        IPreferenceStore store = BlindVizEnginePlugin.getDefault().getPreferenceStore();
+	/**
+	 * Get instance of {@link ParamBlind}
+	 * 
+	 * @return instance of {@link ParamBlind}
+	 */
+	public static ParamBlind getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new ParamBlind();
+		}
+		return (INSTANCE);
+	}
 
-        if(store.getDefaultString(IBlindPreferenceConstants.BLIND_LANG).equals(IBlindPreferenceConstants.LANG_JA)){
-            pb.iLanguage = JP;
-        }else{
-            pb.iLanguage = EN;
-        }
+	/**
+	 * Reset configuration parameters to default
+	 */
+	public static void refresh() {
+		ParamBlind pb = getInstance();
+		setValues(pb);
+	}
 
-        pb.visualizeMode = store.getString(IBlindPreferenceConstants.BLIND_MODE);
-        
-        pb.iMaxTime = store.getInt(IBlindPreferenceConstants.BLIND_MAX_TIME_SECOND);
-        pb.maxTimeColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_MAX_TIME_COLOR);
-        pb.tableHeaderColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_TABLE_HEADER_COLOR);
-        pb.headingTagsColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_HEADING_TAGS_COLOR);
-        pb.inputTagsColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_INPUT_TAGS_COLOR);
-        pb.labelTagsColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_LABEL_TAGS_COLOR);
-        pb.tableBorderColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_TABLE_BORDER_COLOR);
-        
-    }
-    
-    private ParamBlind() {
+	private static void setValues(ParamBlind pb) {
+		IPreferenceStore store = BlindVizEnginePlugin.getDefault()
+				.getPreferenceStore();
 
-        oReplaceImage = true;
-        oVisualizArrival = true;
-        bVisualizeTime = true;
-        bColorizeTags = true;
-        bVisualizeTable = true;
-    
-        setValues(this);
-    }
+		if (store.getDefaultString(IBlindPreferenceConstants.BLIND_LANG)
+				.equals(IBlindPreferenceConstants.LANG_JA)) {
+			pb.iLanguage = JP;
+		} else {
+			pb.iLanguage = EN;
+		}
+
+		pb.visualizeMode = store
+				.getString(IBlindPreferenceConstants.BLIND_MODE);
+
+		pb.iMaxTime = store
+				.getInt(IBlindPreferenceConstants.BLIND_MAX_TIME_SECOND);
+		pb.maxTimeColor = PreferenceConverter.getColor(store,
+				IBlindPreferenceConstants.BLIND_MAX_TIME_COLOR);
+		pb.tableHeaderColor = PreferenceConverter.getColor(store,
+				IBlindPreferenceConstants.BLIND_TABLE_HEADER_COLOR);
+		pb.headingTagsColor = PreferenceConverter.getColor(store,
+				IBlindPreferenceConstants.BLIND_HEADING_TAGS_COLOR);
+		pb.inputTagsColor = PreferenceConverter.getColor(store,
+				IBlindPreferenceConstants.BLIND_INPUT_TAGS_COLOR);
+		pb.labelTagsColor = PreferenceConverter.getColor(store,
+				IBlindPreferenceConstants.BLIND_LABEL_TAGS_COLOR);
+		pb.tableBorderColor = PreferenceConverter.getColor(store,
+				IBlindPreferenceConstants.BLIND_TABLE_BORDER_COLOR);
+
+	}
+
+	private ParamBlind() {
+
+		oReplaceImage = true;
+		oVisualizArrival = true;
+		bVisualizeTime = true;
+		bColorizeTags = true;
+		bVisualizeTable = true;
+
+		setValues(this);
+	}
 
 }

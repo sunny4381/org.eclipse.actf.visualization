@@ -62,7 +62,7 @@ public class EditNGWordDialog {
 				newSet.add(tmpS);
 			}
 		}
-		textChecker.setNewAltSet(newSet);
+		textChecker.setInappropriateAltSet(newSet);
 
 		return true;
 	}

@@ -9,49 +9,17 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.eval;
+package org.eclipse.actf.visualization.internal.engines.blind;
 
-import org.eclipse.actf.ui.util.HighlightStringListener;
 import org.eclipse.actf.util.FileUtils;
+import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
-import org.eclipse.actf.visualization.internal.engines.blind.Messages;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
 
+/**
+ * 
+ */
 public class SummaryEvaluation {
-
-	public static HighlightStringListener getHighLightStringListener() {
-		HighlightStringListener hlsl = new HighlightStringListener();
-		Color blue = Display.getDefault().getSystemColor(SWT.COLOR_BLUE);
-		Color red = Display.getDefault().getSystemColor(SWT.COLOR_RED);
-
-		hlsl.addTarget(Messages.getString("Eval.excellent"), blue, SWT.BOLD);
-		hlsl.addTarget(Messages.getString("Eval.completely.compliant"), blue,
-				SWT.BOLD);
-		hlsl.addTarget(Messages.getString("Eval.seems.completely.compliant"),
-				blue, SWT.BOLD);
-		hlsl.addTarget(Messages
-				.getString("Eval.completely.compliant.with.some.errors"), red,
-				SWT.BOLD);
-		hlsl.addTarget(Messages.getString("Eval.many.accessibility.issues"),
-				red, SWT.BOLD);
-		hlsl.addTarget(Messages.getString("Eval.some.accessibility.issues"),
-				red, SWT.BOLD);
-
-		hlsl.addTarget(Messages
-				.getString("Eval.easy.for.blind.user.to.navigate"), blue,
-				SWT.BOLD);
-
-		hlsl.addTarget(Messages.getString("Eval.page.has.skiplinks.headings"),
-				red, SWT.BOLD);
-		hlsl.addTarget(Messages
-				.getString("Eval.darkcolored.visualization.view"), red,
-				SWT.BOLD);
-
-		return (hlsl);
-	}
 
 	private PageEvaluation pe;
 
@@ -63,17 +31,19 @@ public class SummaryEvaluation {
 
 	private int redundantImageAltCount = 0;
 
-	private GuidelineHolder guidelineHolder = GuidelineHolder
-			.getInstance();
+	private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
 
-	/**
-	 * 
-	 */
-	public SummaryEvaluation(PageEvaluation pe) {
+	private boolean hasError;
+
+	public SummaryEvaluation(PageEvaluation pe, PageData pd, boolean hasError) {
 		this.pe = pe;
-		this.pageData = pe.getPageData();
+		this.pageData = pd;
+		this.hasError = hasError;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getOverview() {
 		StringBuffer tmpSB = new StringBuffer(512);
 		StringBuffer noGoodMetrics = new StringBuffer();
@@ -130,7 +100,7 @@ public class SummaryEvaluation {
 
 		if (hasComp) {
 			if (comp >= 80) {
-				if (pe.isHasComplianceError()) {
+				if (hasError) {
 					aboutComp
 							.append(Messages
 									.getString("Eval.completely.compliant.with.some.errors")

@@ -210,7 +210,7 @@ public class ImgChecker {
 					prob = new BlindProblem(BlindProblem.SEPARATE_DBCS_ALT_IMG,
 							altS);
 				} else {
-					switch (textChecker.isInappropriateAlt2(altS)) {
+					switch (textChecker.checkInappropriateAlt(altS)) {
 					case 3:
 						prob = new BlindProblem(BlindProblem.ALERT_SPELL_OUT,
 								altS);

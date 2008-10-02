@@ -18,10 +18,14 @@ import java.util.List;
 import org.eclipse.actf.util.xpath.XPathService;
 import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.eclipse.actf.visualization.eval.EvaluationResultImpl;
+import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.w3c.dom.NodeList;
 
+/**
+ * Implementation class of {@link IEvaluationResult}
+ */
 public class EvaluationResultBlind extends EvaluationResultImpl {
 
 	private static final XPathService xpathService = XPathServiceFactory

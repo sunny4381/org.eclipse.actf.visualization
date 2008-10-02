@@ -23,7 +23,6 @@ import org.eclipse.actf.visualization.blind.internal.BlindVisualizerExtension;
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
-import org.eclipse.actf.visualization.engines.blind.eval.SummaryEvaluation;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IHighlightElementListener;
 import org.eclipse.actf.visualization.engines.blind.html.util.SaveReportBlind;
 import org.eclipse.actf.visualization.engines.blind.html.util.VisualizeReportUtil;
@@ -202,7 +201,7 @@ public class PartControlBlind implements IHighlightElementListener {
 					_checkResult.setSummaryReportUrl(targetFile
 							.getAbsolutePath());
 					_checkResult.setSummaryReportText(_pageEval.getSummary());
-					_checkResult.setLineStyleListener(SummaryEvaluation
+					_checkResult.setLineStyleListener(PageEvaluation
 							.getHighLightStringListener());
 					mediator.setReport(vizView, _checkResult);
 

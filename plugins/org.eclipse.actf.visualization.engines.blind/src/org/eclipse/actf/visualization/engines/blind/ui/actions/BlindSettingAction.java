@@ -16,9 +16,16 @@ import org.eclipse.actf.ui.util.PreferenceUtils;
 import org.eclipse.actf.visualization.engines.blind.ui.preferences.BlindPreferencePage;
 import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.preference.PreferencePage;
 
+/**
+ * Action to invoke Blind visualization {@link PreferencePage}
+ */
 public class BlindSettingAction extends Action {
 
+	/**
+	 * Constructor of the class
+	 */
 	public BlindSettingAction() {
 		setToolTipText(Messages.getString("Tooltip.Settings")); //$NON-NLS-1$
 		setImageDescriptor(BlindVizEnginePlugin.imageDescriptorFromPlugin(
