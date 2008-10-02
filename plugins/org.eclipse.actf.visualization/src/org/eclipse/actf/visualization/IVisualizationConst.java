@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2008 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,21 +11,49 @@
 
 package org.eclipse.actf.visualization;
 
+/**
+ * Constants for Visualization components
+ */
 public interface IVisualizationConst {
-	String PREFIX_RUNTIME_HTML = "runtime";
-	String PREFIX_SOURCE_HTML = "source";
+	/**
+	 * prefix for result file
+	 */
 	String PREFIX_RESULT = "result";
+	/**
+	 * suffix for html file
+	 */
 	String SUFFIX_HTML = ".html";
+	/**
+	 * suffix for bitmap file
+	 */
 	String SUFFIX_BMP = ".bmp";
+	/**
+	 * prefix for screenshot file
+	 */
 	String PREFIX_SCREENSHOT = "screenshot";
-	String PREFIX_MERGED_IMAGE = "merged_screenshot";
+	/**
+	 * prefix for report file
+	 */
 	String PREFIX_REPORT = "report";
+	/**
+	 * prefix for visualization result file
+	 */
 	String PREFIX_VISUALIZATION = "visualization";
 
-	public static final String DEFAULT_ENCODING = "MS932";
-
+	/**
+	 * Image file name for evaluation result (very good)
+	 */
 	public static final String RATING_V_GOOD = "VeryGood.png";
+	/**
+	 * Image file name for evaluation result (good)
+	 */
 	public static final String RATING_GOOD = "Good.png";
+	/**
+	 * Image file name for evaluation result (poor)
+	 */
 	public static final String RATING_POOR = "Poor.png";
+	/**
+	 * Image file name for evaluation result (bad)
+	 */
 	public static final String RATING_BAD = "Bad.png";
 }

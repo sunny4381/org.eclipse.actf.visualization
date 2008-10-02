@@ -20,8 +20,18 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
+/**
+ * Status line contribution item commonly used in visualization components<br>
+ * 
+ * example:
+ * ViewPart.getViewSite().getActionBars().getStatusLineManager().add(new
+ * VisualizationStatusLineContributionItem(id));
+ */
 public class VisualizationStatusLineContributionItem extends ContributionItem {
 
+	/**
+	 * ID
+	 */
 	public static final String ID = "org.eclipse.actf.visualization.VisualizationStatusLineContributionItem";
 
 	private final int MSGLABEL_WIDTHHINT = 300;
@@ -30,12 +40,23 @@ public class VisualizationStatusLineContributionItem extends ContributionItem {
 
 	CLabel _infoMessageLabel;
 
-	//TODO move to common
-	
+	// TODO move to common
+
+	/**
+	 * Constructor of the class
+	 * 
+	 * @param id
+	 *            contribution item ID
+	 */
 	public VisualizationStatusLineContributionItem(String id) {
 		super(ID + id);
 	}
-	
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.action.ContributionItem#fill(org.eclipse.swt.widgets.Composite)
+	 */
 	public void fill(Composite parent) {
 
 		Label leftSeparator = new Label(parent, SWT.SEPARATOR);
@@ -52,7 +73,7 @@ public class VisualizationStatusLineContributionItem extends ContributionItem {
 		msgLabelLayoutData.widthHint = MSGLABEL_WIDTHHINT;
 		this._statusMessageLabel.setLayoutData(msgLabelLayoutData);
 		msgLabelLayoutData = new StatusLineLayoutData();
-		msgLabelLayoutData.widthHint = MSGLABEL_WIDTHHINT+80;
+		msgLabelLayoutData.widthHint = MSGLABEL_WIDTHHINT + 80;
 		this._infoMessageLabel.setLayoutData(msgLabelLayoutData);
 
 		GC gc = new GC(parent);
@@ -69,15 +90,29 @@ public class VisualizationStatusLineContributionItem extends ContributionItem {
 		rightSeparator.setLayoutData(separatorLayoutData);
 	}
 
+	/**
+	 * Set status message to status line
+	 * 
+	 * @param statusMessage
+	 *            status message
+	 */
 	public void setStatusMessage(String statusMessage) {
-		if (null != this._statusMessageLabel && !this._statusMessageLabel.isDisposed()) {
+		if (null != this._statusMessageLabel
+				&& !this._statusMessageLabel.isDisposed()) {
 			this._statusMessageLabel.setText(statusMessage);
 			this._statusMessageLabel.update();
 		}
 	}
 
+	/**
+	 * Set information message to status line
+	 * 
+	 * @param infoMessage
+	 *            information message
+	 */
 	public void setInfoMessage(String infoMessage) {
-		if (null != this._infoMessageLabel && !this._infoMessageLabel.isDisposed()) {
+		if (null != this._infoMessageLabel
+				&& !this._infoMessageLabel.isDisposed()) {
 			this._infoMessageLabel.setText(infoMessage);
 			this._infoMessageLabel.update();
 		}

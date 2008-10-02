@@ -351,7 +351,7 @@ public class PartControlLowVision implements ISelectionListener,
 		if (webBrowser != null) {
 			try {
 				File sourceHtmlFile = LowVisionVizPlugin.createTempFile(
-						PREFIX_SOURCE_HTML, SUFFIX_HTML);
+						"source", SUFFIX_HTML);
 				webBrowser.saveOriginalDocument(sourceHtmlFile
 						.getAbsolutePath());
 				checkResult.setSourceFile(sourceHtmlFile);

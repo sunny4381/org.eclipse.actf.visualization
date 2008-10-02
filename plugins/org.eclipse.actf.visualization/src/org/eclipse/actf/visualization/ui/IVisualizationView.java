@@ -15,27 +15,86 @@ import org.eclipse.actf.mediator.IACTFReportGenerator;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ViewerSorter;
 
+/**
+ * Interface to implement visualization views.
+ * 
+ * @see IACTFReportGenerator
+ */
 public interface IVisualizationView extends IACTFReportGenerator {
+	/**
+	 * View ID of blind visualization view
+	 */
 	public static final String ID_BLINDVIEW = "org.eclipse.actf.visualization.blind.ui.views.BlindView";
+	/**
+	 * View ID of low vision visualization view
+	 */
 	public static final String ID_LOWVISIONVIEW = "org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView";
+	/**
+	 * View ID of presentation visualization view
+	 */
 	public static final String ID_PRESENTATIONVIEW = "org.eclipse.actf.visualization.presentation.ui.views.RoomView";
-	
+
+	/**
+	 * ID of default mode
+	 */
 	public static final int MODE_DEFAULT = 0;
+	/**
+	 * ID of low vision mode
+	 */
 	public static final int MODE_LOWVISION = 1;
 
-
+	/**
+	 * Get label provider to show evaluation result
+	 * 
+	 * @return {@link IBaseLabelProvider}
+	 */
 	IBaseLabelProvider getLabelProvider();
 
+	/**
+	 * Get sorter to show evaluation result
+	 * 
+	 * @return {@link ViewerSorter}
+	 */
 	ViewerSorter getTableSorter();
 
+	/**
+	 * Set status message to status line.
+	 * {@link VisualizationStatusLineContributionItem} can be used for
+	 * implementation.
+	 * 
+	 * @param statusMessage
+	 *            status message
+	 */
 	public void setStatusMessage(String statusMessage);
 
+	/**
+	 * Set information message to status line. *
+	 * {@link VisualizationStatusLineContributionItem} can be used for
+	 * implementation.
+	 * 
+	 * @param infoMessage
+	 *            information message
+	 */
 	public void setInfoMessage(String infoMessage);
-	
+
+	/**
+	 * Set visualization mode
+	 * 
+	 * @param mode
+	 *            visualization mode
+	 */
 	public void setVisualizeMode(int mode);
 
+	/**
+	 * Get visualization mode to show evaluation result
+	 * 
+	 * @return visualization mode
+	 */
 	int getResultTableMode();
 
+	/**
+	 * Invoke visualization
+	 */
 	void doVisualize();
 
 }

@@ -87,7 +87,6 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			FileUtils
 					.copyFile(odf_html_fileS, tmpDirS + HTML_SOURCE_FILE, true);
 
-			Html2ViewMapMaker h2vmm = new Html2ViewMapMaker();
 			Vector<Html2ViewMapData> html2ViewMapV = new Vector<Html2ViewMapData>();
 
 			IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
@@ -95,7 +94,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			htmlParser.addErrorLogListener(errorLogListener);
 			String targetFile = tmpDirS + MAPPED_HTML_FILE_PRE + ".html";
 
-			html2ViewMapV = h2vmm.makeMap(ODF_HTML_FILE_NAME,
+			html2ViewMapV = Html2ViewMapMaker.makeMap(ODF_HTML_FILE_NAME,
 					MAPPED_HTML_FILE_PRE + ".html", tmpDirS);
 			if (html2ViewMapV.size() == 0) {
 				targetFile = odf_html_fileS;

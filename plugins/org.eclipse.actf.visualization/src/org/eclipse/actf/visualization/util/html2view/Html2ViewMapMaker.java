@@ -27,6 +27,10 @@ import java.util.Vector;
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.JapaneseEncodingDetector;
 
+/**
+ * Utility class to enable mapping between line number and ACTF_ID. This utility
+ * embeds ACTF_ID into HTML file.
+ */
 public class Html2ViewMapMaker {
 	Vector<Html2ViewMapData> html2viewV;
 
@@ -76,35 +80,26 @@ public class Html2ViewMapMaker {
 
 	String currentTargetString;
 
-	public static void main(String[] args) {
-		try {
-			// Html2ViewMapMaker h2vmm =
-			new Html2ViewMapMaker();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	private Html2ViewMapMaker() {
 	}
 
-	public Vector<Html2ViewMapData> makeMap(String filename, String resultFileName,
-			String baseUrl, String tmpDir) {
-		return (makeMap(filename, resultFileName, baseUrl, tmpDir, true));
-	}
-
-	public Vector<Html2ViewMapData> makeMap(String filename, String resultFileName,
-			String baseUrl, String tmpDir, boolean useTmpDir) {
-		changeBase = true;
-		this.baseUrl = baseUrl;
-		return (makeMapLocal(filename, resultFileName, tmpDir, useTmpDir));
-	}
-
-	public Vector<Html2ViewMapData> makeMap(String filename, String resultFileName, String tmpDir) {
-		return (makeMap(filename, resultFileName, tmpDir, true));
-	}
-
-	public Vector<Html2ViewMapData> makeMap(String filename, String resultFileName,
-			String tmpDir, boolean useTmpDir) {
-		changeBase = false;
-		return (makeMapLocal(filename, resultFileName, tmpDir, useTmpDir));
+	/**
+	 * Create mapping information between line number and ACTF_ID. The resulting
+	 * HTML file that includes ACTF_ID will be stored as a file.
+	 * 
+	 * @param filename
+	 *            file path of target HTML
+	 * @param resultFileName
+	 *            file name of resulting HTML file
+	 * @param targetDir
+	 *            path for target directory to save result file
+	 * @return mapping information as vector of {@link Html2ViewMapData}
+	 */
+	public static Vector<Html2ViewMapData> makeMap(String filename,
+			String resultFileName, String targetDir) {
+		Html2ViewMapMaker maker = new Html2ViewMapMaker();
+		maker.changeBase = false;
+		return (maker.makeMapLocal(filename, resultFileName, targetDir, true));
 	}
 
 	private void init() {
@@ -130,8 +125,8 @@ public class Html2ViewMapMaker {
 	}
 
 	// TODO throw syntactic error
-	private Vector<Html2ViewMapData> makeMapLocal(String filename, String resultFileName,
-			String tmpDir, boolean useTmpDir) {
+	private Vector<Html2ViewMapData> makeMapLocal(String filename,
+			String resultFileName, String tmpDir, boolean useTmpDir) {
 
 		PrintWriter htmlWriter;
 		FileInputStream fis = null;

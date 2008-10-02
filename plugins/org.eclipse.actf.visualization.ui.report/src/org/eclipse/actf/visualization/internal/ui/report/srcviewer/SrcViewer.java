@@ -19,7 +19,6 @@ import java.io.InputStreamReader;
 import java.util.Vector;
 
 import org.eclipse.actf.util.JapaneseEncodingDetector;
-import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.internal.ui.report.Messages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -367,7 +366,7 @@ public class SrcViewer {
         styledText.setText(""); //$NON-NLS-1$
         //TODO check
         try {
-            String encoding = IVisualizationConst.DEFAULT_ENCODING;
+            String encoding = "MS932";
 
             JapaneseEncodingDetector JED = null;
 

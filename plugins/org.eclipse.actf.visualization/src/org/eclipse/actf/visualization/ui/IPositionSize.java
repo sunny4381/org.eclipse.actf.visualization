@@ -11,56 +11,66 @@
 
 package org.eclipse.actf.visualization.ui;
 
-
+/**
+ * Interface to store position and size information of Item
+ */
 public interface IPositionSize {
-	
-    /**
-     * @return size of Item
-     */
-    public int getArea();
 
-    /**
-     * @return height of Item
-     */
-    public int getHeight();
+	/**
+	 * @return area size of Item
+	 */
+	public int getArea();
 
-    /**
-     * @return width of Item
-     */
-    public int getWidth();
+	/**
+	 * @return height of Item
+	 */
+	public int getHeight();
 
-    /**
-     * @return X position of Item
-     */
-    public int getX();
+	/**
+	 * @return width of Item
+	 */
+	public int getWidth();
 
-    /**
-     * @return Y position of Item
-     */
-    public int getY();
+	/**
+	 * @return X position of Item
+	 */
+	public int getX();
 
-    /**
-     * @param i
-     *            height of Item
-     */
-    public void setHeight(int i);
+	/**
+	 * @return Y position of Item
+	 */
+	public int getY();
 
-    /**
-     * @param i
-     *            width of Item
-     */
-    public void setWidth(int i);
+	/**
+	 * Set height
+	 * 
+	 * @param i
+	 *            height of Item
+	 */
+	public void setHeight(int i);
 
-    /**
-     * @param i
-     *            X position of Item
-     */
-    public void setX(int i);
+	/**
+	 * Set width
+	 * 
+	 * @param i
+	 *            width of Item
+	 */
+	public void setWidth(int i);
 
-    /**
-     * @param i
-     *            Y position of Item
-     */
-    public void setY(int i);
+	/**
+	 * Set X position
+	 * 
+	 * @param i
+	 *            X position of Item
+	 */
+	public void setX(int i);
+
+	/**
+	 * Set Y position
+	 * 
+	 * @param i
+	 *            Y position of Item
+	 */
+	public void setY(int i);
 
 }

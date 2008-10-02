@@ -17,6 +17,9 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.PaletteData;
 import org.eclipse.swt.widgets.Display;
 
+/**
+ * Utility class to create overlay image
+ */
 public class ImageOverlayUtil {
 
 	/**
@@ -53,8 +56,8 @@ public class ImageOverlayUtil {
 	}
 
 	/**
-	 * Overlay pixels onto base image.
-	 * An alpha value of 255 is full weight, and 0 is no weight (transparent). 
+	 * Overlay pixels onto base image. An alpha value of 255 is full weight, and
+	 * 0 is no weight (transparent).
 	 * 
 	 * @param base
 	 *            the target image to add overlay
@@ -85,8 +88,8 @@ public class ImageOverlayUtil {
 	}
 
 	/**
-	 * Overlay pixels onto base image.
-	 * An alpha value of 255 is full weight, and 0 is no weight (transparent).
+	 * Overlay pixels onto base image. An alpha value of 255 is full weight, and
+	 * 0 is no weight (transparent).
 	 * 
 	 * @param base
 	 *            the target image to add overlay

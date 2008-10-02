@@ -28,10 +28,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Utility class to generate radar chart
+ */
 public class RadarChart {
-	
-	//TODO move to common util
-	
+
+	// TODO move to common util
+
 	// min and max values of items
 	private static final int MIN_VALUE = 0;
 
@@ -90,6 +93,15 @@ public class RadarChart {
 
 	private boolean smoothing = true; // hidden selection
 
+	/**
+	 * Constructor of RaderChart
+	 * 
+	 * @param _names
+	 *            names of axis
+	 * @param _values
+	 *            values for each axis
+	 * @throws Exception
+	 */
 	public RadarChart(String[] _names, int[] _values) throws Exception {
 		names = _names;
 		values = _values;
@@ -380,10 +392,22 @@ public class RadarChart {
 		_g2d.setPaint(curPaint);
 	}
 
+	/**
+	 * Get radar chart as {@link BufferedImage}
+	 * 
+	 * @return radar chart as {@link BufferedImage}
+	 */
 	public BufferedImage getBufferedImage() {
 		return (bufImage);
 	}
 
+	/**
+	 * Write radar chart to file in PNG format
+	 * 
+	 * @param target
+	 *            target file path
+	 * @throws IOException
+	 */
 	public void writeToPNG(File target) throws IOException {
 		ImageIO.write(bufImage, "PNG", target);
 	}

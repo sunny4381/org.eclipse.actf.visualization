@@ -40,7 +40,7 @@ public class LowVisionUtil implements IVisualizationConst{
     public static String[] frameAnalyze(IWebBrowserACTF webBrowser) {
         try {
             if(runtimeHtmlFile==null){
-                runtimeHtmlFile = LowVisionVizPlugin.createTempFile(PREFIX_RUNTIME_HTML, SUFFIX_HTML);
+                runtimeHtmlFile = LowVisionVizPlugin.createTempFile("runtime", SUFFIX_HTML);
             }
             URL urlBase = new URL(webBrowser.getURL());
 

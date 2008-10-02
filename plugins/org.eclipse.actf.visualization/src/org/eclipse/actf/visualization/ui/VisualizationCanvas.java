@@ -34,6 +34,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 
+/**
+ * Utility class to show visualization result into {@link Canvas}
+ */
 public class VisualizationCanvas extends Canvas {
 
 	private final Display display;
@@ -60,13 +63,23 @@ public class VisualizationCanvas extends Canvas {
 
 	private boolean sync = true;
 
+	/**
+	 * Create {@link VisualizationCanvas}
+	 * 
+	 * @param parent
+	 *            parent {@link Composite}
+	 */
 	public VisualizationCanvas(Composite parent) {
 		this(parent, SWT.NONE);
 	}
 
 	/**
+	 * Create {@link VisualizationCanvas}
+	 * 
 	 * @param parent
+	 *            parent {@link Composite}
 	 * @param style
+	 *            widget style
 	 */
 	public VisualizationCanvas(Composite parent, int style) {
 		super(parent, SWT.V_SCROLL | SWT.H_SCROLL | style);
@@ -297,10 +310,25 @@ public class VisualizationCanvas extends Canvas {
 		}
 	}
 
+	/**
+	 * Set current active model service
+	 * 
+	 * @param currentModelService
+	 *            target {@link IModelService}
+	 */
 	public void setCurrentModelService(IModelService currentModelService) {
 		this.current = currentModelService;
 	}
 
+	/**
+	 * Show {@link ImageData} to Canvas and set specified {@link IModelService}
+	 * as a view sync target
+	 * 
+	 * @param imageData
+	 *            image data to show
+	 * @param targetModelService
+	 *            target {@link IModelService} for view sync
+	 */
 	public void showImage(ImageData imageData, IModelService targetModelService) {
 		// Dispose of the old image
 		if (null != image && !image.isDisposed()) {
@@ -330,6 +358,9 @@ public class VisualizationCanvas extends Canvas {
 		resetScrollBars();
 	}
 
+	/**
+	 * Clear canvas image
+	 */
 	public void clear() {
 		if (image != null && !image.isDisposed()) {
 			image.dispose();
@@ -343,10 +374,21 @@ public class VisualizationCanvas extends Canvas {
 		redraw();
 	}
 
-	public Point getVarticalBarSize() {
+	/**
+	 * Get vertical scroll bar size of the Canvas
+	 * 
+	 * @return vertical scroll bar size
+	 */
+	public Point getVerticalBarSize() {
 		return verticalBar.getSize();
 	}
 
+	/**
+	 * Highlight specified areas
+	 * 
+	 * @param highlightList
+	 *            target area information in {@link IPositionSize} format
+	 */
 	public void highlight(List<IPositionSize> highlightList) {
 		if (highlightList != null) {
 			// int topX = 0;
@@ -381,10 +423,12 @@ public class VisualizationCanvas extends Canvas {
 		redraw();
 	}
 
-	public boolean isSync() {
-		return sync;
-	}
-
+	/**
+	 * Enable/disable view sync with target {@link IModelService}
+	 * 
+	 * @param sync
+	 *            if true, enable view sync
+	 */
 	public void setSync(boolean sync) {
 		this.sync = sync;
 	}

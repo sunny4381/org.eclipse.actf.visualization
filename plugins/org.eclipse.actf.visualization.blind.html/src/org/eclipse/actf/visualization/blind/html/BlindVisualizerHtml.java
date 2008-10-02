@@ -91,8 +91,6 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			// for srcViewer
 			webBrowser.saveOriginalDocument(tmpDirS + HTML_SOURCE_FILE);
 
-			Html2ViewMapMaker h2vmm = new Html2ViewMapMaker();
-
 			Vector<Html2ViewMapData> html2ViewMapV = new Vector<Html2ViewMapData>();
 			IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
 			HtmlErrorLogListener errorLogListener = new HtmlErrorLogListener();
@@ -102,7 +100,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 			boolean isIEhtml = false;
 			if (EvaluationUtil.isOriginalDOM()) {
-				html2ViewMapV = h2vmm.makeMap(ORIG_HTML_FILE,
+				html2ViewMapV = Html2ViewMapMaker.makeMap(ORIG_HTML_FILE,
 						MAPPED_HTML_FILE_PRE + frameId + ".html", tmpDirS);
 				// decode miss
 				if (html2ViewMapV.size() == 0) {

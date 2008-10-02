@@ -73,7 +73,7 @@ public class LowVisionSimulationView {
 	}
 
 	protected Point getVarticalBarSize() {
-		return _imageCanvas.getVarticalBarSize();
+		return _imageCanvas.getVerticalBarSize();
 	}
 
 	protected void highlight(List<IPositionSize> target) {

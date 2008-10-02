@@ -11,70 +11,102 @@
 
 package org.eclipse.actf.visualization.util.html2view;
 
-
-
+/**
+ * Utility class to store line number and column information of element
+ */
 public class Html2ViewMapData {
 
+	/**
+	 * ACTF_ID
+	 */
 	public static final String ACTF_ID = "eclipse-actf-id";
 
 	int start[] = { -1, -1 };
-    int end[] = { -1, -1 };
+	int end[] = { -1, -1 };
 
-    public Html2ViewMapData(int[] start, int[] end) {
-        setStart(start);
-        setEnd(end);
-    }
+	/**
+	 * Constructor of the class
+	 * 
+	 * @param start
+	 *            start position information [line, column] of corresponding
+	 *            element
+	 * @param end
+	 *            end position information [line, column] of corresponding
+	 *            element
+	 */
+	public Html2ViewMapData(int[] start, int[] end) {
+		setStart(start);
+		setEnd(end);
+	}
 
-    public String toString() {
-        return ("start:" + start[0] + "," + start[1] + " end:" + end[0] + "," + end[1]);
-    }
+	public String toString() {
+		return ("start:" + start[0] + "," + start[1] + " end:" + end[0] + "," + end[1]);
+	}
 
-    /**
-     * @return
-     */
-    public int[] getEnd() {
-        return end;
-    }
+	/**
+	 * Get end position of the element
+	 * 
+	 * @return end position [line, column]
+	 */
+	public int[] getEnd() {
+		return end;
+	}
 
-    /**
-     * @return
-     */
-    public int[] getStart() {
-        return start;
-    }
+	/**
+	 * Get start position of the element
+	 * 
+	 * @return start position [line, column]
+	 */
+	public int[] getStart() {
+		return start;
+	}
 
-    public int getStartLine() {
-        return start[0];
-    }
+	/**
+	 * Get start line number of the element
+	 * 
+	 * @return start line number
+	 */
+	public int getStartLine() {
+		return start[0];
+	}
 
-    public int getEndLine() {
-        return end[0];
-    }
+	/**
+	 * Get end line number of the element
+	 * 
+	 * @return end line number
+	 */
+	public int getEndLine() {
+		return end[0];
+	}
 
-    public int getStartColumn() {
-        return start[1];
-    }
+	/**
+	 * Get start column of the element
+	 * 
+	 * @return column
+	 */
+	public int getStartColumn() {
+		return start[1];
+	}
 
-    public int getEndColumn() {
-        return end[1];
-    }
+	/**
+	 * Get end column of the element
+	 * 
+	 * @return column
+	 */
+	public int getEndColumn() {
+		return end[1];
+	}
 
-    /**
-     * @param is
-     */
-    private void setEnd(int[] is) {
-        if (is != null && is.length == 2) {
-            end = is;
-        }
-    }
+	private void setEnd(int[] is) {
+		if (is != null && is.length == 2) {
+			end = is;
+		}
+	}
 
-    /**
-     * @param is
-     */
-    private void setStart(int[] is) {
-        if (is != null && is.length == 2) {
-            start = is;
-        }
-    }
+	private void setStart(int[] is) {
+		if (is != null && is.length == 2) {
+			start = is;
+		}
+	}
 
 }
