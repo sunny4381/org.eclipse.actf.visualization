@@ -17,7 +17,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 
 
 public class ColorHistogram {

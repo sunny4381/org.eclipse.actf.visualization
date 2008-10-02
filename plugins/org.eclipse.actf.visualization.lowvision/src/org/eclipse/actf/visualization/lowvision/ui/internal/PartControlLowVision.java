@@ -28,9 +28,9 @@ import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.IVisualizationConst;
-import org.eclipse.actf.visualization.engines.lowvision.TargetPage;
+import org.eclipse.actf.visualization.engines.lowvision.PageEvaluation;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.ImageDumpUtil;
+import org.eclipse.actf.visualization.engines.lowvision.image.PageImageFactory;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
 import org.eclipse.actf.visualization.lowvision.eval.CheckResultLowVision;
@@ -109,7 +109,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 		String address;
 
-		TargetPage targetPage;
+		PageEvaluation targetPage;
 
 		private List<IProblemItem> lowvisionProblemList;
 
@@ -120,8 +120,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 		public void run() {
 			try {
-				targetPage = new TargetPage();
-				targetPage.setPageImage(framePageImage[frameId]);
+				targetPage = new PageEvaluation(framePageImage[frameId]);
 				targetPage
 						.setInteriorImagePosition(imageInfoInHtmlArray[frameId]);
 				targetPage.setCurrentStyles(styleInfoArray.get(frameId));
@@ -146,7 +145,7 @@ public class PartControlLowVision implements ISelectionListener,
 						reportImageFile = LowVisionVizPlugin.createTempFile(
 								PREFIX_REPORT, SUFFIX_BMP);
 						targetPage
-								.makeAndStoreReport(reportFile.getParent(),
+								.generateReport(reportFile.getParent(),
 										reportFile.getName(), reportImageFile
 												.getName(),
 										lowvisionProblemList);
@@ -166,12 +165,6 @@ public class PartControlLowVision implements ISelectionListener,
 
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-		}
-
-		public void disposeTargetPage() {
-			if (targetPage != null) {
-				targetPage.disposePageImage();
 			}
 		}
 
@@ -237,9 +230,6 @@ public class PartControlLowVision implements ISelectionListener,
 					_shell.setCursor(null);
 					_isInSimulate = false;
 
-					for (ExtractCheckThread tmpT : checkThreads) {
-						tmpT.disposeTargetPage();
-					}
 					checkThreads = new Vector<ExtractCheckThread>();
 				}
 			});
@@ -335,9 +325,11 @@ public class PartControlLowVision implements ISelectionListener,
 		frameUrl = new String[0];
 		int frameSize = 0;
 		if (webBrowser != null) {
-			if (lowVisionView.isWholepage()) {
-				frameUrl = LowVisionUtil.frameAnalyze(webBrowser);
-			}
+
+			// TODO frame support
+			// if (lowVisionView.isWholepage()) {
+			// frameUrl = LowVisionUtil.frameAnalyze(webBrowser);
+			// }
 
 			frameSize = frameUrl.length;
 			if (frameSize == 0) {
@@ -396,7 +388,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 			framePageImage[frameId] =
 			// partLeftWebBrowser.dumpWebBrowserImg(
-			ImageDumpUtil.createPageImage(dumpImageFile, _shell);
+			PageImageFactory.createPageImage(dumpImageFile);
 			// System.out.println("finish dump");
 
 			IWebBrowserACTF browser = null;
@@ -470,20 +462,7 @@ public class PartControlLowVision implements ISelectionListener,
 	private void doSimulateAfterHalf() {
 		IPageImage pageImageWhole;
 		if (framePageImage.length > 1) {
-			File mergedImageFile;
-			try {
-				mergedImageFile = LowVisionVizPlugin.createTempFile(
-						PREFIX_MERGED_IMAGE, SUFFIX_BMP);
-				pageImageWhole = ImageDumpUtil.joinPageImages(mergedImageFile
-						.getAbsolutePath(), //$NON-NLS-1$
-						framePageImage);
-				if (mergedImageFile != null) {
-					mergedImageFile.delete();
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				pageImageWhole = framePageImage[0];
-			}
+			pageImageWhole = PageImageFactory.joinPageImages(framePageImage);
 		} else {
 			pageImageWhole = framePageImage[0];
 		}

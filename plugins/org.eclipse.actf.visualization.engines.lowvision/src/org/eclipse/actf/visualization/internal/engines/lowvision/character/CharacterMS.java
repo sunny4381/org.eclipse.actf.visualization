@@ -11,11 +11,11 @@
 
 package org.eclipse.actf.visualization.internal.engines.lowvision.character;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Topology;

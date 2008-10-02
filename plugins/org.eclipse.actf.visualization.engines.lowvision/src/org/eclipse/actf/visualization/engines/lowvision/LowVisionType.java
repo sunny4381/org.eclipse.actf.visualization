@@ -11,12 +11,15 @@
 
 package org.eclipse.actf.visualization.engines.lowvision;
 
+import org.eclipse.actf.visualization.engines.lowvision.image.PageImageFactory;
 import org.eclipse.actf.visualization.internal.engines.lowvision.operator.CVDOp;
 import org.eclipse.actf.visualization.internal.engines.lowvision.operator.ColorFilterOp;
 import org.eclipse.actf.visualization.internal.engines.lowvision.operator.GlareOp;
 
 /**
  * This class defines low vision simulation type
+ * 
+ * @see PageImageFactory
  */
 public class LowVisionType {
 

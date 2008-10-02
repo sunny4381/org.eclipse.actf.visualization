@@ -17,9 +17,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.BinaryImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.ImageUtil;
 
 public class ImageReader14 {

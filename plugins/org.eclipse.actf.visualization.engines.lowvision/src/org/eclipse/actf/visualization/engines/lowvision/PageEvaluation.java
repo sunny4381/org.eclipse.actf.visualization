@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.engines.lowvision;
@@ -39,7 +40,10 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisi
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ProblemItemLV;
 
-public class TargetPage {
+/**
+ * Utility class to evaluate accessibility of {@link IPageImage}
+ */
+public class PageEvaluation {
 	private static final int UNSET = -1;
 
 	private IPageImage pageImage = null; // rendered image in browser
@@ -60,21 +64,16 @@ public class TargetPage {
 
 	private String overallRatingImageString = "";
 
-	public TargetPage() {
-	}
-
-	public void disposePageImage() {
-		pageImage.disposeInt2D();
-	}
-
-	public IPageImage getPageImage() {
-		return (pageImage);
-	}
-
-	public void setPageImage(IPageImage _pi) {
-		pageImage = _pi;
+	/**
+	 * Constructor of PageEvaluation utility
+	 * 
+	 * @param _pageImage
+	 *            target {@link IPageImage}
+	 */
+	public PageEvaluation(IPageImage _pageImage) {
+		pageImage = _pageImage;
 		if (pageImage != null) {
-			if (pageImage.isInteriorImageArraySet()) {
+			if (pageImage.hasInteriorImageArraySet()) {
 				try {
 					pageImage.extractCharacters();
 				} catch (ImageException e) {
@@ -94,6 +93,20 @@ public class TargetPage {
 		}
 	}
 
+	/**
+	 * Get target {@link IPageImage}
+	 * 
+	 * @return target {@link IPageImage}
+	 */
+	public IPageImage getPageImage() {
+		return (pageImage);
+	}
+
+	/**
+	 * Get interior image position (e.g., <img> position in HTML page image)
+	 * 
+	 * @return array of {@link ImagePositionInfo}
+	 */
 	public ImagePositionInfo[] getInteriorImagePosition() {
 		if (pageImage == null) {
 			return (null);
@@ -101,6 +114,12 @@ public class TargetPage {
 		return (pageImage.getInteriorImagePosition());
 	}
 
+	/**
+	 * Set interior image position (e.g., <img> position in HTML page image)
+	 * 
+	 * @param infoArray
+	 *            array of {@link ImagePositionInfo}
+	 */
 	public void setInteriorImagePosition(ImagePositionInfo[] infoArray) {
 		if (pageImage != null) {
 			pageImage.setInteriorImagePosition(infoArray);
@@ -114,6 +133,9 @@ public class TargetPage {
 		}
 	}
 
+	/**
+	 * @param _styleMap
+	 */
 	public void setCurrentStyles(Map<String, ICurrentStyles> _styleMap) {
 		Set<String> keySet = _styleMap.keySet();
 		int len = keySet.size();
@@ -130,52 +152,58 @@ public class TargetPage {
 		}
 	}
 
+	/**
+	 * Get allowed foreground colors
+	 * 
+	 * @return array of allowed foreground colors
+	 */
 	public String[] getAllowedForegroundColors() {
 		return (allowedForegroundColors);
 	}
 
+	/**
+	 * Get allowed background colors
+	 * 
+	 * @return array of allowed background colors
+	 */
 	public String[] getAllowedBackgroundColors() {
 		return (allowedBackgroundColors);
 	}
 
+	/**
+	 * Set allowed foreground/background colors
+	 * 
+	 * @param _fg
+	 *            array of allowed foreground colors
+	 * @param _bg
+	 *            array of allowed background colors
+	 */
 	public void setAllowedColors(String[] _fg, String[] _bg) {
 		allowedForegroundColors = _fg;
 		allowedBackgroundColors = _bg;
 	}
 
-	public void setAllowedForegroundColors(String[] _fg) {
-		allowedForegroundColors = _fg;
-	}
-
-	public void setAllowedBackgroundColors(String[] _bg) {
-		allowedBackgroundColors = _bg;
-	}
-
-	public void clearAllowedColors() {
-		allowedForegroundColors = null;
-		allowedBackgroundColors = null;
-	}
-
-	public void clearAllowedForegroundColors() {
-		allowedForegroundColors = null;
-	}
-
-	public void clearAllowedBackgroundColors() {
-		allowedBackgroundColors = null;
-	}
-
-	public List<IProblemItem> check(LowVisionType _lvType, String urlS,
-			int frameId) {
+	/**
+	 * Evaluate accessibility of target {@link IPageImage}
+	 * 
+	 * @param type
+	 *            target low vision type
+	 * @param urlS
+	 *            target's URL
+	 * @param frameId
+	 *            target's frame ID
+	 * @return found accessibility issues as list of {@link IProblemItem}
+	 * @see LowVisionType
+	 */
+	public List<IProblemItem> check(LowVisionType type, String urlS, int frameId) {
 
 		List<IProblemItem> problemList = new ArrayList<IProblemItem>();
 
 		if (pageImage != null) {
 			try {
-				problemList = pageImage.checkCharacters(_lvType, urlS, frameId);
-			} catch (LowVisionProblemException lvpe) {
-				lvpe.printStackTrace();
-			} catch (ImageException ie) {
-				ie.printStackTrace();
+				problemList = pageImage.checkCharacters(type, urlS, frameId);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -187,8 +215,8 @@ public class TargetPage {
 				if (curElement == null) {
 					continue;
 				}
-				LowVisionProblem[] curProblemArray = curElement.check(_lvType,
-						this);
+				LowVisionProblem[] curProblemArray = curElement.check(type,
+						allowedForegroundColors, allowedBackgroundColors);
 				int curLen = 0;
 				if (curProblemArray != null) {
 					curLen = curProblemArray.length;
@@ -226,7 +254,7 @@ public class TargetPage {
 		int totalSeverity = 0;
 		for (IProblemItem item : problemList) {
 			if (item instanceof ProblemItemLV) {
-				totalSeverity += ((IProblemItemImage)item).getSeverityLV();
+				totalSeverity += ((IProblemItemImage) item).getSeverityLV();
 			}
 		}
 		overallRatingString = ScoreUtil.getScoreString(totalSeverity);
@@ -237,6 +265,13 @@ public class TargetPage {
 	// Max size of Problem Map image
 	private static final int PROBLEM_MAP_LENGTH = 100;
 
+	/**
+	 * Generate report file for unsupported mode
+	 * 
+	 * @param targetFile
+	 *            target file path to save report
+	 * @throws LowVisionException
+	 */
 	public void unsupportedModeReport(File targetFile)
 			throws LowVisionException {
 
@@ -258,9 +293,21 @@ public class TargetPage {
 		}
 	}
 
-	public void makeAndStoreReport(String _path, String _htmlName,
-			String _imgName, List<IProblemItem> _problemGroupArray)
-			throws LowVisionException {
+	/**
+	 * Generate report file from {@link IProblemItem} list.
+	 * 
+	 * @param _path
+	 *            target path
+	 * @param _htmlName
+	 *            report file name
+	 * @param _imgName
+	 *            report image file name
+	 * @param _problemGroupArray
+	 *            target {@link IProblemItem} list
+	 * @throws LowVisionException
+	 */
+	public void generateReport(String _path, String _htmlName, String _imgName,
+			List<IProblemItem> _problemGroupArray) throws LowVisionException {
 		boolean doMakeProblemMap = true;
 		if (this.pageImage == null)
 			doMakeProblemMap = false;

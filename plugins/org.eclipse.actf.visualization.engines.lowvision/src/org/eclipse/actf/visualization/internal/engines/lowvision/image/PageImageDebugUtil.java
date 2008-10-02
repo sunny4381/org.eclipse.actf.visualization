@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.lowvision.image;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.DebugUtil;
 import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterSS;

@@ -10,13 +10,26 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.engines.lowvision.image;
 
-public class ImageException extends Exception{
+/**
+ * Exception relates to images used in low vision simulation engine.
+ */
+public class ImageException extends Exception {
 	private static final long serialVersionUID = -3796816367042170808L;
 
-	public ImageException(){
+	/**
+	 * Constructor of Exception
+	 */
+	public ImageException() {
 		super();
 	}
-	public ImageException( String _s ){
-		super(_s);
+
+	/**
+	 * Constructor of Exception
+	 * 
+	 * @param msg
+	 *            exception message
+	 */
+	public ImageException(String msg) {
+		super(msg);
 	}
 }

@@ -18,7 +18,6 @@ import java.util.Vector;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.TargetPage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.checker.W3CColorChecker;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorCSS;
@@ -43,22 +42,23 @@ public class PageElement {
 	// IE fontsize
 	static final String IE_LARGEST_FONT = "16pt";
 	static final double IE_EM_SCALING = 1.33; // "1em" in largest
-												// (experimental)
+	// (experimental)
 	static final double IE_LARGER_SCALING = 1.67; // "larger" in largest
-													// (experimental)
+	// (experimental)
 	static final double IE_SMALLER_SCALING = 1.00; // "smaller" in largest
-													// (experimental)
+	// (experimental)
 
-	//severity for fixed size font (0-1)
+	// severity for fixed size font (0-1)
 	public static final double SEVERITY_FIXED_SIZE_FONT = 0.25;
 	public static final double SEVERITY_SMALL_FONT = 0.25;
-	public static final double SEVERITY_FIXED_SMALL_FONT = SEVERITY_FIXED_SIZE_FONT + SEVERITY_SMALL_FONT;
-	// severity for color problems 
+	public static final double SEVERITY_FIXED_SMALL_FONT = SEVERITY_FIXED_SIZE_FONT
+			+ SEVERITY_SMALL_FONT;
+	// severity for color problems
 	public static final double SEVERITY_PROHIBITED_FOREGROUND_COLOR = 0.5;
 	public static final double SEVERITY_PROHIBITED_BACKGROUND_COLOR = 0.5;
-	public static final double SEVERITY_PROHIBITED_BOTH_COLORS = SEVERITY_PROHIBITED_FOREGROUND_COLOR + SEVERITY_PROHIBITED_BACKGROUND_COLOR;
+	public static final double SEVERITY_PROHIBITED_BOTH_COLORS = SEVERITY_PROHIBITED_FOREGROUND_COLOR
+			+ SEVERITY_PROHIBITED_BACKGROUND_COLOR;
 
-	
 	private static final String DELIM = "/";
 
 	// text check
@@ -165,9 +165,8 @@ public class PageElement {
 	}
 
 	// _lvType: for LowVision error check
-	// _targetPage: for guideline check
 	public LowVisionProblem[] check(LowVisionType _lvType,
-			TargetPage _targetPage) {
+			String[] allowedFgColors, String[] allowedBgColors) {
 		Vector<LowVisionProblem> problemVec = new Vector<LowVisionProblem>();
 
 		// ignore elements not in the rendered area
@@ -226,27 +225,19 @@ public class PageElement {
 			problemVec.addElement(sfp);
 		}
 
-		String[] allowedForegroundColors = _targetPage
-				.getAllowedForegroundColors();
-		String[] allowedBackgroundColors = _targetPage
-				.getAllowedBackgroundColors();
 		ProhibitedForegroundColorProblem pfcp = null;
 		ProhibitedBackgroundColorProblem pbcp = null;
 
-		if (allowedForegroundColors != null
-				&& allowedForegroundColors.length > 0) {
+		if (allowedFgColors != null && allowedFgColors.length > 0) {
 			try {
-				pfcp = checkAllowedForegroundColors(_lvType,
-						allowedForegroundColors);
+				pfcp = checkAllowedForegroundColors(_lvType, allowedFgColors);
 			} catch (LowVisionException lve) {
 				lve.printStackTrace();
 			}
 		}
-		if (allowedBackgroundColors != null
-				&& allowedBackgroundColors.length > 0) {
+		if (allowedBgColors != null && allowedBgColors.length > 0) {
 			try {
-				pbcp = checkAllowedBackgroundColors(_lvType,
-						allowedBackgroundColors);
+				pbcp = checkAllowedBackgroundColors(_lvType, allowedBgColors);
 			} catch (LowVisionException lve) {
 				lve.printStackTrace();
 			}
@@ -254,8 +245,7 @@ public class PageElement {
 		if ((pfcp != null) && (pbcp != null)) {// fg/bg
 			try {
 				problemVec.addElement(new ProhibitedBothColorsProblem(this,
-						_lvType,
-						PageElement.SEVERITY_PROHIBITED_BOTH_COLORS));
+						_lvType, PageElement.SEVERITY_PROHIBITED_BOTH_COLORS));
 			} catch (LowVisionProblemException lvpe) {
 				lvpe.printStackTrace();
 			}

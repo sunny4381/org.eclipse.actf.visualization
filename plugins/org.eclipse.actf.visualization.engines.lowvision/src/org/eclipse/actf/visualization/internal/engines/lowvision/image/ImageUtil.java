@@ -16,7 +16,6 @@ import java.awt.image.WritableRaster;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 
 public class ImageUtil {

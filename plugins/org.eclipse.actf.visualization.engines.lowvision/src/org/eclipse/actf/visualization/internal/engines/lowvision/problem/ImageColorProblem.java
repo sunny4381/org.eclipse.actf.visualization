@@ -12,10 +12,10 @@
 package org.eclipse.actf.visualization.internal.engines.lowvision.problem;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.Messages;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.BinaryImage;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.InteriorImage;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.InteriorImageComponent;

@@ -37,7 +37,7 @@ public class CheckResultLowVision extends EvaluationResultImpl {
             frameOffset[0] = 0;
 
             for (int i = 1; i < framePageImages.length; i++) {
-                frameOffset[i] = frameOffset[i - 1] + framePageImages[i - 1].getInt2D().getHeight();
+                frameOffset[i] = frameOffset[i - 1] + framePageImages[i - 1].getHeight();
             }
 
             for (Iterator<IProblemItem> i = getProblemList().iterator(); i.hasNext();) {

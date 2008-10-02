@@ -16,7 +16,6 @@ import java.awt.image.DataBufferInt;
 import java.awt.image.WritableRaster;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.io.BMPWriter;
 

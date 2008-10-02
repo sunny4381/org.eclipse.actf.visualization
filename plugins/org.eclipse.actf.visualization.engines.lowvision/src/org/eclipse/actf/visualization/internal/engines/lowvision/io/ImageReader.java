@@ -13,9 +13,9 @@ package org.eclipse.actf.visualization.internal.engines.lowvision.io;
 import java.awt.image.BufferedImage;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.BinaryImage;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.ImageUtil;
 
 public class ImageReader {

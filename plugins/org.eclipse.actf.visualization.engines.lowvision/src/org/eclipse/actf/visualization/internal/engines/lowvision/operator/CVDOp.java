@@ -16,11 +16,11 @@ import java.awt.image.WritableRaster;
 import java.util.HashMap;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorIRGB;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorSRGB;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorYXY;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 
 /*

@@ -14,9 +14,7 @@ package org.eclipse.actf.visualization.lowvision.ui.preferences;
 import java.io.File;
 
 import org.eclipse.actf.visualization.IVisualizationConst;
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.Int2DFactory;
 import org.eclipse.actf.visualization.engines.lowvision.image.PageImageFactory;
 import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
 import org.eclipse.actf.visualization.lowvision.ui.internal.Messages;
@@ -163,23 +161,28 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 	private void initSampleImage() {
 
-		IInt2D int2D = null;
+		// IInt2D int2D = null;
 
 		Bundle lvBundle = LowVisionVizPlugin.getDefault().getBundle();
 
 		try {
-			int2D = Int2DFactory
-					.createInt2D(FileLocator.openStream(lvBundle, new Path(
+			// int2D = Int2DFactory
+			// .createInt2D(FileLocator.openStream(lvBundle, new Path(
+			// "vizResources/images/LowVisionSample.bmp"), false));
+			this._samplePageImage = PageImageFactory
+					.createPageImage(FileLocator.openStream(lvBundle, new Path(
 							"vizResources/images/LowVisionSample.bmp"), false));
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		if (null != int2D) {
-			this._samplePageImage = PageImageFactory.createPageImage(int2D, false);
-		} else {
+			// e.printStackTrace();
 			this._samplePageImage = PageImageFactory.createPageImage();
 		}
+
+		// if (null != int2D) {
+		// this._samplePageImage = PageImageFactory.createPageImage(int2D,
+		// false);
+		// } else {
+		// this._samplePageImage = PageImageFactory.createPageImage();
+		// }
 
 		_sampleImageData = new ImageData[0];
 

@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.lowvision.image;
 
@@ -18,7 +19,6 @@ import java.util.Vector;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
@@ -51,10 +51,10 @@ public class PageImage implements IPageImage {
 	private static boolean REMOVE_SCROLL_BAR_AT_BOTTOM = false;
 
 	// TODO relative value?
-	// the color which have only small portions in image is not handled as text candidate
+	// the color which have only small portions in image is not handled as text
+	// candidate
 	private static int THRESHOLD_MIN_OCCURRENCES = 300;
 
-	
 	// private static final boolean DO_CHAR_TEST = false;
 
 	public IInt2D pixel = null;
@@ -175,10 +175,6 @@ public class PageImage implements IPageImage {
 		return (pixel);
 	}
 
-	public void disposeInt2D() {
-		pixel = new Int2D(0, 0);
-	}
-
 	public int getNumContainers() {
 		return (numContainers);
 	}
@@ -217,7 +213,7 @@ public class PageImage implements IPageImage {
 		}
 	}
 
-	public boolean isInteriorImageArraySet() {
+	public boolean hasInteriorImageArraySet() {
 		if (interiorImageArray == null || interiorImageArray.length == 0) {
 			return (false);
 		} else {
@@ -999,5 +995,14 @@ public class PageImage implements IPageImage {
 			}
 		}
 		return (smVec);
+	}
+
+	public void writeToBMPFile(String name) throws LowVisionIOException {
+		pixel.writeToBMPFile(name);
+	}
+
+	public void writeToBMPFile(String name, int count)
+			throws LowVisionIOException {
+		pixel.writeToBMPFile(name, count);
 	}
 }

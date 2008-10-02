@@ -20,7 +20,7 @@ import org.eclipse.actf.model.ui.ModelServiceImageCreator;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
-import org.eclipse.actf.visualization.engines.lowvision.image.ImageDumpUtil;
+import org.eclipse.actf.visualization.engines.lowvision.image.PageImageFactory;
 import org.eclipse.actf.visualization.presentation.eval.CheckResultPresentation;
 import org.eclipse.actf.visualization.presentation.internal.RoomPlugin;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
@@ -118,8 +118,7 @@ public class PartControlRoom implements IVisualizationConst {
 					modelService);
 			imgCreator.getScreenImageAsBMP(dumpImageFile, false);
 
-			targetPageImage = ImageDumpUtil.createPageImage(dumpImageFile,
-					_shell);
+			targetPageImage = PageImageFactory.createPageImage(dumpImageFile);
 
 			if (targetPageImage != null) {
 

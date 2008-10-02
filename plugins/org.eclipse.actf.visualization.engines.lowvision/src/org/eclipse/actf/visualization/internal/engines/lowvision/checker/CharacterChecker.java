@@ -17,7 +17,6 @@ import java.util.Stack;
 import java.util.Vector;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
-import org.eclipse.actf.visualization.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.DecisionMaker;
 import org.eclipse.actf.visualization.internal.engines.lowvision.character.CharacterMS;
@@ -27,6 +26,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorIRGB
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.BinaryImage;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Container;
+import org.eclipse.actf.visualization.internal.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageImage;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Topology;
