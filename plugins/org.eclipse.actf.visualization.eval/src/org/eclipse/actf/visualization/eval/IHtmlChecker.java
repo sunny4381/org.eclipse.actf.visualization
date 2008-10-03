@@ -14,8 +14,20 @@ import java.util.List;
 
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 
+/**
+ * Interface to implement checker for HTML content
+ * 
+ * @see IChecker
+ */
 public interface IHtmlChecker extends IChecker {
-	
+
+	/**
+	 * Check target HTML and return detected issues
+	 * 
+	 * @param checkTarget
+	 *            information of target HTML
+	 * @return detected issues as list of {@link IProblemItem}
+	 */
 	List<IProblemItem> checkHtml(IHtmlCheckTarget checkTarget);
 
 }

@@ -11,22 +11,53 @@
 
 package org.eclipse.actf.visualization.eval;
 
-
-
+/**
+ * Interface to hold guideline item information
+ */
 public interface IGuidelineItem {
 
-    public abstract String getGuidelineName();
+	/**
+	 * @return name of guideline
+	 */
+	public abstract String getGuidelineName();
 
-    public abstract String getLevel();
+	/**
+	 * @return level of guideline item (e.g., P1, P2, etc.)
+	 */
+	public abstract String getLevel();
 
-    public abstract String getId();
+	/**
+	 * @return ID of guideline item (e.g., 1.1, 2.2, etc.)
+	 */
+	public abstract String getId();
 
-    public abstract String getUrl();
+	/**
+	 * @return URL of public introduction page of guideline item
+	 */
+	public abstract String getUrl();
 
-    public abstract void setLevel(String level);
+	/**
+	 * Set level of guideline item (e.g., P1, P2, etc.)
+	 * 
+	 * @param level
+	 *            target level
+	 */
+	public abstract void setLevel(String level);
 
-    public abstract void setId(String id);
+	/**
+	 * Set ID of guideline item (e.g., 1.1, 2.2, etc.)
+	 * 
+	 * @param id
+	 *            target id
+	 */
+	public abstract void setId(String id);
 
-    public abstract void setUrl(String url);
+	/**
+	 * Set URL of public introduction page of guideline item
+	 * 
+	 * @param url
+	 *            target URL
+	 */
+	public abstract void setUrl(String url);
 
 }

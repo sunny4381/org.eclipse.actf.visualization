@@ -14,24 +14,41 @@ import org.eclipse.actf.visualization.eval.preferences.IPreferenceConstants;
 import org.eclipse.actf.visualization.internal.eval.CheckerExtension;
 import org.eclipse.actf.visualization.internal.eval.EvaluationPlugin;
 
+/**
+ * Utility class for org.eclipse.actf.visualization.eval plugin
+ */
 public class EvaluationUtil {
 
-	// The plug-in ID
+	/**
+	 * The plug-in ID
+	 */
 	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.eval";
 
 	/**
-	 * @return
+	 * Check user selection of target DOM (original source or live)
+	 * 
+	 * @return true, if user selected original DOM in preference page
 	 */
 	public static boolean isOriginalDOM() {
 		return IPreferenceConstants.CHECKER_ORG_DOM.equals(EvaluationPlugin
 				.getDefault().getPluginPreferences().getString(
 						IPreferenceConstants.CHECKER_TARGET));
 	}
-	
+
+	/**
+	 * Get all registered {@link IChecker}
+	 * 
+	 * @return array of {@link IChecker}
+	 */
 	public static IChecker[] getCheckers() {
 		return CheckerExtension.getCheckers();
 	}
 
+	/**
+	 * Get all registered {@link ICheckerInfoProvider}
+	 * 
+	 * @return array of {@link ICheckerInfoProvider}
+	 */
 	public static ICheckerInfoProvider[] getCheckerInfoProviders() {
 		return CheckerExtension.getCheckerInfoProviders();
 	}

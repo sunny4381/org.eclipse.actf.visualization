@@ -13,39 +13,92 @@ package org.eclipse.actf.visualization.eval;
 
 import org.eclipse.swt.graphics.Image;
 
-
+/**
+ * Interface for evaluation item information
+ */
 public interface IEvaluationItem {
-    public static final int SEV_ERROR = 1;
+	/**
+	 * Severity ID: error
+	 */
+	public static final int SEV_ERROR = 1;
 
-    public static final int SEV_WARNING = 2; //add "Possible error"?
+	/**
+	 * Severity ID: warning
+	 */
+	public static final int SEV_WARNING = 2; // add "Possible error"?
 
-    public static final int SEV_INFO = 4;
-    
-    public static final String SEV_ERROR_STR = "error";
+	/**
+	 * Severity ID: informational
+	 */
+	public static final int SEV_INFO = 4;
 
-    public static final String SEV_WARNING_STR = "warning";
+	/**
+	 * String for error severity
+	 */
+	public static final String SEV_ERROR_STR = "error";
 
-    public static final String SEV_INFO_STR = "info";
+	/**
+	 * String for warning severity
+	 */
+	public static final String SEV_WARNING_STR = "warning";
 
+	/**
+	 * String for informational severity
+	 */
+	public static final String SEV_INFO_STR = "info";
 
-    public String getId();
+	/**
+	 * @return ID of evaluation item
+	 */
+	public String getId();
 
-    public int getSeverity();
+	/**
+	 * @return severity of evaluation item
+	 */
+	public int getSeverity();
 
-    public String getSeverityStr();
-    
-    public int[] getMetricsScores();
+	/**
+	 * @return severity as String
+	 */
+	public String getSeverityStr();
 
-    public String[] getTableDataGuideline();
+	/**
+	 * @return array of scores for each evaluation metric
+	 */
+	public int[] getMetricsScores();
 
-    public String[] getTableDataMetrics();
+	/**
+	 * @return guideline information to be shown in the result table
+	 */
+	public String[] getTableDataGuideline();
 
-    public Image[] getMetricsIcons();
-    
-    public IGuidelineItem[] getGuidelines();
-    
-    public String createDescription();
-    
-    public String createDescription(String targetString);
+	/**
+	 * @return evaluation metrics information to be shown in the result table
+	 */
+	public String[] getTableDataMetrics();
+
+	/**
+	 * @return icons for evaluation metrics to be shown in the result table
+	 */
+	public Image[] getMetricsIcons();
+
+	/**
+	 * @return get corresponding guideline items of this evaluation item
+	 */
+	public IGuidelineItem[] getGuidelines();
+
+	/**
+	 * @return description about this evaluation item
+	 */
+	public String createDescription();
+
+	/**
+	 * 
+	 * @param targetString
+	 *            target String to embed
+	 * @return description about this evaluation item. Specified target String
+	 *         will be embedded into the description.
+	 */
+	public String createDescription(String targetString);
 
 }

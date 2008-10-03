@@ -15,6 +15,9 @@ import java.util.HashMap;
 
 import org.w3c.dom.Document;
 
+/**
+ * Default implementation of {@link ICheckTarget}
+ */
 public class CheckTargetImpl implements ICheckTarget {
 
 	private HashMap<String, Document> documentMap = new HashMap<String, Document>();
@@ -23,6 +26,14 @@ public class CheckTargetImpl implements ICheckTarget {
 
 	private String targetUrl;
 
+	/**
+	 * Constructor of the class
+	 * 
+	 * @param target
+	 *            evaluation target {@link Document}
+	 * @param targetUrl
+	 *            target URL
+	 */
 	public CheckTargetImpl(Document target, String targetUrl) {
 		this.target = target;
 		this.targetUrl = targetUrl;

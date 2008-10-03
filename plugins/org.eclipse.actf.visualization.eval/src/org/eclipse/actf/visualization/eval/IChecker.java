@@ -15,10 +15,32 @@ import java.util.List;
 
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 
+/**
+ * Interface for content evaluator
+ */
 public interface IChecker {
+	/**
+	 * Check target content and return detected issues
+	 * 
+	 * @param checkTarget
+	 *            target content information
+	 * @return detected issues as list of {@link IProblemItem}
+	 */
 	List<IProblemItem> check(ICheckTarget checkTarget);
 
+	/**
+	 * Check if MIME type is supported by this checker
+	 * 
+	 * @param mimeType
+	 *            target MIME type
+	 * @return true, if target MIME type is supported
+	 */
 	boolean isTargetFormat(String mimeType);
 
+	/**
+	 * Check if evaluation item related to this checker is enabled by user
+	 * 
+	 * @return true, if evaluation item related to this checker is enabled
+	 */
 	boolean isEnabled();
 }

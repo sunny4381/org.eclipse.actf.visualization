@@ -14,11 +14,25 @@ package org.eclipse.actf.visualization.eval;
 import java.io.InputStream;
 import java.util.ResourceBundle;
 
+/**
+ * Interface to provide additional guideline/evaluation item information
+ * implemented in the checkers extension
+ */
 public interface ICheckerInfoProvider {
-	
+
+	/**
+	 * @return array of {@link InputStream} for guideline.xml
+	 */
 	InputStream[] getGuidelineInputStreams();
 
+	/**
+	 * @return array of {@link InputStream} for checkitem.xml
+	 */
 	InputStream[] getCheckItemInputStreams();
 
+	/**
+	 * @return a {@link ResourceBundle} to obtain messages for each evaluation
+	 *         item
+	 */
 	ResourceBundle getDescriptionRB();
 }

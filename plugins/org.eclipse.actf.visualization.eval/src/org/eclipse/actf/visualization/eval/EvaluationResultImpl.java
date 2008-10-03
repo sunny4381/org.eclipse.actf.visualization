@@ -22,6 +22,9 @@ import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItemVisitor;
 import org.eclipse.swt.custom.LineStyleListener;
 
+/**
+ * Default implementation of {@link IEvaluationResult}
+ */
 public class EvaluationResultImpl implements IEvaluationResult {
 
 	// TODO viz, modelService?

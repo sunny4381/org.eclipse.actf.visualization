@@ -14,6 +14,9 @@ import org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo;
 import org.eclipse.actf.visualization.eval.html.HtmlEvalUtil;
 import org.w3c.dom.Document;
 
+/**
+ * Default implementation of {@link IHtmlCheckTarget}
+ */
 public class HtmlCheckTargetImpl extends CheckTargetImpl implements
 		IHtmlCheckTarget {
 
@@ -21,6 +24,18 @@ public class HtmlCheckTargetImpl extends CheckTargetImpl implements
 
 	private HtmlEvalUtil htmlEvalUtil;
 
+	/**
+	 * Constructor of the class
+	 * 
+	 * @param target
+	 *            target {@link Document}
+	 * @param targetUrl
+	 *            target URL
+	 * @param browserStyleInfo
+	 *            current style information
+	 * @param htmlEvalUtil
+	 *            target {@link HtmlEvalUtil}
+	 */
 	public HtmlCheckTargetImpl(Document target, String targetUrl,
 			IWebBrowserStyleInfo browserStyleInfo, HtmlEvalUtil htmlEvalUtil) {
 		super(target, targetUrl);
