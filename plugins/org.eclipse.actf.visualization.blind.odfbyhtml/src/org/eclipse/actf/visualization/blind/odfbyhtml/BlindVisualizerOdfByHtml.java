@@ -33,7 +33,7 @@ import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.HtmlErrorLogListener;
 import org.eclipse.actf.visualization.engines.blind.html.util.VisualizeReportUtil;
-import org.eclipse.actf.visualization.eval.CheckTargetImpl;
+import org.eclipse.actf.visualization.eval.CheckTargetFactory;
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.ICheckTarget;
 import org.eclipse.actf.visualization.eval.IChecker;
@@ -141,7 +141,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 					1024);
 
 			Document odfDoc = modelService.getDocument();
-			ICheckTarget checkTarget = new CheckTargetImpl(odfDoc, modelService
+			ICheckTarget checkTarget = CheckTargetFactory.createCheckTarget(odfDoc, modelService
 					.getURL());
 			checkTarget.setAdditionalDocument("html", document);
 			IChecker[] checkers = EvaluationUtil.getCheckers();

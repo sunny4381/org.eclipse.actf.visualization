@@ -45,6 +45,9 @@ public class EvaluationResultImpl implements IEvaluationResult {
 
 	private LineStyleListener lsl = new HighlightStringListener();
 
+	public EvaluationResultImpl() {
+	}
+
 	public void setProblemList(List<IProblemItem> problemList) {
 		if (problemList == null) {
 			problemList = new ArrayList<IProblemItem>();

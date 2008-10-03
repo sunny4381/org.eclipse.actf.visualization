@@ -15,84 +15,191 @@ import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.swt.graphics.Image;
 import org.w3c.dom.Node;
 
+/**
+ *
+ */
+public interface IProblemItem {// extends IEvaluationItem {
 
+	/**
+	 * 
+	 */
+	public static final int SEV_ERROR = IEvaluationItem.SEV_ERROR;
 
-public interface IProblemItem{// extends IEvaluationItem {
+	/**
+	 * 
+	 */
+	public static final int SEV_WARNING = IEvaluationItem.SEV_WARNING;
 
-    public static final int SEV_ERROR = IEvaluationItem.SEV_ERROR;
+	/**
+	 * 
+	 */
+	public static final int SEV_INFO = IEvaluationItem.SEV_INFO;
 
-    public static final int SEV_WARNING = IEvaluationItem.SEV_WARNING;
+	/**
+	 * @return
+	 */
+	public abstract IEvaluationItem getEvaluationItem();
 
-    public static final int SEV_INFO = IEvaluationItem.SEV_INFO;
-    
-    public static final String COMMA = ",";
+	/**
+	 * @return
+	 */
+	public abstract String getDescription();
 
-    public abstract IEvaluationItem getEvaluationItem();
+	/**
+	 * @return
+	 */
+	public abstract int getSerialNumber();
 
-    public abstract String getDescription();
+	/**
+	 * @return
+	 */
+	public abstract Node getTargetNode();
 
-    public abstract int getSerialNumber();
+	/**
+	 * @return
+	 */
+	public abstract String getTargetString();
 
-    public abstract Node getTargetNode();
+	/**
+	 * @return
+	 */
+	public abstract String getTargetStringForHPB();
 
-    public abstract String getTargetString();
+	/**
+	 * @return
+	 */
+	public abstract boolean isCanHighlight();
 
-    public abstract String getTargetStringForHPB();
+	/**
+	 * @param canHighlight
+	 */
+	public abstract void setCanHighlight(boolean canHighlight);
 
-    public abstract boolean isCanHighlight();
+	/**
+	 * @param checkItem
+	 */
+	public abstract void setCheckItem(IEvaluationItem checkItem);
 
-    public abstract void setCanHighlight(boolean canHighlight);
+	/**
+	 * @param description
+	 */
+	public abstract void setDescription(String description);
 
-    public abstract void setCheckItem(IEvaluationItem checkItem);
+	/**
+	 * @param serialNumber
+	 */
+	public abstract void setSerialNumber(int serialNumber);
 
-    public abstract void setDescription(String description);
+	/**
+	 * @param targetNodeInfo
+	 */
+	void setHighlightTargetNodeInfo(HighlightTargetNodeInfo targetNodeInfo);
 
-    public abstract void setSerialNumber(int serialNumber);
+	/**
+	 * @return
+	 */
+	HighlightTargetNodeInfo getHighlightTargetNodeInfo();
 
-    void setHighlightTargetNodeInfo(HighlightTargetNodeInfo targetNodeInfo);
-        
-    HighlightTargetNodeInfo getHighlightTargetNodeInfo();
-    
-    void setHighlightTargetIds(HighlightTargetId targetId);
-    
-    void setHighlightTargetIds(HighlightTargetId[] targetIds);
+	/**
+	 * @param targetId
+	 */
+	void setHighlightTargetIds(HighlightTargetId targetId);
 
-    HighlightTargetId[] getHighlightTargetIds();
+	/**
+	 * @param targetIds
+	 */
+	void setHighlightTargetIds(HighlightTargetId[] targetIds);
 
-    public abstract void setTargetNode(Node targetNode);
+	/**
+	 * @return
+	 */
+	HighlightTargetId[] getHighlightTargetIds();
 
-    public abstract void setTargetString(String targetString);
+	/**
+	 * @param targetNode
+	 */
+	public abstract void setTargetNode(Node targetNode);
 
-    public abstract void setTargetStringForHPB(String targetString);
+	/**
+	 * @param targetString
+	 */
+	public abstract void setTargetString(String targetString);
 
-    public abstract int getLine();
+	/**
+	 * @param targetString
+	 */
+	public abstract void setTargetStringForHPB(String targetString);
 
-    public abstract String getLineStr();
+	/**
+	 * @return
+	 */
+	public abstract int getLine();
 
-    public abstract void setLine(int line);
+	/**
+	 * @return
+	 */
+	public abstract String getLineStr();
 
-    public abstract String getLineStrMulti();
+	/**
+	 * @param line
+	 */
+	public abstract void setLine(int line);
 
-    void setHighlightTargetSourceInfo(HighlightTargetSourceInfo targetSourceInfo);
+	/**
+	 * @return
+	 */
+	public abstract String getLineStrMulti();
 
-    void setHighlightTargetSourceInfo(HighlightTargetSourceInfo[] targetSourceInfo);
+	/**
+	 * @param targetSourceInfo
+	 */
+	void setHighlightTargetSourceInfo(HighlightTargetSourceInfo targetSourceInfo);
 
-    HighlightTargetSourceInfo[] getHighlightTargetSoruceInfo();
+	/**
+	 * @param targetSourceInfo
+	 */
+	void setHighlightTargetSourceInfo(
+			HighlightTargetSourceInfo[] targetSourceInfo);
 
-    public abstract void accept(IProblemItemVisitor visitor);
-    
-    
-    //TODO
-    public String getId();
+	/**
+	 * @return
+	 */
+	HighlightTargetSourceInfo[] getHighlightTargetSoruceInfo();
 
-    public int getSeverity();
-    
-    public String getSeverityStr();
-    
-    public int[] getMetricsScores();
-    
-    public Image[] getMetricsIcons();
-    
-    public String[] getTableDataGuideline();
+	/**
+	 * @param visitor
+	 */
+	public abstract void accept(IProblemItemVisitor visitor);
+
+	// TODO
+	/**
+	 * @return
+	 */
+	public String getId();
+
+	/**
+	 * @return
+	 */
+	public int getSeverity();
+
+	/**
+	 * @return
+	 */
+	public String getSeverityStr();
+
+	/**
+	 * @return
+	 */
+	public int[] getMetricsScores();
+
+	/**
+	 * @return
+	 */
+	public Image[] getMetricsIcons();
+
+	/**
+	 * @return
+	 */
+	public String[] getTableDataGuideline();
 
 }

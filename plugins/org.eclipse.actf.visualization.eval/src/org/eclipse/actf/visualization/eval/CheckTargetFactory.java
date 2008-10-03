@@ -12,20 +12,30 @@ package org.eclipse.actf.visualization.eval;
 
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserStyleInfo;
 import org.eclipse.actf.visualization.eval.html.HtmlEvalUtil;
+import org.eclipse.actf.visualization.internal.eval.CheckTargetImpl;
+import org.eclipse.actf.visualization.internal.eval.HtmlCheckTargetImpl;
 import org.w3c.dom.Document;
 
 /**
- * Default implementation of {@link IHtmlCheckTarget}
+ * Factory class for {@link ICheckTarget}
  */
-public class HtmlCheckTargetImpl extends CheckTargetImpl implements
-		IHtmlCheckTarget {
-
-	private IWebBrowserStyleInfo browserStyleInfo;
-
-	private HtmlEvalUtil htmlEvalUtil;
+public class CheckTargetFactory {
 
 	/**
-	 * Constructor of the class
+	 * Constructor of {@link ICheckTarget}
+	 * 
+	 * @param target
+	 *            evaluation target {@link Document}
+	 * @param targetUrl
+	 *            target URL
+	 */
+	public static ICheckTarget createCheckTarget(Document target,
+			String targetUrl) {
+		return new CheckTargetImpl(target, targetUrl);
+	}
+
+	/**
+	 * Constructor of {@link IHtmlCheckTarget}
 	 * 
 	 * @param target
 	 *            target {@link Document}
@@ -36,19 +46,11 @@ public class HtmlCheckTargetImpl extends CheckTargetImpl implements
 	 * @param htmlEvalUtil
 	 *            target {@link HtmlEvalUtil}
 	 */
-	public HtmlCheckTargetImpl(Document target, String targetUrl,
-			IWebBrowserStyleInfo browserStyleInfo, HtmlEvalUtil htmlEvalUtil) {
-		super(target, targetUrl);
-		this.browserStyleInfo = browserStyleInfo;
-		this.htmlEvalUtil = htmlEvalUtil;
-	}
-
-	public HtmlEvalUtil getHtmlEvalUtil() {
-		return htmlEvalUtil;
-	}
-
-	public IWebBrowserStyleInfo getBrowserAndStyleInfo() {
-		return browserStyleInfo;
+	public static IHtmlCheckTarget createHtmlCheckTarget(Document target,
+			String targetUrl, IWebBrowserStyleInfo browserStyleInfo,
+			HtmlEvalUtil htmlEvalUtil) {
+		return new HtmlCheckTargetImpl(target, targetUrl, browserStyleInfo,
+				htmlEvalUtil);
 	}
 
 }

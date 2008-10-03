@@ -33,8 +33,8 @@ import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.HtmlErrorLogListener;
 import org.eclipse.actf.visualization.engines.blind.html.util.HandleFramePage;
+import org.eclipse.actf.visualization.eval.CheckTargetFactory;
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
-import org.eclipse.actf.visualization.eval.HtmlCheckTargetImpl;
 import org.eclipse.actf.visualization.eval.IHtmlCheckTarget;
 import org.eclipse.actf.visualization.eval.IHtmlChecker;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
@@ -204,8 +204,8 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			//
 			// BrowserAndStyleInfo data =
 			// webBrowser.getBrowserAndStyleInfo();
-			IHtmlCheckTarget checkTarget = new HtmlCheckTargetImpl(document,
-					webBrowser.getURL(), null, edu);
+			IHtmlCheckTarget checkTarget = CheckTargetFactory.createHtmlCheckTarget(document, webBrowser.getURL(), null,
+					edu);
 
 			for (int i = 0; i < checkers.length; i++) {
 				if (checkers[i] instanceof IHtmlChecker) {

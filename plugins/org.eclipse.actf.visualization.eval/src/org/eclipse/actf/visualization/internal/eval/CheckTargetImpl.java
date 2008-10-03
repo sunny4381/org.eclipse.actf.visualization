@@ -9,10 +9,11 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval;
+package org.eclipse.actf.visualization.internal.eval;
 
 import java.util.HashMap;
 
+import org.eclipse.actf.visualization.eval.ICheckTarget;
 import org.w3c.dom.Document;
 
 /**
