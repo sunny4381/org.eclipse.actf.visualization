@@ -18,7 +18,6 @@ import org.eclipse.actf.visualization.ui.IPositionSize;
 import org.eclipse.actf.visualization.ui.VisualizationCanvas;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -67,10 +66,6 @@ public class RoomView {
 		gridData.grabExcessVerticalSpace = true;
 		this._imageCanvas.setLayoutData(gridData);
 
-	}
-
-	protected Point getVarticalBarSize() {
-		return _imageCanvas.getVerticalBarSize();
 	}
 
 	protected void highlight(List<IPositionSize> target) {

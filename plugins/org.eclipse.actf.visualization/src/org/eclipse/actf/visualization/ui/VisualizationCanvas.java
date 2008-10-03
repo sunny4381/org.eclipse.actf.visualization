@@ -25,7 +25,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
@@ -372,15 +371,6 @@ public class VisualizationCanvas extends Canvas {
 		highlightTargetList = new ArrayList<IPositionSize>();
 		resetScrollBars();
 		redraw();
-	}
-
-	/**
-	 * Get vertical scroll bar size of the Canvas
-	 * 
-	 * @return vertical scroll bar size
-	 */
-	public Point getVerticalBarSize() {
-		return verticalBar.getSize();
 	}
 
 	/**
