@@ -16,6 +16,9 @@ import org.eclipse.actf.visualization.internal.eval.XMLStringUtil;
 import org.w3c.dom.Element;
 import org.xml.sax.Attributes;
 
+/**
+ * HeadingsData is used for heading tag information
+ */
 public class HeadingsData implements IPageStatisticsTag {
 
 	protected String tagName;
@@ -27,9 +30,12 @@ public class HeadingsData implements IPageStatisticsTag {
 	// TODO orgTime/curTime?
 
 	/**
-	 * @param target
-	 *            Element
+	 * Constructor of the class
+	 * 
+	 * @param targetE
+	 *            target heading element
 	 * @param text
+	 *            heading text
 	 */
 	public HeadingsData(Element targetE, String text) {
 		super();
@@ -39,9 +45,14 @@ public class HeadingsData implements IPageStatisticsTag {
 	}
 
 	/**
+	 * Constructor of the class
+	 * 
 	 * @param tagName
+	 *            target heading tag name
 	 * @param text
+	 *            heading text
 	 * @param xpath
+	 *            XPath of target heading
 	 */
 	public HeadingsData(String tagName, String text, String xpath) {
 		super();
@@ -50,26 +61,58 @@ public class HeadingsData implements IPageStatisticsTag {
 		this.xpath = xpath;
 	}
 
+	/**
+	 * Get XPath of the heading
+	 * 
+	 * @return XPath as String
+	 */
 	public String getXpath() {
 		return xpath;
 	}
 
+	/**
+	 * Set XPath of the heading
+	 * 
+	 * @param xpath
+	 */
 	public void setXpath(String xpath) {
 		this.xpath = xpath;
 	}
 
+	/**
+	 * Get tag name of the heading
+	 * 
+	 * @return tag name
+	 */
 	public String getTagName() {
 		return tagName;
 	}
 
+	/**
+	 * Get heading text
+	 * 
+	 * @return heading text
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * Set tag name of the heading
+	 * 
+	 * @param tagName
+	 *            tag name
+	 */
 	public void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
 
+	/**
+	 * Set heading text
+	 * 
+	 * @param text
+	 *            heading text
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}
@@ -78,11 +121,25 @@ public class HeadingsData implements IPageStatisticsTag {
 		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" "));
 	}
 
+	/**
+	 * Get heading tag information as XML fragment
+	 * 
+	 * @return heading tag information as XML fragment
+	 */
 	public String getItemXML() {
 		return ("<" + HEADING + " " + getAttr(NAME, tagName)
 				+ getAttr(VALUE, text) + getAttr(XPATH, xpath) + " />");
 	}
 
+	/**
+	 * Extract heading tag information from XML fragment and store information
+	 * into new {@link HeadingsData} instance.
+	 * 
+	 * @param atts
+	 *            target {@link Attributes}
+	 * @return new {@link HeadingsData}
+	 * @throws StatisticsDataFormatException
+	 */
 	public static HeadingsData parseItem(Attributes atts)
 			throws StatisticsDataFormatException {
 		String tmpName = atts.getValue(NAME);

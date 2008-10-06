@@ -11,37 +11,27 @@
 
 package org.eclipse.actf.visualization.eval.html.statistics;
 
-
+/**
+ * Exception relates to HTML statistics data format error.
+ */
 public class StatisticsDataFormatException extends Exception {
 	private static final long serialVersionUID = -2899274818180627014L;
 
 	/**
-     * 
-     */
-    public StatisticsDataFormatException() {
-        super();
-    }
+	 * Constructor of Exception
+	 */
+	public StatisticsDataFormatException() {
+		super();
+	}
 
-    /**
-     * @param message
-     */
-    public StatisticsDataFormatException(String message) {
-        super(message);
-    }
-
-    /**
-     * @param message
-     * @param cause
-     */
-    public StatisticsDataFormatException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    /**
-     * @param cause
-     */
-    public StatisticsDataFormatException(Throwable cause) {
-        super(cause);
-    }
+	/**
+	 * Constructor of Exception
+	 * 
+	 * @param msg
+	 *            exception message
+	 */
+	public StatisticsDataFormatException(String message) {
+		super(message);
+	}
 
 }

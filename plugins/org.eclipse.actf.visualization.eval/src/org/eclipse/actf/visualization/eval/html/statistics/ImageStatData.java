@@ -26,6 +26,9 @@ import org.w3c.dom.html.HTMLAnchorElement;
 import org.w3c.dom.html.HTMLImageElement;
 import org.xml.sax.Attributes;
 
+/**
+ * ImageStatData is used for image (img) element information
+ */
 public class ImageStatData implements IPageStatisticsTag {
 
 	public static final String ISMAP = "ismap";
@@ -77,8 +80,12 @@ public class ImageStatData implements IPageStatisticsTag {
 	}
 
 	/**
-	 * @param tagName
-	 * @param text
+	 * Constructor of the class
+	 * 
+	 * @param target
+	 *            target image element
+	 * @param baseURL
+	 *            base URL
 	 */
 	public ImageStatData(HTMLImageElement target, URL baseURL) {
 
@@ -127,6 +134,14 @@ public class ImageStatData implements IPageStatisticsTag {
 		}
 	}
 
+	/**
+	 * Extract problem item information relates to the image from XML fragment
+	 * and add the information into this instance.
+	 * 
+	 * @param atts
+	 *            target {@link Attributes}
+	 * @throws StatisticsDataFormatException
+	 */
 	public void addProblemItem(Attributes atts)
 			throws StatisticsDataFormatException {
 		String idS = atts.getValue(ID);
@@ -145,14 +160,27 @@ public class ImageStatData implements IPageStatisticsTag {
 		throw new StatisticsDataFormatException();
 	}
 
+	/**
+	 * Add problem item relates to image
+	 * 
+	 * @param problemItem
+	 *            target problem item
+	 */
 	public void addProblemItem(IProblemItem problemItem) {
 		problemV.add(problemItem);
 	}
 
-	public String getAltS() {
+	/**
+	 * 
+	 * @return alt attribute
+	 */
+	public String getAlt() {
 		return this.altS;
 	}
 
+	/**
+	 * @return ancestor anchor {@link Element}, or null if not available
+	 */
 	public Element getAncestorLink() {
 		return ancestorLink;
 	}
@@ -165,14 +193,26 @@ public class ImageStatData implements IPageStatisticsTag {
 		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" "));
 	}
 
-	public String getDestUrlS() {
+	/**
+	 * @return destination URL of ancestor anchor, or empty string if not in
+	 *         anchor
+	 */
+	public String getDestUrl() {
 		return destUrlS;
 	}
 
-	public String getHeightS() {
+	/**
+	 * @return heighet attribute
+	 */
+	public String getHeight() {
 		return heightS;
 	}
 
+	/**
+	 * Get image information as XML fragment
+	 * 
+	 * @return image information as XML fragment
+	 */
 	public String getItemXML() {
 		StringBuffer tmpSB = new StringBuffer("<" + IMAGE + " "
 				+ getAttr(SRC, srcS) + getAttr(URL, urlS)
@@ -211,71 +251,96 @@ public class ImageStatData implements IPageStatisticsTag {
 		return (tmpSB.toString());
 	}
 
-	public String getLongDescS() {
+	/**
+	 * @return longdesc attribute
+	 */
+	public String getLongDesc() {
 		return longDescS;
 	}
 
+	/**
+	 * @return problems relate to the image
+	 */
 	public Vector<IProblemItem> getProblemV() {
 		return this.problemV;
 	}
 
-	public String getSrcS() {
+	/**
+	 * @return src attribute
+	 */
+	public String getSrc() {
 		return srcS;
 	}
 
-	public String getUrlS() {
+	/**
+	 * @return target URL of the image (URL(base URL, src attribute value)).
+	 * @see URL#URL(URL, String)
+	 */
+	public String getUrl() {
 		return this.urlS;
 	}
 
-	public String getUseMapS() {
+	/**
+	 * @return usemap attribute
+	 */
+	public String getUseMap() {
 		return useMapS;
 	}
 
-	public String getWidthS() {
+	/**
+	 * @return width attribute
+	 */
+	public String getWidth() {
 		return widthS;
 	}
 
+	/**
+	 * @return true if image has alt attribute
+	 */
 	public boolean isHasAlt() {
 		return this.hasAlt;
 	}
 
+	/**
+	 * @return true if image has height attribute
+	 */
 	public boolean isHasHeight() {
 		return hasHeight;
 	}
 
+	/**
+	 * @return true if image has longdesc attribute
+	 */
 	public boolean isHasLongDesc() {
 		return hasLongDesc;
 	}
 
+	/**
+	 * @return true if image has usemap attribute
+	 */
 	public boolean isHasUseMap() {
 		return hasUseMap;
 	}
 
+	/**
+	 * @return true if image has width attribute
+	 */
 	public boolean isHasWidth() {
 		return hasWidth;
 	}
 
+	/**
+	 * @return true if image is under link (anchor element with href attribute)
+	 */
 	public boolean isInLink() {
 		return isInLink;
 	}
 
+	/**
+	 * @return true if image has ismap attribute
+	 */
 	public boolean isMap() {
 		return isMap;
 	}
 
-	public void setHasHeight(boolean hasHeight) {
-		this.hasHeight = hasHeight;
-	}
-
-	public void setHasWidth(boolean hasWidth) {
-		this.hasWidth = hasWidth;
-	}
-
-	public void setHeightS(String heightS) {
-		this.heightS = heightS;
-	}
-
-	public void setWidthS(String widthS) {
-		this.widthS = widthS;
-	}
 }

@@ -11,80 +11,82 @@
 
 package org.eclipse.actf.visualization.eval.html.statistics;
 
-
+/**
+ * Contains constants for page statistics
+ */
 public interface IPageStatisticsTag {
 
-    String IMAGES = "Images";
-    
-    String IMAGE = "image";
+	String IMAGES = "Images";
 
-    String SKIPMAIN = "SkipMain";
+	String IMAGE = "image";
 
-    String HEADINGS = "Headings";
-    
-    String HEADING = "heading";
+	String SKIPMAIN = "SkipMain";
 
-    String REACHINGTIME = "ReachingTime";
+	String HEADINGS = "Headings";
 
-    String FLASH_INFO = "FlashInfo";
+	String HEADING = "heading";
 
-    String FLASH = "flash";
-    
-    String ITEM = "item";
+	String REACHINGTIME = "ReachingTime";
 
-    String ERROR = "error";
+	String FLASH_INFO = "FlashInfo";
 
-    String VALID = "valid";
+	String FLASH = "flash";
 
-    String TOTAL = "total";
+	String ITEM = "item";
 
-    String MISSING = "missing";
+	String ERROR = "error";
 
-    String WRONG = "wrong";
+	String VALID = "valid";
 
-    String MAX = "max";
+	String TOTAL = "total";
 
-    String MEAN = "mean";
+	String MISSING = "missing";
 
-    String MIN = "min";
+	String WRONG = "wrong";
 
-    String ORG_MAX = "orgMax";
+	String MAX = "max";
 
-    String ORG_MEAN = "orgMean";
+	String MEAN = "mean";
 
-    String ORG_MIN = "orgMin";
+	String MIN = "min";
 
-    String WIDTH = "width";
+	String ORG_MAX = "orgMax";
 
-    String HEIGHT = "height";
+	String ORG_MEAN = "orgMean";
 
-    String BGCOLOR = "bgcolor";
+	String ORG_MIN = "orgMin";
 
-    String ALIGN = "align";
+	String WIDTH = "width";
 
-    String SRC = "src";
-    
-    String HREF = "href";
+	String HEIGHT = "height";
 
-    String DEST = "dest";
+	String BGCOLOR = "bgcolor";
 
-    String URL = "url";
+	String ALIGN = "align";
 
-    String BASE = "base";
-            
-    String NAME = "name";
-    
-    String VALUE = "value";
-    
-    String ALT = "alt";
-    
-    String XPATH = "xpath";
+	String SRC = "src";
 
-    String ID = "id";
-    
-    String TARGET_STRING = "targetStr";
-    
-    String JAVASCRIPT = "javascript";
-    
-    String EXISTENCE = "existence";
+	String HREF = "href";
+
+	String DEST = "dest";
+
+	String URL = "url";
+
+	String BASE = "base";
+
+	String NAME = "name";
+
+	String VALUE = "value";
+
+	String ALT = "alt";
+
+	String XPATH = "xpath";
+
+	String ID = "id";
+
+	String TARGET_STRING = "targetStr";
+
+	String JAVASCRIPT = "javascript";
+
+	String EXISTENCE = "existence";
 }

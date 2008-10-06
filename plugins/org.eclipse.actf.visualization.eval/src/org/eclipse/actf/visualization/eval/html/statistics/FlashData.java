@@ -6,13 +6,18 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
+ * 	  Shin SAITO - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.eval.html.statistics;
 
 import org.eclipse.actf.visualization.internal.eval.XMLStringUtil;
+import org.w3c.dom.Element;
 
+/**
+ * FlashData is used for flash content information
+ */
 public class FlashData implements IPageStatisticsTag {
 
 	public static final String FLASH_IS_OBJECT = "isObject";
@@ -66,134 +71,158 @@ public class FlashData implements IPageStatisticsTag {
 
 	private boolean withEmbed = false;
 
+	@SuppressWarnings("unused")
+	private Element flashElement;
+
 	/**
+	 * Constructor of the class
 	 * 
+	 * @param target
+	 *            target {@link Element} that contains the flash content
+	 * 
+	 * @param src
+	 *            source URL for flash content
+	 * @param isObject
+	 *            true if the flash content is embedded by object tag
 	 */
-	public FlashData(String src, boolean isObject) {
+	public FlashData(Element target, String src, boolean isObject) {
+		this.flashElement = target;
 		this.src = src;
 		this.isObject = isObject;
+
+		// TODO
 	}
 
+	/**
+	 * @return align attribute
+	 */
 	public String getAlign() {
 		return align;
 	}
 
+	/**
+	 * @return base attribute
+	 */
 	public String getBase() {
 		return base;
 	}
 
+	/**
+	 * @return background color attribute
+	 */
 	public String getBgcolor() {
 		return bgcolor;
 	}
 
+	/**
+	 * @return height attribute
+	 */
 	public String getHeight() {
 		return height;
 	}
 
+	/**
+	 * @return loop attribute
+	 */
 	public String getLoop() {
 		return loop;
 	}
 
+	/**
+	 * @return menu attribute
+	 */
 	public String getMenu() {
 		return menu;
 	}
 
+	/**
+	 * @return play attribute
+	 */
 	public String getPlay() {
 		return play;
 	}
 
+	/**
+	 * @return quality attribute
+	 */
 	public String getQuality() {
 		return quality;
 	}
 
+	/**
+	 * @return salign attribute
+	 */
 	public String getSalign() {
 		return salign;
 	}
 
+	/**
+	 * @return source URL of the flash content
+	 */
 	public String getSrc() {
 		return src;
 	}
 
+	/**
+	 * @return swliveconnect attribute
+	 */
 	public String getSwliveconnect() {
 		return swliveconnect;
 	}
 
+	/**
+	 * @return width attribute
+	 */
 	public String getWidth() {
 		return width;
 	}
 
+	/**
+	 * @return wmode (Window Mode) attribute
+	 */
 	public String getWmode() {
 		return wmode;
 	}
 
+	/**
+	 * @return true if the flash content embedded with embed tag
+	 */
 	public boolean isWithEmbed() {
 		return withEmbed;
 	}
 
+	/**
+	 * Set if the flash content embedded with embed tag
+	 * 
+	 * @param withEmbed
+	 *            true if the flash content embedded with embed tag
+	 */
 	public void setWithEmbed(boolean withEmbed) {
 		this.withEmbed = withEmbed;
 	}
 
+	/**
+	 * @return true if the flash content embedded by object tag
+	 */
 	public boolean isObject() {
 		return isObject;
 	}
 
+	/**
+	 * Set if the flash content embedded by object tag
+	 * 
+	 * @param isObject
+	 *            true if the flash content embedded by object tag
+	 */
 	public void setObject(boolean isObject) {
 		this.isObject = isObject;
 	}
 
-	public void setAlign(String align) {
-		this.align = align;
-	}
-
-	public void setBase(String base) {
-		this.base = base;
-	}
-
-	public void setBgcolor(String bgcolor) {
-		this.bgcolor = bgcolor;
-	}
-
-	public void setHeight(String height) {
-		this.height = height;
-	}
-
-	public void setLoop(String loop) {
-		this.loop = loop;
-	}
-
-	public void setMenu(String menu) {
-		this.menu = menu;
-	}
-
-	public void setPlay(String play) {
-		this.play = play;
-	}
-
-	public void setQuality(String quality) {
-		this.quality = quality;
-	}
-
-	public void setSalign(String salign) {
-		this.salign = salign;
-	}
-
-	public void setSrc(String src) {
-		this.src = src;
-	}
-
-	public void setSwliveconnect(String swliveconnect) {
-		this.swliveconnect = swliveconnect;
-	}
-
-	public void setWidth(String width) {
-		this.width = width;
-	}
-
-	public void setWmode(String wmode) {
-		this.wmode = wmode;
-	}
-
+	/**
+	 * Get flash information as XML fragment
+	 * 
+	 * @return flash information as XML fragment
+	 */
 	public String getItemXML() {
 		StringBuffer tmpSB = new StringBuffer("<" + FLASH + " " + SRC + "=\""
 				+ XMLStringUtil.canonicalize(src) + "\" "

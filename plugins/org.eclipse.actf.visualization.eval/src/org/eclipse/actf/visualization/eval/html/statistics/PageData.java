@@ -22,6 +22,9 @@ import org.eclipse.actf.visualization.internal.eval.XMLStringUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.html.HTMLImageElement;
 
+/**
+ * Utility class to store HTML page information including statistics
+ */
 public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 
 	private int brokenIntraPageLinkNum = 0;
@@ -63,55 +66,91 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 	private boolean hasJavascript = false;
 
 	/**
+	 * Add flash content information
 	 * 
+	 * @param flashData
+	 *            target {@link FlashData}
 	 */
-	public PageData() {
-	}
-
 	public void addFlashData(FlashData flashData) {
 		flashV.add(flashData);
 	}
 
+	/**
+	 * @return number of broken intra page links
+	 */
 	public int getBrokenIntraPageLinkNum() {
 		return brokenIntraPageLinkNum;
 	}
 
+	/**
+	 * @return number of broken skip to main content links
+	 */
 	public int getBrokenSkipMainNum() {
 		return brokenSkipMainNum;
 	}
 
+	/**
+	 * @return flash content information
+	 */
 	public Vector<FlashData> getFlashData() {
 		return this.flashV;
 	}
 
+	/**
+	 * @return number of forward intra page link
+	 */
 	public int getForwardIntraPageLinkNum() {
 		return forwardIntraPageLinkNum;
 	}
 
+	/**
+	 * @return number of headings in the page
+	 */
 	public int getHeadingCount() {
 		return headingsV.size();
 	}
 
+	/**
+	 * @return headings information
+	 */
 	public Vector<HeadingsData> getHeadingsData() {
 		return headingsV;
 	}
 
+	/**
+	 * @return number of errors of alternative text for image
+	 */
 	public int getImageAltErrorNum() {
 		return imageAltErrorNum;
 	}
 
+	/**
+	 * @return invalid link ratio of the page. (target URL number under
+	 *         invisible link/all target URL number)
+	 */
 	public double getInvalidLinkRatio() {
 		return invalidLinkRatio;
 	}
 
+	/**
+	 * @return maximum reaching time inside the page
+	 */
 	public int getMaxTime() {
 		return maxTime;
 	}
 
+	/**
+	 * @return number of missing alternative text for image
+	 */
 	public int getMissingAltNum() {
 		return missingAltNum;
 	}
 
+	/**
+	 * Get page data information as XML fragment
+	 * 
+	 * @return page data information as XML fragment
+	 */
 	public String getReportFragment() {
 		StringBuffer tmpSB = new StringBuffer();
 		tmpSB.append("<" + IMAGES + " " + TOTAL + "=\"" + totalImageNumber
@@ -156,111 +195,250 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" "));
 	}
 
+	/**
+	 * @return number of valid skip to main content link
+	 */
 	public int getSkipMainNum() {
 		return skipMainNum;
 	}
 
+	/**
+	 * @return total number of images
+	 */
 	public int getTotalImageNumber() {
 		return totalImageNumber;
 	}
 
+	/**
+	 * @return total number of link (anchor with href attribute)
+	 */
 	public int getTotalLinkNum() {
 		return totalLinkNum;
 	}
 
+	/**
+	 * @return image information data
+	 */
 	public Vector<ImageStatData> getImageData() {
 		return imageDataV;
 	}
 
+	/**
+	 * Set image information data
+	 * 
+	 * @param imageDataV
+	 *            Vector of target {@link ImageStatData}
+	 */
 	public void setImageData(Vector<ImageStatData> imageDataV) {
 		this.imageDataV = imageDataV;
 	}
 
+	/**
+	 * @return number of inappropriate alt attribute
+	 */
 	public int getWrongAltNum() {
 		return wrongAltNum;
 	}
 
+	/**
+	 * @return original reaching time (without consideration of headings, skip
+	 *         links, etc.)
+	 */
 	public int getOrgMaxTime() {
 		return orgMaxTime;
 	}
 
+	/**
+	 * @return map contains {@link HTMLImageElement} and it's information pair
+	 */
 	public Map<HTMLImageElement, ImageStatData> getImageDataMap() {
 		return imageDataMap;
 	}
 
+	/**
+	 * @return map contains ancestor anchor {@link Element} of image link and
+	 *         image information pair
+	 */
 	public Map<Element, ImageStatData> getLinkImageDataMap() {
 		return linkImageDataMap;
 	}
 
+	/**
+	 * @return true if page uses JavaScript
+	 */
 	public boolean isHasJavascript() {
 		return hasJavascript;
 	}
 
+	/**
+	 * Set if page uses JavaScript
+	 * 
+	 * @param hasJavascript
+	 *            true if page uses JavaScript
+	 */
 	public void setHasJavascript(boolean hasJavascript) {
 		this.hasJavascript = hasJavascript;
 	}
 
+	/**
+	 * Set map contains ancestor anchor {@link Element} of image link and image
+	 * information pair
+	 * 
+	 * @param linkImageDataMap
+	 *            target map
+	 */
 	public void setLinkImageDataMap(Map<Element, ImageStatData> linkImageDataMap) {
 		this.linkImageDataMap = linkImageDataMap;
 	}
 
+	/**
+	 * Set map contains {@link HTMLImageElement} and it's information pair
+	 * 
+	 * @param imageDataMap
+	 *            target map
+	 */
 	public void setImageDataMap(
 			Map<HTMLImageElement, ImageStatData> imageDataMap) {
 		this.imageDataMap = imageDataMap;
 	}
 
+	/**
+	 * Set original reaching time (without consideration of headings, skip
+	 * links, etc.)
+	 * 
+	 * @param orgMaxTime
+	 *            original reaching time of the page
+	 */
 	public void setOrgMaxTime(int orgMaxTime) {
 		this.orgMaxTime = orgMaxTime;
 	}
 
+	/**
+	 * Set broken intra page link number
+	 * 
+	 * @param brokenIntraPageLinkNum
+	 *            broken intra page link number
+	 */
 	public void setBrokenIntraPageLinkNum(int brokenIntraPageLinkNum) {
 		this.brokenIntraPageLinkNum = brokenIntraPageLinkNum;
 	}
 
+	/**
+	 * Set broken skip to main content link number
+	 * 
+	 * @param brokenSkipMainNum
+	 *            broken skip to main content link number
+	 */
 	public void setBrokenSkipMainNum(int brokenSkipMainNum) {
 		this.brokenSkipMainNum = brokenSkipMainNum;
 	}
 
+	/**
+	 * Set flash information of the page
+	 * 
+	 * @param flashV
+	 *            Vector of flash information of the page
+	 */
 	public void setFlashData(Vector<FlashData> flashV) {
 		this.flashV = flashV;
 	}
 
+	/**
+	 * Set number of forward intra page link
+	 * 
+	 * @param forwardIntraPageLinkNum
+	 *            number of forward intra page link
+	 */
 	public void setForwardIntraPageLinkNum(int forwardIntraPageLinkNum) {
 		this.forwardIntraPageLinkNum = forwardIntraPageLinkNum;
 	}
 
+	/**
+	 * Set headings information of the page
+	 * 
+	 * @param headings
+	 *            Vector of headings information of the page
+	 */
 	public void setHeadingsData(Vector<HeadingsData> headings) {
 		this.headingsV = headings;
 	}
 
+	/**
+	 * Set error number of alternative text for image
+	 * 
+	 * @param imageAltErrorNum
+	 *            errors number of alternative text for image
+	 */
 	public void setImageAltErrorNum(int imageAltErrorNum) {
 		this.imageAltErrorNum = imageAltErrorNum;
 	}
 
+	/**
+	 * Set invalid link ratio of the page. (target URL number under invisible
+	 * link/all target URL number)
+	 * 
+	 * @param invalidLinkRatio
+	 *            invalid link ratio
+	 */
 	public void setInvalidLinkRatio(double invalidLinkRatio) {
 		this.invalidLinkRatio = invalidLinkRatio;
 	}
 
+	/**
+	 * Set maximum reaching time of the page
+	 * 
+	 * @param maxTime
+	 *            maximum reaching time of the page
+	 */
 	public void setMaxTime(int maxTime) {
 		this.maxTime = maxTime;
 	}
 
+	/**
+	 * Set number of missing alt attribute for image
+	 * 
+	 * @param missingAltNum
+	 *            number of missing alt attribute for image
+	 */
 	public void setMissingAltNum(int missingAltNum) {
 		this.missingAltNum = missingAltNum;
 	}
 
+	/**
+	 * Set valid skip to main content link number
+	 * 
+	 * @param skipMainNum
+	 *            valid skip to main content link number
+	 */
 	public void setSkipMainNum(int skipMainNum) {
 		this.skipMainNum = skipMainNum;
 	}
 
+	/**
+	 * Set total number of image in the page
+	 * 
+	 * @param totalImageNumber
+	 *            total number of image
+	 */
 	public void setTotalImageNumber(int totalImageNumber) {
 		this.totalImageNumber = totalImageNumber;
 	}
 
+	/**
+	 * Set total number of link (anchor element with href attribute) in the page
+	 * 
+	 * @param totalLinkNum
+	 */
 	public void setTotalLinkNum(int totalLinkNum) {
 		this.totalLinkNum = totalLinkNum;
 	}
 
+	/**
+	 * Set number of inappropriate alternative text in the page
+	 * 
+	 * @param wrongAltNum
+	 *            number of inappropriate alternative text
+	 */
 	public void setWrongAltNum(int wrongAltNum) {
 		this.wrongAltNum = wrongAltNum;
 	}

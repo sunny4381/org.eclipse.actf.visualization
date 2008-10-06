@@ -33,6 +33,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.html.HTMLImageElement;
 
+/**
+ * Utility class for HTML evaluation
+ */
 public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private static final int LONG_TEXT_NUM = 200; // TODO check
@@ -69,9 +72,9 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private Document resultDoc;
 
-	private Document origDom;
+	private Document srcDom;
 
-	private Document ieDom;
+	private Document liveDom;
 
 	private URL baseUrl;
 
@@ -79,7 +82,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private boolean isDBCS;
 
-	private boolean isIEDom;
+	private boolean isLiveDom;
 
 	private boolean hasAwithHref = false;
 
@@ -151,33 +154,78 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private HashSet<String> notExistHrefSet = new HashSet<String>();
 
-	public HtmlEvalUtil(Document target, Document resultDoc, String curUrl,
-			Map<Node, Integer> document2IdMap, Document origDom,
-			Document ieDom, PageData pageData, boolean isDBCS, boolean isIEDom) {
-		this(target, resultDoc, curUrl, document2IdMap, origDom, ieDom,
-				pageData, 0, null, isDBCS, isIEDom);
+	/**
+	 * Constructor of the class.
+	 * 
+	 * @param target
+	 *            target {@link Document}
+	 * @param resultDoc
+	 *            visualization result {@link Document}
+	 * @param url
+	 *            target URL
+	 * @param document2IdMap
+	 *            map between {@link Node} and ACTF_ID
+	 * @param srcDom
+	 *            the original source {@link Document}
+	 * @param liveDom
+	 *            the live {@link Document} obtained from browser
+	 * @param pageData
+	 *            the detailed page information as {@link PageData}
+	 * @param isDBCS
+	 *            true if target page uses DBCS
+	 * @param isLive
+	 *            true if target is live DOM
+	 */
+	public HtmlEvalUtil(Document target, Document resultDoc, String url,
+			Map<Node, Integer> document2IdMap, Document srcDom,
+			Document liveDom, PageData pageData, boolean isDBCS, boolean isLive) {
+		this(target, resultDoc, url, document2IdMap, srcDom, liveDom, pageData,
+				0, null, isDBCS, isLive);
 	}
 
 	/**
+	 * Constructor of the class.
 	 * 
+	 * @param target
+	 *            target {@link Document}
+	 * @param resultDoc
+	 *            visualization result {@link Document}
+	 * @param url
+	 *            target URL
+	 * @param document2IdMap
+	 *            map between {@link Node} and ACTF_ID
+	 * @param srcDom
+	 *            the original source {@link Document}
+	 * @param liveDom
+	 *            the live {@link Document} obtained from browser
+	 * @param pageData
+	 *            the detailed page information as {@link PageData}
+	 * @param invisibleElementCount
+	 *            number of invisible Element inside the page
+	 * @param invisibleLinkStrings
+	 *            array of link target urls of invisible anchor Element
+	 * @param isDBCS
+	 *            true if target page uses DBCS
+	 * @param isLive
+	 *            true if target is live DOM
 	 */
-	public HtmlEvalUtil(Document target, Document resultDoc, String curUrl,
-			Map<Node, Integer> document2IdMap, Document origDom,
-			Document ieDom, PageData pageData, int invisibleElementCount,
-			String[] invisibleLinkStrings, boolean isDBCS, boolean isIEDom) {
+	public HtmlEvalUtil(Document target, Document resultDoc, String url,
+			Map<Node, Integer> document2IdMap, Document srcDom,
+			Document liveDom, PageData pageData, int invisibleElementCount,
+			String[] invisibleLinkStrings, boolean isDBCS, boolean isLive) {
 		this.target = target;
 		this.resultDoc = resultDoc;
 
-		this.origDom = origDom;
-		this.ieDom = ieDom;
-		this.isIEDom = isIEDom;
+		this.srcDom = srcDom;
+		this.liveDom = liveDom;
+		this.isLiveDom = isLive;
 
 		this.pageData = pageData;
 
-		this.curUrl = curUrl;
+		this.curUrl = url;
 		baseUrl = null;
 		try {
-			baseUrl = new URL(curUrl); // ToDo handle base
+			baseUrl = new URL(url); // ToDo handle base
 		} catch (MalformedURLException e) {
 			// e.printStackTrace();
 		}
@@ -301,7 +349,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 					}
 				}
 				if (src != null && src.length() > 0) {
-					FlashData flashD = new FlashData(src, true);
+					FlashData flashD = new FlashData(object_elements[i], src, true);
 					pageData.addFlashData(flashD);
 
 					NodeList embedNL = object_elements[i]
@@ -319,7 +367,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 									embedInObjectSet.add(tmpE);
 									flashD.setWithEmbed(true);
 								} else {
-									pageData.addFlashData(new FlashData(src,
+									pageData.addFlashData(new FlashData(tmpE, src,
 											false));
 								}
 							}
@@ -340,7 +388,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 				// TODO get width hight align ... loop quality...
 				String src = tmpE.getAttribute("src");
 				if (src != null && src.length() > 0) {
-					pageData.addFlashData(new FlashData(src, false));
+					pageData.addFlashData(new FlashData(tmpE, src, false));
 				}
 			}
 		}
@@ -441,7 +489,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 		if (EvaluationUtil.isOriginalDOM()) {
 			// target = orig DOM
-			if (isIEDom || null == ieDom) {
+			if (isLiveDom || null == liveDom) {
 				// parse error
 				return;
 			}
@@ -450,7 +498,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 					.asList(aWithHref_hrefs));
 			// trim()?
 
-			NodeList ieNL = xpathService.evalForNodeList(EXP1, ieDom);
+			NodeList ieNL = xpathService.evalForNodeList(EXP1, liveDom);
 			int size = ieNL.getLength();
 			for (int i = 0; i < size; i++) {
 				Element tmpE = (Element) ieNL.item(i);
@@ -461,7 +509,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			}
 		} else {
 			// target = IE DOM
-			NodeList orgNL = xpathService.evalForNodeList(EXP1, origDom);
+			NodeList orgNL = xpathService.evalForNodeList(EXP1, srcDom);
 			int size = orgNL.getLength();
 			TreeSet<String> existSet = new TreeSet<String>();
 			for (int i = 0; i < size; i++) {
@@ -567,6 +615,13 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		return true;
 	}
 
+	/**
+	 * Get heading level as int
+	 * 
+	 * @param strNodeName
+	 *            target Heading tag name (H1, H2,..., H6)
+	 * @return heading level as int (1, 2,..., 6)
+	 */
 	public int getHeadingLevel(String strNodeName) {
 		for (int i = 0; i < HEADING_LEVEL.length; i++) {
 			if (strNodeName.equalsIgnoreCase(HEADING_LEVEL[i])) {
@@ -576,166 +631,400 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		return 0;
 	}
 
+	/**
+	 * Get array of anchor {@link Element} who has href attribute
+	 * 
+	 * @return array of anchor {@link Element} who has href attribute
+	 */
 	public Element[] getAWithHref_elements() {
 		return aWithHref_elements;
 	}
 
+	/**
+	 * Get target hrefs of anchor Elements
+	 * 
+	 * @return target hrefs
+	 */
 	public String[] getAWithHref_hrefs() {
 		return aWithHref_hrefs;
 	}
 
+	/**
+	 * Get text descendant of anchor {@link Element} who has href attribute
+	 * 
+	 * @return text descendant of anchor {@link Element} who has href attribute
+	 * 
+	 * @see HtmlTagUtil#getTextAltDescendant(Node)
+	 */
 	public String[] getAWithHref_strings() {
 		return aWithHref_strings;
 	}
 
+	/**
+	 * Get base URL of the target page
+	 * 
+	 * @return base URL
+	 */
 	public URL getBaseUrl() {
 		return baseUrl;
 	}
 
+	/**
+	 * Get body {@link Element}
+	 * 
+	 * @return body {@link Element}
+	 */
 	public Element[] getBody_elements() {
 		return body_elements;
 	}
 
+	/**
+	 * Get tables who has 1 row and 1 column
+	 * 
+	 * @return table {@link Element} who has 1 row and 1 column
+	 */
 	public Element[] getBottom_1row1col_tables() {
 		return bottom_1row1col_tables;
 	}
 
+	/**
+	 * Get bottom data tables in the nested table
+	 * 
+	 * @return bottom data tables in the nested table
+	 */
 	public Element[] getBottom_data_tables() {
 		return bottom_data_tables;
 	}
 
+	/**
+	 * Get bottom tables (not data table) in the nested table
+	 * 
+	 * @return bottom tables in the nested table
+	 */
 	public Element[] getBottom_notdata_tables() {
 		return bottom_notdata_tables;
 	}
 
-	public String getCurUrl() {
+	/**
+	 * Get URL of the page
+	 * 
+	 * @return URL of the page
+	 */
+	public String getUrl() {
 		return curUrl;
 	}
 
+	/**
+	 * Get map between {@link Node} and ACTF_ID
+	 * 
+	 * @return map between {@link Node} and ACTF_ID
+	 */
 	public Map<Node, Integer> getDocument2IdMap() {
 		return document2IdMap;
 	}
 
+	/**
+	 * Get frame {@link Element} in the page
+	 * 
+	 * @return frame elements
+	 */
 	public Element[] getFrame_elements() {
 		return frame_elements;
 	}
 
+	/**
+	 * Check if the page has
+	 * 
+	 * <pre>
+	 * &lt;a href=&quot;&quot;&gt;
+	 * </pre>
+	 * 
+	 * @return true if the page has anchor with href attribute
+	 */
 	public boolean isHasAwithHref() {
 		return hasAwithHref;
 	}
 
+	/**
+	 * Check if the page uses JavaScript
+	 * 
+	 * @return true if the page uses JavaScript
+	 */
 	public boolean isHasJavascript() {
 		return hasJavascript;
 	}
 
+	/**
+	 * Get all heading {@link Element} in the page
+	 * 
+	 * @return all heading elements
+	 */
 	public Element[] getHeadings() {
 		return headings;
 	}
 
-	public Document getIeDom() {
-		return ieDom;
+	/**
+	 * Get live DOM
+	 * 
+	 * @return get live DOM
+	 */
+	public Document getLiveDom() {
+		return liveDom;
 	}
 
+	/**
+	 * Get all iframe {@link Element} in the page
+	 * 
+	 * @return all iframe elements
+	 */
 	public Element[] getIframe_elements() {
 		return iframe_elements;
 	}
 
+	/**
+	 * Get all img {@link Element} in the page
+	 * 
+	 * @return all img elements
+	 */
 	public HTMLImageElement[] getImg_elements() {
 		return img_elements;
 	}
 
+	/**
+	 * Get invalid link ratio of the page. (target URL number under invisible
+	 * link/all target URL number)
+	 * 
+	 * @return invalid link ratio
+	 */
 	public double getInvalidLinkRatio() {
 		return invalidLinkRatio;
 	}
 
+	/**
+	 * Get number of invisible {@link Element}
+	 * 
+	 * @return number of invisible elements
+	 */
 	public int getInvisibleElementCount() {
 		return invisibleElementCount;
 	}
 
+	/**
+	 * Get array of link target urls of invisible anchor {@link Element}
+	 * 
+	 * @return array of link target urls of invisible anchor elements
+	 */
 	public String[] getInvisibleLinkStrings() {
 		return invisibleLinkStrings;
 	}
 
+	/**
+	 * Check if the target page uses DBCS
+	 * 
+	 * @return true if the target page uses DBCS
+	 */
 	public boolean isDBCS() {
 		return isDBCS;
 	}
 
-	public boolean isIEDom() {
-		return isIEDom;
+	/**
+	 * Check if the target DOM is live DOM
+	 * 
+	 * @return true if the target DOM is live DOM
+	 */
+	public boolean isLiveDom() {
+		return isLiveDom;
 	}
 
+	/**
+	 * Get Set of target URL that are not included in source DOM but exist in
+	 * live DOM. (might be inaccessible without JavaScript)
+	 * 
+	 * @return
+	 */
 	public HashSet<String> getNotExistHrefSet() {
 		return notExistHrefSet;
 	}
 
+	/**
+	 * Get all object {@link Element} in the page
+	 * 
+	 * @return object elements
+	 */
 	public Element[] getObject_elements() {
 		return object_elements;
 	}
 
-	public Document getOrigDom() {
-		return origDom;
+	/**
+	 * Get source DOM
+	 * 
+	 * @return source DOM
+	 */
+	public Document getSrcDom() {
+		return srcDom;
 	}
 
+	/**
+	 * Get target page information as {@link PageData}
+	 * 
+	 * @return target page information
+	 */
 	public PageData getPageData() {
 		return pageData;
 	}
 
+	/**
+	 * Get array of parent table elements of nested tables.
+	 * 
+	 * @return array of parent table elements of nested tables
+	 */
 	public Element[] getParent_table_elements() {
 		return parent_table_elements;
 	}
 
-	public Document getResultDoc() {
+	/**
+	 * Get visualization result {@link Document}
+	 * 
+	 * @return result {@link Document}
+	 */
+	public Document getResult() {
 		return resultDoc;
 	}
 
+	/**
+	 * Get all table {@link Element} in the page
+	 * 
+	 * @return all table elements
+	 */
 	public Element[] getTable_elements() {
 		return table_elements;
 	}
 
+	/**
+	 * Get target {@link Document}
+	 * 
+	 * @return target {@link Document}
+	 */
 	public Document getTarget() {
 		return target;
 	}
 
+	/**
+	 * Get all embed {@link Element} in the page
+	 * 
+	 * @return all embed elements
+	 */
 	public Element[] getEmbed_elements() {
 		return embed_elements;
 	}
 
+	/**
+	 * Get all
+	 * 
+	 * <pre>
+	 * &lt;a href=&quot;javascript:...&quot;
+	 * </pre>
+	 * 
+	 * elements
+	 * 
+	 * @return all anchor elements for JavaScript
+	 */
 	public Element[] getJavascriptHref_elements() {
 		return javascriptHref_elements;
 	}
 
+	/**
+	 * Get all href Strings of
+	 * 
+	 * <pre>
+	 * &lt;a href=&quot;javascript:...&quot;
+	 * </pre>
+	 * 
+	 * elements
+	 * 
+	 * @return all target arguments of anchor elements for JavaScript
+	 */
 	public String[] getJavascriptHref_hrefs() {
 		return javascriptHref_hrefs;
 	}
 
+	/**
+	 * Get text descendant of anchor {@link Element} for JavaScript
+	 * 
+	 * @return text descendant of anchor {@link Element} for JavaScript
+	 * 
+	 * @see HtmlTagUtil#getTextAltDescendant(Node)
+	 */
 	public String[] getJavascriptHref_strings() {
 		return javascriptHref_strings;
 	}
 
+	/**
+	 * Get array of {@link Element} that has event handler (onload, onunload,
+	 * onabort or onerror)
+	 * 
+	 * @return array of elements that have event handler for onload, onunload,
+	 *         onabort or onerror
+	 */
 	public Element[] getEventLoadElements() {
 		return eventLoadElements;
 	}
 
+	/**
+	 * Get array of {@link Element} that has mouse event handler (onclick,
+	 * ondblclick, onmouseup or onmousedown)
+	 * 
+	 * @return array of elements that have mouse event handler
+	 */
 	public Element[] getEventMouseButtonElements() {
 		return eventMouseButtonElements;
 	}
 
-	public Element[] getEventMouseFocusElements() {
+	/**
+	 * Get array of {@link Element} that has onmouse event handler (onmouseover,
+	 * onmouseout or onmousemove)
+	 * 
+	 * @return array of elements that have onmouse event handler
+	 */
+	public Element[] getEventOnMouseElements() {
 		return eventMouseFocusElements;
 	}
 
+	/**
+	 * Get array of {@link Element} that has onkey event handler (onkeydown,
+	 * onkeyup or onkeypress)
+	 * 
+	 * @return array of elements that have onkey event handler
+	 */
 	public Element[] getEventOnKeyElements() {
 		return eventOnKeyElements;
 	}
 
+	/**
+	 * Get all script {@link Element}
+	 * 
+	 * @return all script elements
+	 */
 	public Element[] getScript_elements() {
 		return script_elements;
 	}
 
+	/**
+	 * Get array of {@link Element} that has window event handler (onresize,
+	 * onmove or ondragdrop)
+	 * 
+	 * @return array of elements that have window event handler
+	 */
 	public Element[] getEventWindowElements() {
 		return eventWindowElements;
 	}
 
+	/**
+	 * Get array of {@link Element} that has focus event handler (onfocus,
+	 * onblur or onselect)
+	 * 
+	 * @return array of elements that have focus event handler
+	 */
 	public Element[] getEventFocusElements() {
 		return eventFocusElements;
 	}
