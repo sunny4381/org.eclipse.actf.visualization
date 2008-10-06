@@ -20,7 +20,6 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
-import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.internal.eval.GuidelineItemImpl;
 import org.eclipse.ui.PlatformUI;
 import org.xml.sax.Attributes;

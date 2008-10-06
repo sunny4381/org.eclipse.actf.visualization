@@ -26,8 +26,8 @@ import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
-import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
+import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemConst;
@@ -260,10 +260,10 @@ public class SaveReportBlind {
 					trElement.appendChild(tdElement);
 				}
 
-				GuidelineData[] guidelineDataArray = GuidelineHolder
+				IGuidelineData[] guidelineDataArray = GuidelineHolder
 						.getInstance().getGuidelineData();
 				for (int i = 0; i < guidelineDataArray.length; i++) {
-					GuidelineData data = guidelineDataArray[i];
+					IGuidelineData data = guidelineDataArray[i];
 					if (data.isMatched()) {
 						tdElement = result.createElement("th");
 						tdElement.appendChild(result.createTextNode(data

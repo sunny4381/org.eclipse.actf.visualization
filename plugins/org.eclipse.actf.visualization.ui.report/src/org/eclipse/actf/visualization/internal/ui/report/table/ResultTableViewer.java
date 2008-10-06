@@ -19,9 +19,9 @@ import java.util.Vector;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
-import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEvent;
+import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
@@ -242,7 +242,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			curPos++;
 		}
 
-		GuidelineData[] dataArray = guidelineHolder.getGuidelineData();
+		IGuidelineData[] dataArray = guidelineHolder.getGuidelineData();
 		for (int i = 0; i < dataArray.length; i++) {
 			columns[curPos].setText(dataArray[i].getGuidelineName());
 			if (dataArray[i].isMatched()) {
@@ -283,7 +283,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 		columns[curPos].setWidth(45);
 		curPos++;
 
-		GuidelineData[] dataArray = guidelineHolder.getGuidelineData();
+		IGuidelineData[] dataArray = guidelineHolder.getGuidelineData();
 		for (int i = 0; i < dataArray.length; i++) {
 			columns[curPos].setText(dataArray[i].getGuidelineName());
 			columns[curPos].setWidth(70);

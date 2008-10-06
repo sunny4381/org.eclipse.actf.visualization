@@ -32,6 +32,7 @@ import org.eclipse.actf.visualization.internal.eval.CheckerExtension;
 import org.eclipse.actf.visualization.internal.eval.EvaluationItemImpl;
 import org.eclipse.actf.visualization.internal.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.internal.eval.guideline.CheckItemReader;
+import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineDataComparator;
 import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineItemReader;
 import org.eclipse.core.runtime.FileLocator;
@@ -39,6 +40,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.osgi.framework.Bundle;
 
+/**
+ * Utility class to manage guideline, metrics, and evaluation items.
+ */
 public class GuidelineHolder {
 
 	private static GuidelineHolder INSTANCE = null;
@@ -49,18 +53,11 @@ public class GuidelineHolder {
 	private ICheckerInfoProvider[] checkerInfos = CheckerExtension
 			.getCheckerInfoProviders();
 
-	public static void main(String args[]) {
-		GuidelineHolder gh = getInstance();
-
-		for (String key : gh.checkitemMap.keySet()) {
-			IEvaluationItem tmpCI = (IEvaluationItem) gh.checkitemMap.get(key);
-			if (!gh.enabledCheckitemSet.contains(tmpCI)) {
-				System.out.println(tmpCI);
-			}
-		}
-
-	}
-
+	/**
+	 * Get instance of {@link GuidelineHolder}
+	 * 
+	 * @return instance of {@link GuidelineHolder}
+	 */
 	public static GuidelineHolder getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new GuidelineHolder();
@@ -105,9 +102,6 @@ public class GuidelineHolder {
 
 	// TODO guideline base -> check item base On/Off
 
-	/**
-	 * 
-	 */
 	@SuppressWarnings("unchecked")
 	private GuidelineHolder() {
 		Bundle bundle = EvaluationPlugin.getDefault().getBundle();
@@ -220,27 +214,60 @@ public class GuidelineHolder {
 		resetMatchedItems();
 	}
 
-	public GuidelineData[] getLeafGuidelineData() {
+	/**
+	 * Get registered guideline information. If guideline has levels, this
+	 * method returns all guideline items of each level.
+	 * 
+	 * @return all leaf guideline information
+	 */
+	public IGuidelineData[] getLeafGuidelineData() {
 		return (leafGuidelineArray);
 	}
 
-	public GuidelineData[] getGuidelineData() {
+	/**
+	 * Get registered guideline information. This method returns all guideline
+	 * items (excludes leaf items).
+	 * 
+	 * @return all top guideline information
+	 */
+	public IGuidelineData[] getGuidelineData() {
 		return (guidelineArray);
 	}
 
+	/**
+	 * Get all guideline name with it's level information.
+	 * 
+	 * @return all guideline name with level
+	 */
 	public String[] getGuidelineNamesWithLevels() {
 		return (guidelineNamesWithLevels);
 	}
 
+	/**
+	 * Get guideline item information
+	 * 
+	 * @param guidelineName
+	 *            target guideline name
+	 * @param id
+	 *            target guideline item ID
+	 * @return guideline item information, or null if not available
+	 */
 	public IGuidelineItem getGuidelineItem(String guidelineName, String id) {
 		if (guidelineMaps.containsKey(guidelineName)) {
-			GuidelineData data = (GuidelineData) guidelineMaps
+			IGuidelineData data = (IGuidelineData) guidelineMaps
 					.get(guidelineName);
 			return (data.getGuidelineItem(id));
 		}
 		return (null);
 	}
 
+	/**
+	 * Get evaluation item information
+	 * 
+	 * @param id
+	 *            target ID of evaluation item
+	 * @return evaluation item information, or null if not available
+	 */
 	public IEvaluationItem getEvaluationItem(String id) {
 		if (checkitemMap.containsKey(id)) {
 			return (checkitemMap.get(id));
@@ -248,6 +275,13 @@ public class GuidelineHolder {
 		return (null);
 	}
 
+	/**
+	 * Set enabled guideline items.
+	 * 
+	 * @param enabledItems
+	 *            on/off parameters
+	 * @return true (success), false (array size error)
+	 */
 	public boolean setEnabledGuidelineWithLevels(boolean[] enabledItems) {
 		if (enabledItems.length != leafGuidelineArray.length) {
 			return false;
@@ -270,6 +304,14 @@ public class GuidelineHolder {
 		return true;
 	}
 
+	/**
+	 * Set enabled guideline items.
+	 * 
+	 * @param guidelineNameArray
+	 *            array of name of enabled guideline item
+	 * @param levelArray
+	 *            array of level of enabled guideline item
+	 */
 	public void setEnabledGuidelines(String[] guidelineNameArray,
 			String[] levelArray) {
 
@@ -342,6 +384,13 @@ public class GuidelineHolder {
 
 	}
 
+	/**
+	 * Set enabled evaluation metrics
+	 * 
+	 * @param enabledMetrics
+	 *            on/off parameters
+	 * @return true (success), false (array size error)
+	 */
 	public boolean setEnabledMetrics(boolean[] enabledMetrics) {
 		if (enabledMetrics == null
 				|| enabledMetrics.length != this.enabledMetrics.length) {
@@ -354,6 +403,12 @@ public class GuidelineHolder {
 		return true;
 	}
 
+	/**
+	 * Get enabled evaluation metrics.
+	 * 
+	 * @param enabledMetricsStringArray
+	 *            array of enabled evaluation metrics
+	 */
 	public void setEnabledMetrics(String[] enabledMetricsStringArray) {
 		if (enabledMetricsStringArray != null) {
 			Arrays.fill(enabledMetrics, false);
@@ -374,12 +429,23 @@ public class GuidelineHolder {
 		}
 	}
 
+	/**
+	 * Get set of {@link IEvaluationItem} matched to current active content and
+	 * user selection of guidelines/metrics.
+	 * 
+	 * @return set of {@link IEvaluationItem}
+	 */
 	public Set<IEvaluationItem> getMatchedCheckitemSet() {
 		// 061018 kf
 		// return enabledCheckitemSet;
 		return matchedCheckitemSet;
 	}
 
+	/**
+	 * Get registered evaluation metrics names.
+	 * 
+	 * @return evaluation metrics
+	 */
 	public String[] getMetricsNames() {
 		return metricsNames;
 	}
@@ -430,7 +496,7 @@ public class GuidelineHolder {
 	private void storeDisabledGuideline() {
 		try {
 			for (int i = 0; i < guidelineArray.length; i++) {
-				GuidelineData data = guidelineArray[i];
+				IGuidelineData data = guidelineArray[i];
 				String[] subLevels = data.getLevels();
 				if (subLevels.length == 0) {
 					preferenceStore.setValue(
@@ -439,7 +505,7 @@ public class GuidelineHolder {
 									.isEnabled());
 				} else {
 					for (int j = 0; j < subLevels.length; j++) {
-						GuidelineData subData = data
+						IGuidelineData subData = data
 								.getSubLevelData(subLevels[j]);
 						preferenceStore.setValue(
 								ICheckerPreferenceConstants.GUIDELINE_PREFIX
@@ -489,23 +555,55 @@ public class GuidelineHolder {
 		}
 	}
 
+	/**
+	 * Check if the target {@link IEvaluationItem} is enabled in current
+	 * environment (active content and user selection)
+	 * 
+	 * @param target
+	 *            target {@link IEvaluationItem}
+	 * @return true if the target item is needed to evaluate
+	 */
 	public boolean isMatchedCheckItem(IEvaluationItem target) {
 		return (matchedCheckitemSet.contains(target));
 	}
 
+	/**
+	 * Check if the target {@link IGuidelineItem} is enabled in current
+	 * environment (active content and user selection)
+	 * 
+	 * @param target
+	 *            target {@link IGuidelineItem}
+	 * @return true if the target item is enabled
+	 */
 	public boolean isMatchedGuidelineItem(IGuidelineItem target) {
 		return (matchedGuidelineitemSet.contains(target));
 	}
 
+	/**
+	 * Check if at least one of the child levels of target
+	 * {@link IGuidelineItem} is enabled in current environment (active content
+	 * and user selection)
+	 * 
+	 * @param target
+	 *            target top level {@link IGuidelineItem}
+	 * @return true if at least one of the child levels of the target is enabled
+	 */
 	public boolean isMatchedInTopLevel(IGuidelineItem target) {
 		if (guidelineMaps.containsKey(target.getGuidelineName())) {
-			GuidelineData data = (GuidelineData) guidelineMaps.get(target
+			IGuidelineData data = (IGuidelineData) guidelineMaps.get(target
 					.getGuidelineName());
 			return (data.isEnabled() && data.isTargetMIMEtype(currentMimeType));
 		}
 		return (false);
 	}
 
+	/**
+	 * Check if the target evaluation metric is enabled
+	 * 
+	 * @param metricName
+	 *            target metric
+	 * @return true if the target item is needed to evaluate
+	 */
 	public boolean isEnabledMetric(String metricName) {
 		for (int i = 0; i < metricsNames.length; i++) {
 			if (metricsNames[i].equalsIgnoreCase(metricName)) {
@@ -515,6 +613,14 @@ public class GuidelineHolder {
 		return (false);
 	}
 
+	/**
+	 * Check if the target evaluation metric is enabled in current environment
+	 * (active content and user selection)
+	 * 
+	 * @param metricName
+	 *            target metric
+	 * @return true if the target item is needed to evaluate
+	 */
 	public boolean isMatchedMetric(String metricName) {
 		for (int i = 0; i < metricsNames.length; i++) {
 			if (metricsNames[i].equalsIgnoreCase(metricName)) {
@@ -535,35 +641,66 @@ public class GuidelineHolder {
 		}
 	}
 
+	/**
+	 * Get enabled evaluation metrics
+	 * 
+	 * @return array of enabled evaluation metrics
+	 */
 	public boolean[] getEnabledMetrics() {
 		return enabledMetrics;
 	}
 
+	/**
+	 * Get evaluation metric matched to current environment (active content and
+	 * user selection)
+	 * 
+	 * @return array of enabled evaluation metrics
+	 */
 	public boolean[] getMatchedMetrics() {
 		return matchedMetrics;
 	}
 
+	/**
+	 * Add {@link IGuidelineSlectionChangedListener} to listen user change of a
+	 * selection of target guidelines and/or metrics.
+	 * 
+	 * @param listener
+	 *            target {@link IGuidelineSlectionChangedListener}
+	 */
 	public void addGuidelineSelectionChangedListener(
 			IGuidelineSlectionChangedListener listener) {
 		guidelineSelectionChangedListenerSet.add(listener);
 	}
 
+	/**
+	 * Remove {@link IGuidelineSlectionChangedListener}
+	 * 
+	 * @param listener
+	 *            target {@link IGuidelineSlectionChangedListener}
+	 */
 	public void removeGuidelineSelectionChangedListener(
 			IGuidelineSlectionChangedListener listener) {
 		guidelineSelectionChangedListenerSet.remove(listener);
 	}
 
 	private void notifyGuidelineSelectionChange() {
-		GuidelineSelectionChangedEvent event = new GuidelineSelectionChangedEvent();
+		GuidelineSelectionChangedEvent event = new GuidelineSelectionChangedEvent(
+				this);
 		for (IGuidelineSlectionChangedListener listener : guidelineSelectionChangedListenerSet) {
 			listener.selectionChanged(event);
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public String getTargetMimeType() {
 		return currentMimeType;
 	}
 
+	/**
+	 * @param currentMimeType
+	 */
 	public void setTargetMimeType(String currentMimeType) {
 		if (currentMimeType != null
 				&& !currentMimeType.equals(this.currentMimeType)) {
@@ -573,10 +710,16 @@ public class GuidelineHolder {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public boolean[][] getCorrespondingMetricsOfLeafGuideline() {
 		return correspondingMetricsOfLeafGuideline;
 	}
 
+	/**
+	 * @return
+	 */
 	public String[] getGuidelineNames() {
 		return guidelineNames;
 	}

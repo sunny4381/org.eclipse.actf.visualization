@@ -14,8 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.actf.ui.preferences.GroupFieldEditorPreferencePage;
-import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
+import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.actf.visualization.internal.eval.EvaluationPlugin;
 import org.eclipse.actf.visualization.internal.eval.Messages;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
@@ -132,7 +132,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 		root.add(htmlType);
 		root.add(odfType);
 
-		GuidelineData[] guidelineDataArray = this._guidelineHolder
+		IGuidelineData[] guidelineDataArray = this._guidelineHolder
 				.getLeafGuidelineData();
 		this._checkerOptionNames = this._guidelineHolder
 				.getGuidelineNamesWithLevels();
@@ -277,7 +277,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 
 		if (this._guidelineHolder.isEnabledMetric("Navigability")) {
 
-			GuidelineData[] datas = this._guidelineHolder
+			IGuidelineData[] datas = this._guidelineHolder
 					.getLeafGuidelineData();
 			boolean isWcagOn = false;
 			boolean isWcagOff = false;

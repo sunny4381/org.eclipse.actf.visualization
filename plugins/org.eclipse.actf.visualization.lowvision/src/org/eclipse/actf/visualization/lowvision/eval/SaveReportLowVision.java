@@ -19,8 +19,8 @@ import java.util.List;
 
 import org.eclipse.actf.ui.util.DialogSave;
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.visualization.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
+import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItemImage;
@@ -301,7 +301,7 @@ public class SaveReportLowVision {
 					fileOutput
 							.write("<th>" + IProblemConst.TITLE_ICON + "</th>");
 
-					GuidelineData[] guidelineDataArray = guidelineHolder
+					IGuidelineData[] guidelineDataArray = guidelineHolder
 							.getGuidelineData();
 					for (int i = 0; i < guidelineDataArray.length; i++) {
 						fileOutput.write("<th>"

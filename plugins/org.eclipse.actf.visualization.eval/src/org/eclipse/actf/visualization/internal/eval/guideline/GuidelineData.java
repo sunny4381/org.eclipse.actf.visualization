@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.eval.guideline;
+package org.eclipse.actf.visualization.internal.eval.guideline;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,9 +19,10 @@ import java.util.Map;
 
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.swt.graphics.Image;
 
-public class GuidelineData {
+public class GuidelineData implements IGuidelineData {
 
 	private String guidelineName;
 
@@ -102,36 +103,60 @@ public class GuidelineData {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getGuidelineItem(java.lang.String)
+	 */
 	public IGuidelineItem getGuidelineItem(String id) {
 		return ((IGuidelineItem) guidelineItemMap.get(id));
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getGuidelineItemMap()
+	 */
 	public Map<String, IGuidelineItem> getGuidelineItemMap() {
 		return guidelineItemMap;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getGuidelineName()
+	 */
 	public String getGuidelineName() {
 		return guidelineName;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getId()
+	 */
 	public int getId() {
 		return id;
 	}
 
 	// TODO
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getLevels()
+	 */
 	public String[] getLevels() {
 		return levels;
 	}
 
 	// TODO
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#hasLevel()
+	 */
 	public boolean hasLevel() {
 		return (0 != levels.length);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getMIMEtypes()
+	 */
 	public String[] getMIMEtypes() {
 		return mimetypes;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#isEnabled()
+	 */
 	public boolean isEnabled() {
 		if (subLevelDataArray.length > 0) {
 			for (int i = 0; i < subLevelDataArray.length; i++) {
@@ -145,14 +170,20 @@ public class GuidelineData {
 		return isEnabled;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#isMatched()
+	 */
 	public boolean isMatched() {
 		return (isEnabled() && isTargetMIMEtype(currentMIMEtype));
 	}
 
-	protected void setEnabled(boolean isEnabled) {
+	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getSubLevelData(java.lang.String)
+	 */
 	public GuidelineData getSubLevelData(String levelStr) {
 		for (int i = 0; i < subLevelDataArray.length; i++) {
 			if (subLevelDataArray[i].getLevelStr().equalsIgnoreCase(levelStr)) {
@@ -162,7 +193,7 @@ public class GuidelineData {
 		return (null);
 	}
 
-	protected void setEvaluationItems(
+	public void setEvaluationItems(
 			Collection<IEvaluationItem> checkItemCollection, String[] metrics) {
 		hasMetrics = new boolean[metrics.length];
 		Arrays.fill(hasMetrics, false);
@@ -200,24 +231,30 @@ public class GuidelineData {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getLevelStr()
+	 */
 	public String getLevelStr() {
 		return levelStr;
 	}
 
-	/**
-	 * @return Returns the evaluation item set.
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getEvaluationItemSet()
 	 */
 	public HashSet<IEvaluationItem> getEvaluationItemSet() {
 		return checkItemSet;
 	}
 
-	/**
-	 * @return Returns the hasMetrics.
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getCorrespondingMetrics()
 	 */
 	public boolean[] getCorrespondingMetrics() {
 		return hasMetrics;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#isTargetMIMEtype(java.lang.String)
+	 */
 	public boolean isTargetMIMEtype(String mimetype) {
 		for (int i = 0; i < mimetypes.length; i++) {
 			if (mimetypes[i].equals(mimetype)) {
@@ -227,14 +264,20 @@ public class GuidelineData {
 		return (false);
 	}
 
-	protected void setCurrentMIMEtype(String currentMIMEtype) {
+	public void setCurrentMIMEtype(String currentMIMEtype) {
 		this.currentMIMEtype = currentMIMEtype;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getCategory()
+	 */
 	public String getCategory() {
 		return category;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getDescription()
+	 */
 	public String getDescription() {
 		return description;
 	}

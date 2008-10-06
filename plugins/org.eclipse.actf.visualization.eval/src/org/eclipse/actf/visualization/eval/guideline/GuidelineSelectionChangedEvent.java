@@ -11,13 +11,30 @@
 
 package org.eclipse.actf.visualization.eval.guideline;
 
+import java.util.EventObject;
 
-public class GuidelineSelectionChangedEvent {
+/**
+ * The {@link GuidelineSelectionChangedEvent} is sent by {@link GuidelineHolder}
+ * to {@link IGuidelineSlectionChangedListener}s when user changes target
+ * guideline and/or metrics.
+ */
+public class GuidelineSelectionChangedEvent extends EventObject {
 
-    /**
-     * 
-     */
-    public GuidelineSelectionChangedEvent() {
-    }
+	private static final long serialVersionUID = 5238204220509765076L;
+	private GuidelineHolder guidelineHolder;
+
+	GuidelineSelectionChangedEvent(GuidelineHolder source) {
+		super(source);
+		guidelineHolder = source;
+	}
+
+	/**
+	 * Get event source {@link GuidelineHolder}
+	 * 
+	 * @return event source {@link GuidelineHolder}
+	 */
+	public GuidelineHolder getGuidelineHolder() {
+		return guidelineHolder;
+	}
 
 }
