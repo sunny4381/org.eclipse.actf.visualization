@@ -41,11 +41,11 @@ public class LowVisionProblemConverter {
 
 
             tmp.setFrameId(frameId);
-            tmp.setFrameUrlS(urlS);
+            tmp.setFrameUrl(urlS);
 
             tmp.setSeverityLV(target[i].getIntProbability());//TODO
-            tmp.setForegroundS(getLVProblemColorString(target[i], true));
-            tmp.setBackgroundS(getLVProblemColorString(target[i], false));
+            tmp.setForeground(getLVProblemColorString(target[i], true));
+            tmp.setBackground(getLVProblemColorString(target[i], false));
             tmp.setX(target[i].getX());
             tmp.setY(target[i].getY());
             tmp.setWidth(target[i].getWidth());

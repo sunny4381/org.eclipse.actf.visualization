@@ -45,7 +45,7 @@ public class ResultTableLabelProviderLV extends LabelProvider implements
 	public Image getColumnImage(Object arg0, int arg1) {
 		IProblemItemImage tmpItem = (IProblemItemImage) arg0;
 		if (arg1 == 0) {
-			return (tmpItem.getImageIcon());
+			return (tmpItem.getIconImage());
 		}
 		return null;
 	}
@@ -69,9 +69,9 @@ public class ResultTableLabelProviderLV extends LabelProvider implements
 			case 0:
 				return (Integer.toString(tmpItem.getSeverityLV()));
 			case 1:
-				return (tmpItem.getForegroundS());
+				return (tmpItem.getForeground());
 			case 2:
-				return (tmpItem.getBackgroundS());
+				return (tmpItem.getBackground());
 			case 3:
 				return (Integer.toString(tmpItem.getX()));
 			case 4:

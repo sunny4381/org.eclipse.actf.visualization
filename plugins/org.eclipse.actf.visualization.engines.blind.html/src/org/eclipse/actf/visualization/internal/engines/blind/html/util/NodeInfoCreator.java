@@ -169,12 +169,12 @@ public class NodeInfoCreator {
 								if (prevNode.getNodeName().equals("img")) {
 									prob.setTargetNode(mapData
 											.getOrigNode(prevNode));
-									prob.setTargetStringForHPB(prevText);
+									prob.setTargetStringForExport(prevText);
 									problems.add(prob);
 								} else if (curNode.getNodeName().equals("img")) {
 									prob.setTargetNode(mapData
 											.getOrigNode(curNode));
-									prob.setTargetStringForHPB(curText);
+									prob.setTargetStringForExport(curText);
 									problems.add(prob);
 								} else {
 									// TODO ALERT_REDUNDANT_TEXT

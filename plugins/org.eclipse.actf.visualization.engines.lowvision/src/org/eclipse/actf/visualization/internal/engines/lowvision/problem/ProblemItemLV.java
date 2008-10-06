@@ -72,7 +72,7 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	 * 
 	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getBackgroundS()
 	 */
-	public String getBackgroundS() {
+	public String getBackground() {
 		return backgroundS;
 	}
 
@@ -81,7 +81,7 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	 * 
 	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getForegroundS()
 	 */
-	public String getForegroundS() {
+	public String getForeground() {
 		return foregroundS;
 	}
 
@@ -108,7 +108,7 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	 * 
 	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getFrameUrlS()
 	 */
-	public String getFrameUrlS() {
+	public String getFrameUrl() {
 		return frameUrlS;
 	}
 
@@ -130,15 +130,15 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	 * 
 	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getImageIcon()
 	 */
-	public Image getImageIcon() {
+	public Image getIconImage() {
 		// return imageIcon;
 		String evalPluginID = EvaluationUtil.PLUGIN_ID;
 		if (isCanHighlight()) {
 			switch (iconId) {
-			case ICON_IRO:
+			case ICON_COLOR:
 				return AbstractUIPlugin.imageDescriptorFromPlugin(evalPluginID,
 						"icons/lowvision/HiIro21.gif").createImage();
-			case ICON_BOKE:
+			case ICON_BLUR:
 				return AbstractUIPlugin.imageDescriptorFromPlugin(evalPluginID,
 						"icons/lowvision/HiBoke21.gif").createImage();
 			default:
@@ -146,10 +146,10 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 			}
 		} else {
 			switch (iconId) {
-			case ICON_IRO:
+			case ICON_COLOR:
 				return AbstractUIPlugin.imageDescriptorFromPlugin(evalPluginID,
 						"icons/lowvision/ErrIro21.gif").createImage();
-			case ICON_BOKE:
+			case ICON_BLUR:
 				return AbstractUIPlugin.imageDescriptorFromPlugin(evalPluginID,
 						"icons/lowvision/ErrBoke21.gif").createImage();
 			default:
@@ -163,13 +163,13 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	 * 
 	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getImageIconTooltip()
 	 */
-	public String getImageIconTooltip() {
+	public String getIconTooltip() {
 		// return imageIcon;
 		if (isCanHighlight()) {
 			switch (iconId) {
-			case ICON_IRO:
+			case ICON_COLOR:
 				return ERR_IRO + " " + ERR_HIGHLIGHT;
-			case ICON_BOKE:
+			case ICON_BLUR:
 				return ERR_BOKE + " " + ERR_HIGHLIGHT;
 			default:
 				System.out.println("Icon not found: " + iconId);
@@ -178,9 +178,9 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 			}
 		} else {
 			switch (iconId) {
-			case ICON_IRO:
+			case ICON_COLOR:
 				return ERR_IRO;
-			case ICON_BOKE:
+			case ICON_BLUR:
 				return ERR_BOKE;
 			default:
 				System.out.println("Icon not found: " + iconId);
@@ -214,11 +214,11 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 		this.area = area;
 	}
 
-	public void setBackgroundS(String backgroundS) {
+	public void setBackground(String backgroundS) {
 		this.backgroundS = backgroundS;
 	}
 
-	public void setForegroundS(String foregroundS) {
+	public void setForeground(String foregroundS) {
 		this.foregroundS = foregroundS;
 	}
 
@@ -230,7 +230,7 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 		this.frameOffset = frameOffset;
 	}
 
-	public void setFrameUrlS(String frameUrlS) {
+	public void setFrameUrl(String frameUrlS) {
 		this.frameUrlS = frameUrlS;
 	}
 
@@ -268,9 +268,9 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 		// TODO
 		if (subType == LOWVISION_COLOR_PROBLEM
 				|| subType == LOWVISION_IMAGE_COLOR_PROBLEM) {
-			iconId = ICON_IRO;
+			iconId = ICON_COLOR;
 		} else {
-			iconId = ICON_BOKE;
+			iconId = ICON_BLUR;
 		}
 
 	}

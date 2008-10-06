@@ -11,7 +11,18 @@
 
 package org.eclipse.actf.visualization.eval.problem;
 
+/**
+ * Visitor class can be used to visit each {@link IProblemItem} and export
+ * problem list, filter some problem items, etc.
+ * 
+ */
 public interface IProblemItemVisitor {
 
+	/**
+	 * Visit {@link IProblemItem} and do something.
+	 * 
+	 * @param item
+	 *            target {@link IProblemItem} to visit
+	 */
 	public void visit(IProblemItem item);
 }

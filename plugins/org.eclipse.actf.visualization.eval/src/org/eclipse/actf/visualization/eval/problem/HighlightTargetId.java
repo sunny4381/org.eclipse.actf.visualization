@@ -11,25 +11,41 @@
 
 package org.eclipse.actf.visualization.eval.problem;
 
-
+/**
+ * The class to store IDs to highlight visualization result
+ */
 public class HighlightTargetId {
-    int startId;
-    int endId;
-    
-    public HighlightTargetId(int startId, int endId){
-        if(endId < startId){
-            endId = startId;
-        }
-        this.startId = startId;
-        this.endId = endId;
-    }
+	int startId;
+	int endId;
 
-    public int getEndId() {
-        return endId;
-    }
+	/**
+	 * Constructor of the class
+	 * 
+	 * @param startId
+	 *            ID of start position
+	 * @param endId
+	 *            ID of end position
+	 */
+	public HighlightTargetId(int startId, int endId) {
+		if (endId < startId) {
+			endId = startId;
+		}
+		this.startId = startId;
+		this.endId = endId;
+	}
 
-    public int getStartId() {
-        return startId;
-    }    
-    
+	/**
+	 * @return end position ID
+	 */
+	public int getEndId() {
+		return endId;
+	}
+
+	/**
+	 * @return start position ID
+	 */
+	public int getStartId() {
+		return startId;
+	}
+
 }

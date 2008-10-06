@@ -11,15 +11,17 @@
 
 package org.eclipse.actf.visualization.eval.problem;
 
-
+/**
+ * Interface for low vision problem types
+ */
 public interface ILowvisionProblemSubtype {
-    public static final short LOWVISION_COLOR_PROBLEM = 1;
-    public static final short LOWVISION_BLUR_PROBLEM = 2;
-    public static final short LOWVISION_IMAGE_COLOR_PROBLEM = 3;
-    public static final short LOWVISION_FIXED_SIZE_FONT_PROBLEM = 4;
-    public static final short LOWVISION_SMALL_FONT_PROBLEM = 5;
-    public static final short LOWVISION_FIXED_SMALL_FONT_PROBLEM = 6;
-    public static final short LOWVISION_PROHIBITED_BOTH_COLORS_PROBLEM = 7;
-    public static final short LOWVISION_PROHIBITED_FOREGROUND_COLOR_PROBLEM = 8;
-    public static final short LOWVISION_PROHIBITED_BACKGROUND_COLOR_PROBLEM = 9;    
+	public static final short LOWVISION_COLOR_PROBLEM = 1;
+	public static final short LOWVISION_BLUR_PROBLEM = 2;
+	public static final short LOWVISION_IMAGE_COLOR_PROBLEM = 3;
+	public static final short LOWVISION_FIXED_SIZE_FONT_PROBLEM = 4;
+	public static final short LOWVISION_SMALL_FONT_PROBLEM = 5;
+	public static final short LOWVISION_FIXED_SMALL_FONT_PROBLEM = 6;
+	public static final short LOWVISION_PROHIBITED_BOTH_COLORS_PROBLEM = 7;
+	public static final short LOWVISION_PROHIBITED_FOREGROUND_COLOR_PROBLEM = 8;
+	public static final short LOWVISION_PROHIBITED_BACKGROUND_COLOR_PROBLEM = 9;
 }

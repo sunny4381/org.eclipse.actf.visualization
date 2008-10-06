@@ -341,7 +341,7 @@ public class SaveReportLowVision {
 						int currentIcon = 0;
 						String strIconName = "";// TODO
 						switch (iconId) {
-						case IProblemItemImage.ICON_IRO:
+						case IProblemItemImage.ICON_COLOR:
 							iColorNum++;
 							currentIcon = 0;
 							if (problemLVArray[i].isCanHighlight()) {
@@ -350,7 +350,7 @@ public class SaveReportLowVision {
 								strIconName = "ErrIro21.gif";
 							}
 							break;
-						case IProblemItemImage.ICON_BOKE:
+						case IProblemItemImage.ICON_BLUR:
 							iFontNum++;
 							currentIcon = 1;
 							if (problemLVArray[i].isCanHighlight()) {
@@ -384,11 +384,11 @@ public class SaveReportLowVision {
 										.getSeverityLV()) + "&nbsp;</td>");
 
 						fileOutput.write("<td>"
-								+ problemLVArray[i].getForegroundS()
+								+ problemLVArray[i].getForeground()
 								+ "&nbsp;</td>");
 
 						fileOutput.write("<td>"
-								+ problemLVArray[i].getBackgroundS()
+								+ problemLVArray[i].getBackground()
 								+ "&nbsp;</td>");
 
 						fileOutput.write("<td>"

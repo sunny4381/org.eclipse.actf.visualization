@@ -84,12 +84,12 @@ public class ResultTableSorterLV extends ViewerSorter implements
 								.getSeverityLV());
 						break;
 					case 1:
-						result = compareString(tmp1.getForegroundS(), tmp2
-								.getForegroundS());
+						result = compareString(tmp1.getForeground(), tmp2
+								.getForeground());
 						break;
 					case 2:
-						result = compareString(tmp1.getBackgroundS(), tmp2
-								.getBackgroundS());
+						result = compareString(tmp1.getBackground(), tmp2
+								.getBackground());
 						break;
 					case 3:
 						result = compareInt(tmp1.getX(), tmp2.getX());

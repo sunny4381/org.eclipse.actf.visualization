@@ -151,7 +151,7 @@ public class ImageStatData implements IPageStatisticsTag {
 			IProblemItem tmpItem = new ProblemItemImpl(idS);
 			if (!tmpItem.getId().equals("unknown")) {
 				if (targetS != null) {
-					tmpItem.setTargetStringForHPB(targetS);
+					tmpItem.setTargetStringForExport(targetS);
 				}
 				addProblemItem(tmpItem);
 				return;
@@ -243,7 +243,7 @@ public class ImageStatData implements IPageStatisticsTag {
 			for (int i = 0; i < size; i++) {
 				IProblemItem pItem = (IProblemItem) problemV.get(i);
 				tmpSB.append("<" + ERROR + " " + getAttr(ID, pItem.getId())
-						+ getAttr(TARGET_STRING, pItem.getTargetStringForHPB())
+						+ getAttr(TARGET_STRING, pItem.getTargetStringForExport())
 						+ " />" + FileUtils.LINE_SEP);
 			}
 			tmpSB.append("</" + IMAGE + ">");

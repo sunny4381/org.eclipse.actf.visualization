@@ -18,236 +18,257 @@ import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.eclipse.swt.graphics.Image;
 import org.w3c.dom.Node;
 
-
-
+/**
+ * Default implementation of {@link IProblemItem}
+ */
 public class ProblemItemImpl implements IProblemItem {
 
-    private static GuidelineHolder GUIDELINE_HOLDER = GuidelineHolder.getInstance();
+	private static GuidelineHolder GUIDELINE_HOLDER = GuidelineHolder
+			.getInstance();
 
-    private boolean canHighlight = false;
+	private boolean canHighlight = false;
 
-    private IEvaluationItem checkItem;
+	private IEvaluationItem checkItem;
 
-    private String description = "";
+	private String description = "";
 
-    private int serialNumber = -1;
+	private int serialNumber = -1;
 
-    private int line = -1;
+	private int line = -1;
 
-    private HighlightTargetNodeInfo highlightTargetNodeInfo;
+	private HighlightTargetNodeInfo highlightTargetNodeInfo;
 
-    private HighlightTargetId[] targetIds = new HighlightTargetId[0];
+	private HighlightTargetId[] targetIds = new HighlightTargetId[0];
 
-    private HighlightTargetSourceInfo[] targetSources = new HighlightTargetSourceInfo[0];
+	private HighlightTargetSourceInfo[] targetSources = new HighlightTargetSourceInfo[0];
 
-    private Node targetNode = null;
+	private Node targetNode = null;
 
-    protected String targetStringForHPB = "";
+	protected String targetStringForHPB = "";
 
-    protected String targetString = "";
+	protected String targetString = "";
 
-    // TODO add Icon(for Result doc) info
+	// TODO add Icon(for Result doc) info
 
-    /**
-     * 
-     */
-    public ProblemItemImpl(String id) {
-        checkItem = GUIDELINE_HOLDER.getEvaluationItem(id);
+	/**
+	 * Create new ProblemItemImpl for the evaluation item
+	 * 
+	 * @param id
+	 *            evaluation item ID
+	 * @see GuidelineHolder#getEvaluationItem(String)
+	 */
+	public ProblemItemImpl(String id) {
+		checkItem = GUIDELINE_HOLDER.getEvaluationItem(id);
 
-        if (checkItem == null) {
-            checkItem = new EvaluationItemImpl("unknown", EvaluationItemImpl.SEV_INFO_STR);
-            System.err.println("Problem Item: unknown id \"" + id + "\"");
+		if (checkItem == null) {
+			checkItem = new EvaluationItemImpl("unknown",
+					EvaluationItemImpl.SEV_INFO_STR);
+			System.err.println("Problem Item: unknown id \"" + id + "\"");
 
-        } else {
-            description = checkItem.createDescription();
-        }
+		} else {
+			description = checkItem.createDescription();
+		}
 
-    }
+	}
 
-    public ProblemItemImpl(String id, Node targetNode) {
-        this(id);
-        setTargetNode(targetNode);
-    }
+	/**
+	 * Create new ProblemItemImpl for the evaluation item and set target Node
+	 * 
+	 * @param id
+	 *            evaluation item ID
+	 * @param targetNode
+	 *            target Node
+	 * @see GuidelineHolder#getEvaluationItem(String)
+	 */
+	public ProblemItemImpl(String id, Node targetNode) {
+		this(id);
+		setTargetNode(targetNode);
+	}
 
-    public IEvaluationItem getEvaluationItem() {
-        return checkItem;
-    }
+	public IEvaluationItem getEvaluationItem() {
+		return checkItem;
+	}
 
-    public String getId() {
-        return checkItem.getId();
-    }
+	public String getId() {
+		return checkItem.getId();
+	}
 
-    public String[] getTableDataGuideline() {
-        return checkItem.getTableDataGuideline();
-    }
+	public String[] getTableDataGuideline() {
+		return checkItem.getTableDataGuideline();
+	}
 
-    public int[] getMetricsScores() {
-        return checkItem.getMetricsScores();
-    }
+	public int[] getMetricsScores() {
+		return checkItem.getMetricsScores();
+	}
 
-    public Image[] getMetricsIcons() {
-        return checkItem.getMetricsIcons();
-    }
+	public Image[] getMetricsIcons() {
+		return checkItem.getMetricsIcons();
+	}
 
-    public int getSeverity() {
-        return checkItem.getSeverity();
-    }
+	public int getSeverity() {
+		return checkItem.getSeverity();
+	}
 
-    public String getSeverityStr() {
-        return checkItem.getSeverityStr();
-    }
+	public String getSeverityStr() {
+		return checkItem.getSeverityStr();
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public int getSerialNumber() {
-        return serialNumber;
-    }
+	public int getSerialNumber() {
+		return serialNumber;
+	}
 
-    public Node getTargetNode() {
-        return targetNode;
-    }
+	public Node getTargetNode() {
+		return targetNode;
+	}
 
-    public String getTargetStringForHPB() {
-        return targetStringForHPB;
-    }
+	public String getTargetStringForExport() {
+		return targetStringForHPB;
+	}
 
-    public boolean isCanHighlight() {
-        return canHighlight;
-    }
+	public boolean isCanHighlight() {
+		return canHighlight;
+	}
 
-    public void setCanHighlight(boolean canHighlight) {
-        this.canHighlight = canHighlight;
-    }
+	public void setCanHighlight(boolean canHighlight) {
+		this.canHighlight = canHighlight;
+	}
 
-    public void setCheckItem(IEvaluationItem checkItem) {
-        this.checkItem = checkItem;
-    }
+	public void setEvaluationItem(IEvaluationItem checkItem) {
+		this.checkItem = checkItem;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setSerialNumber(int serialNumber) {
-        this.serialNumber = serialNumber;
-    }
+	public void setSerialNumber(int serialNumber) {
+		this.serialNumber = serialNumber;
+	}
 
-    public void setHighlightTargetIds(HighlightTargetId[] targetIds) {
-        if (targetIds != null) {
-            this.targetIds = targetIds;
-            if (targetIds.length > 0) {
-                canHighlight = true;
-            }
-        }
-    }
+	public void setHighlightTargetIds(HighlightTargetId[] targetIds) {
+		if (targetIds != null) {
+			this.targetIds = targetIds;
+			if (targetIds.length > 0) {
+				canHighlight = true;
+			}
+		}
+	}
 
-    public HighlightTargetId[] getHighlightTargetIds() {
-        return (targetIds);
-    }
+	public HighlightTargetId[] getHighlightTargetIds() {
+		return (targetIds);
+	}
 
-    public void setTargetNode(Node targetNode) {
-        this.targetNode = targetNode;
-    }
+	public void setTargetNode(Node targetNode) {
+		this.targetNode = targetNode;
+	}
 
-    public void setTargetStringForHPB(String targetString) {
-        this.targetStringForHPB = targetString;
-    }
+	public void setTargetStringForExport(String targetString) {
+		this.targetStringForHPB = targetString;
+	}
 
-    public String getTargetString() {
-        return targetString;
-    }
+	public String getTargetString() {
+		return targetString;
+	}
 
-    public void setTargetString(String targetString) {
-        this.targetString = targetString;
-        if (targetString != null && targetString.length() > 0) {
-            this.description = checkItem.createDescription(targetString);
-        }
-    }
+	public void setTargetString(String targetString) {
+		this.targetString = targetString;
+		if (targetString != null && targetString.length() > 0) {
+			this.description = checkItem.createDescription(targetString);
+		}
+	}
 
-    public int getLine() {
-        return line;
-    }
+	public int getLine() {
+		return line;
+	}
 
-    public void setLine(int line) {
-        this.line = line;
-    }
+	public void setLine(int line) {
+		this.line = line;
+	}
 
-    public String getLineStr() {
-        int curLine = getLine();
-        if (curLine > -1) {
-            return (Integer.toString(curLine));
-        } else {
-            return ("");
-        }
-    }
+	public String getLineStr() {
+		int curLine = getLine();
+		if (curLine > -1) {
+			return (Integer.toString(curLine));
+		} else {
+			return ("");
+		}
+	}
 
-    public String getLineStrMulti() {
-        StringBuffer tmpSB = new StringBuffer();
-        // TODO check multiple same line number
-        if (targetSources.length > 0) {
-            for (int i = 0; i < targetSources.length; i++) {
-                int tmp = targetSources[i].getStartLine() + 1;
-                tmpSB.append(tmp);
-                tmpSB.append(", ");
-            }
-            String result = tmpSB.substring(0, tmpSB.length() - 2);
-            return result;
-        }
-        if (line > -1) {
-            return (Integer.toString(line));
-        } else {
-            return ("");
-        }
-    }
+	public String getLineStrMulti() {
+		StringBuffer tmpSB = new StringBuffer();
+		// TODO check multiple same line number
+		if (targetSources.length > 0) {
+			for (int i = 0; i < targetSources.length; i++) {
+				int tmp = targetSources[i].getStartLine() + 1;
+				tmpSB.append(tmp);
+				tmpSB.append(", ");
+			}
+			String result = tmpSB.substring(0, tmpSB.length() - 2);
+			return result;
+		}
+		if (line > -1) {
+			return (Integer.toString(line));
+		} else {
+			return ("");
+		}
+	}
 
-    public void setHighlightTargetSourceInfo(HighlightTargetSourceInfo[] targetSourceInfo) {
-        if (targetSourceInfo != null) {
-            targetSources = targetSourceInfo;
-            int tmpLine = Integer.MAX_VALUE;
-            for (int i = 0; i < targetSources.length; i++) {
-                if (tmpLine > targetSources[i].getStartLine()) {
-                    tmpLine = targetSources[i].getStartLine();
-                }
-                // TODO
-                if (tmpLine != Integer.MAX_VALUE) {
-                    line = tmpLine;
-                }
-            }
-        }
-    }
+	public void setHighlightTargetSourceInfo(
+			HighlightTargetSourceInfo[] targetSourceInfo) {
+		if (targetSourceInfo != null) {
+			targetSources = targetSourceInfo;
+			int tmpLine = Integer.MAX_VALUE;
+			for (int i = 0; i < targetSources.length; i++) {
+				if (tmpLine > targetSources[i].getStartLine()) {
+					tmpLine = targetSources[i].getStartLine();
+				}
+				// TODO
+				if (tmpLine != Integer.MAX_VALUE) {
+					line = tmpLine;
+				}
+			}
+		}
+	}
 
-    public HighlightTargetSourceInfo[] getHighlightTargetSoruceInfo() {
-        if (targetSources.length == 0 && line > -1) {
-            Html2ViewMapData dummy = new Html2ViewMapData(new int[] { line, -1 }, new int[] { line, -1 });
-            return (new HighlightTargetSourceInfo[] { new HighlightTargetSourceInfo(dummy, dummy) });
-        }
-        return (targetSources);
-    }
+	public HighlightTargetSourceInfo[] getHighlightTargetSoruceInfo() {
+		if (targetSources.length == 0 && line > -1) {
+			Html2ViewMapData dummy = new Html2ViewMapData(
+					new int[] { line, -1 }, new int[] { line, -1 });
+			return (new HighlightTargetSourceInfo[] { new HighlightTargetSourceInfo(
+					dummy, dummy) });
+		}
+		return (targetSources);
+	}
 
-    public void accept(IProblemItemVisitor visitor) {
-        visitor.visit(this);
-    }
+	public void accept(IProblemItemVisitor visitor) {
+		visitor.visit(this);
+	}
 
-    public HighlightTargetNodeInfo getHighlightTargetNodeInfo() {
-        return highlightTargetNodeInfo;
-    }
+	public HighlightTargetNodeInfo getHighlightTargetNodeInfo() {
+		return highlightTargetNodeInfo;
+	}
 
+	public void setHighlightTargetNodeInfo(
+			HighlightTargetNodeInfo targetNodeInfo) {
+		this.highlightTargetNodeInfo = targetNodeInfo;
+	}
 
-    public void setHighlightTargetNodeInfo(HighlightTargetNodeInfo targetNodeInfo) {
-        this.highlightTargetNodeInfo = targetNodeInfo;
-    }
+	public void setHighlightTargetIds(HighlightTargetId targetId) {
+		if (targetId != null) {
+			this.setHighlightTargetIds(new HighlightTargetId[] { targetId });
+		}
+	}
 
-    public void setHighlightTargetIds(HighlightTargetId targetId) {
-        if(targetId!=null){
-            this.setHighlightTargetIds(new HighlightTargetId[]{targetId});
-        }
-    }
-
-    public void setHighlightTargetSourceInfo(HighlightTargetSourceInfo targetSourceInfo) {
-        if(targetSourceInfo!=null){
-            this.setHighlightTargetSourceInfo(new HighlightTargetSourceInfo[]{targetSourceInfo});
-        }
-    }
+	public void setHighlightTargetSourceInfo(
+			HighlightTargetSourceInfo targetSourceInfo) {
+		if (targetSourceInfo != null) {
+			this
+					.setHighlightTargetSourceInfo(new HighlightTargetSourceInfo[] { targetSourceInfo });
+		}
+	}
 
 }

@@ -13,31 +13,55 @@ package org.eclipse.actf.visualization.eval.problem;
 
 import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 
-
-
+/**
+ * The class to store information to highlight HTML source
+ * 
+ * @see Html2ViewMapData
+ */
 public class HighlightTargetSourceInfo {
-    private Html2ViewMapData start;
+	private Html2ViewMapData start;
 
-    private Html2ViewMapData end;
+	private Html2ViewMapData end;
 
-    public HighlightTargetSourceInfo(Html2ViewMapData start, Html2ViewMapData end) {
-        this.start = start;
-        this.end = end;
-    }
+	/**
+	 * Constructor of the class
+	 * 
+	 * @param start
+	 *            target start position information
+	 * @param end
+	 *            target end position information
+	 */
+	public HighlightTargetSourceInfo(Html2ViewMapData start,
+			Html2ViewMapData end) {
+		this.start = start;
+		this.end = end;
+	}
 
-    public int getStartLine() {
-        return (start.getStartLine() + 1);
-    }
+	/**
+	 * @return start position (line) of target tag
+	 */
+	public int getStartLine() {
+		return (start.getStartLine() + 1);
+	}
 
-    public int getStartColumn(){
-        return start.getStartColumn();
-    }
+	/**
+	 * @return start position (column) of target tag
+	 */
+	public int getStartColumn() {
+		return start.getStartColumn();
+	}
 
-    public int getEndLine(){
-        return (end.getEndLine() + 1); 
-    }
+	/**
+	 * @return end pisition (line) of target tag
+	 */
+	public int getEndLine() {
+		return (end.getEndLine() + 1);
+	}
 
-    public int getEndColumn(){
-        return end.getEndColumn();
-    }
+	/**
+	 * @return end position (column) of target tag
+	 */
+	public int getEndColumn() {
+		return end.getEndColumn();
+	}
 }
