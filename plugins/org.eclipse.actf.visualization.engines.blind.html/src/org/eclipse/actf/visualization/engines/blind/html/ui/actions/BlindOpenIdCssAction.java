@@ -12,12 +12,18 @@
 package org.eclipse.actf.visualization.engines.blind.html.ui.actions;
 
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
-import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementViewerManager;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementViewerManagerFactory;
 import org.eclipse.actf.visualization.internal.engines.blind.html.Messages;
 import org.eclipse.jface.action.Action;
 
+/**
+ * Action to invoke ID/CSS viewer
+ */
 public class BlindOpenIdCssAction extends Action {
 
+	/**
+	 * Constructor of the class
+	 */
 	public BlindOpenIdCssAction() {
 		setToolTipText(Messages.getString("BlindView.Open_ID"));
 		setImageDescriptor(BlindVizResourceUtil
@@ -26,7 +32,7 @@ public class BlindOpenIdCssAction extends Action {
 	}
 
 	public void run() {
-		ElementViewerManager.getInstance().openElementViewer();
+		ElementViewerManagerFactory.getInstance().openElementViewer();
 	}
 
 }

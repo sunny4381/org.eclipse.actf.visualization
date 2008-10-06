@@ -122,7 +122,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			engine.setHtml2viewMapV(html2ViewMapV);
 			engine.setInvisibleIdSet(new HashSet<String>());
 			engine.setPageData(pageData);
-			engine.calculate();
+			engine.visualize();
 
 			maxReachingTime = engine.getMaxTime();
 			setInfoMessage(getMaxReachingTime());

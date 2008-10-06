@@ -14,7 +14,8 @@ import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.ui.util.AbstractPartListener;
 import org.eclipse.actf.visualization.blind.ui.internal.PartControlBlind;
 import org.eclipse.actf.visualization.blind.ui.internal.SelectionListenerBlind;
-import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementViewerManager;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementViewerManagerFactory;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerManager;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableLabelProvider;
@@ -37,7 +38,7 @@ public class BlindView extends ViewPart implements IVisualizationView {
 
 	private ResultTableSorter viewerSorter;
 
-	private ElementViewerManager elementViewerManager;
+	private IElementViewerManager elementViewerManager;
 
 	private PartControlBlind partRightBlind;
 
@@ -45,7 +46,7 @@ public class BlindView extends ViewPart implements IVisualizationView {
 		super();
 		baseLabelProvider = new ResultTableLabelProvider();
 		viewerSorter = new ResultTableSorter();
-		elementViewerManager = ElementViewerManager.getInstance();
+		elementViewerManager = ElementViewerManagerFactory.getInstance();
 	}
 
 	public void init(IViewSite site) throws PartInitException {

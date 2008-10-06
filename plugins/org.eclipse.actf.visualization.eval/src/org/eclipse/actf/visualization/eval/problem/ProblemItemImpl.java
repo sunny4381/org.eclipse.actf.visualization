@@ -48,6 +48,8 @@ public class ProblemItemImpl implements IProblemItem {
 
 	protected String targetString = "";
 
+	protected int subType;
+
 	// TODO add Icon(for Result doc) info
 
 	/**
@@ -269,6 +271,14 @@ public class ProblemItemImpl implements IProblemItem {
 			this
 					.setHighlightTargetSourceInfo(new HighlightTargetSourceInfo[] { targetSourceInfo });
 		}
+	}
+
+	public int getSubType() {
+		return subType;
+	}
+
+	public void setSubType(int subType) {
+		this.subType = subType;
 	}
 
 }

@@ -66,4 +66,8 @@ public class Id2LineViaAccId {
 		return (result);
 	}
 
+	public boolean is1base() {
+		return is1base;
+	}
+
 }

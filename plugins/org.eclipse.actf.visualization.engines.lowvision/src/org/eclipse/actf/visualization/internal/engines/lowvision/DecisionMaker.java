@@ -545,7 +545,7 @@ public class DecisionMaker {
 		}
 
 		// check problem type
-		short type1 = _p1.getLowVisionProblemType();
+		int type1 = _p1.getLowVisionProblemType();
 		if (type1 != _p2.getLowVisionProblemType()) {
 			return (false);
 		}

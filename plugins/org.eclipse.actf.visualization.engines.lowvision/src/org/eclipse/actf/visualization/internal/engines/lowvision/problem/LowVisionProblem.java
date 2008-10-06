@@ -32,7 +32,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
     
 	IPageImage pageImage = null; 
 	LowVisionType lowVisionType = null;
-	short problemType; 
+	int problemType; 
 	short componentType = PageComponent.UNDEFINED_TYPE; 
 	PageComponent pageComponent = null; 
 	PageElement pageElement = null; 
@@ -52,7 +52,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 	protected LowVisionProblem(){
 	}
 	
-	public LowVisionProblem( short _type, LowVisionType _lvType, String _description, PageComponent _com, double _proba ) throws LowVisionProblemException{
+	public LowVisionProblem( int _type, LowVisionType _lvType, String _description, PageComponent _com, double _proba ) throws LowVisionProblemException{
 		problemType = _type;
 		lowVisionType = _lvType;
 		description = _description;
@@ -71,7 +71,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 		characterScore = probability * (double)width * (double)height; 
 	}
 
-	public LowVisionProblem( short _type, LowVisionType _lvType, String _description, PageElement _pe, double _proba ){
+	public LowVisionProblem( int _type, LowVisionType _lvType, String _description, PageElement _pe, double _proba ){
 		problemType = _type;
 		lowVisionType = _lvType;
 		description = _description;
@@ -116,7 +116,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 	}
 
 	// LowVision Error type (Color, Blur, etc.)
-	public short getLowVisionProblemType(){
+	public int getLowVisionProblemType(){
 		return( problemType );
 	}
 	public String getDescription() throws LowVisionProblemException{

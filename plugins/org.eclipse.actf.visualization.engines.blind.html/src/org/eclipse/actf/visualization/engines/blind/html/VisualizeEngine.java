@@ -53,6 +53,9 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * Blind usability visualization engine.
+ */
 public class VisualizeEngine {
 
 	public static String ERROR_ICON_NAME = "exclawhite21.gif";
@@ -83,7 +86,7 @@ public class VisualizeEngine {
 
 	private IPacketCollection allPc = null;
 
-	private boolean servletMode = false;
+	private boolean servletMode = false; // for future use
 
 	private int iMaxTime;
 
@@ -140,10 +143,10 @@ public class VisualizeEngine {
 	}
 
 	/**
-	 * Sets the document.
+	 * Sets target document.
 	 * 
 	 * @param document
-	 *            The document to set
+	 *            target document
 	 */
 	public void setDocument(Document document) {
 		// TODO move to screen reader engine
@@ -177,7 +180,10 @@ public class VisualizeEngine {
 		}
 	}
 
-	public void calculate() {
+	/**
+	 * Visualize blind users' usability
+	 */
+	public void visualize() {
 		if (result == null) {
 			return;
 		} else {
@@ -313,7 +319,7 @@ public class VisualizeEngine {
 		}
 	}
 
-	private void replaceImgAndCheck(Document doc, IVisualizeMapData mapData,
+	private void replaceImgAndCheck(Document doc, VisualizeMapDataImpl mapData,
 			boolean remove) {
 
 		NodeList mapList = doc.getElementsByTagName("map");
@@ -475,40 +481,46 @@ public class VisualizeEngine {
 		fIsActivating = true;
 		if (jwatc == null) {
 			try {
-				jwatc = VoiceBrowserControllerFactory.createVoiceBrowserController();
+				jwatc = VoiceBrowserControllerFactory
+						.createVoiceBrowserController();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
+	/**
+	 * @return visualization result {@link Document}
+	 */
 	public Document getResult() {
 		return result;
 	}
 
+	/**
+	 * @return detected problems as List of {@link IProblemItem}
+	 */
 	public List<IProblemItem> getProbelems() {
 		return problems;
 	}
 
 	/**
+	 * Set base URL of target page
+	 * 
 	 * @param string
+	 *            base URL
 	 */
 	public void setBaseUrl(String string) {
 		baseUrl = string;
 	}
 
 	/**
+	 * Set target URL
+	 * 
 	 * @param string
+	 *            target URL
 	 */
 	public void setTargetUrl(String string) {
 		targetUrl = string;
-	}
-
-	/**
-	 * @param b
-	 */
-	public void setServletMode(boolean b) {
-		servletMode = b;
 	}
 
 	// Added on 2003/10/20
@@ -545,37 +557,56 @@ public class VisualizeEngine {
 	}
 
 	// Added on 2003/10/20
+	/**
+	 * @return maximum reaching time in the page
+	 */
 	public int getMaxTime() {
 		return iMaxTime;
 	}
 
-	public VisualizeStyleInfo getStyleInfo() {
-		return styleInfo;
-	}
-
 	/**
+	 * Set invisible elements' ID
+	 * 
 	 * @param invisibleIdSet
-	 *            The invisibleIdSet to set.
+	 *            target Set of IDs
 	 */
 	public void setInvisibleIdSet(Set<String> invisibleIdSet) {
 		this.invisibleIdSet = invisibleIdSet;
 	}
 
 	/**
-	 * @return Returns the mapData.
+	 * @return the mapping information between original/visualization result
+	 *         {@link Document}
+	 * @see IVisualizeMapData
 	 */
 	public IVisualizeMapData getVisualizeMapData() {
 		return mapData;
 	}
 
+	/**
+	 * Set vector of HTML source code position information
+	 * 
+	 * @param html2viewMapV
+	 *            target Vector of {@link Html2ViewMapData}
+	 */
 	public void setHtml2viewMapV(Vector<Html2ViewMapData> html2viewMapV) {
 		this.html2viewMapV = html2viewMapV;
 	}
 
+	/**
+	 * Set target {@link PageData} to store page statistics data through
+	 * visualization
+	 * 
+	 * @param pageData
+	 *            target {@link PageData}
+	 */
 	public void setPageData(PageData pageData) {
 		this.pageData = pageData;
 	}
 
+	/**
+	 * @return variant for visualization as {@link File}
+	 */
 	public File getVariantFile() {
 		return variantFile;
 	}

@@ -15,7 +15,6 @@ import java.util.Map;
 import java.util.Vector;
 
 import org.eclipse.actf.visualization.engines.blind.TextChecker;
-import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
@@ -30,7 +29,7 @@ public class ImgChecker {
 	// TODO refactoring
 	// TODO UseMap (object)
 
-	private IVisualizeMapData mapData;
+	private VisualizeMapDataImpl mapData;
 
 	// private Map node2infoMap;
 
@@ -57,9 +56,9 @@ public class ImgChecker {
 	 * @param baseUrl
 	 * @param checkItems
 	 */
-	public ImgChecker(IVisualizeMapData mapData, Map<String, Element> mapMap,
-			TextChecker textChecker, Vector<IProblemItem> problemV,
-			String baseUrl, boolean[] checkItems) {
+	public ImgChecker(VisualizeMapDataImpl mapData,
+			Map<String, Element> mapMap, TextChecker textChecker,
+			Vector<IProblemItem> problemV, String baseUrl, boolean[] checkItems) {
 
 		this.mapData = mapData;
 		this.mapMap = mapMap;

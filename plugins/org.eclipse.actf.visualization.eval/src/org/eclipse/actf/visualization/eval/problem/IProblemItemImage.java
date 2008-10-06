@@ -69,11 +69,6 @@ public interface IProblemItemImage extends IProblemItem, IPositionSize,
 	 */
 	public abstract int getSeverityLV();
 
-	/**
-	 * @return type of the problem
-	 * @see ILowvisionProblemSubtype
-	 */
-	public abstract short getSubType();
 
 	/**
 	 * Set area of the problem
@@ -129,14 +124,5 @@ public interface IProblemItemImage extends IProblemItem, IPositionSize,
 	 * @param severityLV
 	 */
 	public void setSeverityLV(int severityLV);
-
-	/**
-	 * Set detailed problem type
-	 * 
-	 * @param subType
-	 *            problem type
-	 * @see ILowvisionProblemSubtype
-	 */
-	public void setSubType(short subType);
 
 }

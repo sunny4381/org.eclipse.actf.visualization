@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
-import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
@@ -292,7 +291,7 @@ public class VisualizeViewUtil {
 	}
 
 	public static void visualizeError(Document doc, List problems,
-			IVisualizeMapData mapData, String baseUrlS) {
+			VisualizeMapDataImpl mapData, String baseUrlS) {
 		int size = problems.size();
 
 		// TODO setNodeId might be duplicated

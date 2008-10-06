@@ -52,8 +52,6 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 
 	private int y = 0;
 
-	short subType;
-
 	// TODO recommendation
 
 	/**
@@ -254,16 +252,7 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 		this.y = y;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getSubType()
-	 */
-	public short getSubType() {
-		return subType;
-	}
-
-	public void setSubType(short subType) {
+	public void setSubType(int subType) {
 		this.subType = subType;
 		// TODO
 		if (subType == LOWVISION_COLOR_PROBLEM

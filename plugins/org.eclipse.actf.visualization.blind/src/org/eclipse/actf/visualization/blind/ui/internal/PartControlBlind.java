@@ -24,7 +24,6 @@ import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IHighlightElementListener;
-import org.eclipse.actf.visualization.engines.blind.html.util.SaveReportBlind;
 import org.eclipse.actf.visualization.engines.blind.html.util.VisualizeReportUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;

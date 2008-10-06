@@ -14,7 +14,6 @@ package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IVisualizeStyleInfoListener;
 
 
 public class VisualizeStyleInfoManager {

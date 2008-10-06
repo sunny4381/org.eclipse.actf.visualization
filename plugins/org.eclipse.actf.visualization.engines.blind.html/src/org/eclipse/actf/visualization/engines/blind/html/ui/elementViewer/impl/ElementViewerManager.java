@@ -9,17 +9,15 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
+package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 
-import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.IViewerPanel;
-import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.ViewerPanelJFace;
-import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfo;
-import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfoManager;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerManager;
+import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IHighlightElementListener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
-public class ElementViewerManager implements IVisualizeStyleInfoListener {
-	private static ElementViewerManager INSTANCE;
+public class ElementViewerManager implements IVisualizeStyleInfoListener,
+		IElementViewerManager {
 
 	private IViewerPanel viewerPanel;
 
@@ -29,36 +27,50 @@ public class ElementViewerManager implements IVisualizeStyleInfoListener {
 
 	private Shell shell;
 
-	public static ElementViewerManager getInstance() {
-		if (INSTANCE == null) {
-			INSTANCE = new ElementViewerManager();
-			VisualizeStyleInfoManager.getInstance().addLisnter(INSTANCE);
-		}
-		return INSTANCE;
-	}
-
-	private ElementViewerManager() {
+	public ElementViewerManager() {
 		shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+		VisualizeStyleInfoManager.getInstance().addLisnter(this);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerManager#setHighlightElementListener(org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IHighlightElementListener)
+	 */
 	public void setHighlightElementListener(IHighlightElementListener hel) {
 		this.highlightElementListener = hel;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerManager#openElementViewer()
+	 */
 	public void openElementViewer() {
 		if (isExist()) {
 			viewerPanel.forceActive();
 		} else {
-			viewerPanel = new ViewerPanelJFace(shell, styleInfo, highlightElementListener);
+			viewerPanel = new ViewerPanelJFace(shell, styleInfo,
+					highlightElementListener);
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerManager#activateElementViewer()
+	 */
 	public void activateElementViewer() {
 		if (isExist()) {
 			viewerPanel.forceActive();
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerManager#hideElementViewer()
+	 */
 	public void hideElementViewer() {
 		if (isExist()) {
 			viewerPanel.hide();

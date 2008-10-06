@@ -60,7 +60,7 @@ public class LowVisionProblemConverter {
     }
 
     private static String getLVProblemColorString(LowVisionProblemGroup problem, boolean isFore) {
-        short probType;
+        int probType;
         int origAll;
         int origR;
         int origG;

@@ -135,8 +135,8 @@ public class VisualizationAttributeInfo {
 		return (tagName + " : " + attributeValue + " : " + nodeId);
 	}
 
-	public static List listUp(Document target, IVisualizeMapData mapData,
-			String targetAttribute) {
+	public static List<VisualizationAttributeInfo> listUp(Document target,
+			IVisualizeMapData mapData, String targetAttribute) {
 		List<VisualizationAttributeInfo> result = new ArrayList<VisualizationAttributeInfo>();
 
 		// TODO use XPath

@@ -245,4 +245,17 @@ public interface IProblemItem {
 	 */
 	public String[] getTableDataGuideline();
 
+	/**
+	 * @return sub type of the problem
+	 */
+	public abstract int getSubType();
+
+	/**
+	 * Set problem sub type
+	 * 
+	 * @param subType
+	 *            problem sub type
+	 */
+	public void setSubType(int subType);
+
 }
