@@ -16,17 +16,15 @@ import org.eclipse.actf.visualization.gui.ui.views.MSAAViewRegistory;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IStartup;
 
-
-
 public class Startup implements IStartup {
 
-    public void earlyStartup() {
-        Display.getDefault().asyncExec(new Runnable(){
-            public void run() {
-                MSAAViewRegistory.refreshRootObject();
-                HighlightComposite.getOverlayWindow();
-            }
-        });
-    }
+	public void earlyStartup() {
+		Display.getDefault().asyncExec(new Runnable() {
+			public void run() {
+				MSAAViewRegistory.refreshRootObject();
+				HighlightComposite.initOverlayWindow();
+			}
+		});
+	}
 
 }
