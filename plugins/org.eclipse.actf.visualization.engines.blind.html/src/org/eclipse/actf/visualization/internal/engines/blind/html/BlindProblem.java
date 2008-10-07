@@ -10,92 +10,28 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.eval;
+package org.eclipse.actf.visualization.internal.engines.blind.html;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-import org.eclipse.actf.visualization.engines.blind.html.util.Id2LineViaAccId;
+import org.eclipse.actf.visualization.engines.blind.html.IBlindProblem;
+import org.eclipse.actf.visualization.engines.blind.html.util.Id2LineViaActfId;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
 import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
-public class BlindProblem extends ProblemItemImpl implements IProblemItem {
-
-	public static final int NO_ALT_IMG = 0;
-
-	public static final int NO_ALT_INPUT = 1;
-
-	public static final int NO_ALT_AREA = 2;
-
-	public static final int WRONG_ALT_IMG = 4;
-
-	public static final int WRONG_ALT_INPUT = 5;// TODO
-
-	public static final int WRONG_ALT_AREA = 6;
-
-	public static final int NO_DEST_LINK = 8;
-
-	public static final int REDUNDANT_ALT = 9;
-
-	public static final int NO_SKIPTOMAIN_LINK = 10;// without structure
-
-	public static final int TOO_LESS_STRUCTURE = 12;
-
-	public static final int NO_TEXT_INTRAPAGELINK = 14;
-
-	public static final int WRONG_TEXT = 15;
-
-	public static final int NO_ID_INPUT = 16; // TODO
-
-	public static final int TOOFAR_SKIPTOMAIN_LINK = 17;
-
-	public static final int NO_DEST_SKIP_LINK = 18;
-
-	public static final int WRONG_SKIP_LINK_TEXT = 19;
-
-	public static final int NO_SKIPTOMAIN_WITH_STRUCTURE = 20;
-
-	public static final int ALERT_NO_SKIPTOMAIN_NO_STRUCTURE = 21;
-
-	public static final int LESS_STRUCTURE_WITH_SKIPLINK = 22;
-
-	public static final int LESS_STRUCTURE_WITH_HEADING = 23;
-
-	public static final int LESS_STRUCTURE_WITH_BOTH = 24;
-
-	public static final int NO_TEXT_WITH_TITLE_INTRAPAGELINK = 25;
-
-	public static final int WRONG_SKIP_LINK_TITLE = 26;
-
-	public static final int ALERT_WRONG_ALT = 27;
-
-	public static final int ALERT_REDUNDANT_TEXT = 28; // TODO
-
-	public static final int SEPARATE_DBCS_ALT_IMG = 29;
-
-	public static final int SEPARATE_DBCS_ALT_INPUT = 30; // TODO
-
-	public static final int SEPARATE_DBCS_ALT_AREA = 31;
-
-	public static final int ALERT_NO_DEST_INTRA_LINK = 33;
-
-	public static final int ALERT_SPELL_OUT = 34;
-
-	public static final int INVISIBLE_INTRAPAGE_LINK = 35;
-
-	public static final int NO_VALUE_INPUT_BUTTON = 36;
-
-	public static final int SEPARATE_DBCS_INPUT_VALUE = 37;
-
-	public static final int NUM_PROBLEMS = 38;// max id+1
-
-	// ////////////////////////////////////////////////////
+/**
+ * Implementation of {@link IProblemItem} for detected problems through blind
+ * visualization
+ */
+public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 
 	private List<Node> nodeList = null;
 
@@ -107,6 +43,9 @@ public class BlindProblem extends ProblemItemImpl implements IProblemItem {
 
 	/**
 	 * Constructor for BlindProblem.
+	 * 
+	 * @param _subtype
+	 *            subType of problem
 	 */
 	public BlindProblem(int _subtype) {
 		this(_subtype, "");
@@ -114,6 +53,11 @@ public class BlindProblem extends ProblemItemImpl implements IProblemItem {
 
 	/**
 	 * Constructor for BlindProblem.
+	 * 
+	 * @param _subtype
+	 *            subType of problem
+	 * @param targetString
+	 *            target String to be embedded to error description
 	 */
 	public BlindProblem(int _subtype, String targetString) {
 		super("B_" + Integer.toString(_subtype));
@@ -123,7 +67,6 @@ public class BlindProblem extends ProblemItemImpl implements IProblemItem {
 		nodeList = new Vector<Node>();
 		setTargetString(targetString);
 
-		// for HPB? use ReportUtil?
 		switch (_subtype) {
 		case WRONG_ALT_IMG:
 		case WRONG_ALT_INPUT:
@@ -149,9 +92,7 @@ public class BlindProblem extends ProblemItemImpl implements IProblemItem {
 	}
 
 	/**
-	 * Returns the node.
-	 * 
-	 * @return Node
+	 * @return target Node in visualization result {@link Document}
 	 */
 	public Node getTargetNodeInResultDoc() {
 		if (nodeList.size() > 0) {
@@ -162,57 +103,55 @@ public class BlindProblem extends ProblemItemImpl implements IProblemItem {
 	}
 
 	/**
-	 * Sets the node.
+	 * Set target {@link Node}
 	 * 
 	 * @param node
-	 *            The node to set
+	 *            target Node
 	 */
 	public void setNode(Node node) {
 		nodeList.add(0, node);
 	}
 
 	/**
-	 * Adds the node.
+	 * Add additional target {@link Node}
 	 * 
 	 * @param node
-	 *            The node to set
+	 *            additional target Node
 	 */
 	public void addNode(Node node) {
 		nodeList.add(node);
 	}
 
 	/**
-	 * Sets the node.
+	 * Sets target {@link Node} and ID of Node
 	 * 
 	 * @param node
-	 *            The node to set
+	 *            target Node
+	 * @param id
+	 *            target ID
 	 */
 	public void setNode(Node node, int id) {
 		nodeList.add(0, node);
 		this.nodeId = id;
 	}
 
-	/**
-	 * @see java.lang.Object#toString()
-	 */
 	public String toString() {
 		return "node=" + nodeId + ":" + getDescription();
 	}
 
 	/**
-	 * Returns the nodeList.
-	 * 
-	 * @return List
+	 * @return List of target {@link Node}
 	 */
 	public List<Node> getNodeList() {
 		return nodeList;
 	}
 
 	/**
-	 * Sets the nodeId.
+	 * Sets the ID of target {@link Node}.
 	 * 
 	 * @param nodeId
-	 *            The nodeId to set
+	 *            target Node ID
+	 * @return true if former target Node ID was not set yet
 	 */
 	public boolean setNodeId(int nodeId) {
 		if (this.nodeId == -1) {
@@ -223,6 +162,11 @@ public class BlindProblem extends ProblemItemImpl implements IProblemItem {
 		}
 	}
 
+	/**
+	 * Add {@link HighlightTargetId}
+	 * 
+	 * @param target
+	 */
 	public void addNodeIds(HighlightTargetId target) {
 		isMulti = true;
 		idsList.add(target);
@@ -255,7 +199,10 @@ public class BlindProblem extends ProblemItemImpl implements IProblemItem {
 		return result;
 	}
 
-	public void setLineNumber(Id2LineViaAccId id2line) {
+	/**
+	 * @param id2line
+	 */
+	public void setLineNumber(Id2LineViaActfId id2line) {
 
 		switch (subType) {
 		case WRONG_TEXT:
@@ -338,9 +285,5 @@ public class BlindProblem extends ProblemItemImpl implements IProblemItem {
 
 			}
 		}
-	}
-
-	public int getProblemSubType() {
-		return (subType);
 	}
 }

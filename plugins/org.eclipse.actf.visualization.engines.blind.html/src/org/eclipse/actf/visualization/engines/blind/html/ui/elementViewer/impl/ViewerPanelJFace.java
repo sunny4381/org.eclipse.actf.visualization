@@ -18,6 +18,7 @@ import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IHighlightElementListener;
+import org.eclipse.actf.visualization.internal.engines.blind.html.util.VisualizationAttributeInfo;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -37,7 +38,7 @@ import org.eclipse.swt.widgets.TabItem;
 public class ViewerPanelJFace implements IViewerPanel {
 	private Shell shell;
 
-	private List idList;
+	private List<VisualizationAttributeInfo> idList;
 
 	private IHighlightElementListener prb;
 

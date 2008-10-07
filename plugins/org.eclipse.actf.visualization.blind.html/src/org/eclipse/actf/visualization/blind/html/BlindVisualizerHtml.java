@@ -37,7 +37,7 @@ import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
-import org.eclipse.actf.visualization.engines.blind.html.eval.HtmlErrorLogListener;
+import org.eclipse.actf.visualization.engines.blind.html.util.HtmlErrorLogListener;
 import org.eclipse.actf.visualization.eval.CheckTargetFactory;
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.IHtmlCheckTarget;

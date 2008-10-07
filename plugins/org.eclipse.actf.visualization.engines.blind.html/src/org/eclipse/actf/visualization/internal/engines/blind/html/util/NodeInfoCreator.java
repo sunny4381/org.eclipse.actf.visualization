@@ -18,11 +18,12 @@ import java.util.Stack;
 
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 import org.eclipse.actf.visualization.engines.blind.TextChecker;
-import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
+import org.eclipse.actf.visualization.engines.blind.html.IBlindProblem;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
 import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.internal.engines.blind.html.BlindProblem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -132,7 +133,7 @@ public class NodeInfoCreator {
 				// check inappropritate text
 				if (textChecker.isSeparatedJapaneseChars(curText)) {
 					BlindProblem prob = new BlindProblem(
-							BlindProblem.WRONG_TEXT, curText);
+							IBlindProblem.WRONG_TEXT, curText);
 					prob.setNode(p.getNode());
 					prob.setTargetNode(mapData.getOrigNode(p.getNode()));
 					problems.add(prob);
@@ -159,7 +160,7 @@ public class NodeInfoCreator {
 								curText = removePeriod(curText, curNode);
 
 								BlindProblem prob = new BlindProblem(
-										BlindProblem.REDUNDANT_ALT, "\""
+										IBlindProblem.REDUNDANT_ALT, "\""
 												+ prevText + "\" & \""
 												+ curText + "\"");
 								prob.setNode(prevNode);

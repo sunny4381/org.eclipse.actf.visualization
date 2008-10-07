@@ -28,76 +28,78 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 
 public class CSSViewer {
-	
-    private Composite compositeCss;
 
-    private List cssListCon;
+	private Composite compositeCss;
 
-    public CSSViewer(Composite parent) {
-        compositeCss = new Composite(parent, SWT.NULL);
-        compositeCss.setLayoutData(new GridData(GridData.FILL_BOTH));
-        GridLayout gridLayout1 = new GridLayout();
-        gridLayout1.numColumns = 1;
-        compositeCss.setLayout(gridLayout1);
+	private List cssListCon;
 
-        cssListCon = new List(compositeCss, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-        GridData gridData = new GridData(GridData.FILL_BOTH);
-        cssListCon.setLayoutData(gridData);
+	public CSSViewer(Composite parent) {
+		compositeCss = new Composite(parent, SWT.NULL);
+		compositeCss.setLayoutData(new GridData(GridData.FILL_BOTH));
+		GridLayout gridLayout1 = new GridLayout();
+		gridLayout1.numColumns = 1;
+		compositeCss.setLayout(gridLayout1);
 
-        cssListCon.addMouseListener(new MouseAdapter() {
-            public void mouseUp(MouseEvent arg0) {
-                if (arg0.stateMask == SWT.BUTTON3) {
-                    if (cssListCon.getSelectionIndex() >= 0)
-                        openPopupMenu(cssListCon.getSelectionIndex());
-                }
-            }
+		cssListCon = new List(compositeCss, SWT.SINGLE | SWT.H_SCROLL
+				| SWT.V_SCROLL | SWT.BORDER);
+		GridData gridData = new GridData(GridData.FILL_BOTH);
+		cssListCon.setLayoutData(gridData);
 
-            //			public void mouseDoubleClick(MouseEvent arg0) {
-                //				if (cssListCon.getSelectionIndex() >= 0)
-                //					getAndViewFile(cssListCon.getSelectionIndex());
-                //			}
-            });
-    }
+		cssListCon.addMouseListener(new MouseAdapter() {
+			public void mouseUp(MouseEvent arg0) {
+				if (arg0.stateMask == SWT.BUTTON3) {
+					if (cssListCon.getSelectionIndex() >= 0)
+						openPopupMenu(cssListCon.getSelectionIndex());
+				}
+			}
 
-    /**
-     * @return
-     */
-    public Composite getCompositeCss() {
-        return compositeCss;
-    }
+			// public void mouseDoubleClick(MouseEvent arg0) {
+			// if (cssListCon.getSelectionIndex() >= 0)
+			// getAndViewFile(cssListCon.getSelectionIndex());
+			// }
+		});
+	}
 
-    public void setCssSet(Set cssSet) {
-        cssListCon.removeAll();
-        if (cssSet != null) {
-            for (Iterator i = cssSet.iterator(); i.hasNext();) {
-                cssListCon.add((String) i.next());
-            }
-        }
-    }
+	/**
+	 * @return
+	 */
+	public Composite getCompositeCss() {
+		return compositeCss;
+	}
 
-    private void openPopupMenu(int index) {
-        String[] itemName = new String[2];
-        itemName[0] = "&Copy URL";
-        itemName[1] = "&Open";
-        boolean[] enabled = new boolean[2];
-        enabled[0] = true;
-        enabled[1] = true;
-        PopupMenu popupMenu = new PopupMenu(new Shell(), itemName, enabled);
-        String strRet = popupMenu.open();
-        if (strRet.equals(itemName[0])) {
-            Clipboard clipboard = new Clipboard(compositeCss.getDisplay());
-            clipboard.setContents(new Object[] { cssListCon.getItem(index) }, new Transfer[] { TextTransfer
-                    .getInstance() });
-        } else if (strRet.equals(itemName[1])) {
-            getAndViewFile(cssListCon.getSelectionIndex());
-        }
-    }
+	public void setCssSet(Set<String> cssSet) {
+		cssListCon.removeAll();
+		if (cssSet != null) {
+			for (Iterator<String> i = cssSet.iterator(); i.hasNext();) {
+				cssListCon.add(i.next());
+			}
+		}
+	}
 
-    private void getAndViewFile(int index) {
-        try {
-        	PlatformUI.getWorkbench().getHelpSystem().displayHelpResource(cssListCon.getItem(index));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	private void openPopupMenu(int index) {
+		String[] itemName = new String[2];
+		itemName[0] = "&Copy URL";
+		itemName[1] = "&Open";
+		boolean[] enabled = new boolean[2];
+		enabled[0] = true;
+		enabled[1] = true;
+		PopupMenu popupMenu = new PopupMenu(new Shell(), itemName, enabled);
+		String strRet = popupMenu.open();
+		if (strRet.equals(itemName[0])) {
+			Clipboard clipboard = new Clipboard(compositeCss.getDisplay());
+			clipboard.setContents(new Object[] { cssListCon.getItem(index) },
+					new Transfer[] { TextTransfer.getInstance() });
+		} else if (strRet.equals(itemName[1])) {
+			getAndViewFile(cssListCon.getSelectionIndex());
+		}
+	}
+
+	private void getAndViewFile(int index) {
+		try {
+			PlatformUI.getWorkbench().getHelpSystem().displayHelpResource(
+					cssListCon.getItem(index));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

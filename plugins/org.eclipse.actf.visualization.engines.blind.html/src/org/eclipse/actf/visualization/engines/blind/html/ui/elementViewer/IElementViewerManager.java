@@ -10,15 +10,34 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
 
+/**
+ * IElementViewerManager is used to control element information viewer
+ */
 public interface IElementViewerManager {
 
+	/**
+	 * Set {@link IHighlightElementListener} to highlight corresponding position
+	 * of selected item in visualization result
+	 * 
+	 * @param hel
+	 *            target {@link IHighlightElementListener}
+	 */
 	public abstract void setHighlightElementListener(
 			IHighlightElementListener hel);
 
+	/**
+	 * Open element information viewer.
+	 */
 	public abstract void openElementViewer();
 
+	/**
+	 * Activate element information viewer if exists.
+	 */
 	public abstract void activateElementViewer();
 
+	/**
+	 * Hide element information viewer if exists.
+	 */
 	public abstract void hideElementViewer();
 
 }

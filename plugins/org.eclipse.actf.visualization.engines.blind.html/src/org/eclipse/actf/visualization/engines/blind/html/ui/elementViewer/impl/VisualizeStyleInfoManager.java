@@ -14,8 +14,6 @@ package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
-
 public class VisualizeStyleInfoManager {
 	private static VisualizeStyleInfoManager INSTANCE;
 
@@ -40,8 +38,9 @@ public class VisualizeStyleInfoManager {
 	}
 
 	public void fireVisualizeStyleInfoUpdate(VisualizeStyleInfo styleInfo) {
-		for (Iterator i = listeners.iterator(); i.hasNext();) {
-			((IVisualizeStyleInfoListener) i.next()).update(styleInfo);
+		for (Iterator<IVisualizeStyleInfoListener> i = listeners.iterator(); i
+				.hasNext();) {
+			(i.next()).update(styleInfo);
 		}
 	}
 

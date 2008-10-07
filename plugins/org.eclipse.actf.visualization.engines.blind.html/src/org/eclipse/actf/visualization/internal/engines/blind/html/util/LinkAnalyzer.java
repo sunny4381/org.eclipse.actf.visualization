@@ -22,13 +22,14 @@ import java.util.Stack;
 import java.util.Vector;
 
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
-import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
+import org.eclipse.actf.visualization.engines.blind.html.IBlindProblem;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
 import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.internal.engines.blind.html.BlindProblem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -131,7 +132,7 @@ public class LinkAnalyzer {
 							words += textCounter.getWordCount(linkTitleOrg);
 							if (words > 0) {
 								prob = new BlindProblem(
-										BlindProblem.NO_TEXT_WITH_TITLE_INTRAPAGELINK,
+										IBlindProblem.NO_TEXT_WITH_TITLE_INTRAPAGELINK,
 										linkTitle);
 
 								prob.setTargetNode(mapData.getOrigNode(curEl));
@@ -167,13 +168,13 @@ public class LinkAnalyzer {
 						} else {
 							if (linkTitle.matches(WRONG_SKIPLINK_DEFINITION)) {
 								prob = new BlindProblem(
-										BlindProblem.WRONG_SKIP_LINK_TITLE,
+										IBlindProblem.WRONG_SKIP_LINK_TITLE,
 										linkText);
 							}
 
 							if (linkText.matches(WRONG_SKIPLINK_DEFINITION)) {
 								prob = new BlindProblem(
-										BlindProblem.WRONG_SKIP_LINK_TEXT,
+										IBlindProblem.WRONG_SKIP_LINK_TEXT,
 										linkText);
 							}
 						}
@@ -186,7 +187,7 @@ public class LinkAnalyzer {
 							// TODO append text -> result?
 						} else {
 							prob = new BlindProblem(
-									BlindProblem.NO_TEXT_INTRAPAGELINK, href);
+									IBlindProblem.NO_TEXT_INTRAPAGELINK, href);
 							if (!(curEl.hasAttribute("onclick") || curEl
 									.hasAttribute("onmouseover"))) {
 
@@ -233,7 +234,7 @@ public class LinkAnalyzer {
 				if (invisibleIdSet.contains(idS)) {
 					// System.out.println(idS);
 					BlindProblem prob = new BlindProblem(
-							BlindProblem.INVISIBLE_INTRAPAGE_LINK, "\""
+							IBlindProblem.INVISIBLE_INTRAPAGE_LINK, "\""
 									+ HtmlTagUtil.getTextAltDescendant(lel)
 									+ "\"(href=#" + href + ", id=" + idS + ") ");
 					prob.setTargetNode(mapData.getOrigNode(lel));
@@ -289,10 +290,10 @@ public class LinkAnalyzer {
 					if (skipLinkMap.containsKey(lel)) {
 						if (href.matches(".*top.*") || toTop) {// TBD accuracy
 							prob = new BlindProblem(
-									BlindProblem.ALERT_NO_DEST_INTRA_LINK, href);
+									IBlindProblem.ALERT_NO_DEST_INTRA_LINK, href);
 						} else {
 							prob = new BlindProblem(
-									BlindProblem.NO_DEST_SKIP_LINK, href);
+									IBlindProblem.NO_DEST_SKIP_LINK, href);
 							// TODO onclick?
 							intralinkErrorCount++;
 							skiplinkErrorCount++;
@@ -302,9 +303,9 @@ public class LinkAnalyzer {
 					} else {
 						if (href.matches(".*top.*") || toTop) {// TBD accuracy
 							prob = new BlindProblem(
-									BlindProblem.ALERT_NO_DEST_INTRA_LINK, href);
+									IBlindProblem.ALERT_NO_DEST_INTRA_LINK, href);
 						} else {
-							prob = new BlindProblem(BlindProblem.NO_DEST_LINK,
+							prob = new BlindProblem(IBlindProblem.NO_DEST_LINK,
 									href);
 							if (!(lel.hasAttribute("onClick") || lel
 									.hasAttribute("onmouseover"))) {
@@ -462,26 +463,26 @@ public class LinkAnalyzer {
 			if (headingCount > 0 || forwardIntraLinkCount > 0) {
 				if (maxTime >= MIN_MAX_TIME_TO_ELIMINATE_SKIP_LINK) {
 					problemV.add(new BlindProblem(
-							BlindProblem.NO_SKIPTOMAIN_WITH_STRUCTURE));
+							IBlindProblem.NO_SKIPTOMAIN_WITH_STRUCTURE));
 				}
 			} else {
 				if (maxTime < MIN_MAX_TIME_TO_ELIMINATE_SKIP_LINK) {
 					// if max time is less than 90 sec, skip link can be
 					// eliminated.
 					problemV.add(new BlindProblem(
-							BlindProblem.ALERT_NO_SKIPTOMAIN_NO_STRUCTURE, ""
+							IBlindProblem.ALERT_NO_SKIPTOMAIN_NO_STRUCTURE, ""
 									+ maxTime));
 					// return true;
 				} else {
 					problemV.add(new BlindProblem(
-							BlindProblem.NO_SKIPTOMAIN_LINK));
+							IBlindProblem.NO_SKIPTOMAIN_LINK));
 				}
 
 			}
 		} else if (minSkipLinkTime >= MAX_SKIPLINK_REACHING_TIME) {
 			// TODO remove this problem if the page has skip link at top of the page
 			BlindProblem prob = new BlindProblem(
-					BlindProblem.TOOFAR_SKIPTOMAIN_LINK, minSkipLinkTime + " ");
+					IBlindProblem.TOOFAR_SKIPTOMAIN_LINK, minSkipLinkTime + " ");
 			Integer idObj = mapData.getIdOfNode(skipLinkNodeInfo.getNode());
 			if (idObj != null) {
 				prob.setNode(skipLinkNodeInfo.getNode(), idObj.intValue());
@@ -498,17 +499,17 @@ public class LinkAnalyzer {
 			if (headingCount > 0) {
 				if (forwardIntraLinkCount > 0) {
 					tmpBP = new BlindProblem(
-							BlindProblem.LESS_STRUCTURE_WITH_BOTH);
+							IBlindProblem.LESS_STRUCTURE_WITH_BOTH);
 				} else {
 					tmpBP = new BlindProblem(
-							BlindProblem.LESS_STRUCTURE_WITH_HEADING);
+							IBlindProblem.LESS_STRUCTURE_WITH_HEADING);
 				}
 			} else {
 				if (forwardIntraLinkCount > 0) {
 					tmpBP = new BlindProblem(
-							BlindProblem.LESS_STRUCTURE_WITH_SKIPLINK);
+							IBlindProblem.LESS_STRUCTURE_WITH_SKIPLINK);
 				} else {
-					tmpBP = new BlindProblem(BlindProblem.TOO_LESS_STRUCTURE);
+					tmpBP = new BlindProblem(IBlindProblem.TOO_LESS_STRUCTURE);
 				}
 			}
 			for (int i = 0; i < overTimeCount; i++) {

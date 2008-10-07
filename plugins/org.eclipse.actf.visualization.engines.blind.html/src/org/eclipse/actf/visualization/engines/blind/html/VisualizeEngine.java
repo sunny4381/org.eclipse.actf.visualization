@@ -23,10 +23,9 @@ import java.util.Vector;
 
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 import org.eclipse.actf.visualization.engines.blind.TextChecker;
-import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfo;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfoManager;
-import org.eclipse.actf.visualization.engines.blind.html.util.Id2LineViaAccId;
+import org.eclipse.actf.visualization.engines.blind.html.util.Id2LineViaActfId;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
 import org.eclipse.actf.visualization.engines.voicebrowser.IVoiceBrowserController;
@@ -36,6 +35,7 @@ import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.internal.engines.blind.html.BlindProblem;
 import org.eclipse.actf.visualization.internal.engines.blind.html.util.DocumentCleaner;
 import org.eclipse.actf.visualization.internal.engines.blind.html.util.ImgChecker;
 import org.eclipse.actf.visualization.internal.engines.blind.html.util.LinkAnalyzer;
@@ -100,7 +100,7 @@ public class VisualizeEngine {
 
 	private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
 
-	private boolean[] checkItems = new boolean[BlindProblem.NUM_PROBLEMS];
+	private boolean[] checkItems = new boolean[IBlindProblem.NUM_PROBLEMS];
 
 	private File variantFile;
 
@@ -130,7 +130,7 @@ public class VisualizeEngine {
 				id = id.substring(2);
 				try {
 					int item = Integer.parseInt(id);
-					if (item > -1 && item < BlindProblem.NUM_PROBLEMS) {
+					if (item > -1 && item < IBlindProblem.NUM_PROBLEMS) {
 						checkItems[item] = true;
 					} else {
 						// TODO
@@ -245,23 +245,23 @@ public class VisualizeEngine {
 				IProblemItem tmpBP = i.next();
 				if (tmpBP instanceof BlindProblem) {
 					BlindProblem curBP = (BlindProblem) tmpBP;
-					if (checkItems[curBP.getProblemSubType()]) {
+					if (checkItems[curBP.getSubType()]) {
 						if (curBP.getSeverity() == IEvaluationItem.SEV_ERROR) {
-							switch (curBP.getProblemSubType()) {
-							case BlindProblem.NO_ALT_IMG:
-							case BlindProblem.NO_ALT_INPUT:
+							switch (curBP.getSubType()) {
+							case IBlindProblem.NO_ALT_IMG:
+							case IBlindProblem.NO_ALT_INPUT:
 								missing++;
 								errorCount++;
 								break;
-							case BlindProblem.WRONG_ALT_IMG:
-							case BlindProblem.WRONG_ALT_INPUT:
-							case BlindProblem.SEPARATE_DBCS_ALT_IMG:
-							case BlindProblem.SEPARATE_DBCS_ALT_INPUT:
+							case IBlindProblem.WRONG_ALT_IMG:
+							case IBlindProblem.WRONG_ALT_INPUT:
+							case IBlindProblem.SEPARATE_DBCS_ALT_IMG:
+							case IBlindProblem.SEPARATE_DBCS_ALT_INPUT:
 								wrong++;
 								errorCount++;
-							case BlindProblem.NO_ALT_AREA: // TODO
-							case BlindProblem.WRONG_ALT_AREA:
-							case BlindProblem.SEPARATE_DBCS_ALT_AREA:
+							case IBlindProblem.NO_ALT_AREA: // TODO
+							case IBlindProblem.WRONG_ALT_AREA:
+							case IBlindProblem.SEPARATE_DBCS_ALT_AREA:
 								area++;
 							}
 						}
@@ -290,9 +290,9 @@ public class VisualizeEngine {
 			// System.out.println("remove elements fin");
 
 			// TODO merge with visualizeError
-			Id2LineViaAccId id2line = null;
+			Id2LineViaActfId id2line = null;
 			if (EvaluationUtil.isOriginalDOM()) {
-				id2line = new Id2LineViaAccId(mapData.getId2AccIdMap(),
+				id2line = new Id2LineViaActfId(mapData.getId2AccIdMap(),
 						html2viewMapV);
 			}
 
@@ -427,7 +427,7 @@ public class VisualizeEngine {
 					input.setAttribute("value", altNode.getNodeValue());
 				} else {
 					BlindProblem prob = new BlindProblem(
-							BlindProblem.NO_ALT_INPUT);
+							IBlindProblem.NO_ALT_INPUT);
 					Integer idObj = mapData.getIdOfNode(input);
 					if (idObj != null) {
 						prob.setNode(input, idObj.intValue());
@@ -449,11 +449,11 @@ public class VisualizeEngine {
 					if (typeS.equals("button")) {
 						// not readable
 						prob = new BlindProblem(
-								BlindProblem.NO_VALUE_INPUT_BUTTON);
+								IBlindProblem.NO_VALUE_INPUT_BUTTON);
 					}
 				} else if (textChecker.isSeparatedJapaneseChars(valueS)) {
 					prob = new BlindProblem(
-							BlindProblem.SEPARATE_DBCS_INPUT_VALUE, valueS);
+							IBlindProblem.SEPARATE_DBCS_INPUT_VALUE, valueS);
 				}
 				if (prob != null) {
 					Integer idObj = mapData.getIdOfNode(input);

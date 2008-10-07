@@ -9,7 +9,7 @@
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.engines.blind.html.eval;
+package org.eclipse.actf.visualization.engines.blind.html.util;
 
 import java.util.Vector;
 

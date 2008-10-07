@@ -6,6 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
+ *    Hironobu TAKAGI - initial API and implementation
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
@@ -34,10 +35,21 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+/**
+ * Utility class for visualization report
+ */
 public class VisualizeReportUtil {
 
 	// move from VisualizeEngine
 
+	/**
+	 * Create overall evaluation result HTML
+	 * 
+	 * @param targetFile
+	 *            target file to save evaluation result HTML
+	 * @param pageEval
+	 *            target evaluation result
+	 */
 	public static void createReport(File targetFile, PageEvaluation pageEval) {
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory
@@ -109,14 +121,26 @@ public class VisualizeReportUtil {
 
 	}
 
+	/**
+	 * Append rating table and title into report HTML
+	 * 
+	 * @param pageEval
+	 *            target evaluation result
+	 * @param imageDir
+	 *            image directory
+	 * @param document
+	 *            report HTML {@link Document}
+	 * @param target
+	 *            target Node to append evaluation result
+	 */
 	public static void appendRatingTableAndTitle(PageEvaluation pageEval,
-			String imageBriefDir, Document document, Node target) {
+			String imageDir, Document document, Node target) {
 
 		String[] ratingStr = pageEval.getAllResult();
 
 		Element p = document.createElement("div");
 		Element img = document.createElement("img");
-		img.setAttribute("src", imageBriefDir + pageEval.getRatingIcon());
+		img.setAttribute("src", imageDir + pageEval.getRatingIcon());
 		img.setAttribute("alt", "");
 		p.appendChild(img);
 
@@ -158,6 +182,15 @@ public class VisualizeReportUtil {
 		target.appendChild(table);
 	}
 
+	/**
+	 * Visualize {@link IProblemItem} into visualization result HTML by using
+	 * exclamation icon with error message as alt text.
+	 * 
+	 * @param resultDoc
+	 *            visualization result HTML to add error icons
+	 * @param problem
+	 *            target problem information
+	 */
 	public static void visualizeError(Document resultDoc, IProblemItem problem) {
 		Element imageElem = (Element) problem.getTargetNode();
 		if (imageElem != null) {

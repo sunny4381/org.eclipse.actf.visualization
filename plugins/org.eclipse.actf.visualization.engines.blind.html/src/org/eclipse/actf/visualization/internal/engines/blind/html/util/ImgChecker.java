@@ -15,9 +15,10 @@ import java.util.Map;
 import java.util.Vector;
 
 import org.eclipse.actf.visualization.engines.blind.TextChecker;
+import org.eclipse.actf.visualization.engines.blind.html.IBlindProblem;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
-import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.internal.engines.blind.html.BlindProblem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -121,7 +122,7 @@ public class ImgChecker {
 
 					if (!areaE.hasAttribute("alt")) {
 						if (areaE.hasAttribute("href")) {
-							prob = new BlindProblem(BlindProblem.NO_ALT_AREA,
+							prob = new BlindProblem(IBlindProblem.NO_ALT_AREA,
 									mapEl.getAttribute("name") + " , href=\""
 											+ areaE.getAttribute("href") + "\"");
 							prob.setTargetNode(mapData.getOrigNode(areaE));
@@ -131,12 +132,12 @@ public class ImgChecker {
 						if (alt.length() > 0) {
 							if (textChecker.isInappropriateAlt(alt)) {
 								prob = new BlindProblem(
-										BlindProblem.WRONG_ALT_AREA, alt);
+										IBlindProblem.WRONG_ALT_AREA, alt);
 
 							} else if (textChecker
 									.isSeparatedJapaneseChars(alt)) {
 								prob = new BlindProblem(
-										BlindProblem.SEPARATE_DBCS_ALT_AREA,
+										IBlindProblem.SEPARATE_DBCS_ALT_AREA,
 										alt);
 
 							}
@@ -144,7 +145,7 @@ public class ImgChecker {
 						} else {
 							if (areaE.hasAttribute("href")) {
 								prob = new BlindProblem(
-										BlindProblem.WRONG_ALT_AREA, alt);
+										IBlindProblem.WRONG_ALT_AREA, alt);
 							}
 						}
 						if (prob != null) {
@@ -165,7 +166,7 @@ public class ImgChecker {
 
 						idObj = mapData.getIdOfNode(areaE);
 
-						if (checkItems[prob.getProblemSubType()]) {
+						if (checkItems[prob.getSubType()]) {
 							Element errorImg = doc.createElement("img");
 							errorImg.setAttribute("alt", "error icon");
 							errorImg.setAttribute("title", prob
@@ -197,29 +198,29 @@ public class ImgChecker {
 		BlindProblem prob = null;
 
 		if (!img.hasAttribute("alt")) {
-			prob = new BlindProblem(BlindProblem.NO_ALT_IMG, img
+			prob = new BlindProblem(IBlindProblem.NO_ALT_IMG, img
 					.getAttribute("src"));
 			noAltError = true;
 		} else {
 			altS = img.getAttribute("alt");
 			if (altS.length() > 0) {
 				if (textChecker.isInappropriateAlt(altS)) {
-					prob = new BlindProblem(BlindProblem.WRONG_ALT_IMG, altS);
+					prob = new BlindProblem(IBlindProblem.WRONG_ALT_IMG, altS);
 				} else if (textChecker.isSeparatedJapaneseChars(altS)) {
-					prob = new BlindProblem(BlindProblem.SEPARATE_DBCS_ALT_IMG,
+					prob = new BlindProblem(IBlindProblem.SEPARATE_DBCS_ALT_IMG,
 							altS);
 				} else {
 					switch (textChecker.checkInappropriateAlt(altS)) {
 					case 3:
-						prob = new BlindProblem(BlindProblem.ALERT_SPELL_OUT,
+						prob = new BlindProblem(IBlindProblem.ALERT_SPELL_OUT,
 								altS);
 						break;
 					case 2:
-						prob = new BlindProblem(BlindProblem.WRONG_ALT_IMG,
+						prob = new BlindProblem(IBlindProblem.WRONG_ALT_IMG,
 								altS);
 						break;
 					case 1:
-						prob = new BlindProblem(BlindProblem.ALERT_WRONG_ALT,
+						prob = new BlindProblem(IBlindProblem.ALERT_WRONG_ALT,
 								altS);
 						break;
 					case 0:

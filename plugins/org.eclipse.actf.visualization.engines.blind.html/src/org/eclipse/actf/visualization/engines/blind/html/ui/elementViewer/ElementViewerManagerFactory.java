@@ -12,9 +12,16 @@ package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer;
 
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.ElementViewerManager;
 
+/**
+ * Factory for {@link IElementViewerManager} that manages element information
+ * viewer in blind visualization mode
+ */
 public class ElementViewerManagerFactory {
 	private static ElementViewerManager INSTANCE;
 
+	/**
+	 * @return instance of {@link IElementViewerManager}
+	 */
 	public static IElementViewerManager getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ElementViewerManager();

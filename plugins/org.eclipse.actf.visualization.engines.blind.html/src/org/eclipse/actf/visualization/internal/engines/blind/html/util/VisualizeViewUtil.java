@@ -22,12 +22,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
+import org.eclipse.actf.visualization.engines.blind.html.IBlindProblem;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
-import org.eclipse.actf.visualization.engines.blind.html.eval.BlindProblem;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.internal.engines.blind.html.BlindProblem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -300,12 +301,12 @@ public class VisualizeViewUtil {
 			Node node = prob.getTargetNodeInResultDoc();
 			Integer idObj = mapData.getIdOfNode(node);
 
-			int subType = prob.getProblemSubType();
+			int subType = prob.getSubType();
 			switch (subType) {
-			case BlindProblem.WRONG_ALT_AREA:
-			case BlindProblem.NO_ALT_AREA:
-			case BlindProblem.TOO_LESS_STRUCTURE:
-			case BlindProblem.NO_SKIPTOMAIN_LINK:
+			case IBlindProblem.WRONG_ALT_AREA:
+			case IBlindProblem.NO_ALT_AREA:
+			case IBlindProblem.TOO_LESS_STRUCTURE:
+			case IBlindProblem.NO_SKIPTOMAIN_LINK:
 				break;
 			default:
 				if (idObj != null) {
@@ -332,9 +333,9 @@ public class VisualizeViewUtil {
 				}
 			}
 
-			switch (prob.getProblemSubType()) {
-			case BlindProblem.NO_ALT_IMG:
-			case BlindProblem.WRONG_ALT_IMG:
+			switch (prob.getSubType()) {
+			case IBlindProblem.NO_ALT_IMG:
+			case IBlindProblem.WRONG_ALT_IMG:
 				Element el = (Element) node;
 				Node replacement = mapData.getReplacement(el);
 				if (replacement != null) {
@@ -344,7 +345,7 @@ public class VisualizeViewUtil {
 						baseUrlS);
 				el.appendChild(img);
 				break;
-			case BlindProblem.REDUNDANT_ALT:
+			case IBlindProblem.REDUNDANT_ALT:
 				int startId = -1;
 				int endId = -1;
 				try {
@@ -370,20 +371,20 @@ public class VisualizeViewUtil {
 				prob.addNodeIds(new HighlightTargetId(endId, endId));
 
 				break;
-			case BlindProblem.NO_DEST_LINK:
-			case BlindProblem.NO_TEXT_INTRAPAGELINK:
-			case BlindProblem.NO_DEST_SKIP_LINK:
-			case BlindProblem.WRONG_SKIP_LINK_TEXT:
-			case BlindProblem.TOOFAR_SKIPTOMAIN_LINK:
-			case BlindProblem.NO_TEXT_WITH_TITLE_INTRAPAGELINK:
-			case BlindProblem.INVISIBLE_INTRAPAGE_LINK:
-			case BlindProblem.WRONG_SKIP_LINK_TITLE:
+			case IBlindProblem.NO_DEST_LINK:
+			case IBlindProblem.NO_TEXT_INTRAPAGELINK:
+			case IBlindProblem.NO_DEST_SKIP_LINK:
+			case IBlindProblem.WRONG_SKIP_LINK_TEXT:
+			case IBlindProblem.TOOFAR_SKIPTOMAIN_LINK:
+			case IBlindProblem.NO_TEXT_WITH_TITLE_INTRAPAGELINK:
+			case IBlindProblem.INVISIBLE_INTRAPAGE_LINK:
+			case IBlindProblem.WRONG_SKIP_LINK_TITLE:
 				Element element = (Element) node;
 				Element image = createErrorImageElement(element, prob, idObj,
 						baseUrlS);
 				element.appendChild(image);
 				break;
-			case BlindProblem.WRONG_TEXT:
+			case IBlindProblem.WRONG_TEXT:
 				// Node node = prob.getNode();
 				Element image2 = createErrorImageElement(node, prob, idObj,
 						baseUrlS);
@@ -393,8 +394,8 @@ public class VisualizeViewUtil {
 					node.getParentNode().insertBefore(image2, node);
 				}
 				break;
-			case BlindProblem.NO_VALUE_INPUT_BUTTON:
-			case BlindProblem.SEPARATE_DBCS_INPUT_VALUE:
+			case IBlindProblem.NO_VALUE_INPUT_BUTTON:
+			case IBlindProblem.SEPARATE_DBCS_INPUT_VALUE:
 				Element image3 = createErrorImageElement(node, prob, idObj,
 						baseUrlS);
 				node.getParentNode().insertBefore(image3, node);
