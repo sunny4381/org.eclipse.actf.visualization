@@ -16,6 +16,7 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.model.flash.ASAccInfo;
@@ -67,6 +68,8 @@ import org.eclipse.ui.part.ViewPart;
 public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		IFlashConst {
 	public static final String ID = FlashDOMView.class.getName();
+
+	private static final String ON_RELEASE = "onRelease";
 
 	private TreeViewer viewer;
 	private Action expandAction;
@@ -411,11 +414,44 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		public boolean informativeTree = false;
 
 		public Object[] getChildren(Object parentElement) {
+			IASNode[] result = new IASNode[0];
 			if (parentElement instanceof IASNode) {
-				return ((IASNode) parentElement).getChildren(visualTree,
-						informativeTree, debugMode);
+				if (debugMode) {
+					result = ((IASNode) parentElement).getEntireChildren();
+
+				} else {
+					result = ((IASNode) parentElement).getChildren(visualTree);
+					if (informativeTree) {
+						Vector<IASNode> tmpV = new Vector<IASNode>();
+						for (IASNode node : result) {
+							if (!node.isAccProperties()) {
+								if (null == node.getText()
+										&& !ASNODE_TYPE_MOVIECLIP.equals(node
+												.getType())
+										&& //$NON-NLS-1$
+										!ASNODE_CLASS_BUTTON.equals(node
+												.getClassName())
+										&& //$NON-NLS-1$
+										!ACC_PROPS.equals(node.getObjectName())
+										&& //$NON-NLS-1$
+										!ACC_IMPL.equals(node.getObjectName())
+										&& //$NON-NLS-1$
+										!ON_RELEASE
+												.equals(node.getObjectName())) //$NON-NLS-1$
+								{
+									continue;
+								}
+								tmpV.add(node);
+							} else {
+								tmpV.add(node);
+							}
+						}
+						result = new IASNode[tmpV.size()];
+						tmpV.toArray(result);
+					}
+				}
 			}
-			return new Object[0];
+			return result;
 		}
 
 		public Object getParent(Object element) {
