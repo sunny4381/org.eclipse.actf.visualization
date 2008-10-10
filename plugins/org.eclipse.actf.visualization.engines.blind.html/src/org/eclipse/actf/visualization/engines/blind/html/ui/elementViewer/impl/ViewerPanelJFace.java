@@ -159,7 +159,7 @@ public class ViewerPanelJFace implements IViewerPanel {
 		IModelService dataSource = ModelServiceUtils.getActiveModelService();
 
 		if (dataSource != null && dataSource instanceof IWebBrowserACTF) {
-			((IWebBrowserACTF) dataSource).recoveryHighlight();
+			((IWebBrowserACTF) dataSource).clearHighlight();
 		}
 		prb.clearHighlight();
 	}

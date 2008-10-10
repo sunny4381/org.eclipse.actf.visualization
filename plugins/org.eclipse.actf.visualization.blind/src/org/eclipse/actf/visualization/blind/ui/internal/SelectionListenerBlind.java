@@ -44,7 +44,7 @@ public class SelectionListenerBlind implements ISelectionListener {
 		IModelService modelService = ModelServiceUtils.getActiveModelService();
 
 		if (modelService != null && modelService instanceof IWebBrowserACTF) {
-			((IWebBrowserACTF) modelService).recoveryHighlight();
+			((IWebBrowserACTF) modelService).clearHighlight();
 		}
 
 		prb.clearHighlight(); //$NON-NLS-1$
