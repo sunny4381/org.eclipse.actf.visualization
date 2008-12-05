@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.visualization.eval.html;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
@@ -75,6 +76,12 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	private Document srcDom;
 
 	private Document liveDom;
+
+	private File targetFile;
+
+	private File srcFile;
+
+	private File liveFile;
 
 	private URL baseUrl;
 
@@ -349,7 +356,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 					}
 				}
 				if (src != null && src.length() > 0) {
-					FlashData flashD = new FlashData(object_elements[i], src, true);
+					FlashData flashD = new FlashData(object_elements[i], src,
+							true);
 					pageData.addFlashData(flashD);
 
 					NodeList embedNL = object_elements[i]
@@ -367,8 +375,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 									embedInObjectSet.add(tmpE);
 									flashD.setWithEmbed(true);
 								} else {
-									pageData.addFlashData(new FlashData(tmpE, src,
-											false));
+									pageData.addFlashData(new FlashData(tmpE,
+											src, false));
 								}
 							}
 						}
@@ -766,7 +774,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	/**
 	 * Get live DOM
 	 * 
-	 * @return get live DOM
+	 * @return live DOM
 	 */
 	public Document getLiveDom() {
 		return liveDom;
@@ -1027,5 +1035,56 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 */
 	public Element[] getEventFocusElements() {
 		return eventFocusElements;
+	}
+
+	/**
+	 * Get evaluation target HTML file
+	 * 
+	 * @return evaluation target HTML file
+	 */
+	public File getTargetFile() {
+		return targetFile;
+	}
+
+	/**
+	 * Set evaluation target HTML file
+	 * 
+	 */
+	public void setTargetFile(File targetFile) {
+		this.targetFile = targetFile;
+	}
+
+	/**
+	 * Get source HTML file
+	 * 
+	 * @return source HTML file
+	 */
+	public File getSrcFile() {
+		return srcFile;
+	}
+
+	/**
+	 * Set source HTML file
+	 * 
+	 */
+	public void setSrcFile(File srcFile) {
+		this.srcFile = srcFile;
+	}
+
+	/**
+	 * Get HTML file that represents live DOM
+	 * 
+	 * @return live DOM as HTML file
+	 */
+	public File getLiveFile() {
+		return liveFile;
+	}
+
+	/**
+	 * Set HTML file that represents live DOM
+	 * 
+	 */
+	public void setLiveFile(File liveFile) {
+		this.liveFile = liveFile;
 	}
 }

@@ -90,11 +90,15 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 		int frameId = 0;
 		checkResult = new EvaluationResultBlind();
+		File srcFile;
+		File liveFile;
+		File targetFile;
+		
 
 		try {
 
-			webBrowser.saveOriginalDocument(tmpDirS + ORIG_HTML_FILE);
-			webBrowser.saveDocumentAsHTMLFile(tmpDirS + IE_HTML_FILE);
+			srcFile = webBrowser.saveOriginalDocument(tmpDirS + ORIG_HTML_FILE);
+			liveFile = webBrowser.saveDocumentAsHTMLFile(tmpDirS + IE_HTML_FILE);
 			// for srcViewer
 			webBrowser.saveOriginalDocument(tmpDirS + HTML_SOURCE_FILE);
 
@@ -102,7 +106,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
 			HtmlErrorLogListener errorLogListener = new HtmlErrorLogListener();
 			htmlParser.addErrorLogListener(errorLogListener);
-			String targetFile = tmpDirS + MAPPED_HTML_FILE_PRE + frameId
+			String targetFileName = tmpDirS + MAPPED_HTML_FILE_PRE + frameId
 					+ ".html";
 
 			boolean isIEhtml = false;
@@ -137,11 +141,15 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 						+ ORIG_HTML_FILE));
 				originalDocument = tmpHtmlParser.getDocument();
 
+				targetFile = liveFile;
+				
 			} else {
-				htmlParser.parse(new FileInputStream(targetFile));
+				htmlParser.parse(new FileInputStream(targetFileName));
 				document = htmlParser.getDocument();
 				originalDocument = document;
 				ieDom = webBrowser.getLiveDocument();
+				
+				targetFile = srcFile;
 			}
 			// System.out.println(document+" "+ _originalDom+" "+ ieDom);
 
@@ -203,6 +211,9 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			HtmlEvalUtil edu = new HtmlEvalUtil(document, resultDocument,
 					targetUrl, mapData.getOrig2idMap(), originalDocument,
 					ieDom, pageData, isDBCS, isIEhtml);
+			edu.setLiveFile(liveFile);
+			edu.setSrcFile(srcFile);
+			edu.setTargetFile(targetFile);
 
 			ArrayList<IProblemItem> tmpResults = new ArrayList<IProblemItem>(
 					1024);
