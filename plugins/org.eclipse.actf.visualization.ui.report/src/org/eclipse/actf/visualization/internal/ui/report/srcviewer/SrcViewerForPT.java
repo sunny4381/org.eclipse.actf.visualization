@@ -112,7 +112,7 @@ public class SrcViewerForPT {
     public void highlightSrcViewer(HighlightTargetSourceInfo[] sourceInfos, File target) {
         if (_srcViewerShell != null && !_srcViewerShell.isDisposed() && EvaluationUtil.isOriginalDOM()) {
 
-            if(curTarget!=target){
+            if(curTarget!=target || srcChanged){
                 srcChanged =true;
                 updateSrcViewer(target);
             }
