@@ -177,7 +177,7 @@ public class PartControlRoom implements IVisualizationConst {
 			break;
 		}
 
-		checkResult.setSummaryReportUrl(RoomPlugin.getDirectory("html") + html);
+		checkResult.setSummaryReportUrl(RoomPlugin.getTempDirectory()+"html"+File.separator+ html);
 		// TODO
 		checkResult.setSummaryReportText("");
 		Mediator.getInstance().setReport(checker, checkResult);

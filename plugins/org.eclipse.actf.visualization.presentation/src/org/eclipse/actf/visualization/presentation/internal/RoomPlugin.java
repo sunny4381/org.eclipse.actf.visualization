@@ -25,23 +25,22 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 
-
 /**
  * The main plugin class to be used in the desktop.
  */
 public class RoomPlugin extends AbstractUIPlugin {
 
 	public static String PLUGIN_ID = "org.eclipse.actf.visualization.presentation";
-	
-	//The shared instance.
+
+	// The shared instance.
 	private static RoomPlugin _plugin;
-	
-    private ResourceBundle _resourceBundle;
 
-    private static BundleContext _context;
+	private ResourceBundle _resourceBundle;
 
-    private static File tmpDir;
-    
+	private static BundleContext _context;
+
+	private static File tmpDir;
+
 	/**
 	 * The constructor.
 	 */
@@ -54,11 +53,52 @@ public class RoomPlugin extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-        _context = context;
-        
-        createTempDirectory();
+		_context = context;
+
+		createTempDirectory();
+
+		if (tmpDir != null) {
+
+			String tmpS = tmpDir.getAbsolutePath() + File.separator + "html";
+			if (FileUtils.isAvailableDirectory(tmpS)) {
+				String en = tmpS + File.separator + "en";
+				String ja = tmpS + File.separator + "ja";
+				String images = tmpS + File.separator + "images";
+				Bundle bundle = getBundle();
+				if (FileUtils.isAvailableDirectory(en)
+						&& FileUtils.isAvailableDirectory(ja)
+						&& FileUtils.isAvailableDirectory(images)) {
+					en = en + File.separator;
+					ja = ja + File.separator;
+					images = images + File.separator;
+
+					FileUtils.copyFile(bundle, new Path("html/en/large.html"),
+							en + "large.html", true);
+					FileUtils.copyFile(bundle, new Path("html/en/middle.html"),
+							en + "middle.html", true);
+					FileUtils.copyFile(bundle, new Path("html/en/small.html"),
+							en + "small.html", true);
+					FileUtils.copyFile(bundle, new Path("html/ja/large.html"),
+							ja + "large.html", true);
+					FileUtils.copyFile(bundle, new Path("html/ja/middle.html"),
+							ja + "middle.html", true);
+					FileUtils.copyFile(bundle, new Path("html/ja/small.html"),
+							ja + "small.html", true);
+					FileUtils.copyFile(bundle, new Path(
+							"html/images/auditorium.png"), images
+							+ "auditorium.png", true);
+					FileUtils.copyFile(bundle, new Path(
+							"html/images/largeMeetingRoom.png"), images
+							+ "largeMeetingRoom.png", true);
+					FileUtils.copyFile(bundle, new Path(
+							"html/images/smallMeetingRoom.png"), images
+							+ "smallMeetingRoom.png", true);
+				}
+
+			}
+		}
+
 	}
-    
 
 	/**
 	 * This method is called when the plug-in is stopped
@@ -66,7 +106,7 @@ public class RoomPlugin extends AbstractUIPlugin {
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
 		_plugin = null;
-        _context = null;
+		_context = null;
 	}
 
 	/**
@@ -77,63 +117,70 @@ public class RoomPlugin extends AbstractUIPlugin {
 	}
 
 	/**
-	 * Returns an image descriptor for the image file at the given
-	 * plug-in relative path.
-	 *
-	 * @param path the path
+	 * Returns an image descriptor for the image file at the given plug-in
+	 * relative path.
+	 * 
+	 * @param path
+	 *            the path
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
-    
-    public static String getResourceString(String key) {
-        ResourceBundle bundle = RoomPlugin.getDefault().getResourceBundle();
-        try {
-            return (null != bundle) ? bundle.getString(key) : key;
-        } catch (MissingResourceException mre) {
-            return "???" + key + "???";
-        }
-    }
-    
-    public ResourceBundle getResourceBundle() {
-        if (null == _resourceBundle && null != _context) {
-            Bundle bundle = _context.getBundle();
-            if (null != bundle) {
-                _resourceBundle = Platform.getResourceBundle(bundle);
-            }
-        }
 
-        return _resourceBundle;
-    }
+	public static String getResourceString(String key) {
+		ResourceBundle bundle = RoomPlugin.getDefault().getResourceBundle();
+		try {
+			return (null != bundle) ? bundle.getString(key) : key;
+		} catch (MissingResourceException mre) {
+			return "???" + key + "???";
+		}
+	}
 
-    public static String getDirectory(String dir) {
+	public ResourceBundle getResourceBundle() {
+		if (null == _resourceBundle && null != _context) {
+			Bundle bundle = _context.getBundle();
+			if (null != bundle) {
+				_resourceBundle = Platform.getResourceBundle(bundle);
+			}
+		}
 
-        try {
-            URL url = _context.getBundle().getEntry(dir);
-            url = FileLocator.resolve(url);
-            return new Path(url.getPath()).makeAbsolute().toOSString();
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return "";
-        }
-    }
-    
-    private static void createTempDirectory(){
-        if (tmpDir == null) {
-            String tmpS = _plugin.getStateLocation().toOSString()+File.separator + "tmp";
-            if (FileUtils.isAvailableDirectory(tmpS)) {
-                tmpDir = new File(tmpS);
-            }
-        }
-    }
+		return _resourceBundle;
+	}
 
+	public static String getDirectory(String dir) {
 
-    public static File createTempFile(String prefix, String suffix) throws Exception {
-        createTempDirectory();
-        return (File.createTempFile(prefix, suffix, tmpDir));
-    }
-    
-    
+		try {
+			URL url = _context.getBundle().getEntry(dir);
+			url = FileLocator.resolve(url);
+			return new Path(url.getPath()).makeAbsolute().toOSString();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			return "";
+		}
+	}
+
+	public static String getTempDirectory() {
+		if (tmpDir != null) {
+			return (tmpDir.getAbsolutePath() + File.separator);
+		}
+		return "";
+	}
+
+	private static void createTempDirectory() {
+		if (tmpDir == null) {
+			String tmpS = _plugin.getStateLocation().toOSString()
+					+ File.separator + "tmp";
+			if (FileUtils.isAvailableDirectory(tmpS)) {
+				tmpDir = new File(tmpS);
+			}
+		}
+	}
+
+	public static File createTempFile(String prefix, String suffix)
+			throws Exception {
+		createTempDirectory();
+		return (File.createTempFile(prefix, suffix, tmpDir));
+	}
+
 }
-

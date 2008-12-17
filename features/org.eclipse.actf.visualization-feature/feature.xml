@@ -72,7 +72,8 @@
          id="org.eclipse.actf.model.dom.odf"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.actf.model.ui.editors.ie"
@@ -85,7 +86,8 @@
          id="org.eclipse.actf.model.ui.editors.ooo"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.actf.visualization.engines.lowvision"
@@ -125,7 +127,8 @@
          id="org.eclipse.actf.visualization.presentation"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.actf.visualization.ui.report"
@@ -138,7 +141,8 @@
          id="org.eclipse.actf.model.dom.dombycom"
          download-size="0"
          install-size="0"
-         version="0.0.0"/>
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.eclipse.actf.util.httpproxy"
