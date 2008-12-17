@@ -45,4 +45,8 @@ public class DummyTTSEngine implements ITTSEngine {
         return true;
     }
 
+	public boolean isDisposed() {
+		return false;
+	}
+
 }
