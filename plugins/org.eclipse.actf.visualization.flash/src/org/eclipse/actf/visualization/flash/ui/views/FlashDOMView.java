@@ -200,7 +200,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 														.getString("flash.error_target_length"), new Object[] { new Integer(flashNode.getLevel()) }) + "\n" + flashNode.getTarget()); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 					double x = flashNode.getX();
-					if (x >= flashRight + MARGIN || x < 0) {
+					if (x >= flashRight + MARGIN) {
 						continue;
 					}
 					double y = flashNode.getY();

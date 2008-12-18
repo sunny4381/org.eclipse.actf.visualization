@@ -18,8 +18,10 @@ import java.util.Vector;
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
-import org.eclipse.actf.model.flash.IFlashPlayer;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
+import org.eclipse.actf.util.win32.FlashMSAAObject;
+import org.eclipse.actf.util.win32.FlashMSAAObjectFactory;
+import org.eclipse.actf.util.win32.VariantUtil;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.ole.win32.Variant;
@@ -84,16 +86,17 @@ public class MSAATreeContentProvider implements ITreeContentProvider {
 			for (Object i : elements) {
 				if (i instanceof AccessibleObject) {
 
-					IFlashPlayer[] players = FlashMSAAUtil
-							.getFlashPlayers(((AccessibleObject) i).getWindow());
-
-					AccessibleObject[] flashElements = new AccessibleObject[players.length];
-					for (int j = 0; j < players.length; j++) {
-						Variant v = new Variant(new org.eclipse.swt.internal.ole.win32.IDispatch(players[j]
-								.getAccessible().getPtr()));
-						flashElements[j] = AccessibleObjectFactory
-								.getAccessibleObjectFromVariant(v);
+					FlashMSAAObject msaaObject = FlashMSAAObjectFactory
+							.getFlashMSAAObjectFromWindow(((AccessibleObject) i)
+									.getWindow());
+					FlashMSAAObject[] results = FlashMSAAUtil
+							.getFlashElements(msaaObject);
+					AccessibleObject[] flashElements = new AccessibleObject[results.length];
+					for (int j = 0; j < results.length; j++) {
+						Variant v = VariantUtil.createVariantFromIDispatchAddress(results[j].getPtr());
+						flashElements[j] = AccessibleObjectFactory.getAccessibleObjectFromVariant(v);
 					}
+
 					for (AccessibleObject j : flashElements) {
 						result.add(j);
 					}
