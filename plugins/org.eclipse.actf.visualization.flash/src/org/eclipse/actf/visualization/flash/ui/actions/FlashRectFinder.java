@@ -14,6 +14,7 @@ package org.eclipse.actf.visualization.flash.ui.actions;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.model.flash.util.FlashMSAAUtil;
+import org.eclipse.actf.util.win32.VariantUtil;
 import org.eclipse.actf.util.win32.comclutch.IDispatch;
 import org.eclipse.actf.visualization.gui.IGuiViewIDs;
 import org.eclipse.actf.visualization.gui.ui.views.IFlashDOMView;
@@ -83,9 +84,8 @@ public class FlashRectFinder {
 	private void reCalculateRect() {
 		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromPtr(playerWindow
 				.getPtr());
-		Variant varFlash = new Variant(
-				new org.eclipse.swt.internal.ole.win32.IDispatch((int) idisp
-						.getPtr()));
+		Variant varFlash = VariantUtil.createVariantFromIDispatchAddress((int) idisp
+				.getPtr());
 		if (null != varFlash) {
 			OleAutomation automation = varFlash.getAutomation();
 			if (null != automation) {

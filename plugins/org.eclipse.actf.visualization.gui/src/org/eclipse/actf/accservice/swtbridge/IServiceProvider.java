@@ -12,10 +12,10 @@
 package org.eclipse.actf.accservice.swtbridge;
 
 import org.eclipse.actf.util.win32.COMUtil;
+import org.eclipse.actf.util.win32.MemoryUtil;
 import org.eclipse.swt.internal.ole.win32.COM;
 import org.eclipse.swt.internal.ole.win32.GUID;
 import org.eclipse.swt.internal.ole.win32.IUnknown;
-import org.eclipse.swt.internal.win32.OS;
 
 
 
@@ -32,16 +32,16 @@ public class IServiceProvider extends IUnknown {
     }
     
     public int QueryService(GUID guidService, GUID riid, int ppvObject[]) {
-        int pGuidService = OS.GlobalAlloc(COM.GMEM_FIXED | COM.GMEM_ZEROINIT, GUID.sizeof);
-        int pRiid = OS.GlobalAlloc(COM.GMEM_FIXED | COM.GMEM_ZEROINIT, GUID.sizeof);
+        int pGuidService = MemoryUtil.GlobalAlloc(GUID.sizeof);
+        int pRiid = MemoryUtil.GlobalAlloc(GUID.sizeof);
         try {
             COM.MoveMemory(pGuidService, guidService, GUID.sizeof);
             COM.MoveMemory(pRiid, riid, GUID.sizeof);
             return QueryService(pGuidService, pRiid, ppvObject);
         }
         finally {
-            OS.GlobalFree(pGuidService);
-            OS.GlobalFree(pRiid);
+            MemoryUtil.GlobalFree(pGuidService);
+            MemoryUtil.GlobalFree(pRiid);
         }
     }
 }

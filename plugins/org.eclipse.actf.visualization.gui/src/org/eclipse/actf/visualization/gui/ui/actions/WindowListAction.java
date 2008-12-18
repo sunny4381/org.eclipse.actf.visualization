@@ -151,8 +151,8 @@ public class WindowListAction implements IWorkbenchWindowPulldownDelegate2 {
             boolean isEmbedded = TargetWindow.isEmbeddedBrowser();
             try {
         		if( setWindowOrder(GuiPreferenceManager.getPreferenceBoolean(GuiPreferenceConstants.AlwaysOnTop)) ) {
-                    OS.BringWindowToTop(hwnd);
-                    OS.BringWindowToTop(hwnd);
+                    WindowUtil.BringWindowToTop(hwnd);
+                    WindowUtil.BringWindowToTop(hwnd);
         		}
             	if( switchPerspective ) {
                     showInternalViewer(isEmbedded);
