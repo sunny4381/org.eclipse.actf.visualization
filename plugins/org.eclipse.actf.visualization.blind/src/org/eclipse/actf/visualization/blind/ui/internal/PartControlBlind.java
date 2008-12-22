@@ -112,7 +112,7 @@ public class PartControlBlind implements IHighlightElementListener {
 
 		_canSave = false;
 
-		vizView.setStatusMessage(Messages.getString("BlindView.Now_preparing"));
+		vizView.setStatusMessage(Messages.BlindView_Now_preparing);
 
 		for (IBlindVisualizer bvh : blindVizualizers) {
 			if (bvh.setModelService(modelService)) {
@@ -128,8 +128,7 @@ public class PartControlBlind implements IHighlightElementListener {
 				resultFilePath = bvh.getResultFile().getAbsolutePath();
 
 				if (ret > IBlindVisualizer.ERROR) { // OK, Frame
-					vizView.setStatusMessage(Messages
-							.getString("BlindView.Now_rendering"));
+					vizView.setStatusMessage(Messages.BlindView_Now_rendering);
 					CreateReport cr = new CreateReport(checkResult, new File(
 							BlindVizResourceUtil.getTempDirectory(),
 							BLIND_REPORT_FILE));
@@ -166,16 +165,14 @@ public class PartControlBlind implements IHighlightElementListener {
 	public void saveReportFile(String sFileName, String imageBriefDir,
 			boolean bAccessory) {
 		if (_canSave) {
-			vizView.setStatusMessage(Messages
-					.getString("BlindView.saving_file")); // //$NON-NLS-1$
+			vizView.setStatusMessage(Messages.BlindView_saving_file); // //$NON-NLS-1$
 
 			// TODO encoding
 			SaveReportBlind.saveReport((Document) resultDoc.cloneNode(true),
 					mediator.getReport(vizView), sFileName, imageBriefDir,
 					maxReachingTimeS, _pageEval, bAccessory);
 
-			vizView.setStatusMessage(Messages
-					.getString("BlindView.end_saving_file")); // //$NON-NLS-1$
+			vizView.setStatusMessage(Messages.BlindView_end_saving_file); // //$NON-NLS-1$
 		}
 	}
 
@@ -204,8 +201,7 @@ public class PartControlBlind implements IHighlightElementListener {
 							.getHighLightStringListener());
 					mediator.setReport(vizView, _checkResult);
 
-					vizView.setStatusMessage(Messages
-							.getString("BlindView.Done"));
+					vizView.setStatusMessage(Messages.BlindView_Done);
 				}
 			});
 		}

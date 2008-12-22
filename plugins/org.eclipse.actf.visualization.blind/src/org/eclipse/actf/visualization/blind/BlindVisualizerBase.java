@@ -11,6 +11,7 @@
 package org.eclipse.actf.visualization.blind;
 
 import java.io.File;
+import java.text.MessageFormat;
 
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.visualization.blind.ui.internal.Messages;
@@ -73,7 +74,7 @@ public abstract class BlindVisualizerBase implements IBlindVisualizer {
 	}
 
 	public String getMaxReachingTime() {
-		return Messages.formatResourceString("BlindView.Maximum_Time",
+		return MessageFormat.format(Messages.BlindView_Maximum_Time,
 				maxReachingTime);
 	}
 

@@ -20,10 +20,10 @@ public class BlindVisualizationAction extends Action {
 	PartControlBlind prb;
 
 	public BlindVisualizationAction(PartControlBlind prb) {
-		setToolTipText(Messages.getString("BlindView.Visualize_4")); //$NON-NLS-1$
+		setToolTipText(Messages.BlindView_Visualize_4); 
 		setImageDescriptor(BlindVizResourceUtil
 				.getImageDescriptor("icons/visualize_A.png"));
-		setText(Messages.getString("BlindVisualizationAction.0")); //$NON-NLS-1$
+		setText(Messages.BlindVisualizationAction_0); 
 		this.prb = prb;
 	}
 

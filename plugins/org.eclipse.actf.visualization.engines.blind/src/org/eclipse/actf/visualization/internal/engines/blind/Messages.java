@@ -35,10 +35,6 @@ public class Messages {
 
 	public static String formatResourceString(String key, Object arg) {
 		Object args[] = { arg };
-		return formatResourceString(key, args);
-	}
-
-	public static String formatResourceString(String key, Object[] args) {
 		return MessageFormat.format(getString(key), args);
 	}
 }

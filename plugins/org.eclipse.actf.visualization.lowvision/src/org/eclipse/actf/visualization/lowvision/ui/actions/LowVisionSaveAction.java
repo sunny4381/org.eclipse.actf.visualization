@@ -23,9 +23,9 @@ public class LowVisionSaveAction extends Action {
 	private PartControlLowVision lowVisionCtrl;
 	
     public LowVisionSaveAction(PartControlLowVision lowVisionCtrl) {
-        setToolTipText(Messages.getString("Tooltip.Save")); //$NON-NLS-1$
+        setToolTipText(Messages.Tooltip_Save); 
         setImageDescriptor(LowVisionVizPlugin.imageDescriptorFromPlugin(LowVisionVizPlugin.PLUGIN_ID, "icons/ButtonSave.png"));
-        setText(Messages.getString("MenuConst.Save")); //$NON-NLS-1$
+        setText(Messages.MenuConst_Save); 
         this.lowVisionCtrl = lowVisionCtrl;
     }
 

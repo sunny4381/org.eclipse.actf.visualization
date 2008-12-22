@@ -11,6 +11,8 @@
 
 package org.eclipse.actf.visualization.internal.engines.blind;
 
+import java.text.MessageFormat;
+
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
@@ -118,11 +120,12 @@ public class SummaryEvaluation {
 					}
 				} else {
 					if (hasOther && other != 100) {
-						aboutComp.append(Messages.formatResourceString(
-								"Eval.some.errors.on.metrics", new String[] {
+						aboutComp.append(MessageFormat.format(Messages
+								.getString("Eval.some.errors.on.metrics"),
+								(Object[])(new String[] {
 										noGoodMetrics.substring(0,
 												noGoodMetrics.length() - 1),
-										FileUtils.LINE_SEP }));
+										FileUtils.LINE_SEP })));
 					} else {
 						if (comp == 100) {
 							isGood = true;
@@ -131,9 +134,10 @@ public class SummaryEvaluation {
 						} else {
 							isGood = true;
 							aboutComp
-									.append(Messages
-											.formatResourceString(
-													"Eval.completely.compliant.with.user.check.items",
+									.append(MessageFormat
+											.format(
+													Messages
+															.getString("Eval.completely.compliant.with.user.check.items"),
 													FileUtils.LINE_SEP));
 						}
 					}
@@ -165,25 +169,30 @@ public class SummaryEvaluation {
 		if (hasNav) {
 			if (nav > 80) {
 				if (pageData.getMaxTime() > 240) {
-					aboutNav.append(Messages.formatResourceString(
-							"Eval.navigability.long.time.error.msg",
-							new String[] { FileUtils.LINE_SEP,
-									FileUtils.LINE_SEP, FileUtils.LINE_SEP,
-									FileUtils.LINE_SEP })
-							+ FileUtils.LINE_SEP);
+					aboutNav
+							.append(MessageFormat
+									.format(
+											Messages
+													.getString("Eval.navigability.long.time.error.msg"),
+													(Object[])(new String[] { FileUtils.LINE_SEP,
+													FileUtils.LINE_SEP,
+													FileUtils.LINE_SEP,
+													FileUtils.LINE_SEP }))
+									+ FileUtils.LINE_SEP);
 
 				} else {
-					aboutNav.append(Messages.formatResourceString(
-							"Eval.navigability.good.msg", new String[] {
-									FileUtils.LINE_SEP, FileUtils.LINE_SEP })
+					aboutNav.append(MessageFormat.format(Messages
+							.getString("Eval.navigability.good.msg"),
+							(Object[])(new String[] { FileUtils.LINE_SEP,
+									FileUtils.LINE_SEP }))
 							+ FileUtils.LINE_SEP);
 				}
 			} else {
 				isGood = false;
-				aboutNav.append(Messages.formatResourceString(
-						"Eval.navigability.low.score.error.msg", new String[] {
-								FileUtils.LINE_SEP, FileUtils.LINE_SEP,
-								FileUtils.LINE_SEP, FileUtils.LINE_SEP })
+				aboutNav.append(MessageFormat.format(Messages
+						.getString("Eval.navigability.low.score.error.msg"),
+						(Object[])(new String[] { FileUtils.LINE_SEP, FileUtils.LINE_SEP,
+								FileUtils.LINE_SEP, FileUtils.LINE_SEP }))
 						+ FileUtils.LINE_SEP);
 			}
 		}
@@ -203,20 +212,20 @@ public class SummaryEvaluation {
 
 		if (noImageAltCount > 0) {
 			tmpSB.append(" -"
-					+ Messages.formatResourceString(
-							"Eval.no.img.alt.error.msg", FileUtils.LINE_SEP));
+					+ MessageFormat.format(Messages
+							.getString("Eval.no.img.alt.error.msg"),
+							FileUtils.LINE_SEP));
 		}
 		if (wrongImageAltCount > 0) {
-			tmpSB
-					.append(" -"
-							+ Messages.formatResourceString(
-									"Eval.wrong.img.alt.error.msg",
-									FileUtils.LINE_SEP));
+			tmpSB.append(" -"
+					+ MessageFormat.format(Messages
+							.getString("Eval.wrong.img.alt.error.msg"),
+							FileUtils.LINE_SEP));
 		}
 		if (redundantImageAltCount > 0) {
 			tmpSB.append(" -"
-					+ Messages.formatResourceString(
-							"Eval.redundant.img.al.error.msg",
+					+ MessageFormat.format(Messages
+							.getString("Eval.redundant.img.al.error.msg"),
 							FileUtils.LINE_SEP));
 		}
 		tmpSB.append(FileUtils.LINE_SEP);

@@ -27,10 +27,10 @@ public class BlindSettingAction extends Action {
 	 * Constructor of the class
 	 */
 	public BlindSettingAction() {
-		setToolTipText(Messages.getString("Tooltip.Settings")); //$NON-NLS-1$
+		setToolTipText(Messages.Tooltip_Settings); 
 		setImageDescriptor(BlindVizEnginePlugin.imageDescriptorFromPlugin(
 				BlindVizEnginePlugin.PLUGIN_ID, "icons/setting.png"));
-		setText(Messages.getString("MenuConst.Settings")); //$NON-NLS-1$
+		setText(Messages.MenuConst_Settings); 
 	}
 
 	public void run() {

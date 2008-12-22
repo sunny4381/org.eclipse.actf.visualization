@@ -8,38 +8,29 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.actf.visualization.blind.ui.internal;
 
-import java.text.MessageFormat;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-import org.eclipse.actf.visualization.blind.internal.BlindVizPlugin;
+public final class Messages extends NLS {
 
-public class Messages {
-	private static final String BUNDLE_NAME = BlindVizPlugin.PLUGIN_ID+".ui.internal.messages"; //$NON-NLS-1$
-
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+	private static final String BUNDLE_NAME = "org.eclipse.actf.visualization.blind.ui.internal.messages";//$NON-NLS-1$
 
 	private Messages() {
+		// Do not instantiate
 	}
 
-	public static String getString(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
-	}
+	public static String BlindView_Maximum_Time;
+	public static String BlindView_Done;
+	public static String BlindView_Now_preparing;
+	public static String BlindView_Now_processing;
+	public static String BlindView_Now_rendering;
+	public static String BlindView_saving_file;
+	public static String BlindView_end_saving_file;
+	public static String BlindView_Visualize_4;
+	public static String BlindVisualizationAction_0;
 
-	public static String formatResourceString(String key, Object arg) {
-		Object args[] = { arg };
-		return formatResourceString(key, args);
-	}
-
-	public static String formatResourceString(String key, Object[] args) {
-		return MessageFormat.format(getString(key), args);
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}
 }

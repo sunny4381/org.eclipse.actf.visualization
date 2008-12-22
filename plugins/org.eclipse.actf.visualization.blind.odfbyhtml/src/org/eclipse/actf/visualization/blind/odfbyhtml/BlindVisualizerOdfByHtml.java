@@ -108,7 +108,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 				return ERROR;
 			}
 
-			setStatusMessage(Messages.getString("BlindView.Now_processing")); // //$NON-NLS-1$
+			setStatusMessage(Messages.BlindView_Now_processing); // //$NON-NLS-1$
 
 			pageData = new PageData();
 
