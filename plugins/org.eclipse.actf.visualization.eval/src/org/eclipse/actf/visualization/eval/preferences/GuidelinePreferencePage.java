@@ -100,8 +100,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 		guidelineTreeGroup.setLayoutData(gridData);
 		guidelineTreeGroup.setLayout(new GridLayout());
 
-		guidelineTreeGroup.setText(Messages
-				.getString("adesigner.preference.guideline.list.group.text"));
+		guidelineTreeGroup.setText(Messages.adesigner_preference_guideline_list_group_text);
 
 		this._guidelineTreeViewer = new CheckboxTreeViewer(guidelineTreeGroup,
 				SWT.BORDER);
@@ -226,8 +225,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 		int columnNum = 4;
 		Group criteriaGroup = new Group(parent, SWT.NONE);
 		criteriaGroup
-				.setText(Messages
-						.getString("adesigner.preference.guideline.criteria.group.text"));
+				.setText(Messages.adesigner_preference_guideline_criteria_group_text);
 		criteriaGroup.setLayoutData(new GridData(SWT.FILL, SWT.FILL, false,
 				false));
 		GridLayout gridLayout = new GridLayout();
@@ -255,15 +253,13 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 
 		addField(new RadioGroupFieldEditor(
 				IPreferenceConstants.CHECKER_TARGET,
-				Messages
-						.getString("DialogCheckerOption.Line_Number_Information_19"),
+				Messages.DialogCheckerOption_Line_Number_Information_19,
 				1,
 				new String[][] {
 						{
-								Messages
-										.getString("DialogCheckerOption.Add_line_number_20"),
+								Messages.DialogCheckerOption_Add_line_number_20,
 								IPreferenceConstants.CHECKER_ORG_DOM },
-						{ Messages.getString("DialogCheckerOption.LIVE_DOM"),
+						{ Messages.DialogCheckerOption_LIVE_DOM,
 								IPreferenceConstants.CHECKER_LIVE_DOM } },
 				parent));
 

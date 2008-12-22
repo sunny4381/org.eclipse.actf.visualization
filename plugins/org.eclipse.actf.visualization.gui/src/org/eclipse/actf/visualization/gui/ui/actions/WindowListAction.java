@@ -111,7 +111,7 @@ public class WindowListAction implements IWorkbenchWindowPulldownDelegate2 {
 				new MenuItem(menu, SWT.SEPARATOR);
 			}
 			final MenuItem bringTopItem = new MenuItem(menu, SWT.CHECK);
-			bringTopItem.setText(Messages.getString("msaa.bringToTop")); //$NON-NLS-1$
+			bringTopItem.setText(Messages.msaa_bringToTop); 
 			bringTopItem.setSelection(GuiPreferenceManager
 					.getPreferenceBoolean(GuiPreferenceConstants.AlwaysOnTop));
 			if (TargetWindow.isEmbeddedBrowser()) {
@@ -127,7 +127,7 @@ public class WindowListAction implements IWorkbenchWindowPulldownDelegate2 {
 			if (hasEmbedBrowser) {
 				final MenuItem switchItem = new MenuItem(menu, SWT.CHECK);
 				switchItem
-						.setText(Messages.getString("msaa.switchPerspective")); //$NON-NLS-1$
+						.setText(Messages.msaa_switchPerspective); 
 				switchItem.setSelection(switchPerspective);
 				switchItem.addSelectionListener(new SelectionAdapter() {
 					public void widgetSelected(SelectionEvent e) {
@@ -193,10 +193,8 @@ public class WindowListAction implements IWorkbenchWindowPulldownDelegate2 {
 		return topMost;
 	}
 
-	private static final String CATEGORY_BROWSER = Messages
-			.getString("msaa.external_browsers"); //$NON-NLS-1$
-	private static final String CATEGORY_WINDOW = Messages
-			.getString("msaa.external_windows"); //$NON-NLS-1$
+	private static final String CATEGORY_BROWSER = Messages.msaa_external_browsers; //$NON-NLS-1$
+	private static final String CATEGORY_WINDOW = Messages.msaa_external_windows; //$NON-NLS-1$
 
 	private class CategoryComparator implements Comparator {
 		private Collator collator = Collator.getInstance();

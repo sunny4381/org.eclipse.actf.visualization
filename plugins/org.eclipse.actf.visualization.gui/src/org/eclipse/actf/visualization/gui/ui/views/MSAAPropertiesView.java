@@ -141,15 +141,15 @@ public class MSAAPropertiesView extends ViewPart implements IMSAAPropertiesView 
 	}
 
 	private void makeActions() {
-		refreshAction = new Action(Messages.getString("msaa.refresh")) { //$NON-NLS-1$
+		refreshAction = new Action(Messages.msaa_refresh) { 
 			public void run() {
 				viewer.refresh();
 			}
 		};
-		refreshAction.setToolTipText(Messages.getString("msaa.refresh")); //$NON-NLS-1$
+		refreshAction.setToolTipText(Messages.msaa_refresh); 
 		refreshAction.setImageDescriptor(GuiImages.IMAGE_REFRESH);
 		
-		showNullAction = new Action(Messages.getString("msaa.showNull"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
+		showNullAction = new Action(Messages.msaa_showNull,Action.AS_CHECK_BOX) { 
 			public void run() {
 				filter.showNull = showNullAction.isChecked();
 				viewer.refresh();
@@ -157,7 +157,7 @@ public class MSAAPropertiesView extends ViewPart implements IMSAAPropertiesView 
 		};
 		showNullAction.setChecked(filter.showNull);
 		
-		changeColorAction = new Action(Messages.getString("msaa.changePropertiesColor"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
+		changeColorAction = new Action(Messages.msaa_changePropertiesColor,Action.AS_CHECK_BOX) { 
 			public void run() {
 				filter.changeColor = changeColorAction.isChecked();
 				viewer.refresh();
@@ -165,7 +165,7 @@ public class MSAAPropertiesView extends ViewPart implements IMSAAPropertiesView 
 		};
 		changeColorAction.setChecked(filter.changeColor);
 		
-		copyAction = new Action(Messages.getString("msaa.copy")) { //$NON-NLS-1$
+		copyAction = new Action(Messages.msaa_copy) { 
 			public void run() {
 				ISelection selection = viewer.getSelection();
 				if( selection instanceof IStructuredSelection && !selection.isEmpty() ) {
@@ -190,7 +190,7 @@ public class MSAAPropertiesView extends ViewPart implements IMSAAPropertiesView 
 		};
         copyAction.setImageDescriptor(sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY));
         
-        invokeAction = new Action(Messages.getString("msaa.invoke")) { //$NON-NLS-1$
+        invokeAction = new Action(Messages.msaa_invoke) { 
             public void run() {
                 viewer.invoke(getSelectedItem());
             }

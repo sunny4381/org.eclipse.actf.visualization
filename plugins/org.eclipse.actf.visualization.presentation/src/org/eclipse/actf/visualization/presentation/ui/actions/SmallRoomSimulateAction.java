@@ -11,26 +11,25 @@
 
 package org.eclipse.actf.visualization.presentation.ui.actions;
 
+import org.eclipse.actf.visualization.presentation.internal.Messages;
 import org.eclipse.actf.visualization.presentation.internal.RoomPlugin;
 import org.eclipse.actf.visualization.presentation.ui.internal.PartControlRoom;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
 import org.eclipse.jface.action.Action;
 
-
-
-
 public class SmallRoomSimulateAction extends Action {
-   
-    public SmallRoomSimulateAction() {
-        setToolTipText(RoomPlugin.getResourceString("RoomView.Simulate_Small")); //$NON-NLS-1$
-        setImageDescriptor(RoomPlugin.getImageDescriptor("icons/ButtonSmall.gif"));
-        setText(RoomPlugin.getResourceString("RoomSimulationAction.Small")); //$NON-NLS-1$
-    }
-    
-    
-    public void run(){
-    	//TODO
-        PartControlRoom.getDefaultInstance().getParamLowVision().setType(ParamRoom.ROOM_SMALL);
-        PartControlRoom.getDefaultInstance().doSimulate();
-    }
+
+	public SmallRoomSimulateAction() {
+		setToolTipText(Messages.RoomSimulationAction_Small); 
+		setImageDescriptor(RoomPlugin
+				.getImageDescriptor("icons/ButtonSmall.gif"));
+		setText(Messages.RoomSimulationAction_Small); 
+	}
+
+	public void run() {
+		// TODO
+		PartControlRoom.getDefaultInstance().getParamLowVision().setType(
+				ParamRoom.ROOM_SMALL);
+		PartControlRoom.getDefaultInstance().doSimulate();
+	}
 }

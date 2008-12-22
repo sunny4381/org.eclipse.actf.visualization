@@ -8,30 +8,31 @@
  * Contributors:
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.actf.visualization.internal.flash;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
+public final class Messages extends NLS {
 
-public class Messages {
-    private static final String BUNDLE_NAME = "org.eclipse.actf.visualization.internal.flash.messages"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "org.eclipse.actf.visualization.internal.flash.messages";//$NON-NLS-1$
 
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	private Messages() {
+		// Do not instantiate
+	}
 
-    private Messages() {
-    }
+	public static String flash_element_found;
+	public static String flash_error_no_element;
+	public static String flash_filter_noninformative;
+	public static String flash_flash_dom;
+	public static String flash_show_visual;
+	public static String flash_debugMode;
+	public static String flash_scanWindowless;
+	public static String flash_error_no_location;
+	public static String flash_error_select_flash;
+	public static String flash_warning;
+	public static String flash_error_target_length;
 
-    public static String getString(String key) {
-        try {
-            if( key.startsWith("msaa.") ) {//$NON-NLS-1$
-                return org.eclipse.actf.visualization.gui.internal.util.Messages.getString(key);
-            }
-            return RESOURCE_BUNDLE.getString(key);
-        } catch (MissingResourceException e) {
-        	e.printStackTrace();
-            return '!' + key + '!';
-        }
-    }
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+	}
 }

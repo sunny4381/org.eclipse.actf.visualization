@@ -128,8 +128,7 @@ public class PartControlLowVision implements ISelectionListener,
 				_shell.getDisplay().syncExec(new Runnable() {
 					public void run() {
 						checker
-								.setStatusMessage(Messages
-										.getString("LowVisionView.begin_to_check_problems._4"));
+								.setStatusMessage(Messages.LowVisionView_begin_to_check_problems__4);
 					}
 				});
 
@@ -225,8 +224,7 @@ public class PartControlLowVision implements ISelectionListener,
 					mediator.setReport(checker, checkResult);
 
 					checker
-							.setStatusMessage(Messages
-									.getString("LowVisionView.simulation_of_current_page_is_over._8"));
+							.setStatusMessage(Messages.LowVisionView_simulation_of_current_page_is_over__8);
 					_shell.setCursor(null);
 					_isInSimulate = false;
 
@@ -378,8 +376,7 @@ public class PartControlLowVision implements ISelectionListener,
 			int lastFrame) {
 		try {
 			checker
-					.setStatusMessage(Messages
-							.getString("LowVisionView.dump_the_image_in_the_web_browser._26"));
+					.setStatusMessage(Messages.LowVisionView_dump_the_image_in_the_web_browser__26);
 
 			ModelServiceImageCreator imgCreator = new ModelServiceImageCreator(
 					modelService);
@@ -398,8 +395,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 			if (framePageImage[frameId] != null) {
 				checker
-						.setStatusMessage(Messages
-								.getString("LowVisionView.get_information_of_all_images._25"));
+						.setStatusMessage(Messages.LowVisionView_get_information_of_all_images__25);
 				if (browser != null) {
 					imageInfoInHtmlArray[frameId] = browser
 							.getAllImagePosition();
@@ -421,8 +417,7 @@ public class PartControlLowVision implements ISelectionListener,
 									framePageImage[frameId].getHeight()));
 				}
 
-				checker.setStatusMessage(Messages
-						.getString("LowVisionView.begin_to_make_PageImage._2"));
+				checker.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
 
 				ExtractCheckThread checkThread = new ExtractCheckThread(
 						frameId, frameUrl[frameId]);
@@ -467,8 +462,7 @@ public class PartControlLowVision implements ISelectionListener,
 			pageImageWhole = framePageImage[0];
 		}
 
-		checker.setStatusMessage(Messages
-				.getString("LowVisionView.prepare_Simulation_Image._29"));
+		checker.setStatusMessage(Messages.LowVisionView_prepare_Simulation_Image__29);
 
 		try {
 			visResultFile = LowVisionVizPlugin.createTempFile(
@@ -530,8 +524,7 @@ public class PartControlLowVision implements ISelectionListener,
 		// TODO null check?
 
 		if (frameUrl.length == 0) {
-			checker.setStatusMessage(Messages
-					.getString("LowVisionView.begin_to_make_PageImage._2"));
+			checker.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
 			// TODO check(original is getAddressText())
 			ExtractCheckThread checkThread = new ExtractCheckThread(0,
 					modelService.getURL());

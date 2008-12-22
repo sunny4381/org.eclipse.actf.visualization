@@ -41,8 +41,8 @@ public class SaveReportLowVision {
 	private static final String RESULT_BMP_FILE = "result.bmp";
 
 	private static final String[] ERROR_IMAGE_ALT = {
-			Messages.getString("SaveReportLowVision.Iro21_Error_Alt"),
-			Messages.getString("SaveReportLowVision.Boke21_Error_Alt") };
+			Messages.SaveReportLowVision_Iro21_Error_Alt,
+			Messages.SaveReportLowVision_Boke21_Error_Alt };
 
 	private Shell shell;
 

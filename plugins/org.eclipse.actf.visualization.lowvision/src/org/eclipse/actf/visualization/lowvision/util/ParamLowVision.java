@@ -192,15 +192,15 @@ public class ParamLowVision {
         StringBuffer result = new StringBuffer(" "); //$NON-NLS-1$
 
         if (useEyeSight()) {
-            result.append(Messages.getString("ParamLowVision.1")+" " + (getEyeSightValue() / 100.0f) + "  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            result.append(Messages.ParamLowVision_1+" " + (getEyeSightValue() / 100.0f) + "  "); 
         }
 
         if (useColorVision()) {
-            result.append(Messages.getString("ParamLowVision.4")+" " + getColorVisionValue() + "  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            result.append(Messages.ParamLowVision_4+" " + getColorVisionValue() + "  "); 
         }
 
         if (useColorFilter()) {
-            result.append(Messages.getString("ParamLowVision.7")+" " + (getColorFilterValue() / 100.0f) + "  "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            result.append(Messages.ParamLowVision_7+" " + (getColorFilterValue() / 100.0f) + "  "); 
         }
 
         return result.toString();

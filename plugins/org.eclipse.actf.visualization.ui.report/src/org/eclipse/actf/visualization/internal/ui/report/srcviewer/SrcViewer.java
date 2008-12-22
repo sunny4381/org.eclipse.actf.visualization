@@ -98,7 +98,7 @@ public class SrcViewer {
         composite2.setLayoutData(gridData);
 
         Label label = new Label(composite2, SWT.NONE);
-        label.setText(Messages.getString("SrcViewer.3")); //$NON-NLS-1$
+        label.setText(Messages.SrcViewer_3); 
         gridData = new GridData();
         gridData.horizontalIndent = 5;
         label.setLayoutData(gridData);
@@ -140,7 +140,7 @@ public class SrcViewer {
         });
 
         label = new Label(composite2, SWT.NONE);
-        label.setText(Messages.getString("SrcViewer.6")); //$NON-NLS-1$
+        label.setText(Messages.SrcViewer_6); 
         gridData = new GridData();
         gridData.horizontalIndent = 10;
         label.setLayoutData(gridData);
@@ -189,7 +189,7 @@ public class SrcViewer {
         });
 
         Button searchButton = new Button(composite2, SWT.PUSH);
-        searchButton.setText(Messages.getString("SrcViewer.8")); //$NON-NLS-1$
+        searchButton.setText(Messages.SrcViewer_8); 
         gridData = new GridData();
         gridData.horizontalIndent = 20;
         searchButton.setLayoutData(gridData);
@@ -200,7 +200,7 @@ public class SrcViewer {
         });
 
         copyButton = new Button(composite2, SWT.PUSH);
-        copyButton.setText(Messages.getString("SrcViewer.9")); //$NON-NLS-1$
+        copyButton.setText(Messages.SrcViewer_9); 
         gridData = new GridData();
         gridData.horizontalIndent = 10;
         copyButton.setLayoutData(gridData);
@@ -400,7 +400,7 @@ public class SrcViewer {
                         styledText.append(line + "\n"); //$NON-NLS-1$
                     }
                 } catch (Exception e2) {
-                    styledText.setText(Messages.getString("SrcViewer.0") + target.getName()); //$NON-NLS-1$
+                    styledText.setText(Messages.SrcViewer_0 + target.getName()); 
                 }
             }
             is.close();

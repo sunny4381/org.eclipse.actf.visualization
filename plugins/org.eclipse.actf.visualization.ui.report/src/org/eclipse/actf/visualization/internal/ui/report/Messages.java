@@ -8,25 +8,39 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.actf.visualization.internal.ui.report;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-public class Messages {
-    private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+public final class Messages extends NLS {
 
-    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);
+	private static final String BUNDLE_NAME = "messages";//$NON-NLS-1$
 
-    private Messages() {
-    }
+	private Messages() {
+		// Do not instantiate
+	}
 
-    public static String getString(String key) {
-        try {
-            return RESOURCE_BUNDLE.getString(key);
-        } catch (MissingResourceException e) {
-            return '!' + key + '!';
-        }
-    }
+	public static String ProblemTable_5;
+	public static String ProblemTable_6;
+	public static String ProblemTable_Clear_Selection_15;
+	public static String ProblemTable_View_Guideline_16;
+	public static String DialogTextSearch_0;
+	public static String DialogTextSearch_1;
+	public static String DialogTextSearch_3;
+	public static String DialogTextSearch_4;
+	public static String DialogTextSearch_5;
+	public static String DialogTextSearch_6;
+	public static String DialogTextSearch_7;
+	public static String DialogTextSearch_8;
+	public static String DialogTextSearch_10;
+	public static String DialogTextSearch_12;
+	public static String SrcViewer_3;
+	public static String SrcViewer_6;
+	public static String SrcViewer_8;
+	public static String SrcViewer_9;
+	public static String SrcViewer_0;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
+	}
 }

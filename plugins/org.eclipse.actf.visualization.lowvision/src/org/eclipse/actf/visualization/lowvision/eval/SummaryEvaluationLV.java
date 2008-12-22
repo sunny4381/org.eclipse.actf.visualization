@@ -33,32 +33,28 @@ public class SummaryEvaluationLV {
 
 		hlsl
 				.addTarget(
-						Messages
-								.getString("EvalLV.no.color.difficult.distinguish"), blue, SWT.BOLD); //$NON-NLS-1$
+						Messages.EvalLV_no_color_difficult_distinguish, blue, SWT.BOLD); //$NON-NLS-1$
 		hlsl
 				.addTarget(
-						Messages.getString("EvalLV.font.might.enough.to.read"), blue, SWT.BOLD); //$NON-NLS-1$
+						Messages.EvalLV_font_might_enough_to_read, blue, SWT.BOLD); 
 
 		hlsl
 				.addTarget(
-						Messages
-								.getString("EvalLV.color.difficult.distinguish"), red, SWT.BOLD); //$NON-NLS-1$
+						Messages.EvalLV_color_difficult_distinguish, red, SWT.BOLD); //$NON-NLS-1$
 		hlsl
 				.addTarget(
-						Messages
-								.getString("EvalLV.color.might.difficult.distinguish"), red, SWT.BOLD); //$NON-NLS-1$
+						Messages.EvalLV_color_might_difficult_distinguish, red, SWT.BOLD); //$NON-NLS-1$
 		hlsl
 				.addTarget(
-						Messages.getString("EvalLV.font.too.small.to.read"), red, SWT.BOLD); //$NON-NLS-1$
+						Messages.EvalLV_font_too_small_to_read, red, SWT.BOLD); 
 		hlsl
 				.addTarget(
-						Messages
-								.getString("EvalLV.font.might.too.small.to.read"), red, SWT.BOLD); //$NON-NLS-1$
+						Messages.EvalLV_font_might_too_small_to_read, red, SWT.BOLD); //$NON-NLS-1$
 		hlsl
 				.addTarget(
-						Messages.getString("EvalLV.page.have.fixed.font"), red, SWT.BOLD); //$NON-NLS-1$
+						Messages.EvalLV_page_have_fixed_font, red, SWT.BOLD); 
 
-		hlsl.addTarget(Messages.getString("EvalLV.0"), green, SWT.BOLD);
+		hlsl.addTarget(Messages.EvalLV_0, green, SWT.BOLD);
 		// TODO
 
 		return (hlsl);
@@ -76,7 +72,7 @@ public class SummaryEvaluationLV {
 	}
 
 	public static String notSupported() {
-		return (Messages.getString("EvalLV.0")); //$NON-NLS-1$
+		return (Messages.EvalLV_0); 
 	}
 
 	public String getOverview() {
@@ -100,31 +96,26 @@ public class SummaryEvaluationLV {
 		if (problemCount[1] > 0 || problemCount[3] > 0) {
 			if (severeCount[1] > 0 || severeCount[3] > 0) {
 				tmpSB
-						.append(Messages
-								.getString("EvalLV.color.difficult.distinguish") + FileUtils.LINE_SEP); //$NON-NLS-1$
+						.append(Messages.EvalLV_color_difficult_distinguish + FileUtils.LINE_SEP); //$NON-NLS-1$
 			} else {
 				tmpSB
-						.append(Messages
-								.getString("EvalLV.color.might.difficult.distinguish") + FileUtils.LINE_SEP); //$NON-NLS-1$
+						.append(Messages.EvalLV_color_might_difficult_distinguish + FileUtils.LINE_SEP); //$NON-NLS-1$
 			}
 			tmpSB
-					.append(Messages.getString("EvalLV.click.detailed.report") + FileUtils.LINE_SEP); //$NON-NLS-1$
+					.append(Messages.EvalLV_click_detailed_report + FileUtils.LINE_SEP); 
 
 			tmpSB.append(FileUtils.LINE_SEP);
 			if (problemCount[1] > 0) {
 				tmpSB
-						.append(Messages
-								.getString("EvalLV.text.color.combination") + " " + problemCount[1] + FileUtils.LINE_SEP); //$NON-NLS-1$ //$NON-NLS-2$
+						.append(Messages.EvalLV_text_color_combination + " " + problemCount[1] + FileUtils.LINE_SEP); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 			if (problemCount[3] > 0) {
 				tmpSB
-						.append(Messages
-								.getString("EvalLV.img.color.combination") + " " + problemCount[3] + FileUtils.LINE_SEP); //$NON-NLS-1$ //$NON-NLS-2$
+						.append(Messages.EvalLV_img_color_combination + " " + problemCount[3] + FileUtils.LINE_SEP); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		} else {
 			tmpSB
-					.append(Messages
-							.getString("EvalLV.no.color.difficult.distinguish") + FileUtils.LINE_SEP); //$NON-NLS-1$
+					.append(Messages.EvalLV_no_color_difficult_distinguish + FileUtils.LINE_SEP); //$NON-NLS-1$
 		}
 
 		tmpSB.append(FileUtils.LINE_SEP);
@@ -132,36 +123,32 @@ public class SummaryEvaluationLV {
 		if (problemCount[5] > 0 || problemCount[6] > 0) {
 			if (severeCount[5] > 0 || severeCount[6] > 0) {
 				tmpSB
-						.append(Messages
-								.getString("EvalLV.font.too.small.to.read") + FileUtils.LINE_SEP); //$NON-NLS-1$
+						.append(Messages.EvalLV_font_too_small_to_read + FileUtils.LINE_SEP); //$NON-NLS-1$
 			} else {
 				tmpSB
-						.append(Messages
-								.getString("EvalLV.font.might.too.small.to.read") + FileUtils.LINE_SEP); //$NON-NLS-1$
+						.append(Messages.EvalLV_font_might_too_small_to_read + FileUtils.LINE_SEP); //$NON-NLS-1$
 			}
 			tmpSB
-					.append(Messages.getString("EvalLV.click.detailed.report") + FileUtils.LINE_SEP); //$NON-NLS-1$
+					.append(Messages.EvalLV_click_detailed_report + FileUtils.LINE_SEP); 
 
 			tmpSB.append(FileUtils.LINE_SEP);
 			if (problemCount[5] > 0) {
 				tmpSB
-						.append(Messages.getString("EvalLV.font.too.small") + " " + problemCount[5]); //$NON-NLS-1$ //$NON-NLS-2$
+						.append(Messages.EvalLV_font_too_small + " " + problemCount[5]); 
 			}
 			if (problemCount[6] > 0) {
 				tmpSB
-						.append(Messages
-								.getString("EvalLV.font.too.small.fixed") + " " + problemCount[6]); //$NON-NLS-1$ //$NON-NLS-2$
+						.append(Messages.EvalLV_font_too_small_fixed + " " + problemCount[6]); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		} else if (problemCount[4] > 0) {
 			tmpSB
-					.append(Messages.getString("EvalLV.page.have.fixed.font") + FileUtils.LINE_SEP); //$NON-NLS-1$
+					.append(Messages.EvalLV_page_have_fixed_font + FileUtils.LINE_SEP); 
 			tmpSB.append(FileUtils.LINE_SEP);
 			tmpSB
-					.append(Messages.getString("EvalLV.font.fixed") + " " + problemCount[4]); //$NON-NLS-1$ //$NON-NLS-2$
+					.append(Messages.EvalLV_font_fixed + " " + problemCount[4]); 
 		} else {
 			tmpSB
-					.append(Messages
-							.getString("EvalLV.font.might.enough.to.read") + FileUtils.LINE_SEP); //$NON-NLS-1$
+					.append(Messages.EvalLV_font_might_enough_to_read + FileUtils.LINE_SEP); //$NON-NLS-1$
 		}
 
 		return (tmpSB.toString());

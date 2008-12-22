@@ -41,7 +41,7 @@ public class DialogTextSearch {
     
     public DialogTextSearch(Shell _shell, SrcViewer _viewer) {
         shell = _shell;
-        shell.setText(Messages.getString("DialogTextSearch.0")); //$NON-NLS-1$
+        shell.setText(Messages.DialogTextSearch_0); 
         viewer = _viewer;
         styledText = viewer.getStyledText();
         createSettingControls();
@@ -64,7 +64,7 @@ public class DialogTextSearch {
         strComp.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         Label label = new Label(strComp, SWT.NONE);
-        label.setText(Messages.getString("DialogTextSearch.1")); //$NON-NLS-1$
+        label.setText(Messages.DialogTextSearch_1); 
 
         final Text text = new Text(strComp, SWT.BORDER);
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
@@ -88,18 +88,18 @@ public class DialogTextSearch {
         optionComp.setLayout(gridLayout);
 
         final Button disLetterSize = new Button(optionComp, SWT.CHECK);
-        disLetterSize.setText(Messages.getString("DialogTextSearch.3")); //$NON-NLS-1$
+        disLetterSize.setText(Messages.DialogTextSearch_3); 
 
         Group group = new Group(optionComp, SWT.NONE);
-        group.setText(Messages.getString("DialogTextSearch.4")); //$NON-NLS-1$
+        group.setText(Messages.DialogTextSearch_4); 
         gridLayout = new GridLayout();
         gridLayout.numColumns = 2;
         group.setLayout(gridLayout);
 
         Button upButton = new Button(group, SWT.RADIO);
-        upButton.setText(Messages.getString("DialogTextSearch.5")); //$NON-NLS-1$
+        upButton.setText(Messages.DialogTextSearch_5); 
         final Button downButton = new Button(group, SWT.RADIO);
-        downButton.setText(Messages.getString("DialogTextSearch.6")); //$NON-NLS-1$
+        downButton.setText(Messages.DialogTextSearch_6); 
         downButton.setSelection(true);
 
         Composite rightComp = new Composite(composite, SWT.NULL);
@@ -107,7 +107,7 @@ public class DialogTextSearch {
         rightComp.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
 
         searchButton = new Button(rightComp, SWT.PUSH);
-        searchButton.setText(Messages.getString("DialogTextSearch.7")); //$NON-NLS-1$
+        searchButton.setText(Messages.DialogTextSearch_7); 
         searchButton.setEnabled(false);
         gridData = new GridData();
         gridData.widthHint = 100;
@@ -124,7 +124,7 @@ public class DialogTextSearch {
                     if (disLetterSize.getSelection()) {
                         findedPos = wholeText.indexOf(str, pos);
                         if (findedPos == -1 && pos > 0) {
-                            if (SWT.CANCEL == popupMessage(Messages.getString("DialogTextSearch.8"), //$NON-NLS-1$
+                            if (SWT.CANCEL == popupMessage(Messages.DialogTextSearch_8, 
                                     SWT.OK | SWT.CANCEL)) {
                                 return;
                             }
@@ -133,7 +133,7 @@ public class DialogTextSearch {
                     } else {
                         findedPos = wholeText.toLowerCase().indexOf(str.toLowerCase(), pos);
                         if (findedPos == -1 && pos > 0) {
-                            if (SWT.CANCEL == popupMessage(Messages.getString("DialogTextSearch.8"), //$NON-NLS-1$
+                            if (SWT.CANCEL == popupMessage(Messages.DialogTextSearch_8, 
                                     SWT.OK | SWT.CANCEL)) {
                                 return;
                             }
@@ -146,7 +146,7 @@ public class DialogTextSearch {
                     if (disLetterSize.getSelection()) {
                         findedPos = wholeText.lastIndexOf(str, pos - 1);
                         if (findedPos == -1 && pos < wholeText.length()) {
-                            if (SWT.CANCEL == popupMessage(Messages.getString("DialogTextSearch.10"), //$NON-NLS-1$
+                            if (SWT.CANCEL == popupMessage(Messages.DialogTextSearch_10, 
                                     SWT.OK | SWT.CANCEL)) {
                                 return;
                             }
@@ -155,7 +155,7 @@ public class DialogTextSearch {
                     } else {
                         findedPos = wholeText.toLowerCase().lastIndexOf(str.toLowerCase(), pos - 1);
                         if (findedPos == -1 && pos < wholeText.length()) {
-                            if (SWT.CANCEL == popupMessage(Messages.getString("DialogTextSearch.10"), //$NON-NLS-1$
+                            if (SWT.CANCEL == popupMessage(Messages.DialogTextSearch_10, 
                                     SWT.OK | SWT.CANCEL)) {
                                 return;
                             }
@@ -165,7 +165,7 @@ public class DialogTextSearch {
                 }
 
                 if (findedPos == -1) {
-                    popupMessage(Messages.getString("DialogTextSearch.12"), SWT.OK); //$NON-NLS-1$
+                    popupMessage(Messages.DialogTextSearch_12, SWT.OK); 
                 } else {
                     viewer.selectByOffset(findedPos, str.length());
                 }

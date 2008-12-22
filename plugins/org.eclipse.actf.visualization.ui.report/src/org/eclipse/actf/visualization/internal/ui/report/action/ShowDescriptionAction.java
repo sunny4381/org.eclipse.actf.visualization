@@ -34,7 +34,7 @@ public class ShowDescriptionAction extends Action {
      * 
      */
     public ShowDescriptionAction(TableViewer tableViewer) {
-        super(Messages.getString("ProblemTable.6"));
+        super(Messages.ProblemTable_6);
         this.tableViewer = tableViewer;
         
         tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {

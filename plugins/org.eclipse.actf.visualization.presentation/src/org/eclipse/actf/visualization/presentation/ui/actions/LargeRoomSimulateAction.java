@@ -10,24 +10,25 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.presentation.ui.actions;
 
+import org.eclipse.actf.visualization.presentation.internal.Messages;
 import org.eclipse.actf.visualization.presentation.internal.RoomPlugin;
 import org.eclipse.actf.visualization.presentation.ui.internal.PartControlRoom;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
 import org.eclipse.jface.action.Action;
 
-
-
 public class LargeRoomSimulateAction extends Action {
 
-    public LargeRoomSimulateAction() {
-        setToolTipText(RoomPlugin.getResourceString("RoomView.Simulate_Large")); //$NON-NLS-1$
-        setImageDescriptor(RoomPlugin.getImageDescriptor("icons/ButtonLarge.gif")); //$NON-NLS-1$
-        setText(RoomPlugin.getResourceString("RoomSimulationAction.Large")); //$NON-NLS-1$
-    }
+	public LargeRoomSimulateAction() {
+		setToolTipText(Messages.RoomSimulationAction_Large); 
+		setImageDescriptor(RoomPlugin
+				.getImageDescriptor("icons/ButtonLarge.gif")); //$NON-NLS-1$
+		setText(Messages.RoomSimulationAction_Large); 
+	}
 
-    public void run() {
-    	//TODO
-        PartControlRoom.getDefaultInstance().getParamLowVision().setType(ParamRoom.ROOM_LARGE);
-        PartControlRoom.getDefaultInstance().doSimulate();
-    }
+	public void run() {
+		// TODO
+		PartControlRoom.getDefaultInstance().getParamLowVision().setType(
+				ParamRoom.ROOM_LARGE);
+		PartControlRoom.getDefaultInstance().doSimulate();
+	}
 }

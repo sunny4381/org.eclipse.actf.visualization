@@ -22,10 +22,10 @@ public class LowVisionSimulateAction extends Action {
 	private PartControlLowVision lowVisionCtrl;
 
 	public LowVisionSimulateAction(PartControlLowVision lowVisionCtrl) {
-		setToolTipText(Messages.getString("LowVisionView.Simulate_2")); //$NON-NLS-1$
+		setToolTipText(Messages.LowVisionView_Simulate_2); 
 		setImageDescriptor(LowVisionVizPlugin.imageDescriptorFromPlugin(
 				LowVisionVizPlugin.PLUGIN_ID, "icons/simulation.png"));
-		setText(Messages.getString("LVSimulationAction.0")); //$NON-NLS-1$
+		setText(Messages.LVSimulationAction_0); 
 		this.lowVisionCtrl = lowVisionCtrl;
 	}
 

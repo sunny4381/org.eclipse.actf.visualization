@@ -137,7 +137,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 
 	public void findRectangle(Rectangle flashRect, Object objUnknown) {
 		viewer.setInput(new Object[] { objUnknown });
-		String strMessage = Messages.getString("flash.error_no_element"); //$NON-NLS-1$
+		String strMessage = Messages.flash_error_no_element; 
 		RectangleFinder finder = new RectangleFinder(flashRect);
 		try {
 			finder.find(viewer.getTree().getItems());
@@ -147,10 +147,9 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		if (finder.foundCount > 0) {
 			strMessage = MessageFormat
 					.format(
-							Messages.getString("flash.element_found"), new Object[] { new Integer(finder.foundCount) }); //$NON-NLS-1$
+							Messages.flash_element_found, new Object[] { new Integer(finder.foundCount) }); 
 		}
-		MessageDialog.openInformation(viewer.getControl().getShell(), Messages
-				.getString("flash.flash_dom"), //$NON-NLS-1$
+		MessageDialog.openInformation(viewer.getControl().getShell(), Messages.flash_flash_dom, //$NON-NLS-1$
 				strMessage);
 	}
 
@@ -196,8 +195,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 						throw new Error(
 								MessageFormat
 										.format(
-												Messages
-														.getString("flash.error_target_length"), new Object[] { new Integer(flashNode.getLevel()) }) + "\n" + flashNode.getTarget()); //$NON-NLS-1$ //$NON-NLS-2$
+												Messages.flash_error_target_length, new Object[] { new Integer(flashNode.getLevel()) }) + "\n" + flashNode.getTarget()); //$NON-NLS-1$ //$NON-NLS-2$
 					}
 					double x = flashNode.getX();
 					if (x >= flashRight + MARGIN) {
@@ -303,7 +301,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 	}
 
 	private void makeActions() {
-		expandAction = new Action(Messages.getString("msaa.expand")) { //$NON-NLS-1$
+		expandAction = new Action(
+				org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_expand) {
 			public void run() {
 				try {
 					Object selected = getSelectedItem();
@@ -317,7 +316,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 
-		expandAllAction = new Action(Messages.getString("msaa.expand_all")) { //$NON-NLS-1$
+		expandAllAction = new Action(
+				org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_expand_all) {
 			public void run() {
 				try {
 					viewer.expandAll();
@@ -326,10 +326,12 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 				}
 			}
 		};
-		expandAllAction.setToolTipText(Messages.getString("msaa.expand_all")); //$NON-NLS-1$
+		expandAllAction
+				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_expand_all); //$NON-NLS-1$
 		expandAllAction.setImageDescriptor(GuiImages.IMAGE_EXPAND_ALL);
 
-		collapseAllAction = new Action(Messages.getString("msaa.collapse_all")) { //$NON-NLS-1$
+		collapseAllAction = new Action(
+				org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all) { //$NON-NLS-1$
 			public void run() {
 				try {
 					viewer.collapseAll();
@@ -338,14 +340,13 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 				}
 			}
 		};
-		collapseAllAction.setToolTipText(Messages
-				.getString("msaa.collapse_all")); //$NON-NLS-1$
+		collapseAllAction
+				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all); //$NON-NLS-1$
 		collapseAllAction.setImageDescriptor(GuiImages.IMAGE_COLLAPSE_ALL);
 
 		refreshAction = new RefreshRootAction();
 
-		informativeTreeAction = new Action(Messages
-				.getString("flash.filter_noninformative"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
+		informativeTreeAction = new Action(Messages.flash_filter_noninformative, Action.AS_CHECK_BOX) { //$NON-NLS-1$
 			public void run() {
 				FlashDOMContentProvider provider = (FlashDOMContentProvider) viewer
 						.getContentProvider();
@@ -355,7 +356,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		};
 
 		visualTreeAction = new Action(
-				Messages.getString("flash.show_visual"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
+				Messages.flash_show_visual, Action.AS_CHECK_BOX) { 
 			public void run() {
 				FlashDOMContentProvider provider = (FlashDOMContentProvider) viewer
 						.getContentProvider();
@@ -365,7 +366,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		};
 
 		debugTreeAction = new Action(
-				Messages.getString("flash.debugMode"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
+				Messages.flash_debugMode, Action.AS_CHECK_BOX) { 
 			public void run() {
 				debugMode = debugTreeAction.isChecked();
 				FlashNodePropertySource.setDebugMode(debugMode);
@@ -373,8 +374,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 
-		scanWindowlessAction = new Action(Messages
-				.getString("flash.scanWindowless"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
+		scanWindowlessAction = new Action(Messages.flash_scanWindowless, Action.AS_CHECK_BOX) { //$NON-NLS-1$
 			public void run() {
 				FlashMSAAUtil.setScanAll(scanWindowlessAction.isChecked());
 				MSAAViewRegistory.refreshRootObject();
@@ -545,7 +545,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 				sb.append(value);
 			}
 			if (sb.length() == 0) {
-				sb.append(Messages.getString("msaa.NAMELESS")); //$NON-NLS-1$
+				sb
+						.append(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_NAMELESS);
 			}
 			String objectName = flashNode.getObjectName();
 			if (sb.length() > 0) {

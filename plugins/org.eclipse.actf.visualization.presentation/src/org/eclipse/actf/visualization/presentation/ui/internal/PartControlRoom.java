@@ -22,6 +22,7 @@ import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 import org.eclipse.actf.visualization.engines.lowvision.image.PageImageFactory;
 import org.eclipse.actf.visualization.presentation.eval.CheckResultPresentation;
+import org.eclipse.actf.visualization.presentation.internal.Messages;
 import org.eclipse.actf.visualization.presentation.internal.RoomPlugin;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
 import org.eclipse.actf.visualization.presentation.util.SimulateRoom;
@@ -111,8 +112,7 @@ public class PartControlRoom implements IVisualizationConst {
 	private void prepareInt2Ds(IModelService modelService) {
 		try {
 			checker
-					.setStatusMessage(RoomPlugin
-							.getResourceString("PartRightRoom.dump_the_image_in_the_web_browser._26"));
+					.setStatusMessage(Messages.PartRightRoom_dump_the_image_in_the_web_browser__26);
 
 			ModelServiceImageCreator imgCreator = new ModelServiceImageCreator(
 					modelService);
@@ -122,9 +122,7 @@ public class PartControlRoom implements IVisualizationConst {
 
 			if (targetPageImage != null) {
 
-				checker
-						.setStatusMessage(RoomPlugin
-								.getResourceString("PartRightRoom.begin_to_make_PageImage._2"));
+				checker.setStatusMessage(Messages.PartRightRoom_begin_to_make_PageImage__2);
 
 				doSimulateAfterHalf(modelService);
 			} else {
@@ -141,9 +139,7 @@ public class PartControlRoom implements IVisualizationConst {
 		// TODO
 		IPageImage pageImageWhole = targetPageImage;
 
-		checker
-				.setStatusMessage(RoomPlugin
-						.getResourceString("PartRightRoom.prepare_Simulation_Image._29"));
+		checker.setStatusMessage(Messages.PartRightRoom_prepare_Simulation_Image__29);
 
 		paramRoom.setDisplayResolution(modelService.getTargetComposite()
 				.getSize().y);
@@ -164,27 +160,24 @@ public class PartControlRoom implements IVisualizationConst {
 		String html = "";
 		switch (paramRoom.getType()) {
 		case ParamRoom.ROOM_SMALL:
-			html = RoomPlugin
-					.getResourceString("adesigner.room.report.small.url");
+			html = Messages.report_small_url;
 			break;
 		case ParamRoom.ROOM_MIDDLE:
-			html = RoomPlugin
-					.getResourceString("adesigner.room.report.middle.url");
+			html = Messages.report_middle_url;
 			break;
 		case ParamRoom.ROOM_LARGE:
-			html = RoomPlugin
-					.getResourceString("adesigner.room.report.large.url");
+			html = Messages.report_large_url;
 			break;
 		}
 
-		checkResult.setSummaryReportUrl(RoomPlugin.getTempDirectory()+"html"+File.separator+ html);
+		checkResult.setSummaryReportUrl(RoomPlugin.getTempDirectory() + "html"
+				+ File.separator + html);
 		// TODO
 		checkResult.setSummaryReportText("");
 		Mediator.getInstance().setReport(checker, checkResult);
 
 		checker
-				.setStatusMessage(RoomPlugin
-						.getResourceString("PartRightRoom.simulation_of_current_page_is_over._8"));
+				.setStatusMessage(Messages.PartRightRoom_simulation_of_current_page_is_over__8);
 		// //$NON-NLS-1$
 		_shell.setCursor(null);
 		_isInSimulate = false;

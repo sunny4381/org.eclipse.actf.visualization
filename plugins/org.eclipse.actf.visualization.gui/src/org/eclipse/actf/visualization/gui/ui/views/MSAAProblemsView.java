@@ -74,7 +74,7 @@ import org.eclipse.ui.part.ViewPart;
 
 
 public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSAAProblemConst {
-    private static final String[] HEADINGS = { "", Messages.getString("msaa.description"), "Name", "Role", "State", "X", "Y", "W", "H" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$ //$NON-NLS-9$
+    private static final String[] HEADINGS = { "", Messages.msaa_description, "Name", "Role", "State", "X", "Y", "W", "H" }; 
 
     private static final int[] WEIGHTS = { 1, 15, 8, 6, 10, 2, 2, 2, 2 };
 
@@ -318,20 +318,20 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
 
     private void makeActions() {
         final Shell shell = this.getViewSite().getShell();
-        refreshAction = new Action(Messages.getString("msaa.refresh")) { //$NON-NLS-1$
+        refreshAction = new Action(Messages.msaa_refresh) { 
             public void run() {
                 refresh();
             }
         };
-        refreshAction.setToolTipText(Messages.getString("msaa.refresh")); //$NON-NLS-1$
+        refreshAction.setToolTipText(Messages.msaa_refresh); 
         refreshAction.setImageDescriptor(GuiImages.IMAGE_REFRESH);
 
-        showLabelsAction = new Action(Messages.getString("msaa.show_problem"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
+        showLabelsAction = new Action(Messages.msaa_show_problem, Action.AS_CHECK_BOX) { 
             public void run() {
                 showOverlayLabels();
             }
         };
-        showLabelsAction.setToolTipText(Messages.getString("msaa.show_problem")); //$NON-NLS-1$
+        showLabelsAction.setToolTipText(Messages.msaa_show_problem); 
         showLabelsAction.setImageDescriptor(GuiImages.IMAGE_OVERLAY);
         shell.addShellListener(new ShellAdapter(){
             public void shellActivated(ShellEvent e) {
@@ -355,7 +355,7 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
             }
         });
         
-        showErrorAction = new Action(Messages.getString("msaa.showError"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
+        showErrorAction = new Action(Messages.msaa_showError, Action.AS_CHECK_BOX) { 
         	public void run() {
         		filter.categorySelect[MSAA_ERROR] = showErrorAction.isChecked();
         		refresh();
@@ -363,7 +363,7 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
         };
         showErrorAction.setChecked(filter.categorySelect[MSAA_ERROR]);
         
-        showWarningAction = new Action(Messages.getString("msaa.showWarning"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
+        showWarningAction = new Action(Messages.msaa_showWarning, Action.AS_CHECK_BOX) { 
         	public void run() {
         		filter.categorySelect[MSAA_WARNING] = showWarningAction.isChecked();
         		refresh();
@@ -371,7 +371,7 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
         };
         showWarningAction.setChecked(filter.categorySelect[MSAA_WARNING]);
         
-        showInformationAction = new Action(Messages.getString("msaa.showInformation"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
+        showInformationAction = new Action(Messages.msaa_showInformation, Action.AS_CHECK_BOX) { 
         	public void run() {
         		filter.categorySelect[MSAA_INFORMATION] = showInformationAction.isChecked();
         		refresh();

@@ -178,17 +178,17 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
 				text.setText(""); //$NON-NLS-1$
 			}
 		};
-		clearAction.setText(Messages.getString("msaa.clear")); //$NON-NLS-1$
-		clearAction.setToolTipText(Messages.getString("msaa.clear_tip")); //$NON-NLS-1$
+		clearAction.setText(Messages.msaa_clear); 
+		clearAction.setToolTipText(Messages.msaa_clear_tip); 
 		clearAction.setImageDescriptor(GuiImages.IMAGE_CLEAR);
 		
-		speakEventAction = new Action(Messages.getString("msaa.speak_event"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
+		speakEventAction = new Action(Messages.msaa_speak_event,Action.AS_CHECK_BOX) { 
 			public void run() {
 			}
 		};
 		
         final Shell shell = this.getViewSite().getShell();
-        openPreferencesAction = new Action(Messages.getString("msaa.preferences")) { //$NON-NLS-1$
+        openPreferencesAction = new Action(Messages.msaa_preferences) { 
         	public void run() {
         		PreferencesUtil
 				.createPreferenceDialogOn(shell, "org.eclipse.actf.visualization.gui.preferences.GuiPreferencePage", null, null) //$NON-NLS-1$
@@ -196,13 +196,13 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
         	}
         };
         
-		showTTSEventAction = new Action(Messages.getString("msaa.showTTSEvents"),Action.AS_CHECK_BOX) { //$NON-NLS-1$
+		showTTSEventAction = new Action(Messages.msaa_showTTSEvents,Action.AS_CHECK_BOX) { 
 			public void run() {
 			}
 		};
 		showTTSEventAction.setChecked(true);
         
-        eventFilterAction = new Action(Messages.getString("msaa.filters_menu")) { //$NON-NLS-1$
+        eventFilterAction = new Action(Messages.msaa_filters_menu) { 
             public void run() {
                 EventFiltersDialog dialog = new EventFiltersDialog(shell,intArrayToObjectArray(SUPPORTED_EVENTS),showRawEvent);
                 if( Window.OK == dialog.open() ) {
@@ -225,8 +225,8 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
         private Button showDetailsButton;
         
         public EventFiltersDialog(Shell parentShell, Integer[] input, boolean showDetails) {
-            super(parentShell, input, new EventFiltersContentProvider(), new EventFiltersLabelProvider(), Messages.getString("msaa.filters_message")); //$NON-NLS-1$
-            setTitle(Messages.getString("msaa.filters_title")); //$NON-NLS-1$
+            super(parentShell, input, new EventFiltersContentProvider(), new EventFiltersLabelProvider(), Messages.msaa_filters_message); 
+            setTitle(Messages.msaa_filters_title); 
             List<Integer> initialSelection = new ArrayList<Integer>();
             for( int i=0; i<input.length; i++ ) {
                 if( getFilterEnabled(input[i].intValue()) ) {
@@ -241,7 +241,7 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
             Control[] children = composite.getChildren();
             Composite buttonComposite = (Composite)children[children.length-1];
             Button defaultButton = new Button(buttonComposite,SWT.PUSH);
-            defaultButton.setText(Messages.getString("msaa.filters_default")); //$NON-NLS-1$
+            defaultButton.setText(Messages.msaa_filters_default); 
             defaultButton.addSelectionListener(new SelectionAdapter(){
                 public void widgetSelected(SelectionEvent e) {
                     getViewer().setCheckedElements(intArrayToObjectArray(DEFAULT_EVENTS));
@@ -249,7 +249,7 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
                 }
             });
             showDetailsButton = new Button(composite,SWT.CHECK);
-            showDetailsButton.setText(Messages.getString("msaa.showRawEvents")); //$NON-NLS-1$
+            showDetailsButton.setText(Messages.msaa_showRawEvents); 
             showDetailsButton.setSelection(showDetails);
             showDetailsButton.setFont(parent.getFont());
             // Adjust button layout
@@ -512,7 +512,7 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView, IAccessib
         	try {
         		long passed = Math.abs(currentTime - lastTime);
         		if( passed > 1000 ) {
-        			String separatorString = MessageFormat.format(Messages.getString("msaa.ns_passed"),new Object[]{new Float(((float)passed)/1000)}); //$NON-NLS-1$
+        			String separatorString = MessageFormat.format(Messages.msaa_ns_passed,new Object[]{new Float(((float)passed)/1000)}); 
                     StyleRange range = new StyleRange();
                     range.foreground = Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
                     range.start = text.getCharCount();

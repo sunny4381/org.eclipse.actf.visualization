@@ -22,8 +22,8 @@ import org.eclipse.jface.action.Action;
 public class RefreshRootAction extends Action {
 
     public RefreshRootAction() {
-        super(Messages.getString("msaa.refresh")); //$NON-NLS-1$
-        setToolTipText(Messages.getString("msaa.refresh")); //$NON-NLS-1$
+        super(Messages.msaa_refresh); 
+        setToolTipText(Messages.msaa_refresh); 
         setImageDescriptor(GuiImages.IMAGE_REFRESH);
     }
 

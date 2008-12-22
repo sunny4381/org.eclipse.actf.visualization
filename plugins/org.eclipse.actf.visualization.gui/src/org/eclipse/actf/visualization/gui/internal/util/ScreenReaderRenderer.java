@@ -116,8 +116,9 @@ public class ScreenReaderRenderer {
 						if (!(cancel || text.isDisposed() || text
 								.getCharCount() > 0)) {
 							appendText(
-									Messages
-											.getString(provider.isHideHtml() ? "msaa.no_flash" : "msaa.empty_page"), SWT.COLOR_GRAY, -1, false); //$NON-NLS-1$ //$NON-NLS-2$
+									provider.isHideHtml() ? Messages.msaa_no_flash
+											: Messages.msaa_empty_page,
+									SWT.COLOR_GRAY, -1, false); 
 						}
 					}
 				});
@@ -159,14 +160,14 @@ public class ScreenReaderRenderer {
 													&& hwnd != parentObject
 															.getWindow()) {
 												appendText(
-														Messages
-																.getString("msaa.flash_start") + "\n", SWT.COLOR_GRAY, SWT.COLOR_CYAN, false); //$NON-NLS-1$ //$NON-NLS-2$
+														Messages.msaa_flash_start
+																+ "\n", SWT.COLOR_GRAY, SWT.COLOR_CYAN, false); //$NON-NLS-1$ //$NON-NLS-2$
 												sayFlashEnd[0] = true;
 											}
 										} else {
 											appendText(
-													Messages
-															.getString("msaa.flash_inaccessible") + " wmode=" + wmode + "\n", SWT.COLOR_GRAY, SWT.COLOR_RED, false); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+													Messages.msaa_flash_inaccessible
+															+ " wmode=" + wmode + "\n", SWT.COLOR_GRAY, SWT.COLOR_RED, false); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 											if (null != flashDOMView) {
 												flashDOMView
 														.addWindowlessElement(accObject);
@@ -186,9 +187,9 @@ public class ScreenReaderRenderer {
 						display.syncExec(new Runnable() {
 							public void run() {
 								if (!(cancel || text.isDisposed())) {
-									appendText(
-											Messages
-													.getString("msaa.flash_end") + "\n", SWT.COLOR_GRAY, SWT.COLOR_CYAN, false); //$NON-NLS-1$ //$NON-NLS-2$
+									appendText(Messages.msaa_flash_end + "\n",
+											SWT.COLOR_GRAY, SWT.COLOR_CYAN,
+											false);
 								}
 							}
 						});
@@ -225,8 +226,8 @@ public class ScreenReaderRenderer {
 		case MSAA.ROLE_SYSTEM_TEXT: {
 			boolean editable = (0 == (accState & MSAA.STATE_READONLY));
 			if (!isBrowser || editable) {
-				prefix = Messages
-						.getString(editable ? "msaa.edit" : "msaa.edit_readonly"); //$NON-NLS-1$ //$NON-NLS-2$
+				prefix = editable ? Messages.msaa_edit
+						: Messages.msaa_edit_readonly;
 				outText = accObject.getAccValue();
 				if (null == outText || 0 == outText.length()) {
 					outText = " "; //$NON-NLS-1$
@@ -241,41 +242,41 @@ public class ScreenReaderRenderer {
 			break;
 		case 0x28: // ROLE_SYSTEM_GRAPHIC
 			if (isFlash) {
-				prefix = Messages.getString("msaa.graphic"); //$NON-NLS-1$
+				prefix = Messages.msaa_graphic;
 			} else {
-				postfix = Messages.getString("msaa.graphic"); //$NON-NLS-1$
+				postfix = Messages.msaa_graphic;
 			}
 			if (outText.equals(lastText)) {
 				outText = ""; //$NON-NLS-1$
 			}
 			break;
 		case MSAA.ROLE_SYSTEM_LINK:
-			prefix = Messages.getString("msaa.link"); //$NON-NLS-1$
+			prefix = Messages.msaa_link;
 			break;
 		case MSAA.ROLE_SYSTEM_CHECKBUTTON:
-			prefix = Messages.getString("msaa.checkbox") + " "; //$NON-NLS-1$ //$NON-NLS-2$
-			prefix += 0 != (accState & MSAA.STATE_CHECKED) ? Messages
-					.getString("msaa.checked") : Messages.getString("msaa.not_checked"); //$NON-NLS-1$ //$NON-NLS-2$
+			prefix = Messages.msaa_checkbox + " ";
+			prefix += 0 != (accState & MSAA.STATE_CHECKED) ? Messages.msaa_checked
+					: Messages.msaa_not_checked;
 			break;
 		case MSAA.ROLE_SYSTEM_RADIOBUTTON:
-			prefix = Messages.getString("msaa.radiobutton") + " "; //$NON-NLS-1$ //$NON-NLS-2$
-			prefix += 0 != (accState & MSAA.STATE_CHECKED) ? Messages
-					.getString("msaa.checked") : Messages.getString("msaa.not_checked"); //$NON-NLS-1$ //$NON-NLS-2$
+			prefix = Messages.msaa_radiobutton + " ";
+			prefix += 0 != (accState & MSAA.STATE_CHECKED) ? Messages.msaa_checked
+					: Messages.msaa_not_checked;
 			break;
 		case MSAA.ROLE_SYSTEM_SLIDER:
 			outText = accObject.getAccValue();
-			postfix = Messages.getString("msaa.updown_scrollbat"); //$NON-NLS-1$
+			postfix = Messages.msaa_updown_scrollbat;
 			break;
 		case MSAA.ROLE_SYSTEM_PROGRESSBAR:
 			outText = accObject.getAccValue();
-			postfix = Messages.getString("msaa.progressbar"); //$NON-NLS-1$
+			postfix = Messages.msaa_progressbar;
 			break;
 		case 0x34: // ROLE_SYSTEM_SPINBUTTON
 			outText = accObject.getAccValue();
-			postfix = Messages.getString("msaa.editspinbox"); //$NON-NLS-1$
+			postfix = Messages.msaa_editspinbox;
 			break;
 		case MSAA.ROLE_SYSTEM_COMBOBOX:
-			prefix = Messages.getString("msaa.combobox"); //$NON-NLS-1$
+			prefix = Messages.msaa_combobox;
 			outText = accObject.getAccValue();
 			if (null == outText || 0 == outText.length()) {
 				outText = accObject.getAccName();
@@ -284,7 +285,7 @@ public class ScreenReaderRenderer {
 		case 0x3E: // ROLE_SYSTEM_SPLITBUTTON
 		case MSAA.ROLE_SYSTEM_BUTTONDROPDOWN:
 		case MSAA.ROLE_SYSTEM_PUSHBUTTON:
-			postfix = Messages.getString("msaa.button"); //$NON-NLS-1$
+			postfix = Messages.msaa_button;
 			if (0 == outText.length()) {
 				if (isFlash) {
 					outText = Integer.toString(parentIndex);
@@ -299,90 +300,90 @@ public class ScreenReaderRenderer {
 			if (null != parent) {
 				switch (parent.getAccRole()) {
 				case MSAA.ROLE_SYSTEM_LIST:
-					postfix = Messages.getString("msaa.listbox"); //$NON-NLS-1$
+					postfix = Messages.msaa_listbox;
 					if (0 != (accState & MSAA.STATE_SELECTED)) {
-						postfix += " " + Messages.getString("msaa.selected"); //$NON-NLS-1$ //$NON-NLS-2$
+						postfix += " " + Messages.msaa_selected;
 					}
 					break;
 				case MSAA.ROLE_SYSTEM_COMBOBOX:
-					prefix = Messages.getString("msaa.combobox"); //$NON-NLS-1$
+					prefix = Messages.msaa_combobox;
 					break;
 				}
 			}
 		}
 			break;
 		case MSAA.ROLE_SYSTEM_TABLE:
-			postfix = Messages.getString("msaa.table"); //$NON-NLS-1$
+			postfix = Messages.msaa_table;
 			break;
 		case MSAA.ROLE_SYSTEM_CELL:
-			postfix = Messages.getString("msaa.cell"); //$NON-NLS-1$
+			postfix = Messages.msaa_cell;
 			break;
 		case MSAA.ROLE_SYSTEM_COLUMNHEADER:
-			postfix = Messages.getString("msaa.columnheader"); //$NON-NLS-1$
+			postfix = Messages.msaa_columnheader;
 			break;
 		case MSAA.ROLE_SYSTEM_ROWHEADER:
-			postfix = Messages.getString("msaa.rowheader"); //$NON-NLS-1$
+			postfix = Messages.msaa_rowheader;
 			break;
 		case MSAA.ROLE_SYSTEM_PAGETAB:
-			postfix = Messages.getString("msaa.tab"); //$NON-NLS-1$
+			postfix = Messages.msaa_tab;
 			break;
 		case MSAA.ROLE_SYSTEM_OUTLINEITEM:
-			postfix = Messages.getString("msaa.treeview"); //$NON-NLS-1$
+			postfix = Messages.msaa_treeview;
 			if (0 != (accState & MSAA.STATE_SELECTED)) {
-				postfix += " " + Messages.getString("msaa.selected"); //$NON-NLS-1$ //$NON-NLS-2$
+				postfix += " " + Messages.msaa_selected;
 			} else if (isFlash) {
 				outText = ""; // Ignore in flash //$NON-NLS-1$
 			}
 			break;
 		case MSAA.ROLE_SYSTEM_OUTLINE:
-			postfix = Messages.getString("msaa.tree"); //$NON-NLS-1$
+			postfix = Messages.msaa_tree;
 			break;
 
 		case MSAA.ROLE_SYSTEM_MENUBAR:
-			postfix = Messages.getString("msaa.menubar"); //$NON-NLS-1$
+			postfix = Messages.msaa_menubar;
 			break;
 		case MSAA.ROLE_SYSTEM_MENUPOPUP:
 		case MSAA.ROLE_SYSTEM_MENUITEM:
 			if (0 != (accState & MSAA.STATE_SYSTEM_UNAVAILABLE)) {
-				postfix = Messages.getString("msaa.unavailable"); //$NON-NLS-1$
+				postfix = Messages.msaa_unavailable;
 				break;
 			}
 			if (accObject.getChildCount() > 0) {
 				AccessibleObject parent = accObject.getCachedParent();
 				if (null != parent
 						&& MSAA.ROLE_SYSTEM_MENUITEM == parent.getAccRole()) {
-					postfix = Messages.getString("msaa.submenu"); //$NON-NLS-1$
+					postfix = Messages.msaa_submenu;
 				} else {
-					postfix = Messages.getString("msaa.menu"); //$NON-NLS-1$
+					postfix = Messages.msaa_menu;
 				}
 			} else if (0 != (accState & MSAA.STATE_CHECKED)) {
-				postfix = Messages.getString("msaa.checked"); //$NON-NLS-1$
+				postfix = Messages.msaa_checked;
 			}
 			break;
 		case MSAA.ROLE_SYSTEM_TOOLBAR:
-			postfix = Messages.getString("msaa.toolbar"); //$NON-NLS-1$
+			postfix = Messages.msaa_toolbar;
 			break;
 		case 0x17: // ROLE_SYSTEM_STATUSBAR
-			postfix = Messages.getString("msaa.statusbar"); //$NON-NLS-1$
+			postfix = Messages.msaa_statusbar;
 			break;
 		case MSAA.ROLE_SYSTEM_SCROLLBAR:
-			postfix = Messages.getString("msaa.scrollbar"); //$NON-NLS-1$
+			postfix = Messages.msaa_scrollbar;
 			break;
 		case 0x27: // ROLE_SYSTEM_INDICATOR
-			postfix = Messages.getString("msaa.indicator"); //$NON-NLS-1$
+			postfix = Messages.msaa_indicator;
 			break;
 		case 0xe: // ROLE_SYSTEM_APPLICATION
-			postfix = Messages.getString("msaa.application"); //$NON-NLS-1$
+			postfix = Messages.msaa_application;
 			break;
 		case 0xf: // ROLE_SYSTEM_DOCUMENT
-			postfix = Messages.getString("msaa.document"); //$NON-NLS-1$
+			postfix = Messages.msaa_document;
 			break;
 		case MSAA.ROLE_SYSTEM_WINDOW:
 		case 0x10: // ROLE_SYSTEM_PANE
 			if (isFlash) {
 				outText = ""; // Ignore in flash //$NON-NLS-1$
 			} else {
-				postfix = Messages.getString("msaa.window"); //$NON-NLS-1$
+				postfix = Messages.msaa_window;
 			}
 			break;
 		case MSAA.ROLE_SYSTEM_CLIENT:
@@ -400,17 +401,17 @@ public class ScreenReaderRenderer {
 				style = IA2Util.getAttribute(ac2.getAttributes(), "style"); //$NON-NLS-1$
 			}
 			if (null != style) {
-				postfix = MessageFormat.format(Messages
-						.getString("ia2.style_shape"), new Object[] { style }); //$NON-NLS-1$
+				postfix = MessageFormat.format(Messages.ia2_style_shape,
+						new Object[] { style }); //$NON-NLS-1$
 			} else {
-				postfix += Messages.getString("ia2.shape"); //$NON-NLS-1$
+				postfix += Messages.ia2_shape;
 			}
 		}
 			break;
 		case IA2.IA2_ROLE_CHECK_MENU_ITEM:
 		case IA2.IA2_ROLE_RADIO_MENU_ITEM:
 			if (0 != (accState & MSAA.STATE_SYSTEM_UNAVAILABLE)) {
-				postfix = Messages.getString("msaa.unavailable"); //$NON-NLS-1$
+				postfix = Messages.msaa_unavailable;
 				break;
 			}
 			{
@@ -418,7 +419,7 @@ public class ScreenReaderRenderer {
 				if (null != ac2) {
 					String extendedStates[] = ac2.getExtendedStates(8);
 					if (IA2Util.getExtendedState(extendedStates, "CHECKED")) { //$NON-NLS-1$
-						postfix = Messages.getString("msaa.checked"); //$NON-NLS-1$
+						postfix = Messages.msaa_checked;
 					}
 				}
 			}
@@ -433,8 +434,8 @@ public class ScreenReaderRenderer {
 				}
 			} catch (Exception e) {
 			}
-			prefix = MessageFormat.format(Messages
-					.getString("ia2.heading_level"), new Object[] { level }); //$NON-NLS-1$
+			prefix = MessageFormat.format(Messages.ia2_heading_level,
+					new Object[] { level }); //$NON-NLS-1$
 		case IA2.IA2_ROLE_PARAGRAPH:
 			outText = accObject.getAccValue();
 			if (null == outText || 0 == outText.length()) {
@@ -483,16 +484,16 @@ public class ScreenReaderRenderer {
 		String eventText = ""; //$NON-NLS-1$
 		switch (event) {
 		case MSAA.EVENT_SYSTEM_MENUSTART:
-			eventText = Messages.getString("msaa.menu_start"); //$NON-NLS-1$
+			eventText = Messages.msaa_menu_start;
 			break;
 		case MSAA.EVENT_SYSTEM_MENUPOPUPSTART:
-			eventText = Messages.getString("msaa.popup_start"); //$NON-NLS-1$
+			eventText = Messages.msaa_popup_start;
 			break;
 		case MSAA.EVENT_SYSTEM_MENUEND:
-			eventText = Messages.getString("msaa.menu_end"); //$NON-NLS-1$
+			eventText = Messages.msaa_menu_end;
 			break;
 		case MSAA.EVENT_SYSTEM_MENUPOPUPEND:
-			eventText = Messages.getString("msaa.popup_end"); //$NON-NLS-1$
+			eventText = Messages.msaa_popup_end;
 			break;
 		}
 		if (eventText.length() > 0) {

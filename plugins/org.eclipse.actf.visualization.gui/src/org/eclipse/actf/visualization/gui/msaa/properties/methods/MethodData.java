@@ -33,12 +33,12 @@ public abstract class MethodData {
     private AbstractInputField[] inputFields = new AbstractInputField[0];
 	protected Object result = PRESS_ENTER_MSG;
     
-    private static final String PRESS_ENTER_MSG = Messages.getString("props.pressEnter"); //$NON-NLS-1$
-    private static final String PRESS_OK_MSG = Messages.getString("props.pressOK"); //$NON-NLS-1$
-    private static final String INVALID_FIELD_MSG = Messages.getString("props.invalid"); //$NON-NLS-1$
-    private static final String VALID_RANGE_MSG = Messages.getString("props.range"); //$NON-NLS-1$
-	private static final String SUCCESS_MSG = Messages.getString("props.success"); //$NON-NLS-1$
-	private static final String FAIL_MSG = Messages.getString("props.fail"); //$NON-NLS-1$
+    private static final String PRESS_ENTER_MSG = Messages.props_pressEnter; 
+    private static final String PRESS_OK_MSG = Messages.props_pressOK; 
+    private static final String INVALID_FIELD_MSG = Messages.props_invalid; 
+    private static final String VALID_RANGE_MSG = Messages.props_range; 
+	private static final String SUCCESS_MSG = Messages.props_success; 
+	private static final String FAIL_MSG = Messages.props_fail; 
 	
 	protected String getInvalidArgMessage(AbstractInputField field) {
         String label = field.getLabelText();

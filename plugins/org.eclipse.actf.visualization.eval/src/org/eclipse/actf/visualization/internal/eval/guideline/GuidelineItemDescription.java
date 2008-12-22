@@ -20,7 +20,7 @@ import org.eclipse.actf.visualization.internal.eval.CheckerExtension;
 
 public class GuidelineItemDescription {
 
-	private static final String BUNDLE_NAME = "description"; //$NON-NLS-1$
+	private static final String BUNDLE_NAME = "resources/description"; //$NON-NLS-1$
 
 	private static final String EMPTY_STRING = "";
 

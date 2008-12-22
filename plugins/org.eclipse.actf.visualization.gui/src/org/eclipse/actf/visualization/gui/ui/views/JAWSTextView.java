@@ -209,7 +209,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
         AccessibleObject object = MSAAViewRegistory.adjustSelection(null);
         VoiceUtil.getVoice().stop();
         if( null == object ) {
-            setText(Messages.getString("msaa.jaws.notarget"),SWT.COLOR_DARK_GRAY); //$NON-NLS-1$
+            setText(Messages.msaa_jaws_notarget,SWT.COLOR_DARK_GRAY); 
         }
         else {
             new ScreenReaderRenderer(text,textMap).renderAll(object);
@@ -297,7 +297,7 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
         showOffscreenAction = new ShowOffscreenAction();
         hideHtmlAction = new HideHtmlAction();
         
-		speakAction = new Action(Messages.getString("msaa.speak_here")) { //$NON-NLS-1$
+		speakAction = new Action(Messages.msaa_speak_here) { 
 			public void run() {
 				IVoice voice = VoiceUtil.getVoice();
 				try {
@@ -313,26 +313,26 @@ public class JAWSTextView extends ViewPart implements IJAWSTextView {
 				}
 			}
 		};
-		speakAllAction = new Action(Messages.getString("msaa.speak")) { //$NON-NLS-1$
+		speakAllAction = new Action(Messages.msaa_speak) { 
 			public void run() {
 				text.setCaretOffset(0);
 				speakAction.run();
 			}
 		};
-		speakAllAction.setToolTipText(Messages.getString("msaa.speak_tip")); //$NON-NLS-1$
+		speakAllAction.setToolTipText(Messages.msaa_speak_tip); 
 		speakAllAction.setImageDescriptor(GuiImages.IMAGE_SPEAK);
 		
-		stopAction = new Action(Messages.getString("msaa.stop")) { //$NON-NLS-1$
+		stopAction = new Action(Messages.msaa_stop) { 
 			public void run() {
 				VoiceUtil.getVoice().stop();
 				selectLine(-1);
 			}
 		};
-		stopAction.setToolTipText(Messages.getString("msaa.stop_tip")); //$NON-NLS-1$
+		stopAction.setToolTipText(Messages.msaa_stop_tip); 
 		stopAction.setImageDescriptor(GuiImages.IMAGE_STOP);
 		
         final Shell shell = this.getViewSite().getShell();
-        openPreferencesAction = new Action(Messages.getString("msaa.preferences")) { //$NON-NLS-1$
+        openPreferencesAction = new Action(Messages.msaa_preferences) { 
         	public void run() {
         		PreferencesUtil
 				.createPreferenceDialogOn(shell, "org.eclipse.actf.visualization.gui.preferences.GuiPreferencePage", null, null) //$NON-NLS-1$

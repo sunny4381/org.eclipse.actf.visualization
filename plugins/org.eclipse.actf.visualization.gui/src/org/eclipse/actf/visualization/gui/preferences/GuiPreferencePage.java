@@ -31,22 +31,22 @@ public class GuiPreferencePage extends GroupFieldEditorPreferencePage
 	public GuiPreferencePage() {
 		super();
 		setPreferenceStore(GuiPlugin.getDefault().getPreferenceStore());
-		setDescription(Messages.getString("msaa.preference_description")); //$NON-NLS-1$
+		setDescription(Messages.msaa_preference_description); 
 	}
 
 	public void createFieldEditors() {
-        Group jawsGroup = createFieldGroup(Messages.getString("msaa.jaws_simulation")); //$NON-NLS-1$
-        addField(new FontFieldEditor(GuiPreferenceConstants.JAWSTextView_Font,Messages.getString("msaa.font"),SAMPLE_STRING,jawsGroup)); //$NON-NLS-1$
-        Group eventGroup = createFieldGroup(Messages.getString("msaa.msaa_event")); //$NON-NLS-1$
-        addField(new FontFieldEditor(GuiPreferenceConstants.MSAAEventView_Font,Messages.getString("msaa.font"),SAMPLE_STRING,eventGroup)); //$NON-NLS-1$
-        Group accGroup = createFieldGroup(Messages.getString("msaa.vis_label")); //$NON-NLS-1$
+        Group jawsGroup = createFieldGroup(Messages.msaa_jaws_simulation); 
+        addField(new FontFieldEditor(GuiPreferenceConstants.JAWSTextView_Font,Messages.msaa_font,SAMPLE_STRING,jawsGroup)); 
+        Group eventGroup = createFieldGroup(Messages.msaa_msaa_event); 
+        addField(new FontFieldEditor(GuiPreferenceConstants.MSAAEventView_Font,Messages.msaa_font,SAMPLE_STRING,eventGroup)); 
+        Group accGroup = createFieldGroup(Messages.msaa_vis_label); 
         Label accNote = new Label(accGroup,SWT.NONE);
-        accNote.setText(Messages.getString("msaa.vis_notice") ); //$NON-NLS-1$
+        accNote.setText(Messages.msaa_vis_notice ); 
         GridData gd = new GridData();
         gd.horizontalSpan = 2;
         accNote.setLayoutData(gd);
-        addField(new BooleanFieldEditor(GuiPreferenceConstants.UseOverlayWindow,Messages.getString("msaa.vis_use_overlay"),accGroup)); //$NON-NLS-1$
-        addField(new BooleanFieldEditor(GuiPreferenceConstants.AlwaysOnTop,Messages.getString("msaa.vis_always_top"),accGroup)); //$NON-NLS-1$
+        addField(new BooleanFieldEditor(GuiPreferenceConstants.UseOverlayWindow,Messages.msaa_vis_use_overlay,accGroup)); 
+        addField(new BooleanFieldEditor(GuiPreferenceConstants.AlwaysOnTop,Messages.msaa_vis_always_top,accGroup)); 
     }
 
 	public void init(IWorkbench workbench) {

@@ -10,25 +10,26 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.presentation.ui.actions;
 
+import org.eclipse.actf.visualization.presentation.internal.Messages;
 import org.eclipse.actf.visualization.presentation.internal.RoomPlugin;
 import org.eclipse.actf.visualization.presentation.ui.internal.PartControlRoom;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
 import org.eclipse.jface.action.Action;
 
-
-
 public class MiddleRoomSimulateAction extends Action {
 
-    public MiddleRoomSimulateAction() {
-        setToolTipText(RoomPlugin.getResourceString("RoomView.Simulate_Middle")); //$NON-NLS-1$
-        setImageDescriptor(RoomPlugin.getImageDescriptor("icons/ButtonMiddle.gif")); //$NON-NLS-1$
-        setText(RoomPlugin.getResourceString("RoomSimulationAction.Middle")); //$NON-NLS-1$
-    }
+	public MiddleRoomSimulateAction() {
+		setToolTipText(Messages.RoomSimulationAction_Middle); 
+		setImageDescriptor(RoomPlugin
+				.getImageDescriptor("icons/ButtonMiddle.gif")); //$NON-NLS-1$
+		setText(Messages.RoomSimulationAction_Middle); 
+	}
 
-    public void run() {
-    	//TODO
-        PartControlRoom.getDefaultInstance().getParamLowVision().setType(ParamRoom.ROOM_MIDDLE);
-        PartControlRoom.getDefaultInstance().doSimulate();
-    }
+	public void run() {
+		// TODO
+		PartControlRoom.getDefaultInstance().getParamLowVision().setType(
+				ParamRoom.ROOM_MIDDLE);
+		PartControlRoom.getDefaultInstance().doSimulate();
+	}
 
 }

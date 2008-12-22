@@ -23,7 +23,7 @@ import org.eclipse.jface.action.Action;
 public class ShowOffscreenAction extends Action {
 
     public ShowOffscreenAction() {
-        super(Messages.getString("msaa.show_offscreen"), Action.AS_CHECK_BOX); //$NON-NLS-1$
+        super(Messages.msaa_show_offscreen, Action.AS_CHECK_BOX); 
     }
 
     public void adjust() {

@@ -50,9 +50,9 @@ public class PropertyTreeViewer extends TreeViewer {
         tree.setHeaderVisible(true);
         tree.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         TreeColumn nameColumn = new TreeColumn(tree,SWT.NONE);
-        nameColumn.setText(Messages.getString("msaa.name")); //$NON-NLS-1$
+        nameColumn.setText(Messages.msaa_name); 
         TreeColumn valueColumn = new TreeColumn(tree,SWT.NONE);
-        valueColumn.setText(Messages.getString("msaa.value")); //$NON-NLS-1$
+        valueColumn.setText(Messages.msaa_value); 
         tree.addControlListener(new ControlAdapter() {
             public void controlResized(ControlEvent e) {
             	Tree tree = getTree();

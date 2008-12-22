@@ -64,14 +64,11 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 	private static final String EYESIGHT_0_1 = "20/200"; //$NON-NLS-1$
 
-	private static final String COLOR_VISION_1 = Messages
-			.getString("DialogSettingLowVision.Protan"); //$NON-NLS-1$
+	private static final String COLOR_VISION_1 = Messages.DialogSettingLowVision_Protan; //$NON-NLS-1$
 
-	private static final String COLOR_VISION_2 = Messages
-			.getString("DialogSettingLowVision.Deutan"); //$NON-NLS-1$
+	private static final String COLOR_VISION_2 = Messages.DialogSettingLowVision_Deutan; //$NON-NLS-1$
 
-	private static final String COLOR_VISION_3 = Messages
-			.getString("DialogSettingLowVision.Tritan"); //$NON-NLS-1$
+	private static final String COLOR_VISION_3 = Messages.DialogSettingLowVision_Tritan; //$NON-NLS-1$
 
 	private Button _eyesightCheckButton;
 
@@ -235,8 +232,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 		this._eyesightCheckButton = new Button(composite, SWT.CHECK);
 		this._eyesightCheckButton.setLayoutData(new GridData(SWT.LEFT,
 				SWT.CENTER, false, false, 2, 1));
-		this._eyesightCheckButton.setText(Messages
-				.getString("DialogSettingLowVision.Eyesight_9"));
+		this._eyesightCheckButton.setText(Messages.DialogSettingLowVision_Eyesight_9);
 		this._eyesightCheckButton.setSelection(this._appSetting.useEyeSight());
 		this._eyesightCheckButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -335,8 +331,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 		this._colorvisionCheckButton.setLayoutData(new GridData(SWT.FILL,
 				SWT.CENTER, true, false));
 		this._colorvisionCheckButton
-				.setText(Messages
-						.getString("DialogSettingLowVision.Color_Vision_Deficiency_10"));
+				.setText(Messages.DialogSettingLowVision_Color_Vision_Deficiency_10);
 		this._colorvisionCheckButton.setSelection(this._appSetting
 				.useColorVision());
 		this._colorvisionCheckButton
@@ -422,8 +417,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 		this._colorfilterCheckButton = new Button(composite, SWT.CHECK);
 		this._colorfilterCheckButton.setLayoutData(new GridData(SWT.LEFT,
 				SWT.CENTER, false, false, 2, 1));
-		this._colorfilterCheckButton.setText(Messages
-				.getString("DialogSettingLowVision.Crystalline_lens"));
+		this._colorfilterCheckButton.setText(Messages.DialogSettingLowVision_Crystalline_lens);
 		this._colorfilterCheckButton.setSelection(this._appSetting
 				.useEyeSight());
 		this._colorfilterCheckButton
@@ -452,20 +446,17 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 		// Create the labels of Color Filter
 		Label colorfilterLable1 = new Label(colorFilterComposite, SWT.NONE);
-		colorfilterLable1.setText(Messages
-				.getString("DialogSettingLowVision.60"));
+		colorfilterLable1.setText(Messages.DialogSettingLowVision_60);
 		colorfilterLable1.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER,
 				true, false));
 
 		Label colorfilterLable2 = new Label(colorFilterComposite, SWT.NONE);
-		colorfilterLable2.setText(Messages
-				.getString("DialogSettingLowVision.40"));
+		colorfilterLable2.setText(Messages.DialogSettingLowVision_40);
 		colorfilterLable2.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER,
 				true, false));
 
 		Label colorfilterLable3 = new Label(colorFilterComposite, SWT.NONE);
-		colorfilterLable3.setText(Messages
-				.getString("DialogSettingLowVision.20"));
+		colorfilterLable3.setText(Messages.DialogSettingLowVision_20);
 		colorfilterLable3.setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER,
 				true, false));
 
@@ -516,8 +507,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 		// Create the Label "Original:"
 		Label labelOriginal = new Label(composite, SWT.NONE);
-		labelOriginal.setText(Messages
-				.getString("DialogSettingLowVision.Original__24")); //$NON-NLS-1$
+		labelOriginal.setText(Messages.DialogSettingLowVision_Original__24); //$NON-NLS-1$
 
 		_beforeSimulateImageCanvas = new Canvas(composite, SWT.NO_REDRAW_RESIZE);
 		gridData = new GridData();
@@ -545,8 +535,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 		// Create the Label "After simulation:"
 		Label labelAfterSimulation = new Label(composite, SWT.NONE);
-		labelAfterSimulation.setText(Messages
-				.getString("DialogSettingLowVision.After_simulation")); //$NON-NLS-1$
+		labelAfterSimulation.setText(Messages.DialogSettingLowVision_After_simulation); //$NON-NLS-1$
 
 		_afterSimulateImageCanvas = new Canvas(composite, SWT.NO_REDRAW_RESIZE);
 		gridData = new GridData();

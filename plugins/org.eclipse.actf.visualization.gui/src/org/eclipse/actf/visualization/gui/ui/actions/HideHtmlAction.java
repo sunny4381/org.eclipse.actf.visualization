@@ -22,7 +22,7 @@ import org.eclipse.jface.action.Action;
 public class HideHtmlAction extends Action {
 
     public HideHtmlAction() {
-        super(Messages.getString("msaa.filter_html"), Action.AS_CHECK_BOX); //$NON-NLS-1$
+        super(Messages.msaa_filter_html, Action.AS_CHECK_BOX); 
     }
     
     public void adjust() {

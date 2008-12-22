@@ -27,7 +27,7 @@ public class ClearSelectionAction extends Action {
      */
 
     public ClearSelectionAction(TableViewer tableViewer) {
-        super(Messages.getString("ProblemTable.Clear_Selection_15"));
+        super(Messages.ProblemTable_Clear_Selection_15);
         this._tableViewer = tableViewer;
     }
 

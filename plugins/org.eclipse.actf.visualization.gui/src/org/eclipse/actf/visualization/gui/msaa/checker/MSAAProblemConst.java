@@ -39,15 +39,15 @@ public interface MSAAProblemConst {
     
     public static final int MSAA_PROB_NO_ALT_FLASH_IMAGE = 9;
 
-    public static final String[] DESCRIPTIONS = { Messages.getString("msaa.no_alt_for_button"), //$NON-NLS-1$
-            Messages.getString("msaa.no_alt_for_graphic"), //$NON-NLS-1$
-            Messages.getString("msaa.no_alt_for_clickable_object"), //$NON-NLS-1$
-            Messages.getString("msaa.no_alt_for_nonclickable_object"),//$NON-NLS-1$
-            Messages.getString("msaa.no_alt_for_form_control"), //$NON-NLS-1$
-            Messages.getString("msaa.no_title_for_table"), //$NON-NLS-1$
-            Messages.getString("msaa.no_text_for_link"), //$NON-NLS-1$
-            Messages.getString("msaa.no_title_for_frame"), //$NON-NLS-1$
-            Messages.getString("msaa.invisible_flash"),
-            Messages.getString("msaa.no_alt_graphic_flash")
+    public static final String[] DESCRIPTIONS = { Messages.msaa_no_alt_for_button, 
+            Messages.msaa_no_alt_for_graphic, 
+            Messages.msaa_no_alt_for_clickable_object, 
+            Messages.msaa_no_alt_for_nonclickable_object,
+            Messages.msaa_no_alt_for_form_control, 
+            Messages.msaa_no_title_for_table, 
+            Messages.msaa_no_text_for_link, 
+            Messages.msaa_no_title_for_frame, 
+            Messages.msaa_invisible_flash,
+            Messages.msaa_no_alt_graphic_flash
     };
 }

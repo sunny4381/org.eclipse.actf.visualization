@@ -35,7 +35,7 @@ public class SrcHighlightAction extends Action {
     private SrcViewerForPT _srcViewer;
 
     public SrcHighlightAction(ResultTableViewer resultTableViewer) {
-        super(Messages.getString("ProblemTable.5"));
+        super(Messages.ProblemTable_5);
         this._resultTableViewer = resultTableViewer;
         this._tableView = resultTableViewer.getTableViewer();
         this._srcViewer = SrcViewerForPT.getInstance();

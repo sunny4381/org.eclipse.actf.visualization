@@ -257,7 +257,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 	private void makeActions() {
 		final Shell shell = this.getViewSite().getShell();
 
-		expandAction = new Action(Messages.getString("msaa.expand")) { //$NON-NLS-1$
+		expandAction = new Action(Messages.msaa_expand) { 
 			public void run() {
 				try {
 					Object selected = getSelectedItem();
@@ -271,7 +271,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 			}
 		};
 
-		expandAllAction = new Action(Messages.getString("msaa.expand_all")) { //$NON-NLS-1$
+		expandAllAction = new Action(Messages.msaa_expand_all) { 
 			public void run() {
 				try {
 					viewer.expandAll();
@@ -280,10 +280,10 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 				}
 			}
 		};
-		expandAllAction.setToolTipText(Messages.getString("msaa.expand_all")); //$NON-NLS-1$
+		expandAllAction.setToolTipText(Messages.msaa_expand_all); 
 		expandAllAction.setImageDescriptor(GuiImages.IMAGE_EXPAND_ALL);
 
-		collapseAllAction = new Action(Messages.getString("msaa.collapse_all")) { //$NON-NLS-1$
+		collapseAllAction = new Action(Messages.msaa_collapse_all) { 
 			public void run() {
 				try {
 					viewer.collapseAll();
@@ -292,8 +292,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 				}
 			}
 		};
-		collapseAllAction.setToolTipText(Messages
-				.getString("msaa.collapse_all")); //$NON-NLS-1$
+		collapseAllAction.setToolTipText(Messages.msaa_collapse_all); //$NON-NLS-1$
 		collapseAllAction.setImageDescriptor(GuiImages.IMAGE_COLLAPSE_ALL);
 
 		refreshAction = new RefreshRootAction();
@@ -302,7 +301,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 
 		showOffscreenAction = new ShowOffscreenAction();
 
-		runCheckerAction = new Action(Messages.getString("msaa.checker")) { //$NON-NLS-1$
+		runCheckerAction = new Action(Messages.msaa_checker) { 
 			public void run() {
 				IMSAAProblemsView problemsView = (IMSAAProblemsView) MSAAViewRegistory
 						.showView(IGuiViewIDs.ID_REPORTVIEW, true);
@@ -311,16 +310,16 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 				}
 			}
 		};
-		runCheckerAction.setToolTipText(Messages.getString("msaa.checker_tip")); //$NON-NLS-1$
+		runCheckerAction.setToolTipText(Messages.msaa_checker_tip); 
 		runCheckerAction.setImageDescriptor(GuiImages.IMAGE_CHECKER);
 
 		showLabelsAction = new Action(
-				Messages.getString("msaa.show_tree"), Action.AS_CHECK_BOX) { //$NON-NLS-1$
+				Messages.msaa_show_tree, Action.AS_CHECK_BOX) { 
 			public void run() {
 				showOverlayLabels();
 			}
 		};
-		showLabelsAction.setToolTipText(Messages.getString("msaa.show_tree")); //$NON-NLS-1$
+		showLabelsAction.setToolTipText(Messages.msaa_show_tree); 
 		showLabelsAction.setImageDescriptor(GuiImages.IMAGE_OVERLAY);
 		shell.addShellListener(new ShellAdapter() {
 			public void shellActivated(ShellEvent e) {
@@ -559,7 +558,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 					}
 				}
 				if (null == accText || 0 == accText.length()) {
-					accText = Messages.getString("msaa.NAMELESS"); //$NON-NLS-1$
+					accText = Messages.msaa_NAMELESS; 
 					String roleText = accObject.getRoleText();
 					if (null != roleText) {
 						accText += " (" + roleText + ")"; //$NON-NLS-1$ //$NON-NLS-2$

@@ -65,7 +65,7 @@ public class NavigabilityWarningDialog extends TitleAreaDialog {
 	protected Control createContents(Composite arg0) {
 		Control contents = super.createContents(arg0);
 		setMessage(
-				Messages.getString("NavigabilityWarningDialog.Message1") + FileUtils.LINE_SEP + Messages.getString("NavigabilityWarningDialog.Message2"), IMessageProvider.WARNING); //$NON-NLS-1$ //$NON-NLS-2$
+				Messages.NavigabilityWarningDialog_Message1 + FileUtils.LINE_SEP + Messages.NavigabilityWarningDialog_Message2, IMessageProvider.WARNING); 
 		return contents;
 	}
 
@@ -74,11 +74,11 @@ public class NavigabilityWarningDialog extends TitleAreaDialog {
 		composite.setLayout(new GridLayout());
 
 		buttonWCAGall = new Button(composite, SWT.RADIO);
-		buttonWCAGall.setText(Messages.getString("NavigabilityWarningDialog.EnableWCAG")); //$NON-NLS-1$
+		buttonWCAGall.setText(Messages.NavigabilityWarningDialog_EnableWCAG); 
 		buttonNavOff = new Button(composite, SWT.RADIO);
-		buttonNavOff.setText(Messages.getString("NavigabilityWarningDialog.DisableNav")); //$NON-NLS-1$
+		buttonNavOff.setText(Messages.NavigabilityWarningDialog_DisableNav); 
 		buttonGoAhead = new Button(composite, SWT.RADIO);
-		buttonGoAhead.setText(Messages.getString("NavigabilityWarningDialog.Continue")); //$NON-NLS-1$
+		buttonGoAhead.setText(Messages.NavigabilityWarningDialog_Continue); 
 
 		return composite;
 	}

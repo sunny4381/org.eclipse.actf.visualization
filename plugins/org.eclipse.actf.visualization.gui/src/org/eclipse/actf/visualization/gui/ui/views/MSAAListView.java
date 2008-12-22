@@ -62,7 +62,7 @@ import org.eclipse.ui.part.ViewPart;
 
 
 public class MSAAListView extends ViewPart implements IMSAAListView {
-    private static final String[] HEADINGS =	{ "#", Messages.getString("msaa.name"), Messages.getString("msaa.role"), Messages.getString("msaa.state"), "X", "Y", "W", "H"}; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$ //$NON-NLS-8$
+    private static final String[] HEADINGS =	{ "#", Messages.msaa_name, Messages.msaa_role, Messages.msaa_state, "X", "Y", "W", "H"}; 
     private static final int[] WEIGHTS =		{ 1,5,5,5,1,1,1,1 };
     private static final int[] ALIGNMENTS =	{ SWT.RIGHT, SWT.LEFT, SWT.LEFT, SWT.LEFT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT };
 
@@ -212,12 +212,12 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 	}
 
 	private void makeActions() {
-        refreshAction = new Action(Messages.getString("msaa.refresh")) { //$NON-NLS-1$
+        refreshAction = new Action(Messages.msaa_refresh) { 
             public void run() {
 				viewer.refresh();
             }
         };
-        refreshAction.setToolTipText(Messages.getString("msaa.refresh")); //$NON-NLS-1$
+        refreshAction.setToolTipText(Messages.msaa_refresh); 
         refreshAction.setImageDescriptor(GuiImages.IMAGE_REFRESH);
 	}
 	

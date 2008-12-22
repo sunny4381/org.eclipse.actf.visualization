@@ -41,7 +41,7 @@ public class GuidelineSubMenu extends MenuManager {
 			.getInstance();
 
 	public GuidelineSubMenu(ResultTableViewer resultTableViewer) {
-		super(Messages.getString("ProblemTable.View_Guideline_16"));
+		super(Messages.ProblemTable_View_Guideline_16);
 
 		this._resultTableViewer = resultTableViewer;
 		this._tableViewer = resultTableViewer.getTableViewer();

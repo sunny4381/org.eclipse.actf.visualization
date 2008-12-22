@@ -29,10 +29,8 @@ import org.w3c.dom.Node;
  */
 public class GuiTargetWindowData implements IModelService {
 
-	private static final String categoryBrowser = Messages
-			.getString("msaa.external_browsers"); //$NON-NLS-1$
-	private static final String categoryWindow = Messages
-			.getString("msaa.external_windows"); //$NON-NLS-1$
+	private static final String categoryBrowser = Messages.msaa_external_browsers; //$NON-NLS-1$
+	private static final String categoryWindow = Messages.msaa_external_windows; //$NON-NLS-1$
 	private int hwnd;
 	private boolean isBrowser;
 
@@ -114,7 +112,7 @@ public class GuiTargetWindowData implements IModelService {
 		if (0 != hwnd) {
 			String title = WindowUtil.GetWindowText(hwnd);
 			if (title.length() == 0) {
-				title = Messages.getString("msaa.NAMELESS"); //$NON-NLS-1$
+				title = Messages.msaa_NAMELESS; 
 			}
 			return title + " (" + WindowUtil.GetWindowClassName(hwnd) + ")"; //$NON-NLS-1$ //$NON-NLS-2$
 		}
