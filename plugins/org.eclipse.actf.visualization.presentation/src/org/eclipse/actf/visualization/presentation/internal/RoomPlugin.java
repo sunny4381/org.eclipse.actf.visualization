@@ -13,13 +13,10 @@ package org.eclipse.actf.visualization.presentation.internal;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
 
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.Bundle;
@@ -34,8 +31,6 @@ public class RoomPlugin extends AbstractUIPlugin {
 
 	// The shared instance.
 	private static RoomPlugin _plugin;
-
-	private ResourceBundle _resourceBundle;
 
 	private static BundleContext _context;
 
@@ -126,26 +121,6 @@ public class RoomPlugin extends AbstractUIPlugin {
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
 		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
-	}
-
-	public static String getResourceString(String key) {
-		ResourceBundle bundle = RoomPlugin.getDefault().getResourceBundle();
-		try {
-			return (null != bundle) ? bundle.getString(key) : key;
-		} catch (MissingResourceException mre) {
-			return "???" + key + "???";
-		}
-	}
-
-	public ResourceBundle getResourceBundle() {
-		if (null == _resourceBundle && null != _context) {
-			Bundle bundle = _context.getBundle();
-			if (null != bundle) {
-				_resourceBundle = Platform.getResourceBundle(bundle);
-			}
-		}
-
-		return _resourceBundle;
 	}
 
 	public static String getDirectory(String dir) {
