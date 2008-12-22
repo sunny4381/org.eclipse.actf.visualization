@@ -8,26 +8,21 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.actf.visualization.internal.engines.blind.html;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-public class Messages {
-	private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+public final class Messages extends NLS {
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+	private static final String BUNDLE_NAME = "messages";//$NON-NLS-1$
 
 	private Messages() {
+		// Do not instantiate
 	}
 
-	public static String getString(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
+	public static String BlindView_Open_ID;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}
 }

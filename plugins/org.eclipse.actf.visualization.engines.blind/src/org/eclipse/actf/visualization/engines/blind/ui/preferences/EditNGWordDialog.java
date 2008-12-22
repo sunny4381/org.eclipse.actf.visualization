@@ -35,8 +35,7 @@ public class EditNGWordDialog {
 
 	// TODO use dialog
 
-	private static final String DIALOG_TITLE = Messages
-			.getString("AltDialog.TITLE"); //$NON-NLS-1$
+	private static final String DIALOG_TITLE = Messages.AltDialog_TITLE; //$NON-NLS-1$
 
 	private Shell shell;
 
@@ -125,7 +124,7 @@ public class EditNGWordDialog {
 		ngWordTable.setLinesVisible(true);
 
 		TableColumn col = new TableColumn(ngWordTable, SWT.NONE);
-		col.setText(Messages.getString("AltDialog.Column_Name")); //$NON-NLS-1$
+		col.setText(Messages.AltDialog_Column_Name); 
 		col.setWidth(200);
 
 		for (String value : textChecker.getInappropriateALTSet()) {
@@ -145,14 +144,13 @@ public class EditNGWordDialog {
 			public void widgetSelected(SelectionEvent arg0) {
 				String str = text.getText().toLowerCase();
 				if (str.equals("")) { //$NON-NLS-1$
-					popupMessage(Messages.getString("AltDialog.MSG_No_String")); //$NON-NLS-1$
+					popupMessage(Messages.AltDialog_MSG_No_String); 
 					return;
 				}
 				int count = ngWordTable.getItemCount();
 				for (int i = 0; i < count; i++) {
 					if (ngWordTable.getItem(i).getText().equals(str)) {
-						popupMessage(Messages
-								.getString("AltDialog.MSG_Existed")); //$NON-NLS-1$
+						popupMessage(Messages.AltDialog_MSG_Existed); //$NON-NLS-1$
 						return;
 					}
 				}

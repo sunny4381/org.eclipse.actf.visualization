@@ -15,6 +15,6 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.Messages;
 
 public class EnlargeTextRecommendation extends LowVisionRecommendation{
 	public EnlargeTextRecommendation( LowVisionProblem _prob ) throws LowVisionProblemException{
-		super( ENLARGE_TEXT_RECOMMENDATION, _prob, Messages.getString("EnlargeTextRecommendation.Enlarge_the_text._1") );
+		super( ENLARGE_TEXT_RECOMMENDATION, _prob, Messages.EnlargeTextRecommendation_Enlarge_the_text__1 );
 	}
 }

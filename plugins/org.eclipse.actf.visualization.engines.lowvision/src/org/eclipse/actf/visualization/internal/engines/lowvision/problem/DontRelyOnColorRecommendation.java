@@ -22,7 +22,6 @@ public class DontRelyOnColorRecommendation extends LowVisionRecommendation {
 		super(
 				DONT_RELY_ON_COLOR_RECOMMENDATION,
 				_prob,
-				Messages
-						.getString("DontRelyOnColorRecommendation.Don__t_rely_only_on_color._1"));
+				Messages.DontRelyOnColorRecommendation_Don__t_rely_only_on_color__1);
 	}
 }

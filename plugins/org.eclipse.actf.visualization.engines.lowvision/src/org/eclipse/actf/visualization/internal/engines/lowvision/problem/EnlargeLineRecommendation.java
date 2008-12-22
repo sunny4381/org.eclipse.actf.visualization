@@ -19,7 +19,6 @@ public class EnlargeLineRecommendation extends LowVisionRecommendation {
 		super(
 				ENLARGE_LINE_RECOMMENDATION,
 				_prob,
-				Messages
-						.getString("EnlargeLineRecommendation.Enlarge_the_line_height._1"));
+				Messages.EnlargeLineRecommendation_Enlarge_the_line_height__1);
 	}
 }

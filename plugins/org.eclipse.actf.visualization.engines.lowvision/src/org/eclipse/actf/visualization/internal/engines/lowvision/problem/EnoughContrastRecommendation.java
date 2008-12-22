@@ -29,7 +29,7 @@ public class EnoughContrastRecommendation extends LowVisionRecommendation{
 	private int recommendedBackgroundColor = -1;
 
 	public EnoughContrastRecommendation( LowVisionProblem _prob, int _fg, int _bg ) throws LowVisionProblemException{
-		super( ENOUGH_CONTRAST_RECOMMENDATION, _prob, Messages.getString("EnoughContrastRecommendation.Provide_enough_contrast_between_foreground_and_background_colors._1") );
+		super( ENOUGH_CONTRAST_RECOMMENDATION, _prob, Messages.EnoughContrastRecommendation_Provide_enough_contrast_between_foreground_and_background_colors__1 );
 		originalForegroundColor = _fg;
 		originalBackgroundColor = _bg;
 		calcRecommendedColors();

@@ -19,7 +19,6 @@ public class ChangableFontRecommendation extends LowVisionRecommendation {
 		super(
 				CHANGABLE_FONT_RECOMMENDATION,
 				_prob,
-				Messages
-						.getString("ChangableFontRecommendation.Do_not_use_fixed-size_font._1"));
+				Messages.ChangableFontRecommendation_Do_not_use_fixed_size_font__1);
 	}
 }

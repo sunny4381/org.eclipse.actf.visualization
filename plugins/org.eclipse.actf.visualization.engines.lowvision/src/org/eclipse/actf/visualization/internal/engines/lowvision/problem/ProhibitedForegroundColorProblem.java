@@ -22,12 +22,12 @@ public class ProhibitedForegroundColorProblem extends LowVisionProblem{
 	private int backgroundColor = -1;
 
 	public ProhibitedForegroundColorProblem( PageComponent _pc, LowVisionType _lvType, double _proba ) throws LowVisionProblemException{
-		super( LOWVISION_PROHIBITED_FOREGROUND_COLOR_PROBLEM, _lvType, Messages.getString("ProhibitedForegroundColorProblem.The_foreground_color_is_not_allowed_by_the_design_guideline._1"), _pc, _proba );
+		super( LOWVISION_PROHIBITED_FOREGROUND_COLOR_PROBLEM, _lvType, Messages.ProhibitedForegroundColorProblem_The_foreground_color_is_not_allowed_by_the_design_guideline__1, _pc, _proba );
 		setRecommendations();
 	}
 
 	public ProhibitedForegroundColorProblem( PageElement _pe, LowVisionType _lvType, double _proba ) throws LowVisionProblemException{
-		super( LOWVISION_PROHIBITED_FOREGROUND_COLOR_PROBLEM, _lvType, Messages.getString("ProhibitedForegroundColorProblem.The_foreground_color_is_not_allowed_by_the_design_guideline._1"), _pe, _proba );
+		super( LOWVISION_PROHIBITED_FOREGROUND_COLOR_PROBLEM, _lvType, Messages.ProhibitedForegroundColorProblem_The_foreground_color_is_not_allowed_by_the_design_guideline__1, _pe, _proba );
 		foregroundColor = _pe.getForegroundColor();
 		backgroundColor = _pe.getBackgroundColor();
 		setRecommendations();

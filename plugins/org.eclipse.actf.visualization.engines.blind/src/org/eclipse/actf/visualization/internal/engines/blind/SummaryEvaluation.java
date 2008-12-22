@@ -104,63 +104,56 @@ public class SummaryEvaluation {
 			if (comp >= 80) {
 				if (hasError) {
 					aboutComp
-							.append(Messages
-									.getString("Eval.completely.compliant.with.some.errors")
+							.append(Messages.Eval_completely_compliant_with_some_errors
 									+ FileUtils.LINE_SEP);
 
 					if (totalAltError > 0) {
 						aboutComp
-								.append(Messages
-										.getString("Eval.confirm.alt.attributes.first"));
+								.append(Messages.Eval_confirm_alt_attributes_first);
 						aboutComp.append(getImageAltStatistics());
 					} else {
 						aboutComp
-								.append(Messages
-										.getString("Eval.confirm.errors.detailed.report"));
+								.append(Messages.Eval_confirm_errors_detailed_report);
 					}
 				} else {
 					if (hasOther && other != 100) {
-						aboutComp.append(MessageFormat.format(Messages
-								.getString("Eval.some.errors.on.metrics"),
-								(Object[])(new String[] {
+						aboutComp.append(MessageFormat.format(
+								Messages.Eval_some_errors_on_metrics,
+								(Object[]) (new String[] {
 										noGoodMetrics.substring(0,
 												noGoodMetrics.length() - 1),
 										FileUtils.LINE_SEP })));
 					} else {
 						if (comp == 100) {
 							isGood = true;
-							aboutComp.append(Messages
-									.getString("Eval.completely.compliant"));
+							aboutComp
+									.append(Messages.Eval_completely_compliant);
 						} else {
 							isGood = true;
 							aboutComp
 									.append(MessageFormat
 											.format(
-													Messages
-															.getString("Eval.completely.compliant.with.user.check.items"),
+													Messages.Eval_completely_compliant_with_user_check_items,
 													FileUtils.LINE_SEP));
 						}
 					}
 				}
 			} else {
 				if (comp > 50) {
-					aboutComp.append(Messages
-							.getString("Eval.some.accessibility.issues")
+					aboutComp.append(Messages.Eval_some_accessibility_issues
 							+ FileUtils.LINE_SEP);
 				} else {
-					aboutComp.append(Messages
-							.getString("Eval.many.accessibility.issues")
+					aboutComp.append(Messages.Eval_many_accessibility_issues
 							+ FileUtils.LINE_SEP);
 				}
 
 				if (totalAltError > 0) {
-					aboutComp.append(Messages
-							.getString("Eval.confirm.alt.attributes.first")
+					aboutComp.append(Messages.Eval_confirm_alt_attributes_first
 							+ FileUtils.LINE_SEP);
 					aboutComp.append(getImageAltStatistics());
 				} else {
-					aboutComp.append(Messages
-							.getString("Eval.confirm.errors.detailed.report"));
+					aboutComp
+							.append(Messages.Eval_confirm_errors_detailed_report);
 				}
 			}
 		}
@@ -169,37 +162,34 @@ public class SummaryEvaluation {
 		if (hasNav) {
 			if (nav > 80) {
 				if (pageData.getMaxTime() > 240) {
-					aboutNav
-							.append(MessageFormat
-									.format(
-											Messages
-													.getString("Eval.navigability.long.time.error.msg"),
-													(Object[])(new String[] { FileUtils.LINE_SEP,
-													FileUtils.LINE_SEP,
-													FileUtils.LINE_SEP,
-													FileUtils.LINE_SEP }))
-									+ FileUtils.LINE_SEP);
+					aboutNav.append(MessageFormat.format(
+							Messages.Eval_navigability_long_time_error_msg,
+							(Object[]) (new String[] { FileUtils.LINE_SEP,
+									FileUtils.LINE_SEP, FileUtils.LINE_SEP,
+									FileUtils.LINE_SEP }))
+							+ FileUtils.LINE_SEP);
 
 				} else {
-					aboutNav.append(MessageFormat.format(Messages
-							.getString("Eval.navigability.good.msg"),
-							(Object[])(new String[] { FileUtils.LINE_SEP,
+					aboutNav.append(MessageFormat.format(
+							Messages.Eval_navigability_good_msg,
+							(Object[]) (new String[] { FileUtils.LINE_SEP,
 									FileUtils.LINE_SEP }))
 							+ FileUtils.LINE_SEP);
 				}
 			} else {
 				isGood = false;
-				aboutNav.append(MessageFormat.format(Messages
-						.getString("Eval.navigability.low.score.error.msg"),
-						(Object[])(new String[] { FileUtils.LINE_SEP, FileUtils.LINE_SEP,
-								FileUtils.LINE_SEP, FileUtils.LINE_SEP }))
+				aboutNav.append(MessageFormat.format(
+						Messages.Eval_navigability_low_score_error_msg,
+						(Object[]) (new String[] { FileUtils.LINE_SEP,
+								FileUtils.LINE_SEP, FileUtils.LINE_SEP,
+								FileUtils.LINE_SEP }))
 						+ FileUtils.LINE_SEP);
 			}
 		}
 
 		if ((hasComp || hasNav) && isGood) {
-			tmpSB.append(Messages.getString("Eval.excellent")
-					+ FileUtils.LINE_SEP + FileUtils.LINE_SEP);
+			tmpSB.append(Messages.Eval_excellent + FileUtils.LINE_SEP
+					+ FileUtils.LINE_SEP);
 		}
 		tmpSB.append(aboutNav + FileUtils.LINE_SEP);
 		tmpSB.append(aboutComp);
@@ -211,39 +201,32 @@ public class SummaryEvaluation {
 		StringBuffer tmpSB = new StringBuffer();
 
 		if (noImageAltCount > 0) {
-			tmpSB.append(" -"
-					+ MessageFormat.format(Messages
-							.getString("Eval.no.img.alt.error.msg"),
-							FileUtils.LINE_SEP));
+			tmpSB.append(" -" + Messages.Eval_no_img_alt_error_msg
+					+ FileUtils.LINE_SEP);
 		}
 		if (wrongImageAltCount > 0) {
-			tmpSB.append(" -"
-					+ MessageFormat.format(Messages
-							.getString("Eval.wrong.img.alt.error.msg"),
-							FileUtils.LINE_SEP));
+			tmpSB.append(" -" + Messages.Eval_wrong_img_alt_error_msg
+					+ FileUtils.LINE_SEP);
 		}
 		if (redundantImageAltCount > 0) {
-			tmpSB.append(" -"
-					+ MessageFormat.format(Messages
-							.getString("Eval.redundant.img.al.error.msg"),
-							FileUtils.LINE_SEP));
+			tmpSB.append(" -" + Messages.Eval_redundant_img_alt_error_msg
+					+ FileUtils.LINE_SEP);
 		}
 		tmpSB.append(FileUtils.LINE_SEP);
 
 		if (noImageAltCount > 0) {
-			tmpSB.append(" " + Messages.getString("Eval.no.img.alt") + " "
-					+ noImageAltCount + FileUtils.LINE_SEP);
+			tmpSB.append(" " + Messages.Eval_no_img_alt + " " + noImageAltCount
+					+ FileUtils.LINE_SEP);
 		}
 		if (wrongImageAltCount > 0) {
-			tmpSB.append(" " + Messages.getString("Eval.wrong.img.alt") + " "
+			tmpSB.append(" " + Messages.Eval_wrong_img_alt + " "
 					+ wrongImageAltCount + FileUtils.LINE_SEP);
 		}
 		if (redundantImageAltCount > 0) {
-			tmpSB.append(" " + Messages.getString("Eval.redundant.img.alt")
-					+ " " + redundantImageAltCount + FileUtils.LINE_SEP);
+			tmpSB.append(" " + Messages.Eval_redundant_img_alt + " "
+					+ redundantImageAltCount + FileUtils.LINE_SEP);
 		}
 
 		return (tmpSB.toString());
 	}
-
 }

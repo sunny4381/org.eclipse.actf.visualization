@@ -19,7 +19,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
 
 public class FixedSmallFontProblem extends LowVisionProblem{
 	public FixedSmallFontProblem( PageElement _pe, LowVisionType _lvType, double _proba ) throws LowVisionProblemException{
-		super( LOWVISION_FIXED_SMALL_FONT_PROBLEM, _lvType, Messages.getString("FixedSmallFontProblem.This_text_is_too_small_and_its_font_size_is_fixed._1"), _pe, _proba );
+		super( LOWVISION_FIXED_SMALL_FONT_PROBLEM, _lvType, Messages.FixedSmallFontProblem_This_text_is_too_small_and_its_font_size_is_fixed__1, _pe, _proba );
 		// fontSize = _pe.getFontSize();
 		setRecommendations();
 	}

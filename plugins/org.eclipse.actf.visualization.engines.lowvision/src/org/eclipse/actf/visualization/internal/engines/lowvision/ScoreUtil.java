@@ -25,13 +25,13 @@ public class ScoreUtil {
         
 	public static String getScoreString(int _score) {
 		if (_score <= VERY_GOOD) {
-			return (Messages.getString("PageEvaluation.Excellent"));
+			return (Messages.PageEvaluation_Excellent);
 		} else if (_score <= GOOD) {
-			return (Messages.getString("PageEvaluation.Good"));
+			return (Messages.PageEvaluation_Good);
 		} else if (_score <= POOR) {
-			return (Messages.getString("PageEvaluation.Poor"));
+			return (Messages.PageEvaluation_Poor);
 		} else {
-			return (Messages.getString("PageEvaluation.Bad"));
+			return (Messages.PageEvaluation_Bad);
 		}
 
 	}

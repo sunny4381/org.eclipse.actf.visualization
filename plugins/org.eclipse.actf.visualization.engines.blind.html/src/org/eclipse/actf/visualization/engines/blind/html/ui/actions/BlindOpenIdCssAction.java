@@ -25,7 +25,7 @@ public class BlindOpenIdCssAction extends Action {
 	 * Constructor of the class
 	 */
 	public BlindOpenIdCssAction() {
-		setToolTipText(Messages.getString("BlindView.Open_ID"));
+		setToolTipText(Messages.BlindView_Open_ID);
 		setImageDescriptor(BlindVizResourceUtil
 				.getImageDescriptor("icons/ButtonIdCss.png"));
 		setText("ID/CSS");

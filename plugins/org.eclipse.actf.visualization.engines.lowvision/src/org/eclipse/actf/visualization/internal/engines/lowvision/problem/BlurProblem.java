@@ -22,8 +22,7 @@ public class BlurProblem extends LowVisionProblem {
 		super(
 				LOWVISION_BLUR_PROBLEM,
 				_lvType,
-				Messages
-						.getString("BlurProblem.It_is_difficult_for_weak-sighted_to_read_these_characters._1"),
+				Messages.BlurProblem_It_is_difficult_for_weak_sighted_to_read_these_characters__1,
 				_pc, _proba);
 		setRecommendations();
 	}
@@ -33,8 +32,7 @@ public class BlurProblem extends LowVisionProblem {
 		super(
 				LOWVISION_BLUR_PROBLEM,
 				_lvType,
-				Messages
-						.getString("BlurProblem.It_is_difficult_for_weak-sighted_to_read_these_characters._1"),
+				Messages.BlurProblem_It_is_difficult_for_weak_sighted_to_read_these_characters__1,
 				_pe, _proba);
 		setRecommendations();
 	}

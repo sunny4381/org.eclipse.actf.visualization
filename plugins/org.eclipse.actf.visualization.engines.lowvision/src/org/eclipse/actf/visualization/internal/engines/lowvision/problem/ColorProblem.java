@@ -25,13 +25,13 @@ public class ColorProblem extends LowVisionProblem{
 	private int backgroundColor = -1;
 
 	public ColorProblem( PageComponent _pc, LowVisionType _lvType, double _proba ) throws LowVisionProblemException{
-		super( LOWVISION_COLOR_PROBLEM, _lvType, Messages.getString("ColorProblem.Foreground_and_background_colors_are_too_close._1"), _pc, _proba );
+		super( LOWVISION_COLOR_PROBLEM, _lvType, Messages.ColorProblem_Foreground_and_background_colors_are_too_close__1, _pc, _proba );
 		setComponentColors();
 		setRecommendations();
 	}
 	
 	public ColorProblem( PageElement _pe, LowVisionType _lvType, double _proba ) throws LowVisionProblemException{
-		super( LOWVISION_COLOR_PROBLEM, _lvType, Messages.getString("ColorProblem.Foreground_and_background_colors_are_too_close._1"), _pe, _proba );
+		super( LOWVISION_COLOR_PROBLEM, _lvType, Messages.ColorProblem_Foreground_and_background_colors_are_too_close__1, _pe, _proba );
 		foregroundColor = _pe.getForegroundColor();
 		backgroundColor = _pe.getBackgroundColor();
 		setRecommendations();

@@ -8,26 +8,40 @@
  * Contributors:
  *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
-
 package org.eclipse.actf.visualization.internal.engines.lowvision;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import org.eclipse.osgi.util.NLS;
 
-public class Messages {
-	private static final String BUNDLE_NAME = "messages"; //$NON-NLS-1$
+public final class Messages extends NLS {
 
-	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
-			.getBundle(BUNDLE_NAME);
+	private static final String BUNDLE_NAME = "messages";//$NON-NLS-1$
 
 	private Messages() {
+		// Do not instantiate
 	}
 
-	public static String getString(String key) {
-		try {
-			return RESOURCE_BUNDLE.getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
+	public static String BlurProblem_It_is_difficult_for_weak_sighted_to_read_these_characters__1;
+	public static String ChangableFontRecommendation_Do_not_use_fixed_size_font__1;
+	public static String ColorProblem_Foreground_and_background_colors_are_too_close__1;
+	public static String DontRelyOnColorRecommendation_Don__t_rely_only_on_color__1;
+	public static String EnlargeLineRecommendation_Enlarge_the_line_height__1;
+	public static String EnlargeTextRecommendation_Enlarge_the_text__1;
+	public static String EnoughContrastRecommendation_Provide_enough_contrast_between_foreground_and_background_colors__1;
+	public static String FixedSizeFontProblem_Fixed_size_font_is_used__1;
+	public static String FixedSmallFontProblem_This_text_is_too_small_and_its_font_size_is_fixed__1;
+	public static String ImageColorProblem_This_image_has_two_or_more_components_whose_colors_are_too_close__1;
+	public static String SmallFontProblem_This_text_is_too_small__1;
+	public static String UseAllowedColorRecommendation_Use_a_color_allowed_by_the_design_guideline__1;
+	public static String ProhibitedBothColorsProblem_Both_of_the_foreground_and_background_colors_are_not_allowed_by_the_design_guideline__1;
+	public static String ProhibitedForegroundColorProblem_The_foreground_color_is_not_allowed_by_the_design_guideline__1;
+	public static String ProhibitedBackgroundColorProblem_The_background_color_is_not_allowed_by_the_design_guideline__1;
+	public static String PageEvaluation_Bad;
+	public static String PageEvaluation_Excellent;
+	public static String PageEvaluation_Good;
+	public static String PageEvaluation_Poor;
+	public static String ImageDumpUtil_TrueColor;
+
+	static {
+		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}
 }

@@ -45,27 +45,24 @@ public class PageEvaluation {
 		Color blue = Display.getDefault().getSystemColor(SWT.COLOR_BLUE);
 		Color red = Display.getDefault().getSystemColor(SWT.COLOR_RED);
 
-		hlsl.addTarget(Messages.getString("Eval.excellent"), blue, SWT.BOLD);
-		hlsl.addTarget(Messages.getString("Eval.completely.compliant"), blue,
+		hlsl.addTarget(Messages.Eval_excellent, blue, SWT.BOLD);
+		hlsl.addTarget(Messages.Eval_completely_compliant, blue,
 				SWT.BOLD);
-		hlsl.addTarget(Messages.getString("Eval.seems.completely.compliant"),
+		hlsl.addTarget(Messages.Eval_seems_completely_compliant,
 				blue, SWT.BOLD);
-		hlsl.addTarget(Messages
-				.getString("Eval.completely.compliant.with.some.errors"), red,
+		hlsl.addTarget(Messages.Eval_completely_compliant_with_some_errors, red,
 				SWT.BOLD);
-		hlsl.addTarget(Messages.getString("Eval.many.accessibility.issues"),
+		hlsl.addTarget(Messages.Eval_many_accessibility_issues,
 				red, SWT.BOLD);
-		hlsl.addTarget(Messages.getString("Eval.some.accessibility.issues"),
+		hlsl.addTarget(Messages.Eval_some_accessibility_issues,
 				red, SWT.BOLD);
 
-		hlsl.addTarget(Messages
-				.getString("Eval.easy.for.blind.user.to.navigate"), blue,
+		hlsl.addTarget(Messages.Eval_easy_for_blind_user_to_navigate, blue,
 				SWT.BOLD);
 
-		hlsl.addTarget(Messages.getString("Eval.page.has.skiplinks.headings"),
+		hlsl.addTarget(Messages.Eval_page_has_skiplinks_headings,
 				red, SWT.BOLD);
-		hlsl.addTarget(Messages
-				.getString("Eval.darkcolored.visualization.view"), red,
+		hlsl.addTarget(Messages.Eval_darkcolored_visualization_view, red,
 				SWT.BOLD);
 
 		return (hlsl);
@@ -176,15 +173,15 @@ public class PageEvaluation {
 
 		int minValue = getMinScore();
 
-		String rating = Messages.getString("PageEvaluation.Bad"); //$NON-NLS-1$
+		String rating = Messages.PageEvaluation_Bad; 
 
 		if (!hasComplianceError()) {
 			if (minValue >= 90) {
-				rating = Messages.getString("PageEvaluation.Excellent"); //$NON-NLS-1$
+				rating = Messages.PageEvaluation_Excellent; 
 			} else if (minValue >= 70) {
-				rating = Messages.getString("PageEvaluation.Good"); //$NON-NLS-1$
+				rating = Messages.PageEvaluation_Good; 
 			} else if (minValue >= 60) {
-				rating = Messages.getString("PageEvaluation.Poor"); //$NON-NLS-1$
+				rating = Messages.PageEvaluation_Poor; 
 			}
 		}
 		return (rating);

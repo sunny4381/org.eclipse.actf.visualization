@@ -20,7 +20,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
  */
 public class SmallFontProblem extends LowVisionProblem{
 	public SmallFontProblem( PageElement _pe, LowVisionType _lvType, double _proba ) throws LowVisionProblemException{
-		super( LOWVISION_SMALL_FONT_PROBLEM, _lvType, Messages.getString("SmallFontProblem.This_text_is_too_small._1"), _pe, _proba );
+		super( LOWVISION_SMALL_FONT_PROBLEM, _lvType, Messages.SmallFontProblem_This_text_is_too_small__1, _pe, _proba );
 		// fontSize = _pe.getFontSize();
 		setRecommendations();
 	}

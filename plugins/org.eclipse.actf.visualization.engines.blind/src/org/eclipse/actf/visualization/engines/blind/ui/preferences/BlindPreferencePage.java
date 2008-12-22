@@ -49,12 +49,10 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 	}
 
 	private void createInappropriateAltPart(Composite parent) {
-		Group inAppropriateAltGroup = createFieldGroup(Messages
-				.getString("DialogSettingBlind.NG_Word_/_Wrong_Text_5"));
+		Group inAppropriateAltGroup = createFieldGroup(Messages.DialogSettingBlind_NG_Word___Wrong_Text_5);
 
 		Button editListButton = new Button(inAppropriateAltGroup, SWT.PUSH);
-		editListButton.setText(Messages
-				.getString("DialogSettingBlind.NG_Word/Wrong_Text_Edit..._25"));
+		editListButton.setText(Messages.DialogSettingBlind_NG_Word_Wrong_Text_Edit____25);
 		editListButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				editNgwordWrongtxt();
@@ -65,12 +63,11 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 	private void createLanguagePart(Composite parent) {
 
 		addField(new RadioGroupFieldEditor(
-				IBlindPreferenceConstants.BLIND_LANG, Messages
-						.getString("DialogSettingBlind.Language_4"), 1,
+				IBlindPreferenceConstants.BLIND_LANG, Messages.DialogSettingBlind_Language_4, 1,
 				new String[][] {
-						{ Messages.getString("DialogSettingBlind.English_15"),
+						{ Messages.DialogSettingBlind_English_15,
 								IBlindPreferenceConstants.LANG_EN },
-						{ Messages.getString("DialogSettingBlind.Japanese_16"),
+						{ Messages.DialogSettingBlind_Japanese_16,
 								IBlindPreferenceConstants.LANG_JA } }, parent));
 	}
 
@@ -85,54 +82,51 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 
 		modeRadio = new RadioGroupFieldEditor(
 				IBlindPreferenceConstants.BLIND_MODE,
-				Messages.getString("DialogSettingBlind.Visualization_mode_3"),
+				Messages.DialogSettingBlind_Visualization_mode_3,
 				1,
 				new String[][] {
 						{
-								Messages
-										.getString("DialogSettingBlind.Layout_mode_9"),
+								Messages.DialogSettingBlind_Layout_mode_9,
 								IBlindPreferenceConstants.BLIND_LAYOUT_MODE },
 						{
-								Messages
-										.getString("DialogSettingBlind.Voice_browser_output_mode_8"),
+								Messages.DialogSettingBlind_Voice_browser_output_mode_8,
 								IBlindPreferenceConstants.BLIND_BROWSER_MODE } },
 				parent);
 
 		addField(modeRadio);
 
-		visualizationSetting = createFieldGroup(Messages
-				.getString("DialogSettingBlind.LayoutModeSetting"));
+		visualizationSetting = createFieldGroup(Messages.DialogSettingBlind_LayoutModeSetting);
 
 		addField(new ColorFieldEditor(
 				IBlindPreferenceConstants.BLIND_MAX_TIME_COLOR,
-				Messages.getString("DialogSettingBlind.Color_for_maximum_time_19"),
+				Messages.DialogSettingBlind_Color_for_maximum_time_19,
 				visualizationSetting));
 		ScaleFieldEditorWithValue maxTime = new ScaleFieldEditorWithValue(
 				IBlindPreferenceConstants.BLIND_MAX_TIME_SECOND,
-				Messages.getString("DialogSettingBlind.Maximum_time_17"),
+				Messages.DialogSettingBlind_Maximum_time_17,
 				visualizationSetting, 30, 180, 5, 30);
 		addField(maxTime);
 
 		addField(new ColorFieldEditor(
 				IBlindPreferenceConstants.BLIND_TABLE_BORDER_COLOR,
-				Messages.getString("DialogSettingBlind.Tabel_border_24"),
+				Messages.DialogSettingBlind_Tabel_border_24,
 				visualizationSetting));
 
 		addField(new ColorFieldEditor(
 				IBlindPreferenceConstants.BLIND_HEADING_TAGS_COLOR,
-				Messages.getString("DialogSettingBlind.Heading_tags_21"),
+				Messages.DialogSettingBlind_Heading_tags_21,
 				visualizationSetting));
 		addField(new ColorFieldEditor(
 				IBlindPreferenceConstants.BLIND_TABLE_HEADER_COLOR,
-				Messages.getString("DialogSettingBlind.Table_headers_20"),
+				Messages.DialogSettingBlind_Table_headers_20,
 				visualizationSetting));
 		addField(new ColorFieldEditor(
 				IBlindPreferenceConstants.BLIND_INPUT_TAGS_COLOR,
-				Messages.getString("DialogSettingBlind.Input_tags_22"),
+				Messages.DialogSettingBlind_Input_tags_22,
 				visualizationSetting));
 		addField(new ColorFieldEditor(
 				IBlindPreferenceConstants.BLIND_LABEL_TAGS_COLOR,
-				Messages.getString("DialogSettingBlind.Label_tags_23"),
+				Messages.DialogSettingBlind_Label_tags_23,
 				visualizationSetting));
 
 		createInappropriateAltPart(parent);

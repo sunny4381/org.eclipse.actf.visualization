@@ -27,7 +27,7 @@ public class ImageColorProblem extends LowVisionProblem{
 	InteriorImageComponent imageComponent2 = null;
 
 	public ImageColorProblem( InteriorImage _ii, LowVisionType _lvType, double _prob, InteriorImageComponent _lc1, InteriorImageComponent _lc2 ) throws LowVisionProblemException{
-		super( LOWVISION_IMAGE_COLOR_PROBLEM, _lvType, Messages.getString("ImageColorProblem.This_image_has_two_or_more_components_whose_colors_are_too_close._1"), _ii, _prob );
+		super( LOWVISION_IMAGE_COLOR_PROBLEM, _lvType, Messages.ImageColorProblem_This_image_has_two_or_more_components_whose_colors_are_too_close__1, _ii, _prob );
 		left = _ii.getLeft();
 		top = _ii.getTop();
 		width = _ii.getWidth();

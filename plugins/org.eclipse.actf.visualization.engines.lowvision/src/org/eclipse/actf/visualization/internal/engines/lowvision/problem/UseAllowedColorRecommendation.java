@@ -15,6 +15,6 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.Messages;
 
 public class UseAllowedColorRecommendation extends LowVisionRecommendation{
 	public UseAllowedColorRecommendation( LowVisionProblem _prob ) throws LowVisionProblemException{
-		super( USE_ALLOWED_COLOR_RECOMMENDATION, _prob, Messages.getString("UseAllowedColorRecommendation.Use_a_color_allowed_by_the_design_guideline._1") );
+		super( USE_ALLOWED_COLOR_RECOMMENDATION, _prob, Messages.UseAllowedColorRecommendation_Use_a_color_allowed_by_the_design_guideline__1 );
 	}
 }
