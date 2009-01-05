@@ -45,6 +45,11 @@ public class PageEvaluation {
 		Color blue = Display.getDefault().getSystemColor(SWT.COLOR_BLUE);
 		Color red = Display.getDefault().getSystemColor(SWT.COLOR_RED);
 
+		if(Display.getDefault().getHighContrast()){
+			blue = null;
+			red = null;
+		}
+		
 		hlsl.addTarget(Messages.Eval_excellent, blue, SWT.BOLD);
 		hlsl.addTarget(Messages.Eval_completely_compliant, blue,
 				SWT.BOLD);

@@ -29,8 +29,12 @@ public class SummaryEvaluationLV {
 		HighlightStringListener hlsl = new HighlightStringListener();
 		Color blue = Display.getDefault().getSystemColor(SWT.COLOR_BLUE);
 		Color red = Display.getDefault().getSystemColor(SWT.COLOR_RED);
-		Color green = Display.getDefault().getSystemColor(SWT.COLOR_GREEN);
 
+		if(Display.getDefault().getHighContrast()){
+			blue = null;
+			red = null;
+		}
+		
 		hlsl
 				.addTarget(
 						Messages.EvalLV_no_color_difficult_distinguish, blue, SWT.BOLD); //$NON-NLS-1$
@@ -54,7 +58,7 @@ public class SummaryEvaluationLV {
 				.addTarget(
 						Messages.EvalLV_page_have_fixed_font, red, SWT.BOLD); 
 
-		hlsl.addTarget(Messages.EvalLV_0, green, SWT.BOLD);
+		hlsl.addTarget(Messages.EvalLV_0, null, SWT.BOLD);
 		// TODO
 
 		return (hlsl);

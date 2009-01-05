@@ -28,7 +28,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 
-
 public class GuidelineSubMenu extends MenuManager {
 
 	private ResultTableViewer _resultTableViewer;
@@ -37,8 +36,7 @@ public class GuidelineSubMenu extends MenuManager {
 
 	private Action _dummy;
 
-	private GuidelineHolder _guidelineHolder = GuidelineHolder
-			.getInstance();
+	private GuidelineHolder _guidelineHolder = GuidelineHolder.getInstance();
 
 	public GuidelineSubMenu(ResultTableViewer resultTableViewer) {
 		super(Messages.ProblemTable_View_Guideline_16);
@@ -48,8 +46,9 @@ public class GuidelineSubMenu extends MenuManager {
 
 		this._tableViewer
 				.addSelectionChangedListener(new ISelectionChangedListener() {
+					@SuppressWarnings("unchecked")
 					public void selectionChanged(SelectionChangedEvent arg0) {
-						List tmpList = ((IStructuredSelection) arg0
+						List<IProblemItem> tmpList = ((IStructuredSelection) arg0
 								.getSelection()).toList();
 						setGuidelineItem(tmpList);
 					}
@@ -61,26 +60,24 @@ public class GuidelineSubMenu extends MenuManager {
 		add(this._dummy);
 	}
 
-	public void setGuidelineItem(List target) {
-		TreeSet<IGuidelineItem> tmpSet = new TreeSet<IGuidelineItem>(new Comparator<IGuidelineItem>() {
-			public int compare(IGuidelineItem o1, IGuidelineItem o2) {
-				return (o1.toString().compareTo(o2.toString()));//TODO
-			}
-		});
+	public void setGuidelineItem(List<IProblemItem> target) {
+		TreeSet<IGuidelineItem> tmpSet = new TreeSet<IGuidelineItem>(
+				new Comparator<IGuidelineItem>() {
+					public int compare(IGuidelineItem o1, IGuidelineItem o2) {
+						return (o1.toString().compareTo(o2.toString()));// TODO
+					}
+				});
 
-		for (Iterator i = target.iterator(); i.hasNext();) {
-			try {
-				IProblemItem tmpItem = (IProblemItem) i.next();
-				tmpSet.addAll(Arrays.asList(tmpItem.getEvaluationItem()
-						.getGuidelines()));
-			} catch (Exception e) {
-			}
+		for (Iterator<IProblemItem> i = target.iterator(); i.hasNext();) {
+			IProblemItem tmpItem = i.next();
+			tmpSet.addAll(Arrays.asList(tmpItem.getEvaluationItem()
+					.getGuidelines()));
 		}
 
 		this.removeAll();
 
-		for (Iterator i = tmpSet.iterator(); i.hasNext();) {
-			IGuidelineItem tmpItem = (IGuidelineItem) i.next();
+		for (Iterator<IGuidelineItem> i = tmpSet.iterator(); i.hasNext();) {
+			IGuidelineItem tmpItem = i.next();
 			if (tmpItem.getUrl() != null && tmpItem.getUrl().length() != 0) {
 				// Lowvision-> show all
 				if (_resultTableViewer.isShowAllGuidelineItems()

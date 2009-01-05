@@ -38,7 +38,8 @@ public class ShowDescriptionAction extends Action {
         this.tableViewer = tableViewer;
         
         tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-            public void selectionChanged(SelectionChangedEvent arg0) {
+            @SuppressWarnings("unchecked")
+			public void selectionChanged(SelectionChangedEvent arg0) {
                 List tmpList = ((IStructuredSelection) arg0.getSelection()).toList();
                 if(tmpList==null||tmpList.size()>1||tmpList.size()==0){
                     setIProblemItem(null);

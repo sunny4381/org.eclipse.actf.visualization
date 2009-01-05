@@ -122,20 +122,19 @@ public class ProblemTree {
 	}
 
 	public void clearTreeNodeAmount() {
-		changeTreeNodeAmount(new ArrayList());
+		changeTreeNodeAmount(new ArrayList<IProblemItem>());
 		tree.getDisplay().update();
 	}
 
-	public void changeTreeNodeAmount(List targetList) {
+	public void changeTreeNodeAmount(List<IProblemItem> targetList) {
 
 		int error = 0;
 		int user = 0;
 		int info = 0;
 
-		// TODO lv
-		for (Iterator i = targetList.iterator(); i.hasNext();) {
+		for (Iterator<IProblemItem> i = targetList.iterator(); i.hasNext();) {
 			try {
-				switch (((IProblemItem) i.next()).getSeverity()) {
+				switch (i.next().getSeverity()) {
 				case IProblemItem.SEV_ERROR:
 					error++;
 					break;

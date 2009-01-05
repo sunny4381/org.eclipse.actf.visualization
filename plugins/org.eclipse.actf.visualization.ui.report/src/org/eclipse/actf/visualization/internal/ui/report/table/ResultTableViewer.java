@@ -24,9 +24,8 @@ import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEv
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
-import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemConst;
-import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
+import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.internal.ui.report.action.ClearSelectionAction;
 import org.eclipse.actf.visualization.internal.ui.report.action.GuidelineSubMenu;
 import org.eclipse.actf.visualization.internal.ui.report.action.ShowDescriptionAction;
@@ -205,6 +204,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 		boolean[] enabledMetrics = guidelineHolder.getMatchedMetrics();
 		for (int i = 0; i < tmpSarray.length; i++) {
 			columns[curPos].setText(tmpSarray[i]);
+			/*
 			switch (i % 5) {
 			case 0:
 				columns[curPos].setImage(ReportPlugin
@@ -233,6 +233,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 				break;
 			default:
 			}
+			*/
 			if (enabledMetrics[i]) {
 				columns[curPos].setWidth(75);
 			} else {

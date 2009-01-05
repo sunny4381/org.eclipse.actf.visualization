@@ -59,9 +59,8 @@ public class ResultTableLabelProviderLV extends LabelProvider implements
 	public String getColumnText(Object arg0, int arg1) {
 		IProblemItemImage tmpItem = (IProblemItemImage) arg0;
 
-		// TODO
 		if (arg1 == 0) {
-			//
+			return(tmpItem.getIconTooltip());			
 		} else if (arg1 < guidelineFinPos) {
 			return (tmpItem.getEvaluationItem().getTableDataGuideline()[arg1 - 1]);
 		} else {
@@ -85,8 +84,6 @@ public class ResultTableLabelProviderLV extends LabelProvider implements
 
 			}
 		}
-
-		return "";
 	}
 
 }
