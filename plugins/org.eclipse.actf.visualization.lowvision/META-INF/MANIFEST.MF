@@ -15,3 +15,4 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.model.dom.html,
  org.eclipse.actf.ui
 Eclipse-LazyStart: true
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

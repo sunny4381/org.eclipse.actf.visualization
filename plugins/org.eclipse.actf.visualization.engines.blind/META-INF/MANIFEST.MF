@@ -18,3 +18,4 @@ Eclipse-LazyStart: true
 Export-Package: org.eclipse.actf.visualization.engines.blind,
  org.eclipse.actf.visualization.engines.blind.eval,
  org.eclipse.actf.visualization.engines.blind.ui.actions
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
