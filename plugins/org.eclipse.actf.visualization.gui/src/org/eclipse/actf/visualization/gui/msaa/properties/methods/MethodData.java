@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.gui.msaa.properties.methods;
 
-import java.text.MessageFormat;
-
 import org.eclipse.actf.accservice.swtbridge.IA2;
 import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.actf.visualization.gui.msaa.properties.fields.AbstractInputField;
@@ -23,6 +21,8 @@ import org.eclipse.actf.visualization.gui.msaa.properties.fields.MSAASELFLAGFiel
 import org.eclipse.actf.visualization.gui.msaa.properties.fields.TextField;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
+
+import com.ibm.icu.text.MessageFormat;
 
 
 

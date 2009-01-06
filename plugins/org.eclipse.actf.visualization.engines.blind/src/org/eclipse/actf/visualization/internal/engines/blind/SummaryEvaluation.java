@@ -11,12 +11,12 @@
 
 package org.eclipse.actf.visualization.internal.engines.blind;
 
-import java.text.MessageFormat;
-
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.engines.blind.eval.PageEvaluation;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
+
+import com.ibm.icu.text.MessageFormat;
 
 /**
  * 
@@ -134,7 +134,7 @@ public class SummaryEvaluation {
 									.append(MessageFormat
 											.format(
 													Messages.Eval_completely_compliant_with_user_check_items,
-													FileUtils.LINE_SEP));
+													new Object[]{FileUtils.LINE_SEP}));
 						}
 					}
 				}

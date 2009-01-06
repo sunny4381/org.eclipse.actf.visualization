@@ -12,7 +12,6 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.flash.ui.views;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,6 +63,8 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.ViewPart;
+
+import com.ibm.icu.text.MessageFormat;
 
 public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		IFlashConst {

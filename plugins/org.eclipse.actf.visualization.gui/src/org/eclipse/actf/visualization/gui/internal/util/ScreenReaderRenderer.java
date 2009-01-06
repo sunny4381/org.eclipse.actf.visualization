@@ -11,8 +11,6 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.gui.internal.util;
 
-import java.text.MessageFormat;
-
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.IA2;
 import org.eclipse.actf.accservice.swtbridge.MSAA;
@@ -30,6 +28,8 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
+
+import com.ibm.icu.text.MessageFormat;
 
 public class ScreenReaderRenderer {
 	private int lastHwnd = 0;

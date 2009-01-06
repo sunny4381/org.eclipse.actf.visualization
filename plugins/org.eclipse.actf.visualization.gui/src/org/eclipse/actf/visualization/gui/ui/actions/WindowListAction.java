@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.gui.ui.actions;
 
-import java.text.Collator;
 import java.util.Comparator;
 
 import org.eclipse.actf.util.win32.HighlightComposite;
@@ -38,6 +37,8 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowPulldownDelegate2;
 import org.eclipse.ui.PlatformUI;
+
+import com.ibm.icu.text.Collator;
 
 public class WindowListAction implements IWorkbenchWindowPulldownDelegate2 {
 
@@ -196,7 +197,7 @@ public class WindowListAction implements IWorkbenchWindowPulldownDelegate2 {
 	private static final String CATEGORY_BROWSER = Messages.msaa_external_browsers; //$NON-NLS-1$
 	private static final String CATEGORY_WINDOW = Messages.msaa_external_windows; //$NON-NLS-1$
 
-	private class CategoryComparator implements Comparator {
+	private class CategoryComparator implements Comparator<Object> {
 		private Collator collator = Collator.getInstance();
 
 		public int compare(Object o1, Object o2) {

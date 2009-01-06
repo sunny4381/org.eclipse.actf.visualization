@@ -11,8 +11,6 @@
 
 package org.eclipse.actf.visualization.internal.eval;
 
-import java.text.MessageFormat;
-
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
@@ -20,6 +18,8 @@ import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineItemDescription;
 import org.eclipse.actf.visualization.internal.eval.guideline.MetricsItem;
 import org.eclipse.swt.graphics.Image;
+
+import com.ibm.icu.text.MessageFormat;
 
 public class EvaluationItemImpl implements IEvaluationItem {
 

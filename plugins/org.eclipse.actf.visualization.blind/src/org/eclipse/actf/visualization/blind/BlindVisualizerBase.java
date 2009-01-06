@@ -11,7 +11,6 @@
 package org.eclipse.actf.visualization.blind;
 
 import java.io.File;
-import java.text.MessageFormat;
 
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.visualization.blind.ui.internal.Messages;
@@ -23,6 +22,8 @@ import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.w3c.dom.Document;
+
+import com.ibm.icu.text.MessageFormat;
 
 /**
  * Abstract implementation of {@link IBlindVisualizer}. Contributors need to
@@ -75,7 +76,7 @@ public abstract class BlindVisualizerBase implements IBlindVisualizer {
 
 	public String getMaxReachingTime() {
 		return MessageFormat.format(Messages.BlindView_Maximum_Time,
-				maxReachingTime);
+				new Object[]{maxReachingTime});
 	}
 
 	public IEvaluationResult getEvaluationResult() {
