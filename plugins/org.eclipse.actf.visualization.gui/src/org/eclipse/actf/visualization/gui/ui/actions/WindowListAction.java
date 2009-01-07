@@ -57,6 +57,7 @@ public class WindowListAction implements IWorkbenchWindowPulldownDelegate2 {
 
 	public void init(IWorkbenchWindow window) {
 		this.window = window;
+		HighlightComposite.initOverlayWindow();
 	}
 
 	public Menu getMenu(Control parent) {

@@ -149,6 +149,8 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 		if( null != MSAAViewRegistory.outlineObject ) {
 			setSelection(MSAAViewRegistory.outlineObject);
 		}
+		
+		HighlightComposite.initOverlayWindow();
 	}
 
 	/**

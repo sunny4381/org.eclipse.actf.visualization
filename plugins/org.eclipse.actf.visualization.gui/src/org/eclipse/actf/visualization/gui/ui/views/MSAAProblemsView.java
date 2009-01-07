@@ -163,6 +163,8 @@ public class MSAAProblemsView extends ViewPart implements IMSAAProblemsView, MSA
         makeActions();
         hookContextMenu();
         contributeToActionBars();
+        
+        HighlightComposite.initOverlayWindow();
     }
 
     /**
