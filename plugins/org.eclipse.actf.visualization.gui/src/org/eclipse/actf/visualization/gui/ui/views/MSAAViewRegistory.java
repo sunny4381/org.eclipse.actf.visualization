@@ -13,6 +13,7 @@ package org.eclipse.actf.visualization.gui.ui.views;
 
 import org.eclipse.actf.accservice.swtbridge.AccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.AccessibleObjectFactory;
+import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.actf.util.win32.HighlightComposite;
 import org.eclipse.actf.visualization.gui.IGuiViewIDs;
 import org.eclipse.actf.visualization.gui.internal.util.TargetWindow;
@@ -24,7 +25,6 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPartReference;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.properties.PropertySheet;
 
 public class MSAAViewRegistory implements IGuiViewIDs {
@@ -121,7 +121,7 @@ public class MSAAViewRegistory implements IGuiViewIDs {
 
 	public static IViewReference findViewReference(String viewId) {
 		try {
-			IWorkbenchPage page = getActivePage();
+			IWorkbenchPage page = PlatformUIUtil.getActivePage();
 			if (null != page) {
 				return page.findViewReference(viewId);
 			}
@@ -145,7 +145,7 @@ public class MSAAViewRegistory implements IGuiViewIDs {
 
 	public static IViewPart showView(String viewId, boolean activate) {
 		try {
-			IWorkbenchPage page = getActivePage();
+			IWorkbenchPage page = PlatformUIUtil.getActivePage();
 			if (null != page) {
 				IViewPart part = page.findView(viewId);
 				if (null != part) {
@@ -166,7 +166,7 @@ public class MSAAViewRegistory implements IGuiViewIDs {
 
 	public static void hideView(String viewId) {
 		try {
-			IWorkbenchPage page = getActivePage();
+			IWorkbenchPage page = PlatformUIUtil.getActivePage();
 			if (null != page) {
 				IViewPart part = page.findView(viewId);
 				if (null != part) {
@@ -185,12 +185,9 @@ public class MSAAViewRegistory implements IGuiViewIDs {
 					.getAccessibleObjectFromWindow(hwndRoot);
 		}
 		if (!partListening) {
-			try {
-				PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-						.getActivePage().addPartListener(partListener);
+				IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
+				activePage.addPartListener(partListener);
 				partListening = true;
-			} catch (Exception e) {
-			}
 		}
 		return rootObject;
 	}
@@ -253,10 +250,5 @@ public class MSAAViewRegistory implements IGuiViewIDs {
 
 	public static int getUpdateRef() {
 		return updateRef;
-	}
-
-	private static IWorkbenchPage getActivePage() {
-		return PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.getActivePage();
 	}
 }
