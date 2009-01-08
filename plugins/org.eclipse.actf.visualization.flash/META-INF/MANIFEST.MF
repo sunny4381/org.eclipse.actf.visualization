@@ -11,6 +11,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.views,
  org.eclipse.actf.core,
  org.eclipse.actf.model.flash,
+ org.eclipse.actf.model.flash.proxy,
  org.eclipse.actf.util.win32,
  org.eclipse.actf.util.win32.comclutch,
  com.ibm.icu

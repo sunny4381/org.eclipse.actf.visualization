@@ -11,6 +11,14 @@
             id="org.eclipse.actf.visualization.flash.ui.views.FlashDOMView"
             name="%FlashDOMView.name"/>
    </extension>
+      <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.eclipse.actf.visualization.internal.flash.ui.FlashPerspective"
+            icon="icons/view16/flash.png"
+            id="org.eclipse.actf.visualization.ui.perspectives.FlashPerspective"
+            name="%actf.FlashPerspective.name"/>
+   </extension>
 	<extension point="org.eclipse.core.runtime.adapters">
 	  <factory adaptableType="org.eclipse.actf.model.flash.IFlashPlayer"
 	           class="org.eclipse.actf.visualization.flash.ui.properties.FlashPropertySourceAdapterFactory">

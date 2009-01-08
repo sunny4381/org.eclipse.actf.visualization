@@ -15,6 +15,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.actf.model.flash,
  org.eclipse.actf.util.win32,
  org.eclipse.actf.ui,
+ org.eclipse.actf.visualization,
  com.ibm.icu
 Eclipse-LazyStart: true
 Export-Package:  org.eclipse.actf.visualization.gui

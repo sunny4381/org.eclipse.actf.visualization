@@ -18,12 +18,12 @@ import org.eclipse.ui.IStartup;
 public class Startup implements IStartup {
 
 	public void earlyStartup() {
-		Display.getDefault().asyncExec(new Runnable() {
-			public void run() {
-				MSAAViewRegistory.refreshRootObject();
-				//HighlightComposite.initOverlayWindow();
-			}
-		});
+			Display.getDefault().asyncExec(new Runnable() {
+				public void run() {
+					MSAAViewRegistory.refreshRootObject();
+					// HighlightComposite.initOverlayWindow();
+				}
+			});
 	}
 
 }

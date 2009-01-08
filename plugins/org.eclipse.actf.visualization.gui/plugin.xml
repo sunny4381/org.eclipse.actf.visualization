@@ -42,6 +42,13 @@
             name="%MSAAProblemsView.name"/>
    </extension>
    <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.eclipse.actf.visualization.internal.gui.ui.GUIPerspective"
+            icon="icons/view16/gui.png"
+            id="org.eclipse.actf.visualization.ui.perspectives.GUIPerspective"
+            name="%actf.GUIPerspective.name"/>
+   </extension>   <extension
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.actf.ui.preferences.RootPreferencePage"

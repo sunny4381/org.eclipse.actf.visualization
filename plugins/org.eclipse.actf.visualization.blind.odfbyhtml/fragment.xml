@@ -6,5 +6,12 @@
       <blindVisualizer
             class="org.eclipse.actf.visualization.blind.odfbyhtml.BlindVisualizerOdfByHtml"/>
    </extension>
-
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.eclipse.actf.visualization.internal.blind.odfbyhtml.ui.ODFPerspective"
+            icon="icons/view16/odf.png"
+            id="org.eclipse.actf.visualization.ui.perspectives.ODFPerspective"
+            name="%actf.ODFPerspective.name"/>
+   </extension>
 </fragment>

@@ -6,5 +6,12 @@
       <blindVisualizer
             class="org.eclipse.actf.visualization.blind.html.BlindVisualizerHtml"/>
    </extension>
-
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="org.eclipse.actf.visualization.internal.blind.html.ui.HTMLPerspective"
+            icon="icons/view16/html.png"
+            id="org.eclipse.actf.visualization.ui.perspectives.HTMLPerspective"
+            name="%actf.HTMLPerspective.name"/>
+   </extension>
 </fragment>
