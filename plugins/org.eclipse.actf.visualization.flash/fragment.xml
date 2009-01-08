@@ -19,6 +19,18 @@
             id="org.eclipse.actf.visualization.ui.perspectives.FlashPerspective"
             name="%actf.FlashPerspective.name"/>
    </extension>
+      <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.eclipse.actf.visualization.ui.perspectives.FlashPerspective">
+         <actionSet id="org.eclipse.actf.visualization.gui.actionSet"/>
+         <actionSet id="org.eclipse.actf.model.flash.proxy.actionSet"/>
+         <view
+               closeable="false"
+               id="org.eclipse.actf.model.internal.flash.proxy.ui.views.ProxyLogView"
+               relationship="stack"
+               relative="org.eclipse.actf.visualization.gui.ui.views.MSAAProblemsView"/>
+      </perspectiveExtension>
+   </extension>
 	<extension point="org.eclipse.core.runtime.adapters">
 	  <factory adaptableType="org.eclipse.actf.model.flash.IFlashPlayer"
 	           class="org.eclipse.actf.visualization.flash.ui.properties.FlashPropertySourceAdapterFactory">

@@ -48,7 +48,14 @@
             icon="icons/view16/gui.png"
             id="org.eclipse.actf.visualization.ui.perspectives.GUIPerspective"
             name="%actf.GUIPerspective.name"/>
-   </extension>   <extension
+   </extension>   
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="org.eclipse.actf.visualization.ui.perspectives.GUIPerspective">
+         <actionSet id="org.eclipse.actf.visualization.gui.actionSet"/>
+      </perspectiveExtension>
+   </extension>
+   <extension
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.actf.ui.preferences.RootPreferencePage"
