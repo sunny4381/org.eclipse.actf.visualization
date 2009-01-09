@@ -31,9 +31,9 @@ public class GUIPerspective implements IPerspectiveFactory, IVisualizationPerspe
 				"actf.report.left.folder", IPageLayout.RIGHT, 0.5f,
 				"actf.report.folder");
 		IFolderLayout summaryFolder = layout.createFolder("actf.summary.folder",
-				IPageLayout.LEFT, 1 / 3f, editorArea);
+				IPageLayout.RIGHT, 0.3f, editorArea);
 		IFolderLayout outlineFolder = layout.createFolder(
-				"actf.outline.folder", IPageLayout.RIGHT, 1f, editorArea);
+				"actf.outline.folder", IPageLayout.RIGHT, 1/3f, "actf.summary.folder");
 		IFolderLayout propertyFolder = layout.createFolder(
 				"actf.property.folder", IPageLayout.RIGHT, 0.5f,
 				"actf.outline.folder");

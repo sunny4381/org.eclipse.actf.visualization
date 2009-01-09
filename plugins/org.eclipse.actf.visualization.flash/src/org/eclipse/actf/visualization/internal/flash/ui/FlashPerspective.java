@@ -12,40 +12,34 @@
 
 package org.eclipse.actf.visualization.internal.flash.ui;
 
-import org.eclipse.actf.model.flash.proxy.FlashCacheUtil;
 import org.eclipse.actf.visualization.gui.IGuiViewIDs;
 import org.eclipse.actf.visualization.ui.IVisualizationPerspective;
-import org.eclipse.actf.visualization.ui.PerspectiveListenerForBrowserLaunch;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
-import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IPerspectiveFactory;
-import org.eclipse.ui.IPerspectiveListener;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.Workbench;
 
-public class FlashPerspective implements IPerspectiveFactory, IVisualizationPerspective {
+public class FlashPerspective implements IPerspectiveFactory,
+		IVisualizationPerspective {
 
 	public void createInitialLayout(IPageLayout layout) {
 		String editorArea = layout.getEditorArea();
 		layout.setEditorAreaVisible(true);
 
 		IFolderLayout reportFolder = layout.createFolder(
-				"adesigner.flash.report.folder", IPageLayout.BOTTOM, 0.7f,
+				"actf.flash.report.folder", IPageLayout.BOTTOM, 0.7f,
 				editorArea);
 		IFolderLayout rightReportFolder = layout.createFolder(
-				"adesigner.flash.report.left.folder", IPageLayout.RIGHT, 0.5f,
-				"adesigner.flash.report.folder");
+				"actf.flash.report.left.folder", IPageLayout.RIGHT, 0.5f,
+				"actf.flash.report.folder");
 		IFolderLayout simulatorFolder = layout.createFolder(
-				"adesigner.flash.simulator.folder", IPageLayout.RIGHT, 0.5f,
+				"actf.flash.simulator.folder", IPageLayout.RIGHT, 0.5f,
 				editorArea);
 		IFolderLayout outlineFolder = layout.createFolder(
-				"adesigner.flash.outline.folder", IPageLayout.RIGHT, 0.5f,
-				"adesigner.flash.simulator.folder");
+				"actf.flash.outline.folder", IPageLayout.RIGHT, 0.5f,
+				"actf.flash.simulator.folder");
 		IFolderLayout flashDomFolder = layout.createFolder(
-				"adesigner.flash.flashdom.folder", IPageLayout.BOTTOM, 0.5f,
-				"adesigner.flash.outline.folder");
+				"actf.flash.flashdom.folder", IPageLayout.BOTTOM, 0.5f,
+				"actf.flash.outline.folder");
 
 		reportFolder.addView(IGuiViewIDs.ID_EVENTVIEW);
 		rightReportFolder.addView(IGuiViewIDs.ID_PROPERTIESVIEW);
@@ -63,28 +57,7 @@ public class FlashPerspective implements IPerspectiveFactory, IVisualizationPers
 		layout.getViewLayout(IGuiViewIDs.ID_OUTLINEVIEW).setCloseable(false);
 		layout.getViewLayout(IGuiViewIDs.ID_FLASHDOMVIEW).setCloseable(false);
 
-		PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.addPerspectiveListener(
-						new PerspectiveListenerForBrowserLaunch(ID_FLASH_PERSPECTIVE));
-		PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-				.addPerspectiveListener(new IPerspectiveListener() {
-					public void perspectiveActivated(IWorkbenchPage page,
-							IPerspectiveDescriptor perspective) {
-						if (ID_FLASH_PERSPECTIVE.equals(perspective.getId())) {
-							// tentative code for avoiding isWorkbenchRunning()'s bug
-							if (((Workbench) (PlatformUI.getWorkbench()))
-									.isStarting()) {
-								// do nothing
-							} else {
-								FlashCacheUtil.checkCache();
-							}
-						}
-					}
-
-					public void perspectiveChanged(IWorkbenchPage page,
-							IPerspectiveDescriptor perspective, String changeId) {
-					}
-				});
+		// initializer: moved to Startup.java
 
 	}
 }

@@ -14,4 +14,58 @@
             id="org.eclipse.actf.visualization.ui.perspectives.HTMLPerspective"
             name="%actf.HTMLPerspective.name"/>
    </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.actf.visualization.ui.perspectives.HTMLPerspective">
+         <perspectiveShortcut id="org.eclipse.actf.visualization.ui.perspectives.HTMLPerspective"/>
+         <perspectiveShortcut id="org.eclipse.actf.visualization.ui.perspectives.ODFPerspective"/>
+         <perspectiveShortcut id="org.eclipse.actf.visualization.ui.perspectives.FlashPerspective"/>
+         <perspectiveShortcut id="org.eclipse.actf.visualization.ui.perspectives.GUIPerspective"/>
+         <viewShortcut id="org.eclipse.ui.views.ResourceNavigator"/>
+         <viewShortcut id="org.eclipse.jdt.ui.PackageExplorer"/>
+         <view
+               id="org.eclipse.ui.views.ResourceNavigator"
+               ratio="0.2f"
+               relationship="left"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               id="org.eclipse.jdt.ui.PackageExplorer"
+               relationship="stack"
+               relative="org.eclipse.ui.views.ResourceNavigator"
+               visible="false"/>
+         <view
+               id="org.eclipse.actf.visualization.ui.report.views.SummaryReportView"
+               ratio="0.7f"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss"
+               visible="true">
+         </view>
+         <view
+               id="org.eclipse.actf.visualization.ui.report.views.DetailedReportView"
+               relationship="stack"
+               relative="org.eclipse.actf.visualization.ui.report.views.SummaryReportView">
+         </view>
+         <view
+               closeable="false"
+               id="org.eclipse.actf.visualization.blind.ui.views.BlindView"
+               ratio="0.5f"
+               relationship="right"
+               relative="org.eclipse.ui.editorss">
+         </view>
+         <view
+               closeable="false"
+               id="org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView"
+               relationship="stack"
+               relative="org.eclipse.actf.visualization.blind.ui.views.BlindView">
+         </view>   
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup
+            class="org.eclipse.actf.visualization.internal.blind.html.Startup">
+      </startup>
+   </extension>
 </fragment>

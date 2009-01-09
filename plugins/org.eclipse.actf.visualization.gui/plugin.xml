@@ -53,6 +53,10 @@
          point="org.eclipse.ui.perspectiveExtensions">
       <perspectiveExtension targetID="org.eclipse.actf.visualization.ui.perspectives.GUIPerspective">
          <actionSet id="org.eclipse.actf.visualization.gui.actionSet"/>
+         <perspectiveShortcut id="org.eclipse.actf.visualization.ui.perspectives.HTMLPerspective"/>
+         <perspectiveShortcut id="org.eclipse.actf.visualization.ui.perspectives.ODFPerspective"/>
+         <perspectiveShortcut id="org.eclipse.actf.visualization.ui.perspectives.FlashPerspective"/>
+         <perspectiveShortcut id="org.eclipse.actf.visualization.ui.perspectives.GUIPerspective"/>
       </perspectiveExtension>
    </extension>
    <extension
@@ -109,6 +113,7 @@
    <extension
          point="org.eclipse.actf.visualization.gui.targetWindowData">
       <dataSourceProvider class="org.eclipse.actf.visualization.gui.internal.GuiTargetWindowDataProvider"/>
+      <dataSourceProvider class="org.eclipse.actf.visualization.gui.internal.ModelServiceTargetWindowDataProvider"/>
    </extension>
 
 <extension point="org.eclipse.core.runtime.adapters">
