@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.actf.visualization.sdk"
+      label="Eclipse ACTF Visualization SDK Feature (Incubation)"
+      version="0.7.0.qualifier"
+      provider-name="Eclipse.org"
+      os="win32"
+      ws="win32">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="license.html">
+      %license
+   </license>
+
+   <includes
+         id="org.eclipse.actf.visualization"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.actf.visualization.source"
+         version="0.0.0"/>
+
+</feature>
