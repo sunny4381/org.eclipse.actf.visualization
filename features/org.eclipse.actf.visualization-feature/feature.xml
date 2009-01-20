@@ -4,8 +4,9 @@
       label="Eclipse ACTF Visualization feature (Incubation)"
       version="0.7.0.qualifier"
       provider-name="Eclipse.org"
-      os="win32"
-      ws="win32">
+      ws="win32"
+      arch="x86">
+<!--      os="win32" can't create source feature with os attribute-->
 
    <description>
       %description
