@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.actf.visualization"
-      label="Eclipse ACTF Visualization feature (Incubation)"
+      label="%featureName"
       version="0.7.0.qualifier"
       provider-name="Eclipse.org"
       ws="win32"
@@ -273,5 +273,4 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
-
 </feature>
