@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project
+    name="javadoc"
+    default="main"
+    basedir=".">
+
+    <!-- = = = standard properties pattern = = = -->
+    <!-- 
+        First get environment variables
+        Note to be cross-platform, "environment variables" are only appropriate for 
+        some variables, e.g. ones we set, since properties are case sensitive, even if 
+        the environment variables on your operating system are not, e.g. it will 
+        be ${env.Path} not ${env.PATH} on Windows -->
+    <property environment="env" />
+
+    <!-- 
+        Let users override standard properties, if desired.
+        If this directory/files does not exist, then it will be ignored, 
+        and defaults used.
+    -->
+    <property
+        file="${env.LOCAL_BUILD_PROPERTIES_DIR}/${ant.project.name}.properties" />
+
+
+
+    <property file="javadoc.properties" />
+    <property
+        name="outputDir"
+        value="${basedir}" />
+
+    <target
+        name="main"
+        depends="prephtml, javadoc, packagetoc"
+        description="Builds Plugin Javadoc" />
+
+    <target
+        name="prephtml"
+        description="Transforms XML to HTML.">
+        <xslt
+            style="javadoc.xsl"
+            destdir=".."
+            basedir=".."
+            includes="**/overview.xml,**/package.xml"
+            excludes="**/build/*,**/@dot/**,**/bin**" />
+    </target>
+
+    <target
+        name="javadoc"
+        depends="getSkipJavaDocParam"
+        unless="doskipJavaDoc">
+        <echo message="classpath: ${java.home}" />
+        <echo message="buildDirectory: ${buildDirectory}" />
+
+
+        <mkdir dir="${outputDir}/reference/api/overview" />
+
+        <copy
+            todir="${outputDir}/reference/api/overview"
+            flatten="true">
+            <fileset dir="${basedir}/api-overview/overview/" />
+            <fileset
+                dir="${basedir}/.."
+                includes="*/javadoc-images/*.jpg" />
+        </copy>
+        <javadoc
+            access="public"
+            author="false"
+            destdir="${outputDir}/reference/api"
+            doctitle="${api.title}"
+        	windowtitle="${api.window.title}"
+            nodeprecated="false"
+            nodeprecatedlist="false"
+            noindex="false"
+            nonavbar="false"
+            notree="false"
+            Encoding="ISO-8859-1"
+            docencoding="ISO-8859-1"
+        	Locale="en_US"
+            overview="${basedir}/api-overview/overview.html"
+            packagenames="${api.packages}"
+            sourcepath="${plugin.sourcefolders}"
+            splitindex="true"
+            use="true"
+            version="true"
+            verbose="false"
+        	breakiterator="yes"
+            failonerror="false">
+            <classpath>
+                <pathelement path="${java.home}" />
+                <fileset dir="${base}/eclipse/plugins">
+                    <include name="**/*.jar" />
+                    <exclude name="**/*source*.jar" />
+                </fileset>
+                <dirset dir="${buildDirectory}">
+                    <include name="**/@dot/**/*.class" />
+                </dirset>
+                <dirset dir="${buildDirectory}">
+                    <include name="**/bin/**/*" />
+                </dirset>
+            </classpath>
+        	<link href="http://java.sun.com/j2se/1.5.0/docs/api" />
+        </javadoc>
+    </target>
+
+    <target name="packagetoc">
+        <loadfile
+            failonerror="false"
+            property="wtp.packages"
+            srcFile="${outputDir}/reference/api/package-list">
+            <filterchain>
+                <filterreader
+                    classname="org.apache.tools.ant.filters.PrefixLines">
+                    <param
+                        name="prefix"
+                        value="&lt;/package&gt;&lt;package&gt;" />
+                </filterreader>
+                <striplinebreaks />
+            </filterchain>
+        </loadfile>
+
+        <!-- Create packages.xml file -->
+        <echo file="packages.xml">
+            &lt;packages&gt;&lt;package&gt;${wtp.packages}&lt;/package&gt;&lt;/packages&gt;
+        </echo>
+
+        <xslt
+            basedir="${basedir}"
+            in="packages.xml"
+            out="javadoctoc.xml"
+            style="javadocToc.xsl">
+            <outputproperty
+                name="method"
+                value="xml" />
+            <outputproperty
+                name="indent"
+                value="yes" />
+        </xslt>
+    </target>
+    <target
+        name="getSkipJavaDocParam"
+        if="skipJavaDoc">
+        <echo message="skipJavaDoc: ${skipJavaDoc}" />
+        <condition property="doskipJavaDoc">
+            <equals
+                arg1="${skipJavaDoc}"
+                arg2="true"
+                trim="true"
+                casesensitive="false" />
+        </condition>
+    </target>
+</project>
