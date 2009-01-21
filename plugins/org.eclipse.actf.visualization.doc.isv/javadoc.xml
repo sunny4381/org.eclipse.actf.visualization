@@ -106,7 +106,7 @@
     <target name="packagetoc">
         <loadfile
             failonerror="false"
-            property="wtp.packages"
+            property="actf.packages"
             srcFile="${outputDir}/reference/api/package-list">
             <filterchain>
                 <filterreader
@@ -121,7 +121,7 @@
 
         <!-- Create packages.xml file -->
         <echo file="packages.xml">
-            &lt;packages&gt;&lt;package&gt;${wtp.packages}&lt;/package&gt;&lt;/packages&gt;
+            &lt;packages&gt;&lt;package&gt;${actf.packages}&lt;/package&gt;&lt;/packages&gt;
         </echo>
 
         <xslt

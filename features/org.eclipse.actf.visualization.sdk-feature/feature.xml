@@ -28,4 +28,11 @@
          id="org.eclipse.actf.visualization.source"
          version="0.0.0"/>
 
+   <plugin
+         id="org.eclipse.actf.visualization.doc.isv"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>
