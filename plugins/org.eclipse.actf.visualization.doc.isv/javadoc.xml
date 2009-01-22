@@ -86,11 +86,34 @@
             verbose="false"
         	breakiterator="yes"
             failonerror="false">
-            <classpath>
+    	    <fileset dir="../org.eclipse.actf.core/src">
+    	      <exclude name="**/actf/core/**"/>
+    	      <exclude name="**/actf/util/command/*"/>
+    	      <exclude name="**/actf/util/jar/*"/>
+    	      <exclude name="**/actf/util/resources/*"/>
+    	      <exclude name="**/actf/util/thread/*"/>
+    	      <exclude name="**/logging/*Reporter*.java"/>
+    	      <exclude name="**/logging/*Logger*.java"/>
+    	      <exclude name="**/logging/LoggingUtil.java"/>
+    	      <exclude name="**/PathGenerationUtil.java"/>
+    	    </fileset>
+    	    <fileset dir="../org.eclipse.actf.ui/src">
+    	      <exclude name="**/*.properties"/>
+    	      <exclude name="**/actf/ui/*"/>
+    	      <exclude name="**/AbstractBasePreferencePage.java"/>
+    	      <exclude name="**/RootPreferencePage.java"/>
+    	    </fileset>
+        	<classpath>
                 <pathelement path="${java.home}" />
                 <fileset dir="${base}/eclipse/plugins">
                     <include name="**/*.jar" />
                     <exclude name="**/*source*.jar" />
+                </fileset>
+            	<fileset dir="${OOO_HOME}">
+                    <include name="**/juh.jar" />
+                    <include name="**/jurt.jar" />
+                    <include name="**/ridl.jar" />
+                    <include name="**/unoil.jar" />
                 </fileset>
                 <dirset dir="${buildDirectory}">
                     <include name="**/@dot/**/*.class" />
@@ -100,6 +123,32 @@
                 </dirset>
             </classpath>
         	<link href="http://java.sun.com/j2se/1.5.0/docs/api" />
+        	<group title="ACTF HTML DOM Packages" 
+        		packages="org.eclipse.actf.model.dom.html*:org.eclipse.actf.model.dom.dombycom*"/>
+        	<group title="ACTF ODF DOM Packages" 
+        		packages="org.eclipse.actf.model.dom.odf*"/>
+            <group title="ACTF DOM Utility Packages" 
+            	packages="org.eclipse.actf.model.dom.*:org.eclipse.actf.util.dom:org.eclipse.actf.util.xpath"/>
+        	<group title="ACTF Flash Model Packages" 
+        		packages="org.eclipse.actf.model.flash*"/>
+        	<group title="ACTF Model Services Packages" 
+        		packages="org.eclipse.actf.model.*:org.eclipse.actf.mediator"/>
+        	<group title="ACTF Visualization Base Packages" 
+        		packages="org.eclipse.actf.visualization*"/>
+        	<group title="ACTF Blind Usability Visualization Packages" 
+        		packages="org.eclipse.actf.visualization.blind:org.eclipse.actf.visualization.engines.blind*:org.eclipse.actf.visualization.engines.voicebrowser" />
+        	<group title="ACTF Low-vision Simulation Packages" 
+        		packages="org.eclipse.actf.visualization.engines.lowvision*:org.eclipse.actf.visualization.presentation" />
+        	<group title="ACTF GUI Accessibility Packages" 
+        		packages="org.eclipse.actf.visualization.gui*" />
+        	<group title="ACTF HTTP Proxy Packages" 
+        		packages="org.eclipse.actf.util.httpproxy*"/>
+        	<group title="ACTF Win32 Utilities Packages" 
+        		packages="org.eclipse.actf.util.win32*"/>
+        	<group title="ACTF Text Synthesis Utilities Packages" 
+        		packages="org.eclipse.actf.ai.tts:org.eclipse.actf.ai.voice*"/>
+        	<group title="ACTF Utilities Packages" 
+        		packages="org.eclipse.actf.util*:org.eclipse.actf.ui.*"/>
         </javadoc>
     </target>
 
