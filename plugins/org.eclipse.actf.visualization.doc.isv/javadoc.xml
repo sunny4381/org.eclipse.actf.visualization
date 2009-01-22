@@ -123,6 +123,7 @@
                 </dirset>
             </classpath>
         	<link href="http://java.sun.com/j2se/1.5.0/docs/api" />
+    		<link href="http://help.eclipse.org/stable/topic/org.eclipse.platform.doc.isv/reference/api/"/>
         	<group title="ACTF HTML DOM Packages" 
         		packages="org.eclipse.actf.model.dom.html*:org.eclipse.actf.model.dom.dombycom*"/>
         	<group title="ACTF ODF DOM Packages" 

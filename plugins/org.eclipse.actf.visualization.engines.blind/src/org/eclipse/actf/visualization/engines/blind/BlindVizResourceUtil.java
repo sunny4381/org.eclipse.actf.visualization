@@ -137,7 +137,7 @@ public class BlindVizResourceUtil {
 	 *            suffix of temporary file
 	 * @return temporary {@link File}
 	 * @throws Exception
-	 * @see {@link AbstractUIPlugin#getStateLocation()}
+	 * @see AbstractUIPlugin#getStateLocation()
 	 */
 	public static File createTempFile(String prefix, String suffix)
 			throws Exception {
@@ -148,7 +148,7 @@ public class BlindVizResourceUtil {
 	 * Get temporary directory under the state location of this plugin
 	 * 
 	 * @return temporary directory as {@link File}
-	 * @see {@link AbstractUIPlugin#getStateLocation()}
+	 * @see AbstractUIPlugin#getStateLocation()
 	 */
 	public static File getTempDirectory() {
 		return BlindVizEnginePlugin.getTempDirectory();
