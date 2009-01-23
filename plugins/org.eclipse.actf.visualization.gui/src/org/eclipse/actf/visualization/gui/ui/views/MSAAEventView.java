@@ -216,7 +216,7 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView,
 					filters.clear();
 					Object[] result = dialog.getResult();
 					for (int i = 0; i < result.length; i++) {
-						filters.put(result[i], Boolean.TRUE);
+						filters.put((Integer)result[i], Boolean.TRUE);
 					}
 					showRawEvent = dialog.getShowDetails();
 					if (null != monitor) {
@@ -496,10 +496,10 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView,
 		return true;
 	}
 
-	private Map filters = getDefaultFilters();
+	private Map<Integer, Boolean> filters = getDefaultFilters();
 
-	private Map getDefaultFilters() {
-		Map defaultFilters = new HashMap();
+	private Map<Integer, Boolean> getDefaultFilters() {
+		Map<Integer, Boolean> defaultFilters = new HashMap<Integer, Boolean>();
 		for (int i = 0; i < DEFAULT_EVENTS.length; i++) {
 			defaultFilters.put(new Integer(DEFAULT_EVENTS[i]), Boolean.TRUE);
 		}
@@ -586,11 +586,11 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView,
 		}
 	}
 
-	private Set getFilter() {
-		Set enabledSet = new HashSet();
-		for (Iterator it = filters.keySet().iterator(); it.hasNext();) {
-			Object key = it.next();
-			Boolean enabled = (Boolean) filters.get(key);
+	private Set<Integer> getFilter() {
+		Set<Integer> enabledSet = new HashSet<Integer>();
+		for (Iterator<Integer> it = filters.keySet().iterator(); it.hasNext();) {
+			Integer key = it.next();
+			Boolean enabled = filters.get(key);
 			if (null != enabled && enabled.booleanValue()) {
 				enabledSet.add(key);
 			}

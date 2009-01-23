@@ -34,7 +34,7 @@ import org.eclipse.ui.views.properties.IPropertySource;
 
 public class PropertyTreeViewer extends TreeViewer {
 
-	private Map lastContents = new HashMap();
+	private Map<String, String> lastContents = new HashMap<String, String>();
 	
 	public PropertyTreeViewer(Composite parent, int style) {
 		this(new Tree(parent, style));
@@ -129,7 +129,7 @@ public class PropertyTreeViewer extends TreeViewer {
         });
 	}
 
-	private void getContents(Map map, TreeItem[] items) {
+	private void getContents(Map<String, String> map, TreeItem[] items) {
         for( int i=0; i<items.length; i++ ) {
             TreeItem item = items[i];
             Object itemData = item.getData();
@@ -141,7 +141,7 @@ public class PropertyTreeViewer extends TreeViewer {
         }
 	}
 	
-	public Map getLastContents() {
+	public Map<String, String> getLastContents() {
 		return lastContents;
 	}
 }

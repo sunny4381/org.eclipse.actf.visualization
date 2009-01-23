@@ -52,7 +52,7 @@ public class TargetWindowDataCollector {
     }
     
     public static Object[] getElements() {
-        List resultList = new ArrayList();
+        List<Object> resultList = new ArrayList<Object>();
         for( int i=0; i<targetDataProviders.length; i++ ) {
             if( null != targetDataProviders[i] ) {
                 Object[] elements = targetDataProviders[i].getModelService();
@@ -77,7 +77,7 @@ public class TargetWindowDataCollector {
         return null;
     }
     
-    private Map<String, List> categoryMap = new HashMap<String, List>();
+    private Map<String, List<Object>> categoryMap = new HashMap<String, List<Object>>();
     
     public TargetWindowDataCollector() {
         Object[] elements = getElements();
@@ -86,16 +86,16 @@ public class TargetWindowDataCollector {
             if( elements[i] instanceof GuiTargetWindowData ) {
                 category = ((GuiTargetWindowData)elements[i]).getCategory();
             }
-            List entry = (List)categoryMap.get(category);
+            List<Object> entry = categoryMap.get(category);
             if( null==entry ) {
-                entry = new ArrayList();
+                entry = new ArrayList<Object>();
                 categoryMap.put(category,entry);
             }
             entry.add(elements[i]);
         }
     }
     
-    public String[] getCategories(Comparator comparator) {
+    public String[] getCategories(Comparator<Object> comparator) {
         List<String> resultList = new ArrayList<String>(categoryMap.keySet());
         if( null != comparator ) {
             Collections.sort(resultList, comparator); 
@@ -104,7 +104,7 @@ public class TargetWindowDataCollector {
     }
     
     public Object[] getElements(String category) {
-        List resultList = (List)categoryMap.get(category);
+        List<Object> resultList = categoryMap.get(category);
         if( null != resultList ) {
             return resultList.toArray();
         }

@@ -236,7 +236,7 @@ public class MSAAPropertiesView extends ViewPart implements IMSAAPropertiesView 
     	public String hilightColor = Integer.toString(SWT.COLOR_BLUE); 
         
         public Object[] filter(Viewer viewer, Object parent, Object[] elements) {
-            List outList = new ArrayList();
+            List<Object> outList = new ArrayList<Object>();
             for (int i = 0; i < elements.length; ++i) {
             	if( elements[i] instanceof PropertyTreeEntry ) {
             		PropertyTreeEntry entry = (PropertyTreeEntry)elements[i];
@@ -245,9 +245,9 @@ public class MSAAPropertiesView extends ViewPart implements IMSAAPropertiesView 
                     	continue;
                 	}
             		if( changeColor && viewer instanceof PropertyTreeViewer ) {
-            			Map lastContents = ((PropertyTreeViewer)viewer).getLastContents();
+            			Map<String, String> lastContents = ((PropertyTreeViewer)viewer).getLastContents();
             			if( !lastContents.isEmpty() ) {
-            				String lastValue = (String)lastContents.get(entry.getPath());
+            				String lastValue = lastContents.get(entry.getPath());
             				if( null != lastValue ) {
                 				if( null == value ) {
                 					value = ""; //$NON-NLS-1$

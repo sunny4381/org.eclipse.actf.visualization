@@ -329,14 +329,14 @@ public class IA2 {
 
     };
     public static String[] getStateTextAsArray(int state) {
-    	List result = new ArrayList();
+    	List<String> result = new ArrayList<String>();
     	for( int i=0; i<IA2_STATETEXTS.length; i++ ) {
     		int bits = 1<<i;
     		if( 0 != (state & bits) ) {
     			result.add(IA2_STATETEXTS[i]+" (0x"+Integer.toHexString(bits)+")"); //$NON-NLS-1$ //$NON-NLS-2$
     		}
     	}
-    	return (String[])result.toArray(new String[result.size()]);
+    	return result.toArray(new String[result.size()]);
     }
     /**
      * The change of the number or attributes of actions of an accessible object
