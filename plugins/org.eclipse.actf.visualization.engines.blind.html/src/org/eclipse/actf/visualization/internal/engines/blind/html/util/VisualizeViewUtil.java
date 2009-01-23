@@ -41,8 +41,9 @@ public class VisualizeViewUtil {
 	public static File prepareActions(Document result,
 			VisualizeMapDataImpl mapData, String baseUrl, boolean servletMode) {
 
-		Map linkMap = mapData.getIntraPageLinkMap();
-		List targetElementList = mapData.getNodeInfoList();
+		Map<Node, Node> linkMap = mapData.getIntraPageLinkMap();
+		List<VisualizationNodeInfo> targetElementList = mapData
+				.getNodeInfoList();
 
 		NodeList bodyEl = result.getElementsByTagName("body");
 
@@ -96,9 +97,9 @@ public class VisualizeViewUtil {
 
 	}
 
-	private static void insertLinkIcon(Document doc, Map linkMap, String baseUrl) {
-		Set linkIconSet = linkMap.keySet();
-		Iterator it = linkIconSet.iterator();
+	private static void insertLinkIcon(Document doc, Map<Node, Node> linkMap,
+			String baseUrl) {
+		Iterator<Node> it = linkMap.keySet().iterator();
 		Set<String> alreadySet = new HashSet<String>();
 		int id = 0;
 		while (it.hasNext()) {
@@ -181,8 +182,9 @@ public class VisualizeViewUtil {
 		tmpBody.insertBefore(div, tmpBody.getFirstChild());
 	}
 
-	private static File createScriptFile(Document result, List elementList,
-			String baseUrl, boolean servletMode) {
+	private static File createScriptFile(Document result,
+			List<VisualizationNodeInfo> elementList, String baseUrl,
+			boolean servletMode) {
 		try {
 			PrintWriter pw;
 
@@ -197,8 +199,7 @@ public class VisualizeViewUtil {
 
 			int size = elementList.size();
 			for (int i = 0; i < size; i++) {
-				VisualizationNodeInfo curInfo = (VisualizationNodeInfo) elementList
-						.get(i);
+				VisualizationNodeInfo curInfo = elementList.get(i);
 
 				//
 				String comment = curInfo.getComment();
@@ -291,8 +292,9 @@ public class VisualizeViewUtil {
 		return null;
 	}
 
-	public static void visualizeError(Document doc, List problems,
-			VisualizeMapDataImpl mapData, String baseUrlS) {
+	public static void visualizeError(Document doc,
+			List<IProblemItem> problems, VisualizeMapDataImpl mapData,
+			String baseUrlS) {
 		int size = problems.size();
 
 		// TODO setNodeId might be duplicated
@@ -349,8 +351,8 @@ public class VisualizeViewUtil {
 				int startId = -1;
 				int endId = -1;
 				try {
-					List nl = prob.getNodeList();
-					node = (Node) nl.get(1);
+					List<Node> nl = prob.getNodeList();
+					node = nl.get(1);
 					Integer endNodeId = mapData.getIdOfNode(node);
 					if (endNodeId != null) {
 						endId = endNodeId.intValue();

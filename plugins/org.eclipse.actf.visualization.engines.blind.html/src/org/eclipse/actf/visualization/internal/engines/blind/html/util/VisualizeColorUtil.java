@@ -32,9 +32,9 @@ public class VisualizeColorUtil {
 
 	private VisualizeMapDataImpl mapData;
 
-	private List nodeInfoList;
+	private List<VisualizationNodeInfo> nodeInfoList;
 
-	private Map linkMap;
+	private Map<Node, Node> linkMap;
 
 	private ParamBlind param;
 
@@ -99,9 +99,9 @@ public class VisualizeColorUtil {
 			}
 		}
 
-		Iterator it = nodeInfoList.iterator();
+		Iterator<VisualizationNodeInfo> it = nodeInfoList.iterator();
 		while (it.hasNext()) {
-			VisualizationNodeInfo info = (VisualizationNodeInfo) it.next();
+			VisualizationNodeInfo info = it.next();
 			Node node = info.getNode();
 			Element el = null;
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -356,11 +356,11 @@ public class VisualizeColorUtil {
 
 	private int calcWords() {
 		int countChanged = 0;
-		Set linkSet = linkMap.keySet();
-		Iterator it = linkSet.iterator();
+		Set<Node> linkSet = linkMap.keySet();
+		Iterator<Node> it = linkSet.iterator();
 		while (it.hasNext()) {
-			Node fromNode = (Node) it.next();
-			Node toNode = (Node) linkMap.get(fromNode);
+			Node fromNode = it.next();
+			Node toNode = linkMap.get(fromNode);
 
 			Integer fromIdInt = mapData.getIdOfNode(fromNode);
 			Integer toIdInt = mapData.getIdOfNode(toNode);

@@ -35,7 +35,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 public class LinkAnalyzer {
 
 	private static final String SKIP_TO_MAIN_LINK_DEFINITION = ".*([sS]kip|[jJ]ump to|[lL]ink to) .+|.*(\u672c\u6587|\u30e1\u30a4\u30f3|\u3092\u8aad\u3080|(\u3078|\u306b)\u30b8\u30e3\u30f3\u30d7|(\u3078|\u306b)\u79fb\u52d5|\u3078\u306e\u30ea\u30f3\u30af).*";
@@ -59,7 +58,7 @@ public class LinkAnalyzer {
 
 	private VisualizeMapDataImpl mapData;
 
-	private Set invisibleIdSet;
+	private Set<String> invisibleIdSet;
 
 	private List<IProblemItem> problems;
 
@@ -76,7 +75,7 @@ public class LinkAnalyzer {
 	 */
 	public LinkAnalyzer(Document result, IPacketCollection allPc,
 			VisualizeMapDataImpl mapData, List<IProblemItem> problems,
-			Set invisibleIdSet, ParamBlind paramBlind, PageData pageData) {
+			Set<String> invisibleIdSet, ParamBlind paramBlind, PageData pageData) {
 		this.doc = result;
 		this.allPc = allPc;
 		this.mapData = mapData;
@@ -220,9 +219,9 @@ public class LinkAnalyzer {
 	}
 
 	private void analyzeIntraPageLinkMapping() {
-		Iterator it = intraPageLinkList.iterator();
+		Iterator<Element> it = intraPageLinkList.iterator();
 		while (it.hasNext()) {
-			Element lel = (Element) it.next();
+			Element lel = it.next();
 
 			String href = lel.getAttribute("href").substring(1);
 			// lel.getAttribute("href").substring(1).toLowerCase();
@@ -283,14 +282,16 @@ public class LinkAnalyzer {
 
 					boolean toTop = false;
 					String linkText = HtmlTagUtil.getTextAltDescendant(lel);
-					if (linkText.matches(".*(\u5148\u982d|\u30c8\u30c3\u30d7|\u4e0a|top|start).*")) {
+					if (linkText
+							.matches(".*(\u5148\u982d|\u30c8\u30c3\u30d7|\u4e0a|top|start).*")) {
 						toTop = true;
 					}
 
 					if (skipLinkMap.containsKey(lel)) {
 						if (href.matches(".*top.*") || toTop) {// TBD accuracy
 							prob = new BlindProblem(
-									IBlindProblem.ALERT_NO_DEST_INTRA_LINK, href);
+									IBlindProblem.ALERT_NO_DEST_INTRA_LINK,
+									href);
 						} else {
 							prob = new BlindProblem(
 									IBlindProblem.NO_DEST_SKIP_LINK, href);
@@ -303,7 +304,8 @@ public class LinkAnalyzer {
 					} else {
 						if (href.matches(".*top.*") || toTop) {// TBD accuracy
 							prob = new BlindProblem(
-									IBlindProblem.ALERT_NO_DEST_INTRA_LINK, href);
+									IBlindProblem.ALERT_NO_DEST_INTRA_LINK,
+									href);
 						} else {
 							prob = new BlindProblem(IBlindProblem.NO_DEST_LINK,
 									href);
@@ -340,9 +342,10 @@ public class LinkAnalyzer {
 
 		int headingCount = 0;
 		int skipLinkCount = skipLinkMap.size();
-		int intraDestCount = 0;
 		int forwardIntraLinkCount = 0;
-		int headingDestCount = 0;
+
+		@SuppressWarnings("unused")//TODO
+		int intraDestCount, headingDestCount = 0;
 
 		HashSet<Integer> forwardSkipDestIdSet = new HashSet<Integer>();
 		HashSet<Node> skipDestIdSet = new HashSet<Node>();
@@ -353,10 +356,10 @@ public class LinkAnalyzer {
 		Vector<HighlightTargetId> overTimeElementV = new Vector<HighlightTargetId>();
 		Set<Node> overTimeElementChildSet = new HashSet<Node>();
 
-		List nodeList = mapData.getNodeInfoList();
-		Iterator it = nodeList.iterator();
+		List<VisualizationNodeInfo> nodeList = mapData.getNodeInfoList();
+		Iterator<VisualizationNodeInfo> it = nodeList.iterator();
 		while (it.hasNext()) {
-			VisualizationNodeInfo curInfo = (VisualizationNodeInfo) it.next();
+			VisualizationNodeInfo curInfo = it.next();
 			Node curNode = curInfo.getNode();
 			if (curNode != null) {
 				if (skipLinkMap.containsKey(curNode)) {
@@ -368,7 +371,7 @@ public class LinkAnalyzer {
 				}
 
 				if (curInfo.isHeading()) {
-					// TODO check (do not include elements under the headings) 
+					// TODO check (do not include elements under the headings)
 					headingCount++;
 					headingDestIdSet.add(new Integer(curInfo.getId()));
 				}
@@ -407,15 +410,16 @@ public class LinkAnalyzer {
 			}
 		}
 
-		Map linkMap = mapData.getIntraPageLinkMap();
-		for (Iterator linkIt = linkMap.keySet().iterator(); linkIt.hasNext();) {
-			Node source = (Node) linkIt.next();
-			Node dest = (Node) linkMap.get(source);
+		Map<Node, Node> linkMap = mapData.getIntraPageLinkMap();
+		for (Iterator<Node> linkIt = linkMap.keySet().iterator(); linkIt
+				.hasNext();) {
+			Node source = linkIt.next();
+			Node dest = linkMap.get(source);
 			// System.out.println("ok: "+source+" : "+dest);
 
 			skipDestIdSet.add(dest);
 
-			Map idMap = mapData.getResult2idMap();
+			Map<Node, Integer> idMap = mapData.getResult2idMap();
 			if (idMap.containsKey(source) && idMap.containsKey(dest)) {
 				// System.out.println("id found");
 				int sourceId = mapData.getIdOfNode(source).intValue();
@@ -454,7 +458,7 @@ public class LinkAnalyzer {
 		pageData.setBrokenIntraPageLinkNum(intralinkErrorCount);
 
 		// TODO
-		// number/ratio of overTimeElement 
+		// number/ratio of overTimeElement
 		// number of forwardIntraLink/link target
 		// efficiency of forwardIntraLink
 		// time difference (original/with intra)?
@@ -480,7 +484,8 @@ public class LinkAnalyzer {
 
 			}
 		} else if (minSkipLinkTime >= MAX_SKIPLINK_REACHING_TIME) {
-			// TODO remove this problem if the page has skip link at top of the page
+			// TODO remove this problem if the page has skip link at top of the
+			// page
 			BlindProblem prob = new BlindProblem(
 					IBlindProblem.TOOFAR_SKIPTOMAIN_LINK, minSkipLinkTime + " ");
 			Integer idObj = mapData.getIdOfNode(skipLinkNodeInfo.getNode());
