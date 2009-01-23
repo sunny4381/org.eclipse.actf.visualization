@@ -417,16 +417,16 @@ public class OutLoud {
 
 		if (mc != null && mc.size() > 0) {
 			for (int i = 0; i < mc.size(); i++) {
-				String n = ((Message) mc.get(i)).getTagName();
-				String t = ((Message) mc.get(i)).getTagType();
-				String s = ((Message) mc.get(i)).getTagState();
+				String n = mc.get(i).getTagName();
+				String t = mc.get(i).getTagType();
+				String s = mc.get(i).getTagState();
 				System.out.println(
 					"tag[" + n + "] - type[" + t + "]  - state[" + s + "]");
-				ArrayList conditions = ((Message) mc.get(i)).getConditions();
+				ArrayList<String> conditions = mc.get(i).getConditions();
 				for (int j = 0; j < conditions.size(); j++) {
 					System.out.println(" C[" + conditions.get(j) + "]");
 				}
-				ArrayList msgs = ((Message) mc.get(i)).getMessages();
+				ArrayList<String> msgs = mc.get(i).getMessages();
 				for (int j = 0; j < msgs.size(); j++) {
 					System.out.println(" T[" + msgs.get(j) + "]");
 				}
@@ -450,8 +450,8 @@ public class OutLoud {
 		String state) {
 		String nodeName = element.getNodeName().toLowerCase();
 		String result = null;
-		ArrayList msgs = null;
-		ArrayList conditions = null;
+		ArrayList<String> msgs = null;
+		ArrayList<String> conditions = null;
 
 		if (mc == null)
 			return null;
@@ -471,7 +471,7 @@ public class OutLoud {
 			for (int i = 0; i < msgs.size(); i++) {
 				if (conditions.size() > 0)
 					continue;
-				s = (String) msgs.get(i);
+				s = msgs.get(i);
 				if (s.startsWith("<var>")) {
 					String pattern0 = "<attribute=";
 					int pos = s.lastIndexOf(pattern0);
@@ -522,8 +522,8 @@ public class OutLoud {
 		String replstr1) {
 		String nodeName = element.getNodeName().toLowerCase();
 		String result = null;
-		ArrayList msgs = null;
-		ArrayList conditions = null;
+		ArrayList<String> msgs = null;
+		ArrayList<String> conditions = null;
 
 		if (mc == null)
 			return null;
@@ -543,7 +543,7 @@ public class OutLoud {
 			for (int i = 0; i < msgs.size(); i++) {
 				if (conditions.size() > 0)
 					continue;
-				s = (String) msgs.get(i);
+				s = msgs.get(i);
 				if (s.startsWith("<var>")) {
 					String pattern0 = "<attribute=";
 					int pos = s.lastIndexOf(pattern0);
@@ -605,8 +605,8 @@ public class OutLoud {
 		String replstr2) {
 		String nodeName = element.getNodeName().toLowerCase();
 		String result = null;
-		ArrayList msgs = null;
-		ArrayList conditions = null;
+		ArrayList<String> msgs = null;
+		ArrayList<String> conditions = null;
 
 		if (mc == null)
 			return null;
@@ -626,7 +626,7 @@ public class OutLoud {
 			for (int i = 0; i < msgs.size(); i++) {
 				if (conditions.size() > 0)
 					continue;
-				s = (String) msgs.get(i);
+				s = msgs.get(i);
 				if (s.startsWith("<var>")) {
 					String pattern0 = "<attribute=";
 					int pos = s.lastIndexOf(pattern0);
@@ -699,8 +699,8 @@ public class OutLoud {
 		String replstr3) {
 		String nodeName = element.getNodeName().toLowerCase();
 		String result = null;
-		ArrayList msgs = null;
-		ArrayList conditions = null;
+		ArrayList<String> msgs = null;
+		ArrayList<String> conditions = null;
 
 		if (mc == null)
 			return null;
@@ -720,7 +720,7 @@ public class OutLoud {
 			for (int i = 0; i < msgs.size(); i++) {
 				if (conditions.size() > 0)
 					continue;
-				s = (String) msgs.get(i);
+				s = msgs.get(i);
 				if (s.startsWith("<var>")) {
 					String pattern0 = "<attribute=";
 					int pos = s.lastIndexOf(pattern0);
@@ -788,20 +788,20 @@ public class OutLoud {
 
 		if (mc != null && mc.size() > 0) {
 			for (int i = 0; i < mc.size(); i++) {
-				msg = (Message) mc.get(i);
+				msg = mc.get(i);
 				String nodename = null;
 				if (element != null
 					&& element.getNodeType() == Node.ELEMENT_NODE)
 					nodename = element.getNodeName().toLowerCase();
 
 				if (nodename != null && nodename.equals(msg.getTagName())) {
-					ArrayList conditions = msg.getConditions();
-					ArrayList msgs = msg.getMessages();
+					ArrayList<String> conditions = msg.getConditions();
+					ArrayList<String> msgs = msg.getMessages();
 
 					// check url condition
 					if (conditions != null && conditions.size() > 0) {
 						boolean found = false;
-						if (url.equals((String) conditions.get(0))) {
+						if (url.equals(conditions.get(0))) {
 							for (int k = 1; k < conditions.size(); k++) {
 								String attname = null;
 								String value = null;
@@ -809,7 +809,7 @@ public class OutLoud {
 								String v = null;
 								found = false;
 
-								String s = (String) conditions.get(k);
+								String s = conditions.get(k);
 								attname = s.substring(0, s.indexOf("="));
 								value =
 									s.substring(s.indexOf("=") + 1, s.length());
@@ -835,9 +835,9 @@ public class OutLoud {
 							if (found == true) {
 								for (int j = 0; j < msgs.size(); j++) {
 									if (j == 0)
-										result = (String) msgs.get(j);
+										result = msgs.get(j);
 									else
-										result += (String) msgs.get(j);
+										result += msgs.get(j);
 								}
 							}
 						}

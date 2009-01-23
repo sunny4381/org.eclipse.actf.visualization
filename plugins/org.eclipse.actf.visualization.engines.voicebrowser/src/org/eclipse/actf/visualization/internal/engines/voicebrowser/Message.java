@@ -15,17 +15,17 @@ import java.util.ArrayList;
 public class Message {
 
 	private String tagName;
-	private ArrayList conditions = new ArrayList();
+	private ArrayList<String> conditions = new ArrayList<String>();
 	private String tagType;
 	private String tagState;
-	private ArrayList messages = new ArrayList();
+	private ArrayList<String> messages = new ArrayList<String>();
 
 	public Message(
 		String curTagName,
-		ArrayList curConditions,
+		ArrayList<String> curConditions,
 		String curTagType,
 		String curTagState,
-		ArrayList curMessages) {
+		ArrayList<String> curMessages) {
 		tagName = curTagName;
 		conditions = curConditions;
 		tagType = curTagType;
@@ -84,7 +84,7 @@ public class Message {
 	 * Returns the messages.
 	 * @return ArrayList
 	 */
-	public ArrayList getMessages() {
+	public ArrayList<String> getMessages() {
 		return messages;
 	}
 
@@ -92,7 +92,7 @@ public class Message {
 	 * Sets the messages.
 	 * @param messages The messages to set
 	 */
-	public void setMessages(ArrayList messages) {
+	public void setMessages(ArrayList<String> messages) {
 		this.messages = messages;
 	}
 
@@ -100,7 +100,7 @@ public class Message {
 	 * Returns the conditions.
 	 * @return ArrayList
 	 */
-	public ArrayList getConditions() {
+	public ArrayList<String> getConditions() {
 		return conditions;
 	}
 
@@ -108,7 +108,7 @@ public class Message {
 	 * Sets the conditions.
 	 * @param conditions The conditions to set
 	 */
-	public void setConditions(ArrayList conditions) {
+	public void setConditions(ArrayList<String> conditions) {
 		this.conditions = conditions;
 	}
 

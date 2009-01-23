@@ -14,6 +14,11 @@ import java.util.ArrayList;
 
 public class MessageCollection extends ArrayList<Message> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1072510518088567847L;
+
+	/**
 	 * Method MessageCollection.
 	 * @param text
 	 */
