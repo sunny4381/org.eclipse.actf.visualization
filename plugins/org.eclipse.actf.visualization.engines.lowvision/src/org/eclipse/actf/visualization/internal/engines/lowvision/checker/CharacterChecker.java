@@ -98,14 +98,13 @@ public class CharacterChecker {
 				}
 			}
 
-			Vector curProblemVec = collectProblems(tmpProblemVec);
+			Vector<LowVisionProblemGroup> curProblemVec = collectProblems(tmpProblemVec);
 			if (curProblemVec == null) {
 				continue;
 			}
 			int curSize = curProblemVec.size();
 			for (int m = 0; m < curSize; m++) {
-				problemVec.addElement((LowVisionProblem) (curProblemVec
-						.elementAt(m)));
+				problemVec.addElement(curProblemVec.elementAt(m));
 			}
 
 			// /* generate problems for each character*/
@@ -141,12 +140,11 @@ public class CharacterChecker {
 				tmpProblemVec.addElement(prob);
 			}
 		}
-		Vector curProblemVec = collectProblems(tmpProblemVec);
+		Vector<LowVisionProblemGroup> curProblemVec = collectProblems(tmpProblemVec);
 		if (curProblemVec != null) {
 			int curSize = curProblemVec.size();
 			for (int m = 0; m < curSize; m++) {
-				problemVec.addElement((LowVisionProblem) (curProblemVec
-						.elementAt(m)));
+				problemVec.addElement(curProblemVec.elementAt(m));
 			}
 		}
 
@@ -552,8 +550,8 @@ public class CharacterChecker {
 	}
 
 	/* problem grouping */
-	private Vector collectProblems(Vector<LowVisionProblem> _tmpVec)
-			throws ImageException {
+	private Vector<LowVisionProblemGroup> collectProblems(
+			Vector<LowVisionProblem> _tmpVec) throws ImageException {
 		int size = _tmpVec.size();
 		if (size == 0) {
 			return (null);

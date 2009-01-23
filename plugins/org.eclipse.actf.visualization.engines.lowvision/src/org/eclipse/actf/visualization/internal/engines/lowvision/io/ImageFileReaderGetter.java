@@ -36,6 +36,7 @@ class ImageFileReaderGetter extends Thread {
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Image im = tk.getImage(fileName);
 		Component comp = new Component() {
+			private static final long serialVersionUID = 2850121681250542701L;
 		};
 		MediaTracker tracker = new MediaTracker(comp);
 		tracker.addImage(im, 0);

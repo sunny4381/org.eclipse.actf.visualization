@@ -28,7 +28,8 @@ public class InteriorImageComponent {
 
 	double occupation = 0.0; // occupation ratio in original image
 
-	InteriorImageComponent(InteriorImage _ii, int _color, Vector _vec) {
+	InteriorImageComponent(InteriorImage _ii, int _color,
+			Vector<ConnectedComponent> _vec) {
 		containerImage = _ii;
 		color = _color;
 		numConnectedComponents = _vec.size();

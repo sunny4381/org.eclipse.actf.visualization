@@ -36,13 +36,12 @@ public class InteriorImage extends PageComponent {
 	// See InteriorImage.java
 	public static final double THRESHOLD_MIN_IMAGE_COLOR_PROBLEM_PROBABILITY = 0.2;
 
-	//// InteriorImage
+	// // InteriorImage
 	// minimum pixels/occupation to be considered as LargeComponent
 	public static final int THRESHOLD_MIN_LARGE_COMPONENT_PIXELS = 100;
 
 	public static final double THRESHOLD_MIN_LARGE_COMPONENT_OCCUPATION = 0.0005;
 
-	
 	int left = UNSET; // relative position
 
 	int top = UNSET; // relative position
@@ -286,8 +285,9 @@ public class InteriorImage extends PageComponent {
 		 */
 	}
 
-	private Vector collectProblems(Vector<LowVisionProblem> _vec)
-			throws ImageException {
+	@SuppressWarnings("unused")
+	private Vector<LowVisionProblemGroup> collectProblems(
+			Vector<LowVisionProblem> _vec) throws ImageException {
 		if (_vec == null || _vec.size() == 0) {
 			return (null);
 		}

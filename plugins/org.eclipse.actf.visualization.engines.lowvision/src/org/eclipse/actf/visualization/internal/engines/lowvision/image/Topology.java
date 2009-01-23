@@ -197,7 +197,7 @@ public class Topology{
     	//TODO check component != null
 		int[][] map = new int[height][width];
 		BinaryImage bi = component.shape;
-		Vector currentNodes = null;
+		Vector<Coord> currentNodes = null;
 		Vector<Coord> nextNodes = new Vector<Coord>();
 		nextNodes.addElement( _co );
 	

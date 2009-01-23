@@ -11,7 +11,12 @@
 package org.eclipse.actf.visualization.internal.engines.lowvision.color;
 
 public class ColorException extends Exception{
-    public ColorException(){
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 3622924352947460191L;
+	
+	public ColorException(){
 		super();
     }
     public ColorException( String _s ){
