@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.blind.odfbyhtml;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -134,15 +133,14 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 
 			IVisualizeMapData mapData = engine.getVisualizeMapData();
 
-			// TODO
-			checkResult.setSourceFile(new File(tmpDirS + HTML_SOURCE_FILE));
+			checkResult.setSourceFile(null);
 
 			ArrayList<IProblemItem> tmpResults = new ArrayList<IProblemItem>(
 					1024);
 
 			Document odfDoc = modelService.getDocument();
-			ICheckTarget checkTarget = CheckTargetFactory.createCheckTarget(odfDoc, modelService
-					.getURL());
+			ICheckTarget checkTarget = CheckTargetFactory.createCheckTarget(
+					odfDoc, modelService.getURL());
 			checkTarget.setAdditionalDocument("html", document);
 			IChecker[] checkers = EvaluationUtil.getCheckers();
 			for (int i = 0; i < checkers.length; i++) {

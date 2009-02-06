@@ -17,7 +17,6 @@ import java.util.Iterator;
 import java.util.Vector;
 
 import org.eclipse.actf.model.ui.IModelService;
-import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEvent;
@@ -205,35 +204,22 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 		for (int i = 0; i < tmpSarray.length; i++) {
 			columns[curPos].setText(tmpSarray[i]);
 			/*
-			switch (i % 5) {
-			case 0:
-				columns[curPos].setImage(ReportPlugin
-						.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
-								"icons/IconRed.gif").createImage());
-				break;
-			case 1:
-				columns[curPos].setImage(ReportPlugin
-						.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
-								"icons/IconYellow.gif").createImage());
-				break;
-			case 2:
-				columns[curPos].setImage(ReportPlugin
-						.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
-								"icons/IconBlue.gif").createImage());
-				break;
-			case 3:
-				columns[curPos].setImage(ReportPlugin
-						.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
-								"icons/IconGreen.gif").createImage());
-				break;
-			case 4:
-				columns[curPos].setImage(ReportPlugin
-						.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
-								"icons/IconPink.gif").createImage());
-				break;
-			default:
-			}
-			*/
+			 * switch (i % 5) { case 0: columns[curPos].setImage(ReportPlugin
+			 * .imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
+			 * "icons/IconRed.gif").createImage()); break; case 1:
+			 * columns[curPos].setImage(ReportPlugin
+			 * .imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
+			 * "icons/IconYellow.gif").createImage()); break; case 2:
+			 * columns[curPos].setImage(ReportPlugin
+			 * .imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
+			 * "icons/IconBlue.gif").createImage()); break; case 3:
+			 * columns[curPos].setImage(ReportPlugin
+			 * .imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
+			 * "icons/IconGreen.gif").createImage()); break; case 4:
+			 * columns[curPos].setImage(ReportPlugin
+			 * .imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
+			 * "icons/IconPink.gif").createImage()); break; default: }
+			 */
 			if (enabledMetrics[i]) {
 				columns[curPos].setWidth(75);
 			} else {
@@ -332,7 +318,10 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener#selectionChanged(org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEvent)
+	 * @seeorg.eclipse.actf.visualization.eval.guideline.
+	 * IGuidelineSlectionChangedListener
+	 * #selectionChanged(org.eclipse.actf.visualization
+	 * .eval.guideline.GuidelineSelectionChangedEvent)
 	 */
 	public void selectionChanged(GuidelineSelectionChangedEvent e) {
 		changeColumnLayout();
@@ -364,7 +353,9 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			// tableSorterLV.reset();
 
 			srcViewerForPT.setSrcChanged(true);
+			// TODO return boolean
 			srcViewerForPT.updateSrcViewer(result.getSourceFile());
+			srcHighlightAction.setEnabled(result.getSourceFile() != null);
 		}
 
 	}
@@ -378,9 +369,6 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 	}
 
 	public void setModelService(IModelService modelService) {
-		// for HTML source viewer
-		srcHighlightAction.setEnabled(modelService != null
-				&& modelService instanceof IWebBrowserACTF);
 	}
 
 }

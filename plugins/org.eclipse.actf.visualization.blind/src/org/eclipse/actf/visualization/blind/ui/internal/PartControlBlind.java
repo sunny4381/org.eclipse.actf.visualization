@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 IBM Corporation and Others
+ * Copyright (c) 2004, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,13 +11,19 @@
 package org.eclipse.actf.visualization.blind.ui.internal;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.actf.mediator.Mediator;
 import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.IModelServiceHolder;
+import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.editor.browser.WaitForBrowserReadyHandler;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.ui.util.DialogSave;
+import org.eclipse.actf.ui.util.timer.WaitExecSyncEventHandler;
+import org.eclipse.actf.ui.util.timer.WaitExecSyncEventListener;
 import org.eclipse.actf.visualization.blind.IBlindVisualizer;
 import org.eclipse.actf.visualization.blind.internal.BlindVisualizerExtension;
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
@@ -32,6 +38,7 @@ import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 import org.w3c.dom.Document;
 
 public class PartControlBlind implements IHighlightElementListener {
@@ -93,12 +100,32 @@ public class PartControlBlind implements IHighlightElementListener {
 		return doVisualize(true);
 	}
 
+	private HashMap<String, WaitExecSyncEventListener> eventhandlerHolder = new HashMap<String, WaitExecSyncEventListener>();
+	private static final String LISTENER_KEY = "browser";
+
 	public int doVisualize(boolean isShowResult) {
 
 		IModelService modelService = ModelServiceUtils.getActiveModelService();
 		int ret = IBlindVisualizer.ERROR;
 		if (modelService == null) {
-			return ret;
+			IEditorPart editor = ModelServiceUtils.reopenInACTFBrowser();
+			if (editor instanceof IModelServiceHolder) {
+				modelService = ((IModelServiceHolder) editor).getModelService();
+				WaitExecSyncEventHandler handler = new WaitForBrowserReadyHandler(
+						(IWebBrowserACTF) modelService, 30, false,
+						new Runnable() {
+							public void run() {
+								eventhandlerHolder.remove(LISTENER_KEY);
+								doVisualize();
+							}
+						});
+				eventhandlerHolder.put(LISTENER_KEY,
+						new WaitExecSyncEventListener(handler));
+				// TODO
+				return ret = IBlindVisualizer.OK;
+			} else {
+				return ret;
+			}
 		}
 
 		String resultFilePath = "";

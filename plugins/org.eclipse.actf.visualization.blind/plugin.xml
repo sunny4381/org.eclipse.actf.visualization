@@ -9,6 +9,26 @@
             class="org.eclipse.actf.visualization.blind.ui.views.BlindView"
             icon="icons/visualize.gif"
             id="org.eclipse.actf.visualization.blind.ui.views.BlindView"
-            name="%adesigner.blind.view.title"/>
+            name="%actf.blind.view.title"/>
    </extension>
+         <extension
+            point="org.eclipse.ui.actionSets">
+         <actionSet
+               id="org.eclipse.actf.visualization.blind.actionSet"
+               label="%actf.action.visualize">
+            <menu
+            id="org.eclipse.actf.visualization.menu"
+         	label="%actf.visualization.menu">
+         	</menu>
+			<action
+         	class="org.eclipse.actf.visualization.blind.ui.actions.VisualizeAction"
+         	id="org.eclipse.actf.visualization.blind.ui.actions.VisualizeAction"
+         	definitionId="org.eclipse.actf.visualization.blind.ui.actions.VisualizeAction"
+         	label="%actf.action.visualize"
+         	menubarPath="org.eclipse.actf.visualization.menu/"
+         	toolbarPath="ACTF/visualization"
+         	icon="icons/visualize.gif"
+         	style="push"/>
+         </actionSet>
+         </extension>
 </plugin>

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,11 +22,15 @@ import java.util.Vector;
 
 import org.eclipse.actf.mediator.Mediator;
 import org.eclipse.actf.model.ui.IModelService;
+import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.ModelServiceImageCreator;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.editor.browser.WaitForBrowserReadyHandler;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
+import org.eclipse.actf.ui.util.timer.WaitExecSyncEventHandler;
+import org.eclipse.actf.ui.util.timer.WaitExecSyncEventListener;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.PageEvaluation;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
@@ -48,6 +52,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.w3c.dom.Document;
@@ -288,7 +293,9 @@ public class PartControlLowVision implements ISelectionListener,
 			isFinished[i] = false;
 		}
 	}
-
+	private HashMap<String, WaitExecSyncEventListener> eventhandlerHolder = new HashMap<String, WaitExecSyncEventListener>();
+	private static final String LISTENER_KEY = "browser";
+	
 	public void doSimulate() {
 		is1stSimulateDone = true;
 		// TODO button: enable,disable
@@ -309,6 +316,20 @@ public class PartControlLowVision implements ISelectionListener,
 
 		targetModelService = ModelServiceUtils.getActiveModelService();
 		if (targetModelService == null) {
+			IEditorPart editor = ModelServiceUtils.reopenInACTFBrowser();
+			if (editor instanceof IModelServiceHolder) {
+				targetModelService = ((IModelServiceHolder) editor).getModelService();
+				WaitExecSyncEventHandler handler = new WaitForBrowserReadyHandler(
+						(IWebBrowserACTF) targetModelService, 30, false,
+						new Runnable() {
+							public void run() {
+								eventhandlerHolder.remove(LISTENER_KEY);
+								doSimulate();
+							}
+						});
+				eventhandlerHolder.put(LISTENER_KEY,
+						new WaitExecSyncEventListener(handler));
+			}
 			this._shell.setCursor(new Cursor(_shell.getDisplay(),
 					SWT.CURSOR_ARROW));
 			this._isInSimulate = false;
@@ -417,7 +438,8 @@ public class PartControlLowVision implements ISelectionListener,
 									framePageImage[frameId].getHeight()));
 				}
 
-				checker.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
+				checker
+						.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
 
 				ExtractCheckThread checkThread = new ExtractCheckThread(
 						frameId, frameUrl[frameId]);
@@ -462,7 +484,8 @@ public class PartControlLowVision implements ISelectionListener,
 			pageImageWhole = framePageImage[0];
 		}
 
-		checker.setStatusMessage(Messages.LowVisionView_prepare_Simulation_Image__29);
+		checker
+				.setStatusMessage(Messages.LowVisionView_prepare_Simulation_Image__29);
 
 		try {
 			visResultFile = LowVisionVizPlugin.createTempFile(
@@ -524,7 +547,8 @@ public class PartControlLowVision implements ISelectionListener,
 		// TODO null check?
 
 		if (frameUrl.length == 0) {
-			checker.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
+			checker
+					.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
 			// TODO check(original is getAddressText())
 			ExtractCheckThread checkThread = new ExtractCheckThread(0,
 					modelService.getURL());

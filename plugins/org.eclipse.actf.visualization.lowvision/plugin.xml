@@ -18,4 +18,24 @@
             id="org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView"
             name="%adesigner.lowvision.tab.title"/>
    </extension>
+   <extension
+      point="org.eclipse.ui.actionSets">
+         <actionSet
+               id="org.eclipse.actf.visualization.lowvision.actionSet"
+               label="%actf.action.visualize">
+            <menu
+            id="org.eclipse.actf.visualization.menu"
+         	label="%actf.visualization.menu">
+         	</menu>
+			<action
+         	class="org.eclipse.actf.visualization.lowvision.ui.actions.SimulationAction"
+         	id="org.eclipse.actf.visualization.lowvision.ui.actions.SimulationAction"
+         	definitionId="org.eclipse.actf.visualization.lowvision.ui.actions.SimulationAction"
+         	label="%actf.action.simulate"
+         	menubarPath="org.eclipse.actf.visualization.menu/"
+         	toolbarPath="ACTF/visualization"
+         	icon="icons/simulation16.gif"
+         	style="push"/>
+         </actionSet>
+   </extension>
 </plugin>

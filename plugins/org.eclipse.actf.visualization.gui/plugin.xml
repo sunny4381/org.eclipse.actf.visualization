@@ -76,7 +76,7 @@
          point="org.eclipse.ui.actionSets">
       <actionSet
             id="org.eclipse.actf.visualization.gui.actionSet"
-            label="aDesigner Target Window">
+            label="ACTF Target Window">
          <action
                class="org.eclipse.actf.visualization.gui.ui.actions.WindowListAction"
                id="org.eclipse.actf.visualization.gui.actions.WindowListAction"

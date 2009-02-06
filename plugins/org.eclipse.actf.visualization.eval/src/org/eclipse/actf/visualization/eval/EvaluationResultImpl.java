@@ -37,7 +37,7 @@ public class EvaluationResultImpl implements IEvaluationResult {
 
 	private String _targetUrl;
 
-	private File _sourceFile;
+	private File _sourceFile = null;
 
 	private boolean showAllGuidelineItems = false;
 
