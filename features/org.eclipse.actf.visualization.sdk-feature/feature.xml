@@ -29,8 +29,7 @@
          version="0.0.0"/>
 
    <requires>
-      <import feature="org.eclipse.actf.visualization" version="0.7.0.qualifier"/>
-      <import feature="org.eclipse.actf.visualization.core" version="0.7.0.qualifier"/>
+      <import feature="org.eclipse.actf.visualization" version="0.7.0"/>
    </requires>
 
    <plugin
