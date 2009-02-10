@@ -33,4 +33,8 @@
          id="org.eclipse.actf.visualization.ui.wst"
          version="0.0.0"/>
 
+   <requires>
+      <import feature="org.eclipse.actf.visualization.core" version="0.7.0.qualifier"/>
+   </requires>
+
 </feature>
