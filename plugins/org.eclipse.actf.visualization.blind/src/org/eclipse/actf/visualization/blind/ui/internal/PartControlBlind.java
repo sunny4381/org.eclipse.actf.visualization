@@ -22,6 +22,7 @@ import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editor.browser.WaitForBrowserReadyHandler;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.ui.util.DialogSave;
+import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.actf.ui.util.timer.WaitExecSyncEventHandler;
 import org.eclipse.actf.ui.util.timer.WaitExecSyncEventListener;
 import org.eclipse.actf.visualization.blind.IBlindVisualizer;
@@ -117,6 +118,7 @@ public class PartControlBlind implements IHighlightElementListener {
 							public void run() {
 								eventhandlerHolder.remove(LISTENER_KEY);
 								doVisualize();
+								PlatformUIUtil.showView(IVisualizationView.ID_BLINDVIEW);
 							}
 						});
 				eventhandlerHolder.put(LISTENER_KEY,

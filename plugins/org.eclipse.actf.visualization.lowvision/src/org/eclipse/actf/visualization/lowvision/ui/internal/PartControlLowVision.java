@@ -29,6 +29,7 @@ import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.editor.browser.WaitForBrowserReadyHandler;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
+import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.actf.ui.util.timer.WaitExecSyncEventHandler;
 import org.eclipse.actf.ui.util.timer.WaitExecSyncEventListener;
 import org.eclipse.actf.visualization.IVisualizationConst;
@@ -233,6 +234,9 @@ public class PartControlLowVision implements ISelectionListener,
 					_shell.setCursor(null);
 					_isInSimulate = false;
 
+					PlatformUIUtil
+							.showView(IVisualizationView.ID_LOWVISIONVIEW);
+
 					checkThreads = new Vector<ExtractCheckThread>();
 				}
 			});
@@ -293,9 +297,10 @@ public class PartControlLowVision implements ISelectionListener,
 			isFinished[i] = false;
 		}
 	}
+
 	private HashMap<String, WaitExecSyncEventListener> eventhandlerHolder = new HashMap<String, WaitExecSyncEventListener>();
 	private static final String LISTENER_KEY = "browser";
-	
+
 	public void doSimulate() {
 		is1stSimulateDone = true;
 		// TODO button: enable,disable
@@ -318,7 +323,8 @@ public class PartControlLowVision implements ISelectionListener,
 		if (targetModelService == null) {
 			IEditorPart editor = ModelServiceUtils.reopenInACTFBrowser();
 			if (editor instanceof IModelServiceHolder) {
-				targetModelService = ((IModelServiceHolder) editor).getModelService();
+				targetModelService = ((IModelServiceHolder) editor)
+						.getModelService();
 				WaitExecSyncEventHandler handler = new WaitForBrowserReadyHandler(
 						(IWebBrowserACTF) targetModelService, 30, false,
 						new Runnable() {
