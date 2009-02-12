@@ -34,12 +34,12 @@ public class VisualizeAction implements IWorkbenchWindowActionDelegate {
 		try {
 			IViewPart viewPart = this._window.getActivePage().showView(
 					IVisualizationView.ID_BLINDVIEW);
-			if (viewPart != null) {
+			if (viewPart instanceof IVisualizationView) {
 				((IVisualizationView) viewPart).doVisualize();
 			}
 
 		} catch (PartInitException pie) {
-			pie.printStackTrace();
+			//pie.printStackTrace();
 		}
 	}
 
