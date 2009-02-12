@@ -41,7 +41,7 @@
                id="org.eclipse.actf.visualization.pdt.actionSet"
                label="%actf.action.visualize">
             <menu
-            id="org.eclipse.actf.visualization.pdt.menu"
+            id="org.eclipse.actf.visualization.ui.pdt.menu"
          	label="%actf.visualization.menu">
          	</menu>
          	<action
@@ -49,7 +49,7 @@
          	id="org.eclipse.actf.visualization.ui.pdt.SimulationAction"
          	definitionId="org.eclipse.actf.visualization.ui.pdt.SimulationAction"
          	label="%actf.action.simulate"
-         	menubarPath="org.eclipse.actf.visualization.menu/"
+         	menubarPath="org.eclipse.actf.visualization.ui.pdt.menu/"
          	toolbarPath="ACTF/visualization"
          	icon="icons/simulation16.gif"
          	style="push"/>
@@ -58,7 +58,7 @@
          	id="org.eclipse.actf.visualization.ui.pdt.VisualizeAction"
          	definitionId="org.eclipse.actf.visualization.ui.pdt.VisualizeAction"
          	label="%actf.action.visualize"
-         	menubarPath="org.eclipse.actf.visualization.menu/"
+         	menubarPath="org.eclipse.actf.visualization.ui.pdt.menu/"
          	toolbarPath="ACTF/visualization"
          	icon="icons/visualize.gif"
          	style="push"/>

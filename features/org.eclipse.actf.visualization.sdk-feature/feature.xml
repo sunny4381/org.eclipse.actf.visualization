@@ -21,16 +21,12 @@
    </license>
 
    <includes
-         id="org.eclipse.actf.visualization.core.source"
+         id="org.eclipse.actf.visualization.source"
          version="0.0.0"/>
 
    <includes
          id="org.eclipse.actf.visualization"
          version="0.0.0"/>
-
-   <requires>
-      <import feature="org.eclipse.actf.visualization" version="0.7.0"/>
-   </requires>
 
    <plugin
          id="org.eclipse.actf.visualization.doc.isv"

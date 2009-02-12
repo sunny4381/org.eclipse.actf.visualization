@@ -20,9 +20,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.ViewPart;
 
-public class SummaryReportView extends ViewPart implements
-		IACTFReportViewer {
+public class SummaryReportView extends ViewPart implements IACTFReportViewer {
 
+	public static final String ID = SummaryReportView.class.getName();
+	
 	private IEvaluationResult curResult = null;
 
 	private static final IEvaluationResult dummyResult = new EvaluationResultImpl();
@@ -62,12 +63,12 @@ public class SummaryReportView extends ViewPart implements
 		if (event.getReport() instanceof IEvaluationResult) {
 			tmpResult = (IEvaluationResult) event.getReport();
 		}
-		
+
 		if (curResult != tmpResult) {
 			problemArea.setEvaluationResult(tmpResult);
 			curResult = tmpResult;
 		}
-		
+
 	}
 
 }

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.ui.report;
 
+import org.eclipse.actf.mediator.Mediator;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -23,6 +24,8 @@ public class ReportPlugin extends AbstractUIPlugin {
 
 	// The shared instance
 	private static ReportPlugin plugin;
+
+	private ReportViewActivator activator;
 	
 	/**
 	 * The constructor
@@ -37,6 +40,8 @@ public class ReportPlugin extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
+		activator = new ReportViewActivator();
+		Mediator.getInstance().addMediatorEventListener(activator);		
 	}
 
 	/*
@@ -44,6 +49,7 @@ public class ReportPlugin extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
+		Mediator.getInstance().removeMediatorEventListener(activator);
 		plugin = null;
 		super.stop(context);
 	}
