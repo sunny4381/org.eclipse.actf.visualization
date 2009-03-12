@@ -25,17 +25,6 @@
          <viewShortcut id="org.eclipse.ui.views.ResourceNavigator"/>
          <viewShortcut id="org.eclipse.jdt.ui.PackageExplorer"/>
          <view
-               id="org.eclipse.ui.views.ResourceNavigator"
-               ratio="0.2f"
-               relationship="left"
-               relative="org.eclipse.ui.editorss">
-         </view>
-         <view
-               id="org.eclipse.jdt.ui.PackageExplorer"
-               relationship="stack"
-               relative="org.eclipse.ui.views.ResourceNavigator"
-               visible="false"/>
-         <view
                closeable="false"
                id="org.eclipse.actf.visualization.ui.report.views.SummaryReportView"
                ratio="0.7f"
