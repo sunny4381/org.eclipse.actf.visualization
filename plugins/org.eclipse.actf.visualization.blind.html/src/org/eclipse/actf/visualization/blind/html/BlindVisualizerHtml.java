@@ -58,13 +58,10 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 	public static final int FRAME = 1;
 
-	private static final String ORIG_HTML_FILE = "origSource.html";
-
-	private static final String IE_HTML_FILE = "ieSource.html";
-
-	private static final String MAPPED_HTML_FILE_PRE = "MappedHTML";
-
-	private static final String HTML_SOURCE_FILE = "source.html";
+	private static final String ORIG_HTML_FILE = "origSource.html"; //$NON-NLS-1$
+	private static final String IE_HTML_FILE = "ieSource.html"; //$NON-NLS-1$
+	private static final String MAPPED_HTML_FILE_PRE = "MappedHTML"; //$NON-NLS-1$
+	private static final String HTML_SOURCE_FILE = "source.html"; //$NON-NLS-1$
 
 	private IWebBrowserACTF webBrowser;
 
@@ -93,12 +90,12 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 		File srcFile;
 		File liveFile;
 		File targetFile;
-		
 
 		try {
 
 			srcFile = webBrowser.saveOriginalDocument(tmpDirS + ORIG_HTML_FILE);
-			liveFile = webBrowser.saveDocumentAsHTMLFile(tmpDirS + IE_HTML_FILE);
+			liveFile = webBrowser
+					.saveDocumentAsHTMLFile(tmpDirS + IE_HTML_FILE);
 			// for srcViewer
 			webBrowser.saveOriginalDocument(tmpDirS + HTML_SOURCE_FILE);
 
@@ -142,13 +139,13 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 				originalDocument = tmpHtmlParser.getDocument();
 
 				targetFile = liveFile;
-				
+
 			} else {
 				htmlParser.parse(new FileInputStream(targetFileName));
 				document = htmlParser.getDocument();
 				originalDocument = document;
 				ieDom = webBrowser.getLiveDocument();
-				
+
 				targetFile = srcFile;
 			}
 			// System.out.println(document+" "+ _originalDom+" "+ ieDom);
@@ -161,7 +158,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 				hasFrame = true;
 			}
 
-			setStatusMessage(Messages.BlindView_Now_processing); // //$NON-NLS-1$
+			setStatusMessage(Messages.BlindView_Now_processing); //
 
 			pageData = new PageData();
 
@@ -239,7 +236,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 			// TODO support blind biz -> visitor
 			for (int i = 0; i < tmpResults.size(); i++) {
-				IProblemItem tmpItem = (IProblemItem) tmpResults.get(i);
+				IProblemItem tmpItem = tmpResults.get(i);
 				HighlightTargetNodeInfo nodeInfo = tmpItem
 						.getHighlightTargetNodeInfo();
 				if (nodeInfo != null) {
@@ -272,7 +269,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 			} catch (Exception e3) {
 				DebugPrintUtil
-						.devOrDebugPrintln("error: saveHtmlDocumentAsUTF8");
+						.devOrDebugPrintln("error: saveHtmlDocumentAsUTF8"); //$NON-NLS-1$
 			}
 
 			if (hasFrame) {
@@ -291,6 +288,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 	}
 
+	@SuppressWarnings("nls")
 	private boolean hasFrameset(Document document, IWebBrowserACTF webBrowser) {
 
 		NodeList framesetNl = document.getElementsByTagName("frameset");
