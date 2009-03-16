@@ -14,6 +14,7 @@ package org.eclipse.actf.visualization.eval.html.statistics;
 /**
  * Contains constants for page statistics
  */
+@SuppressWarnings("nls")
 public interface IPageStatisticsTag {
 
 	String IMAGES = "Images";

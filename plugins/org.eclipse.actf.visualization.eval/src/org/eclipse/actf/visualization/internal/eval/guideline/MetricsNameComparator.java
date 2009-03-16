@@ -17,30 +17,34 @@ import java.util.Comparator;
 
 public class MetricsNameComparator implements Comparator<String> {
 
-    public int compare(String s1, String s2) {
+    private static final String NAVIGABILITY = "navigability"; //$NON-NLS-1$
+	private static final String LISTENABILITY = "listenability"; //$NON-NLS-1$
+	private static final String COMPLIANCE = "compliance"; //$NON-NLS-1$
+
+	public int compare(String s1, String s2) {
         
         if(s1.equalsIgnoreCase(s2)){
             return(0);
         }
         
-        if(s1.equalsIgnoreCase("compliance")){
+        if(s1.equalsIgnoreCase(COMPLIANCE)){
             return(-1);
         }
-        if(s2.equalsIgnoreCase("compliance")){
+        if(s2.equalsIgnoreCase(COMPLIANCE)){
             return(1);
         }
         
-        if(s1.equalsIgnoreCase("listenability")){
+        if(s1.equalsIgnoreCase(LISTENABILITY)){
             return(-1);
         }
-        if(s2.equalsIgnoreCase("listenability")){
+        if(s2.equalsIgnoreCase(LISTENABILITY)){
             return(1);
         }
         
-        if(s1.equalsIgnoreCase("navigability")){
+        if(s1.equalsIgnoreCase(NAVIGABILITY)){
             return(-1);
         }
-        if(s2.equalsIgnoreCase("navigability")){
+        if(s2.equalsIgnoreCase(NAVIGABILITY)){
             return(1);
         }
         

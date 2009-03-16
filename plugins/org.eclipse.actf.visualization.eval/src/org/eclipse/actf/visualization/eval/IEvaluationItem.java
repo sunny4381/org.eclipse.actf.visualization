@@ -35,17 +35,17 @@ public interface IEvaluationItem {
 	/**
 	 * String for error severity
 	 */
-	public static final String SEV_ERROR_STR = "error";
+	public static final String SEV_ERROR_STR = "error"; //$NON-NLS-1$
 
 	/**
 	 * String for warning severity
 	 */
-	public static final String SEV_WARNING_STR = "warning";
+	public static final String SEV_WARNING_STR = "warning"; //$NON-NLS-1$
 
 	/**
 	 * String for informational severity
 	 */
-	public static final String SEV_INFO_STR = "info";
+	public static final String SEV_INFO_STR = "info"; //$NON-NLS-1$
 
 	/**
 	 * @return ID of evaluation item

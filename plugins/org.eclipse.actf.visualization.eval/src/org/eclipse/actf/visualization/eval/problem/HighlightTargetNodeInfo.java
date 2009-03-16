@@ -225,7 +225,7 @@ public class HighlightTargetNodeInfo {
 			try {
 				String targetId = ((Element) targetN)
 						.getAttribute(Html2ViewMapData.ACTF_ID);
-				if (!targetId.equals("")) {
+				if (!targetId.equals("")) { //$NON-NLS-1$
 					int target = Integer.parseInt(targetId);
 					if (target > -1 && target < html2ViewMapDataV.size()) {
 						Html2ViewMapData h2vmd = html2ViewMapDataV.get(target);

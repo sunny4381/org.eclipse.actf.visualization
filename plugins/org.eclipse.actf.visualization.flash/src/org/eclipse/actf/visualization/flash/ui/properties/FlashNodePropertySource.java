@@ -52,7 +52,7 @@ public class FlashNodePropertySource implements IPropertySource, IFlashConst {
 			new PropertyDescriptor(ASNODE_IS_OPAQUE_OBJECT,
 					ASNODE_IS_OPAQUE_OBJECT),
 			new PropertyDescriptor(ASNODE_IS_INPUTABLE, ASNODE_IS_INPUTABLE),
-			new PropertyDescriptor(ATTR_WMODE, ATTR_WMODE) // 15 //$NON-NLS-1$
+			new PropertyDescriptor(ATTR_WMODE, ATTR_WMODE) // 15 
 	};
 
 	public FlashNodePropertySource(IASNode flashNode) {
@@ -104,10 +104,10 @@ public class FlashNodePropertySource implements IPropertySource, IFlashConst {
 			strValue = flashNode.getTitle();
 		} else if (PID_LOCATION.equals(id)) {
 			try {
-				double x = flashNode.getX(); //$NON-NLS-1$
-				double y = flashNode.getY(); //$NON-NLS-1$
-				double w = flashNode.getWidth(); //$NON-NLS-1$
-				double h = flashNode.getHeight(); //$NON-NLS-1$
+				double x = flashNode.getX(); 
+				double y = flashNode.getY(); 
+				double w = flashNode.getWidth(); 
+				double h = flashNode.getHeight(); 
 				if (Double.NaN != x) {
 					strValue = x
 							+ ", " + y + ", " + (x + w) + ", " + (y + h) + " (width=" + w + ", height=" + h + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
@@ -123,7 +123,7 @@ public class FlashNodePropertySource implements IPropertySource, IFlashConst {
 				strValue = String.valueOf(flashNode.getTabIndex());
 			}
 		} else if (ASNODE_ACCINFO.equals(id)) {
-			ASAccInfo accInfo = flashNode.getAccInfo(); //$NON-NLS-1$
+			ASAccInfo accInfo = flashNode.getAccInfo(); 
 			if (null != accInfo) {
 				AttributePropertySource attrSource = new AttributePropertySource(
 						null, accInfo.toString());
@@ -132,9 +132,9 @@ public class FlashNodePropertySource implements IPropertySource, IFlashConst {
 					Object keyValue = accInfo.get(keyName);
 					if (keyValue instanceof Integer) {
 						int intValue = ((Integer) keyValue).intValue();
-						if (IFlashConst.ACCINFO_ROLE.equals(keyName)) { //$NON-NLS-1$
+						if (IFlashConst.ACCINFO_ROLE.equals(keyName)) { 
 							keyValue = MSAA.getRoleText(intValue);
-						} else if (IFlashConst.ACCINFO_STATE.equals(keyName)) { //$NON-NLS-1$
+						} else if (IFlashConst.ACCINFO_STATE.equals(keyName)) { 
 							keyValue = MSAA.getStateText(intValue);
 						}
 					}
@@ -148,7 +148,7 @@ public class FlashNodePropertySource implements IPropertySource, IFlashConst {
 				}
 				return attrSource;
 			}
-		} else if (null == strValue) {
+		} else {
 			Object obj = flashNode.getObject(id.toString());
 			if (null != obj) {
 				strValue = obj.toString();

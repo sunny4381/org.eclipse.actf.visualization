@@ -151,6 +151,7 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 	 * 
 	 * @return page data information as XML fragment
 	 */
+	@SuppressWarnings("nls")
 	public String getReportFragment() {
 		StringBuffer tmpSB = new StringBuffer();
 		tmpSB.append("<" + IMAGES + " " + TOTAL + "=\"" + totalImageNumber
@@ -192,7 +193,7 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 	}
 
 	private String getAttr(String name, String value) {
-		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" "));
+		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" ")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -446,16 +447,16 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemVisitor#visit(org.eclipse.actf.visualization.eval.problem.IProblemItem)
+	 * @see
+	 * org.eclipse.actf.visualization.eval.problem.IProblemItemVisitor#visit
+	 * (org.eclipse.actf.visualization.eval.problem.IProblemItem)
 	 */
 	public void visit(IProblemItem item) {
-		ImageStatData imageData = (ImageStatData) imageDataMap.get(item
-				.getTargetNode());
+		ImageStatData imageData = imageDataMap.get(item.getTargetNode());
 		if (imageData != null) {
 			imageData.addProblemItem(item);
 		} else {
-			imageData = (ImageStatData) linkImageDataMap.get(item
-					.getTargetNode());
+			imageData = linkImageDataMap.get(item.getTargetNode());
 			if (imageData != null) {// TODO check
 				imageData.addProblemItem(item);
 			}

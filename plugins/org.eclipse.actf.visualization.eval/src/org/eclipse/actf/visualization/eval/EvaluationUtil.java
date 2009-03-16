@@ -22,7 +22,7 @@ public class EvaluationUtil {
 	/**
 	 * The plug-in ID
 	 */
-	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.eval";
+	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.eval"; //$NON-NLS-1$
 
 	/**
 	 * Check user selection of target DOM (original source or live)

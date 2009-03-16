@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.visualization.eval.preferences;
 
+@SuppressWarnings("nls")
 public interface IPreferenceConstants {
 
 	// Accessibility Check Properties

@@ -22,7 +22,7 @@ public class GuidelineItemDescription {
 
 	private static final String BUNDLE_NAME = "resources/description"; //$NON-NLS-1$
 
-	private static final String EMPTY_STRING = "";
+	private static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle
 			.getBundle(BUNDLE_NAME);
@@ -48,7 +48,7 @@ public class GuidelineItemDescription {
 					return result;
 				}
 			}
-			DebugPrintUtil.devOrDebugPrintln("Can't find description: " + '!' + key + '!');
+			DebugPrintUtil.devOrDebugPrintln("Can't find description: " + '!' + key + '!'); //$NON-NLS-1$
 		}
 		return (result);
 	}

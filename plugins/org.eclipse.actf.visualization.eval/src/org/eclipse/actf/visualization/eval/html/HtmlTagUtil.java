@@ -22,6 +22,7 @@ import org.w3c.dom.NodeList;
 /**
  * Utility class for HTML evaluation.
  */
+@SuppressWarnings("nls")
 public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
 
 	public static final String ATTR_HREF = "href";
@@ -131,7 +132,7 @@ public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
 			} else {
 				curNode = null;
 				while ((curNode == null) && (stack.size() > 0)) {
-					curNode = (Node) stack.pop();
+					curNode = stack.pop();
 					curNode = curNode.getNextSibling();
 				}
 			}
@@ -164,7 +165,7 @@ public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
 			} else {
 				curNode = null;
 				while ((curNode == null) && (stack.size() > 0)) {
-					curNode = (Node) stack.pop();
+					curNode = stack.pop();
 					curNode = curNode.getNextSibling();
 				}
 			}
@@ -196,7 +197,7 @@ public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
 			} else {
 				curNode = null;
 				while ((curNode == null) && (stack.size() > 0)) {
-					curNode = (Node) stack.pop();
+					curNode = stack.pop();
 					curNode = curNode.getNextSibling();
 				}
 			}

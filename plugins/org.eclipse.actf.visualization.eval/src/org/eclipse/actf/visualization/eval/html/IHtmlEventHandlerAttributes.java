@@ -14,6 +14,7 @@ package org.eclipse.actf.visualization.eval.html;
 /**
  * Interface contains HTML event handler attributes.
  */
+@SuppressWarnings("nls")
 public interface IHtmlEventHandlerAttributes {
 	public static final String ATTR_ONKEYDOWN = "onkeydown";
 

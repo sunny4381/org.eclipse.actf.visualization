@@ -52,11 +52,11 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
 
     private int _index;
     
-    private String _name = "";    
+    private String _name = "";     //$NON-NLS-1$
     
-    private String _category = "";
+    private String _category = ""; //$NON-NLS-1$
 
-    private String _description = "";
+    private String _description = ""; //$NON-NLS-1$
     
     //TODO use extension (CheckerInfoProvider)
     
@@ -82,7 +82,8 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
         return this._guideline;
     }
 
-    public void setName(String name) {
+    @SuppressWarnings("nls")
+	public void setName(String name) {
         this._name = name;
 
         if (null != this._name) {
@@ -109,7 +110,8 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
     }
     
 
-    public Image getGuidelineImage() {
+    @SuppressWarnings("nls")
+	public Image getGuidelineImage() {
 
         switch (getGuideline()) {
         case GUIDELINE_WCAG_P1:

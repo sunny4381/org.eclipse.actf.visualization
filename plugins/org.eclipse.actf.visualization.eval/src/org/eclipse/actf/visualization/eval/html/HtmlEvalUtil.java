@@ -64,10 +64,10 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
-	private static final Object EXP1 = xpathService.compile(".//a[@"
-			+ ATTR_HREF + "]");
+	private static final Object EXP1 = xpathService.compile(".//a[@" //$NON-NLS-1$
+			+ ATTR_HREF + "]"); //$NON-NLS-1$
 	private static final Object EXP2 = xpathService
-			.compile("//h1|//h2|//h3|//h4|//h5|//h6");
+			.compile("//h1|//h2|//h3|//h4|//h5|//h6"); //$NON-NLS-1$
 
 	private Document target;
 
@@ -216,6 +216,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 * @param isLive
 	 *            true if target is live DOM
 	 */
+	@SuppressWarnings("nls")
 	public HtmlEvalUtil(Document target, Document resultDoc, String url,
 			Map<Node, Integer> document2IdMap, Document srcDom,
 			Document liveDom, PageData pageData, int invisibleElementCount,
@@ -437,6 +438,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		return result;
 	}
 
+	@SuppressWarnings("nls")
 	private void collectScriptElements() {
 		script_elements = getElementsArray(target, "script");
 

@@ -25,6 +25,7 @@ public class XMLStringUtil {
 	 *            the target String
 	 * @return canonicalized String
 	 */
+	@SuppressWarnings("nls")
 	public static String canonicalize(String targetS) {
 		return (targetS.replaceAll("\\p{Cntrl}", "").replaceAll("&", "&amp;")
 				.replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll(

@@ -18,6 +18,7 @@ import org.w3c.dom.Element;
 /**
  * FlashData is used for flash content information
  */
+@SuppressWarnings("nls")
 public class FlashData implements IPageStatisticsTag {
 
 	public static final String FLASH_IS_OBJECT = "isObject";

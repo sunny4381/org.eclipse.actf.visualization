@@ -42,7 +42,7 @@ public class FlashPlayerPropertySource implements IPropertySource, IFlashConst {
 			STR_MOVIE = "movie"; // 11 //$NON-NLS-1$
 
 	private static final IPropertyDescriptor[] DESCRIPTORS = new IPropertyDescriptor[] {
-			new PropertyDescriptor(PLAYER_VERSION, "Flash player version"),
+			new PropertyDescriptor(PLAYER_VERSION, "Flash player version"), //$NON-NLS-1$
 			new PropertyDescriptor(PID_STATUS, STR_STATUS),
 			new PropertyDescriptor(PID_ID, STR_ID),
 			new PropertyDescriptor(PID_ALLOW_ACCESS, STR_ALLOW_ACCESS),
@@ -104,7 +104,7 @@ public class FlashPlayerPropertySource implements IPropertySource, IFlashConst {
 		if (null != propertyName) {
 			strValue = flashPlayer.getPlayerProperty(propertyName);
 		}
-		return strValue;// null==strValue ? "null" : strValue; //$NON-NLS-1$
+		return strValue;// null==strValue ? "null" : strValue;
 	}
 
 	public boolean isPropertySet(Object id) {

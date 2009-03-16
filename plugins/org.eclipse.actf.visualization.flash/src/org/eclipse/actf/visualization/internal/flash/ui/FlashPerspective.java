@@ -26,20 +26,20 @@ public class FlashPerspective implements IPerspectiveFactory,
 		layout.setEditorAreaVisible(true);
 
 		IFolderLayout reportFolder = layout.createFolder(
-				"actf.flash.report.folder", IPageLayout.BOTTOM, 0.7f,
+				"actf.flash.report.folder", IPageLayout.BOTTOM, 0.7f, //$NON-NLS-1$
 				editorArea);
 		IFolderLayout rightReportFolder = layout.createFolder(
-				"actf.flash.report.left.folder", IPageLayout.RIGHT, 0.5f,
-				"actf.flash.report.folder");
+				"actf.flash.report.left.folder", IPageLayout.RIGHT, 0.5f, //$NON-NLS-1$
+				"actf.flash.report.folder"); //$NON-NLS-1$
 		IFolderLayout simulatorFolder = layout.createFolder(
-				"actf.flash.simulator.folder", IPageLayout.RIGHT, 0.5f,
+				"actf.flash.simulator.folder", IPageLayout.RIGHT, 0.5f, //$NON-NLS-1$
 				editorArea);
 		IFolderLayout outlineFolder = layout.createFolder(
-				"actf.flash.outline.folder", IPageLayout.RIGHT, 0.5f,
-				"actf.flash.simulator.folder");
+				"actf.flash.outline.folder", IPageLayout.RIGHT, 0.5f, //$NON-NLS-1$
+				"actf.flash.simulator.folder"); //$NON-NLS-1$
 		IFolderLayout flashDomFolder = layout.createFolder(
-				"actf.flash.flashdom.folder", IPageLayout.BOTTOM, 0.5f,
-				"actf.flash.outline.folder");
+				"actf.flash.flashdom.folder", IPageLayout.BOTTOM, 0.5f, //$NON-NLS-1$
+				"actf.flash.outline.folder"); //$NON-NLS-1$
 
 		reportFolder.addView(IGuiViewIDs.ID_EVENTVIEW);
 		rightReportFolder.addView(IGuiViewIDs.ID_PROPERTIESVIEW);

@@ -49,7 +49,7 @@ public class GuidelineData implements IGuidelineData {
 
 	private Map<String, IGuidelineItem> guidelineItemMap = new HashMap<String, IGuidelineItem>();
 
-	private String currentMIMEtype = "text/html";
+	private String currentMIMEtype = "text/html"; //$NON-NLS-1$
 
 	/**
 	 * @param guidelineName
@@ -91,7 +91,7 @@ public class GuidelineData implements IGuidelineData {
 
 		// TODO
 		if (levelStr == null) {
-			this.levelStr = "";
+			this.levelStr = ""; //$NON-NLS-1$
 		} else {
 			this.levelStr = levelStr;
 		}
@@ -107,7 +107,7 @@ public class GuidelineData implements IGuidelineData {
 	 * @see org.eclipse.actf.visualization.eval.guideline.IGuidelineData#getGuidelineItem(java.lang.String)
 	 */
 	public IGuidelineItem getGuidelineItem(String id) {
-		return ((IGuidelineItem) guidelineItemMap.get(id));
+		return guidelineItemMap.get(id);
 	}
 
 	/* (non-Javadoc)

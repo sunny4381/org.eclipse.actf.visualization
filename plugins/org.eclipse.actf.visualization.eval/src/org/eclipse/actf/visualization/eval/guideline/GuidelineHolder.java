@@ -45,6 +45,8 @@ import org.osgi.framework.Bundle;
  */
 public class GuidelineHolder {
 
+	private static final String UNDERSCORE = "_"; //$NON-NLS-1$
+
 	private static GuidelineHolder INSTANCE = null;
 
 	private IPreferenceStore preferenceStore = EvaluationPlugin.getDefault()
@@ -98,7 +100,7 @@ public class GuidelineHolder {
 
 	private Set<IGuidelineSlectionChangedListener> guidelineSelectionChangedListenerSet = new HashSet<IGuidelineSlectionChangedListener>();
 
-	private String currentMimeType = "text/html";
+	private String currentMimeType = "text/html"; //$NON-NLS-1$
 
 	// TODO guideline base -> check item base On/Off
 
@@ -106,7 +108,7 @@ public class GuidelineHolder {
 	private GuidelineHolder() {
 		Bundle bundle = EvaluationPlugin.getDefault().getBundle();
 		Enumeration<URL> guidelines = bundle.findEntries(
-				"resources/guidelines", "*.xml", false);
+				"resources/guidelines", "*.xml", false); //$NON-NLS-1$ //$NON-NLS-2$
 
 		InputStream is;
 
@@ -123,7 +125,7 @@ public class GuidelineHolder {
 			if (null != iss) {
 				DebugPrintUtil.devOrDebugPrintln(checkerInfo.getClass()
 						.getName()
-						+ ":" + iss.length);
+						+ ":" + iss.length); //$NON-NLS-1$
 				for (InputStream tmpIs : iss) {
 					readGuidelines(tmpIs);
 				}
@@ -143,8 +145,8 @@ public class GuidelineHolder {
 				for (int j = 0; j < levels.length; j++) {
 					GuidelineData subData = data.getSubLevelData(levels[j]);
 					tmpV.add(subData);
-					String name = subData.getGuidelineName() + " ("
-							+ subData.getLevelStr() + ")";
+					String name = subData.getGuidelineName() + " (" //$NON-NLS-1$
+							+ subData.getLevelStr() + ")"; //$NON-NLS-1$
 					tmpV2.add(name);
 				}
 			} else {
@@ -161,7 +163,7 @@ public class GuidelineHolder {
 
 		try {
 			is = FileLocator.openStream(bundle, new Path(
-					"resources/checkitem.xml"), false);
+					"resources/checkitem.xml"), false); //$NON-NLS-1$
 			CheckItemReader cir = CheckItemReader.parse(is, this);
 			Set<String> metricsNameSet = new HashSet<String>();
 			if (cir.isSucceed()) {
@@ -171,14 +173,17 @@ public class GuidelineHolder {
 				for (ICheckerInfoProvider checkerInfo : checkerInfos) {
 					InputStream[] iss = checkerInfo.getCheckItemInputStreams();
 					if (null != iss) {
-						System.out.println(checkerInfo.getClass().getName()
-								+ ":" + iss.length);
+						DebugPrintUtil
+						.devOrDebugPrintln(checkerInfo.getClass().getName()
+								+ ":" + iss.length); //$NON-NLS-1$
 						for (InputStream tmpIs : iss) {
 							try {
 								cir = CheckItemReader.parse(tmpIs, this);
 							} catch (Exception e) {
-								System.out.println("can't parse: "
-										+ checkerInfo.getClass().getName());
+								DebugPrintUtil
+										.devOrDebugPrintln("can't parse: " //$NON-NLS-1$
+												+ checkerInfo.getClass()
+														.getName());
 							}
 							if (cir.isSucceed()) {
 								checkitemMap.putAll(cir.getCheckItemMap());
@@ -254,8 +259,7 @@ public class GuidelineHolder {
 	 */
 	public IGuidelineItem getGuidelineItem(String guidelineName, String id) {
 		if (guidelineMaps.containsKey(guidelineName)) {
-			IGuidelineData data = (IGuidelineData) guidelineMaps
-					.get(guidelineName);
+			IGuidelineData data = guidelineMaps.get(guidelineName);
 			return (data.getGuidelineItem(id));
 		}
 		return (null);
@@ -326,7 +330,7 @@ public class GuidelineHolder {
 
 			for (int i = 0; i < guidelineNameArray.length; i++) {
 				if (guidelineMaps.containsKey(guidelineNameArray[i])) {
-					GuidelineData data = (GuidelineData) guidelineMaps
+					GuidelineData data = guidelineMaps
 							.get(guidelineNameArray[i]);
 					if (levelArray[i] == null) {
 						data.setEnabled(true);
@@ -466,7 +470,7 @@ public class GuidelineHolder {
 				String[] subLevels = data.getLevels();
 				if (subLevels.length == 0) {
 					String tmpS = ICheckerPreferenceConstants.GUIDELINE_PREFIX
-							+ data.getGuidelineName() + "_";
+							+ data.getGuidelineName() + UNDERSCORE;
 					if (preferenceStore.contains(tmpS)
 							&& preferenceStore.getBoolean(tmpS)) {
 						data.setEnabled(false);
@@ -478,7 +482,7 @@ public class GuidelineHolder {
 						GuidelineData subData = data
 								.getSubLevelData(subLevels[j]);
 						String tmpS = ICheckerPreferenceConstants.GUIDELINE_PREFIX
-								+ subData.getGuidelineName() + "_" + j;
+								+ subData.getGuidelineName() + UNDERSCORE + j;
 						if (preferenceStore.contains(tmpS)
 								|| preferenceStore.getBoolean(tmpS)) {
 							subData.setEnabled(false);
@@ -501,16 +505,16 @@ public class GuidelineHolder {
 				if (subLevels.length == 0) {
 					preferenceStore.setValue(
 							ICheckerPreferenceConstants.GUIDELINE_PREFIX
-									+ data.getGuidelineName() + "_", !data
-									.isEnabled());
+									+ data.getGuidelineName() + UNDERSCORE,
+							!data.isEnabled());
 				} else {
 					for (int j = 0; j < subLevels.length; j++) {
 						IGuidelineData subData = data
 								.getSubLevelData(subLevels[j]);
 						preferenceStore.setValue(
 								ICheckerPreferenceConstants.GUIDELINE_PREFIX
-										+ subData.getGuidelineName() + "_" + j,
-								!subData.isEnabled());
+										+ subData.getGuidelineName()
+										+ UNDERSCORE + j, !subData.isEnabled());
 					}
 				}
 			}
@@ -590,8 +594,7 @@ public class GuidelineHolder {
 	 */
 	public boolean isMatchedInTopLevel(IGuidelineItem target) {
 		if (guidelineMaps.containsKey(target.getGuidelineName())) {
-			IGuidelineData data = (IGuidelineData) guidelineMaps.get(target
-					.getGuidelineName());
+			IGuidelineData data = guidelineMaps.get(target.getGuidelineName());
 			return (data.isEnabled() && data.isTargetMIMEtype(currentMimeType));
 		}
 		return (false);

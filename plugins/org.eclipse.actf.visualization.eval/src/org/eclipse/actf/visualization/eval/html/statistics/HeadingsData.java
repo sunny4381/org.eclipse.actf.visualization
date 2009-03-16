@@ -118,7 +118,7 @@ public class HeadingsData implements IPageStatisticsTag {
 	}
 
 	private String getAttr(String name, String value) {
-		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" "));
+		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" ")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -127,8 +127,8 @@ public class HeadingsData implements IPageStatisticsTag {
 	 * @return heading tag information as XML fragment
 	 */
 	public String getItemXML() {
-		return ("<" + HEADING + " " + getAttr(NAME, tagName)
-				+ getAttr(VALUE, text) + getAttr(XPATH, xpath) + " />");
+		return ("<" + HEADING + " " + getAttr(NAME, tagName) //$NON-NLS-1$ //$NON-NLS-2$
+				+ getAttr(VALUE, text) + getAttr(XPATH, xpath) + " />"); //$NON-NLS-1$
 	}
 
 	/**
@@ -149,6 +149,6 @@ public class HeadingsData implements IPageStatisticsTag {
 			return (new HeadingsData(tmpName, tmpValue, tmpXPath));
 		}
 		throw (new StatisticsDataFormatException(
-				"Invalid item format: HeadingsData"));
+				"Invalid item format: HeadingsData")); //$NON-NLS-1$
 	}
 }

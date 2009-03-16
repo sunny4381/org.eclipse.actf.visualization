@@ -53,7 +53,8 @@ public class GuidelineTreeItemType implements IGuidelineTreeItem {
     }
     
 
-    public String getTypeStr() {
+    @SuppressWarnings("nls")
+	public String getTypeStr() {
         
         switch (this._type) {
         case TYPE_HTML:
@@ -68,7 +69,8 @@ public class GuidelineTreeItemType implements IGuidelineTreeItem {
     }
     
 
-    public Image getTypeImage() {
+    @SuppressWarnings("nls")
+	public Image getTypeImage() {
 
         switch (this._type) {
         case TYPE_HTML:

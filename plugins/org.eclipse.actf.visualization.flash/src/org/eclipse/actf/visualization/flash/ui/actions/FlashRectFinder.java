@@ -59,10 +59,10 @@ public class FlashRectFinder {
 	public void find(Shell shell) {
 		if (viewVisible) {
 			if (null == msaaRect) {
-				MessageDialog.openInformation(shell, Messages.flash_flash_dom, //$NON-NLS-1$
+				MessageDialog.openInformation(shell, Messages.flash_flash_dom, 
 						Messages.flash_error_no_location); 
 			} else if (null == playerWindow) {
-				MessageDialog.openInformation(shell, Messages.flash_flash_dom, //$NON-NLS-1$
+				MessageDialog.openInformation(shell, Messages.flash_flash_dom, 
 						Messages.flash_error_select_flash); 
 			} else {
 				reCalculateRect();
@@ -78,7 +78,6 @@ public class FlashRectFinder {
 		}
 	}
 
-	@SuppressWarnings("restriction")
 	private void reCalculateRect() {
 		IDispatch idisp = FlashMSAAUtil.getHtmlElementFromPtr(playerWindow
 				.getPtr());

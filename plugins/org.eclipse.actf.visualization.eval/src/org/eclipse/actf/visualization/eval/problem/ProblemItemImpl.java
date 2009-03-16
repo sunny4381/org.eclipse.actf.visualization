@@ -11,6 +11,7 @@
 
 package org.eclipse.actf.visualization.eval.problem;
 
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.internal.eval.EvaluationItemImpl;
@@ -23,6 +24,8 @@ import org.w3c.dom.Node;
  */
 public class ProblemItemImpl implements IProblemItem {
 
+	private static final String NULL_STRING = ""; //$NON-NLS-1$
+
 	private static GuidelineHolder GUIDELINE_HOLDER = GuidelineHolder
 			.getInstance();
 
@@ -30,7 +33,7 @@ public class ProblemItemImpl implements IProblemItem {
 
 	private IEvaluationItem checkItem;
 
-	private String description = "";
+	private String description = NULL_STRING;
 
 	private int serialNumber = -1;
 
@@ -44,9 +47,9 @@ public class ProblemItemImpl implements IProblemItem {
 
 	private Node targetNode = null;
 
-	protected String targetStringForHPB = "";
+	protected String targetStringForHPB = NULL_STRING;
 
-	protected String targetString = "";
+	protected String targetString = NULL_STRING;
 
 	protected int subType;
 
@@ -59,13 +62,15 @@ public class ProblemItemImpl implements IProblemItem {
 	 *            evaluation item ID
 	 * @see GuidelineHolder#getEvaluationItem(String)
 	 */
+	@SuppressWarnings("nls")
 	public ProblemItemImpl(String id) {
 		checkItem = GUIDELINE_HOLDER.getEvaluationItem(id);
 
 		if (checkItem == null) {
 			checkItem = new EvaluationItemImpl("unknown",
 					EvaluationItemImpl.SEV_INFO_STR);
-			System.err.println("Problem Item: unknown id \"" + id + "\"");
+			DebugPrintUtil.devOrDebugPrintln("Problem Item: unknown id \"" + id
+					+ "\"");
 
 		} else {
 			description = checkItem.createDescription();
@@ -196,7 +201,7 @@ public class ProblemItemImpl implements IProblemItem {
 		if (curLine > -1) {
 			return (Integer.toString(curLine));
 		} else {
-			return ("");
+			return NULL_STRING;
 		}
 	}
 
@@ -207,7 +212,7 @@ public class ProblemItemImpl implements IProblemItem {
 			for (int i = 0; i < targetSources.length; i++) {
 				int tmp = targetSources[i].getStartLine() + 1;
 				tmpSB.append(tmp);
-				tmpSB.append(", ");
+				tmpSB.append(", "); //$NON-NLS-1$
 			}
 			String result = tmpSB.substring(0, tmpSB.length() - 2);
 			return result;
@@ -215,7 +220,7 @@ public class ProblemItemImpl implements IProblemItem {
 		if (line > -1) {
 			return (Integer.toString(line));
 		} else {
-			return ("");
+			return NULL_STRING;
 		}
 	}
 

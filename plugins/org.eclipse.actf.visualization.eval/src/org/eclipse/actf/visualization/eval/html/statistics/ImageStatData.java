@@ -31,21 +31,21 @@ import org.xml.sax.Attributes;
  */
 public class ImageStatData implements IPageStatisticsTag {
 
-	public static final String ISMAP = "ismap";
+	public static final String ISMAP = "ismap"; //$NON-NLS-1$
 
-	public static final String USEMAP = "usemap";
+	public static final String USEMAP = "usemap"; //$NON-NLS-1$
 
-	public static final String LONGDESC = "longdesc";
+	public static final String LONGDESC = "longdesc"; //$NON-NLS-1$
 
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
-	private static final Object EXP1 = xpathService.compile("ancestor::a");
+	private static final Object EXP1 = xpathService.compile("ancestor::a"); //$NON-NLS-1$
 
-	protected String altS = "";
+	protected String altS = ""; //$NON-NLS-1$
 
 	protected Element ancestorLink = null;
 
-	protected String destUrlS = "";
+	protected String destUrlS = ""; //$NON-NLS-1$
 
 	protected boolean hasAlt = false;
 
@@ -57,24 +57,24 @@ public class ImageStatData implements IPageStatisticsTag {
 
 	protected boolean hasWidth = false;
 
-	protected String heightS = "";
+	protected String heightS = ""; //$NON-NLS-1$
 
 	protected boolean isInLink = false;
 
 	protected boolean isMap = false;
 
-	protected String longDescS = "";
+	protected String longDescS = ""; //$NON-NLS-1$
 
 	// for problem statistics
 	protected Vector<IProblemItem> problemV = new Vector<IProblemItem>();
 
-	protected String srcS = "";
+	protected String srcS = ""; //$NON-NLS-1$
 
-	protected String urlS = "";
+	protected String urlS = ""; //$NON-NLS-1$
 
-	protected String useMapS = "";
+	protected String useMapS = ""; //$NON-NLS-1$
 
-	protected String widthS = "";
+	protected String widthS = ""; //$NON-NLS-1$
 
 	protected ImageStatData() {
 	}
@@ -149,7 +149,7 @@ public class ImageStatData implements IPageStatisticsTag {
 
 		if (idS != null) {
 			IProblemItem tmpItem = new ProblemItemImpl(idS);
-			if (!tmpItem.getId().equals("unknown")) {
+			if (!tmpItem.getId().equals("unknown")) { //$NON-NLS-1$
 				if (targetS != null) {
 					tmpItem.setTargetStringForExport(targetS);
 				}
@@ -190,7 +190,7 @@ public class ImageStatData implements IPageStatisticsTag {
 	}
 
 	private String getAttr(String name, String value) {
-		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" "));
+		return ((name + "=\"" + XMLStringUtil.canonicalize(value) + "\" ")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -213,6 +213,7 @@ public class ImageStatData implements IPageStatisticsTag {
 	 * 
 	 * @return image information as XML fragment
 	 */
+	@SuppressWarnings("nls")
 	public String getItemXML() {
 		StringBuffer tmpSB = new StringBuffer("<" + IMAGE + " "
 				+ getAttr(SRC, srcS) + getAttr(URL, urlS)
@@ -241,7 +242,7 @@ public class ImageStatData implements IPageStatisticsTag {
 		} else {
 			tmpSB.append(" >" + FileUtils.LINE_SEP);
 			for (int i = 0; i < size; i++) {
-				IProblemItem pItem = (IProblemItem) problemV.get(i);
+				IProblemItem pItem = problemV.get(i);
 				tmpSB.append("<" + ERROR + " " + getAttr(ID, pItem.getId())
 						+ getAttr(TARGET_STRING, pItem.getTargetStringForExport())
 						+ " />" + FileUtils.LINE_SEP);

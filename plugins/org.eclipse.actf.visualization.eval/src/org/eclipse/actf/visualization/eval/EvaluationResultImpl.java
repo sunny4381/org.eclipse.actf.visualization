@@ -77,14 +77,14 @@ public class EvaluationResultImpl implements IEvaluationResult {
 
 	public String getSummaryReportText() {
 		if (_summaryReportText == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		return this._summaryReportText;
 	}
 
 	public String getSummaryReportUrl() {
 		if (_summaryReportUrl == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		return _summaryReportUrl;
 	}
@@ -101,7 +101,7 @@ public class EvaluationResultImpl implements IEvaluationResult {
 
 	public String getTargetUrl() {
 		if (_targetUrl == null) {
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 		return _targetUrl;
 	}

@@ -21,6 +21,7 @@ import java.util.Vector;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
@@ -29,8 +30,7 @@ import org.eclipse.actf.visualization.internal.eval.GuidelineItemImpl;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
-
-
+@SuppressWarnings("nls")
 public class CheckItemReader extends DefaultHandler {
 	private static final String CHECKER_CONFIG = "checker-config";
 
@@ -56,7 +56,7 @@ public class CheckItemReader extends DefaultHandler {
 
 	private static final String DESCRIPTION = "description";
 
-//	private static final String LANG = "lang";
+	// private static final String LANG = "lang";
 
 	private static final short IN_DEFAULT = 0;
 
@@ -94,7 +94,8 @@ public class CheckItemReader extends DefaultHandler {
 
 	private Vector<IGuidelineItem> guidelineV = new Vector<IGuidelineItem>();
 
-	private Set<String> metricsSet = new TreeSet<String>(new MetricsNameComparator()); 
+	private Set<String> metricsSet = new TreeSet<String>(
+			new MetricsNameComparator());
 
 	// comparator
 	// &
@@ -138,7 +139,7 @@ public class CheckItemReader extends DefaultHandler {
 		} else if (qName.equals(CHECK_ITEM)) {
 			checkItemMap.put(curItem.getId(), curItem);
 			if (!statusStack.isEmpty()) {
-				status = ((Short) statusStack.pop()).shortValue();
+				status = (statusStack.pop()).shortValue();
 			}
 		} else if (qName.equals(GUIDELINE)) {
 
@@ -147,7 +148,7 @@ public class CheckItemReader extends DefaultHandler {
 			curItem.setGuidelines(gis);
 
 			if (!statusStack.isEmpty()) {
-				status = ((Short) statusStack.pop()).shortValue();
+				status = (statusStack.pop()).shortValue();
 			}
 		} else if (qName.equals(METRICS)) {
 
@@ -156,19 +157,19 @@ public class CheckItemReader extends DefaultHandler {
 			curItem.setMetrics(mis);
 
 			if (!statusStack.isEmpty()) {
-				status = ((Short) statusStack.pop()).shortValue();
+				status = (statusStack.pop()).shortValue();
 			}
 		} else if (qName.equals(DESCRIPTION)) {
 			// TODO
 			if (!statusStack.isEmpty()) {
-				status = ((Short) statusStack.pop()).shortValue();
+				status = (statusStack.pop()).shortValue();
 			}
 		} else if (qName.equals(CHECKER_CONFIG)) {
 
 		} else {
 
 			// in metrics
-			System.out.println("unknown element(end): " + qName);
+			DebugPrintUtil.devOrDebugPrintln("unknown element(end): " + qName);
 		}
 	}
 
@@ -181,11 +182,13 @@ public class CheckItemReader extends DefaultHandler {
 	/**
 	 * 
 	 */
-	public void startElement(String uri, String localName, String qName, Attributes attributes) {
+	public void startElement(String uri, String localName, String qName,
+			Attributes attributes) {
 
 		curValue = "";
 		if (qName.equals(GITEM)) {
-			IGuidelineItem gi = guidelineHolder.getGuidelineItem(getValue(NAME, attributes, true), getValue(ID, attributes, true));
+			IGuidelineItem gi = guidelineHolder.getGuidelineItem(getValue(NAME,
+					attributes, true), getValue(ID, attributes, true));
 			// System.out.println(getValue(NAME,attributes)+"
 			// "+getValue(ID,attributes)+" : "+gi);
 			if (gi != null) {
@@ -201,7 +204,8 @@ public class CheckItemReader extends DefaultHandler {
 			}
 		} else if (qName.equals(CHECK_ITEM)) {
 
-			curItem = new EvaluationItemImpl(getValue(ID, attributes), getValue(TYPE, attributes));
+			curItem = new EvaluationItemImpl(getValue(ID, attributes),
+					getValue(TYPE, attributes));
 
 			statusStack.push(new Short(status));
 			status = IN_DEFAULT;

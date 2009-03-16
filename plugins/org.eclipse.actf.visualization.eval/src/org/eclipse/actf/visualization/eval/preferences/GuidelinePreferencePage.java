@@ -144,8 +144,8 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 			boolean isHTMLType = false;
 			String[] mimeTypes = guidelineDataArray[i].getMIMEtypes();
 			for (int j = 0; j < mimeTypes.length; j++) {
-				if (mimeTypes[j].equals("text/html")
-						|| mimeTypes[j].equals("application/xhtml+xml")) {
+				if (mimeTypes[j].equals("text/html") //$NON-NLS-1$
+						|| mimeTypes[j].equals("application/xhtml+xml")) { //$NON-NLS-1$
 					isHTMLType = true;
 					break;
 				}
@@ -271,7 +271,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 
 		setParameters();
 
-		if (this._guidelineHolder.isEnabledMetric("Navigability")) {
+		if (this._guidelineHolder.isEnabledMetric("Navigability")) { //$NON-NLS-1$
 
 			IGuidelineData[] datas = this._guidelineHolder
 					.getLeafGuidelineData();
@@ -282,13 +282,13 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 			for (int i = 0; i < datas.length; i++) {
 				if (datas[i].isEnabled()) {
 					if (datas[i].getGuidelineName().matches(
-							"Section508|JIS|IBMGuideline")) {
+							"Section508|JIS|IBMGuideline")) { //$NON-NLS-1$
 						isOtherComp = true;
-					} else if (datas[i].getGuidelineName().equals("WCAG")) {
+					} else if (datas[i].getGuidelineName().equals("WCAG")) { //$NON-NLS-1$
 						isWcagOn = true;
 					}
 				} else {
-					if (datas[i].getGuidelineName().equals("WCAG")) {
+					if (datas[i].getGuidelineName().equals("WCAG")) { //$NON-NLS-1$
 						isWcagOff = true;
 					}
 				}
@@ -302,7 +302,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 				case NavigabilityWarningDialog.ENABLE_ALL:
 					for (int i = 0; i < this._guidelineTreeItems.length; i++) {
 						if (this._guidelineTreeItems[i].getText().indexOf(
-								"WCAG") > -1) {
+								"WCAG") > -1) { //$NON-NLS-1$
 							this._guidelineTreeItems[i].setChecked(true);
 						}
 					}
@@ -310,7 +310,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 				case NavigabilityWarningDialog.DISABLE_NAVIGABILITY:
 					for (int i = 0; i < this._criteriaCheckButtons.length; i++) {
 						if (this._criteriaCheckButtons[i].getText().indexOf(
-								"Navigability") > -1) {
+								"Navigability") > -1) { //$NON-NLS-1$
 							this._criteriaCheckButtons[i].setSelection(false);
 						}
 					}

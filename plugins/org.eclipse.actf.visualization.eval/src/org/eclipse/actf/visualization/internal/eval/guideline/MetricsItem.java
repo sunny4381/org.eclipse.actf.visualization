@@ -13,7 +13,7 @@ package org.eclipse.actf.visualization.internal.eval.guideline;
 
 
 public class MetricsItem {
-    private String metricsName = "";
+    private String metricsName = ""; //$NON-NLS-1$
     
     private int score = 0;
     
@@ -57,7 +57,7 @@ public class MetricsItem {
     }
     
     public String toString(){
-        return(metricsName+" : "+score);
+        return(metricsName+" : "+score); //$NON-NLS-1$
     }
     
 }

@@ -70,7 +70,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		IFlashConst {
 	public static final String ID = FlashDOMView.class.getName();
 
-	private static final String ON_RELEASE = "onRelease";
+	private static final String ON_RELEASE = "onRelease"; //$NON-NLS-1$
 
 	private TreeViewer viewer;
 	private Action expandAction;
@@ -150,7 +150,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 					.format(
 							Messages.flash_element_found, new Object[] { new Integer(finder.foundCount) }); 
 		}
-		MessageDialog.openInformation(viewer.getControl().getShell(), Messages.flash_flash_dom, //$NON-NLS-1$
+		MessageDialog.openInformation(viewer.getControl().getShell(), Messages.flash_flash_dom, 
 				strMessage);
 	}
 
@@ -196,7 +196,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 						throw new Error(
 								MessageFormat
 										.format(
-												Messages.flash_error_target_length, new Object[] { new Integer(flashNode.getLevel()) }) + "\n" + flashNode.getTarget()); //$NON-NLS-1$ //$NON-NLS-2$
+												Messages.flash_error_target_length, new Object[] { new Integer(flashNode.getLevel()) }) + "\n" + flashNode.getTarget()); //$NON-NLS-1$ 
 					}
 					double x = flashNode.getX();
 					if (x >= flashRight + MARGIN) {
@@ -328,11 +328,11 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 		expandAllAction
-				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_expand_all); //$NON-NLS-1$
+				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_expand_all); 
 		expandAllAction.setImageDescriptor(GuiImages.IMAGE_EXPAND_ALL);
 
 		collapseAllAction = new Action(
-				org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all) { //$NON-NLS-1$
+				org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all) { 
 			public void run() {
 				try {
 					viewer.collapseAll();
@@ -342,12 +342,12 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 		collapseAllAction
-				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all); //$NON-NLS-1$
+				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all); 
 		collapseAllAction.setImageDescriptor(GuiImages.IMAGE_COLLAPSE_ALL);
 
 		refreshAction = new RefreshRootAction();
 
-		informativeTreeAction = new Action(Messages.flash_filter_noninformative, Action.AS_CHECK_BOX) { //$NON-NLS-1$
+		informativeTreeAction = new Action(Messages.flash_filter_noninformative, Action.AS_CHECK_BOX) { 
 			public void run() {
 				FlashDOMContentProvider provider = (FlashDOMContentProvider) viewer
 						.getContentProvider();
@@ -375,7 +375,7 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 
-		scanWindowlessAction = new Action(Messages.flash_scanWindowless, Action.AS_CHECK_BOX) { //$NON-NLS-1$
+		scanWindowlessAction = new Action(Messages.flash_scanWindowless, Action.AS_CHECK_BOX) { 
 			public void run() {
 				FlashMSAAUtil.setScanAll(scanWindowlessAction.isChecked());
 				MSAAViewRegistory.refreshRootObject();
@@ -429,16 +429,16 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 								if (null == node.getText()
 										&& !ASNODE_TYPE_MOVIECLIP.equals(node
 												.getType())
-										&& //$NON-NLS-1$
+										&& 
 										!ASNODE_CLASS_BUTTON.equals(node
 												.getClassName())
-										&& //$NON-NLS-1$
+										&& 
 										!ACC_PROPS.equals(node.getObjectName())
-										&& //$NON-NLS-1$
+										&& 
 										!ACC_IMPL.equals(node.getObjectName())
-										&& //$NON-NLS-1$
+										&& 
 										!ON_RELEASE
-												.equals(node.getObjectName())) //$NON-NLS-1$
+												.equals(node.getObjectName())) 
 								{
 									continue;
 								}

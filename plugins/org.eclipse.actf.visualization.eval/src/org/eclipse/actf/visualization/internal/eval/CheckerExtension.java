@@ -23,13 +23,13 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.Platform;
 
 public class CheckerExtension {
-	private static final String EXTENSION_NAME = "checkers";
+	private static final String EXTENSION_NAME = "checkers"; //$NON-NLS-1$
 
-	private static final String CHECKER = "checker";
+	private static final String CHECKER = "checker"; //$NON-NLS-1$
 
-	private static final String ATTR_CLASS = "class";
+	private static final String ATTR_CLASS = "class"; //$NON-NLS-1$
 
-	private static final String ATTR_INFO_PROVIDER = "infoprovider";
+	private static final String ATTR_INFO_PROVIDER = "infoprovider"; //$NON-NLS-1$
 
 	private static CheckerExtension[] extensions;
 
@@ -86,7 +86,7 @@ public class CheckerExtension {
 				.getExtensionPoint(EvaluationUtil.PLUGIN_ID, EXTENSION_NAME)
 				.getExtensions();
 
-		DebugPrintUtil.devOrDebugPrintln("Checker extensions:"
+		DebugPrintUtil.devOrDebugPrintln("Checker extensions:" //$NON-NLS-1$
 				+ tmpExtensions.length);
 
 		List<CheckerExtension> l = new ArrayList<CheckerExtension>();

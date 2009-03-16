@@ -43,7 +43,7 @@ public final class FlashImages {
 		if (null == path) {
 			return null;
 		}
-		Image image = (Image) imageMap.get(path);
+		Image image = imageMap.get(path);
 		if (null == image) {
 			ImageDescriptor descriptor = getImageDescriptor(path);
 			if (null != descriptor) {
@@ -60,7 +60,7 @@ public final class FlashImages {
 			return null;
 		}
 		String totalPath = basePath + "|" + overlayPath; //$NON-NLS-1$
-		Image image = (Image) imageMap.get(totalPath);
+		Image image = imageMap.get(totalPath);
 		if (null == image) {
 			ImageDescriptor descriptor = getImageDescriptor(basePath);
 			if (null != descriptor) {
@@ -79,7 +79,7 @@ public final class FlashImages {
 	public static ImageDescriptor getImageDescriptor(String path) {
 		ImageDescriptor descriptor = AbstractUIPlugin
 				.imageDescriptorFromPlugin(
-						"org.eclipse.actf.visualization.flash", path);
+						"org.eclipse.actf.visualization.flash", path); //$NON-NLS-1$
 		if (null != descriptor) {
 			return descriptor;
 		}

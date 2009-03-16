@@ -21,8 +21,13 @@ import org.eclipse.swt.graphics.Image;
 
 import com.ibm.icu.text.MessageFormat;
 
+@SuppressWarnings("nls")
 public class EvaluationItemImpl implements IEvaluationItem {
 
+	private static final String LISTENABILITY = "listenability";
+	private static final String NAVIGABILITY = "navigability";
+	private static final String COMPLIANCE = "compliance";
+	
 	private static final Image ERROR_C_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/ErrC.png").createImage();
 	private static final Image ERROR_N_IMAGE = EvaluationPlugin
@@ -178,11 +183,11 @@ public class EvaluationItemImpl implements IEvaluationItem {
 
 					switch (this.severity) {
 					case SEV_ERROR:
-						if (curName.equalsIgnoreCase("compliance")) {
+						if (curName.equalsIgnoreCase(COMPLIANCE)) {
 							metricsIcons[i] = ERROR_C_IMAGE;
-						} else if (curName.equalsIgnoreCase("navigability")) {
+						} else if (curName.equalsIgnoreCase(NAVIGABILITY)) {
 							metricsIcons[i] = ERROR_N_IMAGE;
-						} else if (curName.equalsIgnoreCase("listenability")) {
+						} else if (curName.equalsIgnoreCase(LISTENABILITY)) {
 							metricsIcons[i] = ERROR_L_IMAGE;
 						} else {
 							metricsIcons[i] = ERROR_IMAGE;
@@ -191,11 +196,11 @@ public class EvaluationItemImpl implements IEvaluationItem {
 								+ IProblemConst.ESSENTIAL + ")";
 						break;
 					case SEV_WARNING:
-						if (curName.equalsIgnoreCase("compliance")) {
+						if (curName.equalsIgnoreCase(COMPLIANCE)) {
 							metricsIcons[i] = WARN_C_IMAGE;
-						} else if (curName.equalsIgnoreCase("navigability")) {
+						} else if (curName.equalsIgnoreCase(NAVIGABILITY)) {
 							metricsIcons[i] = WARN_N_IMAGE;
-						} else if (curName.equalsIgnoreCase("listenability")) {
+						} else if (curName.equalsIgnoreCase(LISTENABILITY)) {
 							metricsIcons[i] = WARN_L_IMAGE;
 						} else {
 							metricsIcons[i] = WARN_IMAGE;
@@ -204,12 +209,12 @@ public class EvaluationItemImpl implements IEvaluationItem {
 								+ IProblemConst.USER_CHECK + ")";
 						break;
 					case SEV_INFO:
-						if (curName.equalsIgnoreCase("compliance")) {
+						if (curName.equalsIgnoreCase(COMPLIANCE)) {
 							metricsIcons[i] = INFO_C_IMAGE;
-						} else if (curName.equalsIgnoreCase("navigability")) {
+						} else if (curName.equalsIgnoreCase(NAVIGABILITY)) {
 
 							metricsIcons[i] = INFO_N_IMAGE;
-						} else if (curName.equalsIgnoreCase("listenability")) {
+						} else if (curName.equalsIgnoreCase(LISTENABILITY)) {
 							metricsIcons[i] = INFO_L_IMAGE;
 						} else {
 							metricsIcons[i] = INFO_IMAGE;

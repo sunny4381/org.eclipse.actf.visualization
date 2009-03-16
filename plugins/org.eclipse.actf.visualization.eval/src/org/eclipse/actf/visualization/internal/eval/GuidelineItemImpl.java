@@ -30,9 +30,9 @@ public class GuidelineItemImpl implements IGuidelineItem {
      */
     public GuidelineItemImpl(String guidelineName) {
         this.guidelineName = guidelineName;
-        this.id = "";
-        this.level = "";
-        this.url = "";
+        this.id = ""; //$NON-NLS-1$
+        this.level = ""; //$NON-NLS-1$
+        this.url = ""; //$NON-NLS-1$
     }
 
     /* (non-Javadoc)
@@ -85,6 +85,6 @@ public class GuidelineItemImpl implements IGuidelineItem {
     }
 
     public String toString() {
-        return (guidelineName + ": " + id + ",\t" + level + ",\t" + url);
+        return (guidelineName + ": " + id + ",\t" + level + ",\t" + url); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 }
