@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.html.IBlindProblem;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
@@ -38,6 +39,24 @@ public class VisualizeViewUtil {
 
 	// separated from VisualizeEngine
 
+	private static final String SCRIPT = "script"; //$NON-NLS-1$
+	private static final String NAME = "name"; //$NON-NLS-1$
+	private static final String TITLE = "title"; //$NON-NLS-1$
+	private static final String HREF = "href"; //$NON-NLS-1$
+	private static final String IMG = "img"; //$NON-NLS-1$
+	private static final String NULL_STRING = ""; //$NON-NLS-1$
+	private static final String BODY = "body"; //$NON-NLS-1$
+	private static final String STYLE = "style"; //$NON-NLS-1$
+	private static final String ID = "id"; //$NON-NLS-1$
+	private static final String DIV = "div"; //$NON-NLS-1$
+	private static final String INPUT = "input"; //$NON-NLS-1$
+	private static final String IMAGE = "image"; //$NON-NLS-1$
+	private static final String TYPE = "type"; //$NON-NLS-1$
+	private static final String ON_CLICK = "onClick"; //$NON-NLS-1$
+	private static final String ALT = "alt"; //$NON-NLS-1$
+	private static final String SRC = "src"; //$NON-NLS-1$
+
+	@SuppressWarnings("nls")
 	public static File prepareActions(Document result,
 			VisualizeMapDataImpl mapData, String baseUrl, boolean servletMode) {
 
@@ -45,7 +64,7 @@ public class VisualizeViewUtil {
 		List<VisualizationNodeInfo> targetElementList = mapData
 				.getNodeInfoList();
 
-		NodeList bodyEl = result.getElementsByTagName("body");
+		NodeList bodyEl = result.getElementsByTagName(BODY);
 
 		for (int i = 0; i < bodyEl.getLength(); i++) {
 			Element tmpE = (Element) bodyEl.item(i);
@@ -58,20 +77,21 @@ public class VisualizeViewUtil {
 		if (bodyEl.getLength() == 0) {
 			Node tmpN = result.getDocumentElement();
 			if (tmpN != null) {
-				tmpN.appendChild(result.createElement("body"));
+				tmpN.appendChild(result.createElement(BODY));
 			} else {
-				System.out.println("VisualizeViewUtil: no doc element");
+				DebugPrintUtil
+						.devOrDebugPrintln("VisualizeViewUtil: no doc element");
 				// TODO test
 				return null;
 			}
 		}
 
 		// div for arrow
-		Element div = result.createElement("div");
+		Element div = result.createElement(DIV);
 		div
-				.setAttribute("style",
+				.setAttribute(STYLE,
 						"position:absolute;pixelLeft= 10;pixelTop=10; color:red;font-size=12pt");
-		div.setAttribute("id", "test");
+		div.setAttribute(ID, "test");
 
 		// bodyEl.item(bodyEl.getLength() - 1).appendChild(div);
 		Node tmpBody = bodyEl.item(0);
@@ -88,7 +108,7 @@ public class VisualizeViewUtil {
 		if (bodyEl != null) {
 			for (int i = 0; i < bodyEl.getLength(); i++) {
 				Element x = (Element) bodyEl.item(i);
-				x.setAttribute("onClick", "cancelMapLink(event)");
+				x.setAttribute(ON_CLICK, "cancelMapLink(event)");
 			}
 		}
 
@@ -97,6 +117,8 @@ public class VisualizeViewUtil {
 
 	}
 
+	@SuppressWarnings("nls")
+	// TODO
 	private static void insertLinkIcon(Document doc, Map<Node, Node> linkMap,
 			String baseUrl) {
 		Iterator<Node> it = linkMap.keySet().iterator();
@@ -106,12 +128,12 @@ public class VisualizeViewUtil {
 			Element lel = (Element) it.next();
 			Element ael = (Element) linkMap.get(lel);
 
-			Element imgel1 = doc.createElement("img");
-			String href = lel.getAttribute("href").substring(1);
-			imgel1.setAttribute("alt", "Intra-page link: " + href);
-			imgel1.setAttribute("title", "Intra-page link: " + href);
-			imgel1.setAttribute("src", baseUrl + "img/jump.gif");
-			imgel1.setAttribute("name", "jump" + id);
+			Element imgel1 = doc.createElement(IMG);
+			String href = lel.getAttribute(HREF).substring(1);
+			imgel1.setAttribute(ALT, "Intra-page link: " + href);
+			imgel1.setAttribute(TITLE, "Intra-page link: " + href);
+			imgel1.setAttribute(SRC, baseUrl + "img/jump.gif");
+			imgel1.setAttribute(NAME, "jump" + id);
 
 			if (lel.hasChildNodes()) {
 				lel.insertBefore(imgel1, lel.getFirstChild());
@@ -121,13 +143,14 @@ public class VisualizeViewUtil {
 
 			if (!alreadySet.contains(href)) {
 
-				Element imgel2 = doc.createElement("img");
-				imgel2.setAttribute("alt", "Intra-page link destination: "
+				Element imgel2 = doc.createElement(IMG);
+				imgel2
+						.setAttribute(ALT, "Intra-page link destination: "
+								+ href);
+				imgel2.setAttribute(TITLE, "Intra-page link destination: "
 						+ href);
-				imgel2.setAttribute("title", "Intra-page link destination: "
-						+ href);
-				imgel2.setAttribute("src", baseUrl + "img/dest.gif");
-				imgel2.setAttribute("name", href);
+				imgel2.setAttribute(SRC, baseUrl + "img/dest.gif");
+				imgel2.setAttribute(NAME, href);
 
 				if (ael.hasChildNodes()) {
 					ael.insertBefore(imgel2, ael.getFirstChild());
@@ -140,39 +163,41 @@ public class VisualizeViewUtil {
 		}
 	}
 
+	@SuppressWarnings("nls")
+	// TODO
 	private static void insertControlPane(Document result) {
-		NodeList bodyEl = result.getElementsByTagName("body");
-		Element div = result.createElement("div");
+		NodeList bodyEl = result.getElementsByTagName(BODY);
+		Element div = result.createElement(DIV);
 		div
 				.setAttribute(
-						"style",
+						STYLE,
 						"position:absolute;font-size: medium; background-color: #FFFFFF; border-color: #333333 #000000 #000000; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px");
-		div.setAttribute("id", "control_pane");
+		div.setAttribute(ID, "control_pane");
 
-		Element input1 = result.createElement("input");
-		input1.setAttribute("type", "image");
-		input1.setAttribute("src", "img/stop.gif");
-		input1.setAttribute("alt", "Stop/Move Balloon");
-		input1.setAttribute("onClick", "control_moving()");
+		Element input1 = result.createElement(INPUT);
+		input1.setAttribute(TYPE, IMAGE);
+		input1.setAttribute(SRC, "img/stop.gif");
+		input1.setAttribute(ALT, "Stop/Move Balloon");
+		input1.setAttribute(ON_CLICK, "control_moving()");
 		div.appendChild(input1);
 
-		Element input2 = result.createElement("input");
-		input2.setAttribute("type", "image");
-		input2.setAttribute("src", "img/clear.gif");
-		input2.setAttribute("alt", "Clear Line");
-		input2.setAttribute("onClick", "clean_Line()");
+		Element input2 = result.createElement(INPUT);
+		input2.setAttribute(TYPE, IMAGE);
+		input2.setAttribute(SRC, "img/clear.gif");
+		input2.setAttribute(ALT, "Clear Line");
+		input2.setAttribute(ON_CLICK, "clean_Line()");
 
-		Element input3 = result.createElement("input");
-		input3.setAttribute("type", "image");
-		input3.setAttribute("src", "img/refresh.gif");
-		input3.setAttribute("alt", "Refresh Line");
-		input3.setAttribute("onClick", "refresh_Jump()");
+		Element input3 = result.createElement(INPUT);
+		input3.setAttribute(TYPE, IMAGE);
+		input3.setAttribute(SRC, "img/refresh.gif");
+		input3.setAttribute(ALT, "Refresh Line");
+		input3.setAttribute(ON_CLICK, "refresh_Jump()");
 
-		Element input4 = result.createElement("input");
-		input4.setAttribute("type", "image");
-		input4.setAttribute("src", "img/draw.gif");
-		input4.setAttribute("alt", "Draw All Line");
-		input4.setAttribute("onClick", "draw_all_Line()");
+		Element input4 = result.createElement(INPUT);
+		input4.setAttribute(TYPE, IMAGE);
+		input4.setAttribute(SRC, "img/draw.gif");
+		input4.setAttribute(ALT, "Draw All Line");
+		input4.setAttribute(ON_CLICK, "draw_all_Line()");
 
 		div.appendChild(input2);
 		div.appendChild(input3);
@@ -182,6 +207,7 @@ public class VisualizeViewUtil {
 		tmpBody.insertBefore(div, tmpBody.getFirstChild());
 	}
 
+	@SuppressWarnings("nls")
 	private static File createScriptFile(Document result,
 			List<VisualizationNodeInfo> elementList, String baseUrl,
 			boolean servletMode) {
@@ -230,8 +256,8 @@ public class VisualizeViewUtil {
 
 			}
 
-			String tmpS = sb.toString().replaceAll("\n", "").replaceAll("\r",
-					"");
+			String tmpS = sb.toString().replaceAll("\n", NULL_STRING)
+					.replaceAll("\r", NULL_STRING);
 			pw.write(tmpS);
 
 			sb = new StringBuffer();
@@ -256,30 +282,30 @@ public class VisualizeViewUtil {
 			NodeList nl = result.getElementsByTagName("head");
 			if (nl.getLength() > 0) {
 				Element el = (Element) nl.item(0);
-				Element script = result.createElement("script");
+				Element script = result.createElement(SCRIPT);
 				// script.setAttribute("src", "file:///C:/C/highlight.js");
-				script.setAttribute("src", baseUrl + valiantFile.getName());
+				script.setAttribute(SRC, baseUrl + valiantFile.getName());
 				el.appendChild(script);
 
-				Element script2 = result.createElement("script");
+				Element script2 = result.createElement(SCRIPT);
 				// script.setAttribute("src", "file:///C:/C/highlight.js");
-				script2.setAttribute("src", baseUrl + "img/highlight.js");
+				script2.setAttribute(SRC, baseUrl + "img/highlight.js");
 				el.appendChild(script2);
 			}
 
-			Element div = result.createElement("div");
+			Element div = result.createElement(DIV);
 			div
 					.setAttribute(
-							"style",
+							STYLE,
 							"position:absolute;font-size: medium; background-color: #FFFFFF; border-color: #333333 #000000 #000000; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px");
-			div.setAttribute("id", "balloon");
+			div.setAttribute(ID, "balloon");
 
-			Element messageDiv = result.createElement("div");
-			messageDiv.setAttribute("id", "message");
-			messageDiv.appendChild(result.createTextNode(""));
+			Element messageDiv = result.createElement(DIV);
+			messageDiv.setAttribute(ID, "message");
+			messageDiv.appendChild(result.createTextNode(NULL_STRING));
 			div.appendChild(messageDiv);
 
-			NodeList bodyNl = result.getElementsByTagName("body");
+			NodeList bodyNl = result.getElementsByTagName(BODY);
 			if (bodyNl.getLength() > 0) {
 				Element bodyEl = (Element) bodyNl.item(0);
 				bodyEl.insertBefore(div, bodyEl.getFirstChild());
@@ -323,8 +349,8 @@ public class VisualizeViewUtil {
 			} else {
 				if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
 					try {
-						String id = ((Element) node).getAttribute("id");
-						if (id.startsWith("id")) {
+						String id = ((Element) node).getAttribute(ID);
+						if (id.startsWith(ID)) {
 							id = id.substring(2);
 							// info =
 
@@ -408,20 +434,22 @@ public class VisualizeViewUtil {
 		}
 	}
 
+	@SuppressWarnings("nls")
 	private static Element createErrorImageElement(Node target,
 			IProblemItem prob, Integer idObj, String baseUrlS) {
-		Element img = target.getOwnerDocument().createElement("img");
-		img.setAttribute("alt", "error icon");
-		img.setAttribute("title", prob.getDescription());
+		Element img = target.getOwnerDocument().createElement(IMG);
+		img.setAttribute(ALT, "error icon");
+		img.setAttribute(TITLE, prob.getDescription());
 		img.setAttribute("onmouseover", "updateBaloon('id" + idObj + "');");
-		img.setAttribute("src", baseUrlS + "img/"
+		img.setAttribute(SRC, baseUrlS + "img/"
 				+ VisualizeEngine.ERROR_ICON_NAME);
 		return (img);
 	}
 
+	@SuppressWarnings("nls")
 	public static Document returnTextView(Document result,
 			IPacketCollection allPc, String baseUrl) {
-		NodeList bodyNl = result.getElementsByTagName("body");
+		NodeList bodyNl = result.getElementsByTagName(BODY);
 
 		// TODO remove second Body, script, etc.
 		if (bodyNl.getLength() > 0) {
@@ -436,20 +464,20 @@ public class VisualizeViewUtil {
 			boolean brFlag = false;
 			boolean insideLink = false;
 			for (int i = 0; i < size; i++) {
-				IPacket p = (IPacket) allPc.get(i);
+				IPacket p = allPc.get(i);
 
 				if (p.getContext().isLinkTag()) {
 					insideLink = true;
 				}
 				str = p.getText();
-				if (str != null && !str.equals("")) {
+				if (str != null && !str.equals(NULL_STRING)) {
 
 					Element spanEl = result.createElement("span");
 					spanEl.appendChild(result.createTextNode(str));
 					bodyEl.appendChild(spanEl);
 
 					if (insideLink)
-						spanEl.setAttribute("style",
+						spanEl.setAttribute(STYLE,
 								"text-decoration: underline;");
 					brFlag = false;
 				}
@@ -476,8 +504,8 @@ public class VisualizeViewUtil {
 		if (nl.getLength() > 0) {
 
 			Element el = (Element) nl.item(0);
-			Element script = result.createElement("script");
-			script.setAttribute("src", baseUrl + "img/highlight-dummy.js");
+			Element script = result.createElement(SCRIPT);
+			script.setAttribute(SRC, baseUrl + "img/highlight-dummy.js");
 			el.appendChild(script);
 
 		}

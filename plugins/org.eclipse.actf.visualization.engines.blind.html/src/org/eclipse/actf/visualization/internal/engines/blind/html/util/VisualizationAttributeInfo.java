@@ -32,11 +32,11 @@ public class VisualizationAttributeInfo {
 
 	String tagName;
 
-	String category = "";
+	String category = ""; //$NON-NLS-1$
 
-	String helpUrl = "";
+	String helpUrl = ""; //$NON-NLS-1$
 
-	String description = "";
+	String description = ""; //$NON-NLS-1$
 
 	int nodeId;
 
@@ -57,7 +57,7 @@ public class VisualizationAttributeInfo {
 		}
 
 		// TODO use Properties
-		if (attributeName.equalsIgnoreCase("id")) {
+		if (attributeName.equalsIgnoreCase("id")) { //$NON-NLS-1$
 			for (int i = 0; i < provider.length; i++) {
 				IElementViewerIdInfo idInfo = provider[i]
 						.getIdInfo(attributeValue);
@@ -68,7 +68,7 @@ public class VisualizationAttributeInfo {
 			}
 		}
 
-		if (attributeName.equalsIgnoreCase("accesskey")) {
+		if (attributeName.equalsIgnoreCase("accesskey")) { //$NON-NLS-1$
 
 			for (int i = 0; i < provider.length; i++) {
 				IElementViewerAccessKeyInfo keyInfo = provider[i]
@@ -78,7 +78,7 @@ public class VisualizationAttributeInfo {
 					helpUrl = keyInfo.getHelpUrl();
 				}
 			}
-			attributeValue = "Alt+ " + attributeValue;
+			attributeValue = "Alt+ " + attributeValue; //$NON-NLS-1$
 		}
 	}
 
@@ -132,7 +132,7 @@ public class VisualizationAttributeInfo {
 	}
 
 	public String toString() {
-		return (tagName + " : " + attributeValue + " : " + nodeId);
+		return (tagName + " : " + attributeValue + " : " + nodeId); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	public static List<VisualizationAttributeInfo> listUp(Document target,
@@ -140,7 +140,7 @@ public class VisualizationAttributeInfo {
 		List<VisualizationAttributeInfo> result = new ArrayList<VisualizationAttributeInfo>();
 
 		// TODO use XPath
-		NodeList bodyNl = target.getElementsByTagName("body");
+		NodeList bodyNl = target.getElementsByTagName("body"); //$NON-NLS-1$
 
 		if (bodyNl.getLength() > 0) {
 			Node tmpN = bodyNl.item(0);
@@ -162,7 +162,7 @@ public class VisualizationAttributeInfo {
 				} else {
 					tmpN = null;
 					while ((tmpN == null) && (stack.size() > 0)) {
-						tmpN = (Node) stack.pop();
+						tmpN = stack.pop();
 						tmpN = tmpN.getNextSibling();
 					}
 				}

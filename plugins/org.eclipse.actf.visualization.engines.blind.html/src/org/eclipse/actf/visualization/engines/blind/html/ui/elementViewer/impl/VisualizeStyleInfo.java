@@ -40,6 +40,7 @@ public class VisualizeStyleInfo {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("nls")
 	public VisualizeStyleInfo(Document orig, IVisualizeMapData mapData) {
 		origIdList = VisualizationAttributeInfo.listUp(orig, mapData, "id");
 		accesskeyList = VisualizationAttributeInfo.listUp(orig, mapData,

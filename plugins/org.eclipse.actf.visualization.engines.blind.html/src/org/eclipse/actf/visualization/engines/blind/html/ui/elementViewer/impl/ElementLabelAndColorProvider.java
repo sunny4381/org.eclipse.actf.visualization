@@ -42,7 +42,7 @@ public class ElementLabelAndColorProvider extends LabelProvider implements
 		for (int i = 0; i < providers.length; i++) {
 			Enumeration<String> keys = providers[i].getCategories();
 			while (keys.hasMoreElements()) {
-				tmpS.add((String) keys.nextElement());
+				tmpS.add(keys.nextElement());
 			}
 		}
 		CATEGORY = new String[tmpS.size()];

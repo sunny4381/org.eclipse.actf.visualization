@@ -37,10 +37,12 @@ import org.w3c.dom.NodeList;
 
 public class LinkAnalyzer {
 
-	private static final String SKIP_TO_MAIN_LINK_DEFINITION = ".*([sS]kip|[jJ]ump to|[lL]ink to) .+|.*(\u672c\u6587|\u30e1\u30a4\u30f3|\u3092\u8aad\u3080|(\u3078|\u306b)\u30b8\u30e3\u30f3\u30d7|(\u3078|\u306b)\u79fb\u52d5|\u3078\u306e\u30ea\u30f3\u30af).*";
+	private static final String NULL_STRING = ""; //$NON-NLS-1$
+
+	private static final String SKIP_TO_MAIN_LINK_DEFINITION = ".*([sS]kip|[jJ]ump to|[lL]ink to) .+|.*(\u672c\u6587|\u30e1\u30a4\u30f3|\u3092\u8aad\u3080|(\u3078|\u306b)\u30b8\u30e3\u30f3\u30d7|(\u3078|\u306b)\u79fb\u52d5|\u3078\u306e\u30ea\u30f3\u30af).*"; //$NON-NLS-1$
 
 	// TODO
-	private static final String WRONG_SKIPLINK_DEFINITION = ".+ ([sS]kip to|[jJ]ump to) .+";
+	private static final String WRONG_SKIPLINK_DEFINITION = ".+ ([sS]kip to|[jJ]ump to) .+"; //$NON-NLS-1$
 
 	private static final int MAX_SKIPLINK_REACHING_TIME = 20;
 
@@ -88,6 +90,7 @@ public class LinkAnalyzer {
 		analyzeIntraPageLinkMapping();
 	}
 
+	@SuppressWarnings("nls")
 	private void listIntraPageLinks() {
 		// list up links and anchors
 		NodeList aNl = doc.getElementsByTagName("a");
@@ -106,7 +109,7 @@ public class LinkAnalyzer {
 					int size = allPc.size();
 					if (info != null) {
 						for (int j = info.getPacketId(); j < size; j++) {
-							IPacket p = (IPacket) allPc.get(j);
+							IPacket p = allPc.get(j);
 							String str = p.getText();
 							if (str != null) {
 								sb.append(str);
@@ -118,8 +121,8 @@ public class LinkAnalyzer {
 					}
 					int words = textCounter.getWordCount(sb.toString());
 
-					String linkTitleOrg = "";
-					String linkTitle = "";
+					String linkTitleOrg = NULL_STRING;
+					String linkTitle = NULL_STRING;
 
 					BlindProblem prob = null;
 
@@ -148,12 +151,12 @@ public class LinkAnalyzer {
 
 						linkTitle = linkTitle.trim();
 						linkTitle = linkTitle.replaceAll("\\[|\\]|\\.|\\!|\\>",
-								"");
+								NULL_STRING);
 					}
 
 					String linkText = sb.toString();
 					linkText = linkText.trim();
-					linkText = linkText.replaceAll("\\[|\\]|\\.|\\!|\\>", "");
+					linkText = linkText.replaceAll("\\[|\\]|\\.|\\!|\\>", NULL_STRING);
 
 					prob = null;
 
@@ -218,6 +221,7 @@ public class LinkAnalyzer {
 		// TODO consider intrapage link map by using "area"
 	}
 
+	@SuppressWarnings("nls")
 	private void analyzeIntraPageLinkMapping() {
 		Iterator<Element> it = intraPageLinkList.iterator();
 		while (it.hasNext()) {
@@ -270,7 +274,7 @@ public class LinkAnalyzer {
 				continue;
 			}
 
-			Element ael = (Element) anchorMap.get(href);
+			Element ael = anchorMap.get(href);
 			if (ael != null) {
 				mapData.addIntraPageLinkMapping(lel, ael);
 			} else {
@@ -398,7 +402,7 @@ public class LinkAnalyzer {
 							} else {
 								tmpNode = null;
 								while ((tmpNode == null) && (stack.size() > 0)) {
-									tmpNode = (Node) stack.pop();
+									tmpNode = stack.pop();
 									tmpNode = tmpNode.getNextSibling();
 								}
 							}
@@ -474,7 +478,7 @@ public class LinkAnalyzer {
 					// if max time is less than 90 sec, skip link can be
 					// eliminated.
 					problemV.add(new BlindProblem(
-							IBlindProblem.ALERT_NO_SKIPTOMAIN_NO_STRUCTURE, ""
+							IBlindProblem.ALERT_NO_SKIPTOMAIN_NO_STRUCTURE, NULL_STRING
 									+ maxTime));
 					// return true;
 				} else {
@@ -487,7 +491,7 @@ public class LinkAnalyzer {
 			// TODO remove this problem if the page has skip link at top of the
 			// page
 			BlindProblem prob = new BlindProblem(
-					IBlindProblem.TOOFAR_SKIPTOMAIN_LINK, minSkipLinkTime + " ");
+					IBlindProblem.TOOFAR_SKIPTOMAIN_LINK, minSkipLinkTime + " "); //$NON-NLS-1$
 			Integer idObj = mapData.getIdOfNode(skipLinkNodeInfo.getNode());
 			if (idObj != null) {
 				prob.setNode(skipLinkNodeInfo.getNode(), idObj.intValue());

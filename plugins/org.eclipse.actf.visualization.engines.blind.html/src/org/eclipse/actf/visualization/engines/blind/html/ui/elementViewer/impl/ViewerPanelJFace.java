@@ -68,7 +68,7 @@ public class ViewerPanelJFace implements IViewerPanel {
 
 		shell.setText(TITLE_NAME);
 		shell.setImage(BlindVizResourceUtil.getImageDescriptor(
-				"icons/excla_squ.png").createImage());
+				"icons/excla_squ.png").createImage()); //$NON-NLS-1$
 
 		shell.setLocation(100, 100);
 

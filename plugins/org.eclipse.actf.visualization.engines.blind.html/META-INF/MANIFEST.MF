@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.actf.model.dom.html,
  org.eclipse.actf.visualization.ui.report,
  org.eclipse.actf.ui
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.actf.visualization.engines.blind.html,
  org.eclipse.actf.visualization.engines.blind.html.ui.actions,
  org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer,

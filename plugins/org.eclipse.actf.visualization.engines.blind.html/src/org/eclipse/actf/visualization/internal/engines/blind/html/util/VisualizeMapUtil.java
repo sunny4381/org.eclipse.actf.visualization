@@ -25,8 +25,8 @@ public class VisualizeMapUtil {
     // move from VisualizeEngine
 
     public static void createNode2NodeMap(Document orig, Document dest, VisualizeMapDataImpl mapData) {
-        NodeList bodyNl = dest.getElementsByTagName("body");
-        NodeList origBodyNl = orig.getElementsByTagName("body");
+        NodeList bodyNl = dest.getElementsByTagName("body"); //$NON-NLS-1$
+        NodeList origBodyNl = orig.getElementsByTagName("body"); //$NON-NLS-1$
 
         if (origBodyNl.getLength() > 0) {
 
@@ -79,17 +79,17 @@ public class VisualizeMapUtil {
 
     public static Map<String, String> createMapTextMap(Document doc) {
         Map<String, String> mapTextMap = new HashMap<String, String>();
-        NodeList nl = doc.getElementsByTagName("area");
+        NodeList nl = doc.getElementsByTagName("area"); //$NON-NLS-1$
         int size = nl.getLength();
 
         for (int i = 0; i < size; i++) {
             Node node = nl.item(i);
-            if (node.getParentNode().getNodeName().equals("map")) {
-                String curText = ((Element) node).getAttribute("alt");
-                String mapName = ((Element) node.getParentNode()).getAttribute("name");
+            if (node.getParentNode().getNodeName().equals("map")) { //$NON-NLS-1$
+                String curText = ((Element) node).getAttribute("alt"); //$NON-NLS-1$
+                String mapName = ((Element) node.getParentNode()).getAttribute("name"); //$NON-NLS-1$
                 String mapText = mapTextMap.get(mapName.toLowerCase());
                 if (mapText != null) {
-                    mapTextMap.put(mapName.toLowerCase(), mapText + ". " + curText);
+                    mapTextMap.put(mapName.toLowerCase(), mapText + ". " + curText); //$NON-NLS-1$
                 } else {
                     mapTextMap.put(mapName.toLowerCase(), curText);
                 }

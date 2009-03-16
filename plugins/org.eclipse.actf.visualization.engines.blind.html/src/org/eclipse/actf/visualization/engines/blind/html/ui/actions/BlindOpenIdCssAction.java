@@ -27,8 +27,8 @@ public class BlindOpenIdCssAction extends Action {
 	public BlindOpenIdCssAction() {
 		setToolTipText(Messages.BlindView_Open_ID);
 		setImageDescriptor(BlindVizResourceUtil
-				.getImageDescriptor("icons/ButtonIdCss.png"));
-		setText("ID/CSS");
+				.getImageDescriptor("icons/ButtonIdCss.png")); //$NON-NLS-1$
+		setText("ID/CSS"); //$NON-NLS-1$
 	}
 
 	public void run() {

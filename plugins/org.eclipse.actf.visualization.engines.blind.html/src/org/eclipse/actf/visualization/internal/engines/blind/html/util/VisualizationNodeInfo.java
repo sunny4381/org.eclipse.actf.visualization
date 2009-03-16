@@ -58,7 +58,7 @@ public class VisualizationNodeInfo {
 
     private int time = 0;
 
-    private String comment = "";
+    private String comment = ""; //$NON-NLS-1$
 
     VisualizationNodeInfo() {
         //node = null;
@@ -90,13 +90,14 @@ public class VisualizationNodeInfo {
 
             //TODO if parent, use comment
             //comment = info.comment;
-            comment = "";
+            comment = ""; //$NON-NLS-1$
 
             //
             id = 0;
 
             if ((packet == null) && (node != null)) {
-                System.out.println("115: to be fixed");
+            	//TODO
+                //System.out.println("115: to be fixed");
             }
         } else {
             //node = null;
@@ -110,7 +111,7 @@ public class VisualizationNodeInfo {
             packetId = 0;
             packet = null;
             node = null;
-            comment = "";
+            comment = ""; //$NON-NLS-1$
         }
     }
 
@@ -125,7 +126,8 @@ public class VisualizationNodeInfo {
             return packet.getNode();
         } else {
             if (node == null) {
-                System.err.println("VisualizationNodeInfo.getNode: to be fixed");
+            	//TODO
+                //System.err.println("VisualizationNodeInfo.getNode: to be fixed");
             }
             return node;
         }
@@ -268,7 +270,8 @@ public class VisualizationNodeInfo {
     /**
      * @see java.lang.Object#toString()
      */
-    public String toString() {
+    @SuppressWarnings("nls")
+	public String toString() {
         StringBuffer sb = new StringBuffer();
 
         sb.append(" Info=");
@@ -357,7 +360,7 @@ public class VisualizationNodeInfo {
         //TODO duplicate check
         if (comment.length() != 0) {
             //			System.out.println("appendComment: " +comment+" + "+string);
-            comment = comment + " " + string;
+            comment = comment + " " + string; //$NON-NLS-1$
         } else {
             comment = string;
         }

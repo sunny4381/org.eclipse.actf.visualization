@@ -38,7 +38,7 @@ public class TextCounter {
             //TODO enhance
             return str.length();
         default: //english
-            StringTokenizer st = new StringTokenizer(str, " \t\n\r\f,.[]():/\"");
+            StringTokenizer st = new StringTokenizer(str, " \t\n\r\f,.[]():/\""); //$NON-NLS-1$
             return st.countTokens();
         }
 

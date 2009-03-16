@@ -21,6 +21,7 @@ import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IHighlightElementListener;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
+import org.eclipse.actf.visualization.internal.engines.blind.html.Messages;
 import org.eclipse.actf.visualization.internal.engines.blind.html.util.VisualizationAttributeInfo;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -45,6 +46,8 @@ import org.eclipse.ui.PlatformUI;
 
 public class ElementViewerJFace {
 
+	private static final String NULL_STRING = ""; //$NON-NLS-1$
+
 	private IHighlightElementListener prb;
 
 	private int[] sortModeArray;
@@ -57,13 +60,13 @@ public class ElementViewerJFace {
 
 	private TableColumn descCol;
 
-	private final static String COL_CATEGORY = "Category";
+	private final static String COL_CATEGORY = "Category"; //$NON-NLS-1$
 
-	private final static String COL_ID_STRING = "Value";
+	private final static String COL_ID_STRING = "Value"; //$NON-NLS-1$
 
-	private final static String COL_TAG_NAME = "Tag Name";
+	private final static String COL_TAG_NAME = "Tag Name"; //$NON-NLS-1$
 
-	private final static String COL_DESCRIPTION = "Description";
+	private final static String COL_DESCRIPTION = "Description"; //$NON-NLS-1$
 
 	private String strHelpUrl;
 
@@ -143,9 +146,9 @@ public class ElementViewerJFace {
 										.getCategory();
 								str2 = ((VisualizationAttributeInfo) e2)
 										.getCategory();
-								if (str1.equals("")) {
+								if (str1.equals(NULL_STRING)) {
 									return 1;
-								} else if (str2.equals("")) {
+								} else if (str2.equals(NULL_STRING)) {
 									return -1;
 								}
 								iRes = str1.compareToIgnoreCase(str2);
@@ -230,9 +233,9 @@ public class ElementViewerJFace {
 										.getDescription();
 								str2 = ((VisualizationAttributeInfo) e2)
 										.getDescription();
-								if (str1.equals("")) {
+								if (str1.equals(NULL_STRING)) {
 									return 1;
-								} else if (str2.equals("")) {
+								} else if (str2.equals(NULL_STRING)) {
 									return -1;
 								}
 								iRes = str1.compareToIgnoreCase(str2);
@@ -259,7 +262,7 @@ public class ElementViewerJFace {
 			if (i == 0) {
 				strHelpUrl = selected.getHelpUrl();
 			} else if (!strHelpUrl.equals(selected.getHelpUrl())) {
-				strHelpUrl = "";
+				strHelpUrl = NULL_STRING;
 			}
 		}
 
@@ -309,12 +312,12 @@ public class ElementViewerJFace {
 
 	private void openPopupMenu() {
 		String[] itemName = new String[2];
-		itemName[0] = "Select";
-		itemName[1] = "View Help...";
+		itemName[0] = Messages.ElementViewerJFace_0;
+		itemName[1] = Messages.ElementViewerJFace_1;
 		boolean[] enabled = new boolean[2];
 		enabled[0] = true;
 		enabled[1] = true;
-		if (strHelpUrl.equals("")) {
+		if (strHelpUrl.equals(NULL_STRING)) {
 			enabled[1] = false;
 		}
 		PopupMenu popupMenu = new PopupMenu(new Shell(), itemName, enabled);

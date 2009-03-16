@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 public class HtmlVizPlugin extends Plugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.engines.blind.html";
+	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.engines.blind.html"; //$NON-NLS-1$
 
 	// The shared instance
 	private static HtmlVizPlugin plugin;

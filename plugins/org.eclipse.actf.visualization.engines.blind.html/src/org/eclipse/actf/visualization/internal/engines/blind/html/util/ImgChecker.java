@@ -30,6 +30,10 @@ public class ImgChecker {
 	// TODO refactoring
 	// TODO UseMap (object)
 
+	private static final String SRC = "src"; //$NON-NLS-1$
+
+	private static final String ALT = "alt"; //$NON-NLS-1$
+
 	private VisualizeMapDataImpl mapData;
 
 	// private Map node2infoMap;
@@ -69,6 +73,7 @@ public class ImgChecker {
 		this.checkItems = checkItems;
 	}
 
+	@SuppressWarnings("nls")
 	public boolean checkAndReplaceImg(Element img, Document doc, boolean remove) {
 
 		Element mapEl = null;
@@ -78,7 +83,7 @@ public class ImgChecker {
 		String mapName = img.getAttribute("usemap");
 		if (mapName.length() > 0) {
 
-			mapEl = (Element) mapMap.get(mapName.substring(1));
+			mapEl = mapMap.get(mapName.substring(1));
 			if (mapEl != null) {
 
 				areaNL = mapEl.getElementsByTagName("area");
@@ -120,7 +125,7 @@ public class ImgChecker {
 					BlindProblem prob = null;
 					Integer idObj = null;
 
-					if (!areaE.hasAttribute("alt")) {
+					if (!areaE.hasAttribute(ALT)) {
 						if (areaE.hasAttribute("href")) {
 							prob = new BlindProblem(IBlindProblem.NO_ALT_AREA,
 									mapEl.getAttribute("name") + " , href=\""
@@ -128,7 +133,7 @@ public class ImgChecker {
 							prob.setTargetNode(mapData.getOrigNode(areaE));
 						}
 					} else {
-						String alt = areaE.getAttribute("alt");
+						String alt = areaE.getAttribute(ALT);
 						if (alt.length() > 0) {
 							if (textChecker.isInappropriateAlt(alt)) {
 								prob = new BlindProblem(
@@ -168,14 +173,14 @@ public class ImgChecker {
 
 						if (checkItems[prob.getSubType()]) {
 							Element errorImg = doc.createElement("img");
-							errorImg.setAttribute("alt", "error icon");
+							errorImg.setAttribute(ALT, "error icon");
 							errorImg.setAttribute("title", prob
 									.getDescription());
 							if (idObj != null) {
 								errorImg.setAttribute("onmouseover",
 										"updateBaloon('id" + idObj + "');");
 							}
-							errorImg.setAttribute("src", baseUrl + "img/"
+							errorImg.setAttribute(SRC, baseUrl + "img/"
 									+ VisualizeEngine.ERROR_ICON_NAME);
 							areaEl.appendChild(errorImg);
 						}
@@ -193,16 +198,16 @@ public class ImgChecker {
 	private String checkAlt(Element img) {
 
 		boolean noAltError = false;
-		String altS = "";
+		String altS = ""; //$NON-NLS-1$
 
 		BlindProblem prob = null;
 
-		if (!img.hasAttribute("alt")) {
+		if (!img.hasAttribute(ALT)) {
 			prob = new BlindProblem(IBlindProblem.NO_ALT_IMG, img
-					.getAttribute("src"));
+					.getAttribute(SRC));
 			noAltError = true;
 		} else {
-			altS = img.getAttribute("alt");
+			altS = img.getAttribute(ALT);
 			if (altS.length() > 0) {
 				if (textChecker.isInappropriateAlt(altS)) {
 					prob = new BlindProblem(IBlindProblem.WRONG_ALT_IMG, altS);
@@ -248,7 +253,7 @@ public class ImgChecker {
 		} else {
 			// alt="" or without alt
 			if (noAltError) {
-				imgText = "";
+				imgText = ""; //$NON-NLS-1$
 			} else {
 				imgText = altS;
 			}

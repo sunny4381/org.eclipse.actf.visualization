@@ -29,14 +29,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
 public class NodeInfoCreator {
 
-	private static final String HEADING_TAGS = "h1|h2|h3|h4|h5|h6";
+	private static final String HEADING_TAGS = "h1|h2|h3|h4|h5|h6"; //$NON-NLS-1$
 
-	private static final String LIST_TAGS = "ul|ol|dl";
+	private static final String LIST_TAGS = "ul|ol|dl"; //$NON-NLS-1$
 
-	private static final Set<String> BLOCK_TAG_SET = HtmlTagUtil.getBlockElementSet();
+	private static final Set<String> BLOCK_TAG_SET = HtmlTagUtil
+			.getBlockElementSet();
 
 	private VisualizeMapDataImpl mapData;
 
@@ -51,9 +51,9 @@ public class NodeInfoCreator {
 	/**
 	 * 
 	 */
-	public NodeInfoCreator(VisualizeMapDataImpl mapData, TextChecker textChecker,
-			List<IProblemItem> problems, Set<String> invisibleIdSet,
-			ParamBlind paramBlind) {
+	public NodeInfoCreator(VisualizeMapDataImpl mapData,
+			TextChecker textChecker, List<IProblemItem> problems,
+			Set<String> invisibleIdSet, ParamBlind paramBlind) {
 		this.mapData = mapData;
 		this.textChecker = textChecker;
 		this.problems = problems;
@@ -61,6 +61,7 @@ public class NodeInfoCreator {
 		textCounter = new TextCounter(paramBlind.iLanguage);
 	}
 
+	@SuppressWarnings("nls")
 	private String removePeriod(String targetS, Node targetNode) {
 		if (targetNode != null) {
 			String nodeS = targetNode.getNodeName();
@@ -74,6 +75,7 @@ public class NodeInfoCreator {
 		return targetS;
 	}
 
+	@SuppressWarnings("nls")
 	private boolean isIdRequiredInput(Element el) {
 		String tagName = el.getNodeName();
 		if (tagName.equals("select")) {
@@ -91,6 +93,8 @@ public class NodeInfoCreator {
 		return false;
 	}
 
+	@SuppressWarnings("nls")
+	// TODO
 	public void prepareNodeInfo(IPacketCollection pc) {
 		// node - nodeInfo
 		int size = 0;
@@ -109,7 +113,7 @@ public class NodeInfoCreator {
 		IPacket prevPacket = null;
 
 		for (int it = 0; it < size; it++) {
-			IPacket p = (IPacket) pc.get(it);
+			IPacket p = pc.get(it);
 
 			Node node = p.getNode();
 			if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -265,6 +269,8 @@ public class NodeInfoCreator {
 		}
 	}
 
+	@SuppressWarnings("nls")
+	//TODO
 	public void createAdditionalNodeInfo(Document doc) {
 		// create elementList
 		// set node info ID
@@ -340,7 +346,7 @@ public class NodeInfoCreator {
 									.getAttribute("usemap");
 							if ((map != null) && (map.length() > 0)) {
 								int words = curInfo.getWords();
-								String curText = (String) mapTextMap.get(map
+								String curText = mapTextMap.get(map
 										.toLowerCase().substring(1));
 								int add = textCounter.getWordCount(curText);
 								curInfo.setWords(words + add);
@@ -407,7 +413,7 @@ public class NodeInfoCreator {
 
 						curNode = null;
 						while ((curNode == null) && (stack.size() > 0)) {
-							curNode = (Node) stack.pop();
+							curNode = stack.pop();
 							curNodeName = curNode.getNodeName();
 							// if (curNodeName.equals("table")) {
 							// tableCount--;

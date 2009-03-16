@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 import org.eclipse.swt.graphics.RGB;
 import org.w3c.dom.Comment;
@@ -24,6 +25,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@SuppressWarnings("nls")
 public class VisualizeColorUtil {
 
 	private static final double WORD_JP = (60.0 / (488.0 / 1.3));
@@ -108,8 +110,8 @@ public class VisualizeColorUtil {
 				el = (Element) node;
 			} else if (node.getNodeType() == Node.TEXT_NODE) {
 				/*
-				 * System.out.println( "VisualizeEngine: 709: parent of span: " +
-				 * node.getParentNode().getNodeName());
+				 * System.out.println( "VisualizeEngine: 709: parent of span: "
+				 * + node.getParentNode().getNodeName());
 				 */
 
 				if (node.getParentNode().getNodeName().equals("textarea")) {
@@ -129,9 +131,8 @@ public class VisualizeColorUtil {
 				}
 
 			} else {
-				// error
-				System.out
-						.println("VisualizeEngine: 710: unknown node in the nodeList");
+				DebugPrintUtil
+						.devOrDebugPrintln("VisualizeColorUtil: unknown node in the nodeList"); //$NON-NLS-1$
 				continue;
 			}
 
@@ -183,12 +184,12 @@ public class VisualizeColorUtil {
 									"color: black; background-image: none; background-color: transparent");
 				}
 			} /*
-				 * else { }
-				 */
+			 * else { }
+			 */
 			/*
 			 * el.setAttribute( "comment", info.getPacketId() + "," +
-			 * info.getId() + "," + info.getTotalWords() + "," + info.getWords() +
-			 * "," + info.getTotalLines() + "," + info.getLines());
+			 * info.getId() + "," + info.getTotalWords() + "," + info.getWords()
+			 * + "," + info.getTotalLines() + "," + info.getLines());
 			 */
 		}
 	}
@@ -235,8 +236,7 @@ public class VisualizeColorUtil {
 		int size = nodeInfoList.size();
 
 		for (int i = 0; i < size; i++) {
-			VisualizationNodeInfo curInfo = (VisualizationNodeInfo) nodeInfoList
-					.get(i);
+			VisualizationNodeInfo curInfo = nodeInfoList.get(i);
 
 			if (curInfo.isHeading()) {
 				if (curInfo.getNode().getNodeName().matches("h[1-6]")) {
@@ -285,8 +285,7 @@ public class VisualizeColorUtil {
 	private void calcTime() {
 		int size = nodeInfoList.size();
 		for (int i = 0; i < size; i++) {
-			VisualizationNodeInfo curInfo = (VisualizationNodeInfo) nodeInfoList
-					.get(i);
+			VisualizationNodeInfo curInfo = nodeInfoList.get(i);
 
 			int time = calcTime(curInfo.getTotalWords(), curInfo
 					.getTotalLines());
@@ -301,8 +300,7 @@ public class VisualizeColorUtil {
 	private void calcOrgTime() {
 		int size = nodeInfoList.size();
 		for (int i = 0; i < size; i++) {
-			VisualizationNodeInfo curInfo = (VisualizationNodeInfo) nodeInfoList
-					.get(i);
+			VisualizationNodeInfo curInfo = nodeInfoList.get(i);
 
 			int time = calcTime(curInfo.getOrgTotalWords(), curInfo
 					.getOrgTotalLines());
@@ -373,18 +371,16 @@ public class VisualizeColorUtil {
 			int fromId = fromIdInt.intValue();
 			int toId = toIdInt.intValue();
 
-			VisualizationNodeInfo fromInfo = (VisualizationNodeInfo) nodeInfoList
-					.get(fromId);
+			VisualizationNodeInfo fromInfo = nodeInfoList.get(fromId);
 			if (fromInfo.getNode() != fromNode) {
-				System.out.println("from node does not exists: " + fromId + " "
-						+ fromNode);
+				DebugPrintUtil.devOrDebugPrintln("from node does not exists: "
+						+ fromId + " " + fromNode);
 				continue;
 			}
-			VisualizationNodeInfo toInfo = (VisualizationNodeInfo) nodeInfoList
-					.get(toId);
+			VisualizationNodeInfo toInfo = nodeInfoList.get(toId);
 			if (toInfo.getNode() != toNode) {
-				System.err.println("to node does not exists: " + toId + " "
-						+ toNode);
+				DebugPrintUtil.devOrDebugPrintln("to node does not exists: "
+						+ toId + " " + toNode);
 				continue;
 			}
 
@@ -411,7 +407,7 @@ public class VisualizeColorUtil {
 
 				curTotalWords = curTotalWords + curInfo.getWords();
 				curTotalLines = curTotalLines + curInfo.getLines();
-				curInfo = (VisualizationNodeInfo) nodeInfoList.get(curId);
+				curInfo = nodeInfoList.get(curId);
 				newTime = calcTime(curTotalWords, curTotalLines);
 			}
 		}

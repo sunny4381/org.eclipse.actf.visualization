@@ -58,15 +58,15 @@ import org.w3c.dom.NodeList;
  */
 public class VisualizeEngine {
 
-	public static String ERROR_ICON_NAME = "exclawhite21.gif";
+	public static String ERROR_ICON_NAME = "exclawhite21.gif"; //$NON-NLS-1$
 
-	private static final String errorStyle = "color: #dd0000; background-color: #FFFFFF; border-width: medium; border-style: solid; border-color: #dd0000;";
+	private static final String errorStyle = "color: #dd0000; background-color: #FFFFFF; border-width: medium; border-style: solid; border-color: #dd0000;"; //$NON-NLS-1$
 
-	private static final String CHECK_ITEM_PATTERN = "B_\\p{Digit}+";
+	private static final String CHECK_ITEM_PATTERN = "B_\\p{Digit}+"; //$NON-NLS-1$
 
-	private String baseUrl = ""; // default value
+	private String baseUrl = ""; // default value //$NON-NLS-1$
 
-	private String targetUrl = "";
+	private String targetUrl = ""; //$NON-NLS-1$
 
 	private Document orig = null;
 
@@ -166,11 +166,11 @@ public class VisualizeEngine {
 		if (pc != null) {
 			int size = pc.size();
 			for (int i = size - 1; i >= 0; i--) {
-				IPacket p = (IPacket) pc.get(i);
+				IPacket p = pc.get(i);
 
 				Node tmpNode = p.getNode();
 				while (tmpNode != null) {
-					if (tmpNode.getNodeName().equals("noscript")) {
+					if (tmpNode.getNodeName().equals("noscript")) { //$NON-NLS-1$
 						pc.remove(i);
 						break;
 					}
@@ -216,8 +216,8 @@ public class VisualizeEngine {
 					targetUrl));
 
 			// prepare head
-			if (result.getElementsByTagName("head").getLength() == 0) {
-				Element tmpHead = result.createElement("head");
+			if (result.getElementsByTagName("head").getLength() == 0) { //$NON-NLS-1$
+				Element tmpHead = result.createElement("head"); //$NON-NLS-1$
 				Element tmpHtml = result.getDocumentElement();
 				if (tmpHtml != null) {
 					tmpHtml.insertBefore(tmpHead, tmpHtml.getFirstChild());
@@ -319,6 +319,7 @@ public class VisualizeEngine {
 		}
 	}
 
+	@SuppressWarnings("nls")
 	private void replaceImgAndCheck(Document doc, VisualizeMapDataImpl mapData,
 			boolean remove) {
 
@@ -348,7 +349,7 @@ public class VisualizeEngine {
 		size = problemV.size();
 
 		for (int i = size - 1; i >= 0; i--) {
-			IProblemItem tmpProblem = (IProblemItem) problemV.get(i);
+			IProblemItem tmpProblem = problemV.get(i);
 			problems.add(tmpProblem);
 		}
 
@@ -534,8 +535,7 @@ public class VisualizeEngine {
 		int size = elementList.size();
 		for (int i = 0; i < size; i++) {
 
-			VisualizationNodeInfo curInfo = (VisualizationNodeInfo) elementList
-					.get(i);
+			VisualizationNodeInfo curInfo = elementList.get(i);
 
 			int time = curInfo.getTime();
 			if (time > iMaxTime)

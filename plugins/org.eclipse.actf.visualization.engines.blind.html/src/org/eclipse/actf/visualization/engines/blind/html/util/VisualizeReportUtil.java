@@ -38,6 +38,7 @@ import org.w3c.dom.NodeList;
 /**
  * Utility class for visualization report
  */
+@SuppressWarnings("nls")
 public class VisualizeReportUtil {
 
 	// move from VisualizeEngine

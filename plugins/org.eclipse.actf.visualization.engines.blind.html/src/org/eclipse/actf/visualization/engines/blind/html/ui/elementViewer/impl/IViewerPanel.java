@@ -14,17 +14,17 @@ package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 import org.eclipse.actf.ui.util.IDialogConstants;
 
 public interface IViewerPanel {
-	final static String TITLE_NAME = "ID/AccessKey/Class/CSS Inspector";
+	final static String TITLE_NAME = "ID/AccessKey/Class/CSS Inspector"; //$NON-NLS-1$
 
 	final static String CLOSE_BUTTON = IDialogConstants.CLOSE;
 
-	final static String ID_TAB_TITLE = "ID";
+	final static String ID_TAB_TITLE = "ID"; //$NON-NLS-1$
 
-	final static String ACCESSKEY_TAB_TITLE = "AccessKey";
+	final static String ACCESSKEY_TAB_TITLE = "AccessKey"; //$NON-NLS-1$
 
-	final static String CLASS_TAB_TITLE = "Class";
+	final static String CLASS_TAB_TITLE = "Class"; //$NON-NLS-1$
 
-	final static String CSS_TAB_TITLE = "CSS";
+	final static String CSS_TAB_TITLE = "CSS"; //$NON-NLS-1$
 
 	public abstract void asyncUpdateValue(VisualizeStyleInfo styleInfo);
 

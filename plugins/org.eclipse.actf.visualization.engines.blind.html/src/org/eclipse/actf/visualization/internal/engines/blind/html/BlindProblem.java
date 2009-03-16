@@ -33,6 +33,8 @@ import org.w3c.dom.Node;
  */
 public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 
+	private static final String ID = "id"; //$NON-NLS-1$
+
 	private List<Node> nodeList = null;
 
 	private int nodeId = -1;
@@ -48,7 +50,7 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 	 *            subType of problem
 	 */
 	public BlindProblem(int _subtype) {
-		this(_subtype, "");
+		this(_subtype, ""); //$NON-NLS-1$
 	}
 
 	/**
@@ -60,7 +62,7 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 	 *            target String to be embedded to error description
 	 */
 	public BlindProblem(int _subtype, String targetString) {
-		super("B_" + Integer.toString(_subtype));
+		super("B_" + Integer.toString(_subtype)); //$NON-NLS-1$
 
 		subType = _subtype;
 
@@ -96,7 +98,7 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 	 */
 	public Node getTargetNodeInResultDoc() {
 		if (nodeList.size() > 0) {
-			return (Node) nodeList.get(0);
+			return nodeList.get(0);
 		} else {
 			return null;
 		}
@@ -136,7 +138,7 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 	}
 
 	public String toString() {
-		return "node=" + nodeId + ":" + getDescription();
+		return "node=" + nodeId + ":" + getDescription(); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
@@ -188,9 +190,9 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 
 	private int getElementId(Element target) {
 		int result = -1;
-		String tmpId = target.getAttribute("id");
-		if (tmpId.length() > 0 && tmpId.startsWith("id")) {
-			tmpId = tmpId.substring(tmpId.indexOf("id") + 2);
+		String tmpId = target.getAttribute(ID);
+		if (tmpId.length() > 0 && tmpId.startsWith(ID)) {
+			tmpId = tmpId.substring(tmpId.indexOf(ID) + 2);
 			try {
 				result = Integer.parseInt(tmpId);
 			} catch (Exception e) {

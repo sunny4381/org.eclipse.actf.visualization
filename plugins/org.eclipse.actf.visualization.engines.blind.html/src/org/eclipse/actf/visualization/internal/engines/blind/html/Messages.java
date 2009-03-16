@@ -21,6 +21,10 @@ public final class Messages extends NLS {
 	}
 
 	public static String BlindView_Open_ID;
+	public static String CSSViewer_0;
+	public static String CSSViewer_1;
+	public static String ElementViewerJFace_0;
+	public static String ElementViewerJFace_1;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

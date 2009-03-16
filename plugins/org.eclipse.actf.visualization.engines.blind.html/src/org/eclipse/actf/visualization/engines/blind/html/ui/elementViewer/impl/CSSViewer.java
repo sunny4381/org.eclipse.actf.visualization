@@ -14,6 +14,7 @@ package org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.actf.visualization.internal.engines.blind.html.Messages;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.Clipboard;
 import org.eclipse.swt.dnd.TextTransfer;
@@ -78,8 +79,8 @@ public class CSSViewer {
 
 	private void openPopupMenu(int index) {
 		String[] itemName = new String[2];
-		itemName[0] = "&Copy URL";
-		itemName[1] = "&Open";
+		itemName[0] = Messages.CSSViewer_0;
+		itemName[1] = Messages.CSSViewer_1;
 		boolean[] enabled = new boolean[2];
 		enabled[0] = true;
 		enabled[1] = true;

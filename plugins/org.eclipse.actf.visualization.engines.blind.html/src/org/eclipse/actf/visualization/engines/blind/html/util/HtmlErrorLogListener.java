@@ -36,7 +36,7 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 
 	private Vector<IProblemItem> problemV = new Vector<IProblemItem>();
 
-	private String orgDoctype = "";
+	private String orgDoctype = ""; //$NON-NLS-1$
 
 	private boolean flag = true;
 
@@ -46,6 +46,7 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 	 * @see org.eclipse.actf.model.dom.html.IErrorLogListener#errorLog(int,
 	 *      java.lang.String)
 	 */
+	@SuppressWarnings("nls")
 	public void errorLog(int arg0, String arg1) {
 		if (arg0 != IParserError.ILLEGAL_ATTRIBUTE
 				|| arg1.indexOf(Html2ViewMapData.ACTF_ID) < 0) {
@@ -94,7 +95,7 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 	private void addHtmlProblem(String id, String target) {
 		IProblemItem tmpCP = new ProblemItemImpl(id);
 		int line = -1;
-		String tmpS[] = target.split(":");
+		String tmpS[] = target.split(":"); //$NON-NLS-1$
 		if (tmpS.length > 0) {
 			try {
 				line = Integer.parseInt(tmpS[0].trim());
@@ -144,6 +145,7 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 	 * 
 	 * @return HTML parse errors
 	 */
+	@SuppressWarnings("nls")
 	public Vector<IProblemItem> getHtmlProblemVector() {
 		if (flag) {
 			// (IE based LIVE DOM)->DOCTYPE was removed by IE
