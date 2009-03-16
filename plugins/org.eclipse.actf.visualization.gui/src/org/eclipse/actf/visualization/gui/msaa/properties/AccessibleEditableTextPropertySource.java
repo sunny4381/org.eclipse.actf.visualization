@@ -26,6 +26,7 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
 
 public class AccessibleEditableTextPropertySource extends AbstractPropertyInvokeSource implements IPropertySource {
 
+	@SuppressWarnings("unused")
 	private AccessibleEditableText accessibleEditableText;
 
     private static final String
@@ -79,8 +80,9 @@ public class AccessibleEditableTextPropertySource extends AbstractPropertyInvoke
         if( null != result ) {
             return result;
         }   
-		String strValue = null;
-		return null==strValue ? "null" : strValue; //$NON-NLS-1$
+//		String strValue = null;
+//		return null==strValue ? "null" : strValue; //$NON-NLS-1$
+        return "null"; //$NON-NLS-1$
 	}
 
 	public boolean isPropertySet(Object id) {
