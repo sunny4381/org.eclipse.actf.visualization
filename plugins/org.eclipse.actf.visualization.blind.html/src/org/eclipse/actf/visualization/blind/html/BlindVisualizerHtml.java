@@ -83,7 +83,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 	}
 
 	public int visualize() {
-		GuidelineHolder.getInstance().setTargetMimeType("text/html");
+		GuidelineHolder.getInstance().setTargetMimeType("text/html"); //$NON-NLS-1$
 
 		int frameId = 0;
 		checkResult = new EvaluationResultBlind();
@@ -104,12 +104,12 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			HtmlErrorLogListener errorLogListener = new HtmlErrorLogListener();
 			htmlParser.addErrorLogListener(errorLogListener);
 			String targetFileName = tmpDirS + MAPPED_HTML_FILE_PRE + frameId
-					+ ".html";
+					+ ".html"; //$NON-NLS-1$
 
 			boolean isIEhtml = false;
 			if (EvaluationUtil.isOriginalDOM()) {
 				html2ViewMapV = Html2ViewMapMaker.makeMap(ORIG_HTML_FILE,
-						MAPPED_HTML_FILE_PRE + frameId + ".html", tmpDirS);
+						MAPPED_HTML_FILE_PRE + frameId + ".html", tmpDirS); //$NON-NLS-1$
 				// decode miss
 				if (html2ViewMapV.size() == 0) {
 					isIEhtml = true;
@@ -281,7 +281,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			return OK;
 
 		} catch (Exception e) {
-			setStatusMessage("Visualization Error");
+			setStatusMessage(Messages.Visualization_Error);
 			e.printStackTrace();
 			return ERROR;
 		}
