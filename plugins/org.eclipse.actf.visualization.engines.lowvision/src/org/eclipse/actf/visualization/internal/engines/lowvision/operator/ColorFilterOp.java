@@ -33,7 +33,7 @@ public class ColorFilterOp implements ILowVisionOperator {
 
 	public void setRedRatio(float _rf) throws LowVisionException {
 		if (_rf < 0.0f || 1.0f < _rf)
-			throw new LowVisionException("Ratio is out of range: " + _rf);
+			throw new LowVisionException("Ratio is out of range: " + _rf); //$NON-NLS-1$
 		redRatio = _rf;
 	}
 
@@ -43,7 +43,7 @@ public class ColorFilterOp implements ILowVisionOperator {
 
 	public void setGreenRatio(float _gf) throws LowVisionException {
 		if (_gf < 0.0f || 1.0f < _gf)
-			throw new LowVisionException("Ratio is out of range: " + _gf);
+			throw new LowVisionException("Ratio is out of range: " + _gf); //$NON-NLS-1$
 		greenRatio = _gf;
 	}
 
@@ -53,13 +53,13 @@ public class ColorFilterOp implements ILowVisionOperator {
 
 	public void setBlueRatio(float _bf) throws LowVisionException {
 		if (_bf < 0.0f || 1.0f < _bf)
-			throw new LowVisionException("Ratio is out of range: " + _bf);
+			throw new LowVisionException("Ratio is out of range: " + _bf); //$NON-NLS-1$
 		blueRatio = _bf;
 	}
 
 	public void setRatio(float[] _rgb) throws LowVisionException {
 		if (_rgb.length < 3)
-			throw new LowVisionException("Array is to small.");
+			throw new LowVisionException("Array is to small."); //$NON-NLS-1$
 		setRedRatio(_rgb[0]);
 		setGreenRatio(_rgb[1]);
 		setBlueRatio(_rgb[2]);
@@ -82,14 +82,14 @@ public class ColorFilterOp implements ILowVisionOperator {
 		int[] destArray = destBufInt.getData();
 		int destSize = destArray.length;
 		if (srcSize != destSize) {
-			throw new LowVisionException("Sizes of src and dest images differ.");
+			throw new LowVisionException("Sizes of src and dest images differ."); //$NON-NLS-1$
 		}
 
 		HashMap<Integer, Integer> pixelMap = new HashMap<Integer, Integer>();
 		for (int i = 0; i < srcSize; i++) {
 			Integer srcPixel = new Integer(srcArray[i]);
 			Integer destPixel = null;
-			if ((destPixel = (Integer) (pixelMap.get(srcPixel))) == null) {
+			if ((destPixel = pixelMap.get(srcPixel)) == null) {
 				destPixel = new Integer(convertColor(srcArray[i], redRatio,
 						greenRatio, blueRatio));
 				pixelMap.put(srcPixel, destPixel);
@@ -99,7 +99,7 @@ public class ColorFilterOp implements ILowVisionOperator {
 
 		destImage.setData(destRaster);
 		return (destImage);
-	} 
+	}
 
 	public IInt2D filter(Int2D _src, Int2D _dest) throws LowVisionException {
 		Int2D destImage = _dest;
@@ -112,7 +112,7 @@ public class ColorFilterOp implements ILowVisionOperator {
 			for (int i = 0; i < _src.getWidth(); i++) {
 				int srcColor = _src.getData()[j][i];
 				Integer srcPixel = new Integer(srcColor);
-				Integer destPixel = (Integer) (pixelMap.get(srcPixel));
+				Integer destPixel = pixelMap.get(srcPixel);
 				if (destPixel == null) {
 					int destColor = convertColor(srcColor, redRatio,
 							greenRatio, blueRatio);
@@ -126,21 +126,22 @@ public class ColorFilterOp implements ILowVisionOperator {
 		return (destImage);
 	}
 
+	@SuppressWarnings("nls")
 	public static int convertColor(int _src, float _rRatio, float _gRatio,
 			float _bRatio) throws LowVisionException {
 		int pixel = _src;
 		int b = pixel & 0xff;
-		int newB = Math.round((float) b * _bRatio);
+		int newB = Math.round(b * _bRatio);
 		if (newB < 0 || 255 < newB)
 			throw new LowVisionException("New blue value is out of range: "
 					+ newB);
 		int g = pixel >> 8 & 0xff;
-		int newG = Math.round((float) g * _gRatio);
+		int newG = Math.round(g * _gRatio);
 		if (newG < 0 || 255 < newG)
 			throw new LowVisionException("New green value is out of range: "
 					+ newG);
 		int r = pixel >> 16 & 0xff;
-		int newR = Math.round((float) r * _rRatio);
+		int newR = Math.round(r * _rRatio);
 		if (newR < 0 || 255 < newR)
 			throw new LowVisionException("New red value is out of range: "
 					+ newR);

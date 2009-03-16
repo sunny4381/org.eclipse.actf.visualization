@@ -33,7 +33,7 @@ public class BlurOp implements ILowVisionOperator {
 		int arrayWidth = 2 * (cPixel) + 1;
 		double[][] blurArray = new double[arrayWidth][arrayWidth];
 		if (cPixel == fPixel) {
-			double area = (double) (arrayWidth * arrayWidth);
+			double area = arrayWidth * arrayWidth;
 			for (int j = 0; j < arrayWidth; j++) {
 				for (int i = 0; i < arrayWidth; i++) {
 					blurArray[j][i] = 1.0 / area;
@@ -41,7 +41,7 @@ public class BlurOp implements ILowVisionOperator {
 			}
 		} else if (cPixel == fPixel + 1) {
 			double dicimal = pixel - fPixel;
-			double area = (double) ((2.0 * pixel + 1.0) * (2.0 * pixel + 1.0));
+			double area = (2.0 * pixel + 1.0) * (2.0 * pixel + 1.0);
 
 			double centerValue = 1.0 / area;
 			for (int j = 1; j < arrayWidth - 1; j++) {

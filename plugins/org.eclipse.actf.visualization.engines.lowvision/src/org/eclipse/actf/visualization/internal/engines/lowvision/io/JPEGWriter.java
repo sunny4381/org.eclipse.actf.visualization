@@ -29,7 +29,7 @@ public class JPEGWriter {
 			bos = new BufferedOutputStream(new FileOutputStream(_fileName));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			throw new LowVisionIOException("The file was not found: "
+			throw new LowVisionIOException("The file was not found: " //$NON-NLS-1$
 					+ _fileName);
 		}
 
@@ -40,7 +40,7 @@ public class JPEGWriter {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new LowVisionIOException(
-					"IO error occurred while decoding/closing.");
+					"IO error occurred while decoding/closing."); //$NON-NLS-1$
 		}
 	}
 }

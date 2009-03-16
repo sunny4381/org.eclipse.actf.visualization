@@ -35,7 +35,7 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 		numProblems = _vec.size();
 		if (numProblems <= 0) {
 			throw new LowVisionProblemException(
-					"No instance belong to the group.");
+					"No instance belong to the group."); //$NON-NLS-1$
 		}
 		problems = new LowVisionProblem[numProblems];
 
@@ -58,7 +58,7 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 			LowVisionProblem curProb = _vec.elementAt(i);
 			if (curProb.problemType != this.problemType) {
 				throw new LowVisionProblemException(
-						"Problems of different types cannot be grouped.");
+						"Problems of different types cannot be grouped."); //$NON-NLS-1$
 			}
 			problems[i] = curProb;
 			int curLeft = curProb.getX();
@@ -83,7 +83,7 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 		this.top = tmpTop;
 		this.width = tmpRight - tmpLeft;
 		this.height = tmpBottom - tmpTop;
-		groupScore = sumCharacterScores / (double) width / (double) height;
+		groupScore = sumCharacterScores / width / height;
 
 		calcProbability();
 		calcPriority();
@@ -97,7 +97,7 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 	private void calcProbability() throws LowVisionProblemException {
 		if (numProblems <= 0) {
 			throw new LowVisionProblemException(
-					"There are no Problems in this ProblemGroup.");
+					"There are no Problems in this ProblemGroup."); //$NON-NLS-1$
 		}
 		probability = 0.0;
 		// double problemArea = 0.0;
@@ -138,7 +138,7 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 		} else {
 			if (pi == null) {
 				throw new LowVisionProblemException(
-						"PageImage of the Problem is null.");
+						"PageImage of the Problem is null."); //$NON-NLS-1$
 			}
 			int pageWidth = pi.getWidth();
 			int pageHeight = pi.getHeight();

@@ -56,6 +56,8 @@ public abstract class LowVisionRecommendation implements Recommendation{
 		PrintWriter pw = new PrintWriter( _ps, true );
 		dump( pw );
 	}
+	
+	@SuppressWarnings("nls")
 	public void dump( PrintWriter _pw ){
 		_pw.println( "-----" );
 		_pw.println( "dumping a recommendation" );

@@ -27,8 +27,8 @@ public class GlareOp implements ILowVisionOperator {
 
 	public GlareOp(float _deg) throws LowVisionException {
 		if (!checkDegree(_deg)) {
-			throw new LowVisionException("Glare Degree " + _deg
-					+ " is out of range.");
+			throw new LowVisionException("Glare Degree " + _deg //$NON-NLS-1$
+					+ " is out of range."); //$NON-NLS-1$
 		}
 		glareDegree = _deg;
 	}
@@ -58,14 +58,14 @@ public class GlareOp implements ILowVisionOperator {
 		int[] destArray = destBufInt.getData();
 		int destSize = destArray.length;
 		if (srcSize != destSize) {
-			throw new LowVisionException("Sizes of src and dest images differ.");
+			throw new LowVisionException("Sizes of src and dest images differ."); //$NON-NLS-1$
 		}
 
 		HashMap<Integer, Integer> pixelMap = new HashMap<Integer, Integer>();
 		for (int i = 0; i < srcSize; i++) {
 			Integer srcPixel = new Integer(srcArray[i]);
 			Integer destPixel = null;
-			if ((destPixel = (Integer) (pixelMap.get(srcPixel))) == null) {
+			if ((destPixel = pixelMap.get(srcPixel)) == null) {
 				destPixel = new Integer(convertColor(srcArray[i], glareDegree));
 				pixelMap.put(srcPixel, destPixel);
 			}
@@ -79,8 +79,8 @@ public class GlareOp implements ILowVisionOperator {
 	public static int convertColor(int _color, float _degree)
 			throws LowVisionException {
 		if (!checkDegree(_degree)) {
-			throw new LowVisionException("Glare Degree " + _degree
-					+ " is out of range.");
+			throw new LowVisionException("Glare Degree " + _degree //$NON-NLS-1$
+					+ " is out of range."); //$NON-NLS-1$
 		}
 		int[] rgb = ColorUtil.intToRGB(_color);
 

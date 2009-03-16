@@ -26,13 +26,13 @@ public class LowVisionFilter {
 
 	Vector<String> simVector = new Vector<String>();
 
-	private static final String TYPE_SENIOR_FILTER = "senior_color";
+	private static final String TYPE_SENIOR_FILTER = "senior_color"; //$NON-NLS-1$
 
-	private static final String TYPE_CVD = "color";
+	private static final String TYPE_CVD = "color"; //$NON-NLS-1$
 
-	private static final String TYPE_EYESIGHT = "focus";
+	private static final String TYPE_EYESIGHT = "focus"; //$NON-NLS-1$
 
-	private static final String TYPE_GLARE = "glare";
+	private static final String TYPE_GLARE = "glare"; //$NON-NLS-1$
 
 	public LowVisionFilter(LowVisionType _t) {
 		type = _t;
@@ -58,7 +58,7 @@ public class LowVisionFilter {
 	public BufferedImage filter(BufferedImage _src, BufferedImage _dest)
 			throws LowVisionException {
 		if (type == null) {
-			throw new LowVisionException("LowVisionType must be provided.");
+			throw new LowVisionException("LowVisionType must be provided."); //$NON-NLS-1$
 		}
 		try {
 			int size = simVector.size();
@@ -82,7 +82,7 @@ public class LowVisionFilter {
 		} catch (ColorException ce) {
 			ce.printStackTrace();
 			throw new LowVisionException(
-					"ColorException occurred while filtering.");
+					"ColorException occurred while filtering."); //$NON-NLS-1$
 		}
 
 	}
@@ -106,7 +106,7 @@ public class LowVisionFilter {
 			BlurOp bop = new BlurOp(type);
 			return (bop.filter(_src, _dest));
 		} else {
-			throw new LowVisionException("Unknown type: " + _type);
+			throw new LowVisionException("Unknown type: " + _type); //$NON-NLS-1$
 		}
 	}
 }

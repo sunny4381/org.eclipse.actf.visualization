@@ -30,7 +30,7 @@ public class PBMWriter {
 			fos = new FileOutputStream(_fileName);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			throw new LowVisionIOException("The file was not found: "
+			throw new LowVisionIOException("The file was not found: " //$NON-NLS-1$
 					+ _fileName);
 		}
 		PrintWriter pw = new PrintWriter(fos, true);
@@ -38,12 +38,12 @@ public class PBMWriter {
 		int width = _bi.getWidth();
 		int height = _bi.getHeight();
 
-		pw.println("P1");
-		pw.print("" + width + " " + height);
+		pw.println("P1"); //$NON-NLS-1$
+		pw.print("" + width + " " + height); //$NON-NLS-1$ //$NON-NLS-2$
 		int lineLength = LINE_LENGTH;
 		if (width < lineLength)
 			lineLength = width;
-		StringBuffer sb = new StringBuffer("");
+		StringBuffer sb = new StringBuffer(""); //$NON-NLS-1$
 		byte[][] bidata = _bi.getData();
 		int k = 0;
 		for (int j = 0; j < height; j++) {
@@ -54,9 +54,9 @@ public class PBMWriter {
 				}
 				k++;
 				if (bidata[j][i] == 0)
-					sb.append("0");
+					sb.append("0"); //$NON-NLS-1$
 				else
-					sb.append("1");
+					sb.append("1"); //$NON-NLS-1$
 			}
 		}
 		pw.println(sb.toString());

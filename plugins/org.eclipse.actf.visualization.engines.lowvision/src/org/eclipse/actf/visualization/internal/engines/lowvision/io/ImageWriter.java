@@ -28,7 +28,7 @@ public class ImageWriter {
 		if (type != IoUtil.TYPE_UNKNOWN)
 			writeBufferedImage(_bi, _fileName, type);
 		else
-			throw new LowVisionIOException("Unknown image format.");
+			throw new LowVisionIOException("Unknown image format."); //$NON-NLS-1$
 	}
 
 	public static void writeBufferedImage(BufferedImage _bi, String _fileName,
@@ -41,15 +41,15 @@ public class ImageWriter {
 			File outFile = new File(_fileName);
 			boolean result = true;
 			try {
-				result = ImageIO.write(_bi, "GIF", outFile);
+				result = ImageIO.write(_bi, "GIF", outFile); //$NON-NLS-1$
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new LowVisionIOException(
-						"An error occurs while writing a GIF image.");
+						"An error occurs while writing a GIF image."); //$NON-NLS-1$
 			}
 			if (!result) {
 				throw new LowVisionIOException(
-						"No appropriate writer is found while writing a GIF image.");
+						"No appropriate writer is found while writing a GIF image."); //$NON-NLS-1$
 			}
 			// throw new LowVisionIOException("This file format cannot be
 			// written out.");
@@ -57,20 +57,20 @@ public class ImageWriter {
 			File outFile = new File(_fileName);
 			boolean result = true;
 			try {
-				result = ImageIO.write(_bi, "PNG", outFile);
+				result = ImageIO.write(_bi, "PNG", outFile); //$NON-NLS-1$
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 				throw new LowVisionIOException(
-						"An error occurs while writing a PNG image.");
+						"An error occurs while writing a PNG image."); //$NON-NLS-1$
 			}
 			if (!result) {
 				throw new LowVisionIOException(
-						"No appropriate writer is found while writing a PNG image.");
+						"No appropriate writer is found while writing a PNG image."); //$NON-NLS-1$
 			}
 			// throw new LowVisionIOException("This file format cannot be
 			// written out.");
 		} else
-			throw new LowVisionIOException("Unknown image format.");
+			throw new LowVisionIOException("Unknown image format."); //$NON-NLS-1$
 	}
 
 	public static void writeInt2D(Int2D _i2d, String _fileName)
@@ -90,7 +90,7 @@ public class ImageWriter {
 		if (type != IoUtil.TYPE_UNKNOWN)
 			writeBinaryImage(_bi, _fileName, type);
 		else
-			throw new LowVisionIOException("Unknown image format.");
+			throw new LowVisionIOException("Unknown image format."); //$NON-NLS-1$
 	}
 
 	public static void writeBinaryImage(BinaryImage _bi, String _fileName,
@@ -98,6 +98,6 @@ public class ImageWriter {
 		if (_type == IoUtil.TYPE_PBM)
 			PBMWriter.writeBinaryImage(_bi, _fileName);
 		else
-			throw new LowVisionIOException("Unknown image format.");
+			throw new LowVisionIOException("Unknown image format."); //$NON-NLS-1$
 	}
 }

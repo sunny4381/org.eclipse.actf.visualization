@@ -29,7 +29,7 @@ public class PBMReader{
 	    	fis = new FileInputStream( _fileName );
 		}catch( FileNotFoundException e ){
 	    	e.printStackTrace();
-	    	throw new LowVisionIOException( "The file was not found: " + _fileName );
+	    	throw new LowVisionIOException( "The file was not found: " + _fileName ); //$NON-NLS-1$
 		}
 		BufferedReader br = new BufferedReader( new InputStreamReader( fis ) );
 
@@ -38,10 +38,10 @@ public class PBMReader{
 	    	char magic2 = (char)(br.read());
 	    	// support "P1" (not "P4")
 	    	if( magic1 != 'P' || magic2 != '1' ){
-			throw new LowVisionIOException( "Bad magic number: " + magic1 + magic2 + "\n\"P4\" cannot be treated in this version.\n(Only \"P1\" is accepted.)" );
+			throw new LowVisionIOException( "Bad magic number: " + magic1 + magic2 + "\n\"P4\" cannot be treated in this version.\n(Only \"P1\" is accepted.)" ); //$NON-NLS-1$ //$NON-NLS-2$
 	    	}
 		}catch( IOException e ){
-	    	throw new LowVisionIOException( "IOException occurred while reading the magic number." );
+	    	throw new LowVisionIOException( "IOException occurred while reading the magic number." ); //$NON-NLS-1$
 		}
 
 		StringBuffer sb = new StringBuffer();
@@ -49,41 +49,41 @@ public class PBMReader{
 			// remove comments, etc.
 	    	String oneLine = null;
 	    	while( (oneLine=br.readLine()) != null ){
-			int index = oneLine.indexOf("#");
+			int index = oneLine.indexOf("#"); //$NON-NLS-1$
 			if( index == -1 )
-		    	sb.append( oneLine + "\n" );
+		    	sb.append( oneLine + "\n" ); //$NON-NLS-1$
 			else
-		    	sb.append( oneLine.substring( 0, index ) + "\n" );
+		    	sb.append( oneLine.substring( 0, index ) + "\n" ); //$NON-NLS-1$
 	    	}
 		}catch( IOException e ){
 	    	e.printStackTrace();
-	    	throw new LowVisionIOException( "IO error occurred when reading." );
+	    	throw new LowVisionIOException( "IO error occurred when reading." ); //$NON-NLS-1$
 		}
 
 		String content = sb.toString();
 		if( !Character.isWhitespace( content.charAt(0) ) ){
-	    	throw new LowVisionIOException( "The magic number must be followed by a white space." );
+	    	throw new LowVisionIOException( "The magic number must be followed by a white space." ); //$NON-NLS-1$
 		}
 		content = content.substring(1);
 
-		Pattern pat = Pattern.compile( "(\\d+)\\s(\\d+)\\s([01\\s]+)" );
+		Pattern pat = Pattern.compile( "(\\d+)\\s(\\d+)\\s([01\\s]+)" ); //$NON-NLS-1$
 		Matcher mat = pat.matcher( content );
 		if( !(mat.find()) ){
-			throw new LowVisionIOException( "Invalid data format (1)." );
+			throw new LowVisionIOException( "Invalid data format (1)." ); //$NON-NLS-1$
 		}
 		int count = mat.groupCount();
 		if( count != 3 ){
-			throw new LowVisionIOException( "Invalid data format (2). count = " + count );
+			throw new LowVisionIOException( "Invalid data format (2). count = " + count ); //$NON-NLS-1$
 		}
 		int width = Integer.parseInt(mat.group(1));
 		int height = Integer.parseInt(mat.group(2));
 		String dataStr = mat.group(3);
-		Pattern pat2 = Pattern.compile( "\\s+" );
+		Pattern pat2 = Pattern.compile( "\\s+" ); //$NON-NLS-1$
 		Matcher mat2 = pat2.matcher( dataStr );
-		String data = mat2.replaceAll( "" );
+		String data = mat2.replaceAll( "" ); //$NON-NLS-1$
 
 		if( data.length() != width*height ){
-	    	throw new LowVisionIOException( "Data size does not equal to width*height" );
+	    	throw new LowVisionIOException( "Data size does not equal to width*height" ); //$NON-NLS-1$
 		}
 
 		BinaryImage bi = new BinaryImage( width, height );

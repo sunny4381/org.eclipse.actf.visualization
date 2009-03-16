@@ -75,7 +75,7 @@ public class CVDOp implements ILowVisionOperator{
 
     public BufferedImage filter( BufferedImage _src, BufferedImage _dest ) throws LowVisionException{
 		if( type != 1 && type != 2 && type != 3 ){
-			throw new LowVisionException( "Invalid type: " + type );
+			throw new LowVisionException( "Invalid type: " + type ); //$NON-NLS-1$
 		}
 	
 		WritableRaster srcRaster = _src.copyData( null );
@@ -92,14 +92,14 @@ public class CVDOp implements ILowVisionOperator{
 		int[] destArray = destBufInt.getData();
 		int destSize = destArray.length;
 		if( srcSize != destSize ){
-		    throw new LowVisionException( "Sizes of src and dest images differ." );
+		    throw new LowVisionException( "Sizes of src and dest images differ." ); //$NON-NLS-1$
 		}
 	
 		HashMap<Integer, Integer> pixelMap = new HashMap<Integer, Integer>();
 		for( int i=0; i<srcSize; i++ ){
 		    Integer srcPixel = new Integer( srcArray[i] );
 		    Integer destPixel = null;
-		    if( (destPixel=(Integer)(pixelMap.get(srcPixel))) == null ){
+		    if( (destPixel=pixelMap.get(srcPixel)) == null ){
 		    	destPixel = new Integer( convertColor(srcArray[i],type) );
 				pixelMap.put( srcPixel, destPixel );
 		    }
@@ -112,7 +112,7 @@ public class CVDOp implements ILowVisionOperator{
 
 	public IInt2D filter( Int2D _src, Int2D _dest ) throws LowVisionException{
 		if( type != 1 && type != 2 && type != 3 ){
-			throw new LowVisionException( "Invalid type: " + type );
+			throw new LowVisionException( "Invalid type: " + type ); //$NON-NLS-1$
 		}
 		
 		Int2D destImage = _dest;
@@ -125,7 +125,7 @@ public class CVDOp implements ILowVisionOperator{
 			for( int i=0; i<_src.getWidth(); i++ ){
 				int srcColor =_src.getData()[j][i];
 				Integer srcPixel = new Integer( srcColor );
-				Integer destPixel  = (Integer)(pixelMap.get(srcPixel));
+				Integer destPixel  = pixelMap.get(srcPixel);
 				if( destPixel == null ){ 
 					int destColor = convertColor( srcColor, type );
 					destImage.getData()[j][i] = destColor;
@@ -175,7 +175,7 @@ public class CVDOp implements ILowVisionOperator{
 			}
 		}catch( ColorException ce ){
 			ce.printStackTrace();
-			throw new LowVisionException( "ColorException occurred while converting color.");
+			throw new LowVisionException( "ColorException occurred while converting color."); //$NON-NLS-1$
 		}
 	}
 
@@ -207,7 +207,7 @@ public class CVDOp implements ILowVisionOperator{
 		    locusB = BR_B;
 		}
 		else{
-		    throw new LowVisionException( "Invalid type : " + _type );
+		    throw new LowVisionException( "Invalid type : " + _type ); //$NON-NLS-1$
 		}
 	
 		float destYY = srcYY;
@@ -227,7 +227,7 @@ public class CVDOp implements ILowVisionOperator{
 				 * destX = srcX; destY = srcY; debugUtil.errMsg( this, "(x,y) is
 				 * out of sRGB's range. (x,y) = " + srcX + ", " + srcY );
 				 */
-			throw new LowVisionException( "(x,y) is out of sRGB's range. (x,y) = " + srcX + ", " + srcY );
+			throw new LowVisionException( "(x,y) is out of sRGB's range. (x,y) = " + srcX + ", " + srcY ); //$NON-NLS-1$ //$NON-NLS-2$
 		    }
 		} else{
 		    destX = confuseX;

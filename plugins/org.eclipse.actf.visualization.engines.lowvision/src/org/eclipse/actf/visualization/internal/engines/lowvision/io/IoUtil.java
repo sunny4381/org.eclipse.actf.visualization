@@ -31,21 +31,21 @@ public class IoUtil {
 	public static short getFileType(String _fileName) {
 		if (_fileName == null)
 			return (TYPE_UNKNOWN);
-		int ind = _fileName.lastIndexOf(".");
+		int ind = _fileName.lastIndexOf("."); //$NON-NLS-1$
 		if (ind == -1)
 			return (TYPE_UNKNOWN);
 		String ext = _fileName.substring(ind + 1).toLowerCase();
-		if (ext.equals("bmp"))
+		if (ext.equals("bmp")) //$NON-NLS-1$
 			return (TYPE_BMP);
-		else if (ext.equals("dib"))
+		else if (ext.equals("dib")) //$NON-NLS-1$
 			return (TYPE_BMP);
-		else if (ext.equals("jpg") || ext.equals("jpeg"))
+		else if (ext.equals("jpg") || ext.equals("jpeg")) //$NON-NLS-1$ //$NON-NLS-2$
 			return (TYPE_JPEG);
-		else if (ext.equals("pbm"))
+		else if (ext.equals("pbm")) //$NON-NLS-1$
 			return (TYPE_PBM);
-		else if (ext.equals("gif"))
+		else if (ext.equals("gif")) //$NON-NLS-1$
 			return (TYPE_GIF);
-		else if (ext.equals("png"))
+		else if (ext.equals("png")) //$NON-NLS-1$
 			return (TYPE_PNG);
 		else
 			return (TYPE_UNKNOWN);

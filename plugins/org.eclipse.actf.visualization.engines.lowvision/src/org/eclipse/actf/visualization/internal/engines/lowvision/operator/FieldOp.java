@@ -26,7 +26,7 @@ public class FieldOp implements ILowVisionOperator {
 	public static final short TYPE_CIRCLE_INT = 1; // number of pixels
 
 	public static final short TYPE_CIRCLE_FLOAT = 2; // ratio of circle to
-														// image
+	// image
 
 	public static final float CIRCLE_WIDTH = 20.0f; // blur width
 
@@ -48,8 +48,8 @@ public class FieldOp implements ILowVisionOperator {
 			diameterInt = _param1;
 		} else {
 			throw new LowVisionException(
-					"The type is unknown, or the type and the parameter(s) do not match: type = "
-							+ _type + ", param = " + _param1);
+					"The type is unknown, or the type and the parameter(s) do not match: type = " //$NON-NLS-1$
+							+ _type + ", param = " + _param1); //$NON-NLS-1$
 		}
 	}
 
@@ -59,8 +59,8 @@ public class FieldOp implements ILowVisionOperator {
 			diameterFloat = _param1;
 		} else {
 			throw new LowVisionException(
-					"The type is unknown, or the type and the parameter(s) do not match: type = "
-							+ _type + ", param = " + _param1);
+					"The type is unknown, or the type and the parameter(s) do not match: type = " //$NON-NLS-1$
+							+ _type + ", param = " + _param1); //$NON-NLS-1$
 		}
 	}
 
@@ -100,7 +100,7 @@ public class FieldOp implements ILowVisionOperator {
 		} else if (_type == TYPE_CIRCLE_FLOAT) {
 			alphaField = getCircleAlphaField(_width, _height, diameterFloat);
 		} else {
-			throw new LowVisionException("Unknown field type: " + _type);
+			throw new LowVisionException("Unknown field type: " + _type); //$NON-NLS-1$
 		}
 
 		int k = 0;
@@ -118,18 +118,18 @@ public class FieldOp implements ILowVisionOperator {
 	// 255: block all
 	private int[][] getCircleAlphaField(int _width, int _height, float _diameter) {
 		int[][] field = new int[_height][_width];
-		float r = (float) _width * _diameter / 2.0f;
+		float r = _width * _diameter / 2.0f;
 		float r2 = 0.0f; // r for blur
 		if (r > CIRCLE_WIDTH)
 			r2 = r - CIRCLE_WIDTH;
-		float xc = (float) _width / 2.0f; // center of image(x)
+		float xc = _width / 2.0f; // center of image(x)
 		// float yc = (float) _height / 2.0f; // center of image(y)
 
 		for (int j = 0; j < _height; j++) {
 			for (int i = 0; i < _width; i++) {
-				float x0 = (float) i - xc;
-				float y0 = (float) j - xc;
-				float r0 = (float) Math.sqrt((double) (x0 * x0 + y0 * y0));
+				float x0 = i - xc;
+				float y0 = j - xc;
+				float r0 = (float) Math.sqrt(x0 * x0 + y0 * y0);
 				int a = Math.round((r0 - r2) / (r - r2) * 255.0f);
 				if (a < 0)
 					a = 0;

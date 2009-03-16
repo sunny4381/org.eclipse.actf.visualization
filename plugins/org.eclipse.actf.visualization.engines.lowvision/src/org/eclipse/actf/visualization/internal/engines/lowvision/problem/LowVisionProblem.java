@@ -68,7 +68,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 		}
 		setPriority();
 		probability = _proba;
-		characterScore = probability * (double)width * (double)height; 
+		characterScore = probability * width * height; 
 	}
 
 	public LowVisionProblem( int _type, LowVisionType _lvType, String _description, PageElement _pe, double _proba ){
@@ -160,7 +160,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 			return( componentType );
 		}
 		else{
-			throw new LowVisionProblemException( "componentType cannot be gotten from a ProblemGroup." );
+			throw new LowVisionProblemException( "componentType cannot be gotten from a ProblemGroup." ); //$NON-NLS-1$
 		}
 	}
 	public PageComponent getPageComponent() throws LowVisionProblemException{
@@ -168,7 +168,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 			return( pageComponent );
 		}
 		else{
-			throw new LowVisionProblemException( "component cannot be gotten from a ProblemGroup." );
+			throw new LowVisionProblemException( "component cannot be gotten from a ProblemGroup." ); //$NON-NLS-1$
 		}
 	}
 
@@ -176,6 +176,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 		return( pageElement );
 	}
 
+	@SuppressWarnings("nls")
 	public String toString(){
 		String compTypeString = null;
 		if( componentType == PageComponent.SS_CHARACTER_TYPE ){
@@ -208,6 +209,8 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 		PrintWriter pw = new PrintWriter( _ps, true );
 		dump( pw, _doRecommendations );
 	}
+	
+	@SuppressWarnings("nls")
 	public void dump( PrintWriter _pw, boolean _doRecommendations ) throws LowVisionProblemException{
 		_pw.println( "----------" );
 		_pw.println( "dumping a problem");

@@ -28,7 +28,7 @@ public class JPEGReader {
 			fis = new FileInputStream(_fileName);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			throw new LowVisionIOException("The file was not found: "
+			throw new LowVisionIOException("The file was not found: " //$NON-NLS-1$
 					+ _fileName);
 		}
 
@@ -41,7 +41,7 @@ public class JPEGReader {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new LowVisionIOException(
-					"IO error occurred while decoding JPEG file.");
+					"IO error occurred while decoding JPEG file."); //$NON-NLS-1$
 		}
 	} 
 }

@@ -33,7 +33,7 @@ public class ImageReader14 {
 		if (type != IoUtil.TYPE_UNKNOWN)
 			return (readBufferedImage(_fileName, type));
 		else
-			throw new LowVisionIOException("Unknown image format: _fileName");
+			throw new LowVisionIOException("Unknown image format: _fileName"); //$NON-NLS-1$
 	}
 
 	public static BufferedImage readBufferedImage(String _fileName, short _type)
@@ -45,29 +45,29 @@ public class ImageReader14 {
 			try {
 				bufIm = ImageIO.read(new File(_fileName));
 			} catch (IOException ioe) {
-				throw new LowVisionIOException("File \"" + _fileName
-						+ "\" cannot be read.");
+				throw new LowVisionIOException("File \"" + _fileName //$NON-NLS-1$
+						+ "\" cannot be read."); //$NON-NLS-1$
 			}
 		} else if (_type == IoUtil.TYPE_GIF) {
 			try {
 				bufIm = ImageIO.read(new File(_fileName));
 			} catch (IOException ioe) {
-				throw new LowVisionIOException("File \"" + _fileName
-						+ "\" cannot be read.");
+				throw new LowVisionIOException("File \"" + _fileName //$NON-NLS-1$
+						+ "\" cannot be read."); //$NON-NLS-1$
 			}
 		} else if (_type == IoUtil.TYPE_PNG) {
 			try {
 				bufIm = ImageIO.read(new File(_fileName));
 			} catch (IOException ioe) {
-				throw new LowVisionIOException("File \"" + _fileName
-						+ "\" cannot be read.");
+				throw new LowVisionIOException("File \"" + _fileName //$NON-NLS-1$
+						+ "\" cannot be read."); //$NON-NLS-1$
 			}
 		} else {
-			throw new LowVisionIOException("Unknown image format: _fileName");
+			throw new LowVisionIOException("Unknown image format: _fileName"); //$NON-NLS-1$
 		}
 
 		if (bufIm == null) {
-			throw new LowVisionIOException("The image file cannot be read: "
+			throw new LowVisionIOException("The image file cannot be read: " //$NON-NLS-1$
 					+ _fileName);
 		}
 		return (bufIm);
@@ -80,7 +80,7 @@ public class ImageReader14 {
 		} catch (ImageException e) {
 			e.printStackTrace();
 			throw new LowVisionIOException(
-					"ImageException occurred while converting BufferedImage into Int2D.");
+					"ImageException occurred while converting BufferedImage into Int2D."); //$NON-NLS-1$
 		}
 	}
 
@@ -92,7 +92,7 @@ public class ImageReader14 {
 		} catch (ImageException e) {
 			e.printStackTrace();
 			throw new LowVisionIOException(
-					"ImageException occurred while converting BufferedImage into Int2D.");
+					"ImageException occurred while converting BufferedImage into Int2D."); //$NON-NLS-1$
 		}
 	}
 
@@ -102,7 +102,7 @@ public class ImageReader14 {
 		if (type != IoUtil.TYPE_UNKNOWN)
 			return (readBinaryImage(_fileName, type));
 		else
-			throw new LowVisionIOException("Unknown image format.");
+			throw new LowVisionIOException("Unknown image format."); //$NON-NLS-1$
 	}
 
 	public static BinaryImage readBinaryImage(String _fileName, short _type)
@@ -110,6 +110,6 @@ public class ImageReader14 {
 		if (_type == IoUtil.TYPE_PBM)
 			return (PBMReader.readBinaryImage(_fileName));
 		else
-			throw new LowVisionIOException("Unknown image format."); 
+			throw new LowVisionIOException("Unknown image format.");  //$NON-NLS-1$
 	}
 }

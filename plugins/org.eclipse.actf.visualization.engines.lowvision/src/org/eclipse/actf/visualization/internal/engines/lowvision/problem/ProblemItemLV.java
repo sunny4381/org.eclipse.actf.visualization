@@ -17,7 +17,10 @@ import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
+@SuppressWarnings("nls")
 public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage {
+
+	private static final String SPACE = " "; //$NON-NLS-1$
 
 	// TODO i18n, consider plugin
 	private static final String ERR_IRO = "Color problem";
@@ -30,15 +33,15 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 
 	int area = 0;
 
-	String backgroundS = "";
+	String backgroundS = ""; //$NON-NLS-1$
 
-	String foregroundS = "";
+	String foregroundS = ""; //$NON-NLS-1$
 
 	int frameId = -1;
 
 	int frameOffset = 0;
 
-	String frameUrlS = "";
+	String frameUrlS = ""; //$NON-NLS-1$
 
 	private int height = 0;
 
@@ -135,10 +138,10 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 			switch (iconId) {
 			case ICON_COLOR:
 				return AbstractUIPlugin.imageDescriptorFromPlugin(evalPluginID,
-						"icons/lowvision/HiIro21.gif").createImage();
+						"icons/lowvision/HiIro21.gif").createImage(); //$NON-NLS-1$
 			case ICON_BLUR:
 				return AbstractUIPlugin.imageDescriptorFromPlugin(evalPluginID,
-						"icons/lowvision/HiBoke21.gif").createImage();
+						"icons/lowvision/HiBoke21.gif").createImage(); //$NON-NLS-1$
 			default:
 				return null;
 			}
@@ -146,10 +149,10 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 			switch (iconId) {
 			case ICON_COLOR:
 				return AbstractUIPlugin.imageDescriptorFromPlugin(evalPluginID,
-						"icons/lowvision/ErrIro21.gif").createImage();
+						"icons/lowvision/ErrIro21.gif").createImage(); //$NON-NLS-1$
 			case ICON_BLUR:
 				return AbstractUIPlugin.imageDescriptorFromPlugin(evalPluginID,
-						"icons/lowvision/ErrBoke21.gif").createImage();
+						"icons/lowvision/ErrBoke21.gif").createImage(); //$NON-NLS-1$
 			default:
 				return null;
 			}
@@ -166,12 +169,12 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 		if (isCanHighlight()) {
 			switch (iconId) {
 			case ICON_COLOR:
-				return ERR_IRO + " " + ERR_HIGHLIGHT;
+				return ERR_IRO + SPACE + ERR_HIGHLIGHT;
 			case ICON_BLUR:
-				return ERR_BOKE + " " + ERR_HIGHLIGHT;
+				return ERR_BOKE + SPACE + ERR_HIGHLIGHT;
 			default:
-				System.out.println("Icon not found: " + iconId);
-				return ERR_COMPLIANCEALERT + " " + ERR_HIGHLIGHT;
+				//System.out.println("Icon not found: " + iconId);
+				return ERR_COMPLIANCEALERT + SPACE + ERR_HIGHLIGHT;
 
 			}
 		} else {
@@ -181,7 +184,7 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 			case ICON_BLUR:
 				return ERR_BOKE;
 			default:
-				System.out.println("Icon not found: " + iconId);
+				//System.out.println("Icon not found: " + iconId);
 				return ERR_COMPLIANCEALERT;
 			}
 		}
