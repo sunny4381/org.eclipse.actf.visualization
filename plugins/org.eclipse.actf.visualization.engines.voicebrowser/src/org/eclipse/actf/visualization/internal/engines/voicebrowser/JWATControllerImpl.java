@@ -27,7 +27,11 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@SuppressWarnings("nls")
+//TODO
 public class JWATControllerImpl implements IVoiceBrowserController {
+
+	private static final String BACKSLASH_N = "\n"; //$NON-NLS-1$
 
 	private static List<IVoiceBrowserView> views = new ArrayList<IVoiceBrowserView>();
 
@@ -62,7 +66,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 	 * @see org.eclipse.actf.visualization.engines.voicebrowser.IVoiceBrowserController#setMode(int)
 	 */
 	public void setMode(int mode) {
-		setMode(mode, ""); // xmlpath is not set by defalt
+		setMode(mode, ""); // xmlpath is not set by defalt //$NON-NLS-1$
 	}
 
 	public void setMode(int mode, String xmlpath) {
@@ -71,7 +75,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 		doTopOfPage();
 		// OutLoud.dumpMessages(mc);
 
-		String s = OutLoud.name + " mode";
+		String s = OutLoud.name + " mode"; //$NON-NLS-1$
 		speech.stop();
 		speech.speak(s, ITTSEngine.TTSFLAG_FLUSH, -1);
 	}
@@ -87,7 +91,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 		Node node = document;
 		JWATCore.setUriPrefix(uri);
 		if (node != null) {
-			NodeList children = document.getElementsByTagName("body");
+			NodeList children = document.getElementsByTagName("body"); //$NON-NLS-1$
 			if (children != null && children.getLength() > 0) {
 				node = children.item(0);
 				DomUtil.setFormList(node);
@@ -233,7 +237,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 						speech.speak(OutLoud.topofpage,
 								ITTSEngine.TTSFLAG_FLUSH, -1);
 					else
-						speech.speak("Top of page.", ITTSEngine.TTSFLAG_FLUSH,
+						speech.speak("Top of page.", ITTSEngine.TTSFLAG_FLUSH, 
 								-1);
 				}
 			}
@@ -436,7 +440,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 				int curpos = ccursor.getCurPos();
 				Node node = null;
 				// check if it's on a link tag
-				node = ((IPacket) pc.get(curpos)).getNode();
+				node = (pc.get(curpos)).getNode();
 				if (!pc.isLinkTag(curpos) && node != null) {
 					Node pnode = node.getParentNode();
 					boolean link = false;
@@ -446,11 +450,11 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 						// String n = pnode.getNodeName();
 						if (pnode.getNodeType() == Node.ELEMENT_NODE
 								&& pnode.getNodeName().toLowerCase().equals(
-										"body"))
+										"body")) //$NON-NLS-1$
 							break;
 						if (pnode.getNodeType() == Node.ELEMENT_NODE
 								&& pnode.getNodeName().toLowerCase()
-										.equals("a")) {
+										.equals("a")) { //$NON-NLS-1$
 							node = pnode;
 							link = true;
 							break;
@@ -487,8 +491,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 								boolean hasstr = false;
 								int pos;
 								for (pos = targetpos; pos < pc.size(); pos++) {
-									String str = ((IPacket) pc.get(pos))
-											.getText();
+									String str = (pc.get(pos)).getText();
 									if (str != null && str.length() > 0) {
 										hasstr = true;
 										break;
@@ -511,7 +514,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 							}
 							return null;
 						} else if (!href.toLowerCase()
-								.startsWith("javascript:")) {
+								.startsWith("javascript:")) { //$NON-NLS-1$
 							return href;
 						}
 					}
@@ -546,7 +549,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 			if (curpos > 0) {
 				for (int i = curpos - 1; i >= 0; i--) {
 					if (i < pc.size()) {
-						String str = ((IPacket) pc.get(i)).getText();
+						String str = (pc.get(i)).getText();
 						if (str != null && str.length() > 0
 								&& pc.isInsideAnchor(i)) {
 							hasstr = true;
@@ -567,7 +570,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 				if (newpos == endpos && endpos < (pc.size() - 1))
 					endpos++;
 				lpc.addAll(pc.subList(newpos, endpos));
-				if (lpc != null && lpc.size() > 0) {
+				if (lpc.size() > 0) {
 					int linkcnt = 0;
 					for (int j = 0; j < lpc.size(); j++)
 						if (lpc.isLinkTag(j))
@@ -628,7 +631,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 								break;
 					}
 					for (int j = i; j <= k; j++) {
-						String str = ((IPacket) pc.get(j)).getText();
+						String str = (pc.get(j)).getText();
 						if (((str != null) && (str.length() > 0))) {
 							found = true;
 							break;
@@ -648,7 +651,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 					endpos++;
 				lpc.addAll(pc.subList(newpos, endpos));
 
-				if (lpc != null && lpc.size() > 0) {
+				if (lpc.size() > 0) {
 					int linkcnt = 0;
 					for (int j = 0; j < lpc.size(); j++)
 						if (lpc.isLinkTag(j))
@@ -703,7 +706,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 
 				// check its node has string
 				for (j = i + 1; j < pc.size(); j++) {
-					String str = ((IPacket) pc.get(j)).getText();
+					String str = (pc.get(j)).getText();
 					if (((str != null) && (str.length() > 0))) {
 						pos = j;
 						break;
@@ -770,7 +773,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 
 				// check its node has string
 				for (j = i + 1; j < pc.size(); j++) {
-					String str = ((IPacket) pc.get(j)).getText();
+					String str = (pc.get(j)).getText();
 					if (((str != null) && (str.length() > 0))) {
 						pos = j;
 						break;
@@ -855,7 +858,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 			boolean strfound = false;
 			if (curpos - 1 >= 0) {
 				for (int i = curpos - 1; i >= 0; i--) {
-					String str = ((IPacket) pc.get(i)).getText();
+					String str = (pc.get(i)).getText();
 					if (!strfound && ((str != null) && (str.length() > 0))) {
 						strfound = true;
 						if (strfound) {
@@ -935,7 +938,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 			// check its node has string
 			if (pos <= pc.size()) {
 				for (i = pos; i < pc.size(); i++) {
-					String str = ((IPacket) pc.get(i)).getText();
+					String str = (pc.get(i)).getText();
 					if (((str != null) && (str.length() > 0))) {
 						pos = i;
 						break;
@@ -1071,11 +1074,9 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 	private void setRange(Node firstNode, Node lastNode) {
 		if (firstNode != null && lastNode != null) {
 			int numSelObservers = selObservers.size();
-			if (firstNode != null && lastNode != null)
-				for (int i = 0; i < numSelObservers; i++) {
-					((SelectionObserver) selObservers.get(i)).setRange(
-							firstNode, lastNode);
-				}
+			for (int i = 0; i < numSelObservers; i++) {
+				(selObservers.get(i)).setRange(firstNode, lastNode);
+			}
 		}
 	}
 
@@ -1124,7 +1125,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 			int size = pc.size();
 			StringBuffer result = new StringBuffer();
 			for (int i = startPos; i < size; i++) {
-				IPacket p = (IPacket) pc.get(i);
+				IPacket p = pc.get(i);
 				String str = p.getText();
 
 				if ((str != null) && (str.length() > 0)) {
@@ -1132,9 +1133,9 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 						char lastChar = result.charAt(result.length() - 1);
 						if (lastChar != '\n')
 							if (p.getContext().isStartSelect())
-								result.append("\n");
+								result.append(BACKSLASH_N);
 					}
-					result.append(" ");
+					result.append(" "); //$NON-NLS-1$
 					result.append(str);
 				}
 
@@ -1144,7 +1145,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 						if (p.getContext().isLineDelimiter()
 								|| (pc.isLinkTag(i) && (i + 1 < pc.size() && pc
 										.isLinkTag(i + 1))))
-							result.append("\n");
+							result.append(BACKSLASH_N);
 				}
 			}
 			return result.toString();
@@ -1165,7 +1166,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 			int size = pc.size();
 			StringBuffer result = new StringBuffer();
 			for (int i = startPos; i < size; i++) {
-				IPacket p = (IPacket) pc.get(i);
+				IPacket p = pc.get(i);
 				String str = p.getText();
 
 				if ((str != null) && (str.length() > 0)
@@ -1174,9 +1175,9 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 						char lastChar = result.charAt(result.length() - 1);
 						if (lastChar != '\n')
 							if (p.getContext().isStartSelect())
-								result.append("\n");
+								result.append(BACKSLASH_N);
 					}
-					result.append(" ");
+					result.append(" "); //$NON-NLS-1$
 					result.append(str);
 				}
 
@@ -1186,7 +1187,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 						if (p.getContext().isLineDelimiter()
 								|| (pc.isLinkTag(i) && (i + 1 < pc.size() && pc
 										.isLinkTag(i + 1))))
-							result.append("\n");
+							result.append(BACKSLASH_N);
 				}
 			}
 			return result.toString();
@@ -1240,7 +1241,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 			return;
 		int numViews = views.size();
 		for (int i = 0; i < numViews; i++) {
-			IVoiceBrowserView tv = (IVoiceBrowserView) views.get(i);
+			IVoiceBrowserView tv = views.get(i);
 			tv.drawText(text);
 		}
 	}
@@ -1255,7 +1256,7 @@ public class JWATControllerImpl implements IVoiceBrowserController {
 			return;
 		int numViews = views.size();
 		for (int i = 0; i < numViews; i++) {
-			IVoiceBrowserView tv = (IVoiceBrowserView) views.get(i);
+			IVoiceBrowserView tv = views.get(i);
 			tv.drawAppendText(text);
 		}
 	}

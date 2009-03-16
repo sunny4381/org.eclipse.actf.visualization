@@ -18,6 +18,7 @@ public class StaticOPTIONRenderer implements IElementRenderer {
 	/**
 	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context)
 	 */
+	@SuppressWarnings("nls")
 	public PacketCollection getPacketCollectionIn(
 		Element element,
 		Context curContext,

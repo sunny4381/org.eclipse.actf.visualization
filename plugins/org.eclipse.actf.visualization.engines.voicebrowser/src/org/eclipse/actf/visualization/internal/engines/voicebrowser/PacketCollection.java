@@ -66,7 +66,7 @@ public class PacketCollection extends ArrayList<IPacket> implements
 	public boolean isLineDelimiter(int i) {
 		try {
 			if (i < this.size())
-				return ((IPacket) get(i)).getContext().isLineDelimiter();
+				return (get(i)).getContext().isLineDelimiter();
 			else
 				return false;
 		} catch (Exception e) {
@@ -83,7 +83,7 @@ public class PacketCollection extends ArrayList<IPacket> implements
 	public boolean isLinkTag(int i) {
 		try {
 			if (i < this.size())
-				return ((IPacket) get(i)).getContext().isLinkTag();
+				return (get(i)).getContext().isLinkTag();
 			else
 				return false;
 		} catch (Exception e) {
@@ -100,7 +100,7 @@ public class PacketCollection extends ArrayList<IPacket> implements
 	public boolean isInsideForm(int i) {
 		try {
 			if (i < this.size())
-				return ((IPacket) get(i)).getContext().isInsideForm();
+				return (get(i)).getContext().isInsideForm();
 			else
 				return false;
 		} catch (Exception e) {
@@ -117,7 +117,7 @@ public class PacketCollection extends ArrayList<IPacket> implements
 	public boolean isInsideAnchor(int i) {
 		try {
 			if (i < this.size())
-				return ((IPacket) get(i)).getContext().isInsideAnchor();
+				return (get(i)).getContext().isInsideAnchor();
 			else
 				return false;
 		} catch (Exception e) {
@@ -129,7 +129,7 @@ public class PacketCollection extends ArrayList<IPacket> implements
 	public boolean isStartSelect(int i) {
 		try {
 			if (i < this.size())
-				return ((IPacket) get(i)).getContext().isStartSelect();
+				return (get(i)).getContext().isStartSelect();
 			else
 				return false;
 		} catch (Exception e) {
@@ -141,7 +141,7 @@ public class PacketCollection extends ArrayList<IPacket> implements
 	public boolean isStringOutput(int i) {
 		try {
 			if (i < this.size())
-				return ((IPacket) get(i)).getContext().isStringOutput();
+				return (get(i)).getContext().isStringOutput();
 			else
 				return false;
 		} catch (Exception e) {
@@ -271,9 +271,9 @@ public class PacketCollection extends ArrayList<IPacket> implements
 		for (int i = 0; i < size; i++) {
 			try {
 				sbuf.append((this.get(i)).toString());
-				sbuf.append("\n");
+				sbuf.append("\n"); //$NON-NLS-1$
 			} catch (ClassCastException cce) {
-				sbuf.append("error: " + i + "the object is not a packet.\n");
+				sbuf.append("error: " + i + "the object is not a packet.\n"); //$NON-NLS-1$ //$NON-NLS-2$
 			}
 		}
 		return sbuf.toString();

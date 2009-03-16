@@ -19,6 +19,7 @@ public class StaticTABLERenderer implements IElementRenderer {
 	/**
 	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context, MessageCollection)
 	 */
+	@SuppressWarnings("nls")
 	public PacketCollection getPacketCollectionIn(
 		Element element,
 		Context ctx,
@@ -59,7 +60,7 @@ public class StaticTABLERenderer implements IElementRenderer {
 		while (node != null) {
 
 			if (node.getNodeType() == Node.ELEMENT_NODE
-				&& node.getNodeName().toLowerCase().equals("tr")) {
+				&& node.getNodeName().toLowerCase().equals("tr")) { //$NON-NLS-1$
 				rowscount++;
 			}
 			node = goNext(node, startNode);
@@ -80,13 +81,13 @@ public class StaticTABLERenderer implements IElementRenderer {
 		while (node != null) {
 
 			if (node.getNodeType() == Node.ELEMENT_NODE
-				&& node.getNodeName().toLowerCase().equals("tr")) {
+				&& node.getNodeName().toLowerCase().equals("tr")) { //$NON-NLS-1$
 				if (maxcnt < ccnt)
 					maxcnt = ccnt;
 				ccnt = 0;
 			}
 			if (node.getNodeType() == Node.ELEMENT_NODE
-				&& node.getNodeName().toLowerCase().equals("td")) {
+				&& node.getNodeName().toLowerCase().equals("td")) { //$NON-NLS-1$
 				ccnt++;
 			}
 			node = goNext(node, startNode);
@@ -144,7 +145,7 @@ public class StaticTABLERenderer implements IElementRenderer {
 		setContextOut(element, ctx);
 		// build result string
 		String result =
-			OutLoud.buildResultString(mc, url, element, "out", null);
+			OutLoud.buildResultString(mc, url, element, "out", null); //$NON-NLS-1$
 		if (result != null)
 			result = result.trim();
 		return new PacketCollection(new Packet(element, result, ctx, true));

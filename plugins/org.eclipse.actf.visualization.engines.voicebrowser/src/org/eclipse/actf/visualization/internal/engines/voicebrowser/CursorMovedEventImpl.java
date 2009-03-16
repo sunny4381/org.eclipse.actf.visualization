@@ -41,6 +41,7 @@ public class CursorMovedEventImpl extends EventObject implements CursorMovedEven
 		return cCursorPos;
 	}
 
+	@SuppressWarnings("nls")
 	public String toString() {
 		return (getClass().getName() + "[source=" + getSource()
 				+ ",cCursorPos=" + cCursorPos + "]");

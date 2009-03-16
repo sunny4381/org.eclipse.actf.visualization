@@ -47,7 +47,7 @@ public class StaticTDRenderer implements IElementRenderer {
 			return null;
 		} else {
 			setContextOut(element, curContext);
-			Packet newPacket = new Packet(element, "", curContext, false);
+			Packet newPacket = new Packet(element, "", curContext, false); //$NON-NLS-1$
 			return new PacketCollection(newPacket);
 		}
 	}

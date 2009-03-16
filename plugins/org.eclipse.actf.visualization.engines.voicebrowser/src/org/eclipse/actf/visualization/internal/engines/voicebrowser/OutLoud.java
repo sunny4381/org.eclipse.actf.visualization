@@ -28,9 +28,14 @@ import org.xml.sax.InputSource;
 
 public class OutLoud {
 
+	private static final String DEFAULT = "default"; //$NON-NLS-1$
+	private static final String GREATER = ">"; //$NON-NLS-1$
+	private static final String ATTRIBUTE_EQUAL = "<attribute="; //$NON-NLS-1$
+	private static final String VAR = "<var>"; //$NON-NLS-1$
+	
 	public static int jwat_mode = IVoiceBrowserController.HPR_MODE;
 	public static boolean hprDefltMsg = true;
-	public static String name = "default";
+	public static String name = DEFAULT;
 	public static String description = null;
 	public static String topofpage = null;
 	public static String endofpage = null;
@@ -62,6 +67,7 @@ public class OutLoud {
 	 * @param xmlpath
 	 * @return MessageCollection
 	 */
+	@SuppressWarnings("nls")
 	private static MessageCollection createSiteMessageCollection(String xmlpath) {
 		MessageCollection mc = new MessageCollection();
 
@@ -155,11 +161,11 @@ public class OutLoud {
 		String path = xmlpath + File.separator;
 		Document document;
 		try {
-			String dtdpath = path + "jwat.dtd";
+			String dtdpath = path + "jwat.dtd"; //$NON-NLS-1$
 			if (mode == IVoiceBrowserController.HPR_MODE) {
-				path += "jwat_hpr.xml";
+				path += "jwat_hpr.xml"; //$NON-NLS-1$
 			} else if (mode == IVoiceBrowserController.SCREEN_READER_MODE) {
-				path += "jwat_jaws.xml";
+				path += "jwat_jaws.xml"; //$NON-NLS-1$
 			}
 			File f = new File(path);
 			File d = new File(dtdpath);
@@ -169,13 +175,13 @@ public class OutLoud {
 				DocumentBuilder builder = dbfactory.newDocumentBuilder();
 				document = builder.parse(inputSource);
 			} else {
-				name = "default";
+				name = DEFAULT;
 				return null;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
-			name = "default";
+			name = DEFAULT;
 			return null;
 		}
 
@@ -185,41 +191,41 @@ public class OutLoud {
 
 		while (curReadNode != null) {
 			if (curReadNode.getNodeType() == Node.ELEMENT_NODE) {
-				if (curReadNode.getNodeName().toLowerCase().equals("name")) {
+				if (curReadNode.getNodeName().toLowerCase().equals("name")) { //$NON-NLS-1$
 					curReadNode = goNext(curReadNode);
 					name = getString(curReadNode);
 				} else if (
 					curReadNode.getNodeName().toLowerCase().equals(
-						"description")) {
+						"description")) { //$NON-NLS-1$
 					curReadNode = goNext(curReadNode);
 					description = getString(curReadNode);
 				} else if (
 					curReadNode.getNodeName().equals(
-						"disableDefaultMessage")) {
+						"disableDefaultMessage")) { //$NON-NLS-1$
 					hprDefltMsg = false;
-				} else if (curReadNode.getNodeName().equals("TopOfPage")) {
+				} else if (curReadNode.getNodeName().equals("TopOfPage")) { //$NON-NLS-1$
 					curReadNode = goNext(curReadNode);
 					topofpage = getString(curReadNode);
-				} else if (curReadNode.getNodeName().equals("EndOfPage")) {
+				} else if (curReadNode.getNodeName().equals("EndOfPage")) { //$NON-NLS-1$
 					curReadNode = goNext(curReadNode);
 					endofpage = getString(curReadNode);
-				} else if (curReadNode.getNodeName().equals("NoCurLink")) {
+				} else if (curReadNode.getNodeName().equals("NoCurLink")) { //$NON-NLS-1$
 					curReadNode = goNext(curReadNode);
 					nocurlink = getString(curReadNode);
-				} else if (curReadNode.getNodeName().equals("NoPrevLink")) {
+				} else if (curReadNode.getNodeName().equals("NoPrevLink")) { //$NON-NLS-1$
 					curReadNode = goNext(curReadNode);
 					noprevlink = getString(curReadNode);
-				} else if (curReadNode.getNodeName().equals("NoNextLink")) {
+				} else if (curReadNode.getNodeName().equals("NoNextLink")) { //$NON-NLS-1$
 					curReadNode = goNext(curReadNode);
 					nonextlink = getString(curReadNode);
-				} else if (curReadNode.getNodeName().equals("NoString")) {
+				} else if (curReadNode.getNodeName().equals("NoString")) { //$NON-NLS-1$
 					curReadNode = goNext(curReadNode);
 					nostring = getString(curReadNode);
-				} else if (curReadNode.getNodeName().equals("NotOnALink")) {
+				} else if (curReadNode.getNodeName().equals("NotOnALink")) { //$NON-NLS-1$
 					curReadNode = goNext(curReadNode);
 					notonalink = getString(curReadNode);
 				} else if (
-					curReadNode.getNodeName().toLowerCase().equals("tag")) {
+					curReadNode.getNodeName().toLowerCase().equals("tag")) { //$NON-NLS-1$
 					if (curReadNode.getAttributes() != null
 						&& curReadNode.getAttributes().getLength() > 0) {
 						int num = curReadNode.getAttributes().getLength();
@@ -229,7 +235,7 @@ public class OutLoud {
 							if (attribute
 								.getNodeName()
 								.toLowerCase()
-								.equals("name")) {
+								.equals("name")) { //$NON-NLS-1$
 								MessageCollection tmp =
 									buildMessageCollection(curReadNode, null);
 								if (tmp != null)
@@ -262,6 +268,7 @@ public class OutLoud {
 	 * @param node
 	 * @return MessageCollection
 	 */
+	@SuppressWarnings("nls")
 	private static MessageCollection buildMessageCollection(
 		Node node,
 		String uri) {
@@ -283,11 +290,11 @@ public class OutLoud {
 		ArrayList<String> msgs = new ArrayList<String>();
 		ArrayList<String> conditions = new ArrayList<String>();
 
-		if (msgs != null)
-			msgs.clear();
-
-		if (conditions != null)
-			conditions.clear();
+//		if (msgs != null)
+//			msgs.clear();
+//
+//		if (conditions != null)
+//			conditions.clear();
 
 		node = goNext(node);
 		while (node != null) {
@@ -332,7 +339,7 @@ public class OutLoud {
 							else if (
 								node.getNodeName().toLowerCase().equals(
 									"var")) {
-								String s = "<var>";
+								String s = VAR;
 								num = node.getAttributes().getLength();
 								for (int i = 0; i < num; i++) {
 									Attr attribute =
@@ -342,7 +349,7 @@ public class OutLoud {
 										+ attribute.getNodeName().toLowerCase()
 										+ "="
 										+ value
-										+ ">";
+										+ GREATER;
 								}
 								if (s.length() > 0) {
 									msgs.add(s);
@@ -401,6 +408,7 @@ public class OutLoud {
 	 * Method dumpMessages.
 	 * @param mc
 	 */
+	@SuppressWarnings("nls")
 	public static void dumpMessages(MessageCollection mc) {
 		if (mc == null)
 			return;
@@ -415,7 +423,7 @@ public class OutLoud {
 		System.out.println("	NoString is [" + OutLoud.nostring + "]");
 		System.out.println("	NotOnALink is [" + OutLoud.notonalink + "]");
 
-		if (mc != null && mc.size() > 0) {
+		if (mc.size() > 0) {
 			for (int i = 0; i < mc.size(); i++) {
 				String n = mc.get(i).getTagName();
 				String t = mc.get(i).getTagType();
@@ -472,12 +480,12 @@ public class OutLoud {
 				if (conditions.size() > 0)
 					continue;
 				s = msgs.get(i);
-				if (s.startsWith("<var>")) {
-					String pattern0 = "<attribute=";
+				if (s.startsWith(VAR)) {
+					String pattern0 = ATTRIBUTE_EQUAL;
 					int pos = s.lastIndexOf(pattern0);
 					if (pos > 0) {
 						s = s.substring(pos + pattern0.length());
-						s = s.substring(0, s.indexOf(">"));
+						s = s.substring(0, s.indexOf(GREATER));
 						if (s.length() > 0) {
 							NamedNodeMap attrs = element.getAttributes();
 							String value = null;
@@ -544,12 +552,12 @@ public class OutLoud {
 				if (conditions.size() > 0)
 					continue;
 				s = msgs.get(i);
-				if (s.startsWith("<var>")) {
-					String pattern0 = "<attribute=";
+				if (s.startsWith(VAR)) {
+					String pattern0 = ATTRIBUTE_EQUAL;
 					int pos = s.lastIndexOf(pattern0);
 					if (pos > 0) {
 						s = s.substring(pos + pattern0.length());
-						s = s.substring(0, s.indexOf(">"));
+						s = s.substring(0, s.indexOf(GREATER));
 						if (s.length() > 0) {
 							NamedNodeMap attrs = element.getAttributes();
 							String value = null;
@@ -627,12 +635,12 @@ public class OutLoud {
 				if (conditions.size() > 0)
 					continue;
 				s = msgs.get(i);
-				if (s.startsWith("<var>")) {
-					String pattern0 = "<attribute=";
+				if (s.startsWith(VAR)) {
+					String pattern0 = ATTRIBUTE_EQUAL;
 					int pos = s.lastIndexOf(pattern0);
 					if (pos > 0) {
 						s = s.substring(pos + pattern0.length());
-						s = s.substring(0, s.indexOf(">"));
+						s = s.substring(0, s.indexOf(GREATER));
 						if (s.length() > 0) {
 							NamedNodeMap attrs = element.getAttributes();
 							String value = null;
@@ -721,12 +729,12 @@ public class OutLoud {
 				if (conditions.size() > 0)
 					continue;
 				s = msgs.get(i);
-				if (s.startsWith("<var>")) {
-					String pattern0 = "<attribute=";
+				if (s.startsWith(VAR)) {
+					String pattern0 = ATTRIBUTE_EQUAL;
 					int pos = s.lastIndexOf(pattern0);
 					if (pos > 0) {
 						s = s.substring(pos + pattern0.length());
-						s = s.substring(0, s.indexOf(">"));
+						s = s.substring(0, s.indexOf(GREATER));
 						if (s.length() > 0) {
 							NamedNodeMap attrs = element.getAttributes();
 							String value = null;
@@ -810,9 +818,9 @@ public class OutLoud {
 								found = false;
 
 								String s = conditions.get(k);
-								attname = s.substring(0, s.indexOf("="));
+								attname = s.substring(0, s.indexOf("=")); //$NON-NLS-1$
 								value =
-									s.substring(s.indexOf("=") + 1, s.length());
+									s.substring(s.indexOf("=") + 1, s.length()); //$NON-NLS-1$
 
 								int num = element.getAttributes().getLength();
 								if (num > 0) {

@@ -17,7 +17,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
+@SuppressWarnings("nls")
 public class DomUtil {
 
 	protected static int tab, cnt;
@@ -125,9 +125,9 @@ public class DomUtil {
 	public static void dumpPC(PacketCollection pc) {
 		if (pc == null)
 			return;
-		if (pc != null && pc.size() > 0) {
+		if (pc.size() > 0) {
 			for (int i = 0; i < pc.size(); i++) {
-				IPacket p = (IPacket) pc.get(i);
+				IPacket p = pc.get(i);
 				String str = p.getText();
 				System.out.println("[" + i + "] <" + str + ">");
 			}

@@ -35,7 +35,7 @@ public class StaticAREARenderer implements IElementRenderer {
 
 		// get alt attribute
 		NamedNodeMap attrs = element.getAttributes();
-		Node altNode = attrs.getNamedItem("alt");
+		Node altNode = attrs.getNamedItem("alt"); //$NON-NLS-1$
 		if (altNode == null)
 			return null;
 
@@ -53,10 +53,10 @@ public class StaticAREARenderer implements IElementRenderer {
 				element,
 				null,
 				null,
-				"<name=str1>",
+				"<name=str1>", //$NON-NLS-1$
 				altstr);
 		if (result == null && OutLoud.hprDefltMsg)
-			result = "[" + altstr + ".]";
+			result = "[" + altstr + ".]"; //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (result != null)
 			result = result.trim();

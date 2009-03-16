@@ -20,6 +20,7 @@ public class StaticSELECTRenderer implements IElementRenderer {
 	/**
 	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element, Context)
 	 */
+	@SuppressWarnings("nls")
 	public PacketCollection getPacketCollectionIn(
 		Element element,
 		Context curContext,
@@ -86,6 +87,7 @@ public class StaticSELECTRenderer implements IElementRenderer {
 	/**
 	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element, Context)
 	 */
+	@SuppressWarnings("nls")
 	public PacketCollection getPacketCollectionOut(
 		Element element,
 		Context curContext,

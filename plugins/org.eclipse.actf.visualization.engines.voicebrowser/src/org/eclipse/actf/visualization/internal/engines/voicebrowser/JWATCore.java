@@ -14,12 +14,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+@SuppressWarnings("nls")
 public class JWATCore {
 	private static MessageCollection mc = null;
 
@@ -159,7 +159,7 @@ public class JWATCore {
 				if (elementStack.size() == 0) {
 					break;
 				}
-				curReadNode = (Node) elementStack.pop();
+				curReadNode = elementStack.pop();
 
 				if ((result != null)
 						&& (curReadNode.getNodeType() == Node.ELEMENT_NODE)) {
@@ -293,7 +293,7 @@ public class JWATCore {
 	private static IElementRenderer getElementRenderer(Element element) {
 		String nodeName = element.getNodeName().toLowerCase();
 		IElementRenderer renderer = null;
-		renderer = (IElementRenderer) elementMap.get(nodeName);
+		renderer = elementMap.get(nodeName);
 		if (renderer == null)
 			renderer = defaultRenderer;
 		return renderer;
@@ -326,9 +326,9 @@ public class JWATCore {
 			}
 
 			int size = pc.size();
-			Node n = ((IPacket) p.get(0)).getNode();
+			Node n = p.get(0).getNode();
 			for (int i = 0; i < size; i++) {
-				if (n == ((IPacket) pc.get(i)).getNode()) {
+				if (n == pc.get(i).getNode()) {
 					return i;
 				}
 			}

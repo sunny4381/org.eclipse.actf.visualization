@@ -38,10 +38,10 @@ public class StaticTRRenderer implements IElementRenderer {
 		MessageCollection mc) {
 		setContextOut(element, ctx);
 
-		if (element.getNodeName().toLowerCase().equals("tr")
+		if (element.getNodeName().toLowerCase().equals("tr") //$NON-NLS-1$
 			&& OutLoud.jwat_mode == IVoiceBrowserController.SCREEN_READER_MODE) {
 			String result =
-				OutLoud.buildResultString(mc, url, element, "out", null);
+				OutLoud.buildResultString(mc, url, element, "out", null); //$NON-NLS-1$
 
 			if (result != null)
 				result = result.trim();

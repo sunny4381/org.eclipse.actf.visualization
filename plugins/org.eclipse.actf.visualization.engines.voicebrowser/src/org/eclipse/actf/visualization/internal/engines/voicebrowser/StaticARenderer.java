@@ -29,7 +29,7 @@ public class StaticARenderer implements IElementRenderer {
 		try {
 			// check if `a' element has `href' attribute
 			NamedNodeMap attrs = element.getAttributes();
-			Node hrefNode = attrs.getNamedItem("href");
+			Node hrefNode = attrs.getNamedItem("href"); //$NON-NLS-1$
 			String result = null;
 			if (hrefNode == null) {
 				curContext.setLinkTag(false);
@@ -43,7 +43,7 @@ public class StaticARenderer implements IElementRenderer {
 							mc,
 							url,
 							element,
-							"internallink",
+							"internallink", //$NON-NLS-1$
 							null);
 				} else {
 					result =
@@ -69,7 +69,7 @@ public class StaticARenderer implements IElementRenderer {
 		String url,
 		MessageCollection mc) {
 		setContextOut(element, curContext);
-		return new PacketCollection(new Packet(element, "", curContext, true));
+		return new PacketCollection(new Packet(element, "", curContext, true)); //$NON-NLS-1$
 	}
 
 	/**

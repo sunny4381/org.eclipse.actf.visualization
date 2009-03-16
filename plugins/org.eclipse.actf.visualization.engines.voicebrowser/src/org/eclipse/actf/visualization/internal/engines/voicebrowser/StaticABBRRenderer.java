@@ -30,7 +30,7 @@ public class StaticABBRRenderer implements IElementRenderer {
 
 		// get alt attribute
 		NamedNodeMap attrs = element.getAttributes();
-		Node node = attrs.getNamedItem("title");
+		Node node = attrs.getNamedItem("title"); //$NON-NLS-1$
 		if (node == null)
 			return null;
 
@@ -48,13 +48,13 @@ public class StaticABBRRenderer implements IElementRenderer {
 				element,
 				null,
 				null,
-				"<name=str1>",
+				"<name=str1>", //$NON-NLS-1$
 				str);
 		if (result == null && OutLoud.hprDefltMsg) {
-			if (element.getNodeName().toLowerCase().equals("abbr"))
-				result = "(Abbreviation: " + str + ".)";
+			if (element.getNodeName().toLowerCase().equals("abbr")) //$NON-NLS-1$
+				result = "(Abbreviation: " + str + ".)"; //$NON-NLS-1$ //$NON-NLS-2$
 			else
-				result = "(Acronym: " + str + ".)";
+				result = "(Acronym: " + str + ".)"; //$NON-NLS-1$ //$NON-NLS-2$
 		}
 		if (result != null)
 			result = result.trim();

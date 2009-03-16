@@ -13,6 +13,7 @@ package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("nls")
 public class TextUtil {
 
 	private static Map<Character, String> replaceMap = new HashMap<Character, String>();

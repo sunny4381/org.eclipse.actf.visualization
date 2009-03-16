@@ -12,6 +12,7 @@ package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
 import org.w3c.dom.Element;
 
+@SuppressWarnings("nls")
 public class StaticFORMRenderer implements IElementRenderer {
 
 	/**
@@ -35,9 +36,9 @@ public class StaticFORMRenderer implements IElementRenderer {
 				mc,
 				url,
 				element,
-				"in",
+				"in", //$NON-NLS-1$
 				null,
-				"name=num1",
+				"name=num1", //$NON-NLS-1$
 				Integer.toString(num));
 
 		if (result == null && OutLoud.hprDefltMsg)
@@ -70,9 +71,9 @@ public class StaticFORMRenderer implements IElementRenderer {
 				mc,
 				url,
 				element,
-				"out",
+				"out", //$NON-NLS-1$
 				null,
-				"name=num1",
+				"name=num1", //$NON-NLS-1$
 				Integer.toString(num));
 		if (result == null && OutLoud.hprDefltMsg)
 			result = "(End of form " + num + ".)";

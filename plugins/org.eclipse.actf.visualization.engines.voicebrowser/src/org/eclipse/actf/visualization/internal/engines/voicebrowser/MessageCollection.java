@@ -39,7 +39,7 @@ public class MessageCollection extends ArrayList<Message> {
 	 * @return String
 	 */
 	public String getText() {
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class MessageCollection extends ArrayList<Message> {
 		Message msg = null;
 		if (mc != null && mc.size() > 0) {
 			for (int i = 0; i < mc.size(); i++) {
-				msg = (Message) mc.get(i);
+				msg = mc.get(i);
 				if (nodename.toLowerCase().equals(msg.getTagName())) {
 					if ((type == null && msg.getTagType() == null)
 						|| (type != null

@@ -27,7 +27,7 @@ public class StaticBRRenderer implements IElementRenderer {
 			return null;
 		} else {
 			setContextIn(element, curContext);
-			Packet newPacket = new Packet(element, "", curContext, true);
+			Packet newPacket = new Packet(element, "", curContext, true); //$NON-NLS-1$
 			return new PacketCollection(newPacket);
 		}
 	}

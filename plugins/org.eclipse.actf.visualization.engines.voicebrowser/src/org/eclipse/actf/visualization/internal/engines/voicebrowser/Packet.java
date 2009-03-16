@@ -90,6 +90,7 @@ public class Packet implements IPacket {
 	/**
 	 * @see java.lang.Object#toString()
 	 */
+	@SuppressWarnings("nls")
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 

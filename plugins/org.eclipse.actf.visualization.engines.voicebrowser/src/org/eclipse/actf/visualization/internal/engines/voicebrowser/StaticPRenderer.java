@@ -24,7 +24,7 @@ public class StaticPRenderer implements IElementRenderer {
 		String url,
 		MessageCollection mc) {
 		setContextIn(element, ctx);
-		Packet newPacket = new Packet(element, "", ctx, true);
+		Packet newPacket = new Packet(element, "", ctx, true); //$NON-NLS-1$
 		return new PacketCollection(newPacket);
 	}
 
@@ -41,7 +41,7 @@ public class StaticPRenderer implements IElementRenderer {
 			return null;
 		} else {
 			setContextOut(element, ctx);
-			Packet newPacket = new Packet(element, "", ctx, false);
+			Packet newPacket = new Packet(element, "", ctx, false); //$NON-NLS-1$
 			return new PacketCollection(newPacket);
 		}
 	}

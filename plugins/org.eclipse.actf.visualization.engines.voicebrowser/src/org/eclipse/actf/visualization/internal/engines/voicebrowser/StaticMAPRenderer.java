@@ -14,7 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
+@SuppressWarnings("nls")
 public class StaticMAPRenderer implements IElementRenderer {
 
 	/**
@@ -35,7 +35,7 @@ public class StaticMAPRenderer implements IElementRenderer {
 		for (int i = 0; i < children.getLength(); i++) {
 			Node node = children.item(i);
 			String nodeName = node.getNodeName().toLowerCase();
-			if (nodeName.equals("area")) {
+			if (nodeName.equals("area")) { //$NON-NLS-1$
 				num++;
 			}
 		}
@@ -49,9 +49,9 @@ public class StaticMAPRenderer implements IElementRenderer {
 					mc,
 					url,
 					element,
-					"in",
-					"plural",
-					"<name=num1>",
+					"in", //$NON-NLS-1$
+					"plural", //$NON-NLS-1$
+					"<name=num1>", //$NON-NLS-1$
 					Integer.toString(num));
 			if (result == null && OutLoud.hprDefltMsg)
 				result = "(Start of map with " + num + " items.)";
@@ -61,9 +61,9 @@ public class StaticMAPRenderer implements IElementRenderer {
 					mc,
 					url,
 					element,
-					"in",
-					"singular",
-					"<name=num1>",
+					"in", //$NON-NLS-1$
+					"singular", //$NON-NLS-1$
+					"<name=num1>", //$NON-NLS-1$
 					Integer.toString(num));
 			if (result == null && OutLoud.hprDefltMsg)
 				result = "(Start of map with 1 item.)";
@@ -84,7 +84,7 @@ public class StaticMAPRenderer implements IElementRenderer {
 		setContextOut(element, ctx);
 
 		String result =
-			OutLoud.buildResultString(mc, url, element, "out", null);
+			OutLoud.buildResultString(mc, url, element, "out", null); //$NON-NLS-1$
 		if (result == null && OutLoud.hprDefltMsg)
 			result = "(End of Map.)";
 

@@ -16,6 +16,8 @@ import org.eclipse.actf.visualization.engines.voicebrowser.IContext;
  * Context in the voice browser engine.
  */
 public class Context implements IContext {
+	private static final String COMMA_SPACE = ", "; //$NON-NLS-1$
+	
 	private boolean insideForm = false;
 	private boolean linkTag = false;
 	private boolean insideAnchor = false;
@@ -170,32 +172,33 @@ public class Context implements IContext {
 	 * 
 	 * @return converted string
 	 */
+	@SuppressWarnings("nls")
 	public String toString() {
 		StringBuffer sbuf = new StringBuffer();
 
 		sbuf.append("goChild=");
 		sbuf.append(goChild);
-		sbuf.append(", ");
+		sbuf.append(COMMA_SPACE);
 
 		sbuf.append("insideForm=");
 		sbuf.append(insideForm);
-		sbuf.append(", ");
+		sbuf.append(COMMA_SPACE);
 
 		sbuf.append("insideAnchor=");
 		sbuf.append(insideAnchor);
-		sbuf.append(", ");
+		sbuf.append(COMMA_SPACE);
 
 		sbuf.append("startSelect=");
 		sbuf.append(startSelect);
-		sbuf.append(", ");
+		sbuf.append(COMMA_SPACE);
 
 		sbuf.append("stringOutput=");
 		sbuf.append(stringOutput);
-		sbuf.append(", ");
+		sbuf.append(COMMA_SPACE);
 
 		sbuf.append("linkTag=");
 		sbuf.append(linkTag);
-		sbuf.append(", ");
+		sbuf.append(COMMA_SPACE);
 
 		sbuf.append("lineDelimiter=");
 		sbuf.append(lineDelimiter);

@@ -31,7 +31,7 @@ public class StaticIMGRenderer implements IElementRenderer {
 
 		// get alt attribute
 		NamedNodeMap attrs = element.getAttributes();
-		Node altNode = attrs.getNamedItem("alt");
+		Node altNode = attrs.getNamedItem("alt"); //$NON-NLS-1$
 		String altstr = null;
 		if (altNode == null)
 			return null;
@@ -48,15 +48,15 @@ public class StaticIMGRenderer implements IElementRenderer {
 						return null;
 
 					if (node.getNodeType() == Node.ELEMENT_NODE
-						&& node.getNodeName().toLowerCase().equals("body"))
+						&& node.getNodeName().toLowerCase().equals("body")) //$NON-NLS-1$
 						return null;
 					if (node.getNodeType() == Node.ELEMENT_NODE
-						&& node.getNodeName().toLowerCase().equals("a"))
+						&& node.getNodeName().toLowerCase().equals("a")) //$NON-NLS-1$
 						break;
 					node = node.getParentNode();
 				}
 
-				Node srcNode = attrs.getNamedItem("src");
+				Node srcNode = attrs.getNamedItem("src"); //$NON-NLS-1$
 				if (srcNode != null) {
 					String srcstr = srcNode.getNodeValue();
 					srcstr = TextUtil.trim(srcstr);
@@ -75,10 +75,10 @@ public class StaticIMGRenderer implements IElementRenderer {
 				element,
 				null,
 				null,
-				"<name=str1>",
+				"<name=str1>", //$NON-NLS-1$
 				altstr);
 		if (result == null && OutLoud.hprDefltMsg)
-			result = "[" + altstr + ".]";
+			result = "[" + altstr + ".]"; //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (result != null)
 			result = result.trim();

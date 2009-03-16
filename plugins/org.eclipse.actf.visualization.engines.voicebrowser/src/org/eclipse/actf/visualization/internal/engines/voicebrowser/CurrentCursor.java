@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
-import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -77,7 +76,7 @@ public class CurrentCursor {
 	 */
 	public Node getNode(int pos) {
 		if (pos < pc.size()) {
-			return ((IPacket) pc.get(pos)).getNode();
+			return pc.get(pos).getNode();
 		} else {
 			return null;
 		}
@@ -112,7 +111,7 @@ public class CurrentCursor {
 
 		if (this.ownerDocumentNode != null) {
 			NodeList children = ((Document) this.ownerDocumentNode)
-					.getElementsByTagName("body");
+					.getElementsByTagName("body"); //$NON-NLS-1$
 			if (children.getLength() > 0) {
 				this.topNode = children.item(0);
 			}
