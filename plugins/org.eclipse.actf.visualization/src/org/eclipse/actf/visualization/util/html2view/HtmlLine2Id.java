@@ -48,7 +48,7 @@ public class HtmlLine2Id {
 			data = new Html2ViewMapData[size + 1];
 			int i;
 			for (i = 0; i < size; i++) {
-				data[i] = (Html2ViewMapData) mapV.get(i);
+				data[i] = mapV.get(i);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

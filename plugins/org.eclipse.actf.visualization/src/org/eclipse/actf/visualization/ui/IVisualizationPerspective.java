@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.ui;
 
+@SuppressWarnings("nls")
 public interface IVisualizationPerspective {
 
 	public static final String ID_FLASH_PERSPECTIVE = "org.eclipse.actf.visualization.ui.perspectives.FlashPerspective";

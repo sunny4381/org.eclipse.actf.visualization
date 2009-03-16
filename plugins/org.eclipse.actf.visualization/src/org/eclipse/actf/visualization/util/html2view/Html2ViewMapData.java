@@ -19,7 +19,7 @@ public class Html2ViewMapData {
 	/**
 	 * ACTF_ID
 	 */
-	public static final String ACTF_ID = "eclipse-actf-id";
+	public static final String ACTF_ID = "eclipse-actf-id"; //$NON-NLS-1$
 
 	int start[] = { -1, -1 };
 	int end[] = { -1, -1 };
@@ -40,7 +40,7 @@ public class Html2ViewMapData {
 	}
 
 	public String toString() {
-		return ("start:" + start[0] + "," + start[1] + " end:" + end[0] + "," + end[1]);
+		return ("start:" + start[0] + "," + start[1] + " end:" + end[0] + "," + end[1]); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 
 	/**

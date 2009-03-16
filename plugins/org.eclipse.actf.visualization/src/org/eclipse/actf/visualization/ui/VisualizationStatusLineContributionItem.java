@@ -32,7 +32,7 @@ public class VisualizationStatusLineContributionItem extends ContributionItem {
 	/**
 	 * ID
 	 */
-	public static final String ID = "org.eclipse.actf.visualization.VisualizationStatusLineContributionItem";
+	public static final String ID = "org.eclipse.actf.visualization.VisualizationStatusLineContributionItem"; //$NON-NLS-1$
 
 	private final int MSGLABEL_WIDTHHINT = 300;
 

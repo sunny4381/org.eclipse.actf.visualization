@@ -14,6 +14,7 @@ package org.eclipse.actf.visualization;
 /**
  * Constants for Visualization components
  */
+@SuppressWarnings("nls")
 public interface IVisualizationConst {
 	/**
 	 * prefix for result file

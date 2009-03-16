@@ -64,7 +64,7 @@ public class RadarChart {
 
 	private static final Color NAMES_COLOR = Color.RED;
 
-	private static final Font NAMES_FONT = new Font("Default", Font.PLAIN, 16);
+	private static final Font NAMES_FONT = new Font("Default", Font.PLAIN, 16); //$NON-NLS-1$
 
 	private static final FontRenderContext NAMES_FONT_RENDER_CONTEXT = new FontRenderContext(
 			null, true, true);
@@ -109,14 +109,14 @@ public class RadarChart {
 
 		if (numItems != names.length) {
 			throw new Exception(
-					"The numbers of names and values are different with each other.");
+					"The numbers of names and values are different with each other."); //$NON-NLS-1$
 		}
 		if (numItems < 3) {
-			throw new Exception("At least three items are needed.");
+			throw new Exception("At least three items are needed."); //$NON-NLS-1$
 		}
 		for (int i = 0; i < numItems; i++) {
 			if (isOutOfRange(values[i])) {
-				throw new Exception("The " + i + "-th value is out of range: "
+				throw new Exception("The " + i + "-th value is out of range: " //$NON-NLS-1$ //$NON-NLS-2$
 						+ values[i]);
 			}
 		}
@@ -209,9 +209,9 @@ public class RadarChart {
 					int seR = (se >> 16) & 0xff;
 					int seG = (se >> 8) & 0xff;
 					int seB = se & 0xff;
-					fImageR[j][i] = (float) (nwR + neR + swR + seR) / 4.0f;
-					fImageG[j][i] = (float) (nwG + neG + swG + seG) / 4.0f;
-					fImageB[j][i] = (float) (nwB + neB + swB + seB) / 4.0f;
+					fImageR[j][i] = (nwR + neR + swR + seR) / 4.0f;
+					fImageG[j][i] = (nwG + neG + swG + seG) / 4.0f;
+					fImageB[j][i] = (nwB + neB + swB + seB) / 4.0f;
 				}
 			}
 			int k = 0;
@@ -409,6 +409,6 @@ public class RadarChart {
 	 * @throws IOException
 	 */
 	public void writeToPNG(File target) throws IOException {
-		ImageIO.write(bufImage, "PNG", target);
+		ImageIO.write(bufImage, "PNG", target); //$NON-NLS-1$
 	}
 }

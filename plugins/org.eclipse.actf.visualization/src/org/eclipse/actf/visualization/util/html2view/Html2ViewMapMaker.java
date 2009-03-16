@@ -31,6 +31,7 @@ import org.eclipse.actf.util.JapaneseEncodingDetector;
  * Utility class to enable mapping between line number and ACTF_ID. This utility
  * embeds ACTF_ID into HTML file.
  */
+@SuppressWarnings("nls")
 public class Html2ViewMapMaker {
 	Vector<Html2ViewMapData> html2viewV;
 
@@ -149,7 +150,7 @@ public class Html2ViewMapMaker {
 		// System.out.println(tmpDir + filename);
 		File target = new File(_tmpDir + filename);
 		JapaneseEncodingDetector JED;
-		if (target != null && target.isFile() && target.canRead()) {
+		if (target.isFile() && target.canRead()) {
 			try {
 				fis = new FileInputStream(target);
 				JED = new JapaneseEncodingDetector(fis);
