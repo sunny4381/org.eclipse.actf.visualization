@@ -64,11 +64,11 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 	private static final String EYESIGHT_0_1 = "20/200"; //$NON-NLS-1$
 
-	private static final String COLOR_VISION_1 = Messages.DialogSettingLowVision_Protan; //$NON-NLS-1$
+	private static final String COLOR_VISION_1 = Messages.DialogSettingLowVision_Protan;
 
-	private static final String COLOR_VISION_2 = Messages.DialogSettingLowVision_Deutan; //$NON-NLS-1$
+	private static final String COLOR_VISION_2 = Messages.DialogSettingLowVision_Deutan;
 
-	private static final String COLOR_VISION_3 = Messages.DialogSettingLowVision_Tritan; //$NON-NLS-1$
+	private static final String COLOR_VISION_3 = Messages.DialogSettingLowVision_Tritan;
 
 	private Button _eyesightCheckButton;
 
@@ -168,7 +168,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 			// "vizResources/images/LowVisionSample.bmp"), false));
 			this._samplePageImage = PageImageFactory
 					.createPageImage(FileLocator.openStream(lvBundle, new Path(
-							"vizResources/images/LowVisionSample.bmp"), false));
+							"vizResources/images/LowVisionSample.bmp"), false)); //$NON-NLS-1$
 		} catch (Exception e) {
 			// e.printStackTrace();
 			this._samplePageImage = PageImageFactory.createPageImage();
@@ -187,7 +187,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 			ImageLoader imageLoader = new ImageLoader();
 			_sampleImageData = imageLoader.load(FileLocator.openStream(
 					lvBundle, new Path(
-							"vizResources/images/LowVisionSample.bmp"), false));
+							"vizResources/images/LowVisionSample.bmp"), false)); //$NON-NLS-1$
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -195,7 +195,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 		if (simulationImageFile == null) {
 			try {
 				simulationImageFile = LowVisionVizPlugin.createTempFile(
-						"preference", IVisualizationConst.SUFFIX_BMP);
+						"preference", IVisualizationConst.SUFFIX_BMP); //$NON-NLS-1$
 			} catch (Exception e) {
 			}
 		}
@@ -232,7 +232,8 @@ public class LowVisionPreferencePage extends PreferencePage implements
 		this._eyesightCheckButton = new Button(composite, SWT.CHECK);
 		this._eyesightCheckButton.setLayoutData(new GridData(SWT.LEFT,
 				SWT.CENTER, false, false, 2, 1));
-		this._eyesightCheckButton.setText(Messages.DialogSettingLowVision_Eyesight_9);
+		this._eyesightCheckButton
+				.setText(Messages.DialogSettingLowVision_Eyesight_9);
 		this._eyesightCheckButton.setSelection(this._appSetting.useEyeSight());
 		this._eyesightCheckButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -417,7 +418,8 @@ public class LowVisionPreferencePage extends PreferencePage implements
 		this._colorfilterCheckButton = new Button(composite, SWT.CHECK);
 		this._colorfilterCheckButton.setLayoutData(new GridData(SWT.LEFT,
 				SWT.CENTER, false, false, 2, 1));
-		this._colorfilterCheckButton.setText(Messages.DialogSettingLowVision_Crystalline_lens);
+		this._colorfilterCheckButton
+				.setText(Messages.DialogSettingLowVision_Crystalline_lens);
 		this._colorfilterCheckButton.setSelection(this._appSetting
 				.useEyeSight());
 		this._colorfilterCheckButton
@@ -507,7 +509,7 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 		// Create the Label "Original:"
 		Label labelOriginal = new Label(composite, SWT.NONE);
-		labelOriginal.setText(Messages.DialogSettingLowVision_Original__24); //$NON-NLS-1$
+		labelOriginal.setText(Messages.DialogSettingLowVision_Original__24);
 
 		_beforeSimulateImageCanvas = new Canvas(composite, SWT.NO_REDRAW_RESIZE);
 		gridData = new GridData();
@@ -528,14 +530,15 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 		// Create the blank label for adjust the location
 		Label labelBlank = new Label(composite, SWT.NONE);
-		labelBlank.setText(" ");
+		labelBlank.setText(" "); //$NON-NLS-1$
 		gridData = new GridData();
 		gridData.heightHint = 20;
 		labelBlank.setLayoutData(gridData);
 
 		// Create the Label "After simulation:"
 		Label labelAfterSimulation = new Label(composite, SWT.NONE);
-		labelAfterSimulation.setText(Messages.DialogSettingLowVision_After_simulation); //$NON-NLS-1$
+		labelAfterSimulation
+				.setText(Messages.DialogSettingLowVision_After_simulation);
 
 		_afterSimulateImageCanvas = new Canvas(composite, SWT.NO_REDRAW_RESIZE);
 		gridData = new GridData();
@@ -656,13 +659,13 @@ public class LowVisionPreferencePage extends PreferencePage implements
 
 			int sliderValue = _eyeSightSlider.getSelection();
 			if (sliderValue < 100) {
-				str = "0." + String.valueOf(sliderValue);
+				str = "0." + String.valueOf(sliderValue); //$NON-NLS-1$
 			} else {
-				str = "1.00";
+				str = "1.00"; //$NON-NLS-1$
 			}
 			_eyeSightLabel.setText(str);
 		} else {
-			_eyeSightLabel.setText("");
+			_eyeSightLabel.setText(""); //$NON-NLS-1$
 		}
 
 		currParam.setColorVision(_colorvisionCheckButton.getSelection());

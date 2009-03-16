@@ -27,7 +27,7 @@ import org.osgi.framework.BundleContext;
  */
 public class RoomPlugin extends AbstractUIPlugin {
 
-	public static String PLUGIN_ID = "org.eclipse.actf.visualization.presentation";
+	public static String PLUGIN_ID = "org.eclipse.actf.visualization.presentation"; //$NON-NLS-1$
 
 	// The shared instance.
 	private static RoomPlugin _plugin;
@@ -46,6 +46,7 @@ public class RoomPlugin extends AbstractUIPlugin {
 	/**
 	 * This method is called upon plug-in activation
 	 */
+	@SuppressWarnings("nls")
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		_context = context;
@@ -131,7 +132,7 @@ public class RoomPlugin extends AbstractUIPlugin {
 			return new Path(url.getPath()).makeAbsolute().toOSString();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
-			return "";
+			return ""; //$NON-NLS-1$
 		}
 	}
 
@@ -139,13 +140,13 @@ public class RoomPlugin extends AbstractUIPlugin {
 		if (tmpDir != null) {
 			return (tmpDir.getAbsolutePath() + File.separator);
 		}
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 	private static void createTempDirectory() {
 		if (tmpDir == null) {
 			String tmpS = _plugin.getStateLocation().toOSString()
-					+ File.separator + "tmp";
+					+ File.separator + "tmp"; //$NON-NLS-1$
 			if (FileUtils.isAvailableDirectory(tmpS)) {
 				tmpDir = new File(tmpS);
 			}

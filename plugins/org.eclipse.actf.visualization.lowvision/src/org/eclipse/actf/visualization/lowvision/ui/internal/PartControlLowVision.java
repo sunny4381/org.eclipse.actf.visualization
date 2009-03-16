@@ -32,6 +32,7 @@ import org.eclipse.actf.model.ui.util.ModelServiceUtils;
 import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.actf.ui.util.timer.WaitExecSyncEventHandler;
 import org.eclipse.actf.ui.util.timer.WaitExecSyncEventListener;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.IVisualizationConst;
 import org.eclipse.actf.visualization.engines.lowvision.PageEvaluation;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
@@ -299,7 +300,7 @@ public class PartControlLowVision implements ISelectionListener,
 	}
 
 	private HashMap<String, WaitExecSyncEventListener> eventhandlerHolder = new HashMap<String, WaitExecSyncEventListener>();
-	private static final String LISTENER_KEY = "browser";
+	private static final String LISTENER_KEY = "browser"; //$NON-NLS-1$
 
 	public void doSimulate() {
 		is1stSimulateDone = true;
@@ -376,7 +377,7 @@ public class PartControlLowVision implements ISelectionListener,
 		if (webBrowser != null) {
 			try {
 				File sourceHtmlFile = LowVisionVizPlugin.createTempFile(
-						"source", SUFFIX_HTML);
+						"source", SUFFIX_HTML); //$NON-NLS-1$
 				webBrowser.saveOriginalDocument(sourceHtmlFile
 						.getAbsolutePath());
 				checkResult.setSourceFile(sourceHtmlFile);
@@ -602,7 +603,7 @@ public class PartControlLowVision implements ISelectionListener,
 	@SuppressWarnings("unchecked")
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		if (selection == null || !(selection instanceof IStructuredSelection)) {
-			System.err.println(this.getClass().getName() + ":" + "Iselection");
+			DebugPrintUtil.devOrDebugPrintln(this.getClass().getName() + ": Iselection"); //$NON-NLS-1$
 			return;
 		}
 		ArrayList<IPositionSize> result = new ArrayList<IPositionSize>();

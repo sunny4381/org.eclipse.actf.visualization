@@ -24,7 +24,7 @@ import org.osgi.framework.BundleContext;
 public class LowVisionVizPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.lowvision";
+	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.lowvision"; //$NON-NLS-1$
 
 	// The shared instance
 	private static LowVisionVizPlugin plugin;
@@ -49,7 +49,7 @@ public class LowVisionVizPlugin extends AbstractUIPlugin {
 		createTempDirectory();
 		String tmpS;
 		if (tmpDir != null) {
-			tmpS = tmpDir.getAbsolutePath() + File.separator + "img";
+			tmpS = tmpDir.getAbsolutePath() + File.separator + "img"; //$NON-NLS-1$
 			if (FileUtils.isAvailableDirectory(tmpS)) {
 				String tmpS2 = tmpS + File.separator;
 				LowVisionVizResourceUtil.saveImages(tmpS2);
@@ -83,12 +83,12 @@ public class LowVisionVizPlugin extends AbstractUIPlugin {
 	private static void createTempDirectory() {
 		if (tmpDir == null) {
 			String tmpS = plugin.getStateLocation().toOSString()
-					+ File.separator + "tmp";
+					+ File.separator + "tmp"; //$NON-NLS-1$
 			if (FileUtils.isAvailableDirectory(tmpS)) {
 				tmpDir = new File(tmpS);
 			} else {
-				System.err.println(PLUGIN_ID + " : can't create tmp Directory");
-				tmpDir = new File(System.getProperty("java.io.tmpdir"));
+				//System.err.println(PLUGIN_ID + " : can't create tmp Directory");
+				tmpDir = new File(System.getProperty("java.io.tmpdir")); //$NON-NLS-1$
 			}
 		}
 	}

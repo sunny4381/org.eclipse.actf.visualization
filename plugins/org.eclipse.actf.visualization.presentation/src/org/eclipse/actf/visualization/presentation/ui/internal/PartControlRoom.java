@@ -157,7 +157,7 @@ public class PartControlRoom implements IVisualizationConst {
 			e.printStackTrace();
 		}
 
-		String html = "";
+		String html = ""; //$NON-NLS-1$
 		switch (paramRoom.getType()) {
 		case ParamRoom.ROOM_SMALL:
 			html = Messages.report_small_url;
@@ -170,10 +170,10 @@ public class PartControlRoom implements IVisualizationConst {
 			break;
 		}
 
-		checkResult.setSummaryReportUrl(RoomPlugin.getTempDirectory() + "html"
+		checkResult.setSummaryReportUrl(RoomPlugin.getTempDirectory() + "html" //$NON-NLS-1$
 				+ File.separator + html);
 		// TODO
-		checkResult.setSummaryReportText("");
+		checkResult.setSummaryReportText(""); //$NON-NLS-1$
 		Mediator.getInstance().setReport(checker, checkResult);
 
 		checker

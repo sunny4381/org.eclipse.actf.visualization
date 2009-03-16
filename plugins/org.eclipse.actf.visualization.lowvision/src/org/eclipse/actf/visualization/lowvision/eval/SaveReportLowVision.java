@@ -36,9 +36,11 @@ import org.w3c.dom.NodeList;
 
 public class SaveReportLowVision {
 
-	private static final String LVIMG_FILE = "lvimg.bmp";
+	private static final String UNDERSCORE = "_"; //$NON-NLS-1$
 
-	private static final String RESULT_BMP_FILE = "result.bmp";
+	private static final String LVIMG_FILE = "lvimg.bmp"; //$NON-NLS-1$
+
+	private static final String RESULT_BMP_FILE = "result.bmp"; //$NON-NLS-1$
 
 	private static final String[] ERROR_IMAGE_ALT = {
 			Messages.SaveReportLowVision_Iro21_Error_Alt,
@@ -76,7 +78,7 @@ public class SaveReportLowVision {
 
 	public SaveReportLowVision(Shell _shell) {
 		shell = _shell;
-		saveFileName = "";
+		saveFileName = ""; //$NON-NLS-1$
 	}
 
 	// TODO save rating
@@ -86,7 +88,7 @@ public class SaveReportLowVision {
 		currentUrlS = _currentUrlS;
 
 		saveFileName = DialogSave.open(shell, DialogSave.HTML, currentUrlS,
-				"_lowVision.htm");
+				"_lowVision.htm"); //$NON-NLS-1$
 		saveImgName = LVIMG_FILE;
 		// probStaticsName = "";
 		problemList = targetList;
@@ -117,15 +119,15 @@ public class SaveReportLowVision {
 		saveFileName = currentUrlS;
 		if (saveFileName != null) {
 
-			int iPos = saveFileName.indexOf("//");
+			int iPos = saveFileName.indexOf("//"); //$NON-NLS-1$
 			if (iPos == -1)
 				iPos = 0;
 			saveFileName = saveFileName.substring(iPos + 2);
-			saveFileName = saveFileName.replaceAll("\\p{Punct}", "_");
+			saveFileName = saveFileName.replaceAll("\\p{Punct}", UNDERSCORE); //$NON-NLS-1$
 
-			if (saveFileName.indexOf(".") > 0) {
+			if (saveFileName.indexOf(".") > 0) { //$NON-NLS-1$
 				saveFileName = saveFileName.substring(0, saveFileName
-						.lastIndexOf("."));
+						.lastIndexOf(".")); //$NON-NLS-1$
 			}
 
 			if (saveFileName.length() > 100) {
@@ -134,13 +136,13 @@ public class SaveReportLowVision {
 			// saveFileName += "_"+String.valueOf(processNo)+"_lowVision.htm";
 		}
 		// probStaticsName = folder + probName;
-		saveImgName = saveFileName + "_" + String.valueOf(processNo) + "_"
+		saveImgName = saveFileName + UNDERSCORE + String.valueOf(processNo) + UNDERSCORE
 				+ String.valueOf(paramNo[0]) + String.valueOf(paramNo[1])
-				+ String.valueOf(paramNo[2]) + "_lvimg.png";
-		saveFileName += "_" + String.valueOf(processNo) + "_"
+				+ String.valueOf(paramNo[2]) + "_lvimg.png"; //$NON-NLS-1$
+		saveFileName += UNDERSCORE + String.valueOf(processNo) + UNDERSCORE
 				+ String.valueOf(paramNo[0]) + String.valueOf(paramNo[1])
-				+ String.valueOf(paramNo[2]) + "_lowVision.htm";
-		folder += "lowvision" + File.separator;
+				+ String.valueOf(paramNo[2]) + "_lowVision.htm"; //$NON-NLS-1$
+		folder += "lowvision" + File.separator; //$NON-NLS-1$
 		File testDir = new File(folder);
 		if (!testDir.isDirectory())
 			testDir.mkdirs();
@@ -164,7 +166,7 @@ public class SaveReportLowVision {
 			try {
 				if (data.length > 0) {
 					for (int i = 0; i < data.length; i++) {
-						tmpSB.append(data[i][item] + ",");
+						tmpSB.append(data[i][item] + ","); //$NON-NLS-1$
 					}
 				}
 			} catch (Exception e) {
@@ -173,6 +175,7 @@ public class SaveReportLowVision {
 			return (tmpSB.toString());
 		}
 
+		@SuppressWarnings("nls")
 		private void prepareJavaScript(Writer writer,
 				IProblemItemImage[] problemArray, String imgDir) {
 
@@ -228,6 +231,8 @@ public class SaveReportLowVision {
 
 		}
 
+		@SuppressWarnings("nls")
+		//TODO
 		public void run() {
 			try {
 
@@ -503,8 +508,8 @@ public class SaveReportLowVision {
 	}
 
 	private String getFileName(String filePath) {
-		int index = filePath.lastIndexOf("/");
-		int index2 = filePath.lastIndexOf("\\");
+		int index = filePath.lastIndexOf("/"); //$NON-NLS-1$
+		int index2 = filePath.lastIndexOf("\\"); //$NON-NLS-1$
 		if (index < index2) {
 			index = index2;
 		}

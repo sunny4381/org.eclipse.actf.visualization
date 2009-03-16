@@ -40,7 +40,7 @@ public class LowVisionUtil implements IVisualizationConst{
     public static String[] frameAnalyze(IWebBrowserACTF webBrowser) {
         try {
             if(runtimeHtmlFile==null){
-                runtimeHtmlFile = LowVisionVizPlugin.createTempFile("runtime", SUFFIX_HTML);
+                runtimeHtmlFile = LowVisionVizPlugin.createTempFile("runtime", SUFFIX_HTML); //$NON-NLS-1$
             }
             URL urlBase = new URL(webBrowser.getURL());
 
@@ -55,10 +55,10 @@ public class LowVisionUtil implements IVisualizationConst{
 
             NodeList frameList = documentElement.getElementsByTagName("frame"); //$NON-NLS-1$
             try {
-                NodeList baseNL = documentElement.getElementsByTagName("base");
+                NodeList baseNL = documentElement.getElementsByTagName("base"); //$NON-NLS-1$
                 if (baseNL.getLength() > 0) {
                     Element baseE = (Element) baseNL.item(baseNL.getLength() - 1);
-                    String baseUrlS = baseE.getAttribute("href");
+                    String baseUrlS = baseE.getAttribute("href"); //$NON-NLS-1$
                     if (baseUrlS.length() > 0) {
                         URL tmpUrl = new URL(urlBase, baseUrlS);
                         urlBase = tmpUrl;

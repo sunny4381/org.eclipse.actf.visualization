@@ -23,7 +23,7 @@ public class LowVisionSettingsAction extends Action {
 		
     public LowVisionSettingsAction() {
         setToolTipText(Messages.Tooltip_Settings); 
-        setImageDescriptor(LowVisionVizPlugin.imageDescriptorFromPlugin(LowVisionVizPlugin.PLUGIN_ID, "icons/setting.png"));
+        setImageDescriptor(LowVisionVizPlugin.imageDescriptorFromPlugin(LowVisionVizPlugin.PLUGIN_ID, "icons/setting.png")); //$NON-NLS-1$
         setText(Messages.MenuConst_Settings); 
     }
 

@@ -70,7 +70,7 @@ public class LowVisionToolbar extends Composite {
 		toolBarManager.update(true);
 
 		this._wholePageButton = new Button(this, SWT.CHECK);
-		this._wholePageButton.setText(Messages.LowVisionView_whole_page_1); //$NON-NLS-1$
+		this._wholePageButton.setText(Messages.LowVisionView_whole_page_1);
 		GridData gridData = new GridData();
 		gridData.horizontalAlignment = GridData.CENTER;
 		this._wholePageButton.setLayoutData(gridData);

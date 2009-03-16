@@ -22,7 +22,7 @@ public class SmallRoomSimulateAction extends Action {
 	public SmallRoomSimulateAction() {
 		setToolTipText(Messages.RoomSimulationAction_Small); 
 		setImageDescriptor(RoomPlugin
-				.getImageDescriptor("icons/ButtonSmall.gif"));
+				.getImageDescriptor("icons/ButtonSmall.gif")); //$NON-NLS-1$
 		setText(Messages.RoomSimulationAction_Small); 
 	}
 

@@ -24,7 +24,7 @@ public class CheckResultLowVision extends EvaluationResultImpl {
 
     //serial number
     public CheckResultLowVision() {
-        setSummaryReportUrl("about:blank");
+        setSummaryReportUrl("about:blank"); //$NON-NLS-1$
         setShowAllGuidelineItems(true);
     }
     
