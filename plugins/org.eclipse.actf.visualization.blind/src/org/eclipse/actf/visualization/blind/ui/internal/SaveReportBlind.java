@@ -36,7 +36,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+@SuppressWarnings("nls")
 public class SaveReportBlind {
+
+	private static final String NULL_STRING = "";
+	private static final String TH = "th";
+	private static final String TR = "tr";
+	private static final String TD = "td";
+	private static final String DIV = "div";
+	private static final String HR = "hr";
+	private static final String STYLE = "style";
+	private static final String ALT = "alt";
+	private static final String IMG = "img";
+	private static final String SRC = "src";
 
 	private static final String[] ICON_NAMES = { "Err.png", "Warn.png",
 			"Info.png" };
@@ -109,15 +121,11 @@ public class SaveReportBlind {
 			}
 
 			IProblemItem[] problemTableBlindDisplayItemArray = new IProblemItem[0];
-			if (checkResult != null) {
-				List<IProblemItem> tmpList = evalResult.getProblemList();
-				problemTableBlindDisplayItemArray = new IProblemItem[tmpList
-						.size()];
-				try {
-					tmpList.toArray(problemTableBlindDisplayItemArray);
-				} catch (Exception e) {
-				}
-
+			List<IProblemItem> tmpList = evalResult.getProblemList();
+			problemTableBlindDisplayItemArray = new IProblemItem[tmpList.size()];
+			try {
+				tmpList.toArray(problemTableBlindDisplayItemArray);
+			} catch (Exception e) {
 			}
 
 			// img/highlight.js -> <imageBriefDir>highlight.js
@@ -125,12 +133,12 @@ public class SaveReportBlind {
 			NodeList nl = result.getElementsByTagName("script");
 			for (int i = 0; i < nl.getLength(); i++) {
 				Element el = (Element) nl.item(i);
-				strAtt = el.getAttribute("src");
+				strAtt = el.getAttribute(SRC);
 				if (strAtt.indexOf("img/") == 0) {
-					el.setAttribute("src", imageBriefDir + strAtt.substring(4));
+					el.setAttribute(SRC, imageBriefDir + strAtt.substring(4));
 					el.getParentNode().removeChild(el);
 				} else if (strAtt.indexOf(variantFileS) >= 0) {
-					el.setAttribute("src", imageBriefDir + scriptVariantName);
+					el.setAttribute(SRC, imageBriefDir + scriptVariantName);
 				}
 			}
 
@@ -163,23 +171,21 @@ public class SaveReportBlind {
 			}
 
 			// img/<*.gif> -> <imageBriefDir><*.gif>
-			nl = result.getElementsByTagName("img");
+			nl = result.getElementsByTagName(IMG);
 			for (int i = 0; i < nl.getLength(); i++) {
 				Element img = (Element) nl.item(i);
-				strAtt = img.getAttribute("src");
+				strAtt = img.getAttribute(SRC);
 				if (strAtt.indexOf("img/") == 0)
-					img
-							.setAttribute("src", imageBriefDir
-									+ strAtt.substring(4));
+					img.setAttribute(SRC, imageBriefDir + strAtt.substring(4));
 			}
 
 			// img/<*.gif> -> <imageBriefDir><*.gif>
 			nl = result.getElementsByTagName("input");
 			for (int i = 0; i < nl.getLength(); i++) {
 				Element el = (Element) nl.item(i);
-				strAtt = el.getAttribute("src");
+				strAtt = el.getAttribute(SRC);
 				if (strAtt.indexOf("img/") == 0)
-					el.setAttribute("src", imageBriefDir + strAtt.substring(4));
+					el.setAttribute(SRC, imageBriefDir + strAtt.substring(4));
 			}
 
 			// create problem table
@@ -189,14 +195,14 @@ public class SaveReportBlind {
 				Element lastBody = (Element) body.item(0);
 
 				// report image
-				Element tmpElement = result.createElement("hr");
+				Element tmpElement = result.createElement(HR);
 				lastBody.insertBefore(tmpElement, lastBody.getFirstChild());
 
-				Element tmpDiv = result.createElement("div");
-				tmpDiv.setAttribute("style",
+				Element tmpDiv = result.createElement(DIV);
+				tmpDiv.setAttribute(STYLE,
 						"width: 100%; background-color:white;");
 
-				tmpElement = result.createElement("div");
+				tmpElement = result.createElement(DIV);
 				// tmpElement.setAttribute("style", "float: left; width: 45%;");
 
 				// TODO
@@ -209,15 +215,14 @@ public class SaveReportBlind {
 					}
 				}
 				if (count > 2) {
-					Element tmpImg = result.createElement("img");
-					tmpImg.setAttribute("src", imageBriefDir
-							+ reportImgSaveName);
-					tmpImg.setAttribute("alt", "");
+					Element tmpImg = result.createElement(IMG);
+					tmpImg.setAttribute(SRC, imageBriefDir + reportImgSaveName);
+					tmpImg.setAttribute(ALT, NULL_STRING);
 					tmpElement.appendChild(tmpImg);
 				}
 				tmpDiv.appendChild(tmpElement);
 
-				tmpElement = result.createElement("div");
+				tmpElement = result.createElement(DIV);
 				// tmpElement.setAttribute("style", "float: right; width:
 				// 50%;");
 				VisualizeReportUtil.appendRatingTableAndTitle(pageEval,
@@ -226,17 +231,17 @@ public class SaveReportBlind {
 
 				lastBody.insertBefore(tmpDiv, lastBody.getFirstChild());
 
-				tmpElement = result.createElement("hr");
+				tmpElement = result.createElement(HR);
 				lastBody.insertBefore(tmpElement, lastBody.getFirstChild());
 
 				// logo image
-				tmpElement = result.createElement("div");
-				tmpElement.setAttribute("style", "background-color:white;");
+				tmpElement = result.createElement(DIV);
+				tmpElement.setAttribute(STYLE, "background-color:white;");
 				tmpElement.setAttribute("align", "right");
-				Element tmpImg = result.createElement("img");
-				tmpImg.setAttribute("src", imageBriefDir + "logo.gif");
+				Element tmpImg = result.createElement(IMG);
+				tmpImg.setAttribute(SRC, imageBriefDir + "logo.gif");
 				// tmpImg.setAttribute("style", "float:right;");
-				tmpImg.setAttribute("alt", "");
+				tmpImg.setAttribute(ALT, NULL_STRING);
 				tmpElement.appendChild(tmpImg);
 				lastBody.insertBefore(tmpElement, lastBody.getFirstChild());
 
@@ -245,17 +250,17 @@ public class SaveReportBlind {
 				lastBody.appendChild(pElement);
 				Element tableElement = result.createElement("table");
 				tableElement.setAttribute("border", "1");
-				tableElement.setAttribute("style", "background-color:white;");
+				tableElement.setAttribute(STYLE, "background-color:white;");
 				lastBody.appendChild(tableElement);
-				Element trElement = result.createElement("tr");
+				Element trElement = result.createElement(TR);
 				tableElement.appendChild(trElement);
-				Element tdElement = result.createElement("th");
+				Element tdElement = result.createElement(TH);
 				tdElement.appendChild(result
 						.createTextNode(IProblemConst.TITLE_ICON));
 				trElement.appendChild(tdElement);
 
 				if (EvaluationUtil.isOriginalDOM()) {
-					tdElement = result.createElement("th");
+					tdElement = result.createElement(TH);
 					tdElement.appendChild(result
 							.createTextNode(IProblemConst.TITLE_LINE));
 					trElement.appendChild(tdElement);
@@ -266,14 +271,14 @@ public class SaveReportBlind {
 				for (int i = 0; i < guidelineDataArray.length; i++) {
 					IGuidelineData data = guidelineDataArray[i];
 					if (data.isMatched()) {
-						tdElement = result.createElement("th");
+						tdElement = result.createElement(TH);
 						tdElement.appendChild(result.createTextNode(data
 								.getGuidelineName()));
 						trElement.appendChild(tdElement);
 					}
 				}
 
-				tdElement = result.createElement("th");
+				tdElement = result.createElement(TH);
 				tdElement.appendChild(result
 						.createTextNode(IProblemConst.TITLE_DESCRIPTION));
 				trElement.appendChild(tdElement);
@@ -288,7 +293,7 @@ public class SaveReportBlind {
 
 					// iError[iconId]++;
 
-					trElement = result.createElement("tr");
+					trElement = result.createElement(TR);
 
 					// for highlight(kentarou:031113)
 					trElement.setAttribute("onClick",
@@ -299,7 +304,7 @@ public class SaveReportBlind {
 								.getHighlightTargetIds();
 						int length = targets.length;
 
-						String strSet = "";
+						String strSet = NULL_STRING;
 						if (length == 1) {
 							strSet = "setHighlight(" + targets[0].getStartId()
 									+ "," + targets[0].getEndId() + ");";
@@ -325,17 +330,17 @@ public class SaveReportBlind {
 					}
 
 					tableElement.appendChild(trElement);
-					tdElement = result.createElement("td");
+					tdElement = result.createElement(TD);
 					trElement.appendChild(tdElement);
 
 					if (current.isCanHighlight()) {
-						Element imgElement = result.createElement("img");
+						Element imgElement = result.createElement(IMG);
 
 						// TODO
 						String imgName = "star.gif";
 
-						imgElement.setAttribute("src", imageBriefDir + imgName);
-						imgElement.setAttribute("alt", "");// TODO
+						imgElement.setAttribute(SRC, imageBriefDir + imgName);
+						imgElement.setAttribute(ALT, NULL_STRING);// TODO
 						tdElement.appendChild(imgElement);
 					}
 
@@ -343,16 +348,16 @@ public class SaveReportBlind {
 					String imgName = getIconName(current.getSeverity());
 
 					if (imgName.length() > 0) {
-						Element imgElement = result.createElement("img");
-						imgElement.setAttribute("src", imageBriefDir + imgName);
-						imgElement.setAttribute("alt", altS);
+						Element imgElement = result.createElement(IMG);
+						imgElement.setAttribute(SRC, imageBriefDir + imgName);
+						imgElement.setAttribute(ALT, altS);
 						tdElement.appendChild(imgElement);
 					}
 
 					if (EvaluationUtil.isOriginalDOM()) {
-						tdElement = result.createElement("td");
+						tdElement = result.createElement(TD);
 						String sTmp = current.getLineStrMulti();
-						if (sTmp != null && !sTmp.equals("")) {
+						if (sTmp != null && !sTmp.equals(NULL_STRING)) {
 							tdElement.appendChild(result.createTextNode(sTmp));
 						} else {
 							tdElement.appendChild(result.createTextNode("-"));
@@ -364,9 +369,9 @@ public class SaveReportBlind {
 
 					for (int j = 0; j < guidelines.length; j++) {
 						if (guidelineDataArray[j].isMatched()) {
-							tdElement = result.createElement("td");
+							tdElement = result.createElement(TD);
 							String sTmp = guidelines[j];
-							if (sTmp != null && !sTmp.equals(""))
+							if (sTmp != null && !sTmp.equals(NULL_STRING))
 								tdElement.appendChild(result
 										.createTextNode(sTmp));
 							else
@@ -377,7 +382,7 @@ public class SaveReportBlind {
 						}
 					}
 
-					tdElement = result.createElement("td");
+					tdElement = result.createElement(TD);
 					String desc = current.getDescription();
 					desc = desc.replaceAll("<", "&lt;");
 					desc = desc.replaceAll(">", "&gt;");
@@ -388,9 +393,9 @@ public class SaveReportBlind {
 
 				}
 
-				trElement = result.createElement("tr");
+				trElement = result.createElement(TR);
 				body.item(body.getLength() - 1).appendChild(trElement);
-				tdElement = result.createElement("td");
+				tdElement = result.createElement(TD);
 				tdElement.appendChild(result.createTextNode(maxTime));
 				trElement.appendChild(tdElement);
 			}
@@ -419,7 +424,7 @@ public class SaveReportBlind {
 		case IEvaluationItem.SEV_INFO:
 			return ICON_NAMES[2];
 		default:
-			return "";
+			return NULL_STRING;
 		}
 	}
 

@@ -44,7 +44,9 @@ import org.w3c.dom.Document;
 
 public class PartControlBlind implements IHighlightElementListener {
 
-	public final static String BLIND_REPORT_FILE = "report.htm";
+	private static final String ABOUT_BLANK = "about:blank"; //$NON-NLS-1$
+
+	public final static String BLIND_REPORT_FILE = "report.htm"; //$NON-NLS-1$
 
 	private IBlindVisualizer[] blindVizualizers = BlindVisualizerExtension
 			.getVisualizers();
@@ -55,7 +57,7 @@ public class PartControlBlind implements IHighlightElementListener {
 
 	private PageData _pageData;
 
-	private String maxReachingTimeS = "";
+	private String maxReachingTimeS = ""; //$NON-NLS-1$
 
 	private PageEvaluation _pageEval;
 
@@ -90,8 +92,8 @@ public class PartControlBlind implements IHighlightElementListener {
 		}
 
 		String imageBriefDir = saveFile.substring(
-				saveFile.lastIndexOf("\\") + 1, saveFile.lastIndexOf("."))
-				+ "/";
+				saveFile.lastIndexOf("\\") + 1, saveFile.lastIndexOf(".")) //$NON-NLS-1$ //$NON-NLS-2$
+				+ "/"; //$NON-NLS-1$
 		// 2007.09.25 remove space character to include JavaScript files
 		imageBriefDir = imageBriefDir.replace(' ', '_');
 		saveReportFile(saveFile, imageBriefDir, true);
@@ -102,7 +104,7 @@ public class PartControlBlind implements IHighlightElementListener {
 	}
 
 	private HashMap<String, WaitExecSyncEventListener> eventhandlerHolder = new HashMap<String, WaitExecSyncEventListener>();
-	private static final String LISTENER_KEY = "browser";
+	private static final String LISTENER_KEY = "browser"; //$NON-NLS-1$
 
 	public int doVisualize(boolean isShowResult) {
 
@@ -130,14 +132,14 @@ public class PartControlBlind implements IHighlightElementListener {
 			}
 		}
 
-		String resultFilePath = "";
+		String resultFilePath = ""; //$NON-NLS-1$
 
 		targetUrl = modelService.getURL();
-		maxReachingTimeS = "";
+		maxReachingTimeS = ""; //$NON-NLS-1$
 
 		checkResult = new EvaluationResultBlind();
 		mediator.setReport(vizView, checkResult);// clear result
-		_blindBrowser.navigate("about:blank");
+		_blindBrowser.navigate(ABOUT_BLANK);
 
 		_canSave = false;
 
@@ -165,7 +167,7 @@ public class PartControlBlind implements IHighlightElementListener {
 						_blindBrowser.navigate(resultFilePath);
 						_shell.getDisplay().asyncExec(cr);
 					} else {
-						_blindBrowser.navigate("about:blank");
+						_blindBrowser.navigate(ABOUT_BLANK);
 						_shell.getDisplay().syncExec(cr);
 					}
 
@@ -175,7 +177,7 @@ public class PartControlBlind implements IHighlightElementListener {
 			}
 		}
 
-		System.out.println("not supported: " + modelService.getID() + " "
+		System.out.println("not supported: " + modelService.getID() + " " //$NON-NLS-1$ //$NON-NLS-2$
 				+ modelService.getCurrentMIMEType());
 		return IBlindVisualizer.ERROR;
 	}
@@ -194,14 +196,14 @@ public class PartControlBlind implements IHighlightElementListener {
 	public void saveReportFile(String sFileName, String imageBriefDir,
 			boolean bAccessory) {
 		if (_canSave) {
-			vizView.setStatusMessage(Messages.BlindView_saving_file); // //$NON-NLS-1$
+			vizView.setStatusMessage(Messages.BlindView_saving_file); //
 
 			// TODO encoding
 			SaveReportBlind.saveReport((Document) resultDoc.cloneNode(true),
 					mediator.getReport(vizView), sFileName, imageBriefDir,
 					maxReachingTimeS, _pageEval, bAccessory);
 
-			vizView.setStatusMessage(Messages.BlindView_end_saving_file); // //$NON-NLS-1$
+			vizView.setStatusMessage(Messages.BlindView_end_saving_file); //
 		}
 	}
 
@@ -254,8 +256,8 @@ public class PartControlBlind implements IHighlightElementListener {
 			case 0:
 				break;
 			case 1:
-				execScript("setHighlight(" + targetIdList.get(0).getStartId()
-						+ "," + targetIdList.get(0).getEndId() + ");");
+				execScript("setHighlight(" + targetIdList.get(0).getStartId() //$NON-NLS-1$
+						+ "," + targetIdList.get(0).getEndId() + ");"); //$NON-NLS-1$ //$NON-NLS-2$
 				break;
 			default:
 				Iterator<HighlightTargetId> ite = targetIdList.iterator();

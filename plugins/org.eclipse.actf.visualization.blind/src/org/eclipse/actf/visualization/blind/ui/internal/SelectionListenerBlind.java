@@ -37,7 +37,7 @@ public class SelectionListenerBlind implements ISelectionListener {
 	@SuppressWarnings("unchecked")
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		if (selection == null || !(selection instanceof IStructuredSelection)) {
-			System.err.println(this.getClass().getName() + ":" + "Iselection");
+			System.err.println(this.getClass().getName() + ":Iselection"); //$NON-NLS-1$
 			return;
 		}
 
@@ -47,7 +47,7 @@ public class SelectionListenerBlind implements ISelectionListener {
 			((IWebBrowserACTF) modelService).clearHighlight();
 		}
 
-		prb.clearHighlight(); //$NON-NLS-1$
+		prb.clearHighlight();
 		List<HighlightTargetId> validIdList = new ArrayList<HighlightTargetId>();
 
 		IStructuredSelection structuredSelection = (IStructuredSelection) selection;

@@ -22,7 +22,7 @@ public class BlindSaveAction extends Action {
 	public BlindSaveAction(PartControlBlind prb) {
 		setToolTipText(Messages.Tooltip_Save); 
 		setImageDescriptor(BlindVizResourceUtil
-				.getImageDescriptor("icons/ButtonSave.png"));
+				.getImageDescriptor("icons/ButtonSave.png")); //$NON-NLS-1$
 		setText(Messages.MenuConst_Save); 
 		this.prb = prb;
 	}

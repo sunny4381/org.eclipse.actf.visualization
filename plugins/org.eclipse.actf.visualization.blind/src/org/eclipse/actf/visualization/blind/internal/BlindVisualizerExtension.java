@@ -14,6 +14,7 @@ package org.eclipse.actf.visualization.blind.internal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.blind.IBlindVisualizer;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -21,9 +22,9 @@ import org.eclipse.core.runtime.Platform;
 
 public class BlindVisualizerExtension {
 
-	private static final String VISUALIZER = "blindVisualizer";
+	private static final String VISUALIZER = "blindVisualizer"; //$NON-NLS-1$
 
-	private static final String ATTR_CLASS = "class";
+	private static final String ATTR_CLASS = "class"; //$NON-NLS-1$
 
 	private static BlindVisualizerExtension[] extensions;
 
@@ -55,13 +56,11 @@ public class BlindVisualizerExtension {
 			return extensions;
 
 		IExtension[] tmpExtensions = Platform.getExtensionRegistry()
-				.getExtensionPoint(BlindVizPlugin.PLUGIN_ID,
-						VISUALIZER).getExtensions();
+				.getExtensionPoint(BlindVizPlugin.PLUGIN_ID, VISUALIZER)
+				.getExtensions();
 
-		if (Platform.inDevelopmentMode() || Platform.inDebugMode()) {
-			System.out
-					.println("Blind Visualizer:" + tmpExtensions.length);
-		}
+		DebugPrintUtil.devOrDebugPrintln("Blind Visualizer:" //$NON-NLS-1$
+				+ tmpExtensions.length);
 		List<BlindVisualizerExtension> l = new ArrayList<BlindVisualizerExtension>();
 		for (int i = 0; i < tmpExtensions.length; i++) {
 			IConfigurationElement[] configElements = tmpExtensions[i]

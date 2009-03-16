@@ -30,7 +30,7 @@ public class BlindVisualizationBrowser {
 
     private final static String URL_PARAM_NAME = "URL"; //$NON-NLS-1$
 
-    private final static Variant[] ARG_CLEAR_HIGHLIGHT = new Variant[] { new Variant("clearHighlight();") };
+    private final static Variant[] ARG_CLEAR_HIGHLIGHT = new Variant[] { new Variant("clearHighlight();") }; //$NON-NLS-1$
 
     private OleAutomation oleAutomationIE;
 
@@ -101,16 +101,16 @@ public class BlindVisualizationBrowser {
         if (ieWindowAutomation == null) {
             try {
                 // get IE WindowAutomation
-                int[] rgdispid = oleAutomationIE.getIDsOfNames(new String[] { "Document" });
+                int[] rgdispid = oleAutomationIE.getIDsOfNames(new String[] { "Document" }); //$NON-NLS-1$
                 int dispIdMember = rgdispid[0];
                 Variant result = oleAutomationIE.getProperty(dispIdMember);
                 OleAutomation htmlDocumentAutomation = result.getAutomation();
-                rgdispid = htmlDocumentAutomation.getIDsOfNames(new String[] { "parentWindow" });
+                rgdispid = htmlDocumentAutomation.getIDsOfNames(new String[] { "parentWindow" }); //$NON-NLS-1$
                 dispIdMember = rgdispid[0];
                 result = htmlDocumentAutomation.getProperty(dispIdMember);
                 ieWindowAutomation = result.getAutomation();
 
-                rgdispid = ieWindowAutomation.getIDsOfNames(new String[] { "execScript" });
+                rgdispid = ieWindowAutomation.getIDsOfNames(new String[] { "execScript" }); //$NON-NLS-1$
                 id_exec_script = rgdispid[0];
             } catch (Exception e) {
                 return false;

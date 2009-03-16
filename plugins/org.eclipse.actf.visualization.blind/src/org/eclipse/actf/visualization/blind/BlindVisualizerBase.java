@@ -35,7 +35,7 @@ public abstract class BlindVisualizerBase implements IBlindVisualizer {
 	protected String tmpDirS = BlindVizResourceUtil.getTempDirectory()
 			.getAbsolutePath()
 			+ File.separator;
-	protected String targetUrl = "";
+	protected String targetUrl = ""; //$NON-NLS-1$
 	protected IModelService modelService;
 
 	// for reuslt
@@ -60,7 +60,7 @@ public abstract class BlindVisualizerBase implements IBlindVisualizer {
 
 	public boolean setModelService(IModelService targetModel) {
 		modelService = null;
-		targetUrl = "";
+		targetUrl = ""; //$NON-NLS-1$
 		if (!isTarget(targetModel)) {
 			return false;
 		}
