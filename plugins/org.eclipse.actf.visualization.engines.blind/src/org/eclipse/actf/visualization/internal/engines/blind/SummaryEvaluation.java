@@ -23,6 +23,8 @@ import com.ibm.icu.text.MessageFormat;
  */
 public class SummaryEvaluation {
 
+	private static final String SPACE = " "; //$NON-NLS-1$
+
 	private PageEvaluation pe;
 
 	private PageData pageData;
@@ -65,14 +67,14 @@ public class SummaryEvaluation {
 
 		for (int i = 0; i < metrics.length; i++) {
 			int score = scores[i];
-			if (metrics[i].equalsIgnoreCase("compliance")
+			if (metrics[i].equalsIgnoreCase("compliance") //$NON-NLS-1$
 					&& guidelineHolder.isMatchedMetric(metrics[i])) {
 				comp = score;
 				hasComp = true;
 				if (score != 100) {
-					noGoodMetrics.append(metrics[i] + ",");
+					noGoodMetrics.append(metrics[i] + ","); //$NON-NLS-1$
 				}
-			} else if (metrics[i].equalsIgnoreCase("navigability")
+			} else if (metrics[i].equalsIgnoreCase("navigability") //$NON-NLS-1$
 					&& guidelineHolder.isMatchedMetric(metrics[i])) {
 				nav = score;
 				hasNav = true;
@@ -82,7 +84,7 @@ public class SummaryEvaluation {
 					other = score;
 				}
 				if (score != 100) {
-					noGoodMetrics.append(metrics[i] + ",");
+					noGoodMetrics.append(metrics[i] + ","); //$NON-NLS-1$
 				}
 			}
 		}
@@ -119,7 +121,7 @@ public class SummaryEvaluation {
 					if (hasOther && other != 100) {
 						aboutComp.append(MessageFormat.format(
 								Messages.Eval_some_errors_on_metrics,
-								(Object[]) (new String[] {
+								(new String[] {
 										noGoodMetrics.substring(0,
 												noGoodMetrics.length() - 1),
 										FileUtils.LINE_SEP })));
@@ -134,7 +136,7 @@ public class SummaryEvaluation {
 									.append(MessageFormat
 											.format(
 													Messages.Eval_completely_compliant_with_user_check_items,
-													new Object[]{FileUtils.LINE_SEP}));
+													new Object[] { FileUtils.LINE_SEP }));
 						}
 					}
 				}
@@ -164,25 +166,23 @@ public class SummaryEvaluation {
 				if (pageData.getMaxTime() > 240) {
 					aboutNav.append(MessageFormat.format(
 							Messages.Eval_navigability_long_time_error_msg,
-							(Object[]) (new String[] { FileUtils.LINE_SEP,
+							(new String[] { FileUtils.LINE_SEP,
 									FileUtils.LINE_SEP, FileUtils.LINE_SEP,
 									FileUtils.LINE_SEP }))
 							+ FileUtils.LINE_SEP);
 
 				} else {
 					aboutNav.append(MessageFormat.format(
-							Messages.Eval_navigability_good_msg,
-							(Object[]) (new String[] { FileUtils.LINE_SEP,
-									FileUtils.LINE_SEP }))
+							Messages.Eval_navigability_good_msg, (new String[] {
+									FileUtils.LINE_SEP, FileUtils.LINE_SEP }))
 							+ FileUtils.LINE_SEP);
 				}
 			} else {
 				isGood = false;
 				aboutNav.append(MessageFormat.format(
 						Messages.Eval_navigability_low_score_error_msg,
-						(Object[]) (new String[] { FileUtils.LINE_SEP,
-								FileUtils.LINE_SEP, FileUtils.LINE_SEP,
-								FileUtils.LINE_SEP }))
+						(new String[] { FileUtils.LINE_SEP, FileUtils.LINE_SEP,
+								FileUtils.LINE_SEP, FileUtils.LINE_SEP }))
 						+ FileUtils.LINE_SEP);
 			}
 		}
@@ -201,29 +201,29 @@ public class SummaryEvaluation {
 		StringBuffer tmpSB = new StringBuffer();
 
 		if (noImageAltCount > 0) {
-			tmpSB.append(" -" + Messages.Eval_no_img_alt_error_msg
+			tmpSB.append(" -" + Messages.Eval_no_img_alt_error_msg //$NON-NLS-1$
 					+ FileUtils.LINE_SEP);
 		}
 		if (wrongImageAltCount > 0) {
-			tmpSB.append(" -" + Messages.Eval_wrong_img_alt_error_msg
+			tmpSB.append(" -" + Messages.Eval_wrong_img_alt_error_msg //$NON-NLS-1$
 					+ FileUtils.LINE_SEP);
 		}
 		if (redundantImageAltCount > 0) {
-			tmpSB.append(" -" + Messages.Eval_redundant_img_alt_error_msg
+			tmpSB.append(" -" + Messages.Eval_redundant_img_alt_error_msg //$NON-NLS-1$
 					+ FileUtils.LINE_SEP);
 		}
 		tmpSB.append(FileUtils.LINE_SEP);
 
 		if (noImageAltCount > 0) {
-			tmpSB.append(" " + Messages.Eval_no_img_alt + " " + noImageAltCount
-					+ FileUtils.LINE_SEP);
+			tmpSB.append(SPACE + Messages.Eval_no_img_alt + SPACE
+					+ noImageAltCount + FileUtils.LINE_SEP);
 		}
 		if (wrongImageAltCount > 0) {
-			tmpSB.append(" " + Messages.Eval_wrong_img_alt + " "
+			tmpSB.append(SPACE + Messages.Eval_wrong_img_alt + SPACE
 					+ wrongImageAltCount + FileUtils.LINE_SEP);
 		}
 		if (redundantImageAltCount > 0) {
-			tmpSB.append(" " + Messages.Eval_redundant_img_alt + " "
+			tmpSB.append(SPACE + Messages.Eval_redundant_img_alt + SPACE
 					+ redundantImageAltCount + FileUtils.LINE_SEP);
 		}
 

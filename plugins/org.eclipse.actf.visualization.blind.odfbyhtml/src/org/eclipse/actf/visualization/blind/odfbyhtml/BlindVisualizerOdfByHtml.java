@@ -45,6 +45,7 @@ import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.visualization.util.html2view.Html2ViewMapMaker;
 import org.w3c.dom.Document;
 
+@SuppressWarnings("nls")
 public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 		IBlindVisualizer {
 
@@ -107,7 +108,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 				return ERROR;
 			}
 
-			setStatusMessage(Messages.BlindView_Now_processing); // //$NON-NLS-1$
+			setStatusMessage(Messages.BlindView_Now_processing); //
 
 			pageData = new PageData();
 
@@ -159,7 +160,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 
 			// TODO support blind biz -> visitor
 			for (int i = 0; i < tmpResults.size(); i++) {
-				IProblemItem tmpItem = (IProblemItem) tmpResults.get(i);
+				IProblemItem tmpItem = tmpResults.get(i);
 				HighlightTargetNodeInfo nodeInfo = tmpItem
 						.getHighlightTargetNodeInfo();
 				if (nodeInfo != null) {
@@ -188,7 +189,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 				e3.printStackTrace();
 			}
 		} catch (Exception e) {
-			setStatusMessage("Visualization Error");
+			setStatusMessage(Messages.Visualization_Error);
 			e.printStackTrace();
 			return ERROR;
 		}

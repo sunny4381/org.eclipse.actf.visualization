@@ -35,7 +35,7 @@ public class EditNGWordDialog {
 
 	// TODO use dialog
 
-	private static final String DIALOG_TITLE = Messages.AltDialog_TITLE; //$NON-NLS-1$
+	private static final String DIALOG_TITLE = Messages.AltDialog_TITLE;
 
 	private Shell shell;
 
@@ -82,7 +82,7 @@ public class EditNGWordDialog {
 		composite.setLayout(layout);
 
 		Button okButton = new Button(composite, SWT.PUSH);
-		okButton.setText(IDialogConstants.OK); //$NON-NLS-1$
+		okButton.setText(IDialogConstants.OK); 
 		okButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				if (setNewValue() == false)
@@ -93,7 +93,7 @@ public class EditNGWordDialog {
 		});
 
 		Button cancelButton = new Button(composite, SWT.PUSH);
-		cancelButton.setText(IDialogConstants.CANCEL); //$NON-NLS-1$
+		cancelButton.setText(IDialogConstants.CANCEL); 
 		cancelButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				iReturnCode = 0;
@@ -150,7 +150,7 @@ public class EditNGWordDialog {
 				int count = ngWordTable.getItemCount();
 				for (int i = 0; i < count; i++) {
 					if (ngWordTable.getItem(i).getText().equals(str)) {
-						popupMessage(Messages.AltDialog_MSG_Existed); //$NON-NLS-1$
+						popupMessage(Messages.AltDialog_MSG_Existed); 
 						return;
 					}
 				}

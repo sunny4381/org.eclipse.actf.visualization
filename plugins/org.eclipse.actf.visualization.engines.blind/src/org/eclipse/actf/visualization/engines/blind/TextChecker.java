@@ -30,17 +30,19 @@ import org.eclipse.jface.preference.PreferenceStore;
  */
 public class TextChecker {
 
-	private static String KIGOU = "(\\p{InMathematicalOperators}|\\p{InGeometricShapes}|\\p{InMiscellaneousSymbols}|\\p{InBoxDrawing}|\\p{InGeneralPunctuation}|\\p{InCJKSymbolsandPunctuation}|\\p{InArrows})";
+	private static final String NULL_STRING = ""; //$NON-NLS-1$
 
-	private static String NIHONGO = "(\\p{InCJKUnifiedIdeographs}|\\p{InHiragana}|\\p{InKatakana})";
+	private static final String KIGOU = "(\\p{InMathematicalOperators}|\\p{InGeometricShapes}|\\p{InMiscellaneousSymbols}|\\p{InBoxDrawing}|\\p{InGeneralPunctuation}|\\p{InCJKSymbolsandPunctuation}|\\p{InArrows})"; //$NON-NLS-1$
 
-	private static String KANJI = "(\\p{InCJKUnifiedIdeographs})";
+	private static final String NIHONGO = "(\\p{InCJKUnifiedIdeographs}|\\p{InHiragana}|\\p{InKatakana})"; //$NON-NLS-1$
 
-	private static final String ALT_TEXT_PROPERTIES_FILE = "altText.properties";
+	private static final String KANJI = "(\\p{InCJKUnifiedIdeographs})"; //$NON-NLS-1$
 
-	private static String INAPP_ALT = "blindViz.inappropriateAlt_";
+	private static final String ALT_TEXT_PROPERTIES_FILE = "altText.properties"; //$NON-NLS-1$
 
-	private static String POSSIBLE_INAPP_ALT = "blindViz.possible_inappAlt_";
+	private static final String INAPP_ALT = "blindViz.inappropriateAlt_"; //$NON-NLS-1$
+
+	private static final String POSSIBLE_INAPP_ALT = "blindViz.possible_inappAlt_"; //$NON-NLS-1$
 
 	private static TextChecker INSTANCE;
 
@@ -62,7 +64,7 @@ public class TextChecker {
 			try {
 				InputStream prefIS = FileLocator.openStream(Platform
 						.getBundle(BlindVizEnginePlugin.PLUGIN_ID), new Path(
-						"config/" + ALT_TEXT_PROPERTIES_FILE), false);
+						"config/" + ALT_TEXT_PROPERTIES_FILE), false); //$NON-NLS-1$
 				if (prefIS != null) {
 					prop.load(prefIS);
 				}
@@ -130,10 +132,10 @@ public class TextChecker {
 		if ((prevText != null) && (prevText.length() > 1)
 				&& (curText.length() > 1)) {
 
-			String prevText2 = prevText.replaceAll("\\[|\\]|\\.|\\!|\\>", "");
+			String prevText2 = prevText.replaceAll("\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
 			prevText2 = prevText2.trim();
 
-			String curText2 = curText.replaceAll("\\[|\\]|\\.|\\!|\\>", "");
+			String curText2 = curText.replaceAll("\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
 			curText2 = curText2.trim();
 
 			if (curText2.equalsIgnoreCase(prevText2)) {
@@ -177,7 +179,7 @@ public class TextChecker {
 	 */
 	public int checkInappropriateAlt(String alt) {
 		String[] tmpSA = alt.toLowerCase().split(
-				"(" + KIGOU + "|\\p{Punct}|\\p{Space})");
+				"(" + KIGOU + "|\\p{Punct}|\\p{Space})"); //$NON-NLS-1$ //$NON-NLS-2$
 		int count = 0;
 		int all = 0;
 		int charLength = 0;
@@ -195,7 +197,7 @@ public class TextChecker {
 		int org = alt.length();
 
 		// TODO combination
-		if (org > 0 && alt.matches(".*(\\p{Alpha}\\p{Space}){4,}.*")) {// TODO
+		if (org > 0 && alt.matches(".*(\\p{Alpha}\\p{Space}){4,}.*")) {// TODO //$NON-NLS-1$
 			// 4 is
 			// appropriate?
 			return 3;
@@ -206,7 +208,7 @@ public class TextChecker {
 			// TODO divide error (use ratio)
 
 			// spaces
-			if (!alt.matches("\\p{Space}*")) {
+			if (!alt.matches("\\p{Space}*")) { //$NON-NLS-1$
 				return 1;
 			}
 		}
@@ -222,7 +224,7 @@ public class TextChecker {
 
 	private boolean isEndWithImageExt(String alt) {
 		String tmpS = alt.trim().toLowerCase();
-		String regexp3 = "\\p{Print}*\\.(jpg|jpeg|gif|png)";
+		String regexp3 = "\\p{Print}*\\.(jpg|jpeg|gif|png)"; //$NON-NLS-1$
 		return (tmpS.matches(regexp3));
 	}
 
@@ -238,10 +240,10 @@ public class TextChecker {
 		tmpS = tmpS.toLowerCase();
 
 		// \u3000 = double byte space
-		String regexp1 = KIGOU + "*(\\p{Space}|\u3000)?(" + NIHONGO
-				+ "((\\p{Space}|\u3000)+" + NIHONGO + ")+)"
-				+ "(\\p{Space}|\u3000)?" + KIGOU + "*";
-		String regexp2 = ".*" + KANJI + ".*";
+		String regexp1 = KIGOU + "*(\\p{Space}|\u3000)?(" + NIHONGO //$NON-NLS-1$
+				+ "((\\p{Space}|\u3000)+" + NIHONGO + ")+)" //$NON-NLS-1$ //$NON-NLS-2$
+				+ "(\\p{Space}|\u3000)?" + KIGOU + "*"; //$NON-NLS-1$ //$NON-NLS-2$
+		String regexp2 = ".*" + KANJI + ".*"; //$NON-NLS-1$ //$NON-NLS-2$
 		// TODO rewrite regexp (combination of Japanese and English)
 
 		if ((tmpS.matches(regexp1) && tmpS.matches(regexp2))) {
@@ -269,7 +271,7 @@ public class TextChecker {
 			i++;
 		}
 		for (int j = i; pref.contains(INAPP_ALT + j); j++) {
-			pref.setValue(INAPP_ALT + j, "");
+			pref.setValue(INAPP_ALT + j, NULL_STRING);
 		}
 
 		i = 0;
@@ -278,7 +280,7 @@ public class TextChecker {
 			i++;
 		}
 		for (int j = i; pref.contains(POSSIBLE_INAPP_ALT + j); j++) {
-			pref.setValue(POSSIBLE_INAPP_ALT + j, "");
+			pref.setValue(POSSIBLE_INAPP_ALT + j, NULL_STRING);
 		}
 	}
 

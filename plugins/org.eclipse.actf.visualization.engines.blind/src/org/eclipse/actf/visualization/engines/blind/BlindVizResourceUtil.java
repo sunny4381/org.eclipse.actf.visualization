@@ -32,6 +32,7 @@ public class BlindVizResourceUtil {
 	 * @param path
 	 *            target path
 	 */
+	@SuppressWarnings("nls")
 	public static void saveImages(String path) {
 		Bundle bundleChecker = Platform.getBundle(EvaluationUtil.PLUGIN_ID);
 
@@ -102,6 +103,7 @@ public class BlindVizResourceUtil {
 	 * @param path
 	 *            target path
 	 */
+	@SuppressWarnings("nls")
 	public static void saveScripts(String path) {
 		Bundle bundleBlind = Platform.getBundle(BlindVizEnginePlugin.PLUGIN_ID);
 		FileUtils.copyFile(bundleBlind, new Path(

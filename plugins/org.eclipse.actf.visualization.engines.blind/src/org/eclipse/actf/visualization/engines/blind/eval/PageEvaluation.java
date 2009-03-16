@@ -124,7 +124,7 @@ public class PageEvaluation {
 
 	protected boolean hasComplianceError() {
 		for (int i = 0; i < metricsSize; i++) {
-			if (metrics[i].equalsIgnoreCase("compliance")) {
+			if (metrics[i].equalsIgnoreCase("compliance")) { //$NON-NLS-1$
 				return (scores[i] != 100);
 			}
 		}
@@ -212,15 +212,15 @@ public class PageEvaluation {
 
 		int minValue = getMinScore();
 
-		String rating = IVisualizationConst.RATING_BAD; //$NON-NLS-1$
+		String rating = IVisualizationConst.RATING_BAD; 
 
 		if (!hasComplianceError()) {
 			if (minValue >= 90) {
-				rating = IVisualizationConst.RATING_V_GOOD; //$NON-NLS-1$
+				rating = IVisualizationConst.RATING_V_GOOD; 
 			} else if (minValue >= 80) {
-				rating = IVisualizationConst.RATING_GOOD; //$NON-NLS-1$
+				rating = IVisualizationConst.RATING_GOOD; 
 			} else if (minValue >= 60) {
-				rating = IVisualizationConst.RATING_POOR; //$NON-NLS-1$
+				rating = IVisualizationConst.RATING_POOR; 
 			}
 		}
 		return (rating);

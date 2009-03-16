@@ -27,7 +27,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
      * 
      * @see org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences()
      */
-    public void initializeDefaultPreferences() {
+    @SuppressWarnings("nls")
+	public void initializeDefaultPreferences() {
         IPreferenceStore store = BlindVizEnginePlugin.getDefault().getPreferenceStore();
                 
         //TODO

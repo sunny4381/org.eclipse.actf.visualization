@@ -31,7 +31,7 @@ public class EvaluationResultBlind extends EvaluationResultImpl {
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
 	private static final Object EXP1 = xpathService
-			.compile("ancestor::noscript");
+			.compile("ancestor::noscript"); //$NON-NLS-1$
 
 	private int count = 0;
 
@@ -50,7 +50,7 @@ public class EvaluationResultBlind extends EvaluationResultImpl {
 		GuidelineHolder holder = GuidelineHolder.getInstance();
 		for (Iterator<IProblemItem> i = c.iterator(); i.hasNext();) {
 			try {
-				IProblemItem tmpItem = (IProblemItem) i.next();
+				IProblemItem tmpItem = i.next();
 				if (holder.isMatchedCheckItem(tmpItem.getEvaluationItem())) {
 					tmpItem.setSerialNumber(count);
 					if (tmpItem.isCanHighlight()

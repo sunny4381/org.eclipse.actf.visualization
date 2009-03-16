@@ -29,7 +29,7 @@ public class BlindSettingAction extends Action {
 	public BlindSettingAction() {
 		setToolTipText(Messages.Tooltip_Settings); 
 		setImageDescriptor(BlindVizEnginePlugin.imageDescriptorFromPlugin(
-				BlindVizEnginePlugin.PLUGIN_ID, "icons/setting.png"));
+				BlindVizEnginePlugin.PLUGIN_ID, "icons/setting.png")); //$NON-NLS-1$
 		setText(Messages.MenuConst_Settings); 
 	}
 
