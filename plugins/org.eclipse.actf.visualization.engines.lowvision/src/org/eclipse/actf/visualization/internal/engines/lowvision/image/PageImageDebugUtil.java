@@ -17,8 +17,8 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorUtil
 
 public class PageImageDebugUtil {
 	private PageImage pageImage;
-	
-	PageImageDebugUtil(PageImage pageImage){
+
+	PageImageDebugUtil(PageImage pageImage) {
 		this.pageImage = pageImage;
 	}
 
@@ -40,11 +40,11 @@ public class PageImageDebugUtil {
 
 	public int[][] paintContainers(int[][] _image, int _color) {
 		if (pageImage.numContainers == 0) {
-			DebugUtil.errMsg(this, "There are no containers.");
+			DebugUtil.errMsg(this, "There are no containers."); //$NON-NLS-1$
 			return (null);
 		}
-		DebugUtil.debugMsg(null, "# of containers = " + pageImage.numContainers,
-				"CONTAINER");
+		DebugUtil.debugMsg(null,
+				"# of containers = " + pageImage.numContainers, "CONTAINER"); //$NON-NLS-1$ //$NON-NLS-2$
 		for (int i = 0; i < pageImage.numContainers; i++) {
 			Container curContainer = pageImage.containers[i];
 			paintOnePageComponent(curContainer, _image, _color);
@@ -54,7 +54,8 @@ public class PageImageDebugUtil {
 	}
 
 	public IInt2D showRepaintedContainerMap() {
-		Int2D i2d = new Int2D(pageImage.pixel.getWidth(), pageImage.pixel.getHeight());
+		Int2D i2d = new Int2D(pageImage.pixel.getWidth(), pageImage.pixel
+				.getHeight());
 		for (int j = 0; j < pageImage.pixel.getHeight(); j++) {
 			for (int i = 0; i < pageImage.pixel.getWidth(); i++) {
 				i2d.getData()[j][i] = ColorUtil
@@ -69,7 +70,8 @@ public class PageImageDebugUtil {
 	}
 
 	public IInt2D showAllSSCharacters(int _color) {
-		Int2D i2d = new Int2D(pageImage.pixel.getWidth(), pageImage.pixel.getHeight());
+		Int2D i2d = new Int2D(pageImage.pixel.getWidth(), pageImage.pixel
+				.getHeight());
 		for (int k = 0; k < pageImage.containerVector.size(); k++) {
 			i2d = showSSCharactersInOneContainer(i2d, k, _color);
 		}
@@ -79,10 +81,9 @@ public class PageImageDebugUtil {
 
 	public Int2D showSSCharactersInOneContainer(Int2D _i2d, int _contIndex,
 			int _color) {
-		Container curCont = (Container) (pageImage.containerVector.elementAt(_contIndex));
+		Container curCont = (pageImage.containerVector.elementAt(_contIndex));
 		for (int l = 0; l < curCont.ssCharacterVector.size(); l++) {
-			CharacterSS ssc = (CharacterSS) (curCont.ssCharacterVector
-					.elementAt(l));
+			CharacterSS ssc = (curCont.ssCharacterVector.elementAt(l));
 			ConnectedComponent cc = ssc.cc;
 			for (int j = 0; j < cc.shape.height; j++) {
 				for (int i = 0; i < cc.shape.width; i++) {
@@ -102,9 +103,10 @@ public class PageImageDebugUtil {
 
 	public IInt2D showAllCharacters(int _ssColor, int _msColor, int _smColor1,
 			int _smColor2) {
-		Int2D i2d = new Int2D(pageImage.pixel.getWidth(), pageImage.pixel.getHeight());
-		DebugUtil.debugMsg(this, "numContainers = " + pageImage.numContainers,
-				"CONTAINER");
+		Int2D i2d = new Int2D(pageImage.pixel.getWidth(), pageImage.pixel
+				.getHeight());
+		DebugUtil.debugMsg(this, "numContainers = " + pageImage.numContainers, //$NON-NLS-1$
+				"CONTAINER"); //$NON-NLS-1$
 		for (int k = 0; k < pageImage.numContainers; k++) {
 			Container cont = pageImage.containers[k];
 			i2d = showCharactersInOneContainer(i2d, cont, _ssColor, _msColor,
@@ -112,7 +114,8 @@ public class PageImageDebugUtil {
 		}
 
 		for (int k = 0; k < pageImage.numNonContainedCharacters; k++) {
-			i2d = pageImage.nonContainedCharacters[k].cc.drawShape(i2d, _smColor2);
+			i2d = pageImage.nonContainedCharacters[k].cc.drawShape(i2d,
+					_smColor2);
 		}
 
 		return (i2d);
@@ -139,9 +142,10 @@ public class PageImageDebugUtil {
 
 	public IInt2D showAllThinedCharacters(int _ssColor, int _msColor,
 			int _smColor1, int _smColor2) throws ImageException {
-		Int2D i2d = new Int2D(pageImage.pixel.getWidth(), pageImage.pixel.getHeight());
-		DebugUtil.debugMsg(this, "numContainers = " + pageImage.numContainers,
-				"CONTAINER");
+		Int2D i2d = new Int2D(pageImage.pixel.getWidth(), pageImage.pixel
+				.getHeight());
+		DebugUtil.debugMsg(this, "numContainers = " + pageImage.numContainers, //$NON-NLS-1$
+				"CONTAINER"); //$NON-NLS-1$
 		for (int k = 0; k < pageImage.numContainers; k++) {
 			Container cont = pageImage.containers[k];
 			i2d = showThinedCharactersInOneContainer(i2d, cont, _ssColor,
@@ -149,8 +153,8 @@ public class PageImageDebugUtil {
 		}
 
 		for (int k = 0; k < pageImage.numNonContainedCharacters; k++) {
-			i2d = pageImage.nonContainedCharacters[k].cc.thinning().drawShape(i2d,
-					_smColor2);
+			i2d = pageImage.nonContainedCharacters[k].cc.thinning().drawShape(
+					i2d, _smColor2);
 		}
 
 		return (i2d);

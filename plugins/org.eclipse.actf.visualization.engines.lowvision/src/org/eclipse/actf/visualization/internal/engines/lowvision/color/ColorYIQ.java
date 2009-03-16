@@ -42,13 +42,13 @@ public class ColorYIQ {
 
 	private void rangeCheck() throws ColorException {
 		if (Y < 0.0f || 1.0f < Y) {
-			throw new ColorException("Y is out of range: " + Y);
+			throw new ColorException("Y is out of range: " + Y); //$NON-NLS-1$
 		}
 		if (I < 0.0f || 1.0f < I) {
-			throw new ColorException("I is out of range: " + I);
+			throw new ColorException("I is out of range: " + I); //$NON-NLS-1$
 		}
 		if (Q < 0.0f || 1.0f < Q) {
-			throw new ColorException("Q is out of range: " + Q);
+			throw new ColorException("Q is out of range: " + Q); //$NON-NLS-1$
 		}
 	}
 

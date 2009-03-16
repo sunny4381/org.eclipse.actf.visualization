@@ -40,7 +40,7 @@ public class SimulatedPageImage extends PageImage {
 		} catch (LowVisionException lve) {
 			// lve.printStackTrace();
 			throw new ImageException(
-					"The original PageImage cannot be filtered.");
+					"The original PageImage cannot be filtered."); //$NON-NLS-1$
 		}
 		init(bi);
 		bi = null;

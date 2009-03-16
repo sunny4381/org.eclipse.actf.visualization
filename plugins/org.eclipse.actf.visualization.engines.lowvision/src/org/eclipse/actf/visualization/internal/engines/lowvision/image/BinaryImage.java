@@ -194,6 +194,7 @@ public class BinaryImage {
 	 * 
 	 * protrusion -strict -> error -not strict -> clip
 	 */
+	@SuppressWarnings("nls")
 	public BinaryImage offsetCopy(int _newWidth, int _newHeight, int _offsetX,
 			int _offsetY, boolean _strict) throws ImageException {
 		BinaryImage bi = new BinaryImage(_newWidth, _newHeight);
@@ -335,7 +336,7 @@ public class BinaryImage {
 		if (size > 0) {
 			Coord[] coArray = new Coord[size];
 			for (int i = 0; i < size; i++) {
-				coArray[i] = (Coord) (tmpVec.elementAt(i));
+				coArray[i] = tmpVec.elementAt(i);
 			}
 			return (coArray);
 		} else {
@@ -369,7 +370,7 @@ public class BinaryImage {
 		int height = _bi1.height;
 		if (width != _bi2.width || height != _bi2.height) {
 			throw new ImageException(
-					"subtract(): Sizes of the two image must be the same");
+					"subtract(): Sizes of the two image must be the same"); //$NON-NLS-1$
 		}
 
 		BinaryImage newImage = new BinaryImage(width, height);
@@ -448,7 +449,7 @@ public class BinaryImage {
 			return (null);
 		if (horSeg.isVertical() || horSeg.isDiagonal())
 			throw new ImageException(
-					"Endpoints cannot be successfully detected");
+					"Endpoints cannot be successfully detected"); //$NON-NLS-1$
 		BinaryImage bi = new BinaryImage(width, height);
 		Coord left = horSeg.getLeftPoint();
 		Coord right = horSeg.getRightPoint();
@@ -466,7 +467,7 @@ public class BinaryImage {
 			return (null);
 		if (horSeg.isVertical() || horSeg.isDiagonal())
 			throw new ImageException(
-					"Endpoints cannot be successfully detected");
+					"Endpoints cannot be successfully detected"); //$NON-NLS-1$
 		BinaryImage bi = new BinaryImage(width, height);
 		Coord left = horSeg.getLeftPoint();
 		Coord right = horSeg.getRightPoint();
@@ -483,7 +484,7 @@ public class BinaryImage {
 			}
 			if (horSeg2.isVertical() || horSeg2.isDiagonal())
 				throw new ImageException(
-						"Endpoints cannot be successfully detected");
+						"Endpoints cannot be successfully detected"); //$NON-NLS-1$
 			Coord left2 = horSeg.getLeftPoint();
 			Coord right2 = horSeg.getRightPoint();
 			if ((left2.y == maxHeight) && (left2.x == curX0)
@@ -509,6 +510,7 @@ public class BinaryImage {
 		dump(pw);
 	}
 
+	@SuppressWarnings("nls")
 	public void dump(PrintWriter _pw) {
 		_pw.println("-------------------------------");
 		_pw.println("Dumping a BinaryImage");
@@ -532,6 +534,7 @@ public class BinaryImage {
 		dump(pw, _left, _top, _width, _height);
 	}
 
+	@SuppressWarnings("nls")
 	public void dump(PrintWriter _pw, int _left, int _top, int _width,
 			int _height) {
 		_pw.println("-------------------------------");

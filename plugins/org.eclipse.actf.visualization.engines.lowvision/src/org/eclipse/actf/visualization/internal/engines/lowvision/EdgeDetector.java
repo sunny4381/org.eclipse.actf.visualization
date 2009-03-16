@@ -70,7 +70,7 @@ public class EdgeDetector {
 			destBufferedImage = convolve(srcBufferedImage, 3, 3,
 					LAPLACIAN8_3X3_PLUS);
 		} else {
-			throw new LowVisionException("Unknown method: " + _method);
+			throw new LowVisionException("Unknown method: " + _method); //$NON-NLS-1$
 		}
 	}
 

@@ -96,11 +96,11 @@ public class Coord {
 	}
 
 	public static double distance(Coord _a, Coord _b) {
-		return (Math.sqrt((double) distancePow2(_a, _b)));
+		return (Math.sqrt(distancePow2(_a, _b)));
 	}
 
 	public static double distance(Coord _a) {
-		return (Math.sqrt((double) distancePow2(_a)));
+		return (Math.sqrt(distancePow2(_a)));
 	}
 
 	public static boolean isOnLine(Coord _start, Coord _end, Coord _point) {
@@ -136,9 +136,9 @@ public class Coord {
 
 	public static double cosine(Coord _a, Coord _b) throws ImageException {
 		if (_a.isOrigin() || _b.isOrigin()) {
-			throw new ImageException("Cannot calculate cosine of zero-vectors");
+			throw new ImageException("Cannot calculate cosine of zero-vectors"); //$NON-NLS-1$
 		}
-		return ((double) innerProduct(_a, _b) / (distance(_a) * distance(_b)));
+		return (innerProduct(_a, _b) / (distance(_a) * distance(_b)));
 	}
 
 	public static int outerProduct(Coord _a, Coord _b) {
@@ -154,6 +154,7 @@ public class Coord {
 		dump(pw);
 	}
 
+	@SuppressWarnings("nls")
 	public void dump(PrintWriter _pw) {
 		_pw.println("-------------------------------");
 		_pw.println("Dumping a point");
@@ -166,6 +167,7 @@ public class Coord {
 		dump(pw, _points);
 	}
 
+	@SuppressWarnings("nls")
 	public static void dump(PrintWriter _pw, Coord[] _points) {
 		int numPoints = _points.length;
 		_pw.println("-------------------------------");

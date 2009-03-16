@@ -22,7 +22,7 @@ public class ImageUtil {
 	public static Int2D bufferedImageToInt2D(BufferedImage _bi)
 			throws ImageException {
 		if (_bi == null) {
-			throw new ImageException("Input BufferedImage is null.");
+			throw new ImageException("Input BufferedImage is null."); //$NON-NLS-1$
 		}
 		int width = _bi.getWidth();
 		int height = _bi.getHeight();
@@ -95,6 +95,7 @@ public class ImageUtil {
 		dumpInt2DArray(pw, _data, _width, _height);
 	}
 
+	@SuppressWarnings("nls")
 	public static void dumpInt2DArray(PrintWriter _pw, int[][] _data,
 			int _width, int _height) {
 		_pw.println("-------");

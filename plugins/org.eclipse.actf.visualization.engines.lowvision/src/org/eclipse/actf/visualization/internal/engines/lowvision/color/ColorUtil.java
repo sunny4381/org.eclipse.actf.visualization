@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 
 public class ColorUtil {
 	// pre-defined 16 colors (HTML4.0, XHTML1.0, CSS2)
+	@SuppressWarnings("nls")
 	private static final String predefinedColors[] = {
 		"black", "#000000", "silver", "#c0c0c0",
 		"gray", "#808080", "grey", "#808080", "white", "#ffffff",

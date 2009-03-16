@@ -118,6 +118,7 @@ public class InteriorImage extends PageComponent {
 		return (pixel.getHeight());
 	}
 
+	@SuppressWarnings("nls")
 	public String dumpLargeComponents() {
 		if (numLargeComponents == 0) {
 			return ("There are no large components.");
@@ -187,8 +188,7 @@ public class InteriorImage extends PageComponent {
 		if (numLargeComponents > 0) {
 			largeComponents = new InteriorImageComponent[numLargeComponents];
 			for (int k = 0; k < numLargeComponents; k++) {
-				largeComponents[k] = (InteriorImageComponent) (largeComponentVector
-						.elementAt(k));
+				largeComponents[k] = largeComponentVector.elementAt(k);
 			}
 			largeComponentVector.removeAllElements();
 		}
@@ -251,7 +251,7 @@ public class InteriorImage extends PageComponent {
 		} catch (Exception e) {
 			// e.printStackTrace();
 			throw new ImageException(
-					"Exception occurred while checking colors.");
+					"Exception occurred while checking colors."); //$NON-NLS-1$
 		}
 
 		// (A) assume ImageProblem only
@@ -263,7 +263,7 @@ public class InteriorImage extends PageComponent {
 			} catch (LowVisionProblemException lvpe) {
 				// lvpe.printStackTrace();
 				throw new ImageException(
-						"Error occurred while making an instance of LowVisionProblemGroup.");
+						"Error occurred while making an instance of LowVisionProblemGroup."); //$NON-NLS-1$
 			}
 			LowVisionProblemGroup[] groupArray = new LowVisionProblemGroup[1];
 			groupArray[0] = group;
@@ -321,11 +321,11 @@ public class InteriorImage extends PageComponent {
 			} catch (LowVisionProblemException lvpe) {
 				// lvpe.printStackTrace();
 				throw new ImageException(
-						"Error occurred while making an instance of LowVisionProblemGroup.");
+						"Error occurred while making an instance of LowVisionProblemGroup."); //$NON-NLS-1$
 			}
-			if (curGroup != null) {
-				answerVec.addElement(curGroup);
-			}
+			// if (curGroup != null) {
+			answerVec.addElement(curGroup);
+			// }
 			curSize = _vec.size();
 		}
 		return (answerVec);
@@ -353,7 +353,7 @@ public class InteriorImage extends PageComponent {
 		} catch (LowVisionException lve) {
 			// lve.printStackTrace();
 			throw new ImageException(
-					"Exception occurred while simulating an interiorImage");
+					"Exception occurred while simulating an interiorImage"); //$NON-NLS-1$
 		}
 	}
 }

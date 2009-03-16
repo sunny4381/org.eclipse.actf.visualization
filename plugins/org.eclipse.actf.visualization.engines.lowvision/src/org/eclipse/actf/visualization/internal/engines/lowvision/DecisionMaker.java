@@ -35,6 +35,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisi
  * Check color combination by using threshold (in LowvisionCommon)
  * 
  */
+@SuppressWarnings("nls")
 public class DecisionMaker {
 
 	// thresholds for char check
@@ -79,7 +80,7 @@ public class DecisionMaker {
 	public static final float ENOUGH_DELTA_E_FOR_IMAGE = 40.0f;
 	// color combination check (text)
 	public static final float MIN_ENOUGH_DELTA_L_FOR_TEXT = 20.0f; // enough L
-																	// (L*a*b*)
+	// (L*a*b*)
 	public static final float MAX_ENOUGH_DELTA_L_FOR_TEXT = 40.0f; // (L*a*b*)
 	public static final float ENOUGH_DELTA_E_FOR_TEXT = 100.0f; // (L*a*b*)
 	public static final float ENOUGH_DELTA_H_FOR_TEXT = 100.0f; // (L*a*b*)
@@ -103,7 +104,7 @@ public class DecisionMaker {
 		// very small
 		if (cWidth < DecisionMaker.THRESHOLD_MIN_CHAR_WIDTH
 				|| cHeight < DecisionMaker.THRESHOLD_MIN_CHAR_HEIGHT) {
-			return (PageComponent.OTHER_TYPE );
+			return (PageComponent.OTHER_TYPE);
 		}
 
 		double density = _cc.getDensity();
@@ -114,7 +115,7 @@ public class DecisionMaker {
 			throw new ImageException(
 					"detectLongestHorizontalLine() does not work.");
 		}
-		double widthRatio = horSeg.getLength() / (double) cWidth;
+		double widthRatio = horSeg.getLength() / cWidth;
 		double position = (double) (horSeg.getLeftPoint().getY())
 				/ (double) cHeight;
 		double ratio = (double) cWidth / (double) cHeight;
@@ -122,32 +123,32 @@ public class DecisionMaker {
 				&& position >= DecisionMaker.THRESHOLD_MIN_UNDERLINE_POSITION
 				&& ratio >= DecisionMaker.THRESHOLD_MIN_UNDERLINE_RATIO
 				&& density < DecisionMaker.THRESHOLD_MIN_CONTAINER_DENSITY) {
-			return (PageComponent.CANDIDATE_UNDERLINED_CHARACTER_TYPE );
+			return (PageComponent.CANDIDATE_UNDERLINED_CHARACTER_TYPE);
 		}
 
 		// container
 		if ((cWidth > DecisionMaker.THRESHOLD_MAX_CHAR_WIDTH || cHeight > DecisionMaker.THRESHOLD_MAX_CHAR_HEIGHT)) {
-			return (PageComponent.CONTAINER_TYPE );
+			return (PageComponent.CONTAINER_TYPE);
 		}
 
 		// small (might be line)
 		if (ratio < DecisionMaker.THRESHOLD_MIN_CHAR_RATIO
 				|| DecisionMaker.THRESHOLD_MAX_CHAR_RATIO < ratio) {
-			return (PageComponent.OTHER_TYPE );
+			return (PageComponent.OTHER_TYPE);
 		}
 
 		// test
 		/*
 		 * Topology topo = new Topology( _cc ); Topology thinTopo = new
-		 * Topology( _cc.thinning() ); int count1 = topo.getCount(); int count2 =
-		 * thinTopo.getCount(); int interior1 = topo.getNumInterior(); int
+		 * Topology( _cc.thinning() ); int count1 = topo.getCount(); int count2
+		 * = thinTopo.getCount(); int interior1 = topo.getNumInterior(); int
 		 * interior2 = thinTopo.getNumInterior(); int edge1 =
 		 * topo.getNumEdges(); int edge2 = thinTopo.getNumEdges(); int branch1 =
 		 * topo.getNumBranches(); int branch2 = thinTopo.getNumBranches(); int
 		 * cross1 = topo.getNumCrosses(); int cross2 = thinTopo.getNumCrosses();
 		 * 
-		 * double countDouble = (double)(topo.getCount()); double interiorRatio =
-		 * (double)(topo.getNumInterior())/countDouble; double edgeRatio =
+		 * double countDouble = (double)(topo.getCount()); double interiorRatio
+		 * = (double)(topo.getNumInterior())/countDouble; double edgeRatio =
 		 * (double)(topo.getNumEdges())/countDouble; double branchRatio =
 		 * (double)(topo.getNumBranches())/countDouble; double crossRatio =
 		 * (double)(topo.getNumCrosses())/countDouble;
@@ -162,34 +163,35 @@ public class DecisionMaker {
 		// thinning
 		ConnectedComponent thinCc = _cc.thinning();
 		if ((double) (thinCc.getCount()) / (double) (_cc.getCount()) < DecisionMaker.THRESHOLD_MIN_THINNING_RATIO) {
-			return (PageComponent.OTHER_TYPE );
+			return (PageComponent.OTHER_TYPE);
 		}
 
 		Topology thinTopo = new Topology(thinCc);
 		if (thinTopo.getNumBranches() > DecisionMaker.THRESHOLD_MAX_THINNED_BRANCHES) {
-			return (PageComponent.OTHER_TYPE );
+			return (PageComponent.OTHER_TYPE);
 		}
 		if (thinTopo.getNumCrosses() > DecisionMaker.THRESHOLD_MAX_THINNED_CROSSES) {
-			return (PageComponent.OTHER_TYPE );
+			return (PageComponent.OTHER_TYPE);
 		}
 
 		// debug(from here)
 		/*
-		 * if( _test ){ int ccX = _cc.getLeft(); int ccY = _cc.getTop(); int ccW =
-		 * _cc.getWidth(); int ccH = _cc.getHeight(); DebugUtil.debugMsg( null,
-		 * "Judging container at (" + ccX + "," + ccY + ") [" + ccW + " x " +
-		 * ccH + "] : count=(" + count1 + "," + count2 + ") interior=(" +
-		 * interior1 + "," + interior2 + ") edge=(" + edge1 + "," + edge2 + ")
+		 * if( _test ){ int ccX = _cc.getLeft(); int ccY = _cc.getTop(); int ccW
+		 * = _cc.getWidth(); int ccH = _cc.getHeight(); DebugUtil.debugMsg(
+		 * null, "Judging container at (" + ccX + "," + ccY + ") [" + ccW +
+		 * " x " + ccH + "] : count=(" + count1 + "," + count2 + ") interior=("
+		 * + interior1 + "," + interior2 + ") edge=(" + edge1 + "," + edge2 + ")
 		 * branch=(" + branch1 + "," + branch2 + ") cross=(" + cross1 + "," +
 		 * cross2 + ")", "COMPONENT" ); // DebugUtil.debugMsg( null, "Judging
 		 * container at (" + ccX + "," + ccY + ") [" + ccW + " x " + ccH + "] :
-		 * count = " + topo.getCount() + ", interiorRatio = " + interiorRatio + ",
-		 * edgeRatio = " + edgeRatio + ", branchRatio = " + branchRatio + ",
-		 * crossRatio = " + crossRatio, "COMPONENT" ); // DebugUtil.debugMsg(
-		 * null, "Density = " + density, "COMPONENT" ); // debug(to here) }
+		 * count = " + topo.getCount() + ", interiorRatio =
+		 * " + interiorRatio + ", edgeRatio = " + edgeRatio + ", branchRatio =
+		 * " + branchRatio + ", crossRatio = " + crossRatio, "COMPONENT" ); //
+		 * DebugUtil.debugMsg( null, "Density = " + density, "COMPONENT" ); //
+		 * debug(to here) }
 		 */
 
-		return (PageComponent.CANDIDATE_CHARACTER_TYPE );
+		return (PageComponent.CANDIDATE_CHARACTER_TYPE);
 	} // judgeComponentType( ConnectedComponent )
 
 	// check connected component is MS character or not
@@ -210,8 +212,8 @@ public class DecisionMaker {
 		/*
 		 * do not use thinning ConnectedComponent thinCc = _cc.thinning(); //
 		 * debug // DebugUtil.outMsg( null, "thinCc.count = " +
-		 * thinCc.getCount() + ", _cc.count = " + _cc.getCount() + ", Ratio = " +
-		 * (double)(thinCc.getCount())/(double)(_cc.getCount()) ); if(
+		 * thinCc.getCount() + ", _cc.count = " + _cc.getCount() + ", Ratio = "
+		 * + (double)(thinCc.getCount())/(double)(_cc.getCount()) ); if(
 		 * (double)(thinCc.getCount())/(double)(_cc.getCount()) <
 		 * THRESHOLD_MIN_THINNING_RATIO ){ return( false ); }
 		 */
@@ -282,7 +284,6 @@ public class DecisionMaker {
 	 * 
 	 * criteria for text/image text (bg/fg connected) <- brightness image
 	 * (components are separated in some cases) <- chroma, hue
-	 * 
 	 */
 	public static boolean distinguishableTextColors(ColorLAB _c1, ColorLAB _c2) {
 		double deltaL = ColorLAB.deltaL(_c1, _c2);
@@ -319,11 +320,11 @@ public class DecisionMaker {
 		 * ColorIRGB i2_ = new ColorIRGB(_c2); ColorIRGB i1_ = new
 		 * ColorIRGB(_c1); int c1R = i1_.getR(); int c1G = i1_.getG(); int c1B =
 		 * i1_.getB(); try{ if( _c2 == ((90<<16)+(93<<8)+90) && (c1R>c1G) &&
-		 * (c1R>c1B) ){ DebugUtil.outMsg( null, "C1: R = " + i1_.getR() + ", G = " +
-		 * i1_.getG() + ", B = " + i1_.getB() ); ColorLAB l1_ = (new
+		 * (c1R>c1B) ){ DebugUtil.outMsg( null, "C1: R = " + i1_.getR() +
+		 * ", G = " + i1_.getG() + ", B = " + i1_.getB() ); ColorLAB l1_ = (new
 		 * ColorIRGB(_c1)).toXYZ().toLAB(); ColorLAB l2_ = (new
-		 * ColorIRGB(_c2)).toXYZ().toLAB(); DebugUtil.outMsg( null, "Delta L = " +
-		 * ColorLAB.deltaL(l1_,l2_) ); DebugUtil.outMsg( null, "Delta E = " +
+		 * ColorIRGB(_c2)).toXYZ().toLAB(); DebugUtil.outMsg( null, "Delta L = "
+		 * + ColorLAB.deltaL(l1_,l2_) ); DebugUtil.outMsg( null, "Delta E = " +
 		 * ColorLAB.deltaE(l1_,l2_) ); } }catch( Exception e ){
 		 * e.printStackTrace(); }
 		 */
@@ -354,7 +355,8 @@ public class DecisionMaker {
 		return (thresholdL);
 		/*
 		 * double deltaH = ColorLAB.deltaH( _c1, _c2 ); double thresholdL =
-		 * (MIN_ENOUGH_DELTA_L_FOR_TEXT-MAX_ENOUGH_DELTA_L_FOR_TEXT)/ENOUGH_DELTA_H_FOR_TEXT*deltaH +
+		 * (MIN_ENOUGH_DELTA_L_FOR_TEXT
+		 * -MAX_ENOUGH_DELTA_L_FOR_TEXT)/ENOUGH_DELTA_H_FOR_TEXTdeltaH +
 		 * MAX_ENOUGH_DELTA_L_FOR_TEXT; if( thresholdL < 0.0 ){ thresholdL =
 		 * 0.0; } return( thresholdL );
 		 */
@@ -466,8 +468,7 @@ public class DecisionMaker {
 
 	private static Vector3D colorToVector3D(int _color) {
 		ColorIRGB ci = new ColorIRGB(_color);
-		return (new Vector3D((double) (ci.getR()), (double) (ci.getG()),
-				(double) (ci.getB())));
+		return (new Vector3D(ci.getR(), ci.getG(), ci.getB()));
 	}
 
 	/*

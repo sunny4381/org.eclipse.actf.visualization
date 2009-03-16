@@ -55,7 +55,7 @@ public class BMPWriter {
 			fos = new FileOutputStream(_fileName);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			throw new LowVisionIOException("The file was not found: "
+			throw new LowVisionIOException("The file was not found: " //$NON-NLS-1$
 					+ _fileName);
 		}
 		writeBufferedImage(_bi, fos, _bitCount);
@@ -76,7 +76,7 @@ public class BMPWriter {
 		// only for BufferedImage.TYPE_INT_RGB
 
 		if (_bitCount != 16 && _bitCount != 24) {
-			throw new LowVisionIOException("Invalid bitCount: " + _bitCount);
+			throw new LowVisionIOException("Invalid bitCount: " + _bitCount); //$NON-NLS-1$
 		}
 
 		int imageWidth = _bi.getWidth();
@@ -121,7 +121,7 @@ public class BMPWriter {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new LowVisionIOException(
-					"IO error occurred when writing header.");
+					"IO error occurred when writing header."); //$NON-NLS-1$
 		}
 
 		WritableRaster srcRaster = _bi.copyData(null);
@@ -166,7 +166,7 @@ public class BMPWriter {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new LowVisionIOException(
-					"IO error occurred while writing image data.");
+					"IO error occurred while writing image data."); //$NON-NLS-1$
 		}
 
 		try {
@@ -175,7 +175,7 @@ public class BMPWriter {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new LowVisionIOException(
-					"IO error occurred when closing output streams.");
+					"IO error occurred when closing output streams."); //$NON-NLS-1$
 		}
 	}
 }

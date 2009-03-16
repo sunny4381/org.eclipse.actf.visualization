@@ -89,7 +89,7 @@ public class CharacterMS extends PageComponent {
 			return (getInt2D());
 		}
 		if (_margin < 0) {
-			throw new ImageException("The margin must be non-negative.");
+			throw new ImageException("The margin must be non-negative."); //$NON-NLS-1$
 		}
 		Int2D i2d = new Int2D(cc.getShape().getWidth() + 2 * _margin, cc.getShape().getHeight() + 2
 				* _margin);

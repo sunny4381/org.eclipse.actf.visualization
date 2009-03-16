@@ -100,7 +100,7 @@ public class LabeledImage {
 		else if (method == METHOD_4_CONNECTIVITY)
 			conn = ConnectedComponent.CONNECTIVITY_4;
 		for (int i = 0; i < numComponents; i++) {
-			components[i] = (ConnectedComponent) (ccVector.elementAt(i));
+			components[i] = ccVector.elementAt(i);
 			components[i].connectivity = conn;
 		}
 	}
@@ -120,7 +120,7 @@ public class LabeledImage {
 		labelingStack.push(startCoord);
 
 		while (!labelingStack.empty()) {
-			Coord co = (Coord) (labelingStack.pop());
+			Coord co = labelingStack.pop();
 			int i = co.x;
 			int j = co.y;
 
@@ -256,7 +256,7 @@ public class LabeledImage {
 	 */
 	public BufferedImage toBufferedImage() throws ImageException {
 		if ((numComponents >> 24) != 0) {
-			throw new ImageException("Too many labels to make bufferedImage.");
+			throw new ImageException("Too many labels to make bufferedImage."); //$NON-NLS-1$
 		}
 
 		BufferedImage destImage = new BufferedImage(width, height,
@@ -295,6 +295,7 @@ public class LabeledImage {
 		dumpLabel(pw);
 	}
 
+	@SuppressWarnings("nls")
 	public void dumpLabel(PrintWriter _pw) {
 		_pw.println("-------------------------------");
 		_pw.println("Dumping a labeledImage");
@@ -317,6 +318,7 @@ public class LabeledImage {
 		dumpComponents(pw);
 	}
 
+	@SuppressWarnings("nls")
 	public void dumpComponents(PrintWriter _pw) {
 		_pw.println("-------------------------------");
 		_pw.println("Dumping components");
@@ -332,6 +334,7 @@ public class LabeledImage {
 		dumpComponents(pw, _i);
 	}
 
+	@SuppressWarnings("nls")
 	public void dumpComponents(PrintWriter _pw, int _i) {
 		_pw.println("-----");
 		_pw.println("Components # = " + _i);

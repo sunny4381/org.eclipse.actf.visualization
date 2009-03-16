@@ -99,7 +99,7 @@ public class CharacterSM extends PageComponent {
 			return (getInt2D());
 		}
 		if (_margin < 0) {
-			throw new ImageException("The margin must be non-negative.");
+			throw new ImageException("The margin must be non-negative."); //$NON-NLS-1$
 		}
 		int w = cc.getShape().getWidth();
 		int h = cc.getShape().getHeight();

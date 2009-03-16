@@ -40,7 +40,7 @@ public class Int2D implements IInt2D {
 	public Int2D(int _w, int _h, int[][] _array) throws ImageException {
 		this(_w, _h);
 		if (_array.length < _h || _array[0].length < _w) {
-			throw new ImageException("Out of range");
+			throw new ImageException("Out of range"); //$NON-NLS-1$
 		}
 		for (int j = 0; j < getHeight(); j++) {
 			for (int i = 0; i < getWidth(); i++) {
@@ -138,7 +138,7 @@ public class Int2D implements IInt2D {
 	 */
 	public Int2D cutMargin(int _m) throws ImageException {
 		if (getWidth() <= 2 * _m || getHeight() <= 2 * _m) {
-			throw new ImageException("The margin is too wide.");
+			throw new ImageException("The margin is too wide."); //$NON-NLS-1$
 		}
 		int newW = getWidth() - 2 * _m;
 		int newH = getHeight() - 2 * _m;

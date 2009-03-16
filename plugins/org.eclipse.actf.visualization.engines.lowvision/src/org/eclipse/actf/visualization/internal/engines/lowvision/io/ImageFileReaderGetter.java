@@ -44,8 +44,8 @@ class ImageFileReaderGetter extends Thread {
 		try {
 			tracker.waitForID(0);
 		} catch (InterruptedException ie) {
-			DebugUtil.outMsg(this, "Thread for getting \"" + fileName
-					+ "\" was interrupted.");
+			DebugUtil.outMsg(this, "Thread for getting \"" + fileName //$NON-NLS-1$
+					+ "\" was interrupted."); //$NON-NLS-1$
 			// ie.printStackTrace();
 		}
 
@@ -60,7 +60,7 @@ class ImageFileReaderGetter extends Thread {
 			gr.drawImage(im, 0, 0, null);
 		}
 		if (image == null) {
-			DebugUtil.outMsg(this, "BufferedImage is null.");
+			DebugUtil.outMsg(this, "BufferedImage is null."); //$NON-NLS-1$
 		}
 
 		caller.setBufferedImage(image);

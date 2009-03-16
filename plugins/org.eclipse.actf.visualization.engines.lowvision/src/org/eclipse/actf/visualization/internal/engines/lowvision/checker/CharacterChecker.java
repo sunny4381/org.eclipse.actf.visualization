@@ -190,7 +190,7 @@ public class CharacterChecker {
 		} catch (Exception e) {
 			// e.printStackTrace();
 			throw new ImageException(
-					"Error occurred while simulating an MSCharacter.");
+					"Error occurred while simulating an MSCharacter."); //$NON-NLS-1$
 		}
 
 		/*
@@ -209,7 +209,7 @@ public class CharacterChecker {
 						continue;
 					} else {
 						Integer pixelInt = new Integer(pixel);
-						Boolean answerBool = (Boolean) (answerMap.get(pixelInt));
+						Boolean answerBool = answerMap.get(pixelInt);
 						if (answerBool == null) {
 							if (DecisionMaker.distinguishableTextColors(pixel,
 									_bg)) {
@@ -229,7 +229,7 @@ public class CharacterChecker {
 		} catch (Exception e) {
 			// e.printStackTrace();
 			throw new ImageException(
-					"Error occurred while making binary image.");
+					"Error occurred while making binary image."); //$NON-NLS-1$
 		}
 		int ccLeft = _msc.cc.getLeft() - margin;
 		if (ccLeft < 0)
@@ -282,7 +282,7 @@ public class CharacterChecker {
 		} catch (Exception e) {
 			// e.printStackTrace();
 			throw new ImageException(
-					"Error occurred while simulating an SMCharacter.");
+					"Error occurred while simulating an SMCharacter."); //$NON-NLS-1$
 		}
 
 		/*
@@ -302,7 +302,7 @@ public class CharacterChecker {
 						continue;
 					} else {
 						Integer pixelInt = new Integer(pixel);
-						Boolean answerBool = (Boolean) (answerMap.get(pixelInt));
+						Boolean answerBool = (answerMap.get(pixelInt));
 						if (answerBool == null) {
 							if (!(DecisionMaker.distinguishableTextColors(
 									pixel, _fg))) {
@@ -322,7 +322,7 @@ public class CharacterChecker {
 		} catch (Exception e) {
 			// e.printStackTrace();
 			throw new ImageException(
-					"Error occurred while making binary image.");
+					"Error occurred while making binary image."); //$NON-NLS-1$
 		}
 		int ccLeft = _smc.cc.getLeft() - margin;
 		if (ccLeft < 0)
@@ -370,7 +370,7 @@ public class CharacterChecker {
 		} catch (Exception e) {
 			// e.printStackTrace();
 			throw new ImageException(
-					"Error occurred while simulating an SSCharacter.");
+					"Error occurred while simulating an SSCharacter."); //$NON-NLS-1$
 		}
 
 		/*
@@ -389,7 +389,7 @@ public class CharacterChecker {
 						continue;
 					} else {
 						Integer pixelInt = new Integer(pixel);
-						Boolean answerBool = (Boolean) (answerMap.get(pixelInt));
+						Boolean answerBool = (answerMap.get(pixelInt));
 						if (answerBool == null) {
 							if (DecisionMaker.distinguishableTextColors(pixel,
 									_bg)) {
@@ -407,7 +407,7 @@ public class CharacterChecker {
 		} catch (Exception e) {
 			// e.printStackTrace();
 			throw new ImageException(
-					"Error occurred while making binary image.");
+					"Error occurred while making binary image."); //$NON-NLS-1$
 		}
 		int ccLeft = _ssc.cc.getLeft() - margin;
 		if (ccLeft < 0)
@@ -484,7 +484,7 @@ public class CharacterChecker {
 						if (data[j][i] == 0) {
 							int simBg = _lvType.convertColor(im[j][i]);
 							Integer bgInt = new Integer(simBg);
-							Boolean bgBool = (Boolean) (map.get(bgInt));
+							Boolean bgBool = (map.get(bgInt));
 							if (bgBool == null) { // first time
 								if (!(DecisionMaker.distinguishableTextColors(
 										simFgColor, simBg))) {
@@ -539,7 +539,7 @@ public class CharacterChecker {
 			} catch (Exception e) {
 				// e.printStackTrace();
 				throw new ImageException(
-						"An error occurred while checking colors of an SSCharacter.");
+						"An error occurred while checking colors of an SSCharacter."); //$NON-NLS-1$
 			}
 		}
 
@@ -596,7 +596,7 @@ public class CharacterChecker {
 		} catch (LowVisionProblemException lvpe) {
 			// lvpe.printStackTrace();
 			throw new ImageException(
-					"Error occurred while making problem group.");
+					"Error occurred while making problem group."); //$NON-NLS-1$
 		}
 	}
 
@@ -613,7 +613,7 @@ public class CharacterChecker {
 		}
 		int groupSize = groupVector.size();
 		if (groupSize <= 0) {
-			throw new ImageException("No instance belongs to the group. id = "
+			throw new ImageException("No instance belongs to the group. id = " //$NON-NLS-1$
 					+ _id);
 		}
 		LowVisionProblemGroup pg = null;
@@ -622,7 +622,7 @@ public class CharacterChecker {
 		} catch (LowVisionProblemException lvpe) {
 			// lvpe.printStackTrace();
 			throw new ImageException(
-					"LowVisionProblemGroup cannot be constracted.");
+					"LowVisionProblemGroup cannot be constracted."); //$NON-NLS-1$
 		}
 		_resultVec.addElement(pg);
 	}

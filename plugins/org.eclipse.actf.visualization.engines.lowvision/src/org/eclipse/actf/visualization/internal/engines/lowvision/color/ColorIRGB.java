@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 // sRGB [0,255]
+@SuppressWarnings("nls")
 public class ColorIRGB {
 	int R;
 
@@ -245,8 +246,7 @@ public class ColorIRGB {
 	}
 
 	public ColorSRGB toSRGB(boolean _check) throws ColorException {
-		ColorSRGB s = new ColorSRGB((float) R / 255.0f, (float) G / 255.0f,
-				(float) B / 255.0f, _check);
+		ColorSRGB s = new ColorSRGB(R / 255.0f, G / 255.0f, B / 255.0f, _check);
 		// s.setR( (float)R/255.0f, _check );
 		// s.setG( (float)G/255.0f, _check );
 		// s.setB( (float)B/255.0f, _check );

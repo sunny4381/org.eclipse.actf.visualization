@@ -56,7 +56,7 @@ public class ColorLAB {
 
 	public void setL(float _l) throws ColorException {
 		if (_l < 0.0f || 100.0f < _l) {
-			throw new ColorException("L is out of range: " + _l);
+			throw new ColorException("L is out of range: " + _l); //$NON-NLS-1$
 		}
 		L = _l;
 	}

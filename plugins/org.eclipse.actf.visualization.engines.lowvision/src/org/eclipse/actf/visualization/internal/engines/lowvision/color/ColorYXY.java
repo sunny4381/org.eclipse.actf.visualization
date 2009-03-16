@@ -53,12 +53,12 @@ public class ColorYXY {
 	public void setYY(float _yy, boolean _check) throws ColorException {
 		if (_yy < 0.0f) {
 			if (_check)
-				throw new ColorException("Smaller than minimum.");
+				throw new ColorException("Smaller than minimum."); //$NON-NLS-1$
 			else
 				YY = 0.0f;
 		} else if (1.0f < _yy) {
 			if (_check)
-				throw new ColorException("Larger than maximum.");
+				throw new ColorException("Larger than maximum."); //$NON-NLS-1$
 			else
 				YY = 1.0f;
 		} else
@@ -72,12 +72,12 @@ public class ColorYXY {
 	public void setX(float _x, boolean _check) throws ColorException {
 		if (_x < 0.0f) {
 			if (_check)
-				throw new ColorException("Smaller than minimum.");
+				throw new ColorException("Smaller than minimum."); //$NON-NLS-1$
 			else
 				x = 0.0f;
 		} else if (1.0f < _x) {
 			if (_check)
-				throw new ColorException("Larger than maximum.");
+				throw new ColorException("Larger than maximum."); //$NON-NLS-1$
 			else
 				x = 1.0f;
 		} else
@@ -91,12 +91,12 @@ public class ColorYXY {
 	public void setY(float _y, boolean _check) throws ColorException {
 		if (_y < 0.0f) {
 			if (_check)
-				throw new ColorException("Smaller than minimum.");
+				throw new ColorException("Smaller than minimum."); //$NON-NLS-1$
 			else
 				y = 0.0f;
 		} else if (1.0f < _y) {
 			if (_check)
-				throw new ColorException("Larger than maximum.");
+				throw new ColorException("Larger than maximum."); //$NON-NLS-1$
 			else
 				y = 1.0f;
 		} else

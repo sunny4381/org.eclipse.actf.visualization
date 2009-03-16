@@ -127,7 +127,7 @@ public class LowVisionType {
 	 */
 	public void setEyesightDegree(float _deg) throws LowVisionException {
 		if (_deg <= 0.0) {
-			throw new LowVisionException("Eyesight degree must be positive.");
+			throw new LowVisionException("Eyesight degree must be positive."); //$NON-NLS-1$
 		}
 		eyesightDegree = _deg;
 		eyesightPixel = calcUndistinguishablePixel(eyesightDegree);
@@ -223,7 +223,7 @@ public class LowVisionType {
 	 */
 	public void setCVDType(int cvd_type) throws LowVisionException {
 		if (cvd_type != 1 && cvd_type != 2 && cvd_type != 3) {
-			throw new LowVisionException("CVD type must be 1,2, or 3");
+			throw new LowVisionException("CVD type must be 1,2, or 3"); //$NON-NLS-1$
 		}
 		CVDType = cvd_type;
 	}
@@ -258,6 +258,7 @@ public class LowVisionType {
 		return (rgb);
 	}
 
+	@SuppressWarnings("nls")
 	private void setColorFilterRGB(float _r, float _g, float _b)
 			throws LowVisionException {
 		if (_r < 0.0 || 1.0 < _r)
@@ -392,6 +393,7 @@ public class LowVisionType {
 		return (dest);
 	}
 
+	@SuppressWarnings("nls")
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		if (eyesight) {

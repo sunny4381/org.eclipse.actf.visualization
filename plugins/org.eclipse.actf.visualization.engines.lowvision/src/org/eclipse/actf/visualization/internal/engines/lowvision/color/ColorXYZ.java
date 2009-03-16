@@ -64,12 +64,12 @@ public class ColorXYZ {
 	public void setX(float _x, boolean _check) throws ColorException {
 		if (_x < 0.0f) {
 			if (_check)
-				throw new ColorException("Smaller than minimum.");
+				throw new ColorException("Smaller than minimum."); //$NON-NLS-1$
 			else
 				xyz[0] = 0.0f;
 		} else if (1.0f < _x) {
 			if (_check)
-				throw new ColorException("Larger than maximum.");
+				throw new ColorException("Larger than maximum."); //$NON-NLS-1$
 			else
 				xyz[0] = 1.0f;
 		} else
@@ -83,12 +83,12 @@ public class ColorXYZ {
 	public void setY(float _y, boolean _check) throws ColorException {
 		if (_y < 0.0f) {
 			if (_check)
-				throw new ColorException("Smaller than minimum.");
+				throw new ColorException("Smaller than minimum."); //$NON-NLS-1$
 			else
 				xyz[1] = 0.0f;
 		} else if (1.0f < _y) {
 			if (_check)
-				throw new ColorException("Larger than maximum.");
+				throw new ColorException("Larger than maximum."); //$NON-NLS-1$
 			else
 				xyz[1] = 1.0f;
 		} else
@@ -102,12 +102,12 @@ public class ColorXYZ {
 	public void setZ(float _z, boolean _check) throws ColorException {
 		if (_z < 0.0f) {
 			if (_check)
-				throw new ColorException("Smaller than minimum.");
+				throw new ColorException("Smaller than minimum."); //$NON-NLS-1$
 			else
 				xyz[2] = 0.0f;
 		} else if (1.0f < _z) {
 			if (_check)
-				throw new ColorException("Larger than maximum.");
+				throw new ColorException("Larger than maximum."); //$NON-NLS-1$
 			else
 				xyz[2] = 1.0f;
 		} else

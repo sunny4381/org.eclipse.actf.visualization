@@ -50,8 +50,8 @@ class ImageFileReaderController {
 					return;
 				}
 			}
-			DebugUtil.outMsg(null, "Thread for getting \"" + fileName
-					+ "\" was timed out.");
+			DebugUtil.outMsg(null, "Thread for getting \"" + fileName //$NON-NLS-1$
+					+ "\" was timed out."); //$NON-NLS-1$
 		} catch (InterruptedException ie) {
 			ie.printStackTrace();
 		} finally {

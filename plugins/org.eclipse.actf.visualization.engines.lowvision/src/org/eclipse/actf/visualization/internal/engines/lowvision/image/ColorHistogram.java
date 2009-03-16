@@ -17,8 +17,6 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 
-
-
 public class ColorHistogram {
 	private HashMap<Integer, ColorHistogramBin> pixelMap = new HashMap<Integer, ColorHistogramBin>();
 
@@ -42,8 +40,7 @@ public class ColorHistogram {
 	public void put(int _color) {
 		changedFlag = true;
 		Integer curPixel = new Integer(_color);
-		ColorHistogramBin curHistBin = (ColorHistogramBin) (pixelMap
-				.get(curPixel));
+		ColorHistogramBin curHistBin = pixelMap.get(curPixel);
 		if (curHistBin != null) {
 			curHistBin.occurrence++;
 		} else {
@@ -66,18 +63,17 @@ public class ColorHistogram {
 		sortedArrayByOccurrence = new ColorHistogramBin[len];
 
 		for (int i = 0; i < len; i++) {
-			sortedArrayByOccurrence[i] = (ColorHistogramBin) (pixelMap
-					.get(keyArray[i]));
+			sortedArrayByOccurrence[i] = pixelMap.get(keyArray[i]);
 		}
 		Arrays.sort(sortedArrayByOccurrence, new ComparatorByOccurrence());
 	}
 
-	public class ComparatorByOccurrence implements Comparator<ColorHistogramBin> {
+	public class ComparatorByOccurrence implements
+			Comparator<ColorHistogramBin> {
 		public int compare(ColorHistogramBin o1, ColorHistogramBin o2) {
-			return(o2.occurrence-o1.occurrence);
+			return (o2.occurrence - o1.occurrence);
 		}
 	}
-
 
 	public static ColorHistogram makeColorHistogram(int[][] _pixel, int _width,
 			int _height) {
@@ -92,7 +88,8 @@ public class ColorHistogram {
 	}
 
 	public static ColorHistogram makeColorHistogram(IInt2D _i2d) {
-		return (makeColorHistogram(_i2d.getData(), _i2d.getWidth(), _i2d.getHeight()));
+		return (makeColorHistogram(_i2d.getData(), _i2d.getWidth(), _i2d
+				.getHeight()));
 	}
 
 	public void dump(PrintStream _ps) {
@@ -100,6 +97,7 @@ public class ColorHistogram {
 		dump(pw);
 	}
 
+	@SuppressWarnings("nls")
 	public void dump(PrintWriter _pw) {
 		if (changedFlag)
 			makeSortedArrayByOccurrence();

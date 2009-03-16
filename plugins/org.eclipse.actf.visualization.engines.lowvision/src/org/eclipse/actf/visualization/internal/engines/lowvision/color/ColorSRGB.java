@@ -47,12 +47,12 @@ public class ColorSRGB {
 	public void setR(float _r, boolean _check) throws ColorException {
 		if (_r < 0.0f) {
 			if (_check)
-				throw new ColorException("Smaller than minimum.");
+				throw new ColorException("Smaller than minimum."); //$NON-NLS-1$
 			else
 				rgb[0] = 0.0f;
 		} else if (1.0f < _r) {
 			if (_check)
-				throw new ColorException("Larger than maximum.");
+				throw new ColorException("Larger than maximum."); //$NON-NLS-1$
 			else
 				rgb[0] = 1.0f;
 		} else
@@ -64,12 +64,12 @@ public class ColorSRGB {
 	public void setG(float _g, boolean _check) throws ColorException {
 		if (_g < 0.0f) {
 			if (_check)
-				throw new ColorException("Smaller than minimum.");
+				throw new ColorException("Smaller than minimum."); //$NON-NLS-1$
 			else
 				rgb[1] = 0.0f;
 		} else if (1.0f < _g) {
 			if (_check)
-				throw new ColorException("Larger than maximum.");
+				throw new ColorException("Larger than maximum."); //$NON-NLS-1$
 			else
 				rgb[1] = 1.0f;
 		} else
@@ -81,12 +81,12 @@ public class ColorSRGB {
 	public void setB(float _b, boolean _check) throws ColorException {
 		if (_b < 0.0f) {
 			if (_check)
-				throw new ColorException("Smaller than minimum.");
+				throw new ColorException("Smaller than minimum."); //$NON-NLS-1$
 			else
 				rgb[2] = 0.0f;
 		} else if (1.0f < _b) {
 			if (_check)
-				throw new ColorException("Larger than maximum.");
+				throw new ColorException("Larger than maximum."); //$NON-NLS-1$
 			else
 				rgb[2] = 1.0f;
 		} else

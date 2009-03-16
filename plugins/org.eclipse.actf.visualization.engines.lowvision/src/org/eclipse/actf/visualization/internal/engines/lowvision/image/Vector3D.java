@@ -85,7 +85,7 @@ public class Vector3D {
 
 	public static double cosine(Vector3D _a, Vector3D _b) throws ImageException {
 		if (isZeroVector(_a) || isZeroVector(_b)) {
-			throw new ImageException("Cannot calculate cosine of zero-vectors");
+			throw new ImageException("Cannot calculate cosine of zero-vectors"); //$NON-NLS-1$
 		}
 		double answer = innerProduct(_a, _b) / (magnitude(_a) * magnitude(_b));
 		if (answer < -1.0) {
@@ -116,6 +116,7 @@ public class Vector3D {
 		return (sine(this, _a));
 	}
 
+	@SuppressWarnings("nls")
 	public String toString() {
 		return ("(" + x + ", " + y + ", " + z + ")");
 	}
@@ -125,6 +126,7 @@ public class Vector3D {
 		dump(pw);
 	}
 
+	@SuppressWarnings("nls")
 	public void dump(PrintWriter _pw) {
 		_pw.println("-----");
 		_pw.println("dumping Vector3D");

@@ -60,9 +60,9 @@ public class PageEvaluation {
 
 	private int pageHeight = UNSET;
 
-	private String overallRatingString = "";
+	private String overallRatingString = ""; //$NON-NLS-1$
 
-	private String overallRatingImageString = "";
+	private String overallRatingImageString = ""; //$NON-NLS-1$
 
 	/**
 	 * Constructor of PageEvaluation utility
@@ -272,6 +272,8 @@ public class PageEvaluation {
 	 *            target file path to save report
 	 * @throws LowVisionException
 	 */
+	@SuppressWarnings("nls")
+	//TODO
 	public void unsupportedModeReport(File targetFile)
 			throws LowVisionException {
 
@@ -306,6 +308,8 @@ public class PageEvaluation {
 	 *            target {@link IProblemItem} list
 	 * @throws LowVisionException
 	 */
+	@SuppressWarnings("nls")
+	// TODO
 	public void generateReport(String _path, String _htmlName, String _imgName,
 			List<IProblemItem> _problemGroupArray) throws LowVisionException {
 		boolean doMakeProblemMap = true;
@@ -389,11 +393,11 @@ public class PageEvaluation {
 				}
 			}
 
-			double scaleDouble = (double) (scale * scale);
+			double scaleDouble = (scale * scale);
 			for (int j = 0; j < mapHeight; j++) {
 				for (int i = 0; i < mapWidth; i++) {
 					scoreMap.getData()[j][i] = DecisionMaker
-							.getScoreMapColor(((double) (scoreMap.getData()[j][i]))
+							.getScoreMapColor((scoreMap.getData()[j][i])
 									/ 100.0 / scaleDouble);
 				}
 			}

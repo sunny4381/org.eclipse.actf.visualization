@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
  *  rgb(R%,G%,B%)
  *  pre-defined colors(16) (see ColorUtil.java)
  */
+@SuppressWarnings("nls")
 public class ColorCSS extends ColorIRGB{
 	private static final String DELIM = "/";
 

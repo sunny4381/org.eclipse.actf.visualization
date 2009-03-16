@@ -111,13 +111,13 @@ public class LineSegment {
 		int xDiff = x1-x0+1;
 		int yDiff = y1-y0+1;
 		if( x0 == x1 ){
-			return( (double)(Math.abs(yDiff)) );
+			return( (Math.abs(yDiff)) );
 		}
 		else if( y0 == y1 ){
-			return( (double)(Math.abs(xDiff)) );
+			return( (Math.abs(xDiff)) );
 		}
 		else{
-			return( Math.sqrt((double)(xDiff*xDiff + yDiff*yDiff)) );
+			return( Math.sqrt((xDiff*xDiff + yDiff*yDiff)) );
 		}
 	}
 }

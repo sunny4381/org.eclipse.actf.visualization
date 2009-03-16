@@ -35,7 +35,7 @@ public class BMPReader {
 			fis = new FileInputStream(_fileName);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			throw new LowVisionIOException("The file was not found: "
+			throw new LowVisionIOException("The file was not found: " //$NON-NLS-1$
 					+ _fileName);
 		}
 		return (readInt2D(fis));
@@ -48,12 +48,13 @@ public class BMPReader {
 			fis = new FileInputStream(_fileName);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			throw new LowVisionIOException("The file was not found: "
+			throw new LowVisionIOException("The file was not found: " //$NON-NLS-1$
 					+ _fileName);
 		}
 		return (readBufferedImage(fis));
 	}
 
+	@SuppressWarnings("nls")
 	public static int getBitCount(String _fileName) throws LowVisionIOException {
 		FileInputStream fis = null;
 		try {
@@ -66,6 +67,7 @@ public class BMPReader {
 		return (getBitCount(fis));
 	}
 
+	@SuppressWarnings("nls")
 	public static int getBitCount(InputStream _is) throws LowVisionIOException {
 		short bitCount;
 
@@ -113,6 +115,7 @@ public class BMPReader {
 		}
 	}
 
+	@SuppressWarnings("nls")
 	public static BufferedImage readBufferedImage(InputStream _is)
 			throws LowVisionIOException {
 		int fileSize;
@@ -319,6 +322,7 @@ public class BMPReader {
 		return (destImage);
 	}
 
+	@SuppressWarnings("nls")
 	public static Int2D readInt2D(InputStream _is) throws LowVisionIOException {
 		int fileSize;
 		int offSet;

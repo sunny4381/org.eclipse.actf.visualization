@@ -19,7 +19,7 @@ public class DebugUtil {
 	// public static String DEBUG_STRING = "style-addcss-page-post-cache-diff";
 	// private static final String DEBUG_STRING =
 	// "post-genRE-infoSet-diff-cache";
-	private static final String DEBUG_STRING = "TRACE";
+	private static final String DEBUG_STRING = "TRACE"; //$NON-NLS-1$
 
 	// private static final String DEBUG_STRING =
 	// "TRACE_HISTOGRAM_CONTAINER_EXTRACT_PROBLEM_COMPONENT_REPORT";
@@ -55,15 +55,15 @@ public class DebugUtil {
 
 	public static void printMsg(Object o, String s, PrintStream ps, int level) {
 		if (level != 0) {
-			ps.println("--------------------------------");
+			ps.println("--------------------------------"); //$NON-NLS-1$
 		}
 		if (o != null) {
-			ps.println(o.getClass().getName() + ": " + s);
+			ps.println(o.getClass().getName() + ": " + s); //$NON-NLS-1$
 		} else {
 			ps.println(s);
 		}
 		if (level != 0) {
-			ps.println("--------------------------------");
+			ps.println("--------------------------------"); //$NON-NLS-1$
 		}
 		ps.flush();
 	}

@@ -107,7 +107,7 @@ public class Topology{
 		boolean existTop = false;
 		boolean existBottom = false;
 		for( int i=0; i<numNodes; i++ ){
-		    Node n = (Node)(tmpNodes.elementAt(i));
+		    Node n = (tmpNodes.elementAt(i));
 		    if( n.y == topPosition )
 				existTop = true;
 		    if( n.y == bottomPosition )
@@ -127,7 +127,7 @@ public class Topology{
 						break;
 				    }
 				    else{
-						throw new ImageException( "Unknown type" );
+						throw new ImageException( "Unknown type" ); //$NON-NLS-1$
 				    }
 				}
 		    }
@@ -144,7 +144,7 @@ public class Topology{
 						break;
 				    }
 				    else{
-						throw new ImageException( "Unknown type" );
+						throw new ImageException( "Unknown type" ); //$NON-NLS-1$
 				    }
 				}
 		    }
@@ -157,7 +157,7 @@ public class Topology{
 		    offset = 1;
 		}
 		for( int i=0; i<tmpNodes.size(); i++ )
-		    nodes[i+offset] = (Node)(tmpNodes.elementAt(i));
+		    nodes[i+offset] = (tmpNodes.elementAt(i));
 		if( bottomNode != null )
 		    nodes[numNodes-1] = bottomNode;
 	
@@ -208,7 +208,7 @@ public class Topology{
 		    nextNodes = new Vector<Coord>();
 	
 		    for( int i=0; i<size; i++ ){
-				Coord co = (Coord)(currentNodes.elementAt(i));
+				Coord co = (currentNodes.elementAt(i));
 				int x = co.x;
 				int y = co.y;
 				if( x>0 && bi.data[y][x-1] != 0 ){ 
@@ -294,6 +294,7 @@ public class Topology{
 		showNodes(pw);
 	}
 
+	@SuppressWarnings("nls")
 	public void showNodes(PrintWriter _pw) {
 		_pw.println("-------------------------------");
 		_pw.println("Dumping nodes");
@@ -333,6 +334,7 @@ public class Topology{
 		showDistances(pw);
 	}
 
+	@SuppressWarnings("nls")
 	public void showDistances(PrintWriter _pw) {
 		if (distance == null) {
 			return;
@@ -362,6 +364,7 @@ public class Topology{
 		_pw.println("-------------------------------");
 	}
 
+	@SuppressWarnings("nls")
 	private String numberFormat4(int _i) {
 		if (0 <= _i && _i <= 9)
 			return ("   " + _i);

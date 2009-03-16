@@ -152,7 +152,7 @@ public class ConnectedComponent {
 	}
 
 	public double getDensity() {
-		return ((double) count / ((double) (shape.width) * (double) (shape.height)));
+		return (count / ((double) (shape.width) * (double) (shape.height)));
 	}
 
 	// adjust shape size (for removal of underline of link, etc.)
@@ -167,7 +167,7 @@ public class ConnectedComponent {
 	public ConnectedComponent calcContour() throws ImageException {
 		if (connectivity == CONNECTIVITY_UNSET) {
 			throw new ImageException(
-					"Information on connectivity is needed to calculate genus");
+					"Information on connectivity is needed to calculate genus"); //$NON-NLS-1$
 		}
 
 		int width = shape.width;
@@ -214,7 +214,7 @@ public class ConnectedComponent {
 				}
 			}
 		} else {
-			throw new ImageException("Unknown connectivity");
+			throw new ImageException("Unknown connectivity"); //$NON-NLS-1$
 		}
 
 		ConnectedComponent cc = new ConnectedComponent(left, top, bi,
@@ -231,7 +231,7 @@ public class ConnectedComponent {
 			return (thinningHilditch());
 		} else {
 			// TBD
-			throw new ImageException("Unknown thinning method: " + _method);
+			throw new ImageException("Unknown thinning method: " + _method); //$NON-NLS-1$
 		}
 	}
 
@@ -348,7 +348,7 @@ public class ConnectedComponent {
 		int numVertex = vertexVector.size();
 		Coord[] vertexArray = new Coord[numVertex];
 		for (int i = 0; i < numVertex; i++) {
-			vertexArray[i] = (Coord) (vertexVector.elementAt(i));
+			vertexArray[i] = vertexVector.elementAt(i);
 		}
 
 		// // debug(from here)
@@ -367,11 +367,11 @@ public class ConnectedComponent {
 	private Coord nextConvexHullVertex(Coord[] _all, Coord _origin,
 			Coord _vector) throws ImageException {
 		if (_all == null) {
-			throw new ImageException("Empty vertex set.");
+			throw new ImageException("Empty vertex set."); //$NON-NLS-1$
 		}
 		int len = _all.length;
 		if (len == 0) {
-			throw new ImageException("No vertex");
+			throw new ImageException("No vertex"); //$NON-NLS-1$
 		}
 
 		Coord answer = new Coord(-1, -1);
@@ -413,7 +413,7 @@ public class ConnectedComponent {
 	public int calcGenus() throws ImageException {
 		if (connectivity == CONNECTIVITY_UNSET) {
 			throw new ImageException(
-					"Information on connectivity is needed to calculate genus");
+					"Information on connectivity is needed to calculate genus"); //$NON-NLS-1$
 		}
 
 		int width = shape.width;
@@ -496,7 +496,7 @@ public class ConnectedComponent {
 					e++;
 			return (v - e - d + t - f);
 		} else {
-			throw new ImageException("Unknown connectivity");
+			throw new ImageException("Unknown connectivity"); //$NON-NLS-1$
 		}
 	}
 	
@@ -505,6 +505,7 @@ public class ConnectedComponent {
 		dump(pw);
 	}
 
+	@SuppressWarnings("nls")
 	public void dump(PrintWriter _pw) {
 		_pw.println("-------------------------------");
 		_pw.println("Dumping a ConnectedComponent");
@@ -529,6 +530,7 @@ public class ConnectedComponent {
 		dump(pw, _left, _top, _width, _height);
 	}
 
+	@SuppressWarnings("nls")
 	public void dump(PrintWriter _pw, int _left, int _top, int _width,
 			int _height) {
 		_pw.println("-------------------------------");

@@ -40,7 +40,7 @@ import org.eclipse.swt.graphics.Rectangle;
 public class PageElement {
 
 	// IE fontsize
-	static final String IE_LARGEST_FONT = "16pt";
+	static final String IE_LARGEST_FONT = "16pt"; //$NON-NLS-1$
 	static final double IE_EM_SCALING = 1.33; // "1em" in largest
 	// (experimental)
 	static final double IE_LARGER_SCALING = 1.67; // "larger" in largest
@@ -59,9 +59,10 @@ public class PageElement {
 	public static final double SEVERITY_PROHIBITED_BOTH_COLORS = SEVERITY_PROHIBITED_FOREGROUND_COLOR
 			+ SEVERITY_PROHIBITED_BACKGROUND_COLOR;
 
-	private static final String DELIM = "/";
+	private static final String DELIM = "/"; //$NON-NLS-1$
 
 	// text check
+	@SuppressWarnings("nls")
 	private static final String[] nonTextTagNames = { "area", "base",
 			"basefont", "br", "col", "colgroup", "frame", "frameset", "head",
 			"html", "hr", "img", "input", "isindex", "link", "meta",
@@ -69,6 +70,7 @@ public class PageElement {
 			"textarea", "title" };
 
 	// tags that change font size when that succeeded pt from <body>
+	@SuppressWarnings("nls")
 	private static final String[] fontSizeChangeTags = { "big", "code", "h1",
 			"h2", "h3", "h5", "h6", "kbd", "pre", "samp", "small", "sub",
 			"sup", "tt" };
@@ -76,6 +78,7 @@ public class PageElement {
 	/*
 	 * tags that usually uses same font size (can change by using %,em,ex)
 	 */
+	@SuppressWarnings("nls")
 	private static final String[] alwaysFixedFontSizeTags = { "button",
 			"option", "textarea" };
 
@@ -132,7 +135,7 @@ public class PageElement {
 			backgroundColor = (new ColorCSS(bgStr)).toInt();
 		} catch (ColorException e) {
 			e.printStackTrace();
-			throw new ImageException("Could not interpret colors.");
+			throw new ImageException("Could not interpret colors."); //$NON-NLS-1$
 		}
 	}
 
@@ -178,7 +181,7 @@ public class PageElement {
 		try {
 			cp = checkColors(_lvType);
 		} catch (LowVisionException e) {
-			DebugUtil.errMsg(this, "Error occurred in checking colors: id = "
+			DebugUtil.errMsg(this, "Error occurred in checking colors: id = " //$NON-NLS-1$
 					+ this.id);
 			e.printStackTrace();
 		}
@@ -191,7 +194,7 @@ public class PageElement {
 			fsfp = checkFixedSizeFont(_lvType);
 		} catch (LowVisionException e) {
 			DebugUtil.errMsg(this,
-					"Error occurred in checking fixed-size font: id = "
+					"Error occurred in checking fixed-size font: id = " //$NON-NLS-1$
 							+ this.id);
 			e.printStackTrace();
 		}
@@ -201,7 +204,7 @@ public class PageElement {
 			sfp = checkSmallFont(_lvType);
 		} catch (LowVisionException e) {
 			DebugUtil.errMsg(this,
-					"Error occurred in checking small font: id = " + this.id);
+					"Error occurred in checking small font: id = " + this.id); //$NON-NLS-1$
 			e.printStackTrace();
 		}
 
@@ -260,7 +263,7 @@ public class PageElement {
 		int size = problemVec.size();
 		LowVisionProblem[] problemArray = new LowVisionProblem[size];
 		for (int i = 0; i < size; i++) {
-			problemArray[i] = (LowVisionProblem) (problemVec.elementAt(i));
+			problemArray[i] = problemVec.elementAt(i);
 		}
 		return (problemArray);
 	}
@@ -281,7 +284,7 @@ public class PageElement {
 			bgSim = new ColorIRGB(_lvType.convertColor(backgroundColor));
 		} catch (LowVisionException e) {
 			e.printStackTrace();
-			throw new LowVisionException("Could not convert colors.");
+			throw new LowVisionException("Could not convert colors."); //$NON-NLS-1$
 		}
 
 		W3CColorChecker w3c = new W3CColorChecker(fgSim, bgSim);
@@ -299,15 +302,14 @@ public class PageElement {
 	}
 
 	/*
-	 * fixed size font check experimental result (in IE6) (1)mm,cm,in,pt,pc,px ->
-	 * fixed (2)larger,smaller, xx-small to xx-large -> variable (3)em,ex,% ->
-	 * same with parent (if not specified in ancestor -> variable)
+	 * fixed size font check experimental result (in IE6) (1)mm,cm,in,pt,pc,px
+	 * -> fixed (2)larger,smaller, xx-small to xx-large -> variable (3)em,ex,%
+	 * -> same with parent (if not specified in ancestor -> variable)
 	 * 
 	 * if <BODY> uses "pt" -> consider IE added this configuration
 	 * 
 	 * private static final Pattern regexFontSequence =
 	 * Pattern.compile("^(([^\\/]+\\/)*([^\\/]+))$" );
-	 * 
 	 */
 	private static final short FONT_SIZE_UNKNOWN = 0;
 
@@ -376,7 +378,7 @@ public class PageElement {
 			StringTokenizer stTag = new StringTokenizer(tagName, DELIM);
 			if (stTag.countTokens() != tokenCount) {
 				throw new LowVisionException(
-						"# of tagNames and fontSizes did not match.");
+						"# of tagNames and fontSizes did not match."); //$NON-NLS-1$
 			}
 			String[] tagNameSequence = new String[tokenCount];
 			for (int i = tokenCount - 1; i >= 0; i--) {
@@ -404,7 +406,7 @@ public class PageElement {
 				String tmpFont = fontSequence[i];
 				String tmpTag = tagNameSequence[i];
 				// <TD>,<TH> -> same initialization at <BODY>
-				if (tmpTag.equals("td") || tmpTag.equals("th")) {
+				if (tmpTag.equals("td") || tmpTag.equals("th")) { //$NON-NLS-1$ //$NON-NLS-2$
 					firstPtFlag = true;
 					if (curType != FONT_SIZE_PT) {
 						firstPtFlag = false;
@@ -461,6 +463,7 @@ public class PageElement {
 		}
 	}
 
+	@SuppressWarnings("nls")
 	private short fontSizeType(String _fontSize) {
 		String s = _fontSize.toLowerCase();
 
@@ -481,6 +484,7 @@ public class PageElement {
 		}
 	}
 
+	@SuppressWarnings("nls")
 	private String digitToFontSetting(String _fontStr)
 			throws LowVisionException {
 
@@ -576,6 +580,7 @@ public class PageElement {
 	/*
 	 * note: reset at td/th is experimental behaviour in IE6
 	 */
+	@SuppressWarnings("nls")
 	private SmallFontProblem checkSmallFont(LowVisionType _lvType)
 			throws LowVisionException {
 		if (!(_lvType.doBlur())) {
@@ -626,7 +631,7 @@ public class PageElement {
 		int numFontSizeSettings = fontSequence.size();
 		String[] fontSizeSettings = new String[numFontSizeSettings];
 		for (int i = 0; i < numFontSizeSettings; i++) {
-			String tmpSetting = (String) (fontSequence.elementAt(i));
+			String tmpSetting = fontSequence.elementAt(i);
 			fontSizeSettings[i] = digitToFontSetting(tmpSetting);
 		}
 		fontSequence = null;
@@ -636,7 +641,6 @@ public class PageElement {
 		 * 
 		 * define LARGEST as default to check the small size font in the LARGEST
 		 * setting
-		 * 
 		 */
 		String curFontSize = fontSizeSettings[numFontSizeSettings - 1];
 		if (fontSizeType(curFontSize) == FONT_SIZE_PT) {
@@ -760,7 +764,7 @@ public class PageElement {
 		}
 
 		// TODO check link color?
-		if (tagName.startsWith("a/")) {
+		if (tagName.startsWith("a/")) { //$NON-NLS-1$
 			return (null);
 		}
 
@@ -778,8 +782,8 @@ public class PageElement {
 			} catch (ColorException ce) {
 				ce.printStackTrace();
 				throw new LowVisionException(
-						"ColorException occurs while converting String \""
-								+ curColorString + "\" to a color.");
+						"ColorException occurs while converting String \"" //$NON-NLS-1$
+								+ curColorString + "\" to a color."); //$NON-NLS-1$
 			}
 			if (templateColor.equals(foregroundColor)) {
 				return (null);
@@ -823,8 +827,8 @@ public class PageElement {
 			} catch (ColorException ce) {
 				ce.printStackTrace();
 				throw new LowVisionException(
-						"ColorException occurs while converting String \""
-								+ curColorString + "\" to a color.");
+						"ColorException occurs while converting String \"" //$NON-NLS-1$
+								+ curColorString + "\" to a color."); //$NON-NLS-1$
 			}
 			if (templateColor.equals(backgroundColor)) {
 				return (null);

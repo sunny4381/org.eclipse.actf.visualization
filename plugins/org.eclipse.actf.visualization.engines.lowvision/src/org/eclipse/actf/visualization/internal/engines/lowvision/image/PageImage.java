@@ -40,6 +40,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisi
  * 
  */
 public class PageImage implements IPageImage {
+	private static final String NULL_STRING = ""; //$NON-NLS-1$
 	public static final boolean DO_CHECK_CHARACTERS = false;
 	public static final boolean DO_CHECK_IMAGES = true;
 
@@ -281,7 +282,7 @@ public class PageImage implements IPageImage {
 		if (size > 0) {
 			interiorImageArray = new InteriorImage[size];
 			for (int k = 0; k < size; k++) {
-				interiorImageArray[k] = (InteriorImage) (imageVector
+				interiorImageArray[k] = (imageVector
 						.elementAt(k));
 			}
 		}
@@ -358,7 +359,7 @@ public class PageImage implements IPageImage {
 				} else if (type == PageComponent.OTHER_TYPE) {
 					;
 				} else {
-					throw new ImageException("Unexpected type = " + type);
+					throw new ImageException("Unexpected type = " + type); //$NON-NLS-1$
 				}
 			}
 		}
@@ -373,7 +374,7 @@ public class PageImage implements IPageImage {
 		 */
 		int numCandChar = candidateCharacterVector.size();
 		for (int k = numCandChar - 1; k >= 0; k--) {
-			CandidateCharacter cChar = (CandidateCharacter) (candidateCharacterVector
+			CandidateCharacter cChar = (candidateCharacterVector
 					.elementAt(k));
 			int w = cChar.cc.shape.width;
 			int i = 0;
@@ -429,7 +430,7 @@ public class PageImage implements IPageImage {
 		this.numNonContainedCharacters = tmpSMCharacterVector.size();
 		this.nonContainedCharacters = new CharacterSM[numNonContainedCharacters];
 		for (int k = 0; k < numNonContainedCharacters; k++) {
-			nonContainedCharacters[k] = (CharacterSM) (tmpSMCharacterVector
+			nonContainedCharacters[k] = (tmpSMCharacterVector
 					.elementAt(k));
 		}
 		tmpSMCharacterVector.removeAllElements();
@@ -476,7 +477,7 @@ public class PageImage implements IPageImage {
 					} catch (Exception e) {
 						// e.printStackTrace();
 						throw new ImageException(
-								"An error occurred while making contBin.");
+								"An error occurred while making contBin."); //$NON-NLS-1$
 					}
 
 					if (containerMap[j + contY][i + contX] == k + 1) {
@@ -574,7 +575,7 @@ public class PageImage implements IPageImage {
 			 */
 			int msVecSize = curCont.msCharacterVector.size();
 			for (int l = msVecSize - 1; l >= 0; l--) {
-				CharacterMS curMS = (CharacterMS) (curCont.msCharacterVector
+				CharacterMS curMS = (curCont.msCharacterVector
 						.elementAt(l));
 				if (DecisionMaker.isTooSmallThinedMSCharacter(curMS)) {
 					curCont.msCharacterVector.removeElementAt(l);
@@ -587,7 +588,7 @@ public class PageImage implements IPageImage {
 
 			int tmptmpVecSize = tmpVec.size();
 			for (int l = tmptmpVecSize - 1; l >= 0; l--) {
-				CharacterSM tmpSM = (CharacterSM) (tmpVec.elementAt(l));
+				CharacterSM tmpSM = (tmpVec.elementAt(l));
 				if (!(DecisionMaker.isSMCharacter(tmpSM))) {
 					tmpVec.removeElementAt(l);
 				}
@@ -596,7 +597,7 @@ public class PageImage implements IPageImage {
 			curCont.numSMCharacters = tmpVec.size();
 			curCont.smCharacters = new CharacterSM[curCont.numSMCharacters];
 			for (int l = 0; l < curCont.numSMCharacters; l++) {
-				curCont.smCharacters[l] = (CharacterSM) (tmpVec.elementAt(l));
+				curCont.smCharacters[l] = (tmpVec.elementAt(l));
 			}
 			tmpVec.removeAllElements();
 			tmpVec = null;
@@ -645,8 +646,9 @@ public class PageImage implements IPageImage {
 		}
 	}
 
+	@SuppressWarnings("nls")
 	private void fillOneContainer(int _id) throws ImageException {
-		Container curCont = (Container) (containerVector.elementAt(_id - 1));
+		Container curCont = (containerVector.elementAt(_id - 1));
 		int curX0 = curCont.cc.left;
 		int curY0 = curCont.cc.top;
 		int curX1 = curX0 + curCont.cc.shape.width;
@@ -711,14 +713,14 @@ public class PageImage implements IPageImage {
 						DebugUtil.outMsg(this, "i = " + i + ", j = " + j);
 						DebugUtil.outMsg(this, "Dumping containerMap");
 						for (int k = 0; k < pixel.getWidth(); k++) {
-							System.err.print("" + containerMap[j][k]);
+							System.err.print(NULL_STRING + containerMap[j][k]);
 						}
-						System.err.println("");
+						System.err.println(NULL_STRING);
 						DebugUtil.outMsg(this, "Dumping workMap");
 						for (int k = 0; k < pixel.getWidth(); k++) {
-							System.err.print("" + workMap[j][k]);
+							System.err.print(NULL_STRING + workMap[j][k]);
 						}
-						System.err.println("");
+						System.err.println(NULL_STRING);
 						throw new ImageException("filling error 0: id = " + _id);
 					}
 					containerMap[j][i] = _id;
@@ -843,7 +845,7 @@ public class PageImage implements IPageImage {
 	// target SM Char is contained within MS Char in the Container?
 	private CharacterMS includingMSCharacter(CharacterSM _smc, Container _cont) {
 		for (int k = 0; k < _cont.msCharacterVector.size(); k++) {
-			CharacterMS curMS = (CharacterMS) (_cont.msCharacterVector
+			CharacterMS curMS = (_cont.msCharacterVector
 					.elementAt(k));
 			if (_smc.cc.isIncludedBy(curMS.cc)) {
 				return (curMS);

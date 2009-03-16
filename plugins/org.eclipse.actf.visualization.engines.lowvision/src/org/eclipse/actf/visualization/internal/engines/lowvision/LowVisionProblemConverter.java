@@ -30,12 +30,12 @@ public class LowVisionProblemConverter {
 
         for (int i = 0; i < target.length; i++) {
 
-            ProblemItemLV tmp = new ProblemItemLV("L_" + target[i].getLowVisionProblemType());
+            ProblemItemLV tmp = new ProblemItemLV("L_" + target[i].getLowVisionProblemType()); //$NON-NLS-1$
             tmp.setSubType(target[i].getLowVisionProblemType());
             try {
                 tmp.setDescription(target[i].getDescription());
             } catch (Exception e) {
-                tmp.setDescription("unknown");
+                tmp.setDescription("unknown"); //$NON-NLS-1$
             }
             tmp.setCanHighlight(true);
 
@@ -78,9 +78,9 @@ public class LowVisionProblemConverter {
             origR = origAll >> 16 & 0xff;
             origG = origAll >> 8 & 0xff;
             origB = origAll & 0xff;
-            return origR + "," + origG + "," + origB;
+            return origR + "," + origG + "," + origB; //$NON-NLS-1$ //$NON-NLS-2$
         } else {
-            return " ";
+            return " "; //$NON-NLS-1$
         }
     }
 

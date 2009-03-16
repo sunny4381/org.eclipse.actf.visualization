@@ -36,7 +36,7 @@ public class InteriorImageComponent {
 		if (numConnectedComponents > 0) {
 			connectedComponents = new ConnectedComponent[numConnectedComponents];
 			for (int k = 0; k < numConnectedComponents; k++) {
-				ConnectedComponent cc = (ConnectedComponent) (_vec.elementAt(k));
+				ConnectedComponent cc = _vec.elementAt(k);
 				count += cc.getCount();
 				connectedComponents[k] = cc;
 			}
@@ -64,8 +64,8 @@ public class InteriorImageComponent {
 	public ConnectedComponent getConnectedComponent(int _index)
 			throws ImageException {
 		if (_index < 0 || numConnectedComponents <= _index) {
-			throw new ImageException("Out of range: specified index = "
-					+ _index + ", while #ConnectedComponent = "
+			throw new ImageException("Out of range: specified index = " //$NON-NLS-1$
+					+ _index + ", while #ConnectedComponent = " //$NON-NLS-1$
 					+ numConnectedComponents);
 		}
 		return (connectedComponents[_index]);

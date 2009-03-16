@@ -95,7 +95,7 @@ public class W3CColorChecker extends ColorChecker {
 	}
 
 	private static double calcY(int _r, int _g, int _b) {
-		return ((double) (_r * 299 + _g * 587 + _b * 114) / 1000.0);
+		return ( (_r * 299 + _g * 587 + _b * 114) / 1000.0);
 	}
 
 	private static double calcSevY(double _diffY) {
@@ -113,7 +113,7 @@ public class W3CColorChecker extends ColorChecker {
 	private static double calcSevC(int _diffC) {
 		double sevC = 0.0;
 		if (_diffC < THRESHOLD_C) {
-			sevC = -(double) _diffC / (double) THRESHOLD_C + 1.0;
+			sevC = -(double) _diffC / THRESHOLD_C + 1.0;
 		}
 		if (sevC < 0.0)
 			sevC = 0.0;
