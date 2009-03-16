@@ -38,15 +38,15 @@ import org.eclipse.ui.PartInitException;
 
 public class VisualizeActionForPdt implements IWorkbenchWindowActionDelegate {
 
-	private static final String BROWSER_EDITOR_ID = "org.eclipse.ui.browser.editor";
+	private static final String BROWSER_EDITOR_ID = "org.eclipse.ui.browser.editor"; //$NON-NLS-1$
 
-	private static final String SWT_BROWSER_GET_TEXT_METHOD = "getText";
-	private static final String SWT_BROWSER_CLASS = "org.eclipse.swt.browser.Browser";
-	private static final String PHPBROWSER_ID = "org.eclipse.debug.ui.PHPBrowserOutput";
+	private static final String SWT_BROWSER_GET_TEXT_METHOD = "getText"; //$NON-NLS-1$
+	private static final String SWT_BROWSER_CLASS = "org.eclipse.swt.browser.Browser"; //$NON-NLS-1$
+	private static final String PHPBROWSER_ID = "org.eclipse.debug.ui.PHPBrowserOutput"; //$NON-NLS-1$
 
 	private IModelServiceHolder browserHolder;
 	private IWebBrowserACTF browser;
-	private String targetHtml = "";
+	private String targetHtml = ""; //$NON-NLS-1$
 	private File targetHtmlFile = null;
 
 	private IWorkbenchWindow _window;
@@ -125,9 +125,9 @@ public class VisualizeActionForPdt implements IWorkbenchWindowActionDelegate {
 	private File saveToFile(String text) {
 		File tmpFile = null;
 		try {
-			tmpFile = PdtVisualizationPlugin.getDefault().createTempFile("php",
-					".html");
-			PrintWriter pw = new PrintWriter(tmpFile, "UTF-8");
+			tmpFile = PdtVisualizationPlugin.getDefault().createTempFile("php", //$NON-NLS-1$
+					".html"); //$NON-NLS-1$
+			PrintWriter pw = new PrintWriter(tmpFile, "UTF-8"); //$NON-NLS-1$
 			pw.print(text);
 			pw.flush();
 			pw.close();
@@ -137,7 +137,7 @@ public class VisualizeActionForPdt implements IWorkbenchWindowActionDelegate {
 	}
 
 	private HashMap<String, WaitExecSyncEventListener> eventhandlerHolder = new HashMap<String, WaitExecSyncEventListener>();
-	private static final String LISTENER_KEY = "browser";
+	private static final String LISTENER_KEY = "browser"; //$NON-NLS-1$
 
 	private void waitAndVisualize() {
 
