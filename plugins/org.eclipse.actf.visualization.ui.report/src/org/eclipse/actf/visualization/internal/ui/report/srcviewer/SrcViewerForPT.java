@@ -86,7 +86,7 @@ public class SrcViewerForPT {
             }
             _srcViewerShell = new Shell(display);
             _srcViewerShell.setLayout(new FillLayout());
-            _srcViewerShell.setImage(ReportPlugin.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID, "icons/excla_squ.png").createImage());
+            _srcViewerShell.setImage(ReportPlugin.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID, "icons/excla_squ.png").createImage()); //$NON-NLS-1$
             _srcViewerShell.setText("HTML Source");
             _srcViewer = new SrcViewer(_srcViewerShell);
             _srcViewerShell.setSize(600, 750);

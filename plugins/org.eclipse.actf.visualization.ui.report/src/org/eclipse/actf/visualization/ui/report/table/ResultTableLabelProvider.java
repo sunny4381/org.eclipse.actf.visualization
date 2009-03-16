@@ -43,7 +43,7 @@ public class ResultTableLabelProvider extends LabelProvider implements
 		if (arg1 == 0) {
 			if (tmpItem.isCanHighlight()) {
 				return (ReportPlugin.imageDescriptorFromPlugin(
-						EvaluationUtil.PLUGIN_ID, "icons/star.gif")
+						EvaluationUtil.PLUGIN_ID, "icons/star.gif") //$NON-NLS-1$
 						.createImage());
 			}
 		} else if (arg1 < metricsFinPos) {
@@ -76,7 +76,7 @@ public class ResultTableLabelProvider extends LabelProvider implements
 			}
 		}
 
-		return "";
+		return ""; //$NON-NLS-1$
 	}
 
 }

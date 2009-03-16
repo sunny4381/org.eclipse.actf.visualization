@@ -98,15 +98,15 @@ public class ProblemTree {
 
 		node1_1 = new TreeItem(nodeRoot, SWT.NULL);
 		node1_1.setImage(AbstractUIPlugin.imageDescriptorFromPlugin(
-				EvaluationUtil.PLUGIN_ID, "icons/Err.png").createImage());
+				EvaluationUtil.PLUGIN_ID, "icons/Err.png").createImage()); //$NON-NLS-1$
 
 		node1_2 = new TreeItem(nodeRoot, SWT.NULL);
 		node1_2.setImage(AbstractUIPlugin.imageDescriptorFromPlugin(
-				EvaluationUtil.PLUGIN_ID, "icons/Warn.png").createImage());
+				EvaluationUtil.PLUGIN_ID, "icons/Warn.png").createImage()); //$NON-NLS-1$
 
 		node1_3 = new TreeItem(nodeRoot, SWT.NULL);
 		node1_3.setImage(AbstractUIPlugin.imageDescriptorFromPlugin(
-				EvaluationUtil.PLUGIN_ID, "icons/Info.png").createImage());
+				EvaluationUtil.PLUGIN_ID, "icons/Info.png").createImage()); //$NON-NLS-1$
 
 		nodeRoot.setExpanded(true);
 
@@ -152,10 +152,10 @@ public class ProblemTree {
 
 		int all = error + user + info;
 
-		nodeRoot.setText(IProblemConst.ALL_ERRORS + "  (" + all + ")");
-		node1_1.setText(IProblemConst.ESSENTIAL + "  (" + error + ")");
-		node1_2.setText(IProblemConst.USER_CHECK + "  (" + user + ")");
-		node1_3.setText(IProblemConst.INFO + " (" + info + ")");
+		nodeRoot.setText(IProblemConst.ALL_ERRORS + "  (" + all + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+		node1_1.setText(IProblemConst.ESSENTIAL + "  (" + error + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+		node1_2.setText(IProblemConst.USER_CHECK + "  (" + user + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+		node1_3.setText(IProblemConst.INFO + " (" + info + ")"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	}
 

@@ -170,8 +170,8 @@ public abstract class ResultTableSorterBase extends ViewerSorter implements
 			IProblemItem item2 = (IProblemItem) o2;
 			String id1 = item1.getId();
 			String id2 = item2.getId();
-			String[] id1tokens = id1.split("_");
-			String[] id2tokens = id2.split("_");
+			String[] id1tokens = id1.split("_"); //$NON-NLS-1$
+			String[] id2tokens = id2.split("_"); //$NON-NLS-1$
 			if (id1tokens.length < 2 || id2tokens.length < 2)
 				return super.resolve(item1.getId(), item2.getId());
 			else {

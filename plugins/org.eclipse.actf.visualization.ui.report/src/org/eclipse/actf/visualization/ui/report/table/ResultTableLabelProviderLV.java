@@ -80,7 +80,7 @@ public class ResultTableLabelProviderLV extends LabelProvider implements
 			case 6:
 				return (tmpItem.getDescription());
 			default:
-				return ("");
+				return (""); //$NON-NLS-1$
 
 			}
 		}

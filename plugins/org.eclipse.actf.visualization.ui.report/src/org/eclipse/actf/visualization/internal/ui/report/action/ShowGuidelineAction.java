@@ -24,7 +24,7 @@ public class ShowGuidelineAction extends Action {
      * 
      */
     public ShowGuidelineAction(IGuidelineItem targetItem) {
-        super(targetItem.getGuidelineName() + ": " + targetItem.getId());
+        super(targetItem.getGuidelineName() + ": " + targetItem.getId()); //$NON-NLS-1$
         this._targetItem = targetItem;
     }
 
@@ -36,7 +36,7 @@ public class ShowGuidelineAction extends Action {
     public void run() {
 
         // launch default web browser
-        Program program = Program.findProgram(".html");
+        Program program = Program.findProgram(".html"); //$NON-NLS-1$
         if (null != program) {
             program.execute(this._targetItem.getUrl());
         }

@@ -63,7 +63,7 @@ public class ReportDisplay {
 
         // activate OLE
         if (!(webControlSite.doVerb(OLE.OLEIVERB_INPLACEACTIVATE) == OLE.S_OK)) {
-            DebugPrintUtil.devOrDebugPrintln("ole init failure");
+            DebugPrintUtil.devOrDebugPrintln("ole init failure"); //$NON-NLS-1$
         }
 
         if (oleAutomation != null) {
@@ -80,13 +80,13 @@ public class ReportDisplay {
         gridData.grabExcessVerticalSpace = true;
         webFrame.setLayoutData(gridData);
 
-        displayReportFile("");
+        displayReportFile(""); //$NON-NLS-1$
     }    
     
     public void displayReportFile(String url) {
         File targetFile = new File(url);
         if (!targetFile.exists()) {
-            url = "about:blank";
+            url = "about:blank"; //$NON-NLS-1$
         }
         if (oleAutomation != null) {
             Variant[] rgvarg = new Variant[1];

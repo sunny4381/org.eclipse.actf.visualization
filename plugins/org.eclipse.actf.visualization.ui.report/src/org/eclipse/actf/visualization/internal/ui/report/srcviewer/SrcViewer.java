@@ -366,7 +366,7 @@ public class SrcViewer {
         styledText.setText(""); //$NON-NLS-1$
         //TODO check
         try {
-            String encoding = "MS932";
+            String encoding = "MS932"; //$NON-NLS-1$
 
             JapaneseEncodingDetector JED = null;
 
@@ -472,8 +472,8 @@ public class SrcViewer {
         styledText.setStyleRange(null);
         for (int i = 0; i < startV.size(); i++) {
             StyleRange styleRange = new StyleRange();
-            styleRange.start = ((Integer) startV.get(i)).intValue();
-            styleRange.length = ((Integer) lenV.get(i)).intValue();
+            styleRange.start = (startV.get(i)).intValue();
+            styleRange.length = (lenV.get(i)).intValue();
             styleRange.foreground = fgV.get(i);
             styleRange.background = bgV.get(i);
             styledText.setStyleRange(styleRange);

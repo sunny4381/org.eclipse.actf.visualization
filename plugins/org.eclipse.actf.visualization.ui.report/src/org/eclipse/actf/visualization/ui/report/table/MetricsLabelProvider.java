@@ -16,38 +16,37 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 
-
-
 /**
  *
  */
-public class MetricsLabelProvider extends LabelProvider implements ITableLabelProvider {
+public class MetricsLabelProvider extends LabelProvider implements
+		ITableLabelProvider {
 
-    private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
+	private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
 
-    private int numMetrics;
+	private int numMetrics;
 
-    /**
+	/**
      * 
      */
-    public MetricsLabelProvider() {
-        super();
-        numMetrics = guidelineHolder.getMetricsNames().length;
-    }
+	public MetricsLabelProvider() {
+		super();
+		numMetrics = guidelineHolder.getMetricsNames().length;
+	}
 
-    public Image getColumnImage(Object arg0, int arg1) {
-        IProblemItem tmpItem = (IProblemItem) arg0;
-        if (arg1 >= 0 && arg1 < numMetrics) {
-            return (tmpItem.getEvaluationItem().getMetricsIcons()[arg1]);
-        }
-        return null;
-    }
+	public Image getColumnImage(Object arg0, int arg1) {
+		IProblemItem tmpItem = (IProblemItem) arg0;
+		if (arg1 >= 0 && arg1 < numMetrics) {
+			return (tmpItem.getEvaluationItem().getMetricsIcons()[arg1]);
+		}
+		return null;
+	}
 
-    public String getColumnText(Object arg0, int arg1) {
-        IProblemItem tmpItem = (IProblemItem) arg0;
-        if (arg1 >= 0 && arg1 < numMetrics) {
-            return (tmpItem.getEvaluationItem().getTableDataMetrics()[arg1]);
-        }
-        return "";
-    }
+	public String getColumnText(Object arg0, int arg1) {
+		IProblemItem tmpItem = (IProblemItem) arg0;
+		if (arg1 >= 0 && arg1 < numMetrics) {
+			return (tmpItem.getEvaluationItem().getTableDataMetrics()[arg1]);
+		}
+		return ""; //$NON-NLS-1$
+	}
 }
