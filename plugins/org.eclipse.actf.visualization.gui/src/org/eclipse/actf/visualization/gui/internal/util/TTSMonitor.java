@@ -96,8 +96,8 @@ public class TTSMonitor extends Thread {
 		return RegistryUtil
 				.getRegistryInt(
 						RegistryUtil.HKEY_LOCAL_MACHINE,
-						"SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\AcTFTTS\\Settings",
-						"MonitorPort");
+						"SOFTWARE\\Microsoft\\Speech\\Voices\\Tokens\\AcTFTTS\\Settings", //$NON-NLS-1$
+						"MonitorPort"); //$NON-NLS-1$
 	}
 
 }

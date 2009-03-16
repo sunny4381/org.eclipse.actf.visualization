@@ -91,7 +91,7 @@ public class ObjectArrayPropertySource implements IPropertySource {
                 else {
                     strRet += "; "; //$NON-NLS-1$
                 }
-                strRet += /*"#"+i+": "+*/objArray[i]; //$NON-NLS-1$ //$NON-NLS-2$
+                strRet += /*"#"+i+": "+*/objArray[i]; 
             }
         }
         return strRet;

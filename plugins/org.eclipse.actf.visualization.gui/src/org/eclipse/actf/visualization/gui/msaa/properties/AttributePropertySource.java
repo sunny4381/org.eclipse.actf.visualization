@@ -23,7 +23,7 @@ import org.eclipse.ui.views.properties.PropertyDescriptor;
 
 public class AttributePropertySource implements IPropertySource {
 
-	private Map attrMap = new LinkedHashMap();
+	private Map<Object, Object> attrMap = new LinkedHashMap<Object, Object>();
 	private String attributes;
 	private String editableText;
 	
@@ -61,7 +61,7 @@ public class AttributePropertySource implements IPropertySource {
 
 	public IPropertyDescriptor[] getPropertyDescriptors() {
 		List<PropertyDescriptor> descriptors = new ArrayList<PropertyDescriptor>();
-		for( Iterator it = attrMap.keySet().iterator(); it.hasNext(); ) {
+		for( Iterator<Object> it = attrMap.keySet().iterator(); it.hasNext(); ) {
 			Object name = it.next();
 			descriptors.add(new PropertyDescriptor(name,(String)name));
 		}

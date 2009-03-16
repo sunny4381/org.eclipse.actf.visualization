@@ -25,7 +25,7 @@ public interface IGuiViewIDs {
 	/**
 	 * ID of Flash DOM view
 	 */
-	public static final String ID_FLASHDOMVIEW = "org.eclipse.actf.visualization.flash.ui.views.FlashDOMView";
+	public static final String ID_FLASHDOMVIEW = "org.eclipse.actf.visualization.flash.ui.views.FlashDOMView"; //$NON-NLS-1$
 
 	/**
 	 * ID of GUI Summary view

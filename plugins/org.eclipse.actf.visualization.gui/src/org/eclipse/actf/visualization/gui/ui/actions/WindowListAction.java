@@ -195,8 +195,8 @@ public class WindowListAction implements IWorkbenchWindowPulldownDelegate2 {
 		return topMost;
 	}
 
-	private static final String CATEGORY_BROWSER = Messages.msaa_external_browsers; //$NON-NLS-1$
-	private static final String CATEGORY_WINDOW = Messages.msaa_external_windows; //$NON-NLS-1$
+	private static final String CATEGORY_BROWSER = Messages.msaa_external_browsers; 
+	private static final String CATEGORY_WINDOW = Messages.msaa_external_windows; 
 
 	private class CategoryComparator implements Comparator<Object> {
 		private Collator collator = Collator.getInstance();

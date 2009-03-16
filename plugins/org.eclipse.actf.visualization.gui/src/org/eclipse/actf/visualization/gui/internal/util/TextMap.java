@@ -18,28 +18,29 @@ import org.eclipse.swt.graphics.Point;
 
 public class TextMap extends LinkedHashMap<AccessibleObject, Point> {
 
-    private static final long serialVersionUID = -8640673640566349712L;
+	private static final long serialVersionUID = -8640673640566349712L;
 
-    public void clear() {
+	public void clear() {
 		super.clear();
 	}
 
 	public Point put(AccessibleObject accObject, Point point) {
-		return super.put(accObject,point);
+		return super.put(accObject, point);
 	}
 
 	public Point getPoint(AccessibleObject accObject) {
 		return get(accObject);
 	}
-	
+
 	public AccessibleObject getAccessibleObject(Point point) {
 		AccessibleObject retObject = null;
-		for( Iterator it = keySet().iterator(); it.hasNext(); ) {
-			AccessibleObject accObject = (AccessibleObject)it.next();
+		for (Iterator<AccessibleObject> it = keySet().iterator(); it.hasNext();) {
+			AccessibleObject accObject = it.next();
 			Point accPoint = getPoint(accObject);
-			if( accPoint.x <= point.x && point.x < accPoint.y ) {
+			if (accPoint.x <= point.x && point.x < accPoint.y) {
 				retObject = accObject;
-				if( accPoint.x != accPoint.y ) break;
+				if (accPoint.x != accPoint.y)
+					break;
 			}
 		}
 		return retObject;

@@ -19,7 +19,7 @@ import org.osgi.framework.BundleContext;
  */
 public class GuiPlugin extends AbstractUIPlugin {
 
-	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.gui";
+	public static final String PLUGIN_ID = "org.eclipse.actf.visualization.gui"; //$NON-NLS-1$
 	
 	//The shared instance.
 	private static GuiPlugin plugin;
@@ -61,6 +61,6 @@ public class GuiPlugin extends AbstractUIPlugin {
 	 * @return the image descriptor
 	 */
 	public static ImageDescriptor getImageDescriptor(String path) {
-		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path); //$NON-NLS-1$
+		return AbstractUIPlugin.imageDescriptorFromPlugin(PLUGIN_ID, path);
 	}
 }

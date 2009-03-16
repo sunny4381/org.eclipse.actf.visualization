@@ -143,7 +143,7 @@ public class AccessibleObjectPropertySource extends AbstractPropertyInvokeSource
 	}
 
 	public IPropertyDescriptor[] getPropertyDescriptors() {
-		return (IPropertyDescriptor[])descriptors.toArray(new IPropertyDescriptor[descriptors.size()]);
+		return descriptors.toArray(new IPropertyDescriptor[descriptors.size()]);
 	}
 
 	public Object getPropertyValue(Object id) {

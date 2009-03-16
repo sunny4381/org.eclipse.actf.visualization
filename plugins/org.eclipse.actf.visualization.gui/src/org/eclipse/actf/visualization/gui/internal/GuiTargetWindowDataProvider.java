@@ -39,7 +39,7 @@ public class GuiTargetWindowDataProvider extends TargetWindowDataProvider {
             }
             hwnd = WindowUtil.GetNextWindow (hwnd);
         }
-        return (IModelService[])dsList.toArray(new IModelService[dsList.size()]);
+        return dsList.toArray(new IModelService[dsList.size()]);
     }
 
 }

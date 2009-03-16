@@ -82,7 +82,7 @@ public class AccessibleObjectFactory {
 		if (id.equals(currentFactoryId)) {
 			return false;
 		}
-		AccessibleFactoryEntry entry = (AccessibleFactoryEntry) factoryEntries
+		AccessibleFactoryEntry entry = factoryEntries
 				.get(id);
 		if (null != entry) {
 			currentFactoryId = id;
@@ -93,11 +93,11 @@ public class AccessibleObjectFactory {
 	}
 
 	public static AccessibleFactoryEntry getFactoryEntry(String id) {
-		return (AccessibleFactoryEntry) factoryEntries.get(id);
+		return factoryEntries.get(id);
 	}
 
 	public static String[] getFactoryIds() {
-		return (String[]) factoryEntries.keySet().toArray(
+		return factoryEntries.keySet().toArray(
 				new String[factoryEntries.size()]);
 	}
 

@@ -294,7 +294,7 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 				}
 			}
 		};
-		collapseAllAction.setToolTipText(Messages.msaa_collapse_all); //$NON-NLS-1$
+		collapseAllAction.setToolTipText(Messages.msaa_collapse_all);
 		collapseAllAction.setImageDescriptor(GuiImages.IMAGE_COLLAPSE_ALL);
 
 		refreshAction = new RefreshRootAction();

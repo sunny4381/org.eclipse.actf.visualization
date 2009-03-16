@@ -23,7 +23,7 @@ import org.eclipse.ui.views.properties.IPropertyDescriptor;
 
 public abstract class AbstractPropertyInvokeSource implements IPropertyInvoke {
 
-	private Map methodMap = new HashMap();
+	private Map<Object, MethodData> methodMap = new HashMap<Object, MethodData>();
 	
 	protected void addMethodData(Object id, MethodData methodData) {
 		methodMap.put(id, methodData);

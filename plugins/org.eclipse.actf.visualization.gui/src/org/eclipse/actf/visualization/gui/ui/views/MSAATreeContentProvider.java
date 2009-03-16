@@ -73,7 +73,6 @@ public class MSAATreeContentProvider implements ITreeContentProvider {
 		return false;
 	}
 
-	@SuppressWarnings("restriction")
 	public Object[] getElements(Object inputElement) {
 		Object[] elements;
 		if (inputElement instanceof Object[]) {

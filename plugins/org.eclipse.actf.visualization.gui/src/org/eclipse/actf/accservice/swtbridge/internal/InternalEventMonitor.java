@@ -24,12 +24,12 @@ public class InternalEventMonitor implements IAccessibleEventMonitor {
 	private Callback callback = null;
 	private int hWinEventHook = 0;
 	private IAccessibleEventListener listener = null;
-	private Set filter;
+	private Set<Integer> filter;
 	
 	/* (non-Javadoc)
 	 * @see org.eclipse.actf.accservice.swtbridge.IAccessibleEventMonitor#installEventHook(org.eclipse.actf.accservice.swtbridge.IAccessibleEventListener, int[])
 	 */
-	public void installEventHook(IAccessibleEventListener listener, Set filter) {
+	public void installEventHook(IAccessibleEventListener listener, Set<Integer> filter) {
 		removeEventHook();
 		this.listener = listener;
 		this.filter = filter;

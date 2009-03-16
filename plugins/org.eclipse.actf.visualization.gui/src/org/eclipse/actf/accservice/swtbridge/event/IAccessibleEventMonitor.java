@@ -14,7 +14,7 @@ import java.util.Set;
 
 public interface IAccessibleEventMonitor {
 
-	public void installEventHook(IAccessibleEventListener listener, Set filter);
+	public void installEventHook(IAccessibleEventListener listener, Set<Integer> filter);
 
 	public void removeEventHook();
 

@@ -25,18 +25,18 @@ public class GUIPerspective implements IPerspectiveFactory, IVisualizationPerspe
 		layout.setEditorAreaVisible(false);
 
 		IFolderLayout reportFolder = layout
-				.createFolder("actf.report.folder", IPageLayout.BOTTOM,
+				.createFolder("actf.report.folder", IPageLayout.BOTTOM, //$NON-NLS-1$
 						0.7f, editorArea);
 		IFolderLayout rightReportFolder = layout.createFolder(
-				"actf.report.left.folder", IPageLayout.RIGHT, 0.5f,
-				"actf.report.folder");
-		IFolderLayout summaryFolder = layout.createFolder("actf.summary.folder",
+				"actf.report.left.folder", IPageLayout.RIGHT, 0.5f, //$NON-NLS-1$
+				"actf.report.folder"); //$NON-NLS-1$
+		IFolderLayout summaryFolder = layout.createFolder("actf.summary.folder", //$NON-NLS-1$
 				IPageLayout.RIGHT, 0.3f, editorArea);
 		IFolderLayout outlineFolder = layout.createFolder(
-				"actf.outline.folder", IPageLayout.RIGHT, 1/3f, "actf.summary.folder");
+				"actf.outline.folder", IPageLayout.RIGHT, 1/3f, "actf.summary.folder"); //$NON-NLS-1$ //$NON-NLS-2$
 		IFolderLayout propertyFolder = layout.createFolder(
-				"actf.property.folder", IPageLayout.RIGHT, 0.5f,
-				"actf.outline.folder");
+				"actf.property.folder", IPageLayout.RIGHT, 0.5f, //$NON-NLS-1$
+				"actf.outline.folder"); //$NON-NLS-1$
 		try {
 			reportFolder.addView(IGuiViewIDs.ID_EVENTVIEW);
 			rightReportFolder.addView(IGuiViewIDs.ID_REPORTVIEW);

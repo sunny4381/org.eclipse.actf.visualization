@@ -399,15 +399,15 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView,
 				if (showRawEvent/* Action.isChecked() */) {
 					text
 							.append("event=" + MSAA.getEventTypeText(event) + ",  " + //$NON-NLS-1$ //$NON-NLS-2$
-									"accName="
+									"accName=" //$NON-NLS-1$
 									+ accObject.getAccName()
-									+ ",  " + //$NON-NLS-1$ //$NON-NLS-2$
-									"accRole="
+									+ ",  " + //$NON-NLS-1$ 
+									"accRole=" //$NON-NLS-1$
 									+ accObject.getRoleText()
-									+ ",  " + //$NON-NLS-1$ //$NON-NLS-2$
-									"accState="
+									+ ",  " + //$NON-NLS-1$ 
+									"accState=" //$NON-NLS-1$
 									+ MSAA.getStateText(accState)
-									+ "(0x" + Integer.toHexString(accState) + ")\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+									+ "(0x" + Integer.toHexString(accState) + ")\n"); //$NON-NLS-1$ //$NON-NLS-2$ 
 				}
 				String str = null;
 				boolean doRender = true;
@@ -509,7 +509,7 @@ public class MSAAEventView extends ViewPart implements IMSAAEventView,
 	public boolean getFilterEnabled(int event) {
 		Integer key = new Integer(event);
 
-		Boolean enabled = (Boolean) filters.get(key);
+		Boolean enabled = filters.get(key);
 		if (null == enabled) {
 			enabled = Boolean.FALSE;
 			filters.put(key, enabled);

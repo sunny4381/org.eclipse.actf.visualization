@@ -45,7 +45,7 @@ public final class GuiImages {
         if( null == path ) {
             return null;
         }
-        Image image = (Image)imageMap.get(path);
+        Image image = imageMap.get(path);
         if( null == image) {
             ImageDescriptor descriptor = getImageDescriptor(path);
             if( null != descriptor ) {

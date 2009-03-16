@@ -100,7 +100,7 @@ public class TargetWindowDataCollector {
         if( null != comparator ) {
             Collections.sort(resultList, comparator); 
         }
-        return (String[])resultList.toArray(new String[resultList.size()]);
+        return resultList.toArray(new String[resultList.size()]);
     }
     
     public Object[] getElements(String category) {

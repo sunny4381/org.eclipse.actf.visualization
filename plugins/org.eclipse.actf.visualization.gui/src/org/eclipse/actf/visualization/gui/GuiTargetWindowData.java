@@ -29,8 +29,8 @@ import org.w3c.dom.Node;
  */
 public class GuiTargetWindowData implements IModelService {
 
-	private static final String categoryBrowser = Messages.msaa_external_browsers; //$NON-NLS-1$
-	private static final String categoryWindow = Messages.msaa_external_windows; //$NON-NLS-1$
+	private static final String categoryBrowser = Messages.msaa_external_browsers; 
+	private static final String categoryWindow = Messages.msaa_external_windows; 
 	private int hwnd;
 	private boolean isBrowser;
 

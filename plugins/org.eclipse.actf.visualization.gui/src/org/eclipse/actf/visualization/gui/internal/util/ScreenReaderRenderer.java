@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Display;
 import com.ibm.icu.text.MessageFormat;
 
 public class ScreenReaderRenderer {
+	private static final String SPACE = " "; //$NON-NLS-1$
 	private int lastHwnd = 0;
 	private String lastText = ""; //$NON-NLS-1$
 	private StyledText text;
@@ -161,13 +162,13 @@ public class ScreenReaderRenderer {
 															.getWindow()) {
 												appendText(
 														Messages.msaa_flash_start
-																+ "\n", SWT.COLOR_GRAY, SWT.COLOR_CYAN, false); //$NON-NLS-1$ //$NON-NLS-2$
+																+ "\n", SWT.COLOR_GRAY, SWT.COLOR_CYAN, false); //$NON-NLS-1$ 
 												sayFlashEnd[0] = true;
 											}
 										} else {
 											appendText(
 													Messages.msaa_flash_inaccessible
-															+ " wmode=" + wmode + "\n", SWT.COLOR_GRAY, SWT.COLOR_RED, false); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+															+ " wmode=" + wmode + "\n", SWT.COLOR_GRAY, SWT.COLOR_RED, false); //$NON-NLS-1$ //$NON-NLS-2$ 
 											if (null != flashDOMView) {
 												flashDOMView
 														.addWindowlessElement(accObject);
@@ -187,7 +188,7 @@ public class ScreenReaderRenderer {
 						display.syncExec(new Runnable() {
 							public void run() {
 								if (!(cancel || text.isDisposed())) {
-									appendText(Messages.msaa_flash_end + "\n",
+									appendText(Messages.msaa_flash_end + "\n", //$NON-NLS-1$
 											SWT.COLOR_GRAY, SWT.COLOR_CYAN,
 											false);
 								}
@@ -230,7 +231,7 @@ public class ScreenReaderRenderer {
 						: Messages.msaa_edit_readonly;
 				outText = accObject.getAccValue();
 				if (null == outText || 0 == outText.length()) {
-					outText = " "; //$NON-NLS-1$
+					outText = SPACE; 
 				}
 				break;
 			}
@@ -254,12 +255,12 @@ public class ScreenReaderRenderer {
 			prefix = Messages.msaa_link;
 			break;
 		case MSAA.ROLE_SYSTEM_CHECKBUTTON:
-			prefix = Messages.msaa_checkbox + " ";
+			prefix = Messages.msaa_checkbox + SPACE;
 			prefix += 0 != (accState & MSAA.STATE_CHECKED) ? Messages.msaa_checked
 					: Messages.msaa_not_checked;
 			break;
 		case MSAA.ROLE_SYSTEM_RADIOBUTTON:
-			prefix = Messages.msaa_radiobutton + " ";
+			prefix = Messages.msaa_radiobutton + SPACE;
 			prefix += 0 != (accState & MSAA.STATE_CHECKED) ? Messages.msaa_checked
 					: Messages.msaa_not_checked;
 			break;
@@ -291,7 +292,7 @@ public class ScreenReaderRenderer {
 					outText = Integer.toString(parentIndex);
 					foreground = SWT.COLOR_RED;
 				} else {
-					outText = " "; //$NON-NLS-1$
+					outText = SPACE; 
 				}
 			}
 			break;
@@ -302,7 +303,7 @@ public class ScreenReaderRenderer {
 				case MSAA.ROLE_SYSTEM_LIST:
 					postfix = Messages.msaa_listbox;
 					if (0 != (accState & MSAA.STATE_SELECTED)) {
-						postfix += " " + Messages.msaa_selected;
+						postfix += SPACE + Messages.msaa_selected;
 					}
 					break;
 				case MSAA.ROLE_SYSTEM_COMBOBOX:
@@ -330,7 +331,7 @@ public class ScreenReaderRenderer {
 		case MSAA.ROLE_SYSTEM_OUTLINEITEM:
 			postfix = Messages.msaa_treeview;
 			if (0 != (accState & MSAA.STATE_SELECTED)) {
-				postfix += " " + Messages.msaa_selected;
+				postfix += SPACE + Messages.msaa_selected;
 			} else if (isFlash) {
 				outText = ""; // Ignore in flash //$NON-NLS-1$
 			}
@@ -402,7 +403,7 @@ public class ScreenReaderRenderer {
 			}
 			if (null != style) {
 				postfix = MessageFormat.format(Messages.ia2_style_shape,
-						new Object[] { style }); //$NON-NLS-1$
+						new Object[] { style }); 
 			} else {
 				postfix += Messages.ia2_shape;
 			}
@@ -435,7 +436,7 @@ public class ScreenReaderRenderer {
 			} catch (Exception e) {
 			}
 			prefix = MessageFormat.format(Messages.ia2_heading_level,
-					new Object[] { level }); //$NON-NLS-1$
+					new Object[] { level }); 
 		case IA2.IA2_ROLE_PARAGRAPH:
 			outText = accObject.getAccValue();
 			if (null == outText || 0 == outText.length()) {
@@ -449,12 +450,12 @@ public class ScreenReaderRenderer {
 		String speakText = ""; //$NON-NLS-1$
 		Point point = new Point(text.getCharCount(), 0);
 		if (null != outText && outText.length() > 0) {
-			if (" ".equals(outText)) { //$NON-NLS-1$
+			if (SPACE.equals(outText)) { 
 				outText = ""; //$NON-NLS-1$
 			}
 			if (prefix.length() > 0) {
 				if (outText.length() > 0) {
-					prefix += " "; //$NON-NLS-1$
+					prefix += SPACE; 
 				}
 				appendText(prefix, SWT.COLOR_GRAY, background, false);
 				speakText += prefix;
@@ -465,7 +466,7 @@ public class ScreenReaderRenderer {
 			}
 			if (postfix.length() > 0) {
 				if (speakText.length() > 0) {
-					postfix = " " + postfix; //$NON-NLS-1$
+					postfix = SPACE + postfix; 
 				}
 				appendText(postfix, SWT.COLOR_GRAY, background, false);
 				speakText += postfix;
@@ -497,7 +498,7 @@ public class ScreenReaderRenderer {
 			break;
 		}
 		if (eventText.length() > 0) {
-			appendText(eventText, SWT.COLOR_GRAY, -1, false); //$NON-NLS-1$
+			appendText(eventText, SWT.COLOR_GRAY, -1, false); 
 			text.append("\n"); //$NON-NLS-1$
 			lastText = eventText;
 		}

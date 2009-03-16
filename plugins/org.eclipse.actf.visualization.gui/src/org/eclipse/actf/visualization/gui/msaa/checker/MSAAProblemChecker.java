@@ -138,7 +138,7 @@ public class MSAAProblemChecker implements MSAAProblemConst {
 						.getChildren(ao),isFlash)));
 			}
 		}
-		return (MSAAProblem[]) problems
+		return problems
 				.toArray(new MSAAProblem[problems.size()]);
 	}
 }

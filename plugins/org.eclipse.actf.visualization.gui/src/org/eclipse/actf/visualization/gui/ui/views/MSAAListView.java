@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.gui.ui.views;
 
-
 import java.util.List;
 import java.util.Vector;
 
@@ -58,27 +57,26 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.ViewPart;
 
-
-
-
 public class MSAAListView extends ViewPart implements IMSAAListView {
-    private static final String[] HEADINGS =	{ "#", Messages.msaa_name, Messages.msaa_role, Messages.msaa_state, "X", "Y", "W", "H"}; 
-    private static final int[] WEIGHTS =		{ 1,5,5,5,1,1,1,1 };
-    private static final int[] ALIGNMENTS =	{ SWT.RIGHT, SWT.LEFT, SWT.LEFT, SWT.LEFT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT };
+	private static final String[] HEADINGS = {
+			"#", Messages.msaa_name, Messages.msaa_role, Messages.msaa_state, "X", "Y", "W", "H" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
+	private static final int[] WEIGHTS = { 1, 5, 5, 5, 1, 1, 1, 1 };
+	private static final int[] ALIGNMENTS = { SWT.RIGHT, SWT.LEFT, SWT.LEFT,
+			SWT.LEFT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT, SWT.RIGHT };
 
-    private TableViewer viewer;
-    
-    private MSAASiblingViewerSorter sorter = new MSAASiblingViewerSorter();
-    private boolean suppressHilight = false;
-    
-	private Action refreshAction; 
-    private AccessibleObject objectOnAppear = null;
-    private static final MSAATreeContentProvider provider = MSAATreeContentProvider.getDefault();
-    
-    private static final Color GRAY_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
+	private TableViewer viewer;
 
+	private MSAASiblingViewerSorter sorter = new MSAASiblingViewerSorter();
+	private boolean suppressHilight = false;
 
-	 
+	private Action refreshAction;
+	private AccessibleObject objectOnAppear = null;
+	private static final MSAATreeContentProvider provider = MSAATreeContentProvider
+			.getDefault();
+
+	private static final Color GRAY_COLOR = Display.getCurrent()
+			.getSystemColor(SWT.COLOR_GRAY);
+
 	/**
 	 * The constructor.
 	 */
@@ -86,70 +84,71 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 	}
 
 	/**
-	 * This is a callback that will allow us
-	 * to create the viewer and initialize it.
+	 * This is a callback that will allow us to create the viewer and initialize
+	 * it.
 	 */
 	public void createPartControl(Composite parent) {
-		Table table = new Table(parent,SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE | SWT.FULL_SELECTION);
-	    TableLayout layout = new TableLayout();
-	    table.setLayout(layout);
-	    table.setLinesVisible(true);
-	    table.setHeaderVisible(true);
-	    for( int i=0; i<HEADINGS.length; i++ ) {
-		    layout.addColumnData(new ColumnWeightData(WEIGHTS[i]));
-		    TableColumn tc = new TableColumn(table, SWT.NONE);
-		    tc.setText(HEADINGS[i]);
-		    tc.setAlignment(ALIGNMENTS[i]);
-		    tc.setResizable(true);
-		    final int newSortingColumn = i+1;
-		    tc.addSelectionListener(new SelectionAdapter(){
-		    	public void widgetSelected(SelectionEvent e) {
-		    		if( newSortingColumn== sorter.sortingColumn ) {
-		    			sorter.sortingColumn = -newSortingColumn;
-		    		}
-		    		else {
-		    			sorter.sortingColumn = newSortingColumn;
-		    		}
-		    		viewer.refresh();
-		    	}
-		    });
-	    }
+		Table table = new Table(parent, SWT.BORDER | SWT.H_SCROLL
+				| SWT.V_SCROLL | SWT.SINGLE | SWT.FULL_SELECTION);
+		TableLayout layout = new TableLayout();
+		table.setLayout(layout);
+		table.setLinesVisible(true);
+		table.setHeaderVisible(true);
+		for (int i = 0; i < HEADINGS.length; i++) {
+			layout.addColumnData(new ColumnWeightData(WEIGHTS[i]));
+			TableColumn tc = new TableColumn(table, SWT.NONE);
+			tc.setText(HEADINGS[i]);
+			tc.setAlignment(ALIGNMENTS[i]);
+			tc.setResizable(true);
+			final int newSortingColumn = i + 1;
+			tc.addSelectionListener(new SelectionAdapter() {
+				public void widgetSelected(SelectionEvent e) {
+					if (newSortingColumn == sorter.sortingColumn) {
+						sorter.sortingColumn = -newSortingColumn;
+					} else {
+						sorter.sortingColumn = newSortingColumn;
+					}
+					viewer.refresh();
+				}
+			});
+		}
 
-	    viewer = new TableViewer(table);
+		viewer = new TableViewer(table);
 		MSAASiblingContentAndLabelProvider provider = new MSAASiblingContentAndLabelProvider();
 		viewer.setContentProvider(provider);
 		viewer.setLabelProvider(provider);
 		viewer.setSorter(sorter);
-		viewer.addSelectionChangedListener(new ISelectionChangedListener(){
-		    public void selectionChanged(SelectionChangedEvent event) {
-		    	if( suppressHilight ) return;
-		        ISelection selection = event.getSelection();
-		        if (selection instanceof IStructuredSelection) {
-		            Object selectedElement = ((IStructuredSelection) selection).getFirstElement();
-		            if (selectedElement instanceof AccessibleObject) {
-		                AccessibleObject object = (AccessibleObject) selectedElement;
-		                if (null != object) {
-                            IMSAAOutlineView outlineView = (IMSAAOutlineView)MSAAViewRegistory.findView(IGuiViewIDs.ID_OUTLINEVIEW);
-                            if( null != outlineView ) {
-                                outlineView.setSelection(object);
-                            }
-                            else {
-                                HighlightComposite.flashRectangle(object.getAccLocation());
-                            }
-		                }
-		            }
-		        }
-				
-		    }
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			public void selectionChanged(SelectionChangedEvent event) {
+				if (suppressHilight)
+					return;
+				ISelection selection = event.getSelection();
+				if (selection instanceof IStructuredSelection) {
+					Object selectedElement = ((IStructuredSelection) selection)
+							.getFirstElement();
+					if (selectedElement instanceof AccessibleObject) {
+						AccessibleObject object = (AccessibleObject) selectedElement;
+						IMSAAOutlineView outlineView = (IMSAAOutlineView) MSAAViewRegistory
+								.findView(IGuiViewIDs.ID_OUTLINEVIEW);
+						if (null != outlineView) {
+							outlineView.setSelection(object);
+						} else {
+							HighlightComposite.flashRectangle(object
+									.getAccLocation());
+						}
+					}
+				}
+
+			}
 		});
-		
+
 		makeActions();
 		hookContextMenu();
 		contributeToActionBars();
-		if( null != MSAAViewRegistory.outlineObject ) {
+		if (null != MSAAViewRegistory.outlineObject) {
 			setSelection(MSAAViewRegistory.outlineObject);
 		}
-		
+
 		HighlightComposite.initOverlayWindow();
 	}
 
@@ -158,26 +157,26 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 	 */
 	public void setFocus() {
 		viewer.getControl().setFocus();
-        if( null != objectOnAppear ) {
-            setSelection(objectOnAppear);
-        }
+		if (null != objectOnAppear) {
+			setSelection(objectOnAppear);
+		}
 	}
 
 	public void setSelection(AccessibleObject object) {
-        if( !viewer.getControl().isVisible() ) {
-            objectOnAppear = object;
-            return;
-        }
-        objectOnAppear = null;
+		if (!viewer.getControl().isVisible()) {
+			objectOnAppear = object;
+			return;
+		}
+		objectOnAppear = null;
 		suppressHilight = true;
 		AccessibleObject newInput = object.getCachedParent();
-        if( null != newInput ) {
-        	AccessibleObject oldInput = (AccessibleObject)viewer.getInput();
-       		if( oldInput != newInput ) {
-        		viewer.setInput(newInput);
-    		}
-        }
-		viewer.setSelection(new StructuredSelection(object),true);
+		if (null != newInput) {
+			AccessibleObject oldInput = (AccessibleObject) viewer.getInput();
+			if (oldInput != newInput) {
+				viewer.setInput(newInput);
+			}
+		}
+		viewer.setSelection(new StructuredSelection(object), true);
 		suppressHilight = false;
 	}
 
@@ -208,24 +207,25 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
-	
+
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(refreshAction);
 	}
 
 	private void makeActions() {
-        refreshAction = new Action(Messages.msaa_refresh) { 
-            public void run() {
+		refreshAction = new Action(Messages.msaa_refresh) {
+			public void run() {
 				viewer.refresh();
-            }
-        };
-        refreshAction.setToolTipText(Messages.msaa_refresh); 
-        refreshAction.setImageDescriptor(GuiImages.IMAGE_REFRESH);
+			}
+		};
+		refreshAction.setToolTipText(Messages.msaa_refresh);
+		refreshAction.setImageDescriptor(GuiImages.IMAGE_REFRESH);
 	}
-	
-	private class MSAASiblingContentAndLabelProvider extends LabelProvider implements IStructuredContentProvider,
-	IPropertyChangeListener, ITableLabelProvider, ITableColorProvider {
-		
+
+	private class MSAASiblingContentAndLabelProvider extends LabelProvider
+			implements IStructuredContentProvider, IPropertyChangeListener,
+			ITableLabelProvider, ITableColorProvider {
+
 		private Object[] lastElements;
 
 		public MSAASiblingContentAndLabelProvider() {
@@ -234,22 +234,24 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 
 		public Object[] getElements(Object inputElement) {
 			lastElements = null;
-			if( inputElement instanceof AccessibleObject ) {
-                Object[] accChildren = provider.getElements(inputElement);
-	            List childList = new Vector();
-	            for (int i = 0; i < accChildren.length; i++) {
-	                try {
-                        int visibleState = ((AccessibleObject)accChildren[i]).getAccState() & (MSAA.STATE_INVISIBLE|MSAA.STATE_OFFSCREEN);
-                        if( MSAA.STATE_INVISIBLE != visibleState ) {
-                            childList.add(accChildren[i]);
-                        }
-	                } catch (Exception e) {
-	                }
-	                ;
-	            }
-	            lastElements = childList.toArray();
+			if (inputElement instanceof AccessibleObject) {
+				Object[] accChildren = provider.getElements(inputElement);
+				List<Object> childList = new Vector<Object>();
+				for (int i = 0; i < accChildren.length; i++) {
+					try {
+						int visibleState = ((AccessibleObject) accChildren[i])
+								.getAccState()
+								& (MSAA.STATE_INVISIBLE | MSAA.STATE_OFFSCREEN);
+						if (MSAA.STATE_INVISIBLE != visibleState) {
+							childList.add(accChildren[i]);
+						}
+					} catch (Exception e) {
+					}
+					;
+				}
+				lastElements = childList.toArray();
 			}
-	        return lastElements;
+			return lastElements;
 		}
 
 		public void dispose() {
@@ -273,55 +275,62 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 		}
 
 		public String getColumnText(Object element, int columnIndex) {
-			if( element instanceof AccessibleObject ) {
-				switch( columnIndex ) {
+			if (element instanceof AccessibleObject) {
+				switch (columnIndex) {
 				case 0:
-					if( null!=lastElements ) {
-						for( int i=0; i<lastElements.length; i++ ) {
-							if( element.equals(lastElements[i]) ) {
-								return Integer.toString(i+1);
+					if (null != lastElements) {
+						for (int i = 0; i < lastElements.length; i++) {
+							if (element.equals(lastElements[i])) {
+								return Integer.toString(i + 1);
 							}
 						}
 					}
 					return ""; //$NON-NLS-1$
 				case 1:
-					return ((AccessibleObject)element).getAccName();
+					return ((AccessibleObject) element).getAccName();
 				case 2:
-					return ((AccessibleObject)element).getRoleText();
+					return ((AccessibleObject) element).getRoleText();
 				case 3:
-					return MSAA.getStateText(((AccessibleObject)element).getAccState());
+					return MSAA.getStateText(((AccessibleObject) element)
+							.getAccState());
 				case 4:
 				case 5:
 				case 6:
 				case 7:
-					Rectangle location = ((AccessibleObject)element).getAccLocation();
-					if( null==location ) return ""; //$NON-NLS-1$
-					switch( columnIndex-4 ) {
-						case 0: return Integer.toString(location.x);
-						case 1: return Integer.toString(location.y);
-						case 2: return Integer.toString(location.width);
-						case 3: return Integer.toString(location.height);
+					Rectangle location = ((AccessibleObject) element)
+							.getAccLocation();
+					if (null == location)
+						return ""; //$NON-NLS-1$
+					switch (columnIndex - 4) {
+					case 0:
+						return Integer.toString(location.x);
+					case 1:
+						return Integer.toString(location.y);
+					case 2:
+						return Integer.toString(location.width);
+					case 3:
+						return Integer.toString(location.height);
 					}
 				default:
-						return "?"; //$NON-NLS-1$
+					return "?"; //$NON-NLS-1$
 				}
 			}
 			return null;
 		}
 
-        public Color getBackground(Object element, int columnIndex) {
-            return null;
-        }
+		public Color getBackground(Object element, int columnIndex) {
+			return null;
+		}
 
-        public Color getForeground(Object element, int columnIndex) {
-            if( element instanceof AccessibleObject ) {
-                int accState = ((AccessibleObject)element).getAccState();
-                if( 0 != (accState & MSAA.STATE_INVISIBLE) ) {
-                    return GRAY_COLOR;
-                }
-            }
-            return null;
-        }
+		public Color getForeground(Object element, int columnIndex) {
+			if (element instanceof AccessibleObject) {
+				int accState = ((AccessibleObject) element).getAccState();
+				if (0 != (accState & MSAA.STATE_INVISIBLE)) {
+					return GRAY_COLOR;
+				}
+			}
+			return null;
+		}
 	}
 
 	private class MSAASiblingViewerSorter extends ViewerSorter {
@@ -329,26 +338,29 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 		public int sortingColumn = 0;
 
 		public int compare(Viewer viewer, Object e1, Object e2) {
-			if( 0 != sortingColumn && viewer instanceof TableViewer ) {
-				IBaseLabelProvider labelProvider = ((TableViewer)viewer).getLabelProvider();
-				if( labelProvider instanceof ITableLabelProvider ) {
-					int columnIndex = Math.abs(sortingColumn)-1;
-					String s1 = ((ITableLabelProvider)labelProvider).getColumnText(e1,columnIndex);
-					String s2 = ((ITableLabelProvider)labelProvider).getColumnText(e2,columnIndex);
+			if (0 != sortingColumn && viewer instanceof TableViewer) {
+				IBaseLabelProvider labelProvider = ((TableViewer) viewer)
+						.getLabelProvider();
+				if (labelProvider instanceof ITableLabelProvider) {
+					int columnIndex = Math.abs(sortingColumn) - 1;
+					String s1 = ((ITableLabelProvider) labelProvider)
+							.getColumnText(e1, columnIndex);
+					String s2 = ((ITableLabelProvider) labelProvider)
+							.getColumnText(e2, columnIndex);
 					int result = 0;
-					switch( columnIndex ) {
-						default:
-							try {
-								result = Integer.parseInt(s1)-Integer.parseInt(s2);
-								break;
-							}
-							catch( Exception e ) {
-							}
-						case 1:
-						case 2:
-						case 3:
-							result = collator.compare(s1,s2);
+					switch (columnIndex) {
+					default:
+						try {
+							result = Integer.parseInt(s1)
+									- Integer.parseInt(s2);
 							break;
+						} catch (Exception e) {
+						}
+					case 1:
+					case 2:
+					case 3:
+						result = collator.compare(s1, s2);
+						break;
 					}
 					return sortingColumn > 0 ? result : -result;
 				}
@@ -356,4 +368,5 @@ public class MSAAListView extends ViewPart implements IMSAAListView {
 			return 0;
 		}
 
-	}}
+	}
+}
