@@ -44,9 +44,11 @@ public final class Messages extends NLS {
 	public static String Eval_completely_compliant_with_user_check_items;
 	public static String Eval_completely_compliant;
 	public static String Eval_some_errors_on_metrics;
-	public static String Eval_completely_compliant_with_some_errors;
+	public static String Eval_some_errors_on_metrics1;
+	public static String Eval_user_check1;
+	public static String Eval_user_check2;	
+	public static String Eval_compliant_with_some_other_errors;
 	public static String Eval_excellent;
-	public static String Eval_seems_completely_compliant;
 	public static String Eval_easy_for_blind_user_to_navigate;
 	public static String Eval_page_has_skiplinks_headings;
 	public static String Eval_darkcolored_visualization_view;

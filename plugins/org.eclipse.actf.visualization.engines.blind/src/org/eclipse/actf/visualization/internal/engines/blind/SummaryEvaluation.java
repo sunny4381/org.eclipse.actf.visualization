@@ -106,12 +106,13 @@ public class SummaryEvaluation {
 			if (comp >= 80) {
 				if (hasError) {
 					aboutComp
-							.append(Messages.Eval_completely_compliant_with_some_errors
+							.append(Messages.Eval_compliant_with_some_other_errors
 									+ FileUtils.LINE_SEP);
 
 					if (totalAltError > 0) {
 						aboutComp
-								.append(Messages.Eval_confirm_alt_attributes_first);
+								.append(Messages.Eval_confirm_alt_attributes_first
+										+ FileUtils.LINE_SEP);
 						aboutComp.append(getImageAltStatistics());
 					} else {
 						aboutComp
@@ -119,24 +120,25 @@ public class SummaryEvaluation {
 					}
 				} else {
 					if (hasOther && other != 100) {
-						aboutComp.append(MessageFormat.format(
-								Messages.Eval_some_errors_on_metrics,
-								(new String[] {
-										noGoodMetrics.substring(0,
-												noGoodMetrics.length() - 1),
-										FileUtils.LINE_SEP })));
+						aboutComp.append(Messages.Eval_some_errors_on_metrics
+								+ FileUtils.LINE_SEP
+								+ MessageFormat.format(
+										Messages.Eval_some_errors_on_metrics1,
+										(new String[] { noGoodMetrics
+												.substring(0, noGoodMetrics
+														.length() - 1) })));
 					} else {
 						if (comp == 100) {
 							isGood = true;
-							aboutComp
-									.append(Messages.Eval_completely_compliant);
+							aboutComp.append(Messages.Eval_completely_compliant
+									+ FileUtils.LINE_SEP
+									+ Messages.Eval_user_check2);
 						} else {
 							isGood = true;
 							aboutComp
-									.append(MessageFormat
-											.format(
-													Messages.Eval_completely_compliant_with_user_check_items,
-													new Object[] { FileUtils.LINE_SEP }));
+									.append(Messages.Eval_completely_compliant_with_user_check_items
+											+ FileUtils.LINE_SEP
+											+ Messages.Eval_user_check1);
 						}
 					}
 				}
@@ -161,7 +163,7 @@ public class SummaryEvaluation {
 		}
 
 		//
-		if (hasNav) {
+		if (hasNav && guidelineHolder.isEnabledMetric("navigability")) { //$NON-NLS-1$
 			if (nav > 80) {
 				if (pageData.getMaxTime() > 240) {
 					aboutNav.append(MessageFormat.format(

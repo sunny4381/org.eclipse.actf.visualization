@@ -45,28 +45,26 @@ public class PageEvaluation {
 		Color blue = Display.getDefault().getSystemColor(SWT.COLOR_BLUE);
 		Color red = Display.getDefault().getSystemColor(SWT.COLOR_RED);
 
-		if(Display.getDefault().getHighContrast()){
+		if (Display.getDefault().getHighContrast()) {
 			blue = null;
 			red = null;
 		}
-		
-		hlsl.addTarget(Messages.Eval_excellent, blue, SWT.BOLD);
-		hlsl.addTarget(Messages.Eval_completely_compliant, blue,
-				SWT.BOLD);
-		hlsl.addTarget(Messages.Eval_seems_completely_compliant,
-				blue, SWT.BOLD);
-		hlsl.addTarget(Messages.Eval_completely_compliant_with_some_errors, red,
-				SWT.BOLD);
-		hlsl.addTarget(Messages.Eval_many_accessibility_issues,
-				red, SWT.BOLD);
-		hlsl.addTarget(Messages.Eval_some_accessibility_issues,
-				red, SWT.BOLD);
 
+		hlsl.addTarget(Messages.Eval_excellent, blue, SWT.BOLD);
+		hlsl.addTarget(Messages.Eval_completely_compliant, blue, SWT.BOLD);
+		hlsl.addTarget(
+				Messages.Eval_completely_compliant_with_user_check_items, blue,
+				SWT.BOLD);
+		hlsl.addTarget(Messages.Eval_compliant_with_some_other_errors, red,
+				SWT.BOLD);
+		hlsl.addTarget(Messages.Eval_some_errors_on_metrics, red, SWT.BOLD);
+		hlsl.addTarget(Messages.Eval_many_accessibility_issues, red, SWT.BOLD);
+		hlsl.addTarget(Messages.Eval_some_accessibility_issues, red, SWT.BOLD);
 		hlsl.addTarget(Messages.Eval_easy_for_blind_user_to_navigate, blue,
 				SWT.BOLD);
-
-		hlsl.addTarget(Messages.Eval_page_has_skiplinks_headings,
-				red, SWT.BOLD);
+		hlsl
+				.addTarget(Messages.Eval_page_has_skiplinks_headings, red,
+						SWT.BOLD);
 		hlsl.addTarget(Messages.Eval_darkcolored_visualization_view, red,
 				SWT.BOLD);
 
@@ -178,15 +176,15 @@ public class PageEvaluation {
 
 		int minValue = getMinScore();
 
-		String rating = Messages.PageEvaluation_Bad; 
+		String rating = Messages.PageEvaluation_Bad;
 
 		if (!hasComplianceError()) {
 			if (minValue >= 90) {
-				rating = Messages.PageEvaluation_Excellent; 
+				rating = Messages.PageEvaluation_Excellent;
 			} else if (minValue >= 70) {
-				rating = Messages.PageEvaluation_Good; 
+				rating = Messages.PageEvaluation_Good;
 			} else if (minValue >= 60) {
-				rating = Messages.PageEvaluation_Poor; 
+				rating = Messages.PageEvaluation_Poor;
 			}
 		}
 		return (rating);
@@ -212,15 +210,15 @@ public class PageEvaluation {
 
 		int minValue = getMinScore();
 
-		String rating = IVisualizationConst.RATING_BAD; 
+		String rating = IVisualizationConst.RATING_BAD;
 
 		if (!hasComplianceError()) {
 			if (minValue >= 90) {
-				rating = IVisualizationConst.RATING_V_GOOD; 
+				rating = IVisualizationConst.RATING_V_GOOD;
 			} else if (minValue >= 80) {
-				rating = IVisualizationConst.RATING_GOOD; 
+				rating = IVisualizationConst.RATING_GOOD;
 			} else if (minValue >= 60) {
-				rating = IVisualizationConst.RATING_POOR; 
+				rating = IVisualizationConst.RATING_POOR;
 			}
 		}
 		return (rating);
