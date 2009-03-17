@@ -34,11 +34,13 @@ public final class Messages extends NLS {
 	public static String DialogTextSearch_8;
 	public static String DialogTextSearch_10;
 	public static String DialogTextSearch_12;
+	public static String GuidelineSubMenu_0;
 	public static String SrcViewer_3;
 	public static String SrcViewer_6;
 	public static String SrcViewer_8;
 	public static String SrcViewer_9;
 	public static String SrcViewer_0;
+	public static String SrcViewerForPT_0;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

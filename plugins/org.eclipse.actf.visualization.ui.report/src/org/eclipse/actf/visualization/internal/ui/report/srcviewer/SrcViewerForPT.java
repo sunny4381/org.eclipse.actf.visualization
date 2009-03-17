@@ -14,6 +14,7 @@ import java.io.File;
 
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
+import org.eclipse.actf.visualization.internal.ui.report.Messages;
 import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
@@ -87,7 +88,7 @@ public class SrcViewerForPT {
             _srcViewerShell = new Shell(display);
             _srcViewerShell.setLayout(new FillLayout());
             _srcViewerShell.setImage(ReportPlugin.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID, "icons/excla_squ.png").createImage()); //$NON-NLS-1$
-            _srcViewerShell.setText("HTML Source");
+            _srcViewerShell.setText(Messages.SrcViewerForPT_0);
             _srcViewer = new SrcViewer(_srcViewerShell);
             _srcViewerShell.setSize(600, 750);
             _srcViewerShell.setFocus();

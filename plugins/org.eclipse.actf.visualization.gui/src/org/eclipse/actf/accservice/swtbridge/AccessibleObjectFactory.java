@@ -17,6 +17,7 @@ import java.util.Map;
 import org.eclipse.actf.accservice.swtbridge.event.IAccessibleEventMonitor;
 import org.eclipse.actf.accservice.swtbridge.internal.InternalAccessibleObject;
 import org.eclipse.actf.accservice.swtbridge.internal.InternalAccessibleObjectFactory;
+import org.eclipse.actf.visualization.gui.internal.util.Messages;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.ole.win32.OLE;
 import org.eclipse.swt.ole.win32.Variant;
@@ -28,7 +29,7 @@ public class AccessibleObjectFactory {
 	private static Map<String, AccessibleFactoryEntry> factoryEntries = new HashMap<String, AccessibleFactoryEntry>();
 	static {
 		addFactoryEntry(InternalAccessibleObjectFactory.ID,
-				new AccessibleFactoryEntry("Default (SWT based)",
+				new AccessibleFactoryEntry(Messages.AccessibleObjectFactory_0,
 						new InternalAccessibleObjectFactory()));
 		setActiveFactory(InternalAccessibleObjectFactory.ID);
 	}

@@ -54,7 +54,7 @@ public class GuidelineSubMenu extends MenuManager {
 					}
 				});
 
-		this._dummy = new Action("guideline help is not available.") {
+		this._dummy = new Action(Messages.GuidelineSubMenu_0) {
 		};
 		this._dummy.setEnabled(false);
 		add(this._dummy);

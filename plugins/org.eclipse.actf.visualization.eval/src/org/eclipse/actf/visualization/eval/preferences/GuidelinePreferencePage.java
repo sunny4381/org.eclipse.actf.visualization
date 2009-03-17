@@ -117,11 +117,11 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 
 		TreeColumn categoryColumn = new TreeColumn(guidelineTree, SWT.NONE);
 		categoryColumn.setWidth(220);
-		categoryColumn.setText("Category");
+		categoryColumn.setText(Messages.GuidelinePreferencePage_0);
 
 		TreeColumn guidelineColumn = new TreeColumn(guidelineTree, SWT.NONE);
 		guidelineColumn.setWidth(350);
-		guidelineColumn.setText("Guideline");
+		guidelineColumn.setText(Messages.GuidelinePreferencePage_1);
 
 		GuidelineTreeItemData root = new GuidelineTreeItemData(null);
 		GuidelineTreeItemType htmlType = new GuidelineTreeItemType(

@@ -20,6 +20,7 @@ public final class Messages extends NLS {
 		// Do not instantiate
 	}
 
+	public static String AccessibleObjectFactory_0;
 	public static String msaa_application;
 	public static String msaa_button;
 	public static String msaa_cell;

@@ -52,6 +52,8 @@ public final class Messages extends NLS {
 	public static String DialogCheckerOption_Line_Number_Information_19;
 	public static String DialogCheckerOption_Add_line_number_20;
 	public static String DialogCheckerOption_LIVE_DOM;
+	public static String GuidelinePreferencePage_0;
+	public static String GuidelinePreferencePage_1;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
