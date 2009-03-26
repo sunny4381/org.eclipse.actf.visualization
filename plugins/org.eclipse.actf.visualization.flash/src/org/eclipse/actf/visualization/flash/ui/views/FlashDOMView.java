@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007, 2008 IBM Corporation and Others
+ * Copyright (c) 2007, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -68,9 +68,6 @@ import com.ibm.icu.text.MessageFormat;
 
 public class FlashDOMView extends ViewPart implements IFlashDOMView,
 		IFlashConst {
-	public static final String ID = FlashDOMView.class.getName();
-
-	private static final String ON_RELEASE = "onRelease"; //$NON-NLS-1$
 
 	private TreeViewer viewer;
 	private Action expandAction;
@@ -137,38 +134,49 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 	}
 
 	public void findRectangle(Rectangle flashRect, Object objUnknown) {
+		// assumes AccessibleObject
 		viewer.setInput(new Object[] { objUnknown });
-		String strMessage = Messages.flash_error_no_element; 
+		String strMessage = Messages.flash_error_no_element;
 		RectangleFinder finder = new RectangleFinder(flashRect);
 		try {
 			finder.find(viewer.getTree().getItems());
 		} catch (Error e) {
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		if (finder.foundCount > 0) {
-			strMessage = MessageFormat
-					.format(
-							Messages.flash_element_found, new Object[] { new Integer(finder.foundCount) }); 
+			strMessage = MessageFormat.format(Messages.flash_element_found,
+					new Object[] { new Integer(finder.foundCount) });
 		}
-		MessageDialog.openInformation(viewer.getControl().getShell(), Messages.flash_flash_dom, 
-				strMessage);
+		MessageDialog.openInformation(viewer.getControl().getShell(),
+				Messages.flash_flash_dom, strMessage);
 	}
 
 	public void addWindowlessElement(final Object objUnknown) {
-		if (!scanWindowlessAction.isChecked()) {
+		if (!scanWindowlessAction.isChecked()
+				&& objUnknown instanceof AccessibleObject) {
 			Display.getCurrent().asyncExec(new Runnable() {
 				public void run() {
 					Object currentInput = viewer.getInput();
-					if (currentInput instanceof Object[]) {
-						List<Object> list = Arrays
-								.asList((Object[]) currentInput);
-						if (!list.contains(objUnknown)) {
-							ArrayList<Object> newList = new ArrayList<Object>(
-									list);
-							newList.add(objUnknown);
-							viewer.setInput(newList.toArray());
+					IFlashPlayer player = FlashPlayerFactory
+							.getPlayerFromPtr(((AccessibleObject) objUnknown)
+									.getPtr());
+					if (currentInput instanceof IFlashPlayer[]) {
+						List<IFlashPlayer> list = Arrays
+								.asList((IFlashPlayer[]) currentInput);
+
+						for (IFlashPlayer target : list) {
+							if (target == player
+									|| target.getAccessible().getPtr() == target
+											.getAccessible().getPtr()) {
+								return;
+							}
 						}
+						ArrayList<IFlashPlayer> newList = new ArrayList<IFlashPlayer>(
+								list);
+						newList.add(player);
+						viewer.setInput(newList.toArray());
 					}
+					// else
 				}
 			});
 		}
@@ -193,10 +201,11 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 				try {
 					IASNode flashNode = (IASNode) item.getData();
 					if (flashNode.getLevel() >= 40) {
-						throw new Error(
-								MessageFormat
-										.format(
-												Messages.flash_error_target_length, new Object[] { new Integer(flashNode.getLevel()) }) + "\n" + flashNode.getTarget()); //$NON-NLS-1$ 
+						throw new Error(MessageFormat
+								.format(Messages.flash_error_target_length,
+										new Object[] { new Integer(flashNode
+												.getLevel()) })
+								+ "\n" + flashNode.getTarget()); //$NON-NLS-1$ 
 					}
 					double x = flashNode.getX();
 					if (x >= flashRight + MARGIN) {
@@ -328,11 +337,11 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 		expandAllAction
-				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_expand_all); 
+				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_expand_all);
 		expandAllAction.setImageDescriptor(GuiImages.IMAGE_EXPAND_ALL);
 
 		collapseAllAction = new Action(
-				org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all) { 
+				org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all) {
 			public void run() {
 				try {
 					viewer.collapseAll();
@@ -342,12 +351,13 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 		collapseAllAction
-				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all); 
+				.setToolTipText(org.eclipse.actf.visualization.gui.internal.util.Messages.msaa_collapse_all);
 		collapseAllAction.setImageDescriptor(GuiImages.IMAGE_COLLAPSE_ALL);
 
 		refreshAction = new RefreshRootAction();
 
-		informativeTreeAction = new Action(Messages.flash_filter_noninformative, Action.AS_CHECK_BOX) { 
+		informativeTreeAction = new Action(
+				Messages.flash_filter_noninformative, Action.AS_CHECK_BOX) {
 			public void run() {
 				FlashDOMContentProvider provider = (FlashDOMContentProvider) viewer
 						.getContentProvider();
@@ -356,8 +366,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 
-		visualTreeAction = new Action(
-				Messages.flash_show_visual, Action.AS_CHECK_BOX) { 
+		visualTreeAction = new Action(Messages.flash_show_visual,
+				Action.AS_CHECK_BOX) {
 			public void run() {
 				FlashDOMContentProvider provider = (FlashDOMContentProvider) viewer
 						.getContentProvider();
@@ -366,8 +376,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 
-		debugTreeAction = new Action(
-				Messages.flash_debugMode, Action.AS_CHECK_BOX) { 
+		debugTreeAction = new Action(Messages.flash_debugMode,
+				Action.AS_CHECK_BOX) {
 			public void run() {
 				debugMode = debugTreeAction.isChecked();
 				FlashNodePropertySource.setDebugMode(debugMode);
@@ -375,7 +385,8 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			}
 		};
 
-		scanWindowlessAction = new Action(Messages.flash_scanWindowless, Action.AS_CHECK_BOX) { 
+		scanWindowlessAction = new Action(Messages.flash_scanWindowless,
+				Action.AS_CHECK_BOX) {
 			public void run() {
 				FlashMSAAUtil.setScanAll(scanWindowlessAction.isChecked());
 				MSAAViewRegistory.refreshRootObject();
@@ -429,17 +440,14 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 								if (null == node.getText()
 										&& !ASNODE_TYPE_MOVIECLIP.equals(node
 												.getType())
-										&& 
-										!ASNODE_CLASS_BUTTON.equals(node
+										&& !ASNODE_CLASS_BUTTON.equals(node
 												.getClassName())
-										&& 
-										!ACC_PROPS.equals(node.getObjectName())
-										&& 
-										!ACC_IMPL.equals(node.getObjectName())
-										&& 
-										!ON_RELEASE
-												.equals(node.getObjectName())) 
-								{
+										&& !ACC_PROPS.equals(node
+												.getObjectName())
+										&& !ACC_IMPL.equals(node
+												.getObjectName())
+										&& !M_ON_RELEASE.equals(node
+												.getObjectName())) {
 									continue;
 								}
 								tmpV.add(node);
@@ -582,8 +590,9 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 					return FlashImages.OVER_RED;
 				}
 			}
-			boolean shouldWarn = "movieclip".equals(flashNode.getType()) || //$NON-NLS-1$
-					"Button".equals(flashNode.getClassName()); //$NON-NLS-1$
+			boolean shouldWarn = ASNODE_TYPE_MOVIECLIP.equals(flashNode
+					.getType())
+					|| ASNODE_CLASS_BUTTON.equals(flashNode.getClassName());
 			if (shouldWarn && null != accInfo && accInfo.isSilent()) {
 				return FlashImages.OVER_BLACK;
 			}
@@ -593,15 +602,14 @@ public class FlashDOMView extends ViewPart implements IFlashDOMView,
 			if (shouldWarn && (null == accInfo || null == accInfo.getName())) {
 				return FlashImages.OVER_RED;
 			}
-			if ("Button".equals(flashNode.getClassName())) { //$NON-NLS-1$
+			if (ASNODE_CLASS_BUTTON.equals(flashNode.getClassName())) {
 				return FlashImages.OVER_YELLOW;
 			}
 			String objectName = flashNode.getObjectName();
-			if ("onRelease".equals(objectName)) { //$NON-NLS-1$
+			if (M_ON_RELEASE.equals(objectName)) {
 				return FlashImages.OVER_YELLOW;
 			}
-			if ("_accProps".equals(objectName) || //$NON-NLS-1$
-					"_accImpl".equals(objectName)) { //$NON-NLS-1$
+			if (ACC_PROPS.equals(objectName) || ACC_IMPL.equals(objectName)) {
 				return FlashImages.OVER_GREEN;
 			}
 		} else if (element instanceof IFlashPlayer) {
