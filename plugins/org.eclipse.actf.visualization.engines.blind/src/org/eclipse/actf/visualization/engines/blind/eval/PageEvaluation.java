@@ -283,5 +283,14 @@ public class PageEvaluation {
 	public int[] getScores() {
 		return scores;
 	}
+	
+	/**
+	 * Get {@link PageData} used for this evaluation
+	 * 
+	 * @return {@link PageData}
+	 */
+	public PageData getPageData() {
+		return pageData;
+	}
 
 }

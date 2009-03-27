@@ -34,6 +34,7 @@ public class EvaluationResultBlind extends EvaluationResultImpl {
 			.compile("ancestor::noscript"); //$NON-NLS-1$
 
 	private int count = 0;
+	private PageEvaluation pageEvaluation = null;
 
 	public void addProblemItems(Collection<IProblemItem> c) {
 		stripProblem(c);
@@ -72,4 +73,23 @@ public class EvaluationResultBlind extends EvaluationResultImpl {
 			}
 		}
 	}
+	
+	/**
+	 * Get {@link PageEvaluation} related to the evaluation
+	 * 
+	 * @return {@link PageEvaluation}
+	 */
+	public PageEvaluation getPageEvaluation() {
+		return pageEvaluation;
+	}
+
+	/**
+	 * Set {@link PageEvaluation} related to the evaluation
+	 * 
+	 * @param pageEvaluation target {@link PageEvaluation}
+	 */
+	public void setPageEvaluation(PageEvaluation pageEvaluation) {
+		this.pageEvaluation = pageEvaluation;
+	}
+		
 }

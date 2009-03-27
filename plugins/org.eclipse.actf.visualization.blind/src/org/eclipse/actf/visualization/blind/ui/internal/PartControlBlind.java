@@ -120,7 +120,8 @@ public class PartControlBlind implements IHighlightElementListener {
 							public void run() {
 								eventhandlerHolder.remove(LISTENER_KEY);
 								doVisualize();
-								PlatformUIUtil.showView(IVisualizationView.ID_BLINDVIEW);
+								PlatformUIUtil
+										.showView(IVisualizationView.ID_BLINDVIEW);
 							}
 						});
 				eventhandlerHolder.put(LISTENER_KEY,
@@ -182,17 +183,6 @@ public class PartControlBlind implements IHighlightElementListener {
 		return IBlindVisualizer.ERROR;
 	}
 
-	/**
-	 * @return
-	 */
-	public PageEvaluation getPageEvaluation() {
-		return _pageEval;
-	}
-
-	public PageData getPageData() {
-		return _pageData;
-	}
-
 	public void saveReportFile(String sFileName, String imageBriefDir,
 			boolean bAccessory) {
 		if (_canSave) {
@@ -230,6 +220,11 @@ public class PartControlBlind implements IHighlightElementListener {
 					_checkResult.setSummaryReportText(_pageEval.getSummary());
 					_checkResult.setLineStyleListener(PageEvaluation
 							.getHighLightStringListener());
+					if (_checkResult instanceof EvaluationResultBlind) {
+						((EvaluationResultBlind) _checkResult)
+								.setPageEvaluation(_pageEval);
+					}
+
 					mediator.setReport(vizView, _checkResult);
 
 					vizView.setStatusMessage(Messages.BlindView_Done);
