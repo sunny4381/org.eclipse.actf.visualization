@@ -273,9 +273,11 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			}
 
 			if (hasFrame) {
+				pageData.setHasFrame(true);
 				return FRAME;
 			} else if (webBrowser != null && !webBrowser.isUrlExists()) {
 				// TODO
+				pageData.setError(true);
 				return ERROR;
 			}
 			return OK;

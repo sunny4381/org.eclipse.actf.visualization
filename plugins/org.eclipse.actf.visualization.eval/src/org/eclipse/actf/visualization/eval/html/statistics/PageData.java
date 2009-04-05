@@ -64,6 +64,10 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 	private int wrongAltNum = 0;
 
 	private boolean hasJavascript = false;
+	
+	private boolean hasFrame = false;
+	
+	private boolean isError = false;
 
 	/**
 	 * Add flash content information
@@ -267,7 +271,7 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 	/**
 	 * @return true if page uses JavaScript
 	 */
-	public boolean isHasJavascript() {
+	public boolean hasJavascript() {
 		return hasJavascript;
 	}
 
@@ -444,6 +448,37 @@ public class PageData implements IPageStatisticsTag, IProblemItemVisitor {
 		this.wrongAltNum = wrongAltNum;
 	}
 
+	/**
+	 * @return true if page has child frame
+	 */
+	public boolean hasFrame() {
+		return hasFrame;
+	}
+
+	/**
+	 * Set if page has child frame or not
+	 * @param hasFrame
+	 */
+	public void setHasFrame(boolean hasFrame) {
+		this.hasFrame = hasFrame;
+	}
+
+	/**
+	 * Set if page is error page
+	 * @return
+	 */
+	public boolean isError() {
+		return isError;
+	}
+
+	/**
+	 * @param isError true if page is error page
+	 */
+	public void setError(boolean isError) {
+		this.isError = isError;
+	}
+
+	
 	/*
 	 * (non-Javadoc)
 	 * 
