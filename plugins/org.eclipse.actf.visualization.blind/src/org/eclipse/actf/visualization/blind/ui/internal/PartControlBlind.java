@@ -11,6 +11,7 @@
 package org.eclipse.actf.visualization.blind.ui.internal;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -35,6 +36,7 @@ import org.eclipse.actf.visualization.engines.blind.html.util.VisualizeReportUti
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
+import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -173,6 +175,11 @@ public class PartControlBlind implements IHighlightElementListener {
 					}
 
 					_canSave = true;
+				} else {
+					checkResult.setProblemList(new ArrayList<IProblemItem>());
+					_blindBrowser.navigate(ABOUT_BLANK);
+					CreateReport cr = new CreateReport(checkResult);
+					_shell.getDisplay().syncExec(cr);
 				}
 				return ret;
 			}
@@ -207,26 +214,35 @@ public class PartControlBlind implements IHighlightElementListener {
 			this.targetFile = filePath;
 		}
 
+		// for navigation error
+		CreateReport(IEvaluationResult checkResult) {
+			this._checkResult = checkResult;
+			this.targetFile = null;
+		}
+
 		public void run() {
 			_pageEval = new PageEvaluation(_checkResult.getProblemList(),
 					_pageData);
-			VisualizeReportUtil.createReport(this.targetFile, _pageEval);
+			if (targetFile == null) {
+				// TODO clear pageData/score
+				checkResult.setSummaryReportUrl(ABOUT_BLANK);
+				checkResult.setSummaryReportText(""); //$NON-NLS-1$				
+			} else {
+				VisualizeReportUtil.createReport(this.targetFile, _pageEval);
+				_checkResult.setSummaryReportUrl(targetFile.getAbsolutePath());
+				_checkResult.setSummaryReportText(_pageEval.getSummary());
+				_checkResult.setLineStyleListener(PageEvaluation
+						.getHighLightStringListener());
+			}
+			if (_checkResult instanceof EvaluationResultBlind) {
+				((EvaluationResultBlind) _checkResult)
+						.setPageEvaluation(_pageEval);
+			}
+
 			_shell.getDisplay().asyncExec(new Runnable() {
 				public void run() {
-
 					// TODO through mediator
-					_checkResult.setSummaryReportUrl(targetFile
-							.getAbsolutePath());
-					_checkResult.setSummaryReportText(_pageEval.getSummary());
-					_checkResult.setLineStyleListener(PageEvaluation
-							.getHighLightStringListener());
-					if (_checkResult instanceof EvaluationResultBlind) {
-						((EvaluationResultBlind) _checkResult)
-								.setPageEvaluation(_pageEval);
-					}
-
 					mediator.setReport(vizView, _checkResult);
-
 					vizView.setStatusMessage(Messages.BlindView_Done);
 				}
 			});
