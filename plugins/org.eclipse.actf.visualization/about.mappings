@@ -8,10 +8,5 @@
 # Contributors:
 #     IBM Corporation - initial API and implementation
 ###############################################################################
-blurb=Eclipse Accessibility Tools Framework (ACTF)\n\
-\n\
-Version: {featureVersion}\n\
-Build id: {0}\n\
-\n\
-(c) Copyright Eclipse contributors and others 2007, 2009.  All rights reserved.\n\
-Visit http://www.eclipse.org/actf
+
+0=@build@
