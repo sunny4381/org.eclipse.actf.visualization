@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Eclipse ACTF Voice Browser Engine Plug-in (Incubation)
+Bundle-Name: ACTF Voice Browser Engine Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.visualization.engines.voicebrowser
 Bundle-Version: 0.7.0.qualifier
 Bundle-Vendor: Eclipse.org

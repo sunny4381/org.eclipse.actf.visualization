@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Eclipse ACTF Lowvision Engine Plug-in (Incubation)
+Bundle-Name: ACTF Lowvision Simulation Engine Plug-in (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.visualization.engines.lowvision
 Bundle-Version: 0.7.0.qualifier
 Bundle-Vendor: Eclipse.org
