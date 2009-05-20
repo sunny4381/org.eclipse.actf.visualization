@@ -23,6 +23,7 @@ import java.util.Vector;
 import org.eclipse.actf.mediator.Mediator;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
+import org.eclipse.actf.model.ui.IModelServiceScrollManager;
 import org.eclipse.actf.model.ui.ImagePositionInfo;
 import org.eclipse.actf.model.ui.ModelServiceImageCreator;
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
@@ -56,6 +57,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.IViewReference;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.w3c.dom.Document;
 
@@ -312,6 +315,16 @@ public class PartControlLowVision implements ISelectionListener,
 		this._isInSimulate = true;
 		this._shell.setCursor(new Cursor(_shell.getDisplay(), SWT.CURSOR_WAIT));
 
+		IWorkbenchPage activePage = PlatformUIUtil.getActivePage();
+		IViewReference viewRef = activePage
+				.findViewReference(IVisualizationView.ID_LOWVISIONVIEW);
+		if (viewRef.isFastView()) {
+			if (activePage.getPartState(viewRef) == IWorkbenchPage.STATE_RESTORED) {
+				activePage
+						.setPartState(viewRef, IWorkbenchPage.STATE_MINIMIZED);
+			}
+		}
+
 		Mediator.getInstance().setReport(checker, dummyResult);
 		checkResult = new CheckResultLowVision();
 
@@ -408,8 +421,12 @@ public class PartControlLowVision implements ISelectionListener,
 
 			ModelServiceImageCreator imgCreator = new ModelServiceImageCreator(
 					modelService);
-			imgCreator.getScreenImageAsBMP(dumpImageFile, lowVisionView
-					.isWholepage());
+			imgCreator
+					.getScreenImageAsBMP(
+							dumpImageFile,
+							lowVisionView.isWholepage()
+									&& targetModelService.getScrollManager()
+											.getScrollType() != IModelServiceScrollManager.NONE);
 
 			framePageImage[frameId] =
 			// partLeftWebBrowser.dumpWebBrowserImg(
@@ -603,7 +620,8 @@ public class PartControlLowVision implements ISelectionListener,
 	@SuppressWarnings("unchecked")
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		if (selection == null || !(selection instanceof IStructuredSelection)) {
-			DebugPrintUtil.devOrDebugPrintln(this.getClass().getName() + ": Iselection"); //$NON-NLS-1$
+			DebugPrintUtil.devOrDebugPrintln(this.getClass().getName()
+					+ ": Iselection"); //$NON-NLS-1$
 			return;
 		}
 		ArrayList<IPositionSize> result = new ArrayList<IPositionSize>();

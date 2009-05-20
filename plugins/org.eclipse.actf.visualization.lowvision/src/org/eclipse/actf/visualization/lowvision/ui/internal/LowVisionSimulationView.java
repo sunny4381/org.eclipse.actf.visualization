@@ -81,15 +81,16 @@ public class LowVisionSimulationView {
 
 	protected void displayImage(ImageData newImageData, IModelService target) {
 		_imageCanvas.showImage(newImageData, target);
-		_imageCanvas.setSync(isWholepage());
+		_imageCanvas
+				.setSync(isWholepage()
+						&& target.getScrollManager().getScrollType() != IModelServiceScrollManager.NONE);
 	}
 
 	/**
 	 * @return
 	 */
 	public boolean isWholepage() {
-		Button button = _lowVisionToolbar.getWholePageButton();
-		return (button.isEnabled() && button.getSelection());
+		return (_lowVisionToolbar.getWholePageButton().getSelection());
 	}
 
 	public void setWholePage(boolean isWholePage) {
