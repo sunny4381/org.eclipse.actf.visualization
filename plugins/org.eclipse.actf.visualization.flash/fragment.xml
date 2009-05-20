@@ -7,7 +7,7 @@
       <view
             category="org.eclipse.actf.visualization.ui.views"
             class="org.eclipse.actf.visualization.flash.ui.views.FlashDOMView"
-            icon="icons/view16/domtreeview.gif"
+            icon="icons/view16/flash_outline.gif"
             id="org.eclipse.actf.visualization.flash.ui.views.FlashDOMView"
             name="%FlashDOMView.name"/>
    </extension>
