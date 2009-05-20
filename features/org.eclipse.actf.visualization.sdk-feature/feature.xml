@@ -20,6 +20,10 @@
       %license
    </license>
 
+   <url>
+      <update label="Eclipse ACTF Update Site" url="http://download.eclipse.org/technology/actf/0.7/update-site/"/>
+   </url>
+
    <includes
          id="org.eclipse.actf.visualization.source"
          version="0.0.0"/>
