@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ACTF Visualization Plug-in (Incubation)
+Bundle-Name: ACTF Visualization (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.visualization;singleton:=true
 Bundle-Version: 0.7.0.qualifier
 Bundle-Vendor: Eclipse.org
