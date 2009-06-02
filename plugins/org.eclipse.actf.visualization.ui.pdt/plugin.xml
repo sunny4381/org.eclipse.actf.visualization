@@ -51,7 +51,7 @@
          	label="%actf.action.simulate"
          	menubarPath="org.eclipse.actf.visualization.ui.pdt.menu/"
          	toolbarPath="ACTF/visualization"
-         	icon="icons/simulation16.gif"
+         	icon="icons/etool16/simulation.png"
          	style="push"/>
 			<action
          	class="org.eclipse.actf.visualization.internal.ui.pdt.VisualizeActionForPdt"
@@ -60,7 +60,7 @@
          	label="%actf.action.visualize"
          	menubarPath="org.eclipse.actf.visualization.ui.pdt.menu/"
          	toolbarPath="ACTF/visualization"
-         	icon="icons/visualize.gif"
+         	icon="icons/etool16/visualize.png"
          	style="push"/>
          </actionSet>
          </extension>  

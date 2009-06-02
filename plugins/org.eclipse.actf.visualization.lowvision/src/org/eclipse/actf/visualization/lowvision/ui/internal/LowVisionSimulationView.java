@@ -21,18 +21,16 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
 public class LowVisionSimulationView {
 
 	private VisualizationCanvas _imageCanvas;
 
-	private LowVisionToolbar _lowVisionToolbar;
+	// private LowVisionToolbar _lowVisionToolbar;
 
 	// separate from PartRightLowVision
-	public LowVisionSimulationView(Composite parent,
-			PartControlLowVision lowVisionCtrl) {
+	public LowVisionSimulationView(Composite parent) {
 
 		GridData gridData;
 
@@ -42,8 +40,8 @@ public class LowVisionSimulationView {
 		gridLayout.horizontalSpacing = gridLayout.verticalSpacing = 0;
 		parent.setLayout(gridLayout);
 
-		this._lowVisionToolbar = new LowVisionToolbar(parent, SWT.NONE,
-				lowVisionCtrl);
+		// this._lowVisionToolbar = new LowVisionToolbar(parent, SWT.NONE,
+		// lowVisionCtrl);
 
 		Composite compositeLowVisionHalf2 = new Composite(parent, SWT.NONE);
 		gridData = new GridData();
@@ -79,46 +77,16 @@ public class LowVisionSimulationView {
 		_imageCanvas.clear();
 	}
 
-	protected void displayImage(ImageData newImageData, IModelService target) {
+	protected void displayImage(ImageData newImageData, IModelService target,
+			boolean wholePage) {
 		_imageCanvas.showImage(newImageData, target);
 		_imageCanvas
-				.setSync(isWholepage()
+				.setSync(wholePage
 						&& target.getScrollManager().getScrollType() != IModelServiceScrollManager.NONE);
 	}
 
-	/**
-	 * @return
-	 */
-	public boolean isWholepage() {
-		return (_lowVisionToolbar.getWholePageButton().getSelection());
-	}
-
-	public void setWholePage(boolean isWholePage) {
-		this._lowVisionToolbar.getWholePageButton().setSelection(isWholePage);
-	}
-
 	protected void setCurrentModelService(IModelService current) {
-
 		_imageCanvas.setCurrentModelService(current);
-
-		Button button = _lowVisionToolbar.getWholePageButton();
-
-		if (null == current) {
-			button.setEnabled(false);
-			return;
-		}
-
-		switch (current.getScrollManager().getScrollType()) {
-		case IModelServiceScrollManager.ABSOLUTE_COORDINATE:
-		case IModelServiceScrollManager.INCREMENTAL:
-		case IModelServiceScrollManager.PAGE:
-			button.setEnabled(true);
-			break;
-		case IModelServiceScrollManager.NONE:
-		default:
-			button.setEnabled(false);
-		}
-
 	}
 
 }

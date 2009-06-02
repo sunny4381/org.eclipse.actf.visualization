@@ -79,7 +79,7 @@ public class PartControlBlind implements IHighlightElementListener {
 		this.vizView = vizView;
 		this._shell = parent.getShell();
 
-		new BlindToolBar(parent, SWT.NONE, this);
+		//new BlindToolBar(parent, SWT.NONE, this);
 
 		this._blindBrowser = new BlindVisualizationBrowser(parent);
 		this._blindBrowser.setBrowserSilent();

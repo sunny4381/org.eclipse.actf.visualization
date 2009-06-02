@@ -43,6 +43,7 @@ import org.eclipse.actf.visualization.lowvision.LowVisionVizPlugin;
 import org.eclipse.actf.visualization.lowvision.eval.CheckResultLowVision;
 import org.eclipse.actf.visualization.lowvision.eval.SaveReportLowVision;
 import org.eclipse.actf.visualization.lowvision.eval.SummaryEvaluationLV;
+import org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView;
 import org.eclipse.actf.visualization.lowvision.util.LowVisionUtil;
 import org.eclipse.actf.visualization.lowvision.util.ParamLowVision;
 import org.eclipse.actf.visualization.lowvision.util.SimulateLowVision;
@@ -106,7 +107,7 @@ public class PartControlLowVision implements ISelectionListener,
 
 	private String dumpImageFile;
 
-	private IVisualizationView checker;
+	private LowVisionView checker;
 
 	private Mediator mediator = Mediator.getInstance();
 
@@ -247,7 +248,7 @@ public class PartControlLowVision implements ISelectionListener,
 		}
 	}
 
-	public PartControlLowVision(IVisualizationView checker, Composite parent) {
+	public PartControlLowVision(LowVisionView checker, Composite parent) {
 
 		this.checker = checker;
 
@@ -256,7 +257,7 @@ public class PartControlLowVision implements ISelectionListener,
 		paramLowVision = ParamLowVision.getDefaultInstance();
 		this._saveReportLowVision = new SaveReportLowVision(_shell);
 
-		lowVisionView = new LowVisionSimulationView(parent, this);
+		lowVisionView = new LowVisionSimulationView(parent);
 
 		_isInSimulate = false;
 
@@ -424,7 +425,7 @@ public class PartControlLowVision implements ISelectionListener,
 			imgCreator
 					.getScreenImageAsBMP(
 							dumpImageFile,
-							lowVisionView.isWholepage()
+							checker.isWholepage()
 									&& targetModelService.getScrollManager()
 											.getScrollType() != IModelServiceScrollManager.NONE);
 
@@ -519,7 +520,7 @@ public class PartControlLowVision implements ISelectionListener,
 							.getAbsolutePath());
 			if (imageDataArray.length > 0) {
 				lowVisionView.displayImage(imageDataArray[0],
-						targetModelService);
+						targetModelService, checker.isWholepage());
 				imageDataArray = null;
 			}
 		} catch (Exception e) {
@@ -546,10 +547,6 @@ public class PartControlLowVision implements ISelectionListener,
 		// TODO for HPB integration
 		// return (aDesigner.isChildThread());
 		return false;
-	}
-
-	public void setWholePage(boolean isWhole) {
-		lowVisionView.setWholePage(isWhole);
 	}
 
 	public void setLVParamStatus() {

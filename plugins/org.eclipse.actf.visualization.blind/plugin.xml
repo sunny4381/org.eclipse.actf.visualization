@@ -7,7 +7,7 @@
       <view
             category="org.eclipse.actf.visualization.ui.views"
             class="org.eclipse.actf.visualization.blind.ui.views.BlindView"
-            icon="icons/visualize.gif"
+            icon="icons/view16/visualize.gif"
             id="org.eclipse.actf.visualization.blind.ui.views.BlindView"
             name="%actf.blind.view.title"/>
    </extension>
@@ -27,7 +27,7 @@
          	label="%actf.action.visualize"
          	menubarPath="org.eclipse.actf.visualization.menu/"
          	toolbarPath="ACTF/visualization"
-         	icon="icons/visualize.gif"
+         	icon="icons/etool16/visualize.png"
          	style="push"/>
          </actionSet>
          </extension>

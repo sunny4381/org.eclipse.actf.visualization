@@ -15,20 +15,28 @@ import java.util.HashSet;
 import org.eclipse.actf.mediator.MediatorEvent;
 import org.eclipse.actf.ui.util.AbstractPartListener;
 import org.eclipse.actf.ui.util.PlatformUIUtil;
+import org.eclipse.actf.visualization.blind.ui.actions.BlindSaveAction;
+import org.eclipse.actf.visualization.blind.ui.actions.BlindVisualizationAction;
 import org.eclipse.actf.visualization.blind.ui.internal.PartControlBlind;
 import org.eclipse.actf.visualization.blind.ui.internal.SelectionListenerBlind;
+import org.eclipse.actf.visualization.engines.blind.html.ui.actions.BlindOpenIdCssAction;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementViewerManagerFactory;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerManager;
+import org.eclipse.actf.visualization.engines.blind.ui.actions.BlindSettingAction;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableLabelProvider;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableSorter;
 import org.eclipse.jface.action.IContributionItem;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IPageListener;
 import org.eclipse.ui.IViewSite;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
@@ -71,7 +79,20 @@ public class BlindView extends ViewPart implements IVisualizationView {
 		// for element viewer
 		elementViewerManager.setHighlightElementListener(partRightBlind);
 		addPartListener();
-
+		
+		//prepare actions
+		
+		IActionBars bars = getViewSite().getActionBars();
+		// IMenuManager menuManager = bars.getMenuManager();
+		IToolBarManager toolbarManager = bars.getToolBarManager();
+		
+		toolbarManager.add(new BlindVisualizationAction(partRightBlind));
+		toolbarManager.add(new BlindSettingAction());
+		toolbarManager.add(new BlindSaveAction(partRightBlind));
+		toolbarManager.add(new BlindOpenIdCssAction());
+		
+		toolbarManager
+				.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 
 	public void setFocus() {

@@ -22,7 +22,7 @@ public class BlindVisualizationAction extends Action {
 	public BlindVisualizationAction(PartControlBlind prb) {
 		setToolTipText(Messages.BlindView_Visualize_4); 
 		setImageDescriptor(BlindVizResourceUtil
-				.getImageDescriptor("icons/visualize_A.png")); //$NON-NLS-1$
+				.getImageDescriptor("icons/etool16/visualize.png")); //$NON-NLS-1$
 		setText(Messages.BlindVisualizationAction_0); 
 		this.prb = prb;
 	}
