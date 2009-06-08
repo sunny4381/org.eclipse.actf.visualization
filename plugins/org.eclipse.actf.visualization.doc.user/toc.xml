@@ -26,16 +26,16 @@
 	<topic label="Using ACTF Visualization" href="docs/usingdesigner.html">
 		<topic label="How to change the perspective of ACTF Visualization" href="docs/switchPerspective.html"/>
 		<topic label="HTML Accessibility perspective" href="docs/usingHtmlMode.html">		
-			<topic label="Checking the accessibility and usability of a document in the blind tab" href="docs/checkBlind.html"/>
-			<topic label="Checking the accessibility and usability of a document in the low vision tab" href="docs/checkLv.html"/>
+			<topic label="Checking the accessibility and usability of a document in the Blind Usability View" href="docs/checkBlind.html"/>
+			<topic label="Checking the accessibility and usability of a document in the Low Vision View" href="docs/checkLv.html"/>
 			<topic label="Accessibility and usability problems for blind users" href="docs/problemsBlind.html"/>			
 			<topic label="Accessibility and usability problems for users with low vision" href="docs/problemsLv.html"/>
 			<topic label="Compliance and accessibility guidelines for Web content" href="docs/compliance.html"/>
 		</topic>
 		<topic label="OpenDocument Accessibility perspective" href="docs/usingOdfMode.html">
 			<topic label="Installation guide for OpenDocument Accessibility perspective" href="docs/odf/install.html"/>
-			<topic label="Checking the accessibility and usability of a document in the blind tab" href="docs/checkOdfBlind.html"/>
-			<topic label="Checking the accessibility and usability of a document in the low vision tab" href="docs/checkOdfLv.html"/>
+			<topic label="Checking the accessibility and usability of a document in the Blind Usability View" href="docs/checkOdfBlind.html"/>
+			<topic label="Checking the accessibility and usability of a document in the Low Vision View" href="docs/checkOdfLv.html"/>
 			<topic label="Checking how the slide show of a presentation file looks in a meeting room" href="docs/checkOdfPresentation.html"/>
 			<topic label="OpenDocument accessibility checklist" href="docs/odf/guideline.html"/>
 		</topic>
