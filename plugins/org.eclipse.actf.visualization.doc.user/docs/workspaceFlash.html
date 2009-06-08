@@ -4,51 +4,43 @@
 <META http-equiv="Content-Type" CONTENT="text/html; charset=iso-8859-1">
 <META http-equiv="Content-Style-Type" content="text/css">
 <meta name="copyright" content="Copyright (c) IBM Corporation and others 2007. This page is made available under license. For full details see the LEGAL in the documentation book that contains this page." >
-<TITLE>Exploring the Flash Accessibility mode</TITLE>
+<TITLE>Exploring the Flash Accessibility perspective</TITLE>
 <LINK href="base.css" rel="stylesheet" type="text/css" class="head">
 </HEAD>
 <BODY>
-<H1>Exploring the Flash Accessibility mode</H1>
+<H1>Exploring the Flash Accessibility perspective</H1>
 
 <ul>
-<li><a href="#modeChange">Switch Mode</a>
+<li><a href="#overview">Overview</a>
 <li><a href="#flashdomView">Flash Outline view</a>
 <li><a href="#guiprop">Content in the GUI Properties View</a>
 <li><a href="#flashdomLogview">Flash Proxy Logs view</a>
 </ul>
 
-<H2 id="modeChange">Switch Mode</H2>
+<H2 id="overview">Overview</H2>
 <P>
-Select the <B>File &gt; Switch Modes...</B> menu to open the <B>Select a mode</B> dialog.
-Then select the <B>Flash Accessibility</B> option to switch to the Flash Accessibility mode.
-</P>
-<DIV class="figure">
-<IMG src="images/flash/mode.png" alt=""><BR>
-<SPAN>Figure 1. Mode selection dialog</SPAN>
-</DIV>
-<P>
-In the Flash accessibility mode, 
+In the Flash Accessibility perspective, 
 the <a href="workspaceGui.html#guiSummary">GUI Summary view</a>, 
 <a href="workspaceGui.html#guiOutline">GUI Outline view</a>, 
 <a href="workspaceGui.html#guiProperty">GUI Properties view</a>, 
 <a href="workspaceGui.html#guiEvent">GUI Event view</a>, 
 <a href="workspaceGui.html#guiReport">GUI Report view</a>, and  
 <a href="workspaceGui.html#guiList">GUI Siblings view</a> 
-are shown as in the GUI accessibility mode (Figure 2), but different information is shown in the <b>GUI 
+are shown as in the GUI Accessibility perspective (Figure 1), but different information is shown in the <b>GUI 
 Properties</b> view. See the following sections for details.
-In this mode, the <a href="workspace.html#browser_view">Browser view</a>, 
+In this perspective, the <a href="workspace.html#browser_view">Browser view</a>, 
 the <a href="#flashdomView">Flash Outline view</a>, 
 and the <a href="#flashdomLogview">Flash Proxy Logs view</a> are also available.
 </P>
 
 <DIV class="figure">
 <IMG src="images/flash/ui.jpg" alt=""><BR>
-<SPAN>Figure 2. User interface of the Flash Accessibility mode</SPAN>
+<SPAN>Figure 1. User interface of the Flash Accessibility perspective</SPAN>
 </DIV>
 
 <H2 id="flashdomView">Flash Outline view</H2>
 <P>
-The <b>Flash outline</b> view (Figure 3) is shown in the middle pane on the right side, 
+The <b>Flash outline</b> view (Figure 2) is shown in the middle pane on the right side, 
 where the runtime and internal structure of the Flash content is shown.
 </p>
 
@@ -92,7 +84,7 @@ See the <a href="#guiprop">next section</a> for details.
 </p>
 <DIV class="figure">
 <IMG src="images/flash/flashdom.png" alt=""><BR>
-<SPAN>Figure 3. Flash Outline view</SPAN>
+<SPAN>Figure 2. Flash Outline view</SPAN>
 </DIV>
 
 <H3 class="menudesc">Related functions</H3>
@@ -129,14 +121,14 @@ if a circular reference exists.</DD>
 <H2 id="guiprop">Content in the GUI Properties View</H2>
 <P>
 When a row is selected in the <b>Flash Outline</b> view, the details for that object are shown in the 
-<b>GUI Properties</b> view (Figure 4) in the bottom-right corner, 
-but the content is different from that which is shown in the GUI Accessibility mode. 
+<b>GUI Properties</b> view (Figure 3) in the bottom-right corner, 
+but the content is different from that which is shown in the GUI Accessibility perspective. 
 The displayed properties depend on the kind of entry selected. 
 Important possible properties and their meanings include:
 </P>
 <DIV class="figure">
 <IMG src="images/flash/guiprop.png" alt=""><BR>
-<SPAN>Figure 4. GUI Properties view</SPAN>
+<SPAN>Figure 3. GUI Properties view</SPAN>
 </DIV>
 
 <DL>
@@ -224,7 +216,7 @@ See <a href="workspaceGui.html#guiProperty">here</a> for other user interface el
 
 <H2 id="flashdomLogview">Flash Proxy Logs view</H2>
 <P>
-The <b>Flash Proxy Logs</b> view is in the bottom-right pane (Figure 5).
+The <b>Flash Proxy Logs</b> view is in the bottom-right pane (Figure 4).
 By default, the view is hidden, since the tab for <b>GUI Properties view</b> is selected. 
 As <a href="#proxy">described earlier</a>, to accesses the internal structure of Flash content, 
 ACTF uses its own internal proxy and obtains the Flash content via the proxy. 
@@ -263,7 +255,7 @@ The trace logs are not shown by default.
 
 <DIV class="figure">
 <IMG src="images/flash/domlog.png" alt=""><BR>
-<SPAN>Figure 5. Flash Proxy Logs view</SPAN>
+<SPAN>Figure 4. Flash Proxy Logs view</SPAN>
 </DIV>
 
 <H3 class="menudesc">Related functions</H3>
@@ -288,10 +280,10 @@ This is mainly used to debug the proxy.</DD>
 
 <H1 class="related">Related topics</H1>
 <UL class="related">
-<LI><A href="workspace.html">Exploring the HTML Accessibility mode</A>
-<LI><A href="workspaceGui.html">Exploring the GUI Accessibility mode</A>
+<LI><A href="workspace.html">Exploring the HTML Accessibility perspective</A>
+<LI><A href="workspaceGui.html">Exploring the GUI Accessibility perspective</A>
 <LI><A href="checkFlash.html">Checking the accessibility of a webpage containing Flash content in the 
-Flash Accessibility mode</A>
+Flash Accessibility perspective</A>
 </UL>
 
 <P>
