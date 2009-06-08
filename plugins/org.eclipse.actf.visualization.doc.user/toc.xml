@@ -51,9 +51,9 @@
 		<topic label="Low Vision Simulation preference page" href="docs/parametersLv.html"/>
 		<topic label="ID/AccessKey/Class/CSS Inspector Panel" href="docs/elementCss.html"/>
 		<topic label="HTML Source viewer" href="docs/sourceViewer.html"/>
-		<topic label="OpenDocument Accessibility perspective panel" href="docs/viewsOdf.html"/>				
-		<topic label="GUI Accessibility perspective panel" href="docs/viewsGui.html"/>
-		<topic label="Flash Accessibility perspective panel" href="docs/viewsFlash.html"/>
+		<topic label="OpenDocument Accessibility perspective configurations" href="docs/viewsOdf.html"/>				
+		<topic label="GUI Accessibility perspective configurations" href="docs/viewsGui.html"/>
+		<topic label="Flash Accessibility perspective configurations" href="docs/viewsFlash.html"/>
 	</topic>
 	
 	<topic label="Legal" href="notices.html" />
