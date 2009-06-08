@@ -47,8 +47,8 @@
 		<topic label="User interface menus and icons" href="docs/menusIcons.html"/>
 		<topic label="Line View pane (Blind)" href="docs/lineViewBlind.html"/>
 		<topic label="Line View pane (Low Vision)" href="docs/lineViewLv.html"/>
-		<topic label="Set the Parameters dialog box (Blind Usability Visualization)" href="docs/parametersBlind.html"/>
-		<topic label="Set the Parameters dialog box (Low Vision Simulation)" href="docs/parametersLv.html"/>
+		<topic label="Blind Usability Visualization preference page" href="docs/parametersBlind.html"/>
+		<topic label="Low Vision Simulation preference page" href="docs/parametersLv.html"/>
 		<topic label="ID/AccessKey/Class/CSS Inspector Panel" href="docs/elementCss.html"/>
 		<topic label="HTML Source viewer" href="docs/sourceViewer.html"/>
 		<topic label="OpenDocument Accessibility perspective panel" href="docs/viewsOdf.html"/>				
