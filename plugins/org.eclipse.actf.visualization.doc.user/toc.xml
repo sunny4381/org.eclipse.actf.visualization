@@ -11,7 +11,7 @@
      IBM Corporation - initial API and implementation
 -->
 <toc label="ACTF Visualization User Guide" topic="docs/index.html">
-	<topic label="About ACTF Visualization" href="docs/about.html">
+	<topic label="About ACTF Visualization Feature" href="docs/about.html">
 		<topic label="Overview of the HTML Accessibility perspective" href="docs/overview.html"/>
 		<topic label="Exploring the HTML Accessibility perspective" href="docs/workspace.html"/>
 		<topic label="Two types of visualization" href="docs/modes.html"/>
@@ -23,7 +23,7 @@
 		<topic label="Exploring the Flash Accessibility perspective" href="docs/workspaceFlash.html"/>
 	</topic>
 	
-	<topic label="Using ACTF Visualization" href="docs/usingdesigner.html">
+	<topic label="Using ACTF Visualization Feature" href="docs/usingdesigner.html">
 		<topic label="How to change the perspective of ACTF Visualization" href="docs/switchPerspective.html"/>
 		<topic label="HTML Accessibility perspective" href="docs/usingHtmlMode.html">		
 			<topic label="Checking the accessibility and usability of a document in the Blind Usability View" href="docs/checkBlind.html"/>
