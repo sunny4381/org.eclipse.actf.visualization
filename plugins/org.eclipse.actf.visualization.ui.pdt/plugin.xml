@@ -18,15 +18,13 @@
          </view>
          <view
                id="org.eclipse.actf.visualization.blind.ui.views.BlindView"
-               minimized="true"
-               ratio="0.5f"
-               relationship="right"
-               relative="org.eclipse.ui.editorss"
+               minimized="false"
+               relationship="stack"
+               relative="org.eclipse.ui.views.ContentOutline"
                visible="true">
          </view>
          <view
                id="org.eclipse.actf.visualization.lowvision.ui.views.LowVisionView"
-               minimized="true"
                relationship="stack"
                relative="org.eclipse.actf.visualization.blind.ui.views.BlindView"
                visible="true">
