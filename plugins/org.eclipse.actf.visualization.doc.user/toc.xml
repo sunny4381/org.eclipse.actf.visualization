@@ -42,6 +42,8 @@
 		<topic label="Checking the accessibility of an application in the GUI Accessibility perspective" href="docs/checkGui.html"/>
 		<topic label="Checking the accessibility of a webpage containing Flash content in the Flash Accessibility perspective" href="docs/checkFlash.html"/>
 	</topic>
+ <topic href="docs/integration.html" label="Using ACTF Visualization in Web/J2EE/PHP perspectives">
+ </topic>
  <anchor id="org.eclipse.actf.visualization.doc.user.additions"/>
 	
 	<topic label="Reference" href="docs/reference.html">
