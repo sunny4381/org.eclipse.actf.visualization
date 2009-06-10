@@ -20,17 +20,32 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowPulldownDelegate;
+import org.eclipse.ui.IWorkbenchWindowPulldownDelegate2;
 
 public class PresentationSimulationAction implements
-		IWorkbenchWindowPulldownDelegate {
+		IWorkbenchWindowPulldownDelegate2 {
 
 	Menu menu;
 
 	public void dispose() {
+		menu.dispose();
 	}
 
 	public Menu getMenu(Control arg0) {
+		menu = new Menu(arg0);
+		ActionContributionItem itemL = new ActionContributionItem(
+				new LargeRoomSimulateAction());
+		itemL.fill(menu, -1);
+		ActionContributionItem itemM = new ActionContributionItem(
+				new MiddleRoomSimulateAction());
+		itemM.fill(menu, -1);
+		ActionContributionItem itemS = new ActionContributionItem(
+				new SmallRoomSimulateAction());
+		itemS.fill(menu, -1);
+		return menu;
+	}
+
+	public Menu getMenu(Menu arg0) {
 		menu = new Menu(arg0);
 		ActionContributionItem itemL = new ActionContributionItem(
 				new LargeRoomSimulateAction());
