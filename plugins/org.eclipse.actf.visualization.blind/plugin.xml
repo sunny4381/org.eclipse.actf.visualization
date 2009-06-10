@@ -26,7 +26,7 @@
          	definitionId="org.eclipse.actf.visualization.blind.ui.actions.VisualizeAction"
          	label="%actf.action.visualize"
          	menubarPath="org.eclipse.actf.visualization.menu/"
-         	toolbarPath="ACTF/visualization"
+         	toolbarPath="org.eclipse.actf.visualization.ui.actionSet/ACTFvisualization"
          	icon="icons/etool16/visualize.png"
          	style="push"/>
          </actionSet>

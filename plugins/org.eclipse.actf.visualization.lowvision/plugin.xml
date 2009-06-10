@@ -33,7 +33,7 @@
          	definitionId="org.eclipse.actf.visualization.lowvision.ui.actions.SimulationAction"
          	label="%actf.action.simulate"
          	menubarPath="org.eclipse.actf.visualization.menu/"
-         	toolbarPath="ACTF/visualization"
+         	toolbarPath="org.eclipse.actf.visualization.ui.actionSet/ACTFvisualization"
          	icon="icons/etool16/simulation.png"
          	style="push"/>
          </actionSet>
