@@ -70,6 +70,7 @@
          </view>            
          <actionSet id="org.eclipse.actf.visualization.blind.actionSet"/>
          <actionSet id="org.eclipse.actf.visualization.lowvision.actionSet"/>
+         <actionSet id="org.eclipse.actf.visualization.presentation.actionSet"/>
       </perspectiveExtension>
    </extension>
    <extension

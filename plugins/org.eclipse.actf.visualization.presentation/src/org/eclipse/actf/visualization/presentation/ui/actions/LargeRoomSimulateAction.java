@@ -10,22 +10,25 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.presentation.ui.actions;
 
+import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.actf.visualization.presentation.internal.Messages;
 import org.eclipse.actf.visualization.presentation.internal.RoomPlugin;
 import org.eclipse.actf.visualization.presentation.ui.internal.PartControlRoom;
 import org.eclipse.actf.visualization.presentation.util.ParamRoom;
+import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.jface.action.Action;
 
 public class LargeRoomSimulateAction extends Action {
 
 	public LargeRoomSimulateAction() {
-		setToolTipText(Messages.RoomSimulationAction_Large); 
+		setToolTipText(Messages.RoomSimulationAction_Large);
 		setImageDescriptor(RoomPlugin
-				.getImageDescriptor("icons/ButtonLarge.gif")); //$NON-NLS-1$
-		setText(Messages.RoomSimulationAction_Large); 
+				.getImageDescriptor("icons/etool16/Auditorium.gif")); //$NON-NLS-1$
+		setText(Messages.RoomSimulationAction_Large);
 	}
 
 	public void run() {
+		PlatformUIUtil.showView(IVisualizationView.ID_PRESENTATIONVIEW);
 		// TODO
 		PartControlRoom.getDefaultInstance().getParamLowVision().setType(
 				ParamRoom.ROOM_LARGE);
