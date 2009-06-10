@@ -22,7 +22,7 @@
       point="org.eclipse.ui.actionSets">
          <actionSet
                id="org.eclipse.actf.visualization.lowvision.actionSet"
-               label="%actf.action.visualize">
+               label="%actf.action.simulate">
             <menu
             id="org.eclipse.actf.visualization.menu"
          	label="%actf.visualization.menu">

@@ -68,6 +68,8 @@
                relationship="stack"
                relative="org.eclipse.actf.visualization.blind.ui.views.BlindView">
          </view>            
+         <actionSet id="org.eclipse.actf.visualization.blind.actionSet"/>
+         <actionSet id="org.eclipse.actf.visualization.lowvision.actionSet"/>
       </perspectiveExtension>
    </extension>
    <extension
