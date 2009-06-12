@@ -96,6 +96,7 @@
     	      <exclude name="**/logging/*Logger*.java"/>
     	      <exclude name="**/logging/LoggingUtil.java"/>
     	      <exclude name="**/PathGenerationUtil.java"/>
+    	      <exclude name="**/xpath/jaxp/*"/>
     	    </fileset>
     	    <fileset dir="../org.eclipse.actf.ui/src">
     	      <exclude name="**/*.properties"/>
@@ -129,7 +130,7 @@
         	<group title="ACTF ODF DOM Packages" 
         		packages="org.eclipse.actf.model.dom.odf*"/>
             <group title="ACTF DOM Utility Packages" 
-            	packages="org.eclipse.actf.model.dom.*:org.eclipse.actf.util.dom:org.eclipse.actf.util.xpath"/>
+            	packages="org.eclipse.actf.model.dom.*:org.eclipse.actf.util.dom:org.eclipse.actf.util.xpath*"/>
         	<group title="ACTF Flash Model Packages" 
         		packages="org.eclipse.actf.model.flash*"/>
         	<group title="ACTF Model Services Packages" 
