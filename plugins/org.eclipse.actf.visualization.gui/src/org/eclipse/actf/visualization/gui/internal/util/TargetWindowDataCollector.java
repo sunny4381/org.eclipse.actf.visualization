@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.actf.visualization.gui.GuiTargetWindowData;
 import org.eclipse.actf.visualization.gui.TargetWindowDataProvider;
 import org.eclipse.actf.visualization.gui.internal.GuiPlugin;
+import org.eclipse.actf.visualization.gui.internal.GuiTargetWindowData;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.Platform;
 

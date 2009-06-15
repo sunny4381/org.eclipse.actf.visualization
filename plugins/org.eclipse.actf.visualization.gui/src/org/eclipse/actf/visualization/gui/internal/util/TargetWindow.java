@@ -14,8 +14,8 @@ package org.eclipse.actf.visualization.gui.internal.util;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
 import org.eclipse.actf.util.win32.WindowUtil;
-import org.eclipse.actf.visualization.gui.GuiTargetWindowData;
 import org.eclipse.actf.visualization.gui.TargetWindowDataProvider;
+import org.eclipse.actf.visualization.gui.internal.GuiTargetWindowData;
 import org.eclipse.swt.widgets.Composite;
 
 

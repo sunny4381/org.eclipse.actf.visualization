@@ -9,7 +9,7 @@
  *    Takashi ITOH - initial API and implementation
  *******************************************************************************/
 
-package org.eclipse.actf.visualization.gui;
+package org.eclipse.actf.visualization.gui.internal;
 
 import java.io.File;
 
