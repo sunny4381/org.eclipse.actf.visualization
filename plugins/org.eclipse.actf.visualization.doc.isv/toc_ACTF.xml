@@ -2,4 +2,12 @@
 <?NLS TYPE="org.eclipse.help.toc"?>
 
 <toc label="Programmer's Guide" href="html/actf.html">
+   <topic href="html/model/modelservice.html" label="How to access IModelService">
+      <topic href="html/model/dom_live.html" label="Difference between LiveDocument and Document">
+      </topic>
+   </topic>
+   <topic href="html/model/htmlparser/parser.html" label="How to use ACTF HTML Parser">
+   </topic>
+   <topic href="html/checker/customize.html" label="How to extend/customize HTML checker">
+   </topic>
 </toc>
