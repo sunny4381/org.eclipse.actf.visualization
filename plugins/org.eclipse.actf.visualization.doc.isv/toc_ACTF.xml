@@ -6,7 +6,7 @@
       <topic href="html/model/dom_live.html" label="Difference between LiveDocument and Document">
       </topic>
    </topic>
-   <topic href="html/model/htmlparser/parser.html" label="How to use ACTF HTML Parser">
+   <topic href="html/model/htmlparser.html" label="How to use ACTF HTML Parser">
    </topic>
    <topic href="html/checker/customize.html" label="How to extend/customize HTML checker">
    </topic>

@@ -11,7 +11,31 @@
 <body>
 
 <h1>How to access IModelService</h1>
- <p>
- </p>
+ACTF Editors provides access to model of content through <a href="../../reference/api/org/eclipse/actf/model/ui/IModelService.html">IModelService</a> interface. 
+This section introduces how to obtain IModelService.
+ <ol>
+  <li>from org.eclipse.actf.model.ui.util.ModelServiceUtils
+   <ul class="nospace">
+    <li><b>getActiveModelService()</b> : returns active implementation of IModelService</li>
+    <li><b>launch(URL)/launch(URL, EditorID)</b> : launch (or activate) and return IEditorPart</li>
+   </ul>
+   <br>
+   ACTF Editors implement IModelServiceHolder, then you can obtain IModelService implementation by 
+   <pre>((IModelServiceHolder)editor).getModelServise();</pre>
+  </li>
+  <li>from org.eclipse.actf.mediator.MediatorEvent
+   <ul class="nospace">
+    <li>implement <b>IACTFReportGenerator</b> or <b>IACTFReportViewer</b> to your views</li>
+    <li>implement IMediatorEventListener and register it to <b>Mediator</b>.<br>
+       (<b>MediatorEvent</b> contains related <b>IModelServiceHolder</b>.)      
+    </li>
+   </ul>
+  </li>
+ </ol>
+
+<h1 class="related">Related topics</h1>
+<ul class="related">
+<li><a href="dom_live.html">Difference between LiveDocument and Document</a></li>
+</ul> 
 </body>
 </html>
