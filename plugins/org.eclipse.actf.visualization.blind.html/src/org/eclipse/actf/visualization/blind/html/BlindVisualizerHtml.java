@@ -18,6 +18,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Vector;
 
@@ -82,6 +83,8 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 		return false;
 	}
 
+	private final boolean PERFORMANCE_DEBUG = false;
+	
 	public int visualize() {
 		GuidelineHolder.getInstance().setTargetMimeType("text/html"); //$NON-NLS-1$
 
@@ -92,12 +95,14 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 		File targetFile;
 
 		try {
-
+			if (PERFORMANCE_DEBUG) System.out.println("vizualize start\t"+(new Date()).getTime());
 			srcFile = webBrowser.saveOriginalDocument(tmpDirS + ORIG_HTML_FILE);
 			liveFile = webBrowser
 					.saveDocumentAsHTMLFile(tmpDirS + IE_HTML_FILE);
 			// for srcViewer
 			webBrowser.saveOriginalDocument(tmpDirS + HTML_SOURCE_FILE);
+
+			if (PERFORMANCE_DEBUG) System.out.println("save documents\t"+(new Date()).getTime());
 
 			Vector<Html2ViewMapData> html2ViewMapV = new Vector<Html2ViewMapData>();
 			IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
@@ -148,6 +153,8 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 				targetFile = srcFile;
 			}
+			if (PERFORMANCE_DEBUG) System.out.println("parse documents\t"+(new Date()).getTime());
+
 			// System.out.println(document+" "+ _originalDom+" "+ ieDom);
 
 			boolean hasFrame = false;
@@ -182,9 +189,13 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			// engine.setInvisibleIdSet(invisibleIdSet);
 
 			engine.setInvisibleIdSet(new HashSet<String>());
+			if (PERFORMANCE_DEBUG) System.out.println("setInvisibleIdSet\t"+(new Date()).getTime());
 
 			engine.setPageData(pageData);
+			if (PERFORMANCE_DEBUG) System.out.println("setPageData\t"+(new Date()).getTime());
+
 			engine.visualize();
+			if (PERFORMANCE_DEBUG) System.out.println("do vizualize\t"+(new Date()).getTime());
 
 			maxReachingTime = engine.getMaxTime();
 			setInfoMessage(getMaxReachingTime());
@@ -212,6 +223,8 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			edu.setSrcFile(srcFile);
 			edu.setTargetFile(targetFile);
 
+			if (PERFORMANCE_DEBUG) System.out.println("HtmlEvalUtil\t"+(new Date()).getTime());
+
 			ArrayList<IProblemItem> tmpResults = new ArrayList<IProblemItem>(
 					1024);
 
@@ -233,6 +246,9 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 					tmpResults.addAll(checkers[i].check(checkTarget));
 				}
 			}
+			
+			if (PERFORMANCE_DEBUG) System.out.println("checked\t"+(new Date()).getTime());
+
 
 			// TODO support blind biz -> visitor
 			for (int i = 0; i < tmpResults.size(); i++) {
@@ -252,6 +268,9 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			checkResult
 					.addProblemItems(errorLogListener.getHtmlProblemVector());
 			checkResult.accept(pageData);
+			
+			if (PERFORMANCE_DEBUG) System.out.println("process problems\t"+(new Date()).getTime());
+
 
 			// TODO move (add Icons into result doc) here
 
@@ -272,6 +291,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 						.devOrDebugPrintln("error: saveHtmlDocumentAsUTF8"); //$NON-NLS-1$
 			}
 
+			if (PERFORMANCE_DEBUG) System.out.println("vizualize end\t"+(new Date()).getTime());
 			if (hasFrame) {
 				pageData.setHasFrame(true);
 				return FRAME;

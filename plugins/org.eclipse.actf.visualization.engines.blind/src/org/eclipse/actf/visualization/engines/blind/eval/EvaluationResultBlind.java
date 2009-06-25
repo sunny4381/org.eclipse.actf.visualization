@@ -15,24 +15,16 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.actf.util.xpath.XPathService;
-import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.eclipse.actf.visualization.eval.EvaluationResultImpl;
 import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
+import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.w3c.dom.NodeList;
 
 /**
  * Implementation class of {@link IEvaluationResult}
  */
 public class EvaluationResultBlind extends EvaluationResultImpl {
-
-	private static final XPathService xpathService = XPathServiceFactory
-			.newService();
-	private static final Object EXP1 = xpathService
-			.compile("ancestor::noscript"); //$NON-NLS-1$
-
 	private int count = 0;
 	private PageEvaluation pageEvaluation = null;
 
@@ -56,10 +48,8 @@ public class EvaluationResultBlind extends EvaluationResultImpl {
 					tmpItem.setSerialNumber(count);
 					if (tmpItem.isCanHighlight()
 							&& tmpItem.getTargetNode() != null) {
-						NodeList tmpNL = xpathService.evalForNodeList(EXP1,
-								tmpItem.getTargetNode());
-						// noframes can highlight
-						if (tmpNL != null && tmpNL.getLength() > 0) {
+						
+						if (HtmlTagUtil.hasAncestor(tmpItem.getTargetNode(), "script")) {
 							tmpItem.setCanHighlight(false);
 						}
 					}

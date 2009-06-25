@@ -81,6 +81,27 @@ public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
 		}
 		return (result);
 	}
+	
+
+	/**
+	 * Get ancestor node whose name is specified target name 
+	 * 
+	 * @param target
+	 *            target {@link Node}
+	 * @param ancestorName
+	 *            target ancestor tag name
+	 * @return true if target {@link Node} has target ancestor
+	 */
+	public static Node getAncestor(Node target, String ancestorName) {
+		Node tmpNode = target;
+		while (tmpNode != null) {
+			if (tmpNode.getNodeName().equals(ancestorName)) {
+				return tmpNode;
+			}
+			tmpNode = tmpNode.getParentNode();
+		}
+		return null;
+	}
 
 	/**
 	 * Get <i>noscript</i> text of the {@link Node}

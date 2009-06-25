@@ -17,11 +17,12 @@ import java.util.Vector;
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.xpath.XPathService;
 import org.eclipse.actf.util.xpath.XPathServiceFactory;
+import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
 import org.eclipse.actf.visualization.internal.eval.XMLStringUtil;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
 import org.w3c.dom.html.HTMLAnchorElement;
 import org.w3c.dom.html.HTMLImageElement;
 import org.xml.sax.Attributes;
@@ -36,10 +37,6 @@ public class ImageStatData implements IPageStatisticsTag {
 	public static final String USEMAP = "usemap"; //$NON-NLS-1$
 
 	public static final String LONGDESC = "longdesc"; //$NON-NLS-1$
-
-	private static final XPathService xpathService = XPathServiceFactory
-			.newService();
-	private static final Object EXP1 = xpathService.compile("ancestor::a"); //$NON-NLS-1$
 
 	protected String altS = ""; //$NON-NLS-1$
 
@@ -117,18 +114,19 @@ public class ImageStatData implements IPageStatisticsTag {
 		}
 
 		isMap = target.getIsMap();
+		
 
-		NodeList tmpNL = xpathService.evalForNodeList(EXP1, target);
-		// XPathUtil.showNodeList(tmpNL,true);
-		int len = tmpNL.getLength();
-		if (len > 0) {
-			HTMLAnchorElement tmpE = (HTMLAnchorElement) tmpNL.item(0);
-			if (isInLink = tmpE.hasAttribute(HREF)) {
-				destUrlS = tmpE.getHref();
-				ancestorLink = tmpE;
-				try {
-					destUrlS = new URL(baseURL, destUrlS).toString();
-				} catch (Exception e) {
+		if (HtmlTagUtil.hasAncestor(target, "a")) {
+			Node temp = HtmlTagUtil.getAncestor(target, "a");
+			if (temp != null) {
+				HTMLAnchorElement tmpE = (HTMLAnchorElement) temp;
+				if (isInLink = tmpE.hasAttribute(HREF)) {
+					destUrlS = tmpE.getHref();
+					ancestorLink = tmpE;
+					try {
+						destUrlS = new URL(baseURL, destUrlS).toString();
+					} catch (Exception e) {
+					}
 				}
 			}
 		}

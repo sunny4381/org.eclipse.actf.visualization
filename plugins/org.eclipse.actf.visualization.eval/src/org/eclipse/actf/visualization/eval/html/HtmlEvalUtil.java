@@ -15,6 +15,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -38,6 +39,8 @@ import org.w3c.dom.html.HTMLImageElement;
  * Utility class for HTML evaluation
  */
 public class HtmlEvalUtil extends HtmlTagUtil {
+	
+	private static final boolean PERFORMANCE_DEBUG = false;
 
 	private static final int LONG_TEXT_NUM = 200; // TODO check
 
@@ -247,6 +250,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		this.document2IdMap = document2IdMap;
 		// this.html2ViewMapData = html2ViewMapData;
 
+		if (PERFORMANCE_DEBUG) System.out.println("document2IdMap\t"+(new Date()).getTime());
+
 		this.isDBCS = isDBCS;
 
 		// prepare freq use elements
@@ -255,7 +260,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 		NodeList tmpNL = xpathService.evalForNodeList(EXP1, target);
 		int length = tmpNL.getLength();
-
+		
 		if (length > 0) {
 			hasAwithHref = true;
 		}
@@ -293,6 +298,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		pageData.setImageDataMap(tmpMap);
 		pageData.setLinkImageDataMap(linkImgMap);
 
+		if (PERFORMANCE_DEBUG) System.out.println("process images\t"+(new Date()).getTime());
+
 		// TODO use XPath
 		tmpNL = target.getElementsByTagName("table"); //$NON-NLS-1$
 		length = tmpNL.getLength();
@@ -324,10 +331,15 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		b1row1colV.toArray(bottom_1row1col_tables);
 		bNotDataV.toArray(bottom_notdata_tables);
 		parentV.toArray(parent_table_elements);
+		
+		if (PERFORMANCE_DEBUG) System.out.println("process tables\t"+(new Date()).getTime());
+
 
 		body_elements = getElementsArray(target, "body");
 		frame_elements = getElementsArray(target, "frame");
 		iframe_elements = getElementsArray(target, "iframe");
+
+		if (PERFORMANCE_DEBUG) System.out.println("process frames\t"+(new Date()).getTime());
 
 		HashSet<Element> embedInObjectSet = new HashSet<Element>();
 
@@ -402,6 +414,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			}
 		}
 
+		if (PERFORMANCE_DEBUG) System.out.println("process object\t"+(new Date()).getTime());
+
 		NodeList headingsNL = xpathService.evalForNodeList(EXP2, target);
 		length = headingsNL.getLength();
 		Vector<HeadingsData> tmpV2 = new Vector<HeadingsData>();
@@ -413,8 +427,12 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		}
 		pageData.setHeadingsData(tmpV2);
 
+		if (PERFORMANCE_DEBUG) System.out.println("process headins\t"+(new Date()).getTime());
+
 		collectScriptElements();
+		if (PERFORMANCE_DEBUG) System.out.println("collectScriptElements\t"+(new Date()).getTime());
 		calcDomDifference();
+		if (PERFORMANCE_DEBUG) System.out.println("calcDomDifference\t"+(new Date()).getTime());
 	}
 
 	private Element[] getElementsArray(Document target, String tagName) {
@@ -508,10 +526,19 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 					.asList(aWithHref_hrefs));
 			// trim()?
 
+			/*
 			NodeList ieNL = xpathService.evalForNodeList(EXP1, liveDom);
 			int size = ieNL.getLength();
+			*/
+			
+			NodeList ieNL = liveDom.getElementsByTagName("a");
+			int size = ieNL.getLength();
+
 			for (int i = 0; i < size; i++) {
 				Element tmpE = (Element) ieNL.item(i);
+				if (!tmpE.hasAttribute(ATTR_HREF)) {
+					continue;
+				}
 				String tmpS = tmpE.getAttribute(ATTR_HREF);
 				if (!existSet.contains(tmpS)) {
 					notExistHrefSet.add(tmpS);
