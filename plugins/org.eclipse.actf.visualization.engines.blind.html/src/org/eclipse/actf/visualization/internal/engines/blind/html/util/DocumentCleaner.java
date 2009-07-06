@@ -269,7 +269,7 @@ public class DocumentCleaner {
 
 	public static void removeDisplayNone(Document doc) {
 		NodeList tmpNL = doc.getElementsByTagName("div");
-		for (int i = 0; i < tmpNL.getLength(); i++) {
+		for (int i = tmpNL.getLength()-1; i >= 0; i--) {
 			Element tmpE = (Element) tmpNL.item(i);
 			// System.out.println(tmpE.getAttribute("style"));
 			if (tmpE.getAttribute("style").indexOf("DISPLAY: none") > -1) {
