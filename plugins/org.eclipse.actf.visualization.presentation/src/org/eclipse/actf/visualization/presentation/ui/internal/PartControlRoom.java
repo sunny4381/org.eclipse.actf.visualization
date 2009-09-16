@@ -145,6 +145,9 @@ public class PartControlRoom implements IVisualizationConst {
 				.getSize().y);
 
 		try {
+			if(vizResultFile!=null){
+				vizResultFile.delete();
+			}
 			vizResultFile = RoomPlugin.createTempFile(PREFIX_VISUALIZATION,
 					SUFFIX_BMP);
 			ImageData[] imageDataArray = SimulateRoom.doSimulate(

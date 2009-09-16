@@ -101,6 +101,8 @@ public class RoomPlugin extends AbstractUIPlugin {
 	 */
 	public void stop(BundleContext context) throws Exception {
 		super.stop(context);
+		deleteFiles(tmpDir);
+
 		_plugin = null;
 		_context = null;
 	}
@@ -159,4 +161,16 @@ public class RoomPlugin extends AbstractUIPlugin {
 		return (File.createTempFile(prefix, suffix, tmpDir));
 	}
 
+	private void deleteFiles(File rootDir) {
+		if (rootDir != null) {
+			File[] fileList = rootDir.listFiles();
+
+			for (int i = 0; i < fileList.length; i++) {
+				if (fileList[i].isDirectory()) {
+					deleteFiles(fileList[i]);
+				}
+				fileList[i].delete();
+			}
+		}
+	}
 }

@@ -77,6 +77,9 @@ abstract class AbstructVisualizationActionForPdt {
 		if (text != null && !text.equals(targetHtml)) {
 			updated = true;
 			targetHtml = text;
+			if(targetHtmlFile!=null){
+				targetHtmlFile.delete();
+			}
 			targetHtmlFile = saveToFile(targetHtml);
 		}
 

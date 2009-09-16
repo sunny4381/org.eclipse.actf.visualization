@@ -80,10 +80,7 @@ public class BlindVizEnginePlugin extends AbstractUIPlugin {
 				IBlindPreferenceConstants.NOT_FIRST_TIME, true);
 		plugin = null;
 		super.stop(context);
-
-		if (tmpDir != null) {
-			FileUtils.deleteFiles(tmpDir);
-		}
+		deleteFiles(tmpDir);
 	}
 
 	/**
@@ -130,6 +127,19 @@ public class BlindVizEnginePlugin extends AbstractUIPlugin {
 			createTempDirectory();
 		}
 		return tmpDir;
+	}
+	
+	private void deleteFiles(File rootDir) {
+		if (rootDir != null) {
+			File[] fileList = rootDir.listFiles();
+
+			for (int i = 0; i < fileList.length; i++) {
+				if (fileList[i].isDirectory()) {
+					deleteFiles(fileList[i]);
+				}
+				fileList[i].delete();
+			}
+		}
 	}
 		
 }

@@ -104,6 +104,10 @@ public class PartControlLowVision implements ISelectionListener,
 	private File reportImageFile;
 
 	private File visResultFile;
+	
+	private File dumpImgFile;
+	
+	private File sourceHtmlFile;
 
 	private String dumpImageFile;
 
@@ -148,10 +152,12 @@ public class PartControlLowVision implements ISelectionListener,
 
 				// TODO frames
 				try {
+					removeTempFile(reportFile);
 					reportFile = LowVisionVizPlugin.createTempFile(
 							PREFIX_REPORT, SUFFIX_HTML);
 					// TODO modelservice type
 					if (webBrowser != null) {
+						removeTempFile(reportImageFile);
 						reportImageFile = LowVisionVizPlugin.createTempFile(
 								PREFIX_REPORT, SUFFIX_BMP);
 						targetPage
@@ -262,7 +268,8 @@ public class PartControlLowVision implements ISelectionListener,
 		_isInSimulate = false;
 
 		try {
-			File dumpImgFile = LowVisionVizPlugin.createTempFile(
+			removeTempFile(dumpImgFile);
+			dumpImgFile = LowVisionVizPlugin.createTempFile(
 					PREFIX_SCREENSHOT, SUFFIX_BMP);
 			dumpImageFile = dumpImgFile.getAbsolutePath();
 		} catch (Exception e) {
@@ -390,7 +397,8 @@ public class PartControlLowVision implements ISelectionListener,
 
 		if (webBrowser != null) {
 			try {
-				File sourceHtmlFile = LowVisionVizPlugin.createTempFile(
+				removeTempFile(sourceHtmlFile);
+				sourceHtmlFile = LowVisionVizPlugin.createTempFile(
 						"source", SUFFIX_HTML); //$NON-NLS-1$
 				webBrowser.saveOriginalDocument(sourceHtmlFile
 						.getAbsolutePath());
@@ -513,6 +521,7 @@ public class PartControlLowVision implements ISelectionListener,
 				.setStatusMessage(Messages.LowVisionView_prepare_Simulation_Image__29);
 
 		try {
+			removeTempFile(visResultFile);
 			visResultFile = LowVisionVizPlugin.createTempFile(
 					PREFIX_VISUALIZATION, SUFFIX_BMP);
 			ImageData[] imageDataArray = SimulateLowVision.doSimulate(
@@ -639,4 +648,10 @@ public class PartControlLowVision implements ISelectionListener,
 		lowVisionView.setCurrentModelService(modelService);
 	}
 
+	private void removeTempFile(File target){
+		if(target!=null){
+			target.delete();
+		}
+	}
+	
 }

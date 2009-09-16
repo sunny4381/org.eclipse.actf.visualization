@@ -130,7 +130,12 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			resultDocument = engine.getResult();
 			checkResult.setProblemList(engine.getProbelems());
 			checkResult.setTargetUrl(targetUrl);
-			checkResult.addAssociateFile(engine.getVariantFile());
+			
+			if(variantFile!=null){
+				variantFile.delete();
+			}
+			variantFile = engine.getVariantFile();			
+			checkResult.addAssociateFile(variantFile);
 
 			IVisualizeMapData mapData = engine.getVisualizeMapData();
 
@@ -173,6 +178,9 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 
 			// TODO move (add Icons into result doc) here
 
+			if(resultFile!=null){
+				resultFile.delete();
+			}
 			resultFile = BlindVizResourceUtil.createTempFile(
 					IVisualizationConst.PREFIX_RESULT,
 					IVisualizationConst.SUFFIX_HTML);

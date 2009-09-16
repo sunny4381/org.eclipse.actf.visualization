@@ -44,6 +44,7 @@ public abstract class BlindVisualizerBase implements IBlindVisualizer {
 	protected PageData pageData;
 	protected int maxReachingTime = 0;
 	protected File resultFile;
+	protected File variantFile;
 
 	private IVisualizationView vizView;
 
