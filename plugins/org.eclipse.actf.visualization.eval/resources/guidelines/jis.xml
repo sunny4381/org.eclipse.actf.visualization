@@ -9,7 +9,7 @@
  Contributors:
      IBM Corporation - initial API and implementation
 -->
-<guideline name="JIS" order="3">
+<guideline name="JIS" order="20">
 <category>Accessibility</category>
 <description>Japanese Industrial Standard (JIS X 8341-3)</description>
 <mimetypes>

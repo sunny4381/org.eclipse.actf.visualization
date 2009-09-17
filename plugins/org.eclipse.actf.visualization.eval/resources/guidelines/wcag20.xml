@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+ Copyright (c) 2009 IBM Corporation and others.
+ All rights reserved. This program and the accompanying materials
+ are made available under the terms of the Eclipse Public License v1.0
+ which accompanies this distribution, and is available at
+ http://www.eclipse.org/legal/epl-v10.html
+
+ Contributors:
+     IBM Corporation - initial API and implementation
+-->
+<guideline name="WCAG 2.0" order="2">
+<category>Accessibility</category>
+<description>W3C Web Content Accessibility Guidelines (WCAG) 2.0</description>
+<levels>
+ <level id="A">
+  <category>Accessibility</category>
+  <description>W3C Web Content Accessibility Guidelines (WCAG) 2.0 (A) &lt;experimental&gt;</description>
+ </level>
+ <level id="AA">
+  <category>Accessibility</category>
+  <description>W3C Web Content Accessibility Guidelines (WCAG) 2.0 (AA) &lt;experimental&gt;</description>
+ </level>
+ <level id="AAA">
+  <category>Accessibility</category>
+  <description>W3C Web Content Accessibility Guidelines (WCAG) 2.0 (AAA) &lt;experimental&gt;</description>
+ </level>
+</levels>
+<mimetypes>
+ <mimetype>text/html</mimetype>
+ <mimetype>application/xhtml+xml</mimetype>
+</mimetypes>
+<items>
+ <gItem id="1.1.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#text-equiv-all</helpUrl>
+ </gItem>
+ <gItem id="1.2.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#media-equiv-av-only-alt</helpUrl>
+ </gItem>
+ <gItem id="1.2.2" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#media-equiv-captions</helpUrl>
+ </gItem>
+ <gItem id="1.2.3" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#media-equiv-audio-desc</helpUrl>
+ </gItem>
+ <gItem id="1.2.4" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#media-equiv-real-time-captions</helpUrl>
+ </gItem>
+ <gItem id="1.2.5" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#media-equiv-audio-desc-only</helpUrl>
+ </gItem>
+ <gItem id="1.2.6" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#media-equiv-sign</helpUrl>
+ </gItem>
+ <gItem id="1.2.7" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#media-equiv-extended-ad</helpUrl>
+ </gItem>
+ <gItem id="1.2.8" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#media-equiv-text-doc</helpUrl>
+ </gItem>
+ <gItem id="1.2.9" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#media-equiv-live-audio-only</helpUrl>
+ </gItem>
+ <gItem id="1.3.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#content-structure-separation-programmatic</helpUrl>
+ </gItem>
+ <gItem id="1.3.2" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#content-structure-separation-sequence</helpUrl>
+ </gItem>
+ <gItem id="1.3.3" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#content-structure-separation-understanding</helpUrl>
+ </gItem>
+ <gItem id="1.4.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#visual-audio-contrast-without-color</helpUrl>
+ </gItem>
+ <gItem id="1.4.2" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#visual-audio-contrast-dis-audio</helpUrl>
+ </gItem>
+ <gItem id="1.4.3" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#visual-audio-contrast-contrast</helpUrl>
+ </gItem>
+ <gItem id="1.4.4" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#visual-audio-contrast-scale</helpUrl>
+ </gItem>
+ <gItem id="1.4.5" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#visual-audio-contrast-text-presentation</helpUrl>
+ </gItem>
+ <gItem id="1.4.6" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#visual-audio-contrast7</helpUrl>
+ </gItem>
+ <gItem id="1.4.7" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#visual-audio-contrast-noaudio</helpUrl>
+ </gItem>
+ <gItem id="1.4.8" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#visual-audio-contrast-visual-presentation</helpUrl>
+ </gItem>
+ <gItem id="1.4.9" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#visual-audio-contrast-text-images</helpUrl>
+ </gItem>
+ <gItem id="2.1.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#keyboard-operation-keyboard-operable</helpUrl>
+ </gItem>
+ <gItem id="2.1.2" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#keyboard-operation-trapping</helpUrl>
+ </gItem>
+ <gItem id="2.1.3" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#keyboard-operation-all-funcs</helpUrl>
+ </gItem>
+ <gItem id="2.2.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#time-limits-required-behaviors</helpUrl>
+ </gItem>
+ <gItem id="2.2.2" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#time-limits-pause</helpUrl>
+ </gItem>
+ <gItem id="2.2.3" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#time-limits-no-exceptions</helpUrl>
+ </gItem>
+ <gItem id="2.2.4" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#time-limits-postponed</helpUrl>
+ </gItem>
+ <gItem id="2.2.5" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#time-limits-server-timeout</helpUrl>
+ </gItem>
+ <gItem id="2.3.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#seizure-does-not-violate</helpUrl>
+ </gItem>
+ <gItem id="2.3.2" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#seizure-three-times</helpUrl>
+ </gItem>
+ <gItem id="2.4.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-skip</helpUrl>
+ </gItem>
+ <gItem id="2.4.2" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-title</helpUrl>
+ </gItem>
+ <gItem id="2.4.3" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-focus-order</helpUrl>
+ </gItem>
+ <gItem id="2.4.4" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-refs</helpUrl>
+ </gItem>
+ <gItem id="2.4.5" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-mult-loc</helpUrl>
+ </gItem>
+ <gItem id="2.4.6" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-descriptive</helpUrl>
+ </gItem>
+ <gItem id="2.4.7" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-focus-visible</helpUrl>
+ </gItem>
+ <gItem id="2.4.8" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-location</helpUrl>
+ </gItem>
+ <gItem id="2.4.9" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-link</helpUrl>
+ </gItem>
+ <gItem id="2.4.10" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#navigation-mechanisms-headings</helpUrl>
+ </gItem>
+ <gItem id="3.1.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#meaning-doc-lang-id</helpUrl>
+ </gItem>
+ <gItem id="3.1.2" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#meaning-other-lang-id</helpUrl>
+ </gItem>
+ <gItem id="3.1.3" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#meaning-idioms</helpUrl>
+ </gItem>
+ <gItem id="3.1.4" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#meaning-located</helpUrl>
+ </gItem>
+ <gItem id="3.1.5" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#meaning-supplements</helpUrl>
+ </gItem>
+ <gItem id="3.1.6" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#meaning-pronunciation</helpUrl>
+ </gItem>
+ <gItem id="3.2.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#consistent-behavior-receive-focus</helpUrl>
+ </gItem>
+ <gItem id="3.2.2" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#consistent-behavior-unpredictable-change</helpUrl>
+ </gItem>
+ <gItem id="3.2.3" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#consistent-behavior-consistent-locations</helpUrl>
+ </gItem>
+ <gItem id="3.2.4" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#consistent-behavior-consistent-functionality</helpUrl>
+ </gItem>
+ <gItem id="3.2.5" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#consistent-behavior-no-extreme-changes-context</helpUrl>
+ </gItem>
+ <gItem id="3.3.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#minimize-error-identified</helpUrl>
+ </gItem>
+ <gItem id="3.3.2" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#minimize-error-cues</helpUrl>
+ </gItem>
+ <gItem id="3.3.3" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#minimize-error-suggestions</helpUrl>
+ </gItem>
+ <gItem id="3.3.4" level="AA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#minimize-error-reversible</helpUrl>
+ </gItem>
+ <gItem id="3.3.5" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#minimize-error-context-help</helpUrl>
+ </gItem>
+ <gItem id="3.3.6" level="AAA">
+  <helpUrl>http://www.w3.org/TR/WCAG/#minimize-error-reversible-all</helpUrl>
+ </gItem>
+ <gItem id="4.1.1" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#ensure-compat-parses</helpUrl>
+ </gItem>
+ <gItem id="4.1.2" level="A">
+  <helpUrl>http://www.w3.org/TR/WCAG/#ensure-compat-rsv</helpUrl>
+ </gItem>
+</items>
+</guideline>

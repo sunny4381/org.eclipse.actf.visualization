@@ -9,7 +9,7 @@
  Contributors:
      IBM Corporation - initial API and implementation
 -->
-<guideline name="Section508" order="2">
+<guideline name="Section508" order="10">
 <category>Accessibility</category>
 <description>US Section 508 of the Rehabilitation Act</description>
 <mimetypes>

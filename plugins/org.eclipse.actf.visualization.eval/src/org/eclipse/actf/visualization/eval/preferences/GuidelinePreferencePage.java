@@ -116,11 +116,11 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 				.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
 		TreeColumn categoryColumn = new TreeColumn(guidelineTree, SWT.NONE);
-		categoryColumn.setWidth(220);
+		categoryColumn.setWidth(240);
 		categoryColumn.setText(Messages.GuidelinePreferencePage_0);
 
 		TreeColumn guidelineColumn = new TreeColumn(guidelineTree, SWT.NONE);
-		guidelineColumn.setWidth(350);
+		guidelineColumn.setWidth(450);
 		guidelineColumn.setText(Messages.GuidelinePreferencePage_1);
 
 		GuidelineTreeItemData root = new GuidelineTreeItemData(null);
@@ -271,6 +271,8 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 
 		setParameters();
 
+		/*
+			//TODO WCAG 2.0 support
 		if (this._guidelineHolder.isEnabledMetric("Navigability")) { //$NON-NLS-1$
 
 			IGuidelineData[] datas = this._guidelineHolder
@@ -282,7 +284,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 			for (int i = 0; i < datas.length; i++) {
 				if (datas[i].isEnabled()) {
 					if (datas[i].getGuidelineName().matches(
-							"Section508|JIS|IBMGuideline")) { //$NON-NLS-1$
+							"Section508|JIS|IBMGuideline|WCAG 2.0")) { //$NON-NLS-1$
 						isOtherComp = true;
 					} else if (datas[i].getGuidelineName().equals("WCAG")) { //$NON-NLS-1$
 						isWcagOn = true;
@@ -321,6 +323,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 				}
 			}
 		}
+		*/
 
 		return isOK;
 	}

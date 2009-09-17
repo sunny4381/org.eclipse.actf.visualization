@@ -9,7 +9,7 @@
  Contributors:
      IBM Corporation - initial API and implementation
 -->
-<guideline name="IBMGuideline" order="4">
+<guideline name="IBMGuideline" order="30">
 <category>Accessibility</category>
 <description>IBM Web Accessibility Checklist</description>
 <mimetypes>

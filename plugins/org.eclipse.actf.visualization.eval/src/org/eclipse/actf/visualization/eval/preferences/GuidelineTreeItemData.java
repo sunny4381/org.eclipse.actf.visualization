@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2008 IBM Corporation and Others
+ * Copyright (c) 2006, 2009 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Norimasa HAYASHIDA - initial API and implementation
+ *    Kentarou FUKUDA - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.eval.preferences;
@@ -22,24 +23,27 @@ import org.eclipse.swt.graphics.Image;
 
 public class GuidelineTreeItemData implements IGuidelineTreeItem {
 
-    public static final int GUIDELINE_WCAG_P1 = 30;
+    private static final int GUIDELINE_WCAG_P1 = 30;
 
-    public static final int GUIDELINE_WCAG_P2 = 31;
+    private static final int GUIDELINE_WCAG_P2 = 31;
 
-    public static final int GUIDELINE_WCAG_P3 = 32;
+    private static final int GUIDELINE_WCAG_P3 = 32;
+    
+    private static final int GUIDELINE_SECTION508 = 33;
 
-    public static final int GUIDELINE_SECTION508 = 33;
+    private static final int GUIDELINE_JIS = 34;
 
-    public static final int GUIDELINE_JIS = 34;
+    private static final int GUIDELINE_IBMGUIDELINE = 35;
 
-    public static final int GUIDELINE_IBMGUIDELINE = 35;
+    private static final int GUIDELINE_IBMW3V8 = 36;
 
-    public static final int GUIDELINE_IBMW3V8 = 36;
+    private static final int GUIDELINE_ODF = 37;
 
-    public static final int GUIDELINE_ODF = 37;
+    private static final int GUIDELINE_PII = 38;
 
-    public static final int GUIDELINE_PII = 38;
+    private static final int GUIDELINE_WACAG_2 = 50;
 
+    
     private int _guideline = -1;
 
     private IGuidelineTreeItem _parent = null;
@@ -78,7 +82,7 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
         return this._children;
     }
 
-    public int getGuideline() {
+    private int getGuideline() {
         return this._guideline;
     }
 
@@ -105,6 +109,8 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
                 this._guideline = GUIDELINE_ODF;
             } else if (this._name.equals("PII")) {
                 this._guideline = GUIDELINE_PII;
+            } else if (this._name.startsWith("WCAG 2.0")){
+            	this._guideline = GUIDELINE_WACAG_2;
             }
         }
     }
@@ -117,6 +123,7 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
         case GUIDELINE_WCAG_P1:
         case GUIDELINE_WCAG_P2:
         case GUIDELINE_WCAG_P3:
+        case GUIDELINE_WACAG_2:
             return EvaluationPlugin.getImageDescriptor("icons/media/w3c.png").createImage();
         case GUIDELINE_SECTION508:
             return EvaluationPlugin.getImageDescriptor("icons/media/508.png").createImage();

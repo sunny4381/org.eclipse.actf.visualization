@@ -221,7 +221,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			 * "icons/IconPink.gif").createImage()); break; default: }
 			 */
 			if (enabledMetrics[i]) {
-				columns[curPos].setWidth(75);
+				columns[curPos].setWidth(70);
 			} else {
 				columns[curPos].setWidth(0);
 				columns[curPos].setResizable(false);
@@ -233,7 +233,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 		for (int i = 0; i < dataArray.length; i++) {
 			columns[curPos].setText(dataArray[i].getGuidelineName());
 			if (dataArray[i].isMatched()) {
-				columns[curPos].setWidth(65);
+				columns[curPos].setWidth(80);
 			} else {
 				columns[curPos].setWidth(0);
 				columns[curPos].setResizable(false);
