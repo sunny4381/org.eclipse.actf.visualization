@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
- Copyright (c) 2005, 2008 IBM Corporation and others.
+ Copyright (c) 2005, 2010 IBM Corporation and others.
  All rights reserved. This program and the accompanying materials
  are made available under the terms of the Eclipse Public License v1.0
  which accompanies this distribution, and is available at
@@ -12,88 +12,207 @@
 <guideline name="JIS" order="20">
 <category>Accessibility</category>
 <description>Japanese Industrial Standard (JIS X 8341-3)</description>
+<levels>
+ <level id="A">
+  <category>Accessibility</category>
+  <description>Japanese Industrial Standard (JIS X 8341-3) (A)</description>
+ </level>
+ <level id="AA">
+  <category>Accessibility</category>
+  <description>Japanese Industrial Standard (JIS X 8341-3) (AA)</description>
+ </level>
+ <level id="AAA">
+  <category>Accessibility</category>
+  <description>Japanese Industrial Standard (JIS X 8341-3) (AAA)</description>
+ </level>
+</levels>
 <mimetypes>
  <mimetype>text/html</mimetype>
  <mimetype>application/xhtml+xml</mimetype>
 </mimetypes>
 <items>
-<gItem id="5.1(a)">
-</gItem>
-<gItem id="5.1(b)">
-</gItem>
-<gItem id="5.2(a)">
-</gItem>
-<gItem id="5.2(b)">
-</gItem>
-<gItem id="5.2(c)">
-</gItem>
-<gItem id="5.2(d)">
-</gItem>
-<gItem id="5.2(e)">
-</gItem>
-<gItem id="5.2(f)">
-</gItem>
-<gItem id="5.2(g)">
-</gItem>
-<gItem id="5.3(a)">
-</gItem>
-<gItem id="5.3(b)">
-</gItem>
-<gItem id="5.3(c)">
-</gItem>
-<gItem id="5.3(d)">
-</gItem>
-<gItem id="5.3(e)">
-</gItem>
-<gItem id="5.3(f)">
-</gItem>
-<gItem id="5.3(g)">
-</gItem>
-<gItem id="5.3(h)">
-</gItem>
-<gItem id="5.3(i)">
-</gItem>
-<gItem id="5.4(a)">
-</gItem>
-<gItem id="5.4(b)">
-</gItem>
-<gItem id="5.4(c)">
-</gItem>
-<gItem id="5.4(d)">
-</gItem>
-<gItem id="5.4(e)">
-</gItem>
-<gItem id="5.5(a)">
-</gItem>
-<gItem id="5.5(b)">
-</gItem>
-<gItem id="5.5(c)">
-</gItem>
-<gItem id="5.6(a)">
-</gItem>
-<gItem id="5.6(b)">
-</gItem>
-<gItem id="5.6(c)">
-</gItem>
-<gItem id="5.7(a)">
-</gItem>
-<gItem id="5.7(b)">
-</gItem>
-<gItem id="5.8(a)">
-</gItem>
-<gItem id="5.8(b)">
-</gItem>
-<gItem id="5.9(a)">
-</gItem>
-<gItem id="5.9(b)">
-</gItem>
-<gItem id="5.9(c)">
-</gItem>
-<gItem id="5.9(d)">
-</gItem>
-<gItem id="5.9(e)">
-</gItem>
-<gItem id="5.9(f)">
-</gItem>
+ <gItem id="7.1.1.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/text-equiv-all.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.2.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/media-equiv-av-only-alt.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.2.2" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/media-equiv-captions.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.2.3" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/media-equiv-audio-desc.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.2.4" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/media-equiv-real-time-captions.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.2.5" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/media-equiv-audio-desc-only.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.2.6" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/media-equiv-sign.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.2.7" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/media-equiv-extended-ad.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.2.8" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/media-equiv-text-doc.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.2.9" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/media-equiv-live-audio-only.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.3.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/content-structure-separation-programmatic.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.3.2" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/content-structure-separation-sequence.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.3.3" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/content-structure-separation-understanding.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.4.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/visual-audio-contrast-without-color.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.4.2" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/visual-audio-contrast-dis-audio.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.4.3" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.4.4" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/visual-audio-contrast-scale.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.4.5" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/visual-audio-contrast-text-presentation.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.4.6" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/visual-audio-contrast7.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.4.7" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/visual-audio-contrast-noaudio.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.4.8" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/visual-audio-contrast-visual-presentation.html</helpUrl>
+ </gItem>
+ <gItem id="7.1.4.9" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/visual-audio-contrast-text-images.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.1.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/keyboard-operation-keyboard-operable.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.1.2" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/keyboard-operation-trapping.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.1.3" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/keyboard-operation-all-funcs.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.2.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/time-limits-required-behaviors.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.2.2" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/time-limits-pause.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.2.3" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/time-limits-no-exceptions.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.2.4" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/time-limits-postponed.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.2.5" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/time-limits-server-timeout.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.3.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/seizure-does-not-violate.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.3.2" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/seizure-three-times.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-skip.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.2" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-title.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.3" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-focus-order.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.4" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-refs.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.5" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-mult-loc.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.6" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-descriptive.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.7" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-focus-visible.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.8" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-location.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.9" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-link.html</helpUrl>
+ </gItem>
+ <gItem id="7.2.4.10" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/navigation-mechanisms-headings.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.1.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/meaning-doc-lang-id.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.1.2" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/meaning-other-lang-id.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.1.3" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/meaning-idioms.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.1.4" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/meaning-located.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.1.5" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/meaning-supplements.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.1.6" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/meaning-pronunciation.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.2.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/consistent-behavior-receive-focus.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.2.2" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/consistent-behavior-unpredictable-change.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.2.3" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/consistent-behavior-consistent-locations.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.2.4" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/consistent-behavior-consistent-functionality.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.2.5" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/consistent-behavior-no-extreme-changes-context.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.3.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/minimize-error-identified.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.3.2" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/minimize-error-cues.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.3.3" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/minimize-error-suggestions.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.3.4" level="AA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/minimize-error-reversible.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.3.5" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/minimize-error-context-help.html</helpUrl>
+ </gItem>
+ <gItem id="7.3.3.6" level="AAA">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/minimize-error-reversible-all.html</helpUrl>
+ </gItem>
+ <gItem id="7.4.1.1" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/ensure-compat-parses.html</helpUrl>
+ </gItem>
+ <gItem id="7.4.1.2" level="A">
+  <helpUrl>http://www.ciaj.or.jp/access/web/docs/UNDERSTANDING-WCAG20/ensure-compat-rsv.html</helpUrl>
+ </gItem>
 </items>
 </guideline>

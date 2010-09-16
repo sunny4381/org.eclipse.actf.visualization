@@ -15,15 +15,15 @@
 <levels>
  <level id="A">
   <category>Accessibility</category>
-  <description>W3C Web Content Accessibility Guidelines (WCAG) 2.0 (A) &lt;experimental&gt;</description>
+  <description>W3C Web Content Accessibility Guidelines (WCAG) 2.0 (A)</description>
  </level>
  <level id="AA">
   <category>Accessibility</category>
-  <description>W3C Web Content Accessibility Guidelines (WCAG) 2.0 (AA) &lt;experimental&gt;</description>
+  <description>W3C Web Content Accessibility Guidelines (WCAG) 2.0 (AA)</description>
  </level>
  <level id="AAA">
   <category>Accessibility</category>
-  <description>W3C Web Content Accessibility Guidelines (WCAG) 2.0 (AAA) &lt;experimental&gt;</description>
+  <description>W3C Web Content Accessibility Guidelines (WCAG) 2.0 (AAA)</description>
  </level>
 </levels>
 <mimetypes>
