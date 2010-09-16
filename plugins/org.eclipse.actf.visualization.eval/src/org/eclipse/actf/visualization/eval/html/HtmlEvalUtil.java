@@ -39,7 +39,7 @@ import org.w3c.dom.html.HTMLImageElement;
  * Utility class for HTML evaluation
  */
 public class HtmlEvalUtil extends HtmlTagUtil {
-	
+
 	private static final boolean PERFORMANCE_DEBUG = false;
 
 	private static final int LONG_TEXT_NUM = 200; // TODO check
@@ -250,7 +250,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		this.document2IdMap = document2IdMap;
 		// this.html2ViewMapData = html2ViewMapData;
 
-		if (PERFORMANCE_DEBUG) System.out.println("document2IdMap\t"+(new Date()).getTime());
+		if (PERFORMANCE_DEBUG)
+			System.out.println("document2IdMap\t" + (new Date()).getTime());
 
 		this.isDBCS = isDBCS;
 
@@ -260,7 +261,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 		NodeList tmpNL = xpathService.evalForNodeList(EXP1, target);
 		int length = tmpNL.getLength();
-		
+
 		if (length > 0) {
 			hasAwithHref = true;
 		}
@@ -274,6 +275,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			aWithHref_elements[i] = tmpE;
 			aWithHref_hrefs[i] = tmpE.getAttribute(ATTR_HREF);
 			aWithHref_strings[i] = getTextAltDescendant(tmpE);
+			//System.out.println(aWithHref_hrefs[i]);
 		}
 
 		// System.out.println(df.format(new Date(System.currentTimeMillis()))
@@ -298,7 +300,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		pageData.setImageDataMap(tmpMap);
 		pageData.setLinkImageDataMap(linkImgMap);
 
-		if (PERFORMANCE_DEBUG) System.out.println("process images\t"+(new Date()).getTime());
+		if (PERFORMANCE_DEBUG)
+			System.out.println("process images\t" + (new Date()).getTime());
 
 		// TODO use XPath
 		tmpNL = target.getElementsByTagName("table"); //$NON-NLS-1$
@@ -331,15 +334,16 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		b1row1colV.toArray(bottom_1row1col_tables);
 		bNotDataV.toArray(bottom_notdata_tables);
 		parentV.toArray(parent_table_elements);
-		
-		if (PERFORMANCE_DEBUG) System.out.println("process tables\t"+(new Date()).getTime());
 
+		if (PERFORMANCE_DEBUG)
+			System.out.println("process tables\t" + (new Date()).getTime());
 
 		body_elements = getElementsArray(target, "body");
 		frame_elements = getElementsArray(target, "frame");
 		iframe_elements = getElementsArray(target, "iframe");
 
-		if (PERFORMANCE_DEBUG) System.out.println("process frames\t"+(new Date()).getTime());
+		if (PERFORMANCE_DEBUG)
+			System.out.println("process frames\t" + (new Date()).getTime());
 
 		HashSet<Element> embedInObjectSet = new HashSet<Element>();
 
@@ -414,7 +418,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			}
 		}
 
-		if (PERFORMANCE_DEBUG) System.out.println("process object\t"+(new Date()).getTime());
+		if (PERFORMANCE_DEBUG)
+			System.out.println("process object\t" + (new Date()).getTime());
 
 		NodeList headingsNL = xpathService.evalForNodeList(EXP2, target);
 		length = headingsNL.getLength();
@@ -427,12 +432,16 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		}
 		pageData.setHeadingsData(tmpV2);
 
-		if (PERFORMANCE_DEBUG) System.out.println("process headins\t"+(new Date()).getTime());
+		if (PERFORMANCE_DEBUG)
+			System.out.println("process headins\t" + (new Date()).getTime());
 
 		collectScriptElements();
-		if (PERFORMANCE_DEBUG) System.out.println("collectScriptElements\t"+(new Date()).getTime());
+		if (PERFORMANCE_DEBUG)
+			System.out.println("collectScriptElements\t"
+					+ (new Date()).getTime());
 		calcDomDifference();
-		if (PERFORMANCE_DEBUG) System.out.println("calcDomDifference\t"+(new Date()).getTime());
+		if (PERFORMANCE_DEBUG)
+			System.out.println("calcDomDifference\t" + (new Date()).getTime());
 	}
 
 	private Element[] getElementsArray(Document target, String tagName) {
@@ -526,6 +535,16 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 					.asList(aWithHref_hrefs));
 			// trim()?
 
+			for(String href : aWithHref_hrefs){
+				if(!href.startsWith("http://")&&!href.startsWith("https://")){
+					try {
+						existSet.add(new URL(baseUrl,href).toString());
+						//System.out.println(href +" : "+new URL(baseUrl,href));
+					} catch (MalformedURLException e) {
+					}
+				}
+			}
+			
 			/*
 			NodeList ieNL = xpathService.evalForNodeList(EXP1, liveDom);
 			int size = ieNL.getLength();
@@ -541,6 +560,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 				}
 				String tmpS = tmpE.getAttribute(ATTR_HREF);
 				if (!existSet.contains(tmpS)) {
+					//System.out.println("ie:"+tmpS);
 					notExistHrefSet.add(tmpS);
 				}
 			}
@@ -551,6 +571,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			TreeSet<String> existSet = new TreeSet<String>();
 			for (int i = 0; i < size; i++) {
 				existSet.add(((Element) orgNL.item(i)).getAttribute(ATTR_HREF));
+				//System.out.println("Src:"+((Element) orgNL.item(i)).getAttribute(ATTR_HREF));
 			}
 
 			size = aWithHref_hrefs.length;
@@ -558,6 +579,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 				if (!existSet.contains(aWithHref_hrefs[i])) {
 					notExistHrefSet.add(aWithHref_hrefs[i]);
 				}
+				//System.out.println("IE:"+aWithHref_hrefs[i]);
 			}
 
 		}
