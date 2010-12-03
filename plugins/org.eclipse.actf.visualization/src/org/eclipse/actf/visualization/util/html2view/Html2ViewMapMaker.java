@@ -51,6 +51,8 @@ public class Html2ViewMapMaker {
 
 	String baseUrl;
 
+	boolean inXmlDef; // <?xml
+
 	boolean inDoctype; // <!DOCTYPE
 
 	boolean inSingle; // alt='
@@ -104,6 +106,7 @@ public class Html2ViewMapMaker {
 	}
 
 	private void init() {
+		inXmlDef = false;
 		inDoctype = false;
 		inSingle = false;
 		inDouble = false;
@@ -284,6 +287,8 @@ public class Html2ViewMapMaker {
 				} else {
 					doScript(targetS);
 				}
+			} else if (inXmlDef) {
+				doXmlDef(targetS);
 			} else {
 				doNormal(targetS);
 			}
@@ -575,6 +580,16 @@ public class Html2ViewMapMaker {
 		doNext(targetS, endIndex);
 	}
 
+	private void doXmlDef(String targetS) {
+		int endIndex = targetS.indexOf(">");
+		if (endIndex > -1) {
+			inXmlDef = false;
+		}
+		// System.out.println(targetS);
+		doNext(targetS, endIndex);
+	}
+
+	
 	private void doNormal(String targetS) {
 		int startIndex = targetS.indexOf("<");
 		if (startIndex > -1) {
@@ -587,6 +602,7 @@ public class Html2ViewMapMaker {
 			int tmpIndex = tmpS.indexOf("<!--");
 			int tmpIndex2 = tmpS.indexOf("<!doctype");
 			int tmpIndex3 = tmpS.indexOf("<script");
+			int tmpIndex4 = tmpS.indexOf("<?xml");
 			// System.out.println(tmpS+" : "+endTagIndex+" "+tmpIndex+"
 			// "+tmpIndex2+" "+tmpIndex3);
 			if (startIndex == endTagIndex) {
@@ -599,10 +615,12 @@ public class Html2ViewMapMaker {
 				// System.out.println("start doctype: "+line+" "+startColumn);
 				inDoctype = true;
 			} else if (startIndex == tmpIndex3) {
-				// System.out.println("start doctype: "+line+" "+startColumn);
+				// System.out.println("start script: "+line+" "+startColumn);
 				inScript = true;
 				scriptSB = new StringBuffer("<");
 				resultSB.append(targetS.substring(0, startIndex));
+			} else if (startIndex == tmpIndex4) {
+				inXmlDef = true;
 			} else {
 				// System.out.println("start tag: "+line+" "+startColumn);
 				if (changeBase) {
