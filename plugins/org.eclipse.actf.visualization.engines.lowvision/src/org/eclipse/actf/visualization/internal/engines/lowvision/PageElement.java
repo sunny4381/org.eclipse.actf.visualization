@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2011 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -133,6 +133,7 @@ public class PageElement {
 		try {
 			foregroundColor = (new ColorCSS(fgStr)).toInt();
 			backgroundColor = (new ColorCSS(bgStr)).toInt();
+
 		} catch (ColorException e) {
 			e.printStackTrace();
 			throw new ImageException("Could not interpret colors."); //$NON-NLS-1$
@@ -289,16 +290,26 @@ public class PageElement {
 
 		W3CColorChecker w3c = new W3CColorChecker(fgSim, bgSim);
 		double severity = w3c.calcSeverity();
-		if (severity <= 0.0) {
-			return (null);
-		} else {
-			try {
-				return (new ColorProblem(this, _lvType, severity));
-			} catch (LowVisionProblemException e) {
-				e.printStackTrace();
+		try {
+			if (severity <= 0.0) {
+				if (style.getBackgroundImage() != null
+						&& !style.getBackgroundImage().equalsIgnoreCase("none")) {
+					ColorProblem result = new ColorProblem(this, _lvType, 0);
+					result.setHasBackgroundImage(true);
+					return (result);
+				}
 				return (null);
+			} else {
+				ColorProblem result = new ColorProblem(this, _lvType, severity);
+				if (style.getBackgroundImage() != null
+						&& !style.getBackgroundImage().equalsIgnoreCase("none"))
+					result.setHasBackgroundImage(true);
+				return (result);
 			}
+		} catch (LowVisionProblemException e) {
+			return (null);
 		}
+
 	}
 
 	/*
@@ -342,6 +353,8 @@ public class PageElement {
 		}
 
 		String fontStr = style.getFontSize().toLowerCase();
+
+		System.out.println(fontStr);
 
 		// directly under the <BODY>
 		if (fontStr.indexOf(DELIM) == -1) {
@@ -684,8 +697,8 @@ public class PageElement {
 				scaling *= (value / 100.0);
 			} else if (curType == FONT_SIZE_EM) {
 				double value = 0.0;
-				value = Double.parseDouble(curFontSize.substring(0, curFontSize
-						.length() - 2));
+				value = Double.parseDouble(curFontSize.substring(0,
+						curFontSize.length() - 2));
 				if (curFontSize.endsWith("ex")) {
 					value /= 2.0;
 				}
@@ -704,8 +717,8 @@ public class PageElement {
 			curFontSize = IE_LARGEST_FONT;
 		}
 
-		float value = Float.parseFloat(curFontSize.substring(0, curFontSize
-				.length() - 2));
+		float value = Float.parseFloat(curFontSize.substring(0,
+				curFontSize.length() - 2));
 		float sizeInMm = 0.0f;
 		if (curFontSize.endsWith("in")) {
 			sizeInMm = LengthUtil.in2mm(value);

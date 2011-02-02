@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and Others
+ * Copyright (c) 2005, 2011 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -71,7 +71,9 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getBackgroundS()
+	 * @see
+	 * org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getBackgroundS
+	 * ()
 	 */
 	public String getBackground() {
 		return backgroundS;
@@ -80,7 +82,9 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getForegroundS()
+	 * @see
+	 * org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getForegroundS
+	 * ()
 	 */
 	public String getForeground() {
 		return foregroundS;
@@ -89,7 +93,9 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getFrameId()
+	 * @see
+	 * org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getFrameId
+	 * ()
 	 */
 	public int getFrameId() {
 		return frameId;
@@ -98,7 +104,9 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getFrameOffset()
+	 * @see
+	 * org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getFrameOffset
+	 * ()
 	 */
 	public int getFrameOffset() {
 		return frameOffset;
@@ -107,7 +115,9 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getFrameUrlS()
+	 * @see
+	 * org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getFrameUrlS
+	 * ()
 	 */
 	public String getFrameUrl() {
 		return frameUrlS;
@@ -120,7 +130,8 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getIconId()
+	 * @see
+	 * org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getIconId()
 	 */
 	public int getIconId() {
 		return iconId;
@@ -129,7 +140,9 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getImageIcon()
+	 * @see
+	 * org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getImageIcon
+	 * ()
 	 */
 	public Image getIconImage() {
 		// return imageIcon;
@@ -162,7 +175,8 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getImageIconTooltip()
+	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#
+	 * getImageIconTooltip()
 	 */
 	public String getIconTooltip() {
 		// return imageIcon;
@@ -173,7 +187,7 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 			case ICON_BLUR:
 				return ERR_BOKE + SPACE + ERR_HIGHLIGHT;
 			default:
-				//System.out.println("Icon not found: " + iconId);
+				// System.out.println("Icon not found: " + iconId);
 				return ERR_COMPLIANCEALERT + SPACE + ERR_HIGHLIGHT;
 
 			}
@@ -184,7 +198,7 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 			case ICON_BLUR:
 				return ERR_BOKE;
 			default:
-				//System.out.println("Icon not found: " + iconId);
+				// System.out.println("Icon not found: " + iconId);
 				return ERR_COMPLIANCEALERT;
 			}
 		}
@@ -193,7 +207,9 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getSeverityLV()
+	 * @see
+	 * org.eclipse.actf.visualization.eval.problem.IProblemItemImage#getSeverityLV
+	 * ()
 	 */
 	public int getSeverityLV() {
 		return severityLV;
@@ -259,7 +275,8 @@ public class ProblemItemLV extends ProblemItemImpl implements IProblemItemImage 
 		this.subType = subType;
 		// TODO
 		if (subType == LOWVISION_COLOR_PROBLEM
-				|| subType == LOWVISION_IMAGE_COLOR_PROBLEM) {
+				|| subType == LOWVISION_IMAGE_COLOR_PROBLEM
+				|| subType == LOWVISION_BACKGROUND_IMAGE_WARNING) {
 			iconId = ICON_COLOR;
 		} else {
 			iconId = ICON_BLUR;

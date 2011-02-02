@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2011 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageCompo
 public class ColorProblem extends LowVisionProblem{
 	private int foregroundColor = -1;
 	private int backgroundColor = -1;
+	private boolean hasBackgroundImage = false;
 
 	public ColorProblem( PageComponent _pc, LowVisionType _lvType, double _proba ) throws LowVisionProblemException{
 		super( LOWVISION_COLOR_PROBLEM, _lvType, Messages.ColorProblem_Foreground_and_background_colors_are_too_close__1, _pc, _proba );
@@ -71,5 +72,18 @@ public class ColorProblem extends LowVisionProblem{
 
 	public int getBackgroundColor(){
 		return( backgroundColor );
+	}
+
+	public boolean isHasBackgroundImage() {
+		return hasBackgroundImage;
+	}
+
+	public void setHasBackgroundImage(boolean hasBackgroundImage) {
+		this.hasBackgroundImage = hasBackgroundImage;
+		if(hasBackgroundImage){
+			problemType = LOWVISION_BACKGROUND_IMAGE_WARNING;
+		}else{
+			problemType = LOWVISION_COLOR_PROBLEM;
+		}
 	}
 }
