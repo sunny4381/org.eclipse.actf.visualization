@@ -27,4 +27,6 @@ public abstract class ColorChecker {
 	}
 	//[0.0, 1.0]
 	public abstract double calcSeverity();
+	
+	public abstract double calcContrast();
 }

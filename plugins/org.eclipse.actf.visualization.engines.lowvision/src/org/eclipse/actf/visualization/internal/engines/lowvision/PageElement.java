@@ -271,27 +271,17 @@ public class PageElement {
 
 	private ColorProblem checkColors(LowVisionType _lvType)
 			throws LowVisionException {
-		if (!(_lvType.doChangeColors())) {
-			return (null);
-		}
 		if (!isTextTag()) {
 			return (null);
 		}
 
-		ColorIRGB fgSim = null;
-		ColorIRGB bgSim = null;
-		try {
-			fgSim = new ColorIRGB(_lvType.convertColor(foregroundColor));
-			bgSim = new ColorIRGB(_lvType.convertColor(backgroundColor));
-		} catch (LowVisionException e) {
-			e.printStackTrace();
-			throw new LowVisionException("Could not convert colors."); //$NON-NLS-1$
-		}
+		ColorIRGB fgOrg = new ColorIRGB(foregroundColor);
+		ColorIRGB bgOrg = new ColorIRGB(backgroundColor);
 
-		W3CColorChecker w3c = new W3CColorChecker(fgSim, bgSim);
-		double severity = w3c.calcSeverity();
+		W3CColorChecker w3c = new W3CColorChecker(fgOrg, bgOrg);
+		double contrast = w3c.calcContrast();
 		try {
-			if (severity <= 0.0) {
+			if (contrast > 4.5) {
 				if (style.getBackgroundImage() != null
 						&& !style.getBackgroundImage().equalsIgnoreCase("none")) {
 					ColorProblem result = new ColorProblem(this, _lvType, 0);
@@ -300,16 +290,40 @@ public class PageElement {
 				}
 				return (null);
 			} else {
-				ColorProblem result = new ColorProblem(this, _lvType, severity);
+				ColorProblem result = new ColorProblem(this, _lvType,
+						w3c.calcSeverity());
 				if (style.getBackgroundImage() != null
-						&& !style.getBackgroundImage().equalsIgnoreCase("none"))
+						&& !style.getBackgroundImage().equalsIgnoreCase("none")){
 					result.setHasBackgroundImage(true);
+				}else{
+					result.setContrast(contrast);
+				}
 				return (result);
 			}
 		} catch (LowVisionProblemException e) {
 			return (null);
 		}
 
+		/*
+		 * if (!(_lvType.doChangeColors())) { //TODO ColorIRGB fgSim = null;
+		 * ColorIRGB bgSim = null; try { fgSim = new
+		 * ColorIRGB(_lvType.convertColor(foregroundColor)); bgSim = new
+		 * ColorIRGB(_lvType.convertColor(backgroundColor)); } catch
+		 * (LowVisionException e) { e.printStackTrace(); throw new
+		 * LowVisionException("Could not convert colors."); //$NON-NLS-1$ }
+		 * 
+		 * W3CColorChecker w3c = new W3CColorChecker(fgSim, bgSim); double
+		 * severity = w3c.calcSeverity(); try { if (severity <= 0.0) { if
+		 * (style.getBackgroundImage() != null &&
+		 * !style.getBackgroundImage().equalsIgnoreCase( "none")) { ColorProblem
+		 * result = new ColorProblem(this, _lvType, 0);
+		 * result.setHasBackgroundImage(true); return (result); } return (null);
+		 * } else { ColorProblem result = new ColorProblem(this, _lvType,
+		 * severity); if (style.getBackgroundImage() != null &&
+		 * !style.getBackgroundImage().equalsIgnoreCase( "none"))
+		 * result.setHasBackgroundImage(true); return (result); } } catch
+		 * (LowVisionProblemException e) { return (null); } } return(null);
+		 */
 	}
 
 	/*
@@ -354,7 +368,7 @@ public class PageElement {
 
 		String fontStr = style.getFontSize().toLowerCase();
 
-		System.out.println(fontStr);
+		//System.out.println(fontStr);
 
 		// directly under the <BODY>
 		if (fontStr.indexOf(DELIM) == -1) {

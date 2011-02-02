@@ -34,7 +34,13 @@ public class LowVisionProblemConverter {
 					"L_" + target[i].getLowVisionProblemType()); //$NON-NLS-1$
 			tmp.setSubType(target[i].getLowVisionProblemType());
 			try {
-				if (tmp.getSubType() != ILowvisionProblemSubtype.LOWVISION_BACKGROUND_IMAGE_WARNING) {
+				switch (tmp.getSubType()) {
+				case ILowvisionProblemSubtype.LOWVISION_BACKGROUND_IMAGE_WARNING:
+					break;
+				case ILowvisionProblemSubtype.LOWVISION_COLOR_PROBLEM:
+					tmp.setDescription(target[i].getRepresentative().getDescription());
+					break;
+				default:
 					tmp.setDescription(target[i].getDescription());
 				}
 			} catch (Exception e) {
@@ -53,7 +59,7 @@ public class LowVisionProblemConverter {
 			tmp.setWidth(target[i].getWidth());
 			tmp.setHeight(target[i].getHeight());
 			tmp.setArea(target[i].getWidth() * target[i].getHeight());
-			
+
 			// TODO recommendation
 			result.add(tmp);
 		}

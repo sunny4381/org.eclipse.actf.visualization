@@ -11,6 +11,8 @@
 
 package org.eclipse.actf.visualization.internal.engines.lowvision.problem;
 
+import java.math.BigDecimal;
+
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.internal.engines.lowvision.Messages;
 import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
@@ -24,6 +26,7 @@ public class ColorProblem extends LowVisionProblem{
 	private int foregroundColor = -1;
 	private int backgroundColor = -1;
 	private boolean hasBackgroundImage = false;
+	private double contrast = 0;
 
 	public ColorProblem( PageComponent _pc, LowVisionType _lvType, double _proba ) throws LowVisionProblemException{
 		super( LOWVISION_COLOR_PROBLEM, _lvType, Messages.ColorProblem_Foreground_and_background_colors_are_too_close__1, _pc, _proba );
@@ -63,6 +66,10 @@ public class ColorProblem extends LowVisionProblem{
 	}
 	
 	public String getDescription() throws LowVisionProblemException{
+		if(contrast>=1&&contrast<=21){
+			BigDecimal bd = new BigDecimal(contrast);
+			return(super.getDescription()+"("+Messages.ContrastRatio+"="+bd.setScale(2,BigDecimal.ROUND_HALF_UP)+")");
+		}
 		return( super.getDescription() );
 	}
 
@@ -85,5 +92,13 @@ public class ColorProblem extends LowVisionProblem{
 		}else{
 			problemType = LOWVISION_COLOR_PROBLEM;
 		}
+	}
+
+	public double getContrast() {
+		return contrast;
+	}
+
+	public void setContrast(double contrast) {
+		this.contrast = contrast;
 	}
 }
