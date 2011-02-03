@@ -667,7 +667,7 @@
     <desc>It is difficult for weak-sighted to read these characters. (blur)</desc>
    </description>
   </checkitem>
-  <checkitem id="L_3" type="warning" >
+  <checkitem id="L_3" type="user" >
    <guideline>
     <gItem name="WCAG" id="2.1" />
     <gItem name="WCAG" id="2.2" />
