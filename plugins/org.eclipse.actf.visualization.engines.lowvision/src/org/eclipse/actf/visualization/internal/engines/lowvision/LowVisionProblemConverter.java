@@ -35,10 +35,14 @@ public class LowVisionProblemConverter {
 			tmp.setSubType(target[i].getLowVisionProblemType());
 			try {
 				switch (tmp.getSubType()) {
-				case ILowvisionProblemSubtype.LOWVISION_BACKGROUND_IMAGE_WARNING:
+				case ILowvisionProblemSubtype.LOWVISION_BACKGROUND_IMAGE_WARNING:					
+					ColorProblem cp = (ColorProblem)target[i].getRepresentative();
+					tmp.setTargetNode(cp.getElement());
+					tmp.setDescription(tmp.getDescription()+cp.getAdditionalDescription());
 					break;
 				case ILowvisionProblemSubtype.LOWVISION_COLOR_PROBLEM:
 					tmp.setDescription(target[i].getRepresentative().getDescription());
+					tmp.setTargetNode(target[i].getRepresentative().getElement());
 					break;
 				default:
 					tmp.setDescription(target[i].getDescription());

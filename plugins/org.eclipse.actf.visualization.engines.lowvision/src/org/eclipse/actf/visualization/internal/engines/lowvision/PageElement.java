@@ -128,8 +128,9 @@ public class PageElement {
 			return;
 		}
 
-		String fgStr = style.getColor();
-		String bgStr = style.getBackgroundColor();
+		String fgStr = style.getComputedColor();
+		String bgStr = style.getComputedBackgroundColor();
+
 		try {
 			foregroundColor = (new ColorCSS(fgStr)).toInt();
 			backgroundColor = (new ColorCSS(bgStr)).toInt();
@@ -274,35 +275,38 @@ public class PageElement {
 		if (!isTextTag()) {
 			return (null);
 		}
-
-		ColorIRGB fgOrg = new ColorIRGB(foregroundColor);
-		ColorIRGB bgOrg = new ColorIRGB(backgroundColor);
-
-		W3CColorChecker w3c = new W3CColorChecker(fgOrg, bgOrg);
-		double contrast = w3c.calcContrast();
 		try {
-			if (contrast > 4.5) {
-				if (style.getBackgroundImage() != null
-						&& !style.getBackgroundImage().equalsIgnoreCase("none")) {
-					ColorProblem result = new ColorProblem(this, _lvType, 0);
-					result.setHasBackgroundImage(true);
-					return (result);
-				}
+			if (style.hasDescendantTextWithBGImage()) {
+				ColorProblem result = new ColorProblem(this, _lvType, 0);
+				result.setElement(style.getElement());
+				result.setHasBackgroundImage(true);
+				result.setTargetStrings(style.getDescendantTextsWithBGImage());
+				return (result);
+			}
+
+			if (!style.hasChildText()
+					|| (style.getComputedBackgroundImage() != null && !style
+							.getComputedBackgroundImage().equalsIgnoreCase(
+									"none"))) {
 				return (null);
-			} else {
+			}
+
+			ColorIRGB fgOrg = new ColorIRGB(foregroundColor);
+			ColorIRGB bgOrg = new ColorIRGB(backgroundColor);
+
+			W3CColorChecker w3c = new W3CColorChecker(fgOrg, bgOrg);
+			double contrast = w3c.calcContrast();
+			if (contrast < 7) {
 				ColorProblem result = new ColorProblem(this, _lvType,
 						w3c.calcSeverity());
-				if (style.getBackgroundImage() != null
-						&& !style.getBackgroundImage().equalsIgnoreCase("none")){
-					result.setHasBackgroundImage(true);
-				}else{
-					result.setContrast(contrast);
-				}
+				result.setElement(style.getElement());
+				result.setContrast(contrast);
+				result.setTargetStrings(style.getChildTexts());
 				return (result);
 			}
 		} catch (LowVisionProblemException e) {
-			return (null);
 		}
+		return (null);
 
 		/*
 		 * if (!(_lvType.doChangeColors())) { //TODO ColorIRGB fgSim = null;
@@ -368,7 +372,7 @@ public class PageElement {
 
 		String fontStr = style.getFontSize().toLowerCase();
 
-		//System.out.println(fontStr);
+		// System.out.println(fontStr);
 
 		// directly under the <BODY>
 		if (fontStr.indexOf(DELIM) == -1) {

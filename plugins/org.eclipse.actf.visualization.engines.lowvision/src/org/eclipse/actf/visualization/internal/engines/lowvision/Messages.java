@@ -41,6 +41,7 @@ public final class Messages extends NLS {
 	public static String PageEvaluation_Poor;
 	public static String ImageDumpUtil_TrueColor;
 	public static String ContrastRatio;
+	public static String TargetString;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

@@ -21,6 +21,8 @@ import java.util.Map;
 import java.util.Vector;
 
 import org.eclipse.actf.mediator.Mediator;
+import org.eclipse.actf.model.dom.dombycom.IElementEx;
+import org.eclipse.actf.model.dom.dombycom.IStyle;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
@@ -55,6 +57,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.ISelectionListener;
@@ -62,6 +65,8 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class PartControlLowVision implements ISelectionListener,
 		IVisualizationConst {
@@ -104,9 +109,9 @@ public class PartControlLowVision implements ISelectionListener,
 	private File reportImageFile;
 
 	private File visResultFile;
-	
+
 	private File dumpImgFile;
-	
+
 	private File sourceHtmlFile;
 
 	private String dumpImageFile;
@@ -142,13 +147,12 @@ public class PartControlLowVision implements ISelectionListener,
 
 				_shell.getDisplay().syncExec(new Runnable() {
 					public void run() {
-						checker
-								.setStatusMessage(Messages.LowVisionView_begin_to_check_problems__4);
+						checker.setStatusMessage(Messages.LowVisionView_begin_to_check_problems__4);
 					}
 				});
 
-				lowvisionProblemList = targetPage.check(paramLowVision
-						.getLowVisionType(), address, frameId);
+				lowvisionProblemList = targetPage.check(
+						paramLowVision.getLowVisionType(), address, frameId);
 
 				// TODO frames
 				try {
@@ -162,8 +166,8 @@ public class PartControlLowVision implements ISelectionListener,
 								PREFIX_REPORT, SUFFIX_BMP);
 						targetPage
 								.generateReport(reportFile.getParent(),
-										reportFile.getName(), reportImageFile
-												.getName(),
+										reportFile.getName(),
+										reportImageFile.getName(),
 										lowvisionProblemList);
 					} else {// current lv mode doesn't support ODF
 						reportImageFile = null;
@@ -240,8 +244,7 @@ public class PartControlLowVision implements ISelectionListener,
 							.getAbsolutePath());
 					mediator.setReport(checker, checkResult);
 
-					checker
-							.setStatusMessage(Messages.LowVisionView_simulation_of_current_page_is_over__8);
+					checker.setStatusMessage(Messages.LowVisionView_simulation_of_current_page_is_over__8);
 					_shell.setCursor(null);
 					_isInSimulate = false;
 
@@ -269,8 +272,8 @@ public class PartControlLowVision implements ISelectionListener,
 
 		try {
 			removeTempFile(dumpImgFile);
-			dumpImgFile = LowVisionVizPlugin.createTempFile(
-					PREFIX_SCREENSHOT, SUFFIX_BMP);
+			dumpImgFile = LowVisionVizPlugin.createTempFile(PREFIX_SCREENSHOT,
+					SUFFIX_BMP);
 			dumpImageFile = dumpImgFile.getAbsolutePath();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -281,8 +284,9 @@ public class PartControlLowVision implements ISelectionListener,
 	public void saveReport() {
 		IModelService modelService = ModelServiceUtils.getActiveModelService();
 		if (is1stSimulateDone && !isBInSimulate() && modelService != null) {
-			this._saveReportLowVision.doSave(modelService.getURL(), checkResult
-					.getProblemList(), visResultFile, reportImageFile);
+			this._saveReportLowVision.doSave(modelService.getURL(),
+					checkResult.getProblemList(), visResultFile,
+					reportImageFile);
 		}
 	}
 
@@ -313,7 +317,18 @@ public class PartControlLowVision implements ISelectionListener,
 	private HashMap<String, WaitExecSyncEventListener> eventhandlerHolder = new HashMap<String, WaitExecSyncEventListener>();
 	private static final String LISTENER_KEY = "browser"; //$NON-NLS-1$
 
-	public void doSimulate() {
+	public void doSimulate(){
+		clearHighlight();
+		Display.getCurrent().timerExec(50, new Runnable() {
+			
+			public void run() {
+				doSimulateInternal();
+			}
+		});
+	}
+	
+	private void doSimulateInternal() {
+
 		is1stSimulateDone = true;
 		// TODO button: enable,disable
 		if (isBInSimulate()) {
@@ -425,8 +440,7 @@ public class PartControlLowVision implements ISelectionListener,
 	private void prepareInt2Ds(IModelService modelService, int frameId,
 			int lastFrame) {
 		try {
-			checker
-					.setStatusMessage(Messages.LowVisionView_dump_the_image_in_the_web_browser__26);
+			checker.setStatusMessage(Messages.LowVisionView_dump_the_image_in_the_web_browser__26);
 
 			ModelServiceImageCreator imgCreator = new ModelServiceImageCreator(
 					modelService);
@@ -448,8 +462,7 @@ public class PartControlLowVision implements ISelectionListener,
 			}
 
 			if (framePageImage[frameId] != null) {
-				checker
-						.setStatusMessage(Messages.LowVisionView_get_information_of_all_images__25);
+				checker.setStatusMessage(Messages.LowVisionView_get_information_of_all_images__25);
 				if (browser != null) {
 					imageInfoInHtmlArray[frameId] = browser
 							.getAllImagePosition();
@@ -471,8 +484,7 @@ public class PartControlLowVision implements ISelectionListener,
 									framePageImage[frameId].getHeight()));
 				}
 
-				checker
-						.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
+				checker.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
 
 				ExtractCheckThread checkThread = new ExtractCheckThread(
 						frameId, frameUrl[frameId]);
@@ -517,16 +529,15 @@ public class PartControlLowVision implements ISelectionListener,
 			pageImageWhole = framePageImage[0];
 		}
 
-		checker
-				.setStatusMessage(Messages.LowVisionView_prepare_Simulation_Image__29);
+		checker.setStatusMessage(Messages.LowVisionView_prepare_Simulation_Image__29);
 
 		try {
 			removeTempFile(visResultFile);
 			visResultFile = LowVisionVizPlugin.createTempFile(
 					PREFIX_VISUALIZATION, SUFFIX_BMP);
 			ImageData[] imageDataArray = SimulateLowVision.doSimulate(
-					pageImageWhole, paramLowVision, visResultFile
-							.getAbsolutePath());
+					pageImageWhole, paramLowVision,
+					visResultFile.getAbsolutePath());
 			if (imageDataArray.length > 0) {
 				lowVisionView.displayImage(imageDataArray[0],
 						targetModelService, checker.isWholepage());
@@ -577,8 +588,7 @@ public class PartControlLowVision implements ISelectionListener,
 		// TODO null check?
 
 		if (frameUrl.length == 0) {
-			checker
-					.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
+			checker.setStatusMessage(Messages.LowVisionView_begin_to_make_PageImage__2);
 			// TODO check(original is getAddressText())
 			ExtractCheckThread checkThread = new ExtractCheckThread(0,
 					modelService.getURL());
@@ -623,8 +633,20 @@ public class PartControlLowVision implements ISelectionListener,
 		this.dump_image_size = dump_image_size;
 	}
 
+	private ArrayList<IElementEx> highlightElements = new ArrayList<IElementEx>();
+
+	private void clearHighlight() {
+		for (IElementEx tmpE : highlightElements) {
+			if (tmpE != null) {
+				tmpE.unhighlight();
+			}
+		}
+		highlightElements.clear();
+	}
+
 	@SuppressWarnings("unchecked")
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
+		clearHighlight();
 		if (selection == null || !(selection instanceof IStructuredSelection)) {
 			DebugPrintUtil.devOrDebugPrintln(this.getClass().getName()
 					+ ": Iselection"); //$NON-NLS-1$
@@ -640,6 +662,12 @@ public class PartControlLowVision implements ISelectionListener,
 				IPositionSize ips = (IPositionSize) item;
 				result.add(ips);
 			}
+
+			if (item.getTargetNode() instanceof IElementEx) {
+				IElementEx tmpE = (IElementEx) item.getTargetNode();
+				tmpE.highlight();
+				highlightElements.add(tmpE);
+			}
 		}
 		setHighlightPositions(result);
 	}
@@ -648,10 +676,10 @@ public class PartControlLowVision implements ISelectionListener,
 		lowVisionView.setCurrentModelService(modelService);
 	}
 
-	private void removeTempFile(File target){
-		if(target!=null){
+	private void removeTempFile(File target) {
+		if (target != null) {
 			target.delete();
 		}
 	}
-	
+
 }

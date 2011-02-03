@@ -27,6 +27,7 @@ public class ColorProblem extends LowVisionProblem{
 	private int backgroundColor = -1;
 	private boolean hasBackgroundImage = false;
 	private double contrast = 0;
+	private String[] targetStrings;
 
 	public ColorProblem( PageComponent _pc, LowVisionType _lvType, double _proba ) throws LowVisionProblemException{
 		super( LOWVISION_COLOR_PROBLEM, _lvType, Messages.ColorProblem_Foreground_and_background_colors_are_too_close__1, _pc, _proba );
@@ -66,13 +67,26 @@ public class ColorProblem extends LowVisionProblem{
 	}
 	
 	public String getDescription() throws LowVisionProblemException{
-		if(contrast>=1&&contrast<=21){
-			BigDecimal bd = new BigDecimal(contrast);
-			return(super.getDescription()+"("+Messages.ContrastRatio+"="+bd.setScale(2,BigDecimal.ROUND_HALF_UP)+")");
-		}
-		return( super.getDescription() );
+		return(super.getDescription()+getAdditionalDescription());
 	}
 
+	public String getAdditionalDescription(){
+		StringBuffer tmpSB = new StringBuffer();
+		if(contrast>=1&&contrast<=21){
+			BigDecimal bd = new BigDecimal(contrast);
+			tmpSB.append("("+Messages.ContrastRatio+" = "+bd.setScale(2,BigDecimal.ROUND_HALF_UP)+") ");
+		}
+		if(targetStrings!=null && targetStrings.length>0){
+			tmpSB.append("("+Messages.TargetString+" = ");
+			for(String tmpS : targetStrings){
+				tmpSB.append(tmpS+", ");
+			}
+			tmpSB.delete(tmpSB.length()-2, tmpSB.length());
+			tmpSB.append(")");
+		}
+		return(tmpSB.toString());
+	}
+	
 	public int getForegroundColor(){
 		return( foregroundColor );
 	}
@@ -100,5 +114,13 @@ public class ColorProblem extends LowVisionProblem{
 
 	public void setContrast(double contrast) {
 		this.contrast = contrast;
+	}
+
+	public String[] getTargetStrings() {
+		return targetStrings;
+	}
+
+	public void setTargetStrings(String[] targetStrings) {
+		this.targetStrings = targetStrings;
 	}
 }

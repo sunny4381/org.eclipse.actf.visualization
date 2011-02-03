@@ -157,8 +157,11 @@ public class W3CColorChecker extends ColorChecker {
 		double sevL = 0.0;
 		if(contrast>7){
 			return sevL;
+		}else if(contrast<3){
+			return 1.0;
+		}else{
+			return(1.0-(contrast-3)/(7.0-3));			
 		}
-		return(1.0-(contrast-1)/(7.0-1));
 	}
 
 	@Override

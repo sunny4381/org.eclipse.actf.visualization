@@ -21,6 +21,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
+import org.w3c.dom.Element;
 
 
 public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
@@ -48,6 +49,8 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 	int numRecommendations = 0; // recommendations.length;
 	LowVisionRecommendation[] recommendations = null;
 	boolean isGroupFlag = false; // is LowVisionProblemGroup?
+	
+	Element element;
 	
 	protected LowVisionProblem(){
 	}
@@ -260,5 +263,13 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype{
 		for( int k=0; k<_problems.length; k++ ){
 			_problems[k].drawSurroundingBox( _img );
 		}
+	}
+
+	public Element getElement() {
+		return element;
+	}
+
+	public void setElement(Element element) {
+		this.element = element;
 	}
 }
