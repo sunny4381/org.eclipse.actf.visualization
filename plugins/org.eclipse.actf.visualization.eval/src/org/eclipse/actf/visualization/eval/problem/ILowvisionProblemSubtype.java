@@ -24,4 +24,5 @@ public interface ILowvisionProblemSubtype {
 	public static final int LOWVISION_PROHIBITED_BOTH_COLORS_PROBLEM = 7;
 	public static final int LOWVISION_PROHIBITED_FOREGROUND_COLOR_PROBLEM = 8;
 	public static final int LOWVISION_PROHIBITED_BACKGROUND_COLOR_PROBLEM = 9;
+	public static final int LOWVISION_BACKGROUND_IMAGE_WARNING = 10;
 }

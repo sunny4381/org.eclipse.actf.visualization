@@ -37,10 +37,27 @@ public interface IGuidelineItem {
 	public abstract String getUrl();
 
 	/**
+	 * @return true if this item is enabled
+	 */
+	public abstract boolean isEnabled();
+	
+
+	/**
+	 * Set this item is enabled or not
+	 * 
+	 * @param isEnabled
+	 * 
+	 */
+	public abstract void setEnabled(boolean isEnabled);
+
+	
+	/**
 	 * Set level of guideline item (e.g., P1, P2, etc.)
 	 * 
 	 * @param level
 	 *            target level
+	 * 
+	 * @deprecated
 	 */
 	public abstract void setLevel(String level);
 
@@ -49,6 +66,8 @@ public interface IGuidelineItem {
 	 * 
 	 * @param id
 	 *            target id
+	 * 
+	 * @deprecated
 	 */
 	public abstract void setId(String id);
 
@@ -57,6 +76,7 @@ public interface IGuidelineItem {
 	 * 
 	 * @param url
 	 *            target URL
+	 * @deprecated
 	 */
 	public abstract void setUrl(String url);
 

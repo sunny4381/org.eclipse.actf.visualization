@@ -23,6 +23,8 @@ public class GuidelineItemImpl implements IGuidelineItem {
     private String id;
 
     private String url;
+    
+    private boolean isEnabled = false;
 
     /**
      * @param id
@@ -87,4 +89,12 @@ public class GuidelineItemImpl implements IGuidelineItem {
     public String toString() {
         return (guidelineName + ": " + id + ",\t" + level + ",\t" + url); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+	
+	public void setEnabled(boolean isEnabled){
+		this.isEnabled = isEnabled;
+	}
 }

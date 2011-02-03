@@ -31,6 +31,11 @@ public interface IProblemItem {
 	public static final int SEV_WARNING = IEvaluationItem.SEV_WARNING;
 
 	/**
+	 * Severity: user check
+	 */
+	public static final int SEV_USER = IEvaluationItem.SEV_USER;
+
+	/**
 	 * Severity: informational
 	 */
 	public static final int SEV_INFO = IEvaluationItem.SEV_INFO;

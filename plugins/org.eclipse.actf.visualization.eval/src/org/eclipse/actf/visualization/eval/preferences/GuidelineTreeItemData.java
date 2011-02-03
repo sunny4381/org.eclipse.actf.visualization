@@ -99,7 +99,7 @@ public class GuidelineTreeItemData implements IGuidelineTreeItem {
                 this._guideline = GUIDELINE_WCAG_P3;
             } else if (this._name.equals("Section508")) {
                 this._guideline = GUIDELINE_SECTION508;
-            } else if (this._name.equals("JIS")) {
+            } else if (this._name.startsWith("JIS")) {
                 this._guideline = GUIDELINE_JIS;
             } else if (this._name.equals("IBMGuideline")) {
                 this._guideline = GUIDELINE_IBMGUIDELINE;

@@ -610,6 +610,11 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		return false;
 	}
 
+	/**
+	 * If this method returns <code>true</code>, this table is a data table. Otherwise, this table is a layout table.
+	 * @param table
+	 * @return boolean indicating if this table is a data table.
+	 */
 	private boolean isDataTable(Element el) {
 		if (hasFormControl(el)) {
 			return false;

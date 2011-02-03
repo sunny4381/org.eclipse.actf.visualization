@@ -11,9 +11,14 @@
 
 package org.eclipse.actf.visualization.internal.eval;
 
+import java.util.Iterator;
+import java.util.TreeSet;
+
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.ITechniquesItem;
+import org.eclipse.actf.visualization.eval.guideline.GuidelineSelectionChangedEvent;
 import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineItemDescription;
 import org.eclipse.actf.visualization.internal.eval.guideline.MetricsItem;
@@ -27,13 +32,25 @@ public class EvaluationItemImpl implements IEvaluationItem {
 	private static final String LISTENABILITY = "listenability";
 	private static final String NAVIGABILITY = "navigability";
 	private static final String COMPLIANCE = "compliance";
-	
+	private static final String PERCEIVABLE = "perceivable";
+	private static final String OPERABLE = "operable";
+	private static final String UNDERSTANDABLE = "understandable";
+	private static final String ROBUST = "robust";
+
 	private static final Image ERROR_C_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/ErrC.png").createImage();
 	private static final Image ERROR_N_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/ErrN.png").createImage();
 	private static final Image ERROR_L_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/ErrL.png").createImage();
+	private static final Image ERROR_O_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ErrO.png").createImage();
+	private static final Image ERROR_P_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ErrP.png").createImage();
+	private static final Image ERROR_R_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ErrR.png").createImage();
+	private static final Image ERROR_U_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ErrU.png").createImage();
 	private static final Image ERROR_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/Err.png").createImage();
 
@@ -43,8 +60,33 @@ public class EvaluationItemImpl implements IEvaluationItem {
 			.getImageDescriptor("icons/WarnN.png").createImage();
 	private static final Image WARN_L_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/WarnL.png").createImage();
+	private static final Image WARN_O_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/WarnO.png").createImage();
+	private static final Image WARN_P_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/WarnP.png").createImage();
+	private static final Image WARN_R_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/WarnR.png").createImage();
+	private static final Image WARN_U_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/WarnU.png").createImage();
 	private static final Image WARN_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/Warn.png").createImage();
+
+	private static final Image USER_C_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ConfC.png").createImage();
+	private static final Image USER_N_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ConfN.png").createImage();
+	private static final Image USER_L_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ConfL.png").createImage();
+	private static final Image USER_O_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ConfO.png").createImage();
+	private static final Image USER_P_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ConfP.png").createImage();
+	private static final Image USER_R_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ConfR.png").createImage();
+	private static final Image USER_U_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/ConfU.png").createImage();
+	private static final Image USER_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/Conf.png").createImage();
 
 	private static final Image INFO_C_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/InfoC.png").createImage();
@@ -52,12 +94,22 @@ public class EvaluationItemImpl implements IEvaluationItem {
 			.getImageDescriptor("icons/InfoN.png").createImage();
 	private static final Image INFO_L_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/InfoL.png").createImage();
+	private static final Image INFO_O_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/InfoO.png").createImage();
+	private static final Image INFO_P_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/InfoP.png").createImage();
+	private static final Image INFO_R_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/InfoR.png").createImage();
+	private static final Image INFO_U_IMAGE = EvaluationPlugin
+			.getImageDescriptor("icons/InfoU.png").createImage();
 	private static final Image INFO_IMAGE = EvaluationPlugin
 			.getImageDescriptor("icons/Info.png").createImage();
 
 	private String id = "";
 
-	private GuidelineItemImpl[] guidelines = new GuidelineItemImpl[0];
+	private IGuidelineItem[] guidelines = new GuidelineItemImpl[0];
+
+	private ITechniquesItem[][] techniques = new ITechniquesItem[0][];
 
 	private MetricsItem[] metrics = new MetricsItem[0];
 
@@ -66,6 +118,8 @@ public class EvaluationItemImpl implements IEvaluationItem {
 	private String[] tableDataMetrics = new String[0];
 
 	private String[] tableDataGuideline = new String[0];
+
+	private String tableDataTechniques = "";
 
 	private Image[] metricsIcons = new Image[0];
 
@@ -92,12 +146,34 @@ public class EvaluationItemImpl implements IEvaluationItem {
 		return (description);
 	}
 
-	public GuidelineItemImpl[] getGuidelines() {
+	public IGuidelineItem[] getGuidelines() {
 		return guidelines;
 	}
 
-	public void setGuidelines(GuidelineItemImpl[] guidelines) {
+	public void setGuidelines(IGuidelineItem[] guidelines) {
 		this.guidelines = guidelines;
+	}
+
+	public void setTechniques(ITechniquesItem[][] techniques) {
+		this.techniques = techniques;
+
+		// init
+		TreeSet<String> tmpTree = new TreeSet<String>();
+		for (int i = 0; i < techniques.length; i++) {
+			ITechniquesItem[] ti = techniques[i];
+			for (ITechniquesItem tech : ti) {
+				tmpTree.add(tech.getId());
+			}
+		}
+		StringBuffer tmpSB = new StringBuffer();
+		Iterator<String> tmpI = tmpTree.iterator();
+		if (tmpI.hasNext()) {
+			tmpSB.append(tmpI.next());
+		}
+		while (tmpI.hasNext()) {
+			tmpSB.append(", " + tmpI.next());
+		}
+		tableDataTechniques = tmpSB.toString();
 	}
 
 	public String getId() {
@@ -114,15 +190,18 @@ public class EvaluationItemImpl implements IEvaluationItem {
 
 	private void setSeverity(String _severityStr) {
 		severity = SEV_INFO;
-		severityStr = SEV_INFO_STR;
+		severityStr = IProblemConst.INFO;
 		if (_severityStr != null) {
 			_severityStr = _severityStr.trim();
 			if (SEV_ERROR_STR.equalsIgnoreCase(_severityStr)) {
 				severity = SEV_ERROR;
-				severityStr = SEV_ERROR_STR;
+				severityStr = IProblemConst.ESSENTIAL;
 			} else if (SEV_WARNING_STR.equalsIgnoreCase(_severityStr)) {
 				severity = SEV_WARNING;
-				severityStr = SEV_WARNING_STR;
+				severityStr = IProblemConst.WARNING;
+			} else if (SEV_USER_STR.equalsIgnoreCase(_severityStr)){
+				severity = SEV_USER;
+				severityStr = IProblemConst.USER_CHECK;				
 			}
 			// else{
 			// severity = SEV_INFO;
@@ -138,33 +217,10 @@ public class EvaluationItemImpl implements IEvaluationItem {
 		this.metrics = metrics;
 	}
 
-	public void initTableData(String[] guidelineNames, String[] metricsNames) {
-		tableDataGuideline = new String[guidelineNames.length];
+	public void initMetrics(String[] metricsNames) {
 		tableDataMetrics = new String[metricsNames.length];
 		metricsScores = new int[metricsNames.length];
 		metricsIcons = new Image[metricsNames.length];
-		for (int i = 0; i < guidelineNames.length; i++) {
-			StringBuffer tmpSB = new StringBuffer();
-			boolean notFirst = false;
-			for (int j = 0; j < guidelines.length; j++) {
-				IGuidelineItem tmpItem = guidelines[j];
-				if (guidelineNames[i].equalsIgnoreCase(tmpItem
-						.getGuidelineName())) {
-					if (notFirst) {
-						tmpSB.append(", ");
-					} else {
-						notFirst = true;
-					}
-					if (tmpItem.getLevel().length() > 0) {
-						tmpSB.append(tmpItem.getLevel() + ": "
-								+ tmpItem.getId());
-					} else {
-						tmpSB.append(tmpItem.getId());
-					}
-				}
-			}
-			tableDataGuideline[i] = tmpSB.toString();
-		}
 
 		for (int i = 0; i < metricsNames.length; i++) {
 			String curName = metricsNames[i];
@@ -177,13 +233,20 @@ public class EvaluationItemImpl implements IEvaluationItem {
 					metricsScores[i] = tmpItem.getScore();
 					if (tmpItem.getScore() != 0) {
 						tableDataMetrics[i] = Integer.toString(-tmpItem
-								.getScore())
-								+ " ";
+								.getScore()) + " ";
 					}
 
 					switch (this.severity) {
 					case SEV_ERROR:
-						if (curName.equalsIgnoreCase(COMPLIANCE)) {
+						if (curName.equalsIgnoreCase(PERCEIVABLE)) {
+							metricsIcons[i] = ERROR_P_IMAGE;
+						} else if (curName.equalsIgnoreCase(OPERABLE)) {
+							metricsIcons[i] = ERROR_O_IMAGE;
+						} else if (curName.equalsIgnoreCase(UNDERSTANDABLE)) {
+							metricsIcons[i] = ERROR_U_IMAGE;
+						} else if (curName.equalsIgnoreCase(ROBUST)) {
+							metricsIcons[i] = ERROR_R_IMAGE;
+						} else if (curName.equalsIgnoreCase(COMPLIANCE)) {
 							metricsIcons[i] = ERROR_C_IMAGE;
 						} else if (curName.equalsIgnoreCase(NAVIGABILITY)) {
 							metricsIcons[i] = ERROR_N_IMAGE;
@@ -196,7 +259,15 @@ public class EvaluationItemImpl implements IEvaluationItem {
 								+ IProblemConst.ESSENTIAL + ")";
 						break;
 					case SEV_WARNING:
-						if (curName.equalsIgnoreCase(COMPLIANCE)) {
+						if (curName.equalsIgnoreCase(PERCEIVABLE)) {
+							metricsIcons[i] = WARN_P_IMAGE;
+						} else if (curName.equalsIgnoreCase(OPERABLE)) {
+							metricsIcons[i] = WARN_O_IMAGE;
+						} else if (curName.equalsIgnoreCase(UNDERSTANDABLE)) {
+							metricsIcons[i] = WARN_U_IMAGE;
+						} else if (curName.equalsIgnoreCase(ROBUST)) {
+							metricsIcons[i] = WARN_R_IMAGE;
+						} else if (curName.equalsIgnoreCase(COMPLIANCE)) {
 							metricsIcons[i] = WARN_C_IMAGE;
 						} else if (curName.equalsIgnoreCase(NAVIGABILITY)) {
 							metricsIcons[i] = WARN_N_IMAGE;
@@ -208,8 +279,37 @@ public class EvaluationItemImpl implements IEvaluationItem {
 						tableDataMetrics[i] = tableDataMetrics[i] + "("
 								+ IProblemConst.USER_CHECK + ")";
 						break;
+					case SEV_USER:
+						if (curName.equalsIgnoreCase(PERCEIVABLE)) {
+							metricsIcons[i] = USER_P_IMAGE;
+						} else if (curName.equalsIgnoreCase(OPERABLE)) {
+							metricsIcons[i] = USER_O_IMAGE;
+						} else if (curName.equalsIgnoreCase(UNDERSTANDABLE)) {
+							metricsIcons[i] = USER_U_IMAGE;
+						} else if (curName.equalsIgnoreCase(ROBUST)) {
+							metricsIcons[i] = USER_R_IMAGE;
+						} else if (curName.equalsIgnoreCase(COMPLIANCE)) {
+							metricsIcons[i] = USER_C_IMAGE;
+						} else if (curName.equalsIgnoreCase(NAVIGABILITY)) {
+							metricsIcons[i] = USER_N_IMAGE;
+						} else if (curName.equalsIgnoreCase(LISTENABILITY)) {
+							metricsIcons[i] = USER_L_IMAGE;
+						} else {
+							metricsIcons[i] = USER_IMAGE;
+						}
+						tableDataMetrics[i] = tableDataMetrics[i] + "("
+								+ IProblemConst.USER_CHECK + ")";
+						break;
 					case SEV_INFO:
-						if (curName.equalsIgnoreCase(COMPLIANCE)) {
+						if (curName.equalsIgnoreCase(PERCEIVABLE)) {
+							metricsIcons[i] = INFO_P_IMAGE;
+						} else if (curName.equalsIgnoreCase(OPERABLE)) {
+							metricsIcons[i] = INFO_O_IMAGE;
+						} else if (curName.equalsIgnoreCase(UNDERSTANDABLE)) {
+							metricsIcons[i] = INFO_U_IMAGE;
+						} else if (curName.equalsIgnoreCase(ROBUST)) {
+							metricsIcons[i] = INFO_R_IMAGE;
+						} else if (curName.equalsIgnoreCase(COMPLIANCE)) {
 							metricsIcons[i] = INFO_C_IMAGE;
 						} else if (curName.equalsIgnoreCase(NAVIGABILITY)) {
 
@@ -227,7 +327,6 @@ public class EvaluationItemImpl implements IEvaluationItem {
 				}
 			}
 		}
-
 	}
 
 	public String toString() {
@@ -252,6 +351,55 @@ public class EvaluationItemImpl implements IEvaluationItem {
 		return (tmpSB.toString());
 	}
 
+	private void updateTableDataGuidelines(String[] guidelineNames) {
+		tableDataGuideline = new String[guidelineNames.length];
+		for (int i = 0; i < guidelineNames.length; i++) {
+			StringBuffer tmpSB = new StringBuffer();
+			boolean notFirst = false;
+			for (int j = 0; j < guidelines.length; j++) {
+				IGuidelineItem tmpItem = guidelines[j];
+				if (tmpItem.isEnabled()) {
+					if (guidelineNames[i].equalsIgnoreCase(tmpItem
+							.getGuidelineName())) {
+						if (notFirst) {
+							tmpSB.append(", ");
+						} else {
+							notFirst = true;
+						}
+						if (tmpItem.getLevel().length() > 0) {
+							tmpSB.append(tmpItem.getLevel() + ": "
+									+ tmpItem.getId());
+						} else {
+							tmpSB.append(tmpItem.getId());
+						}
+					}
+				}
+			}
+			tableDataGuideline[i] = tmpSB.toString();
+		}
+	}
+
+	private void updateTableDataTechniques() {
+		TreeSet<String> tmpTree = new TreeSet<String>();
+		for (int i = 0; i < guidelines.length; i++) {
+			if (guidelines[i].isEnabled()) {
+				ITechniquesItem[] ti = techniques[i];
+				for (ITechniquesItem tech : ti) {
+					tmpTree.add(tech.getId());
+				}
+			}
+		}
+		StringBuffer tmpSB = new StringBuffer();
+		Iterator<String> tmpI = tmpTree.iterator();
+		if (tmpI.hasNext()) {
+			tmpSB.append(tmpI.next());
+		}
+		while (tmpI.hasNext()) {
+			tmpSB.append(", " + tmpI.next());
+		}
+		tableDataTechniques = tmpSB.toString();
+	}
+
 	public int[] getMetricsScores() {
 		return metricsScores;
 	}
@@ -266,5 +414,18 @@ public class EvaluationItemImpl implements IEvaluationItem {
 
 	public Image[] getMetricsIcons() {
 		return metricsIcons;
+	}
+
+	public ITechniquesItem[][] getTechniques() {
+		return techniques;
+	}
+
+	public String getTableDataTechniques() {
+		return tableDataTechniques;
+	}
+
+	public void selectionChanged(GuidelineSelectionChangedEvent e) {
+		updateTableDataTechniques();
+		updateTableDataGuidelines(e.getGuidelineHolder().getGuidelineNames());
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and Others
+ * Copyright (c) 2005, 2010 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.actf.visualization.eval.guideline;
 
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.ITechniquesItem;
 
 /**
  * Interface for guideline data
@@ -29,6 +30,16 @@ public interface IGuidelineData {
 	 */
 	public abstract IGuidelineItem getGuidelineItem(String id);
 
+	/**
+	 * Get Techniques item information
+	 * 
+	 * @param id
+	 *            target ID of Techniques item
+	 * @return guideline item ({@link ITechniquesItem}), or null if not
+	 *         available
+	 */
+	public abstract ITechniquesItem getTequniquesItem(String id);
+	
 	/**
 	 * Get guideline name
 	 * 

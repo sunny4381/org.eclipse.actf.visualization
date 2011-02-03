@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.ITechniquesItem;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.swt.graphics.Image;
 
@@ -49,8 +50,41 @@ public class GuidelineData implements IGuidelineData {
 
 	private Map<String, IGuidelineItem> guidelineItemMap = new HashMap<String, IGuidelineItem>();
 
+	private Map<String, ITechniquesItem> techniquesItemMap = new HashMap<String, ITechniquesItem>();
+	
 	private String currentMIMEtype = "text/html"; //$NON-NLS-1$
 
+	/**
+	 * @param guidelineName
+	 * @param levels
+	 * @param guidelineItemMap
+	 * 
+	 * @deprecated 
+	 */
+	public GuidelineData(String guidelineName, int id, String category,
+			String description, String[] levels, String[] categories,
+			String[] descriptions, String[] mimetypes,
+			Map<String, IGuidelineItem> guidelineItemMap) {
+		this.guidelineName = guidelineName;
+		this.guidelineItemMap = guidelineItemMap;
+		this.levels = levels;
+		this.mimetypes = mimetypes;
+		this.id = id;
+		this.category = category;
+		this.description = description;
+
+		subLevelDataArray = new GuidelineData[levels.length];
+		for (int i = 0; i < levels.length; i++) {
+			subLevelDataArray[i] = new GuidelineData(guidelineName, id,
+					levels[i], categories[i], descriptions[i], mimetypes,
+					guidelineItemMap);
+		}
+
+		// for(int i=0;i<levels.length;i++){
+		// System.out.println(guidelineName+"("+levels[i]+"):"+guidelineItems[i].size());
+		// }
+	}
+	
 	/**
 	 * @param guidelineName
 	 * @param levels
@@ -59,9 +93,10 @@ public class GuidelineData implements IGuidelineData {
 	public GuidelineData(String guidelineName, int id, String category,
 			String description, String[] levels, String[] categories,
 			String[] descriptions, String[] mimetypes,
-			Map<String, IGuidelineItem> guidelineItemMap) {
+			Map<String, IGuidelineItem> guidelineItemMap, Map<String, ITechniquesItem> techniquesItemMap) {
 		this.guidelineName = guidelineName;
 		this.guidelineItemMap = guidelineItemMap;
+		this.techniquesItemMap = techniquesItemMap;
 		this.levels = levels;
 		this.mimetypes = mimetypes;
 		this.id = id;
@@ -179,6 +214,10 @@ public class GuidelineData implements IGuidelineData {
 
 	public void setEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
+		for(IGuidelineItem i : guidelineItemMap.values()){
+			i.setEnabled(isEnabled);
+		}
+		//TODO check sublevel
 	}
 
 	/* (non-Javadoc)
@@ -280,5 +319,9 @@ public class GuidelineData implements IGuidelineData {
 	 */
 	public String getDescription() {
 		return description;
+	}
+
+	public ITechniquesItem getTequniquesItem(String id) {
+		return techniquesItemMap.get(id);
 	}
 }

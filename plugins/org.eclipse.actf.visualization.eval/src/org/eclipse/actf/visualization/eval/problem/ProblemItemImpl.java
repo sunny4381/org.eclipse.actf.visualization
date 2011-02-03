@@ -210,7 +210,7 @@ public class ProblemItemImpl implements IProblemItem {
 		// TODO check multiple same line number
 		if (targetSources.length > 0) {
 			for (int i = 0; i < targetSources.length; i++) {
-				int tmp = targetSources[i].getStartLine() + 1;
+				int tmp = targetSources[i].getStartLine();
 				tmpSB.append(tmp);
 				tmpSB.append(", "); //$NON-NLS-1$
 			}

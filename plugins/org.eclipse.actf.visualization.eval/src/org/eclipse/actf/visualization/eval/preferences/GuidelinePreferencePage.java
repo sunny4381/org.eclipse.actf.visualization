@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2008 IBM Corporation and Others
+ * Copyright (c) 2006, 2011 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,6 +47,8 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 
 	private String[] _criteriaNames;
 
+	private String[] _criteriaNamesOrg;
+
 	private Button[] _criteriaCheckButtons;
 
 	private CheckboxTreeViewer _guidelineTreeViewer;
@@ -59,10 +61,10 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 	}
 
 	public void init(IWorkbench workbench) {
-		this._guidelineHolder = GuidelineHolder.getInstance();
-		this._checkerOptionNames = this._guidelineHolder
-				.getGuidelineNamesWithLevels();
-		this._criteriaNames = this._guidelineHolder.getMetricsNames();
+		_guidelineHolder = GuidelineHolder.getInstance();
+		_checkerOptionNames = _guidelineHolder.getGuidelineNamesWithLevels();
+		_criteriaNamesOrg = _guidelineHolder.getMetricsNames();
+		_criteriaNames = _guidelineHolder.getLocalizedMetricsNames();
 	}
 
 	@Override
@@ -100,7 +102,8 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 		guidelineTreeGroup.setLayoutData(gridData);
 		guidelineTreeGroup.setLayout(new GridLayout());
 
-		guidelineTreeGroup.setText(Messages.adesigner_preference_guideline_list_group_text);
+		guidelineTreeGroup
+				.setText(Messages.adesigner_preference_guideline_list_group_text);
 
 		this._guidelineTreeViewer = new CheckboxTreeViewer(guidelineTreeGroup,
 				SWT.BORDER);
@@ -129,7 +132,7 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 		GuidelineTreeItemType odfType = new GuidelineTreeItemType(
 				GuidelineTreeItemType.TYPE_ODF);
 		root.add(htmlType);
-		root.add(odfType);
+		boolean hasOdf = false;
 
 		IGuidelineData[] guidelineDataArray = this._guidelineHolder
 				.getLeafGuidelineData();
@@ -156,6 +159,10 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 			if (isHTMLType) {
 				htmlType.add(guidelineData);
 			} else {
+				if (!hasOdf) {
+					root.add(odfType);
+					hasOdf = true;
+				}
 				odfType.add(guidelineData);
 			}
 
@@ -234,13 +241,18 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 
 		int length = this._criteriaNames.length;
 		this._criteriaCheckButtons = new Button[length];
-		boolean[] isOptionEnabled = this._guidelineHolder.getEnabledMetrics();
+		boolean[] isOptionEnabled = _guidelineHolder.getEnabledMetrics();
 
 		GridData gridData;
 		for (int i = 0; i < length; i++) {
 			this._criteriaCheckButtons[i] = new Button(criteriaGroup, SWT.CHECK);
 			this._criteriaCheckButtons[i].setText(this._criteriaNames[i]);
 			this._criteriaCheckButtons[i].setSelection(isOptionEnabled[i]);
+			if (_criteriaNamesOrg[i]
+					.matches("(Perceivable|Operable|Understandable|Robust)")) {
+				_criteriaCheckButtons[i].setEnabled(false);
+			}
+
 			if (i % columnNum != 0) {
 				gridData = new GridData();
 				gridData.horizontalIndent = 20;
@@ -251,13 +263,10 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 
 	private void createLineNumberInfoPart(Composite parent) {
 
-		addField(new RadioGroupFieldEditor(
-				IPreferenceConstants.CHECKER_TARGET,
-				Messages.DialogCheckerOption_Line_Number_Information_19,
-				1,
+		addField(new RadioGroupFieldEditor(IPreferenceConstants.CHECKER_TARGET,
+				Messages.DialogCheckerOption_Line_Number_Information_19, 1,
 				new String[][] {
-						{
-								Messages.DialogCheckerOption_Add_line_number_20,
+						{ Messages.DialogCheckerOption_Add_line_number_20,
 								IPreferenceConstants.CHECKER_ORG_DOM },
 						{ Messages.DialogCheckerOption_LIVE_DOM,
 								IPreferenceConstants.CHECKER_LIVE_DOM } },
@@ -272,58 +281,36 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 		setParameters();
 
 		/*
-			//TODO WCAG 2.0 support
-		if (this._guidelineHolder.isEnabledMetric("Navigability")) { //$NON-NLS-1$
-
-			IGuidelineData[] datas = this._guidelineHolder
-					.getLeafGuidelineData();
-			boolean isWcagOn = false;
-			boolean isWcagOff = false;
-			boolean isOtherComp = false;
-
-			for (int i = 0; i < datas.length; i++) {
-				if (datas[i].isEnabled()) {
-					if (datas[i].getGuidelineName().matches(
-							"Section508|JIS|IBMGuideline|WCAG 2.0")) { //$NON-NLS-1$
-						isOtherComp = true;
-					} else if (datas[i].getGuidelineName().equals("WCAG")) { //$NON-NLS-1$
-						isWcagOn = true;
-					}
-				} else {
-					if (datas[i].getGuidelineName().equals("WCAG")) { //$NON-NLS-1$
-						isWcagOff = true;
-					}
-				}
-			}
-
-			if (!isOtherComp && isWcagOn && isWcagOff) {
-				NavigabilityWarningDialog nwd = new NavigabilityWarningDialog(
-						getShell());
-				int result = nwd.open();
-				switch (result) {
-				case NavigabilityWarningDialog.ENABLE_ALL:
-					for (int i = 0; i < this._guidelineTreeItems.length; i++) {
-						if (this._guidelineTreeItems[i].getText().indexOf(
-								"WCAG") > -1) { //$NON-NLS-1$
-							this._guidelineTreeItems[i].setChecked(true);
-						}
-					}
-					return true;
-				case NavigabilityWarningDialog.DISABLE_NAVIGABILITY:
-					for (int i = 0; i < this._criteriaCheckButtons.length; i++) {
-						if (this._criteriaCheckButtons[i].getText().indexOf(
-								"Navigability") > -1) { //$NON-NLS-1$
-							this._criteriaCheckButtons[i].setSelection(false);
-						}
-					}
-					return true;
-				case NavigabilityWarningDialog.CONTINUE:
-				default:
-					// do nothing
-				}
-			}
-		}
-		*/
+		 * //TODO WCAG 2.0 support if
+		 * (this._guidelineHolder.isEnabledMetric("Navigability")) {
+		 * //$NON-NLS-1$
+		 * 
+		 * IGuidelineData[] datas = this._guidelineHolder
+		 * .getLeafGuidelineData(); boolean isWcagOn = false; boolean isWcagOff
+		 * = false; boolean isOtherComp = false;
+		 * 
+		 * for (int i = 0; i < datas.length; i++) { if (datas[i].isEnabled()) {
+		 * if (datas[i].getGuidelineName().matches(
+		 * "Section508|JIS|IBMGuideline|WCAG 2.0")) { //$NON-NLS-1$ isOtherComp
+		 * = true; } else if (datas[i].getGuidelineName().equals("WCAG")) {
+		 * //$NON-NLS-1$ isWcagOn = true; } } else { if
+		 * (datas[i].getGuidelineName().equals("WCAG")) { //$NON-NLS-1$
+		 * isWcagOff = true; } } }
+		 * 
+		 * if (!isOtherComp && isWcagOn && isWcagOff) {
+		 * NavigabilityWarningDialog nwd = new NavigabilityWarningDialog(
+		 * getShell()); int result = nwd.open(); switch (result) { case
+		 * NavigabilityWarningDialog.ENABLE_ALL: for (int i = 0; i <
+		 * this._guidelineTreeItems.length; i++) { if
+		 * (this._guidelineTreeItems[i].getText().indexOf( "WCAG") > -1) {
+		 * //$NON-NLS-1$ this._guidelineTreeItems[i].setChecked(true); } }
+		 * return true; case NavigabilityWarningDialog.DISABLE_NAVIGABILITY: for
+		 * (int i = 0; i < this._criteriaCheckButtons.length; i++) { if
+		 * (this._criteriaCheckButtons[i].getText().indexOf( "Navigability") >
+		 * -1) { //$NON-NLS-1$
+		 * this._criteriaCheckButtons[i].setSelection(false); } } return true;
+		 * case NavigabilityWarningDialog.CONTINUE: default: // do nothing } } }
+		 */
 
 		return isOK;
 	}
@@ -334,9 +321,11 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 			boolean[] result = new boolean[this._criteriaCheckButtons.length];
 			Arrays.fill(result, false);
 			for (int i = 0; i < _criteriaCheckButtons.length; i++) {
-				if (this._criteriaCheckButtons[i] != null
-						&& this._criteriaCheckButtons[i].isEnabled()
-						&& this._criteriaCheckButtons[i].getSelection()) {
+				if (_criteriaCheckButtons[i] != null
+						&& (_criteriaNamesOrg[i]
+								.matches("(Perceivable|Operable|Understandable|Robust)") || (_criteriaCheckButtons[i]
+								.isEnabled() && _criteriaCheckButtons[i]
+								.getSelection()))) {
 					result[i] = true;
 				}
 			}
@@ -373,7 +362,10 @@ public class GuidelinePreferencePage extends GroupFieldEditorPreferencePage
 		}
 
 		for (int i = 0; i < this._criteriaCheckButtons.length; i++) {
-			this._criteriaCheckButtons[i].setEnabled(isSelectable[i]);
+			if (!_criteriaNamesOrg[i]
+					.matches("(Perceivable|Operable|Understandable|Robust)")) {
+				_criteriaCheckButtons[i].setEnabled(isSelectable[i]);
+			}
 		}
 	}
 

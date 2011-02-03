@@ -11,12 +11,13 @@
 
 package org.eclipse.actf.visualization.eval;
 
+import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedListener;
 import org.eclipse.swt.graphics.Image;
 
 /**
  * Interface for evaluation item information
  */
-public interface IEvaluationItem {
+public interface IEvaluationItem extends IGuidelineSlectionChangedListener{
 	/**
 	 * Severity ID: error
 	 */
@@ -25,12 +26,18 @@ public interface IEvaluationItem {
 	/**
 	 * Severity ID: warning
 	 */
-	public static final int SEV_WARNING = 2; // add "Possible error"?
+	public static final int SEV_WARNING = 2;
 
+	/**
+	 * Severity ID: user check
+	 */
+	public static final int SEV_USER = 4;
+	
+	
 	/**
 	 * Severity ID: informational
 	 */
-	public static final int SEV_INFO = 4;
+	public static final int SEV_INFO = 8;
 
 	/**
 	 * String for error severity
@@ -41,6 +48,11 @@ public interface IEvaluationItem {
 	 * String for warning severity
 	 */
 	public static final String SEV_WARNING_STR = "warning"; //$NON-NLS-1$
+
+	/**
+	 * String for user check severity
+	 */
+	public static final String SEV_USER_STR = "user"; //$NON-NLS-1$
 
 	/**
 	 * String for informational severity
@@ -78,6 +90,11 @@ public interface IEvaluationItem {
 	public String[] getTableDataMetrics();
 
 	/**
+	 * @return Techniques information to be shown in the result table
+	 */
+	public String getTableDataTechniques();
+	
+	/**
 	 * @return icons for evaluation metrics to be shown in the result table
 	 */
 	public Image[] getMetricsIcons();
@@ -86,7 +103,12 @@ public interface IEvaluationItem {
 	 * @return get corresponding guideline items of this evaluation item
 	 */
 	public IGuidelineItem[] getGuidelines();
-
+	
+	/**
+	 * @return get corresponding Techniques items of this evaluation item. 
+	 */
+	public ITechniquesItem[][] getTechniques();
+	
 	/**
 	 * @return description about this evaluation item
 	 */

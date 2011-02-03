@@ -21,6 +21,7 @@ public final class Messages extends NLS {
 	}
 
 	public static String ProblemConst_All_Errors_1;
+	public static String ProblemConst_Warning;
 	public static String ProblemConst_Essential_2;
 	public static String ProblemConst_Advanced_3;
 	public static String ProblemConst_Basic_4;
@@ -54,7 +55,14 @@ public final class Messages extends NLS {
 	public static String DialogCheckerOption_LIVE_DOM;
 	public static String GuidelinePreferencePage_0;
 	public static String GuidelinePreferencePage_1;
-
+	public static String Techniques;
+	public static String Type;
+	public static String Help;
+	public static String Perceivable;
+	public static String Operable;
+	public static String Understandable;
+	public static String Robust;
+	
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}

@@ -31,6 +31,7 @@ import org.eclipse.actf.visualization.eval.preferences.ICheckerPreferenceConstan
 import org.eclipse.actf.visualization.internal.eval.CheckerExtension;
 import org.eclipse.actf.visualization.internal.eval.EvaluationItemImpl;
 import org.eclipse.actf.visualization.internal.eval.EvaluationPlugin;
+import org.eclipse.actf.visualization.internal.eval.Messages;
 import org.eclipse.actf.visualization.internal.eval.guideline.CheckItemReader;
 import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineData;
 import org.eclipse.actf.visualization.internal.eval.guideline.GuidelineDataComparator;
@@ -83,6 +84,8 @@ public class GuidelineHolder {
 	private Map<String, IEvaluationItem> checkitemMap = new HashMap<String, IEvaluationItem>();
 
 	private String[] metricsNames = new String[0];
+	
+	private String[] localizedMetricsNames = new String[0];
 
 	private boolean[][] correspondingMetricsOfLeafGuideline;
 
@@ -124,8 +127,7 @@ public class GuidelineHolder {
 			InputStream[] iss = checkerInfo.getGuidelineInputStreams();
 			if (null != iss) {
 				DebugPrintUtil.devOrDebugPrintln(checkerInfo.getClass()
-						.getName()
-						+ ":" + iss.length); //$NON-NLS-1$
+						.getName() + ":" + iss.length); //$NON-NLS-1$
 				for (InputStream tmpIs : iss) {
 					readGuidelines(tmpIs);
 				}
@@ -173,9 +175,8 @@ public class GuidelineHolder {
 				for (ICheckerInfoProvider checkerInfo : checkerInfos) {
 					InputStream[] iss = checkerInfo.getCheckItemInputStreams();
 					if (null != iss) {
-						DebugPrintUtil
-						.devOrDebugPrintln(checkerInfo.getClass().getName()
-								+ ":" + iss.length); //$NON-NLS-1$
+						DebugPrintUtil.devOrDebugPrintln(checkerInfo.getClass()
+								.getName() + ":" + iss.length); //$NON-NLS-1$
 						for (InputStream tmpIs : iss) {
 							try {
 								cir = CheckItemReader.parse(tmpIs, this);
@@ -194,8 +195,22 @@ public class GuidelineHolder {
 				}
 
 				metricsNames = new String[metricsNameSet.size()];
+				localizedMetricsNames = new String[metricsNameSet.size()];
 				metricsNameSet.toArray(metricsNames);
-
+				metricsNameSet.toArray(localizedMetricsNames);
+				
+				for(int i=0; i<localizedMetricsNames.length;i++){
+					if(localizedMetricsNames[i].equalsIgnoreCase("perceivable")){
+						localizedMetricsNames[i] = Messages.Perceivable;
+					}else if(localizedMetricsNames[i].equalsIgnoreCase("operable")){
+						localizedMetricsNames[i] = Messages.Operable;
+					}else if(localizedMetricsNames[i].equalsIgnoreCase("understandable")){
+						localizedMetricsNames[i] = Messages.Understandable;
+					}else if(localizedMetricsNames[i].equalsIgnoreCase("robust")){
+						localizedMetricsNames[i] = Messages.Robust;
+					}
+				}
+				
 				enabledMetrics = new boolean[metricsNameSet.size()];
 				Arrays.fill(enabledMetrics, true);
 			} else {
@@ -206,10 +221,10 @@ public class GuidelineHolder {
 		}
 
 		for (IEvaluationItem tmpItem : checkitemMap.values()) {
-			if (tmpItem instanceof EvaluationItemImpl) {
-				((EvaluationItemImpl) tmpItem).initTableData(guidelineNames,
-						metricsNames);
+			if(tmpItem instanceof EvaluationItemImpl){
+				((EvaluationItemImpl) tmpItem).initMetrics(metricsNames);
 			}
+			addGuidelineSelectionChangedListener(tmpItem);
 		}
 
 		initGuidelineNameLevel2checkItem();
@@ -217,6 +232,7 @@ public class GuidelineHolder {
 		initDisabledMetrics();
 		initCorrespondingMetrics();
 		resetMatchedItems();
+		notifyGuidelineSelectionChange();
 	}
 
 	/**
@@ -348,6 +364,7 @@ public class GuidelineHolder {
 
 			storeDisabledGuideline();
 			resetMatchedItems();
+
 			notifyGuidelineSelectionChange();
 		}
 
@@ -454,6 +471,16 @@ public class GuidelineHolder {
 		return metricsNames;
 	}
 
+	/**
+	 * Get registered evaluation metrics names (localized).
+	 * 
+	 * @return evaluation metrics (localized)
+	 */
+	public String[] getLocalizedMetricsNames() {
+		return localizedMetricsNames;
+	}
+
+	
 	private void initGuidelineNameLevel2checkItem() {
 		for (GuidelineData data : guidelineMaps.values()) {
 			data.setEvaluationItems(checkitemMap.values(), metricsNames);
@@ -553,6 +580,10 @@ public class GuidelineHolder {
 					preferenceStore.setValue(
 							ICheckerPreferenceConstants.METRICS_PREFIX
 									+ metricsNames[i], true);
+				} else {
+					preferenceStore.setValue(
+							ICheckerPreferenceConstants.METRICS_PREFIX
+									+ metricsNames[i], false);
 				}
 			}
 		} catch (Exception e) {
@@ -578,6 +609,8 @@ public class GuidelineHolder {
 	 * @param target
 	 *            target {@link IGuidelineItem}
 	 * @return true if the target item is enabled
+	 * 
+	 * @deprecated
 	 */
 	public boolean isMatchedGuidelineItem(IGuidelineItem target) {
 		return (matchedGuidelineitemSet.contains(target));
@@ -591,6 +624,8 @@ public class GuidelineHolder {
 	 * @param target
 	 *            target top level {@link IGuidelineItem}
 	 * @return true if at least one of the child levels of the target is enabled
+	 * 
+	 * @deprecated
 	 */
 	public boolean isMatchedInTopLevel(IGuidelineItem target) {
 		if (guidelineMaps.containsKey(target.getGuidelineName())) {

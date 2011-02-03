@@ -21,6 +21,8 @@ public interface IProblemConst {
 
 	public static final String ESSENTIAL = Messages.ProblemConst_Essential_2; 
 
+	public static final String WARNING = Messages.ProblemConst_Warning; 
+	
 	public static final String USER_CHECK = Messages.ProblemConst_User_Check_5; 
 
 	public static final String INFO = Messages.ProblemConst_Info; 
@@ -49,5 +51,13 @@ public interface IProblemConst {
 	public final static String TITLE_Y = Messages.ProblemConst_Y_22; 
 
 	public final static String TITLE_AREA = Messages.ProblemConst_Area_23; 
+	
+	public final static String TITLE_TECHNIQUS = Messages.Techniques;
+	
+	public final static String TITLE_TYPE = Messages.Type;
+	
+	public final static String TITLE_HELP = Messages.Help;
+	
+	public final static String TITLE_GUIDELINE = Messages.adesigner_preference_guideline_list_group_text;
 
 }

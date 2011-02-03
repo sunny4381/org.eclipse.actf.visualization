@@ -20,7 +20,9 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.ITechniquesItem;
 import org.eclipse.actf.visualization.internal.eval.GuidelineItemImpl;
+import org.eclipse.actf.visualization.internal.eval.TechniquesItemImpl;
 import org.eclipse.ui.PlatformUI;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -36,6 +38,10 @@ public class GuidelineItemReader extends DefaultHandler {
 	private static final String ITEMS = "items";
 
 	private static final String GITEM = "gItem";
+
+	private static final String TECHNIQUES = "techniques";
+
+	private static final String TECHNIQUE = "technique";
 
 	private static final String LEVELS = "levels";
 
@@ -67,6 +73,10 @@ public class GuidelineItemReader extends DefaultHandler {
 
 	private static final short IN_LEVEL = 5;
 
+	private static final short IN_TECHNIQUES = 6;
+
+	private static final short IN_TECHNIQUE = 7;
+
 	public static GuidelineData getGuidelineData(InputStream is) {
 		GuidelineItemReader glir = new GuidelineItemReader();
 		try {
@@ -79,7 +89,7 @@ public class GuidelineItemReader extends DefaultHandler {
 			return (new GuidelineData(glir.guidelineName, glir.order,
 					glir.category, glir.description, glir.levels,
 					glir.categories, glir.descriptions, glir.mimetypes,
-					glir.itemMap));
+					glir.itemMap, glir.techMap));
 		} else {
 			// TODO dialog
 			return (null);
@@ -94,13 +104,17 @@ public class GuidelineItemReader extends DefaultHandler {
 
 	private Vector<String> mimeV = new Vector<String>();
 
-	private IGuidelineItem curItem = new GuidelineItemImpl("");
+	private GuidelineItemImpl curItem = new GuidelineItemImpl("");
+
+	private TechniquesItemImpl curTech = new TechniquesItemImpl();
 
 	private Stack<Short> statusStack = new Stack<Short>();
 
 	private String curValue;
 
 	private HashMap<String, IGuidelineItem> itemMap;
+
+	private HashMap<String, ITechniquesItem> techMap;
 
 	private String guidelineName;
 
@@ -129,6 +143,7 @@ public class GuidelineItemReader extends DefaultHandler {
      */
 	public GuidelineItemReader() {
 		itemMap = new HashMap<String, IGuidelineItem>();
+		techMap = new HashMap<String, ITechniquesItem>();
 	}
 
 	/**
@@ -186,14 +201,25 @@ public class GuidelineItemReader extends DefaultHandler {
 			if (!statusStack.isEmpty()) {
 				status = (statusStack.pop()).shortValue();
 			}
+		} else if (qName.equalsIgnoreCase(TECHNIQUE)) {
+			techMap.put(curTech.getId(), curTech);
+			if (!statusStack.isEmpty()) {
+				status = (statusStack.pop()).shortValue();
+			}
 		} else if (qName.equalsIgnoreCase(HELP_URL)) {
+			String localUrl = getLocalGuidelineURL(curValue);
 			switch (status) {
 			case IN_ITEM:
-				String localUrl = getLocalGuidelineURL(curValue);
 				if (localUrl != null)
 					curItem.setUrl(localUrl);
 				else
 					curItem.setUrl(curValue);
+				break;
+			case IN_TECHNIQUE:
+				if (localUrl != null)
+					curTech.setUrl(localUrl);
+				else
+					curTech.setUrl(curValue);
 				break;
 			default:
 			}
@@ -223,15 +249,10 @@ public class GuidelineItemReader extends DefaultHandler {
 			;
 		} else if (qName.equalsIgnoreCase(GUIDELINE)) {
 
-		} else if (qName.equalsIgnoreCase(MIMETYPES)) {
-			if (!statusStack.isEmpty()) {
-				status = (statusStack.pop()).shortValue();
-			}
-		} else if (qName.equalsIgnoreCase(ITEMS)) {
-			if (!statusStack.isEmpty()) {
-				status = (statusStack.pop()).shortValue();
-			}
-		} else if (qName.equalsIgnoreCase(LEVELS)) {
+		} else if (qName.equalsIgnoreCase(MIMETYPES)
+				|| qName.equalsIgnoreCase(ITEMS)
+				|| qName.equalsIgnoreCase(TECHNIQUES)
+				|| qName.equalsIgnoreCase(LEVELS)) {
 			if (!statusStack.isEmpty()) {
 				status = (statusStack.pop()).shortValue();
 			}
@@ -278,6 +299,12 @@ public class GuidelineItemReader extends DefaultHandler {
 			curItem = new GuidelineItemImpl(guidelineName);
 			curItem.setLevel(getAttribute(attributes, LEVEL));
 			curItem.setId(getAttribute(attributes, ID));
+		} else if (qName.equalsIgnoreCase(TECHNIQUE)) {
+			statusStack.push(new Short(status));
+			status = IN_TECHNIQUE;
+			curTech = new TechniquesItemImpl();
+			curTech.setId(getAttribute(attributes, ID));
+			curTech.setGuidelineName(guidelineName);
 		} else if (qName.equalsIgnoreCase(HELP_URL)) {
 
 		} else if (qName.equalsIgnoreCase(GUIDELINE)) {
@@ -296,6 +323,9 @@ public class GuidelineItemReader extends DefaultHandler {
 		} else if (qName.equalsIgnoreCase(ITEMS)) {
 			statusStack.push(new Short(status));
 			status = IN_ITEMS;
+		} else if (qName.equalsIgnoreCase(TECHNIQUES)) {
+			statusStack.push(new Short(status));
+			status = IN_TECHNIQUES;
 		} else {
 
 		}

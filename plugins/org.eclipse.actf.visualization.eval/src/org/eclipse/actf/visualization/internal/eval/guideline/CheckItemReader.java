@@ -24,9 +24,10 @@ import javax.xml.parsers.SAXParserFactory;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.ITechniquesItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
+import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.actf.visualization.internal.eval.EvaluationItemImpl;
-import org.eclipse.actf.visualization.internal.eval.GuidelineItemImpl;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -55,6 +56,8 @@ public class CheckItemReader extends DefaultHandler {
 	private static final String SCORE = "score";
 
 	private static final String DESCRIPTION = "description";
+
+	private static final String TECHNIQUS = "techniques";
 
 	// private static final String LANG = "lang";
 
@@ -94,6 +97,10 @@ public class CheckItemReader extends DefaultHandler {
 
 	private Vector<IGuidelineItem> guidelineV = new Vector<IGuidelineItem>();
 
+	private Vector<ITechniquesItem[]> techniquesV = new Vector<ITechniquesItem[]>();
+
+	private IGuidelineData[] guidelines = new IGuidelineData[0];
+
 	private Set<String> metricsSet = new TreeSet<String>(
 			new MetricsNameComparator());
 
@@ -108,6 +115,7 @@ public class CheckItemReader extends DefaultHandler {
 	 */
 	public CheckItemReader(GuidelineHolder guidelineHolder) {
 		this.guidelineHolder = guidelineHolder;
+		guidelines = guidelineHolder.getGuidelineData();
 	}
 
 	/**
@@ -143,9 +151,10 @@ public class CheckItemReader extends DefaultHandler {
 			}
 		} else if (qName.equals(GUIDELINE)) {
 
-			GuidelineItemImpl[] gis = new GuidelineItemImpl[guidelineV.size()];
-			guidelineV.toArray(gis);
-			curItem.setGuidelines(gis);
+			curItem.setGuidelines(guidelineV
+					.toArray(new IGuidelineItem[guidelineV.size()]));
+
+			curItem.setTechniques(techniquesV.toArray(new ITechniquesItem[techniquesV.size()][]));
 
 			if (!statusStack.isEmpty()) {
 				status = (statusStack.pop()).shortValue();
@@ -187,12 +196,35 @@ public class CheckItemReader extends DefaultHandler {
 
 		curValue = "";
 		if (qName.equals(GITEM)) {
-			IGuidelineItem gi = guidelineHolder.getGuidelineItem(getValue(NAME,
-					attributes, true), getValue(ID, attributes, true));
+			IGuidelineItem gi = guidelineHolder.getGuidelineItem(
+					getValue(NAME, attributes, true),
+					getValue(ID, attributes, true));
 			// System.out.println(getValue(NAME,attributes)+"
 			// "+getValue(ID,attributes)+" : "+gi);
 			if (gi != null) {
 				guidelineV.add(gi);
+				String techs = attributes.getValue(TECHNIQUS);
+				if (techs != null) {
+					IGuidelineData targetData = null;
+					for (IGuidelineData gd : guidelines) {
+						if (gd.getGuidelineName().equals(gi.getGuidelineName())) {
+							targetData = gd;
+							break;
+						}
+					}
+					String[] techsArray = techs.split(",");
+					Vector<ITechniquesItem> tempV = new Vector<ITechniquesItem>();
+					for (String s : techsArray) {
+						ITechniquesItem ti = targetData.getTequniquesItem(s
+								.trim());
+						if (ti != null) {
+							tempV.add(ti);
+						}
+					}
+					techniquesV.add(tempV.toArray(new ITechniquesItem[tempV.size()]));
+				} else {
+					techniquesV.add(new ITechniquesItem[0]);
+				}
 			}
 		} else if (qName.equals(MITEM)) {
 			String metrics = getValue(NAME, attributes, true);
@@ -212,6 +244,7 @@ public class CheckItemReader extends DefaultHandler {
 		} else if (qName.equals(GUIDELINE)) {
 
 			guidelineV = new Vector<IGuidelineItem>();
+			techniquesV = new Vector<ITechniquesItem[]>();
 
 			statusStack.push(new Short(status));
 			status = IN_GUIDELINE;
