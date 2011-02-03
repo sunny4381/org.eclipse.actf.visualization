@@ -32,8 +32,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
-
 public class SaveReportLowVision {
 
 	private static final String UNDERSCORE = "_"; //$NON-NLS-1$
@@ -73,8 +71,7 @@ public class SaveReportLowVision {
 
 	private File reportImageFile;
 
-	private GuidelineHolder guidelineHolder = GuidelineHolder
-			.getInstance();
+	private GuidelineHolder guidelineHolder = GuidelineHolder.getInstance();
 
 	public SaveReportLowVision(Shell _shell) {
 		shell = _shell;
@@ -126,8 +123,8 @@ public class SaveReportLowVision {
 			saveFileName = saveFileName.replaceAll("\\p{Punct}", UNDERSCORE); //$NON-NLS-1$
 
 			if (saveFileName.indexOf(".") > 0) { //$NON-NLS-1$
-				saveFileName = saveFileName.substring(0, saveFileName
-						.lastIndexOf(".")); //$NON-NLS-1$
+				saveFileName = saveFileName.substring(0,
+						saveFileName.lastIndexOf(".")); //$NON-NLS-1$
 			}
 
 			if (saveFileName.length() > 100) {
@@ -136,9 +133,10 @@ public class SaveReportLowVision {
 			// saveFileName += "_"+String.valueOf(processNo)+"_lowVision.htm";
 		}
 		// probStaticsName = folder + probName;
-		saveImgName = saveFileName + UNDERSCORE + String.valueOf(processNo) + UNDERSCORE
-				+ String.valueOf(paramNo[0]) + String.valueOf(paramNo[1])
-				+ String.valueOf(paramNo[2]) + "_lvimg.png"; //$NON-NLS-1$
+		saveImgName = saveFileName + UNDERSCORE + String.valueOf(processNo)
+				+ UNDERSCORE + String.valueOf(paramNo[0])
+				+ String.valueOf(paramNo[1]) + String.valueOf(paramNo[2])
+				+ "_lvimg.png"; //$NON-NLS-1$
 		saveFileName += UNDERSCORE + String.valueOf(processNo) + UNDERSCORE
 				+ String.valueOf(paramNo[0]) + String.valueOf(paramNo[1])
 				+ String.valueOf(paramNo[2]) + "_lowVision.htm"; //$NON-NLS-1$
@@ -211,18 +209,16 @@ public class SaveReportLowVision {
 				// src=\"lvHighlight.js\"></SCRIPT>"
 				// + ADesignerConst.LINE_SEP);
 				writer.write("<SCRIPT><!--" + FileUtils.LINE_SEP);
-				writer
-						.write("if(navigator.appName.toLowerCase().indexOf(\"microsoft\")>=0){"
-								+ FileUtils.LINE_SEP);
+				writer.write("if(navigator.appName.toLowerCase().indexOf(\"microsoft\")>=0){"
+						+ FileUtils.LINE_SEP);
 				writer.write("jsFile=\"" + imgDir + "lvHighlight.js\";"
 						+ FileUtils.LINE_SEP);
 				writer.write("}else{" + FileUtils.LINE_SEP);
 				writer.write("jsFile=\"" + imgDir + "lvHighlight_moz.js\";"
 						+ FileUtils.LINE_SEP);
 				writer.write("}" + FileUtils.LINE_SEP);
-				writer
-						.write("document.write(\"<script src=\"+jsFile+\"></script>\");"
-								+ FileUtils.LINE_SEP);
+				writer.write("document.write(\"<script src=\"+jsFile+\"></script>\");"
+						+ FileUtils.LINE_SEP);
 				writer.write("-->" + FileUtils.LINE_SEP + "</SCRIPT>"
 						+ FileUtils.LINE_SEP);
 			} catch (Exception e) {
@@ -232,12 +228,12 @@ public class SaveReportLowVision {
 		}
 
 		@SuppressWarnings("nls")
-		//TODO
+		// TODO
 		public void run() {
 			try {
 
-				String saveDir = saveFileName.substring(0, saveFileName
-						.lastIndexOf("."));
+				String saveDir = saveFileName.substring(0,
+						saveFileName.lastIndexOf("."));
 				;
 				File tmpFile = new File(saveDir);
 				tmpFile.mkdirs();
@@ -303,8 +299,8 @@ public class SaveReportLowVision {
 					fileOutput.write("<table border=\"1\">\r\n");
 
 					fileOutput.write("<tr>");
-					fileOutput
-							.write("<th>" + IProblemConst.TITLE_ICON + "</th>");
+					fileOutput.write("<th>" + IProblemConst.TITLE_ICON
+							+ "</th>");
 
 					IGuidelineData[] guidelineDataArray = guidelineHolder
 							.getGuidelineData();
@@ -329,8 +325,8 @@ public class SaveReportLowVision {
 
 					fileOutput.write("<th>" + IProblemConst.TITLE_Y + "</th>");
 
-					fileOutput
-							.write("<th>" + IProblemConst.TITLE_AREA + "</th>");
+					fileOutput.write("<th>" + IProblemConst.TITLE_AREA
+							+ "</th>");
 
 					fileOutput.write("</tr>" + FileUtils.LINE_SEP);
 
@@ -384,9 +380,14 @@ public class SaveReportLowVision {
 										+ problemLVArray[i].getDescription()
 										+ "&nbsp;</td>");
 
-						fileOutput.write("<td>"
-								+ String.valueOf(problemLVArray[i]
-										.getSeverityLV()) + "&nbsp;</td>");
+						if (problemLVArray[i].getSeverityLV() > 0) {
+							fileOutput.write("<td>"
+									+ String.valueOf(problemLVArray[i]
+											.getSeverityLV()) + "&nbsp;</td>");
+						}else{
+							fileOutput.write("<td>-&nbsp;</td>");
+
+						}
 
 						fileOutput.write("<td>"
 								+ problemLVArray[i].getForeground()
@@ -441,8 +442,9 @@ public class SaveReportLowVision {
 					NodeList tdList = document.getElementsByTagName("td");
 					Element urlEle = (Element) tdList.item(0);
 					Node oldNode = urlEle.getChildNodes().item(0);
-					urlEle.replaceChild(document.createTextNode("URL("
-							+ String.valueOf(processNo) + ")"), oldNode);
+					urlEle.replaceChild(
+							document.createTextNode("URL("
+									+ String.valueOf(processNo) + ")"), oldNode);
 
 					NodeList tableList = document.getElementsByTagName("tbody");
 					Element tableEle = (Element) tableList.item(0);
