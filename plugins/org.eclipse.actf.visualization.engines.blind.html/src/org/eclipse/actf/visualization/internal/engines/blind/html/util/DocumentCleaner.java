@@ -23,6 +23,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.ProcessingInstruction;
 
 @SuppressWarnings("nls")
 public class DocumentCleaner {
@@ -353,6 +354,16 @@ public class DocumentCleaner {
 				}
 			}
 
+		}
+	}
+	
+	public static void removePI(Document doc){
+		NodeList nl = doc.getChildNodes();
+		for(int i=nl.getLength()-1;i>-1;i--){
+			Node n = nl.item(i);
+			if(n instanceof ProcessingInstruction){
+				doc.removeChild(n);
+			}
 		}
 	}
 

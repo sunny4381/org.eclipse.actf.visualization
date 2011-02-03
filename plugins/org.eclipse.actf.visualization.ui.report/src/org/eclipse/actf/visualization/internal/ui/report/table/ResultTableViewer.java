@@ -25,16 +25,21 @@ import org.eclipse.actf.visualization.eval.guideline.IGuidelineSlectionChangedLi
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.internal.ui.report.ReportMessageDialog;
 import org.eclipse.actf.visualization.internal.ui.report.action.ClearSelectionAction;
+import org.eclipse.actf.visualization.internal.ui.report.action.CopyAction;
 import org.eclipse.actf.visualization.internal.ui.report.action.GuidelineSubMenu;
 import org.eclipse.actf.visualization.internal.ui.report.action.ShowDescriptionAction;
 import org.eclipse.actf.visualization.internal.ui.report.action.SrcHighlightAction;
+import org.eclipse.actf.visualization.internal.ui.report.action.TechniquesSubMenu;
 import org.eclipse.actf.visualization.internal.ui.report.srcviewer.SrcViewerForPT;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.report.table.IResultTableSorter;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableSorter;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -45,6 +50,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
@@ -87,9 +93,13 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 	private SrcHighlightAction srcHighlightAction;
 
 	private boolean isShowAllGuidelineItems = false;
+	
+	private Shell shell;
 
 	public ResultTableViewer(Composite parent) {
 
+		shell = parent.getShell();
+		
 		tableViewer = new TableViewer(parent, SWT.BORDER | SWT.FULL_SELECTION
 				| SWT.MULTI);
 		table = tableViewer.getTable();
@@ -109,25 +119,27 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 		MenuManager popupMenu = new MenuManager();
 		popupMenu.add(new ClearSelectionAction(tableViewer));
 		popupMenu.add(new GuidelineSubMenu(this));
-		popupMenu.add(new ShowDescriptionAction(tableViewer));
+		popupMenu.add(new TechniquesSubMenu(this));
 		srcHighlightAction = new SrcHighlightAction(this);
 		srcHighlightAction.setEnabled(false);
 		popupMenu.add(srcHighlightAction);
+		popupMenu.add(new CopyAction(this));
+		popupMenu.add(new ShowDescriptionAction(tableViewer));
 		table.setMenu(popupMenu.createContextMenu(table));
 
 		guidelineHolder.addGuidelineSelectionChangedListener(this);
 
 		tableViewer
 				.addSelectionChangedListener(new ISelectionChangedListener() {
-					@SuppressWarnings("unchecked")
 					public void selectionChanged(SelectionChangedEvent event) {
 						ISelection selection = event.getSelection();
 						if (srcViewerForPT != null
 								&& selection instanceof IStructuredSelection) {
 							ArrayList<HighlightTargetSourceInfo> srcLineArray = new ArrayList<HighlightTargetSourceInfo>();
-							for (Iterator i = ((IStructuredSelection) selection)
+							for (@SuppressWarnings("unchecked")
+							Iterator<IProblemItem> i = ((IStructuredSelection) selection)
 									.iterator(); i.hasNext();) {
-								IProblemItem tmpItem = (IProblemItem) i.next();
+								IProblemItem tmpItem = i.next();
 								srcLineArray.addAll(Arrays.asList(tmpItem
 										.getHighlightTargetSoruceInfo()));
 							}
@@ -140,7 +152,19 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 						}
 					}
 				});
-
+		tableViewer.addDoubleClickListener(new IDoubleClickListener() {
+			public void doubleClick(DoubleClickEvent event) {
+				ISelection selection = event.getSelection();
+				if (selection instanceof IStructuredSelection) {
+					for (@SuppressWarnings("unchecked")
+					Iterator<IProblemItem> i = ((IStructuredSelection) selection)
+							.iterator(); i.hasNext();) {
+						IProblemItem tmpItem = i.next();
+						ReportMessageDialog.openReportMEssageDialog(shell, tmpItem);
+					}
+				}
+			}
+		});
 	}
 
 	public TableViewer getTableViewer() {
@@ -169,9 +193,9 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 	}
 
 	private void initColumns() {
-		int columnSize = 3 + guidelineHolder.getGuidelineData().length
+		int columnSize = 4 + guidelineHolder.getGuidelineData().length
 				+ guidelineHolder.getMetricsNames().length;
-		int lvColumn = 3 + 6 + guidelineHolder.getGuidelineData().length;
+		int lvColumn = 4 + 6 + guidelineHolder.getGuidelineData().length;
 
 		if (lvColumn > columnSize) {
 			columnSize = lvColumn;
@@ -199,7 +223,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 		columns[curPos].setWidth(25);
 		curPos++;
 
-		String[] tmpSarray = guidelineHolder.getMetricsNames();
+		String[] tmpSarray = guidelineHolder.getLocalizedMetricsNames();
 		boolean[] enabledMetrics = guidelineHolder.getMatchedMetrics();
 		for (int i = 0; i < tmpSarray.length; i++) {
 			columns[curPos].setText(tmpSarray[i]);
@@ -221,7 +245,7 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			 * "icons/IconPink.gif").createImage()); break; default: }
 			 */
 			if (enabledMetrics[i]) {
-				columns[curPos].setWidth(70);
+				columns[curPos].setWidth(55);
 			} else {
 				columns[curPos].setWidth(0);
 				columns[curPos].setResizable(false);
@@ -240,6 +264,10 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 			}
 			curPos++;
 		}
+
+		columns[curPos].setText(IProblemConst.TITLE_TECHNIQUS);
+		columns[curPos].setWidth(65);
+		curPos++;
 
 		columns[curPos].setText(IProblemConst.TITLE_LINE);
 		columns[curPos].setWidth(60);
@@ -273,18 +301,23 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 		IGuidelineData[] dataArray = guidelineHolder.getGuidelineData();
 		for (int i = 0; i < dataArray.length; i++) {
 			columns[curPos].setText(dataArray[i].getGuidelineName());
-			columns[curPos].setWidth(70);
+			if (dataArray[i].isMatched()) {
+				columns[curPos].setWidth(70);
+			} else {
+				columns[curPos].setWidth(0);
+				columns[curPos].setResizable(false);
+			}
 			curPos++;
 		}
 
 		columns[curPos].setText(IProblemConst.TITLE_SEVERITY);
-		columns[curPos].setWidth(60);
+		columns[curPos].setWidth(55);
 		curPos++;
 		columns[curPos].setText(IProblemConst.TITLE_FORECOLOR);
-		columns[curPos].setWidth(100);
+		columns[curPos].setWidth(70);
 		curPos++;
 		columns[curPos].setText(IProblemConst.TITLE_BACKCOLOR);
-		columns[curPos].setWidth(100);
+		columns[curPos].setWidth(70);
 		curPos++;
 		columns[curPos].setText(IProblemConst.TITLE_X);
 		columns[curPos].setWidth(50);
@@ -293,7 +326,11 @@ public class ResultTableViewer implements IGuidelineSlectionChangedListener {
 		columns[curPos].setWidth(50);
 		curPos++;
 		columns[curPos].setText(IProblemConst.TITLE_AREA);
-		columns[curPos].setWidth(70);
+		columns[curPos].setWidth(50);
+		curPos++;
+
+		columns[curPos].setText(IProblemConst.TITLE_TECHNIQUS);
+		columns[curPos].setWidth(60);
 		curPos++;
 
 		columns[curPos].setText(IProblemConst.TITLE_DESCRIPTION);

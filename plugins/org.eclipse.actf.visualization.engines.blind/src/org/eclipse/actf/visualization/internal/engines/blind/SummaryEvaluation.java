@@ -53,38 +53,45 @@ public class SummaryEvaluation {
 		StringBuffer noGoodMetrics = new StringBuffer();
 
 		boolean hasComp = false;
-		boolean hasNav = false;
+		boolean hasOperable = false;
 		boolean hasOther = false;
 
 		String[] metrics = pe.getMetrics();
+		String[] lMetrics = pe.getLocalizedMetrics();
 		int[] scores = pe.getScores();
 
-		int comp = 100;
-		int nav = 100;
+		int compTotal = 0;
+		int compCount = 0;
+		int operable = 100;
 		int other = 100;
 
 		// boolean[] enabledMetrics = guidelineHolder.getMatchedMetrics();
 
 		for (int i = 0; i < metrics.length; i++) {
 			int score = scores[i];
-			if (metrics[i].equalsIgnoreCase("compliance") //$NON-NLS-1$
+			if ((metrics[i].equalsIgnoreCase("perceivable") //$NON-NLS-1$
+					|| metrics[i].equalsIgnoreCase("understandable") || //$NON-NLS-1$
+					metrics[i].equalsIgnoreCase("robust"))//$NON-NLS-1$
 					&& guidelineHolder.isMatchedMetric(metrics[i])) {
-				comp = score;
+				compTotal += score;
+				compCount++;
 				hasComp = true;
 				if (score != 100) {
-					noGoodMetrics.append(metrics[i] + ","); //$NON-NLS-1$
+					noGoodMetrics.append(lMetrics[i] + ","); //$NON-NLS-1$
 				}
-			} else if (metrics[i].equalsIgnoreCase("navigability") //$NON-NLS-1$
+			} else if (metrics[i].equalsIgnoreCase("operable") //$NON-NLS-1$
 					&& guidelineHolder.isMatchedMetric(metrics[i])) {
-				nav = score;
-				hasNav = true;
+				operable = score;
+				compTotal += score;
+				compCount++;
+				hasOperable = true;
 			} else {
 				hasOther = true;
 				if (other > score) {
 					other = score;
 				}
 				if (score != 100) {
-					noGoodMetrics.append(metrics[i] + ","); //$NON-NLS-1$
+					noGoodMetrics.append(lMetrics[i] + ","); //$NON-NLS-1$
 				}
 			}
 		}
@@ -102,54 +109,13 @@ public class SummaryEvaluation {
 
 		boolean isGood = false;
 
-		if (hasComp) {
-			if (comp >= 80) {
-				if (hasError) {
-					aboutComp
-							.append(Messages.Eval_compliant_with_some_other_errors
-									+ FileUtils.LINE_SEP);
-
-					if (totalAltError > 0) {
-						aboutComp
-								.append(Messages.Eval_confirm_alt_attributes_first
-										+ FileUtils.LINE_SEP);
-						aboutComp.append(getImageAltStatistics());
-					} else {
-						aboutComp
-								.append(Messages.Eval_confirm_errors_detailed_report);
-					}
-				} else {
-					if (hasOther && other != 100) {
-						aboutComp.append(Messages.Eval_some_errors_on_metrics
-								+ FileUtils.LINE_SEP
-								+ MessageFormat.format(
-										Messages.Eval_some_errors_on_metrics1,
-										(new String[] { noGoodMetrics
-												.substring(0, noGoodMetrics
-														.length() - 1) })));
-					} else {
-						if (comp == 100) {
-							isGood = true;
-							aboutComp.append(Messages.Eval_completely_compliant
-									+ FileUtils.LINE_SEP
-									+ Messages.Eval_user_check2);
-						} else {
-							isGood = true;
-							aboutComp
-									.append(Messages.Eval_completely_compliant_with_user_check_items
-											+ FileUtils.LINE_SEP
-											+ Messages.Eval_user_check1);
-						}
-					}
-				}
-			} else {
-				if (comp > 50) {
-					aboutComp.append(Messages.Eval_some_accessibility_issues
-							+ FileUtils.LINE_SEP);
-				} else {
-					aboutComp.append(Messages.Eval_many_accessibility_issues
-							+ FileUtils.LINE_SEP);
-				}
+		if(compCount==0){
+			return("");
+		}
+		if (compTotal / compCount >= 75) {
+			if (hasError) { // hasComplianceError
+				aboutComp.append(Messages.Eval_compliant_with_some_other_errors
+						+ FileUtils.LINE_SEP);
 
 				if (totalAltError > 0) {
 					aboutComp.append(Messages.Eval_confirm_alt_attributes_first
@@ -159,12 +125,50 @@ public class SummaryEvaluation {
 					aboutComp
 							.append(Messages.Eval_confirm_errors_detailed_report);
 				}
+			} else {
+				if (hasOther && other != 100) {
+					aboutComp.append(Messages.Eval_some_errors_on_metrics
+							+ FileUtils.LINE_SEP
+							+ MessageFormat.format(
+									Messages.Eval_some_errors_on_metrics1,
+									(new String[] { noGoodMetrics.substring(0,
+											noGoodMetrics.length() - 1) })));
+				} else {
+					if (compTotal / compCount == 100) {
+						isGood = true;
+						aboutComp.append(Messages.Eval_completely_compliant
+								+ FileUtils.LINE_SEP
+								+ Messages.Eval_user_check2);
+					} else {
+						isGood = true;
+						aboutComp
+								.append(Messages.Eval_completely_compliant_with_user_check_items
+										+ FileUtils.LINE_SEP
+										+ Messages.Eval_user_check1);
+					}
+				}
+			}
+		} else {
+			if (compTotal / compCount >= 50) {
+				aboutComp.append(Messages.Eval_some_accessibility_issues
+						+ FileUtils.LINE_SEP);
+			} else {
+				aboutComp.append(Messages.Eval_many_accessibility_issues
+						+ FileUtils.LINE_SEP);
+			}
+
+			if (totalAltError > 0) {
+				aboutComp.append(Messages.Eval_confirm_alt_attributes_first
+						+ FileUtils.LINE_SEP);
+				aboutComp.append(getImageAltStatistics());
+			} else {
+				aboutComp.append(Messages.Eval_confirm_errors_detailed_report);
 			}
 		}
 
 		//
-		if (hasNav && guidelineHolder.isEnabledMetric("navigability")) { //$NON-NLS-1$
-			if (nav > 80) {
+		if (hasOperable && guidelineHolder.isEnabledMetric("operable")) { //$NON-NLS-1$
+			if (operable >= 75) {
 				if (pageData.getMaxTime() > 240) {
 					aboutNav.append(MessageFormat.format(
 							Messages.Eval_navigability_long_time_error_msg,
@@ -189,18 +193,18 @@ public class SummaryEvaluation {
 			}
 		}
 
-		if ((hasComp || hasNav) && isGood) {
+		if ((hasComp || hasOperable) && isGood) {
 			tmpSB.append(Messages.Eval_excellent + FileUtils.LINE_SEP
 					+ FileUtils.LINE_SEP);
 		}
-		tmpSB.append(aboutNav + FileUtils.LINE_SEP);
-		tmpSB.append(aboutComp);
+		tmpSB.append(aboutComp + FileUtils.LINE_SEP + FileUtils.LINE_SEP);
+		tmpSB.append(aboutNav);
 
 		return (tmpSB.toString());
 	}
 
 	private String getImageAltStatistics() {
-		StringBuffer tmpSB = new StringBuffer();
+		StringBuffer tmpSB = new StringBuffer(FileUtils.LINE_SEP);
 
 		if (noImageAltCount > 0) {
 			tmpSB.append(" -" + Messages.Eval_no_img_alt_error_msg //$NON-NLS-1$

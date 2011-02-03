@@ -14,14 +14,14 @@ package org.eclipse.actf.visualization.internal.ui.report.action;
 import java.util.List;
 
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
-import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.internal.ui.report.Messages;
+import org.eclipse.actf.visualization.internal.ui.report.ReportMessageDialog;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.widgets.Shell;
 
 
 public class ShowDescriptionAction extends Action {
@@ -38,9 +38,9 @@ public class ShowDescriptionAction extends Action {
         this.tableViewer = tableViewer;
         
         tableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-            @SuppressWarnings("unchecked")
-			public void selectionChanged(SelectionChangedEvent arg0) {
-                List tmpList = ((IStructuredSelection) arg0.getSelection()).toList();
+            public void selectionChanged(SelectionChangedEvent arg0) {
+				@SuppressWarnings("rawtypes")
+				List tmpList = ((IStructuredSelection) arg0.getSelection()).toList();
                 if(tmpList==null||tmpList.size()>1||tmpList.size()==0){
                     setIProblemItem(null);
                 }else{
@@ -61,7 +61,8 @@ public class ShowDescriptionAction extends Action {
      * @see org.eclipse.jface.action.Action#run()
      */
     public void run() {
-        MessageDialog.openInformation(tableViewer.getControl().getShell(),IProblemConst.TITLE_DESCRIPTION,curItem.getDescription());
+    	Shell shell = tableViewer.getControl().getShell();
+    	ReportMessageDialog.openReportMEssageDialog(shell, curItem);
     }
     
     public void setIProblemItem(IProblemItem target){

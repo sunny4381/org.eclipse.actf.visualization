@@ -11,6 +11,7 @@
 package org.eclipse.actf.visualization.ui.report.table;
 
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
+import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
@@ -32,19 +33,23 @@ public class ResultTableLabelProvider extends LabelProvider implements
 	private int guidelineFinPos = metricsFinPos
 			+ guidelineHolder.getGuidelineData().length;
 
+	private static Image HIGHLIGHT_IMAGE = ReportPlugin
+			.imageDescriptorFromPlugin(EvaluationUtil.PLUGIN_ID,
+					"icons/star.gif") //$NON-NLS-1$
+			.createImage();
+
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object,
-	 *      int)
+	 * @see
+	 * org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang
+	 * .Object, int)
 	 */
 	public Image getColumnImage(Object arg0, int arg1) {
 		IProblemItem tmpItem = (IProblemItem) arg0;
 		if (arg1 == 0) {
 			if (tmpItem.isCanHighlight()) {
-				return (ReportPlugin.imageDescriptorFromPlugin(
-						EvaluationUtil.PLUGIN_ID, "icons/star.gif") //$NON-NLS-1$
-						.createImage());
+				return (HIGHLIGHT_IMAGE);
 			}
 		} else if (arg1 < metricsFinPos) {
 			return (tmpItem.getEvaluationItem().getMetricsIcons()[arg1 - 1]);
@@ -55,28 +60,32 @@ public class ResultTableLabelProvider extends LabelProvider implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object,
-	 *      int)
+	 * @see
+	 * org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang
+	 * .Object, int)
 	 */
 	public String getColumnText(Object arg0, int arg1) {
 		IProblemItem tmpItem = (IProblemItem) arg0;
+		IEvaluationItem ei = tmpItem.getEvaluationItem();
 
 		if (arg1 == 0) {
 
 		} else if (arg1 < metricsFinPos) {
-			return (tmpItem.getEvaluationItem().getTableDataMetrics()[arg1 - 1]);
+			return (ei.getTableDataMetrics()[arg1 - 1]);
 		} else if (arg1 < guidelineFinPos) {
-			return (tmpItem.getEvaluationItem().getTableDataGuideline()[arg1
-					- metricsFinPos]);
+			return (ei.getTableDataGuideline()[arg1 - metricsFinPos]);
 		} else {
-			if (arg1 - guidelineFinPos == 0) {
+			switch (arg1 - guidelineFinPos) {
+			case 0:
+				return ei.getTableDataTechniques(); // techniques
+			case 1:
 				return (tmpItem.getLineStrMulti());
-			} else {
+			case 2:
 				return (tmpItem.getDescription());
+			default:
 			}
 		}
 
 		return ""; //$NON-NLS-1$
 	}
-
 }

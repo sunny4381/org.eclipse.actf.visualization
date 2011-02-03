@@ -20,7 +20,6 @@ import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugi
 import org.eclipse.actf.visualization.internal.engines.blind.Messages;
 import org.eclipse.jface.preference.ColorFieldEditor;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -36,7 +35,7 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 
 	public static final String ID = BlindPreferencePage.class.getName();
 
-	private RadioGroupFieldEditor modeRadio;
+//	private RadioGroupFieldEditor modeRadio;
 
 	private Group visualizationSetting;
 
@@ -80,20 +79,20 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 
 		Composite parent = getFieldEditorParent();
 
-		modeRadio = new RadioGroupFieldEditor(
-				IBlindPreferenceConstants.BLIND_MODE,
-				Messages.DialogSettingBlind_Visualization_mode_3,
-				1,
-				new String[][] {
-						{
-								Messages.DialogSettingBlind_Layout_mode_9,
-								IBlindPreferenceConstants.BLIND_LAYOUT_MODE },
-						{
-								Messages.DialogSettingBlind_Voice_browser_output_mode_8,
-								IBlindPreferenceConstants.BLIND_BROWSER_MODE } },
-				parent);
-
-		addField(modeRadio);
+//		modeRadio = new RadioGroupFieldEditor(
+//				IBlindPreferenceConstants.BLIND_MODE,
+//				Messages.DialogSettingBlind_Visualization_mode_3,
+//				1,
+//				new String[][] {
+//						{
+//								Messages.DialogSettingBlind_Layout_mode_9,
+//								IBlindPreferenceConstants.BLIND_LAYOUT_MODE },
+//						{
+//								Messages.DialogSettingBlind_Voice_browser_output_mode_8,
+//								IBlindPreferenceConstants.BLIND_BROWSER_MODE } },
+//				parent);
+//
+//		addField(modeRadio);
 
 		visualizationSetting = createFieldGroup(Messages.DialogSettingBlind_LayoutModeSetting);
 
@@ -155,19 +154,19 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 		visualizationSetting.setVisible(isLayoutMode);
 	}
 
-	@Override
-	public void propertyChange(PropertyChangeEvent event) {
-		super.propertyChange(event);
-
-		if (event.getSource() == modeRadio) {
-			if (!event.getOldValue().equals(event.getNewValue())) {
-				boolean isLayoutMode = IBlindPreferenceConstants.BLIND_LAYOUT_MODE
-						.equals(event.getNewValue());
-				visualizationSetting.setEnabled(isLayoutMode);
-				visualizationSetting.setVisible(isLayoutMode);
-			}
-		}
-	}
+//	@Override
+//	public void propertyChange(PropertyChangeEvent event) {
+//		super.propertyChange(event);
+//
+//		if (event.getSource() == modeRadio) {
+//			if (!event.getOldValue().equals(event.getNewValue())) {
+//				boolean isLayoutMode = IBlindPreferenceConstants.BLIND_LAYOUT_MODE
+//						.equals(event.getNewValue());
+//				visualizationSetting.setEnabled(isLayoutMode);
+//				visualizationSetting.setVisible(isLayoutMode);
+//			}
+//		}
+//	}
 
 	@Override
 	public boolean performOk() {

@@ -10,7 +10,11 @@
  *******************************************************************************/
 package org.eclipse.actf.visualization.blind.ui.internal;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -37,8 +41,8 @@ import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.eval.problem.ReportUtil;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
@@ -79,26 +83,59 @@ public class PartControlBlind implements IHighlightElementListener {
 		this.vizView = vizView;
 		this._shell = parent.getShell();
 
-		//new BlindToolBar(parent, SWT.NONE, this);
+		// new BlindToolBar(parent, SWT.NONE, this);
 
 		this._blindBrowser = new BlindVisualizationBrowser(parent);
 		this._blindBrowser.setBrowserSilent();
 	}
 
-	public void doSave() {
-		String saveFile = DialogSave.open(_shell, DialogSave.HTML, targetUrl,
-				"_blind.htm"); //$NON-NLS-1$
+	public void doSave(boolean withReport) {
+		String saveFile = DialogSave.open(_shell, DialogSave.CSV, targetUrl,
+				".csv"); //$NON-NLS-1$
 
-		if (null == this.resultDoc || null == saveFile) {
-			return;
+		if (saveFile != null) {
+
+			// final IViewPart curView =
+			// PlatformUIUtil.showView(IVisualizationView.ID_BLINDVIEW);
+			// TODO
+			IEvaluationResult result = (IEvaluationResult) Mediator
+					.getInstance().getReport(vizView);
+			if (result != null) {
+				try {
+					OutputStreamWriter osw = new OutputStreamWriter(
+							new BufferedOutputStream(new FileOutputStream(saveFile)),
+							// "UTF-8");
+							"Shift_JIS"); // TODO
+					PrintWriter reportPW = new PrintWriter(osw);
+					ReportUtil reportUtil = new ReportUtil();
+					reportUtil.setPrintWriter(reportPW);
+					reportUtil.writeFirstLine();
+					result.accept(reportUtil);
+					reportPW.flush();
+					reportPW.close();
+				
+				} catch (Exception e) {
+				}
+			}
+
+			if (withReport) {
+				if (null == this.resultDoc || null == saveFile) {
+					return;
+				}
+
+				if (saveFile.toLowerCase().endsWith(".csv")) {
+					saveFile = saveFile.substring(0, saveFile.length() - 3);
+				}
+				saveFile = saveFile.concat(".html");
+
+				String imageBriefDir = saveFile.substring(saveFile
+						.lastIndexOf("\\") + 1, saveFile.lastIndexOf(".")) //$NON-NLS-1$ //$NON-NLS-2$
+						+ "/"; //$NON-NLS-1$
+				// 2007.09.25 remove space character to include JavaScript files
+				imageBriefDir = imageBriefDir.replace(' ', '_');
+				saveReportFile(saveFile, imageBriefDir, true);
+			}
 		}
-
-		String imageBriefDir = saveFile.substring(
-				saveFile.lastIndexOf("\\") + 1, saveFile.lastIndexOf(".")) //$NON-NLS-1$ //$NON-NLS-2$
-				+ "/"; //$NON-NLS-1$
-		// 2007.09.25 remove space character to include JavaScript files
-		imageBriefDir = imageBriefDir.replace(' ', '_');
-		saveReportFile(saveFile, imageBriefDir, true);
 	}
 
 	public int doVisualize() {
@@ -291,4 +328,21 @@ public class PartControlBlind implements IHighlightElementListener {
 
 		}
 	}
+
+	public boolean isBrowserModeSupported(IModelServiceHolder msh) {
+		if (msh != null) {
+			for (IBlindVisualizer bvh : blindVizualizers) {
+				if (bvh.setModelService(msh.getModelService())) {
+					// TODO add method into interface
+					if (bvh.getClass()
+							.getName()
+							.startsWith("org.eclipse.actf.visualization.blind.")) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 }

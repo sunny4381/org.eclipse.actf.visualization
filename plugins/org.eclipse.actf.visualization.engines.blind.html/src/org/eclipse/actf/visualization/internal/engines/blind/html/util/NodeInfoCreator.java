@@ -83,7 +83,7 @@ public class NodeInfoCreator {
 		} else if (tagName.equals("textarea")) {
 			return true;
 		} else if (tagName.equals("input")) {
-			String type = el.getAttribute("type");
+			String type = el.getAttribute("type").toLowerCase();
 			if ((type.length() == 0) | type.equals("text")
 					| type.equals("textarea") | type.equals("radio")
 					| type.equals("checkbox")) {

@@ -33,7 +33,7 @@ var est;
 var idNumber_Old=0;
 var refresh=false;
 var HIGHLIGHT_BGCOLOR = "#ffdddd";
-var MAX_PROBLEM_SELECTION = 30;
+var MAX_PROBLEM_SELECTION = 250;
 
 // call it like: setHighlight2(new Array(43,47,49), new Array(45,47,50));
 function setHighlight2(firstNodeArray, lastNodeArray) {	

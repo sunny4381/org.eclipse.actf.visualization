@@ -62,9 +62,7 @@ public class PageEvaluation {
 		hlsl.addTarget(Messages.Eval_some_accessibility_issues, red, SWT.BOLD);
 		hlsl.addTarget(Messages.Eval_easy_for_blind_user_to_navigate, blue,
 				SWT.BOLD);
-		hlsl
-				.addTarget(Messages.Eval_page_has_skiplinks_headings, red,
-						SWT.BOLD);
+		hlsl.addTarget(Messages.Eval_page_has_skiplinks_headings, red, SWT.BOLD);
 		hlsl.addTarget(Messages.Eval_darkcolored_visualization_view, red,
 				SWT.BOLD);
 
@@ -76,6 +74,7 @@ public class PageEvaluation {
 	private PageData pageData;
 
 	private String[] metrics = guidelineHolder.getMetricsNames();
+	private String[] lMetrics = guidelineHolder.getLocalizedMetricsNames();
 
 	private int metricsSize = metrics.length;
 
@@ -122,8 +121,13 @@ public class PageEvaluation {
 
 	protected boolean hasComplianceError() {
 		for (int i = 0; i < metricsSize; i++) {
-			if (metrics[i].equalsIgnoreCase("compliance")) { //$NON-NLS-1$
-				return (scores[i] != 100);
+			if (metrics[i].equalsIgnoreCase("perceivable") || //$NON-NLS-1$
+					metrics[i].equalsIgnoreCase("understandable") || //$NON-NLS-1$
+					metrics[i].equalsIgnoreCase("robust") || //$NON-NLS-1$
+					metrics[i].equalsIgnoreCase("operable")) { //$NON-NLS-1$)
+				if (scores[i] != 100) {
+					return (true);
+				}
 			}
 		}
 		return (false);
@@ -143,7 +147,7 @@ public class PageEvaluation {
 
 		for (int i = 0; i < metricsSize; i++) {
 			if (enabledMetrics[i]) {
-				tmpV.add(metrics[i]);
+				tmpV.add(lMetrics[i]);
 				tmpV.add(String.valueOf(scores[i]));
 			}
 		}
@@ -178,14 +182,13 @@ public class PageEvaluation {
 
 		String rating = Messages.PageEvaluation_Bad;
 
-		if (!hasComplianceError()) {
-			if (minValue >= 90) {
-				rating = Messages.PageEvaluation_Excellent;
-			} else if (minValue >= 70) {
-				rating = Messages.PageEvaluation_Good;
-			} else if (minValue >= 60) {
-				rating = Messages.PageEvaluation_Poor;
-			}
+		// TODO check compliance / others
+		if (minValue == 100) {
+			rating = Messages.PageEvaluation_Excellent;
+		} else if (minValue >= 75) {
+			rating = Messages.PageEvaluation_Good;
+		} else if (minValue >= 50) {
+			rating = Messages.PageEvaluation_Poor;
 		}
 		return (rating);
 	}
@@ -212,14 +215,14 @@ public class PageEvaluation {
 
 		String rating = IVisualizationConst.RATING_BAD;
 
-		if (!hasComplianceError()) {
-			if (minValue >= 90) {
-				rating = IVisualizationConst.RATING_V_GOOD;
-			} else if (minValue >= 80) {
-				rating = IVisualizationConst.RATING_GOOD;
-			} else if (minValue >= 60) {
-				rating = IVisualizationConst.RATING_POOR;
-			}
+		// TODO check compliance / others
+
+		if (minValue == 100) {
+			rating = IVisualizationConst.RATING_V_GOOD;
+		} else if (minValue >= 75) {
+			rating = IVisualizationConst.RATING_GOOD;
+		} else if (minValue >= 50) {
+			rating = IVisualizationConst.RATING_POOR;
 		}
 		return (rating);
 	}
@@ -234,7 +237,7 @@ public class PageEvaluation {
 		this.checkMinus();
 
 		boolean[] enabled = GuidelineHolder.getInstance().getMatchedMetrics();
-		String[] metrics = this.getMetrics();
+		String[] metrics = lMetrics;
 		int[] scores = this.getScores();
 
 		Vector<String> metricsV = new Vector<String>();
@@ -276,6 +279,16 @@ public class PageEvaluation {
 	}
 
 	/**
+	 * Get evaluation metrics used to evaluate this page 
+	 * 
+	 * @return metrics names (localized)
+	 */
+	public String[] getLocalizedMetrics() {
+		return lMetrics;
+	}
+
+	
+	/**
 	 * Get scores for each metrics
 	 * 
 	 * @return scores
@@ -283,7 +296,7 @@ public class PageEvaluation {
 	public int[] getScores() {
 		return scores;
 	}
-	
+
 	/**
 	 * Get {@link PageData} used for this evaluation
 	 * 

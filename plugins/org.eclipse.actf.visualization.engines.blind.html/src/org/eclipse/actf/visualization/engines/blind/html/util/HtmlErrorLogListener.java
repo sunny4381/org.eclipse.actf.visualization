@@ -64,7 +64,7 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 					orgDoctype = orgDoctype.substring(0, orgDoctype
 							.indexOf("\""));
 					if (orgDoctype
-							.matches("-//W3C//DTD XHTML ((1.0 (Strict|Transitional|Frameset))|1.1|Basic 1.0)//EN")) {
+							.matches("-//W3C//DTD XHTML ((1.0 (Strict|Transitional|Frameset))|1.1|Basic 1.0|Basic 1.1)//EN")) {
 						orgDoctype = "";
 					} else {
 						isInvalidDoctype = true;

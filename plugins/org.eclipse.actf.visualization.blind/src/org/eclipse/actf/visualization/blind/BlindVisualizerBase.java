@@ -68,6 +68,9 @@ public abstract class BlindVisualizerBase implements IBlindVisualizer {
 
 		modelService = targetModel;
 		targetUrl = targetModel.getURL();
+		if(targetUrl==null){
+			targetUrl="";
+		}
 		return true;
 	}
 

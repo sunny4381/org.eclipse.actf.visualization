@@ -12,7 +12,6 @@ package org.eclipse.actf.visualization.internal.ui.report.action;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
@@ -24,48 +23,49 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 
-
-
 public class SrcHighlightAction extends Action {
 
-    private ResultTableViewer _resultTableViewer;
-    
-    private TableViewer _tableView;
+	private ResultTableViewer _resultTableViewer;
 
-    private SrcViewerForPT _srcViewer;
+	private TableViewer _tableView;
 
-    public SrcHighlightAction(ResultTableViewer resultTableViewer) {
-        super(Messages.ProblemTable_5);
-        this._resultTableViewer = resultTableViewer;
-        this._tableView = resultTableViewer.getTableViewer();
-        this._srcViewer = SrcViewerForPT.getInstance();
-    }
+	private SrcViewerForPT _srcViewer;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.action.Action#run()
-     */
-    @SuppressWarnings("unchecked")
+	public SrcHighlightAction(ResultTableViewer resultTableViewer) {
+		super(Messages.ProblemTable_5);
+		this._resultTableViewer = resultTableViewer;
+		this._tableView = resultTableViewer.getTableViewer();
+		this._srcViewer = SrcViewerForPT.getInstance();
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.jface.action.Action#run()
+	 */
 	public void run() {
 
-        if (_srcViewer != null) {
+		if (_srcViewer != null) {
 
-            _srcViewer.openSrcViewer();
+			_srcViewer.openSrcViewer();
 
-            List targetList = ((IStructuredSelection) _tableView.getSelection()).toList();
-            ArrayList<HighlightTargetSourceInfo> srcLineArray = new ArrayList<HighlightTargetSourceInfo>();
+			@SuppressWarnings("unchecked")
+			List<IProblemItem> targetList = ((IStructuredSelection) _tableView
+					.getSelection()).toList();
+			ArrayList<HighlightTargetSourceInfo> srcLineArray = new ArrayList<HighlightTargetSourceInfo>();
 
-            for (Iterator i = targetList.iterator(); i.hasNext();) {
-                IProblemItem tmpItem = (IProblemItem) i.next();
-                srcLineArray.addAll(Arrays.asList(tmpItem.getHighlightTargetSoruceInfo()));
-            }
+			for (IProblemItem tmpItem : targetList) {
+				srcLineArray.addAll(Arrays.asList(tmpItem
+						.getHighlightTargetSoruceInfo()));
+			}
 
-            HighlightTargetSourceInfo[] target = new HighlightTargetSourceInfo[srcLineArray.size()];
-            srcLineArray.toArray(target);
-            _srcViewer.highlightSrcViewer(target, _resultTableViewer.getCurrentSoruceFile());
+			HighlightTargetSourceInfo[] target = new HighlightTargetSourceInfo[srcLineArray
+					.size()];
+			srcLineArray.toArray(target);
+			_srcViewer.highlightSrcViewer(target,
+					_resultTableViewer.getCurrentSoruceFile());
 
-        }
-    }
+		}
+	}
 
 }

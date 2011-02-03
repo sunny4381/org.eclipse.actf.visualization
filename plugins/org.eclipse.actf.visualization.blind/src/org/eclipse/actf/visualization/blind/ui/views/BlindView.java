@@ -23,6 +23,7 @@ import org.eclipse.actf.visualization.engines.blind.html.ui.actions.BlindOpenIdC
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.ElementViewerManagerFactory;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.IElementViewerManager;
 import org.eclipse.actf.visualization.engines.blind.ui.actions.BlindSettingAction;
+import org.eclipse.actf.visualization.engines.blind.ui.actions.BlindVisualizationBrowserModeAction;
 import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.actf.visualization.ui.VisualizationStatusLineContributionItem;
 import org.eclipse.actf.visualization.ui.report.table.ResultTableLabelProvider;
@@ -55,6 +56,8 @@ public class BlindView extends ViewPart implements IVisualizationView {
 	private PartControlBlind partRightBlind;
 
 	private HashSet<IWorkbenchPage> pageSet = new HashSet<IWorkbenchPage>();
+	
+	private BlindVisualizationBrowserModeAction browserVisualizaton;
 
 	public BlindView() {
 		super();
@@ -85,8 +88,11 @@ public class BlindView extends ViewPart implements IVisualizationView {
 		IActionBars bars = getViewSite().getActionBars();
 		// IMenuManager menuManager = bars.getMenuManager();
 		IToolBarManager toolbarManager = bars.getToolBarManager();
+
+		browserVisualizaton = new BlindVisualizationBrowserModeAction();
 		
 		toolbarManager.add(new BlindVisualizationAction(partRightBlind));
+		toolbarManager.add(browserVisualizaton); 
 		toolbarManager.add(new BlindSettingAction());
 		toolbarManager.add(new BlindSaveAction(partRightBlind));
 		toolbarManager.add(new BlindOpenIdCssAction());
@@ -192,7 +198,11 @@ public class BlindView extends ViewPart implements IVisualizationView {
 	}
 
 	public void modelserviceChanged(MediatorEvent event) {
-		// do nothing
+		if(partRightBlind.isBrowserModeSupported(event.getModelServiceHolder())){
+			browserVisualizaton.setEnabled(true);
+		}else{
+			browserVisualizaton.setEnabled(false);			
+		}
 	}
 
 	public void modelserviceInputChanged(MediatorEvent event) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and Others
+ * Copyright (c) 2010 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,10 +12,13 @@ package org.eclipse.actf.visualization.internal.ui.report.action;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
 
+import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.ITechniquesItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.internal.ui.report.Messages;
 import org.eclipse.actf.visualization.internal.ui.report.table.ResultTableViewer;
@@ -26,7 +29,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 
-public class GuidelineSubMenu extends MenuManager {
+public class TechniquesSubMenu extends MenuManager {
 
 	private ResultTableViewer _resultTableViewer;
 
@@ -34,8 +37,8 @@ public class GuidelineSubMenu extends MenuManager {
 
 	private Action _dummy;
 
-	public GuidelineSubMenu(ResultTableViewer resultTableViewer) {
-		super(Messages.ProblemTable_View_Guideline_16);
+	public TechniquesSubMenu(ResultTableViewer resultTableViewer) {
+		super(Messages.ViewTechniques);
 
 		this._resultTableViewer = resultTableViewer;
 		this._tableViewer = resultTableViewer.getTableViewer();
@@ -46,40 +49,59 @@ public class GuidelineSubMenu extends MenuManager {
 					public void selectionChanged(SelectionChangedEvent arg0) {
 						List<IProblemItem> tmpList = ((IStructuredSelection) arg0
 								.getSelection()).toList();
-						setGuidelineItem(tmpList);
+						setTechniques(tmpList);
 					}
 				});
 
-		this._dummy = new Action(Messages.GuidelineSubMenu_0) {
+		this._dummy = new Action(Messages.NoTechniques) {
 		};
 		this._dummy.setEnabled(false);
 		add(this._dummy);
 	}
 
-	public void setGuidelineItem(List<IProblemItem> target) {
-		TreeSet<IGuidelineItem> tmpSet = new TreeSet<IGuidelineItem>(
-				new Comparator<IGuidelineItem>() {
-					public int compare(IGuidelineItem o1, IGuidelineItem o2) {
-						return (o1.toString().compareTo(o2.toString()));// TODO
+	public void setTechniques(List<IProblemItem> target) {
+		this.removeAll();
+
+		TreeSet<IEvaluationItem> tmpSet = new TreeSet<IEvaluationItem>(
+				new Comparator<IEvaluationItem>() {
+					public int compare(IEvaluationItem o1, IEvaluationItem o2) {
+						return o1.getId().compareTo(o2.getId());
 					}
 				});
 
-		for (IProblemItem tmpItem : target) {
-			tmpSet.addAll(Arrays.asList(tmpItem.getEvaluationItem()
-					.getGuidelines()));
+		for (Iterator<IProblemItem> i = target.iterator(); i.hasNext();) {
+			IProblemItem tmpItem = i.next();
+			tmpSet.add(tmpItem.getEvaluationItem());
 		}
 
-		this.removeAll();
+		TreeSet<ITechniquesItem> techSet = new TreeSet<ITechniquesItem>(
+				new Comparator<ITechniquesItem>() {
+					public int compare(ITechniquesItem o1, ITechniquesItem o2) {
+						int flag = o1.getGuidelineName().compareTo(
+								o2.getGuidelineName());
+						if (flag == 0) {
+							flag = o1.getId().compareTo(o2.getId());
+						}
+						return flag;
+					}
+				});
 
-		for (IGuidelineItem tmpItem : tmpSet) {
-			if (tmpItem.getUrl() != null && tmpItem.getUrl().length() != 0) {
+		for (Iterator<IEvaluationItem> i = tmpSet.iterator(); i.hasNext();) {
+			IEvaluationItem eval = i.next();
+			IGuidelineItem[] guidelines = eval.getGuidelines();
+			ITechniquesItem[][] techs = eval.getTechniques();
+			for (int j = 0; j < guidelines.length; j++) {
 				// Lowvision-> show all
 				if (// _resultTableViewer.isShowAllGuidelineItems()
 					// ||
-				tmpItem.isEnabled()) {
-					add(new ShowGuidelineAction(tmpItem));
+				guidelines[j].isEnabled()) {
+					techSet.addAll(Arrays.asList(techs[j]));
 				}
 			}
+		}
+
+		for (Iterator<ITechniquesItem> i = techSet.iterator(); i.hasNext();) {
+			add(new ShowTechniquesAction(i.next()));
 		}
 
 		if (this.getItems().length == 0) {

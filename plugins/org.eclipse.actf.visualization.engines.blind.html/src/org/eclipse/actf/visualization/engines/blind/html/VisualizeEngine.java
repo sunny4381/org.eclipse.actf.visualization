@@ -284,6 +284,7 @@ public class VisualizeEngine {
 			DocumentCleaner.removeEmbed(result);
 			DocumentCleaner.removeApplet(result);
 			DocumentCleaner.removeBase(result);
+			DocumentCleaner.removePI(result);
 
 			VisualizationResultCleaner.clean(result, targetUrl);
 
@@ -308,7 +309,8 @@ public class VisualizeEngine {
 			VisualizeStyleInfoManager.getInstance()
 					.fireVisualizeStyleInfoUpdate(styleInfo);
 
-			if (curParamBlind.visualizeMode == ParamBlind.BLIND_BROWSER_MODE) {
+			if (curParamBlind.visualizeMode
+					.equals(ParamBlind.BLIND_BROWSER_MODE)) {
 				VisualizeViewUtil.returnTextView(result, allPc, baseUrl);
 				return;
 			} else {
@@ -380,21 +382,24 @@ public class VisualizeEngine {
 				title = titleNode.getNodeValue();
 			} else {
 				error = true;
-				title = "untitled";
+				title = "";
 			}
 
-			title.trim();
 			if (remove) {
-				if (title.length() > 0) {
-					div.appendChild(doc.createTextNode("[Internal frame:"
-							+ title + "]"));
-				}
 				div.setAttribute("width", iframe.getAttribute("width"));
 				div.setAttribute("height", iframe.getAttribute("height"));
 				if (error) {
+					div.appendChild(doc
+							.createTextNode("[iframe: (without title)]"));
 					div.setAttribute("style", errorStyle);
 				} else {
-					div.setAttribute("style", iframe.getAttribute("style"));
+					div.appendChild(doc.createTextNode("[iframe: title=\""
+							+ title + "\"]"));
+					if (title.matches("^[\\s\u3000]*$")) {
+						div.setAttribute("style", errorStyle);
+					} else {
+						div.setAttribute("style", iframe.getAttribute("style"));
+					}
 				}
 				Node parent = iframe.getParentNode();
 				parent.insertBefore(div, iframe);
@@ -413,7 +418,7 @@ public class VisualizeEngine {
 			if (typeS.equalsIgnoreCase("image")) {
 
 				input.setAttribute("type", "button");
-				//				
+				//
 				NamedNodeMap map = input.getAttributes();
 				int mapSize = map.getLength();
 				Node altNode = null;

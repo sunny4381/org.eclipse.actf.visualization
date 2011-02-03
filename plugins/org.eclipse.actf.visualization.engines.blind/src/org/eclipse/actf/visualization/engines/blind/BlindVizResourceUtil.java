@@ -40,6 +40,8 @@ public class BlindVizResourceUtil {
 				+ "Err.png", true);
 		FileUtils.copyFile(bundleChecker, new Path("icons/Warn.png"), path
 				+ "Warn.png", true);
+		FileUtils.copyFile(bundleChecker, new Path("icons/Conf.png"), path
+				+ "Conf.png", true);
 		FileUtils.copyFile(bundleChecker, new Path("icons/Info.png"), path
 				+ "Info.png", true);
 		FileUtils.copyFile(bundleChecker, new Path("icons/star.gif"), path

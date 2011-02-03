@@ -30,6 +30,7 @@ public final class Messages extends NLS {
 	public static String BlindView_Visualize_4;
 	public static String BlindVisualizationAction_0;
 	public static String Visualization_Error;
+	public static String Report;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

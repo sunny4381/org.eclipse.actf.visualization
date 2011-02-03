@@ -39,8 +39,9 @@ public class ResultTableLabelProviderLV extends LabelProvider implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object,
-	 *      int)
+	 * @see
+	 * org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang
+	 * .Object, int)
 	 */
 	public Image getColumnImage(Object arg0, int arg1) {
 		IProblemItemImage tmpItem = (IProblemItemImage) arg0;
@@ -53,20 +54,28 @@ public class ResultTableLabelProviderLV extends LabelProvider implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object,
-	 *      int)
+	 * @see
+	 * org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang
+	 * .Object, int)
 	 */
 	public String getColumnText(Object arg0, int arg1) {
 		IProblemItemImage tmpItem = (IProblemItemImage) arg0;
 
 		if (arg1 == 0) {
-			return(tmpItem.getIconTooltip());			
+			return (tmpItem.getIconTooltip());
 		} else if (arg1 < guidelineFinPos) {
-			return (tmpItem.getEvaluationItem().getTableDataGuideline()[arg1 - 1]);
+			try {
+				return (tmpItem.getEvaluationItem().getTableDataGuideline()[arg1 - 1]);
+			} catch (Exception e) {
+				return ("");
+			}
 		} else {
 			switch (arg1 - guidelineFinPos) {
 			case 0:
-				return (Integer.toString(tmpItem.getSeverityLV()));
+				if(tmpItem.getSeverityLV()>0){
+					return (Integer.toString(tmpItem.getSeverityLV()));
+				}
+				return("-");
 			case 1:
 				return (tmpItem.getForeground());
 			case 2:
@@ -78,6 +87,8 @@ public class ResultTableLabelProviderLV extends LabelProvider implements
 			case 5:
 				return (Integer.toString(tmpItem.getArea()));
 			case 6:
+				return (tmpItem.getEvaluationItem().getTableDataTechniques());// techniques
+			case 7:
 				return (tmpItem.getDescription());
 			default:
 				return (""); //$NON-NLS-1$

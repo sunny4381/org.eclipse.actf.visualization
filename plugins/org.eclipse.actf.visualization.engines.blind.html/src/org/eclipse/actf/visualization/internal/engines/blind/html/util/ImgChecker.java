@@ -128,8 +128,10 @@ public class ImgChecker {
 					if (!areaE.hasAttribute(ALT)) {
 						if (areaE.hasAttribute("href")) {
 							prob = new BlindProblem(IBlindProblem.NO_ALT_AREA,
-									mapEl.getAttribute("name") + " , href=\""
-											+ areaE.getAttribute("href") + "\"");
+									"map name=\"" + mapEl.getAttribute("name")
+											+ "\", href=\""
+											+ areaE.getAttribute("href")
+											+ "\".");
 							prob.setTargetNode(mapData.getOrigNode(areaE));
 						}
 					} else {
@@ -174,8 +176,8 @@ public class ImgChecker {
 						if (checkItems[prob.getSubType()]) {
 							Element errorImg = doc.createElement("img");
 							errorImg.setAttribute(ALT, "error icon");
-							errorImg.setAttribute("title", prob
-									.getDescription());
+							errorImg.setAttribute("title",
+									prob.getDescription());
 							if (idObj != null) {
 								errorImg.setAttribute("onmouseover",
 										"updateBaloon('id" + idObj + "');");
@@ -196,6 +198,7 @@ public class ImgChecker {
 	}
 
 	private String checkAlt(Element img) {
+		// check_H67(img); // For new JIS
 
 		boolean noAltError = false;
 		String altS = ""; //$NON-NLS-1$
@@ -203,17 +206,19 @@ public class ImgChecker {
 		BlindProblem prob = null;
 
 		if (!img.hasAttribute(ALT)) {
-			prob = new BlindProblem(IBlindProblem.NO_ALT_IMG, img
-					.getAttribute(SRC));
+			prob = new BlindProblem(IBlindProblem.NO_ALT_IMG,
+					img.getAttribute(SRC));
 			noAltError = true;
 		} else {
 			altS = img.getAttribute(ALT);
 			if (altS.length() > 0) {
 				if (textChecker.isInappropriateAlt(altS)) {
-					prob = new BlindProblem(IBlindProblem.WRONG_ALT_IMG, altS);
+					// prob = new BlindProblem(IBlindProblem.WRONG_ALT_IMG,
+					// altS);
+					prob = new BlindProblem(IBlindProblem.ALERT_WRONG_ALT, altS);
 				} else if (textChecker.isSeparatedJapaneseChars(altS)) {
-					prob = new BlindProblem(IBlindProblem.SEPARATE_DBCS_ALT_IMG,
-							altS);
+					prob = new BlindProblem(
+							IBlindProblem.SEPARATE_DBCS_ALT_IMG, altS);
 				} else {
 					switch (textChecker.checkInappropriateAlt(altS)) {
 					case 3:
@@ -221,8 +226,10 @@ public class ImgChecker {
 								altS);
 						break;
 					case 2:
-						prob = new BlindProblem(IBlindProblem.WRONG_ALT_IMG,
+						prob = new BlindProblem(IBlindProblem.ALERT_WRONG_ALT,
 								altS);
+						// prob = new BlindProblem(IBlindProblem.WRONG_ALT_IMG,
+						// altS);
 						break;
 					case 1:
 						prob = new BlindProblem(IBlindProblem.ALERT_WRONG_ALT,
@@ -259,5 +266,43 @@ public class ImgChecker {
 			}
 		}
 		return (imgText);
+	}
+
+	/**
+	 * For new JIS
+	 * 
+	 * @param img
+	 */
+	private void check_H67(Element img) {
+		System.out.println("----");
+		System.out.println("check_H67");
+		String src = img.getAttribute(SRC);
+		System.out.println("src = " + src + ", alt = [" + img.getAttribute(ALT)
+				+ "]");
+		System.out.println(isIgnoredByAT(img));
+
+		if (isIgnoredByAT(img)) {
+			String alt = img.getAttribute(ALT); // it must exist
+			if (alt.matches("[ ]+"))
+				System.out.println("warning: alt=\"\" is recommended");
+			if (alt.matches("(\\u00A0)+"))
+				System.out
+						.println("error: &nbsp; cannot be used for null ALT purpose");
+			if (img.hasAttribute("title")
+					&& img.getAttribute("title").length() > 0)
+				System.out.println("error: title att exists in ignored img");
+		}
+	}
+
+	/**
+	 * For new JIS
+	 * 
+	 * @param img
+	 * @return
+	 */
+	private boolean isIgnoredByAT(Element img) {
+		String alt = img.getAttribute(ALT);
+		// System.out.println(Integer.toHexString(alt.codePointAt(0)));
+		return img.hasAttribute(ALT) && alt.matches("[ \\u00A0]*");
 	}
 }

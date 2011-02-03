@@ -41,6 +41,11 @@ public final class Messages extends NLS {
 	public static String SrcViewer_9;
 	public static String SrcViewer_0;
 	public static String SrcViewerForPT_0;
+	
+	public static String ViewTechniques;
+	public static String NoTechniques;
+	
+	public static String Copy;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

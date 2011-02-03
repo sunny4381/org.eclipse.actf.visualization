@@ -12,7 +12,6 @@ package org.eclipse.actf.visualization.internal.ui.report.srcviewer;
 
 import java.io.File;
 
-import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetSourceInfo;
 import org.eclipse.actf.visualization.internal.ui.report.Messages;
 import org.eclipse.actf.visualization.internal.ui.report.ReportPlugin;
@@ -22,137 +21,142 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-
-
-
 public class SrcViewerForPT {
 
-    //TODO viewpart, SourceViewer
-    
-    private static SrcViewerForPT INSTANCE = null;
+	// TODO viewpart, SourceViewer
 
-    private static SrcViewer _srcViewer;
+	private static SrcViewerForPT INSTANCE = null;
 
-    private static Shell _srcViewerShell;
+	private static SrcViewer _srcViewer;
 
-    private Shell _shell = null;
+	private static Shell _srcViewerShell;
 
-    private boolean srcChanged;
-    
-    private File curTarget;
+	private Shell _shell = null;
 
-    /**
-     * @param pt
-     * @param display
-     */
-    private SrcViewerForPT(Shell shell) {
-        super();
-        this._shell = shell;
-        initSrcViewer();
-    }
+	private boolean srcChanged;
 
-    public static SrcViewerForPT initSrcViewerForPT(Shell parent) {
-        if (INSTANCE != null) {
-            // TODO close
-            // INSTANCE.PARENT.removeShellListener();
-        }
+	private File curTarget;
 
-        INSTANCE = new SrcViewerForPT(parent);
-        return (INSTANCE);
-    }
+	/**
+	 * @param pt
+	 * @param display
+	 */
+	private SrcViewerForPT(Shell shell) {
+		super();
+		this._shell = shell;
+		initSrcViewer();
+	}
 
-    public static SrcViewerForPT getInstance() {
-        return (INSTANCE);
-    }
+	public static SrcViewerForPT initSrcViewerForPT(Shell parent) {
+		if (INSTANCE != null) {
+			// TODO close
+			// INSTANCE.PARENT.removeShellListener();
+		}
 
-    private void initSrcViewer() {
-        srcChanged = true;
+		INSTANCE = new SrcViewerForPT(parent);
+		return (INSTANCE);
+	}
 
-        if (_shell != null) {
-            _shell.addShellListener(new ShellAdapter() {
-                public void shellClosed(ShellEvent arg0) {
-                    if (_srcViewerShell != null && !_srcViewerShell.isDisposed()) {
-                        _srcViewerShell.dispose();
-                    }
-                }
-            });
-        }
-    }
+	public static SrcViewerForPT getInstance() {
+		return (INSTANCE);
+	}
 
-    public void openSrcViewer() {
-        if (null == _srcViewerShell || _srcViewerShell.isDisposed()) {
-            Display display = _shell.getDisplay();
-            if (null == display) {
-                display = Display.getDefault();
-            }
-            _srcViewerShell = new Shell(display);
-            _srcViewerShell.setLayout(new FillLayout());
-            _srcViewerShell.setImage(ReportPlugin.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID, "icons/excla_squ.png").createImage()); //$NON-NLS-1$
-            _srcViewerShell.setText(Messages.SrcViewerForPT_0);
-            _srcViewer = new SrcViewer(_srcViewerShell);
-            _srcViewerShell.setSize(600, 750);
-            _srcViewerShell.setFocus();
-            _srcViewerShell.open();
+	private void initSrcViewer() {
+		srcChanged = true;
 
-            _srcViewerShell.addShellListener(new ShellAdapter() {
-                public void shellClosed(ShellEvent arg0) {
-                    _srcViewer.closeSearchDlgShell();
-                }
-            });
+		if (_shell != null) {
+			_shell.addShellListener(new ShellAdapter() {
+				public void shellClosed(ShellEvent arg0) {
+					if (_srcViewerShell != null
+							&& !_srcViewerShell.isDisposed()) {
+						_srcViewerShell.dispose();
+					}
+				}
+			});
+		}
+	}
 
-            srcChanged = true;
+	public void openSrcViewer() {
+		if (null == _srcViewerShell || _srcViewerShell.isDisposed()) {
+			Display display = _shell.getDisplay();
+			if (null == display) {
+				display = Display.getDefault();
+			}
+			_srcViewerShell = new Shell(display);
+			_srcViewerShell.setLayout(new FillLayout());
+			_srcViewerShell.setImage(ReportPlugin
+					.imageDescriptorFromPlugin(ReportPlugin.PLUGIN_ID,
+							"icons/excla_squ.png").createImage()); //$NON-NLS-1$
+			_srcViewerShell.setText(Messages.SrcViewerForPT_0);
+			_srcViewer = new SrcViewer(_srcViewerShell);
+			_srcViewerShell.setSize(600, 750);
+			_srcViewerShell.setFocus();
+			_srcViewerShell.open();
 
-        } else if (!_srcViewerShell.isDisposed()) {
-            if (_srcViewerShell.getMinimized()) {
-                _srcViewerShell.setMinimized(false);
-            }
-            _srcViewerShell.forceActive();
-        }
-    }
+			_srcViewerShell.addShellListener(new ShellAdapter() {
+				public void shellClosed(ShellEvent arg0) {
+					_srcViewer.closeSearchDlgShell();
+				}
+			});
 
-    public void highlightSrcViewer(HighlightTargetSourceInfo[] sourceInfos, File target) {
-        if (_srcViewerShell != null && !_srcViewerShell.isDisposed() && EvaluationUtil.isOriginalDOM()) {
+			srcChanged = true;
 
-            if(curTarget!=target || srcChanged){
-                srcChanged =true;
-                updateSrcViewer(target);
-            }
-            
-            //updateSrcViewer(currentLayout);
-            _srcViewer.clearHighlight();
+		} else if (!_srcViewerShell.isDisposed()) {
+			if (_srcViewerShell.getMinimized()) {
+				_srcViewerShell.setMinimized(false);
+			}
+			_srcViewerShell.forceActive();
+		}
+	}
 
-            for (int i = 0; i < sourceInfos.length; i++) {
-                HighlightTargetSourceInfo curInfo = sourceInfos[i];
+	public void highlightSrcViewer(HighlightTargetSourceInfo[] sourceInfos,
+			File target) {
+		if (_srcViewerShell != null && !_srcViewerShell.isDisposed()) {
 
-                if (curInfo.getStartColumn() < 0 || curInfo.getEndColumn() < 0) {
-                    _srcViewer.highlightLines(curInfo.getStartLine(),curInfo.getEndLine());
-                } else {
-                    _srcViewer.highlight(curInfo.getStartLine(),curInfo.getStartColumn(),curInfo.getEndLine(),curInfo.getEndColumn());
-                }
+			if (curTarget != target || srcChanged) {
+				srcChanged = true;
+				updateSrcViewer(target);
+			}
 
-            }
-        }
+			// updateSrcViewer(currentLayout);
+			_srcViewer.clearHighlight();
 
-    }
+			for (int i = 0; i < sourceInfos.length; i++) {
+				HighlightTargetSourceInfo curInfo = sourceInfos[i];
 
-    public void updateSrcViewer(File target) {
-        if (_srcViewerShell != null && !_srcViewerShell.isDisposed() && srcChanged) {
-            try {
-                _srcViewer.openFile(target);
-                curTarget = target;
-            } catch (Exception e) {
-                // e.printStackTrace();
-                _srcViewer.setText(""); //$NON-NLS-1$
-            }
-            srcChanged = false;
-        }
-    }
+				if (curInfo.getStartColumn() < 0 || curInfo.getEndColumn() < 0) {
+					_srcViewer.highlightLines(curInfo.getStartLine(),
+							curInfo.getEndLine());
+				} else {
+					_srcViewer.highlight(curInfo.getStartLine(),
+							curInfo.getStartColumn(), curInfo.getEndLine(),
+							curInfo.getEndColumn());
+				}
 
-    /**
-     * @param srcChanged
-     *            The srcChanged to set.
-     */
-    public void setSrcChanged(boolean srcChanged) {
-        this.srcChanged = srcChanged;
-    }
+			}
+		}
+
+	}
+
+	public void updateSrcViewer(File target) {
+		if (_srcViewerShell != null && !_srcViewerShell.isDisposed()
+				&& srcChanged) {
+			try {
+				_srcViewer.openFile(target);
+				curTarget = target;
+			} catch (Exception e) {
+				// e.printStackTrace();
+				_srcViewer.setText(""); //$NON-NLS-1$
+			}
+			srcChanged = false;
+		}
+	}
+
+	/**
+	 * @param srcChanged
+	 *            The srcChanged to set.
+	 */
+	public void setSrcChanged(boolean srcChanged) {
+		this.srcChanged = srcChanged;
+	}
 }

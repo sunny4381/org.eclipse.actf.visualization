@@ -51,7 +51,7 @@ public class SaveReportBlind {
 	private static final String SRC = "src";
 
 	private static final String[] ICON_NAMES = { "Err.png", "Warn.png",
-			"Info.png" };
+			"Conf.png", "Info.png" };
 
 	// moved from PartRightBlind
 	// TODO renew
@@ -67,17 +67,17 @@ public class SaveReportBlind {
 
 			IEvaluationResult evalResult = (IEvaluationResult) checkResult;
 
-			String saveDir = sFileName.substring(0, sFileName
-					.lastIndexOf(File.separator) + 1);
+			String saveDir = sFileName.substring(0,
+					sFileName.lastIndexOf(File.separator) + 1);
 			String imageDir = saveDir + imageBriefDir;
 			File fDir = new File(imageDir);
 			if ((!fDir.isDirectory() || !fDir.canWrite()) && !fDir.mkdirs()) {
 				System.err.println("can't create image dir:" + imageDir);
 			}
 
-			String preName = sFileName.substring(sFileName
-					.lastIndexOf(File.separator) + 1, sFileName
-					.lastIndexOf("."));
+			String preName = sFileName.substring(
+					sFileName.lastIndexOf(File.separator) + 1,
+					sFileName.lastIndexOf("."));
 			String scriptVariantName = preName + "_variant.js";
 			String reportImgSaveName = preName + ".png";
 
@@ -114,9 +114,10 @@ public class SaveReportBlind {
 					// e.printStackTrace();
 				}
 
-				FileUtils.copyFile(new File(BlindVizResourceUtil
-						.getTempDirectory(), "pagerating.png"), imageDir
-						+ reportImgSaveName, true);
+				FileUtils.copyFile(
+						new File(BlindVizResourceUtil.getTempDirectory(),
+								"pagerating.png"),
+						imageDir + reportImgSaveName, true);
 
 			}
 
@@ -154,18 +155,16 @@ public class SaveReportBlind {
 
 				Element newEle = result.createElement("script");
 				StringBuffer buffer = new StringBuffer();
-				buffer
-						.append(FileUtils.LINE_SEP
-								+ "if(navigator.appName.toLowerCase().indexOf(\"microsoft\")>=0){"
-								+ FileUtils.LINE_SEP);
+				buffer.append(FileUtils.LINE_SEP
+						+ "if(navigator.appName.toLowerCase().indexOf(\"microsoft\")>=0){"
+						+ FileUtils.LINE_SEP);
 				buffer.append("jsFile=\"highlight.js\";" + FileUtils.LINE_SEP);
 				buffer.append("}else{" + FileUtils.LINE_SEP);
 				buffer.append("jsFile=\"highlight_moz.js\";"
 						+ FileUtils.LINE_SEP);
 				buffer.append("}" + FileUtils.LINE_SEP);
-				buffer
-						.append("document.write(\"<script src=\"+acc_imageDir+jsFile+\"></script>\");"
-								+ FileUtils.LINE_SEP);
+				buffer.append("document.write(\"<script src=\"+acc_imageDir+jsFile+\"></script>\");"
+						+ FileUtils.LINE_SEP);
 				newEle.appendChild(result.createComment(buffer.toString()));
 				el.appendChild(newEle);
 			}
@@ -421,8 +420,10 @@ public class SaveReportBlind {
 			return ICON_NAMES[0];
 		case IEvaluationItem.SEV_WARNING:
 			return ICON_NAMES[1];
-		case IEvaluationItem.SEV_INFO:
+		case IEvaluationItem.SEV_USER:
 			return ICON_NAMES[2];
+		case IEvaluationItem.SEV_INFO:
+			return ICON_NAMES[3];
 		default:
 			return NULL_STRING;
 		}

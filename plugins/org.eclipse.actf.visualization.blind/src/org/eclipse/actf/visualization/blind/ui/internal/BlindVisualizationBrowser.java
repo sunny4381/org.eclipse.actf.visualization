@@ -124,7 +124,13 @@ public class BlindVisualizationBrowser {
             Variant[] rgvarg = new Variant[1];
             rgvarg[0] = new Variant(str);
 
-            ieWindowAutomation.invoke(id_exec_script, rgvarg);
+            if(ieWindowAutomation.invoke(id_exec_script, rgvarg)==null){
+            	//try again
+            	ieWindowAutomation = null;
+            	if(initWindowAutomation()){
+            		ieWindowAutomation.invoke(id_exec_script, rgvarg);
+            	}
+            }
         }
     }
 
