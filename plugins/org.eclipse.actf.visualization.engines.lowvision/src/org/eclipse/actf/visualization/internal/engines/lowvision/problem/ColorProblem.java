@@ -23,6 +23,10 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageCompo
 
 
 public class ColorProblem extends LowVisionProblem{
+	public static int LEVEL0 = 0;
+	public static int LEVEL1 = 1;
+	public static int LEVEL2 = 2;
+	
 	private int foregroundColor = -1;
 	private int backgroundColor = -1;
 	private boolean hasBackgroundImage = false;
@@ -72,17 +76,17 @@ public class ColorProblem extends LowVisionProblem{
 
 	public String getAdditionalDescription(){
 		StringBuffer tmpSB = new StringBuffer();
-		if(contrast>=1&&contrast<=21){
-			BigDecimal bd = new BigDecimal(contrast);
-			tmpSB.append("("+Messages.ContrastRatio+" = "+bd.setScale(2,BigDecimal.ROUND_HALF_UP)+") ");
-		}
 		if(targetStrings!=null && targetStrings.length>0){
 			tmpSB.append("("+Messages.TargetString+" = ");
 			for(String tmpS : targetStrings){
 				tmpSB.append(tmpS+", ");
 			}
 			tmpSB.delete(tmpSB.length()-2, tmpSB.length());
-			tmpSB.append(")");
+			tmpSB.append(") ");
+		}
+		if(contrast>=1&&contrast<=21){
+			BigDecimal bd = new BigDecimal(contrast);
+			tmpSB.append("("+Messages.ContrastRatio+" = "+bd.setScale(2,BigDecimal.ROUND_HALF_UP)+")");
 		}
 		return(tmpSB.toString());
 	}
@@ -123,4 +127,14 @@ public class ColorProblem extends LowVisionProblem{
 	public void setTargetStrings(String[] targetStrings) {
 		this.targetStrings = targetStrings;
 	}
+	
+	public int getLevel(){
+		if(contrast>=1 && contrast<3){
+			return LEVEL0;			
+		}else if (contrast<4.5){
+			return LEVEL1;
+		}
+		return LEVEL2;
+	}
+	
 }

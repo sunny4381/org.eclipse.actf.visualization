@@ -22,7 +22,6 @@ import java.util.Vector;
 
 import org.eclipse.actf.mediator.Mediator;
 import org.eclipse.actf.model.dom.dombycom.IElementEx;
-import org.eclipse.actf.model.dom.dombycom.IStyle;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.IModelServiceHolder;
 import org.eclipse.actf.model.ui.IModelServiceScrollManager;
@@ -65,8 +64,6 @@ import org.eclipse.ui.IViewReference;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 public class PartControlLowVision implements ISelectionListener,
 		IVisualizationConst {

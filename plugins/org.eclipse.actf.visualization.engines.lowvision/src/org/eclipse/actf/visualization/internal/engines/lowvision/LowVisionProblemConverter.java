@@ -29,20 +29,28 @@ public class LowVisionProblemConverter {
 		ArrayList<IProblemItem> result = new ArrayList<IProblemItem>();
 
 		for (int i = 0; i < target.length; i++) {
-
-			ProblemItemLV tmp = new ProblemItemLV(
-					"L_" + target[i].getLowVisionProblemType()); //$NON-NLS-1$
-			tmp.setSubType(target[i].getLowVisionProblemType());
+			int type = target[i].getLowVisionProblemType();
+			ProblemItemLV tmp;
+			ColorProblem cp;
+			if (type == LowVisionProblem.LOWVISION_COLOR_PROBLEM) {
+				cp = (ColorProblem) target[i].getRepresentative();
+				tmp = new ProblemItemLV(
+						"L_" + target[i].getLowVisionProblemType()+"."+cp.getLevel()); //$NON-NLS-1$
+				tmp.setTargetNode(cp.getElement());
+				tmp.setTargetString(cp.getAdditionalDescription());
+			} else {
+				tmp = new ProblemItemLV(
+						"L_" + target[i].getLowVisionProblemType()); //$NON-NLS-1$
+			}
+			tmp.setSubType(type);
 			try {
-				switch (tmp.getSubType()) {
+				switch (type) {
 				case ILowvisionProblemSubtype.LOWVISION_BACKGROUND_IMAGE_WARNING:					
-					ColorProblem cp = (ColorProblem)target[i].getRepresentative();
+					cp = (ColorProblem)target[i].getRepresentative();
 					tmp.setTargetNode(cp.getElement());
 					tmp.setDescription(tmp.getDescription()+cp.getAdditionalDescription());
 					break;
 				case ILowvisionProblemSubtype.LOWVISION_COLOR_PROBLEM:
-					tmp.setDescription(target[i].getRepresentative().getDescription());
-					tmp.setTargetNode(target[i].getRepresentative().getElement());
 					break;
 				default:
 					tmp.setDescription(target[i].getDescription());
