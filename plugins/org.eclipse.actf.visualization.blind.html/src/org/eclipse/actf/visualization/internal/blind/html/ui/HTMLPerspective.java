@@ -13,6 +13,7 @@
 package org.eclipse.actf.visualization.internal.blind.html.ui;
 
 import org.eclipse.actf.visualization.ui.IVisualizationPerspective;
+import org.eclipse.actf.visualization.ui.IVisualizationView;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
@@ -25,6 +26,10 @@ public class HTMLPerspective implements IPerspectiveFactory,
 		IVisualizationPerspective {
 
 	private static final String RESOURCE_FOLDER = "actf.html.resource.folder";
+
+	private static final String VIEW_FOLDER = "actf.html.visualization.view.folder";
+
+	private static final String REPORT_FOLDER = "actf.html.report.view.folder";
 
 	private static final String RESOURCE_NAVIGATOR = "org.eclipse.ui.views.ResourceNavigator";
 	private static final String PACKAGE_EXPLORER = "org.eclipse.jdt.ui.PackageExplorer";
@@ -60,6 +65,19 @@ public class HTMLPerspective implements IPerspectiveFactory,
 					IPageLayout.LEFT, 0.2f, editorArea);
 			resourceFolder.addView(PACKAGE_EXPLORER);
 		}
+
+		IFolderLayout reportFolder = layout.createFolder(REPORT_FOLDER,
+				IPageLayout.BOTTOM, 0.7f, editorArea);
+		reportFolder.addView(IVisualizationView.SUMMARY_REPORT_VIEW_ID);
+		reportFolder.addView(IVisualizationView.DETAILED_REPROT_VIEW_ID);
+		
+		IFolderLayout viewFolder = layout.createFolder(VIEW_FOLDER,
+				IPageLayout.RIGHT, 0.5f, editorArea);
+		viewFolder.addView(IVisualizationView.ID_BLINDVIEW);
+		viewFolder.addView(IVisualizationView.ID_LOWVISIONVIEW);
+		
+		
+
 	}
 
 }
