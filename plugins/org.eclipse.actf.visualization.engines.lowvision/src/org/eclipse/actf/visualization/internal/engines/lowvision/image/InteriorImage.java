@@ -27,6 +27,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ImageCo
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
+import org.w3c.dom.Element;
 
 public class InteriorImage extends PageComponent {
 
@@ -53,6 +54,16 @@ public class InteriorImage extends PageComponent {
 	InteriorImageComponent[] largeComponents = null;
 
 	String url = null;
+	
+	Element image;
+
+	public Element getImage() {
+		return image;
+	}
+
+	public void setImageElement(Element image) {
+		this.image = image;
+	}
 
 	// a part of PageImage
 	public InteriorImage(PageImage _pi, int _x, int _y, int _width, int _height) {
@@ -244,6 +255,7 @@ public class InteriorImage extends PageComponent {
 
 						ImageColorProblem probl = new ImageColorProblem(this,
 								_lvType, probability, iic1, iic2);
+						probl.setElement(image);
 						problemVector.addElement(probl);
 					}
 				}

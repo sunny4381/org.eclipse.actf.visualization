@@ -276,6 +276,7 @@ public class PageImage implements IPageImage {
 			}
 
 			InteriorImage curIm = new InteriorImage(this, curPos);
+			curIm.setImageElement(curPos.getElement());
 			imageVector.addElement(curIm);
 		}
 		int size = imageVector.size();
@@ -854,6 +855,7 @@ public class PageImage implements IPageImage {
 		return (null);
 	}
 
+	@SuppressWarnings("unused")
 	public List<IProblemItem> checkCharacters(LowVisionType _lvType,
 			String urlS, int frameId) throws ImageException,
 			LowVisionProblemException {

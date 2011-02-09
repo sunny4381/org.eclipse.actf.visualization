@@ -220,6 +220,7 @@ public class PageElement {
 			FixedSmallFontProblem newProblem = null;
 			try {
 				newProblem = new FixedSmallFontProblem(this, _lvType, proba);
+				newProblem.setElement(fsfp.getElement());
 				problemVec.addElement(newProblem);
 			} catch (LowVisionProblemException e) {
 				e.printStackTrace();
@@ -380,8 +381,10 @@ public class PageElement {
 			short type = fontSizeType(fontStr);
 			if (type == FONT_SIZE_FIXED) { // not include "pt"
 				try {
-					return (new FixedSizeFontProblem(this, _lvType,
-							PageElement.SEVERITY_FIXED_SIZE_FONT));
+					FixedSizeFontProblem problem = new FixedSizeFontProblem(this, _lvType,
+							PageElement.SEVERITY_FIXED_SIZE_FONT);
+					problem.setElement(style.getElement());
+					return (problem);
 				} catch (LowVisionProblemException e) {
 					e.printStackTrace();
 					return (null);
@@ -483,8 +486,10 @@ public class PageElement {
 
 		if (fixedFlag) {
 			try {
-				return (new FixedSizeFontProblem(this, _lvType,
-						PageElement.SEVERITY_FIXED_SIZE_FONT));
+				FixedSizeFontProblem problem = new FixedSizeFontProblem(this, _lvType,
+						PageElement.SEVERITY_FIXED_SIZE_FONT);
+				problem.setElement(style.getElement());
+				return (problem);
 			} catch (LowVisionProblemException e) {
 				e.printStackTrace();
 				return (null);
@@ -768,8 +773,10 @@ public class PageElement {
 		if (severity > 0.0) {
 			try {
 				// fixed severity
-				return (new SmallFontProblem(this, _lvType,
-						PageElement.SEVERITY_SMALL_FONT));
+				SmallFontProblem problem = new SmallFontProblem(this, _lvType,
+						PageElement.SEVERITY_SMALL_FONT);
+				problem.setElement(style.getElement());
+				return (problem);
 			} catch (LowVisionProblemException e) {
 				e.printStackTrace();
 				return (null);

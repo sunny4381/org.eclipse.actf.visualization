@@ -35,7 +35,7 @@ public class LowVisionProblemConverter {
 			if (type == LowVisionProblem.LOWVISION_COLOR_PROBLEM) {
 				cp = (ColorProblem) target[i].getRepresentative();
 				tmp = new ProblemItemLV(
-						"L_" + target[i].getLowVisionProblemType()+"."+cp.getLevel()); //$NON-NLS-1$
+						"L_"	+ target[i].getLowVisionProblemType() + "." + cp.getLevel()); //$NON-NLS-1$
 				tmp.setTargetNode(cp.getElement());
 				tmp.setTargetString(cp.getAdditionalDescription());
 			} else {
@@ -45,15 +45,18 @@ public class LowVisionProblemConverter {
 			tmp.setSubType(type);
 			try {
 				switch (type) {
-				case ILowvisionProblemSubtype.LOWVISION_BACKGROUND_IMAGE_WARNING:					
-					cp = (ColorProblem)target[i].getRepresentative();
+				case ILowvisionProblemSubtype.LOWVISION_BACKGROUND_IMAGE_WARNING:
+					cp = (ColorProblem) target[i].getRepresentative();
 					tmp.setTargetNode(cp.getElement());
-					tmp.setDescription(tmp.getDescription()+cp.getAdditionalDescription());
+					tmp.setTargetString(cp.getAdditionalDescription());
 					break;
 				case ILowvisionProblemSubtype.LOWVISION_COLOR_PROBLEM:
 					break;
 				default:
 					tmp.setDescription(target[i].getDescription());
+					if (target[i].getRepresentative() != null)
+						tmp.setTargetNode(target[i].getRepresentative()
+								.getElement());
 				}
 			} catch (Exception e) {
 				tmp.setDescription("unknown"); //$NON-NLS-1$
