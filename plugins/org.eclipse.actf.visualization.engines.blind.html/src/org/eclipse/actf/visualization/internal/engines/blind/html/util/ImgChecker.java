@@ -14,6 +14,7 @@ package org.eclipse.actf.visualization.internal.engines.blind.html.util;
 import java.util.Map;
 import java.util.Vector;
 
+import org.eclipse.actf.visualization.engines.blind.TextCheckResult;
 import org.eclipse.actf.visualization.engines.blind.TextChecker;
 import org.eclipse.actf.visualization.engines.blind.html.IBlindProblem;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
@@ -136,24 +137,15 @@ public class ImgChecker {
 						}
 					} else {
 						String alt = areaE.getAttribute(ALT);
-						if (alt.length() > 0) {
-							if (textChecker.isInappropriateAlt(alt)) {
-								prob = new BlindProblem(
-										IBlindProblem.WRONG_ALT_AREA, alt);
+						TextCheckResult result = textChecker.checkAlt(alt);
 
-							} else if (textChecker
-									.isSeparatedJapaneseChars(alt)) {
-								prob = new BlindProblem(
-										IBlindProblem.SEPARATE_DBCS_ALT_AREA,
-										alt);
+						// blank and inappropriate are moved to C_300.1
 
-							}
-
-						} else {
-							if (areaE.hasAttribute("href")) {
-								prob = new BlindProblem(
-										IBlindProblem.WRONG_ALT_AREA, alt);
-							}
+						if (result.equals(TextCheckResult.SPACE_SEPARATED)
+								|| result
+										.equals(TextCheckResult.SPACE_SEPARATED_JP)) {
+							prob = new BlindProblem(
+									IBlindProblem.SEPARATE_DBCS_ALT_AREA, alt);
 						}
 						if (prob != null) {
 							prob.setTargetNode(mapData.getOrigNode(areaE));
@@ -212,33 +204,27 @@ public class ImgChecker {
 		} else {
 			altS = img.getAttribute(ALT);
 			if (altS.length() > 0) {
-				if (textChecker.isInappropriateAlt(altS)) {
+				TextCheckResult result = textChecker.checkAlt(altS,
+						img.getAttribute(SRC));
+				if (result.equals(TextCheckResult.NG_WORD)
+						|| result.equals(TextCheckResult.IMG_EXT)) {
 					// prob = new BlindProblem(IBlindProblem.WRONG_ALT_IMG,
 					// altS);
 					prob = new BlindProblem(IBlindProblem.ALERT_WRONG_ALT, altS);
-				} else if (textChecker.isSeparatedJapaneseChars(altS)) {
+				} else if (result.equals(TextCheckResult.SPACE_SEPARATED_JP)) {
 					prob = new BlindProblem(
 							IBlindProblem.SEPARATE_DBCS_ALT_IMG, altS);
-				} else {
-					switch (textChecker.checkInappropriateAlt(altS)) {
-					case 3:
-						prob = new BlindProblem(IBlindProblem.ALERT_SPELL_OUT,
-								altS);
-						break;
-					case 2:
-						prob = new BlindProblem(IBlindProblem.ALERT_WRONG_ALT,
-								altS);
-						// prob = new BlindProblem(IBlindProblem.WRONG_ALT_IMG,
-						// altS);
-						break;
-					case 1:
-						prob = new BlindProblem(IBlindProblem.ALERT_WRONG_ALT,
-								altS);
-						break;
-					case 0:
-					default:
-						break;
-					}
+				} else if (result.equals(TextCheckResult.SPACE_SEPARATED)) {
+					prob = new BlindProblem(IBlindProblem.ALERT_SPELL_OUT, altS);
+				} else if (result.equals(TextCheckResult.BLANK_NBSP)) {
+					prob = new BlindProblem(IBlindProblem.WRONG_NBSP_ALT_IMG,
+							altS);
+				} else if (!result.equals(TextCheckResult.OK)) {
+					// includes ASCII_ART, BLANK, SAME_AS_SRC etc.
+					prob = new BlindProblem(IBlindProblem.ALERT_WRONG_ALT, altS);
+					// prob = new
+					// BlindProblem(IBlindProblem.WRONG_ALT_IMG,
+					// altS);
 				}
 			}
 		}
@@ -266,32 +252,6 @@ public class ImgChecker {
 			}
 		}
 		return (imgText);
-	}
-
-	/**
-	 * For new JIS
-	 * 
-	 * @param img
-	 */
-	private void check_H67(Element img) {
-		System.out.println("----");
-		System.out.println("check_H67");
-		String src = img.getAttribute(SRC);
-		System.out.println("src = " + src + ", alt = [" + img.getAttribute(ALT)
-				+ "]");
-		System.out.println(isIgnoredByAT(img));
-
-		if (isIgnoredByAT(img)) {
-			String alt = img.getAttribute(ALT); // it must exist
-			if (alt.matches("[ ]+"))
-				System.out.println("warning: alt=\"\" is recommended");
-			if (alt.matches("(\\u00A0)+"))
-				System.out
-						.println("error: &nbsp; cannot be used for null ALT purpose");
-			if (img.hasAttribute("title")
-					&& img.getAttribute("title").length() > 0)
-				System.out.println("error: title att exists in ignored img");
-		}
 	}
 
 	/**

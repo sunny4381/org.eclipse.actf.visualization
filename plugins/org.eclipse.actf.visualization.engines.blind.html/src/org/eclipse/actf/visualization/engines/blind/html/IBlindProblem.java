@@ -51,6 +51,6 @@ public interface IBlindProblem extends IProblemItem {
 	public static final int INVISIBLE_INTRAPAGE_LINK = 35;
 	public static final int NO_VALUE_INPUT_BUTTON = 36;
 	public static final int SEPARATE_DBCS_INPUT_VALUE = 37;
-	public static final int NUM_PROBLEMS = 38;// max id+1
-
+	public static final int WRONG_NBSP_ALT_IMG = 38;
+	public static final int NUM_PROBLEMS = 39;// max id+1
 }

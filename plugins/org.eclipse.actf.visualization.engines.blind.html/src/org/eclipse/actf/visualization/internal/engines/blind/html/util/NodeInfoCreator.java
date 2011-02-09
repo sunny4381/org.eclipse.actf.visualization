@@ -135,12 +135,16 @@ public class NodeInfoCreator {
 
 				// TODO consider ALT text ('['+alt+']')
 				// check inappropritate text
+				
 				if (textChecker.isSeparatedJapaneseChars(curText)) {
-					BlindProblem prob = new BlindProblem(
-							IBlindProblem.WRONG_TEXT, curText);
-					prob.setNode(p.getNode());
-					prob.setTargetNode(mapData.getOrigNode(p.getNode()));
-					problems.add(prob);
+					String nodeName = p.getNode().getNodeName();
+					if (!nodeName.matches("img|input|area")) {//already checked
+						BlindProblem prob = new BlindProblem(
+								IBlindProblem.WRONG_TEXT, curText);
+						prob.setNode(p.getNode());
+						prob.setTargetNode(mapData.getOrigNode(p.getNode()));
+						problems.add(prob);
+					}
 				}
 
 				// check redundant texts
@@ -270,7 +274,7 @@ public class NodeInfoCreator {
 	}
 
 	@SuppressWarnings("nls")
-	//TODO
+	// TODO
 	public void createAdditionalNodeInfo(Document doc) {
 		// create elementList
 		// set node info ID

@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
+import org.eclipse.actf.visualization.engines.blind.TextCheckResult;
 import org.eclipse.actf.visualization.engines.blind.TextChecker;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfo;
 import org.eclipse.actf.visualization.engines.blind.html.ui.elementViewer.impl.VisualizeStyleInfoManager;
@@ -430,6 +431,7 @@ public class VisualizeEngine {
 					}
 				}
 				if (altNode != null) {
+					// TODO space separated
 					input.setAttribute("value", altNode.getNodeValue());
 				} else {
 					BlindProblem prob = new BlindProblem(
@@ -457,9 +459,14 @@ public class VisualizeEngine {
 						prob = new BlindProblem(
 								IBlindProblem.NO_VALUE_INPUT_BUTTON);
 					}
-				} else if (textChecker.isSeparatedJapaneseChars(valueS)) {
-					prob = new BlindProblem(
-							IBlindProblem.SEPARATE_DBCS_INPUT_VALUE, valueS);
+				} else {
+					TextCheckResult result = textChecker.checkAlt(valueS);
+					if (result.equals(TextCheckResult.SPACE_SEPARATED)
+							|| result
+									.equals(TextCheckResult.SPACE_SEPARATED_JP)) {
+						prob = new BlindProblem(
+								IBlindProblem.SEPARATE_DBCS_INPUT_VALUE, valueS);
+					}
 				}
 				if (prob != null) {
 					Integer idObj = mapData.getIdOfNode(input);
