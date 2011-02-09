@@ -641,7 +641,6 @@ public class PartControlLowVision implements ISelectionListener,
 		highlightElements.clear();
 	}
 
-	@SuppressWarnings("unchecked")
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		clearHighlight();
 		if (selection == null || !(selection instanceof IStructuredSelection)) {
@@ -652,7 +651,8 @@ public class PartControlLowVision implements ISelectionListener,
 		ArrayList<IPositionSize> result = new ArrayList<IPositionSize>();
 
 		// TODO check
-		for (Iterator i = ((IStructuredSelection) selection).iterator(); i
+		for (@SuppressWarnings("rawtypes")
+		Iterator i = ((IStructuredSelection) selection).iterator(); i
 				.hasNext();) {
 			IProblemItem item = (IProblemItem) i.next();
 			if (checkResult.getProblemList().contains(item)) {
