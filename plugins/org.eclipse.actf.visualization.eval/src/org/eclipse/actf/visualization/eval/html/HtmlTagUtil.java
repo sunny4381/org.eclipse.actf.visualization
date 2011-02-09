@@ -31,6 +31,8 @@ public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
 
 	public static final String ATTR_SRC = "src";
 
+	public static final String ATTR_TITLE = "title";
+
 	public static final String FLASH_OBJECT = "clsid:d27cdb6e-ae6d-11cf-96b8-444553540000";
 
 	public static final String FLASH_CODEBASE = "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab";
@@ -81,10 +83,9 @@ public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
 		}
 		return (result);
 	}
-	
 
 	/**
-	 * Get ancestor node whose name is specified target name 
+	 * Get ancestor node whose name is specified target name
 	 * 
 	 * @param target
 	 *            target {@link Node}

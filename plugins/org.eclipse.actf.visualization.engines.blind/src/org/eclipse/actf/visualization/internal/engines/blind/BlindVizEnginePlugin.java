@@ -52,7 +52,7 @@ public class BlindVizEnginePlugin extends AbstractUIPlugin {
 	 */
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		if (!getPluginPreferences().getBoolean(
+		if (!getPreferenceStore().getBoolean(
 				IBlindPreferenceConstants.NOT_FIRST_TIME)) {
 			TextChecker.getInstance();
 		}
@@ -76,7 +76,7 @@ public class BlindVizEnginePlugin extends AbstractUIPlugin {
 	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
 	 */
 	public void stop(BundleContext context) throws Exception {
-		getPluginPreferences().setValue(
+		getPreferenceStore().setValue(
 				IBlindPreferenceConstants.NOT_FIRST_TIME, true);
 		plugin = null;
 		super.stop(context);

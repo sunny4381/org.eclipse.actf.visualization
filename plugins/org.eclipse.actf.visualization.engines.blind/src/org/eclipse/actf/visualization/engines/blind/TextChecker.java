@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 IBM Corporation and Others
+ * Copyright (c) 2004, 2011 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,17 +12,21 @@
 package org.eclipse.actf.visualization.engines.blind;
 
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.actf.visualization.engines.blind.ui.preferences.IBlindPreferenceConstants;
 import org.eclipse.actf.visualization.internal.engines.blind.BlindVizEnginePlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.Preferences;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.PreferenceStore;
 
 /**
@@ -36,6 +40,7 @@ public class TextChecker {
 
 	private static final String NIHONGO = "(\\p{InCJKUnifiedIdeographs}|\\p{InHiragana}|\\p{InKatakana})"; //$NON-NLS-1$
 
+	@SuppressWarnings("unused")
 	private static final String KANJI = "(\\p{InCJKUnifiedIdeographs})"; //$NON-NLS-1$
 
 	private static final String ALT_TEXT_PROPERTIES_FILE = "altText.properties"; //$NON-NLS-1$
@@ -50,8 +55,11 @@ public class TextChecker {
 
 	private Set<String> ngwordset2 = new TreeSet<String>();
 
-	private Preferences pref = BlindVizEnginePlugin.getDefault()
-			.getPluginPreferences();
+	// private Preferences pref = BlindVizEnginePlugin.getDefault()
+	// .getPluginPreferences();
+
+	private IPreferenceStore pref = BlindVizEnginePlugin.getDefault()
+			.getPreferenceStore();
 
 	// TODO spell out check
 
@@ -62,9 +70,9 @@ public class TextChecker {
 
 			Properties prop = new Properties();
 			try {
-				InputStream prefIS = FileLocator.openStream(Platform
-						.getBundle(BlindVizEnginePlugin.PLUGIN_ID), new Path(
-						"config/" + ALT_TEXT_PROPERTIES_FILE), false); //$NON-NLS-1$
+				InputStream prefIS = FileLocator.openStream(
+						Platform.getBundle(BlindVizEnginePlugin.PLUGIN_ID),
+						new Path("config/" + ALT_TEXT_PROPERTIES_FILE), false); //$NON-NLS-1$
 				if (prefIS != null) {
 					prop.load(prefIS);
 				}
@@ -111,7 +119,7 @@ public class TextChecker {
 	 * 
 	 * @return instance of {@link TextChecker}
 	 */
-	public static TextChecker getInstance() {
+	synchronized public static TextChecker getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new TextChecker();
 		}
@@ -132,10 +140,12 @@ public class TextChecker {
 		if ((prevText != null) && (prevText.length() > 1)
 				&& (curText.length() > 1)) {
 
-			String prevText2 = prevText.replaceAll("\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
+			String prevText2 = prevText.replaceAll(
+					"\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
 			prevText2 = prevText2.trim();
 
-			String curText2 = curText.replaceAll("\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
+			String curText2 = curText.replaceAll(
+					"\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
 			curText2 = curText2.trim();
 
 			if (curText2.equalsIgnoreCase(prevText2)) {
@@ -169,13 +179,12 @@ public class TextChecker {
 	 * 
 	 * @param alt
 	 *            target alternative text
-	 * @return
-	 *            <ul>
-	 *            <li>0: OK</li>
-	 *            <li>1: possibly inappropriate</li>
-	 *            <li>2: inappropriate</li>
-	 *            <li>3: space separated chars</li>
-	 *            </ul>
+	 * @return <ul>
+	 *         <li>0: OK</li>
+	 *         <li>1: possibly inappropriate</li>
+	 *         <li>2: inappropriate</li>
+	 *         <li>3: space separated chars</li>
+	 *         </ul>
 	 */
 	public int checkInappropriateAlt(String alt) {
 		String[] tmpSA = alt.toLowerCase().split(
@@ -197,7 +206,7 @@ public class TextChecker {
 		int org = alt.length();
 
 		// TODO combination
-		if (org > 0 && alt.matches(".*(\\p{Alpha}\\p{Space}){4,}.*")) {// TODO //$NON-NLS-1$
+		if (org > 0 && alt.matches(".*(\\p{Alpha}\\p{Space}){3,}.*")) {// TODO //$NON-NLS-1$
 			// 4 is
 			// appropriate?
 			return 3;
@@ -222,9 +231,17 @@ public class TextChecker {
 		return 0;
 	}
 
+	/**
+	 * Returns true if ALT text ends with one of the extensions which is used
+	 * for image files. It detects common error where content author sets ALT to
+	 * the name of the image file itself.
+	 * 
+	 * @param alt
+	 * @return
+	 */
 	private boolean isEndWithImageExt(String alt) {
 		String tmpS = alt.trim().toLowerCase();
-		String regexp3 = "\\p{Print}*\\.(jpg|jpeg|gif|png)"; //$NON-NLS-1$
+		String regexp3 = "\\p{Print}*\\.(jpg|jpeg|gif|png|bmp|tiff)"; //$NON-NLS-1$
 		return (tmpS.matches(regexp3));
 	}
 
@@ -240,16 +257,15 @@ public class TextChecker {
 		tmpS = tmpS.toLowerCase();
 
 		// \u3000 = double byte space
-		String regexp1 = KIGOU + "*(\\p{Space}|\u3000)?(" + NIHONGO //$NON-NLS-1$
-				+ "((\\p{Space}|\u3000)+" + NIHONGO + ")+)" //$NON-NLS-1$ //$NON-NLS-2$
-				+ "(\\p{Space}|\u3000)?" + KIGOU + "*"; //$NON-NLS-1$ //$NON-NLS-2$
-		String regexp2 = ".*" + KANJI + ".*"; //$NON-NLS-1$ //$NON-NLS-2$
+		String regexp1 = ".*(" + NIHONGO //$NON-NLS-1$
+				+ "((\\p{Space}|\u3000|\u00A0)+" + NIHONGO + ")+).*"; //$NON-NLS-1$ //$NON-NLS-2$
+		//		String regexp2 = ".*" + KANJI + ".*"; //$NON-NLS-1$ //$NON-NLS-2$
 		// TODO rewrite regexp (combination of Japanese and English)
 
-		if ((tmpS.matches(regexp1) && tmpS.matches(regexp2))) {
+		if (tmpS.matches(regexp1)) {
 			return true;
 		} else {
-			return (false);
+			return false;
 		}
 	}
 
@@ -298,4 +314,103 @@ public class TextChecker {
 		resetPreferences();
 	}
 
+	//
+	// TODO Constants and methods called from CheckEngine class. For new JIS.
+	//
+	public TextCheckResult checkAlt(String alt) {
+		return checkAlt(alt, null, new TreeSet<String>());
+	}
+
+	public TextCheckResult checkAlt(String alt, String src) {
+		return checkAlt(alt, src, new TreeSet<String>());
+	}
+
+	public TextCheckResult checkAlt(String alt, Set<String> ngWords) {
+		return checkAlt(alt, null, ngWords);
+	}
+
+	/**
+	 * Check alt attribute string and returns result in one of the constants
+	 * defined above.
+	 * 
+	 * @param alt
+	 *            The value of the alt attributes of images, buttons, area
+	 *            elements, etc. It MUST NOT be null.
+	 * @param src
+	 *            The value of the src attribute. Set null if it does not exist.
+	 * @param ngWords
+	 *            additional NG words set; when we check ALT text of area
+	 *            element, we want to add "area" as additional NG word.
+	 * @return Check result as TextCheckerResult instance.
+	 */
+	public TextCheckResult checkAlt(String alt, String src, Set<String> ngWords) {
+		// First do not trim the given ALT string!
+		int origLength = alt.length();
+
+		alt = alt.toLowerCase();
+
+		if (alt.equals(NULL_STRING))
+			return TextCheckResult.NULL;
+
+		assert origLength > 0;
+		if (alt.matches("[\\p{Space}\\u3000\\u00A0]+")) {
+			if (alt.matches(".*\\u00A0.*"))
+				return TextCheckResult.BLANK_NBSP;
+			else
+				return TextCheckResult.BLANK;
+		}
+
+		alt = alt.trim();
+
+		// exact match with entire ALT string
+		if (ngwordset.contains(alt) || ngWords.contains(alt))
+			return TextCheckResult.NG_WORD;
+
+		if (src != null) {
+			Matcher m = Pattern.compile(".*?([^/]+)")
+					.matcher(src.toLowerCase());
+			if (m.matches()) {
+				String fileName = m.group(1);
+				if (alt.equals(fileName)) {
+					return TextCheckResult.SAME_AS_SRC;
+				}
+			}
+		}
+
+		if (isEndWithImageExt(alt))
+			return TextCheckResult.IMG_EXT;
+
+		if (alt.matches(".*(\\p{Alpha}\\p{Space}){3,}.*"))
+			return TextCheckResult.SPACE_SEPARATED; // case 3
+
+		if (isSeparatedJapaneseChars(alt))
+			return TextCheckResult.SPACE_SEPARATED_JP;
+
+		// Counts number of NG "word"s in ALT
+		List<String> wordList = Arrays.asList(alt.toLowerCase().split(
+				"(" + KIGOU + "|\\p{Punct}|\\p{Space})")); //$NON-NLS-1$ //$NON-NLS-2$
+		int wordCountNG = 0;
+		int wordCountAll = 0;
+		int charLength = 0;
+		for (String word : wordList) {
+			charLength += word.length();
+			if (word.length() > 0)
+				wordCountAll++;
+			if (ngwordset2.contains(word)) {
+				wordCountNG++;
+			}
+		}
+
+		if (origLength > 0 && ((double) charLength / (double) origLength) < 0.5) {
+			return TextCheckResult.ASCII_ART; // case 1
+		}
+
+		if (((double) wordCountNG / (double) wordCountAll) > 0.6)
+			return TextCheckResult.INCLUDING_MANY_NG_WORD; // case 2
+		else if ((double) wordCountNG / (double) wordCountAll > 0.3) {
+			return TextCheckResult.INCLUDING_NG_WORD; // case 1
+		}
+
+		return TextCheckResult.OK;
+	}
 }

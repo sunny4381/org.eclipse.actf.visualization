@@ -15,6 +15,7 @@ import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.actf.visualization.eval.problem.IProblemConst;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
@@ -24,6 +25,10 @@ public class ReportMessageDialog {
 		
 		StringBuffer tmpSB = new StringBuffer();
 
+		if(Platform.inDevelopmentMode()){
+			tmpSB.append(curItem.getId()+FileUtils.LINE_SEP+FileUtils.LINE_SEP);
+		}		
+		
 		IGuidelineData[] dataArray = GuidelineHolder.getInstance()
 				.getGuidelineData();
 		for (int i = 0; i < dataArray.length; i++) {

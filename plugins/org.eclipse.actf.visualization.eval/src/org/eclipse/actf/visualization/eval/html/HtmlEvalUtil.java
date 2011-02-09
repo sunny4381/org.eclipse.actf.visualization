@@ -14,10 +14,12 @@ package org.eclipse.actf.visualization.eval.html;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 import java.util.Vector;
@@ -164,6 +166,12 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private HashSet<String> notExistHrefSet = new HashSet<String>();
 
+	// for new JIS
+	private List<Element> imageButtonList;
+	private List<Element> textButtonList;
+	private List<Element> areaList;
+	private List<Element> appletList;
+
 	/**
 	 * Constructor of the class.
 	 * 
@@ -275,7 +283,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			aWithHref_elements[i] = tmpE;
 			aWithHref_hrefs[i] = tmpE.getAttribute(ATTR_HREF);
 			aWithHref_strings[i] = getTextAltDescendant(tmpE);
-			//System.out.println(aWithHref_hrefs[i]);
+			// System.out.println(aWithHref_hrefs[i]);
 		}
 
 		// System.out.println(df.format(new Date(System.currentTimeMillis()))
@@ -454,6 +462,41 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		return (result);
 	}
 
+	/**
+	 * Utility function similar to getElementsByTagName() that returns a List
+	 * instance instead of a NodeList instance.
+	 * 
+	 * @param el
+	 *            an Element or Document instance
+	 * @param tagName
+	 *            the name of element which you want look for
+	 * @param tagNames
+	 *            optional list of element names which you want look for
+	 * @return {@link List} of elements with given tag name that are descendants
+	 *         of the node.
+	 */
+	// for new JIS
+	public List<Element> getElementsList(Node node, String tagName,
+			String... tagNames) {
+		List<Element> nodes = new ArrayList<Element>();
+		NodeList nl = null;
+		if (node instanceof Document)
+			nl = ((Document) node).getElementsByTagName(tagName);
+		else if (node instanceof Element)
+			nl = ((Element) node).getElementsByTagName(tagName);
+		for (int i = 0; i < nl.getLength(); i++) {
+			nodes.add((Element) nl.item(i));
+		}
+
+		// variable argument
+		if (tagNames.length > 0) {
+			for (int i = 0; i < tagNames.length; i++) {
+				nodes.addAll(getElementsList(node, tagNames[i]));
+			}
+		}
+		return nodes;
+	}
+
 	private Element[] getElementsArrayByXPath(Document target, String xpath) {
 		NodeList tmpNL = xpathService.evalPathForNodeList(xpath, target);
 		int length = tmpNL.getLength();
@@ -531,25 +574,26 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 				return;
 			}
 
-			TreeSet<String> existSet = new TreeSet<String>(Arrays
-					.asList(aWithHref_hrefs));
+			TreeSet<String> existSet = new TreeSet<String>(
+					Arrays.asList(aWithHref_hrefs));
 			// trim()?
 
-			for(String href : aWithHref_hrefs){
-				if(!href.startsWith("http://")&&!href.startsWith("https://")){
+			for (String href : aWithHref_hrefs) {
+				if (!href.startsWith("http://") && !href.startsWith("https://")) {
 					try {
-						existSet.add(new URL(baseUrl,href).toString());
-						//System.out.println(href +" : "+new URL(baseUrl,href));
+						existSet.add(new URL(baseUrl, href).toString());
+						// System.out.println(href +" : "+new
+						// URL(baseUrl,href));
 					} catch (MalformedURLException e) {
 					}
 				}
 			}
-			
+
 			/*
-			NodeList ieNL = xpathService.evalForNodeList(EXP1, liveDom);
-			int size = ieNL.getLength();
-			*/
-			
+			 * NodeList ieNL = xpathService.evalForNodeList(EXP1, liveDom); int
+			 * size = ieNL.getLength();
+			 */
+
 			NodeList ieNL = liveDom.getElementsByTagName("a");
 			int size = ieNL.getLength();
 
@@ -560,7 +604,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 				}
 				String tmpS = tmpE.getAttribute(ATTR_HREF);
 				if (!existSet.contains(tmpS)) {
-					//System.out.println("ie:"+tmpS);
+					// System.out.println("ie:"+tmpS);
 					notExistHrefSet.add(tmpS);
 				}
 			}
@@ -571,7 +615,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			TreeSet<String> existSet = new TreeSet<String>();
 			for (int i = 0; i < size; i++) {
 				existSet.add(((Element) orgNL.item(i)).getAttribute(ATTR_HREF));
-				//System.out.println("Src:"+((Element) orgNL.item(i)).getAttribute(ATTR_HREF));
+				// System.out.println("Src:"+((Element)
+				// orgNL.item(i)).getAttribute(ATTR_HREF));
 			}
 
 			size = aWithHref_hrefs.length;
@@ -579,7 +624,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 				if (!existSet.contains(aWithHref_hrefs[i])) {
 					notExistHrefSet.add(aWithHref_hrefs[i]);
 				}
-				//System.out.println("IE:"+aWithHref_hrefs[i]);
+				// System.out.println("IE:"+aWithHref_hrefs[i]);
 			}
 
 		}
@@ -611,7 +656,9 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	}
 
 	/**
-	 * If this method returns <code>true</code>, this table is a data table. Otherwise, this table is a layout table.
+	 * If this method returns <code>true</code>, this table is a data table.
+	 * Otherwise, this table is a layout table.
+	 * 
 	 * @param table
 	 * @return boolean indicating if this table is a data table.
 	 */
@@ -693,6 +740,34 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			}
 		}
 		return 0;
+	}
+
+	/**
+	 * Get all applet elements. for new JIS
+	 * 
+	 * @return
+	 */
+	public List<Element> getAppletElements() {
+		if (appletList == null) {
+			appletList = new ArrayList<Element>();
+			for (Element applet : getElementsList(target, "applet"))
+				appletList.add(applet);
+		}
+		return appletList;
+	}
+
+	/**
+	 * Get all area elements. for new JIS
+	 * 
+	 * @return
+	 */
+	public List<Element> getAreaElements() {
+		if (areaList == null) {
+			areaList = new ArrayList<Element>();
+			for (Element area : getElementsList(target, "area"))
+				areaList.add(area);
+		}
+		return areaList;
 	}
 
 	/**
@@ -852,6 +927,42 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 */
 	public HTMLImageElement[] getImg_elements() {
 		return img_elements;
+	}
+
+	/**
+	 * Get all image button (input elements whose type is "image"). For new JIS
+	 * 
+	 * @return
+	 */
+	// for new JIS
+	public List<Element> getImageButtons() {
+		if (imageButtonList != null)
+			return imageButtonList;
+
+		imageButtonList = new ArrayList<Element>();
+		for (Element input : getElementsList(target, "input")) {
+			if (input.getAttribute("type").equals("image"))
+				imageButtonList.add(input);
+		}
+		return imageButtonList;
+	}
+
+	/**
+	 * Get all text-based button. For new JIS
+	 * 
+	 * @return
+	 */
+	// TODO treat button elements...
+	// for new JIS
+	public List<Element> getTextButtons() {
+		if (textButtonList == null) {
+			textButtonList = new ArrayList<Element>();
+			for (Element input : getElementsList(target, "input")) {
+				if (input.getAttribute("type").matches("button|submit|reset"))
+					textButtonList.add(input);
+			}
+		}
+		return textButtonList;
 	}
 
 	/**

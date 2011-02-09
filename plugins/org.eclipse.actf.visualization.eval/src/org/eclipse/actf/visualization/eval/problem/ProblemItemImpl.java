@@ -183,7 +183,7 @@ public class ProblemItemImpl implements IProblemItem {
 
 	public void setTargetString(String targetString) {
 		this.targetString = targetString;
-		if (targetString != null && targetString.length() > 0) {
+		if (targetString != null) {
 			this.description = checkItem.createDescription(targetString);
 		}
 	}
