@@ -34,7 +34,6 @@ public class SelectionListenerBlind implements ISelectionListener {
 		this.prb = prb;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void selectionChanged(IWorkbenchPart part, ISelection selection) {
 		if (selection == null || !(selection instanceof IStructuredSelection)) {
 			System.err.println(this.getClass().getName() + ":Iselection"); //$NON-NLS-1$
@@ -53,7 +52,8 @@ public class SelectionListenerBlind implements ISelectionListener {
 		IStructuredSelection structuredSelection = (IStructuredSelection) selection;
 
 		Node targetNode = null;
-		for (Iterator i = structuredSelection.iterator(); i.hasNext();) {
+		for (@SuppressWarnings("rawtypes")
+		Iterator i = structuredSelection.iterator(); i.hasNext();) {
 			Object target = i.next();
 			if (target instanceof IProblemItem) {
 				IProblemItem tmpItem = (IProblemItem) target;
