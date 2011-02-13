@@ -12,6 +12,8 @@
 
 package org.eclipse.actf.visualization.internal.engines.lowvision;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
@@ -179,7 +181,7 @@ public class PageElement {
 			return (new LowVisionProblem[0]);
 		}
 
-		ColorProblem cp = null;
+		List<ColorProblem> cp = new ArrayList<ColorProblem>();
 		try {
 			cp = checkColors(_lvType);
 		} catch (LowVisionException e) {
@@ -187,9 +189,7 @@ public class PageElement {
 					+ this.id);
 			e.printStackTrace();
 		}
-		if (cp != null) {
-			problemVec.addElement(cp);
-		}
+		problemVec.addAll(cp);
 
 		FixedSizeFontProblem fsfp = null;
 		try {
@@ -271,26 +271,30 @@ public class PageElement {
 		return (problemArray);
 	}
 
-	private ColorProblem checkColors(LowVisionType _lvType)
+	private List<ColorProblem> checkColors(LowVisionType _lvType)
 			throws LowVisionException {
+
+		List<ColorProblem> result = new ArrayList<ColorProblem>();
+
 		if (!isTextTag()) {
-			return (null);
+			return (result);
 		}
 		try {
 			if (style.hasDescendantTextWithBGImage()) {
-				ColorProblem result = new ColorProblem(this, _lvType, 0);
-				result.setElement(style.getElement());
-				result.setHasBackgroundImage(true);
-				result.setTargetStrings(style.getDescendantTextsWithBGImage());
+				ColorProblem cp = new ColorProblem(this, _lvType, 0);
+				cp.setElement(style.getElement());
+				cp.setHasBackgroundImage(true);
+				cp.setTargetStrings(style.getDescendantTextsWithBGImage());
+				cp.setIsWarning(true);
+				result.add(cp);
+			}
+
+			if (!style.hasChildText()) {
 				return (result);
 			}
 
-			if (!style.hasChildText()
-					|| (style.getComputedBackgroundImage() != null && !style
-							.getComputedBackgroundImage().equalsIgnoreCase(
-									"none"))) {
-				return (null);
-			}
+			boolean hasBgImage = (style.getComputedBackgroundImage() != null && !style
+					.getComputedBackgroundImage().equalsIgnoreCase("none"));
 
 			ColorIRGB fgOrg = new ColorIRGB(foregroundColor);
 			ColorIRGB bgOrg = new ColorIRGB(backgroundColor);
@@ -298,16 +302,17 @@ public class PageElement {
 			W3CColorChecker w3c = new W3CColorChecker(fgOrg, bgOrg);
 			double contrast = w3c.calcContrast();
 			if (contrast < 7) {
-				ColorProblem result = new ColorProblem(this, _lvType,
+				ColorProblem cp = new ColorProblem(this, _lvType,
 						w3c.calcSeverity());
-				result.setElement(style.getElement());
-				result.setContrast(contrast);
-				result.setTargetStrings(style.getChildTexts());
-				return (result);
+				cp.setElement(style.getElement());
+				cp.setContrast(contrast);
+				cp.setTargetStrings(style.getChildTexts());
+				cp.setHasBackgroundImage(hasBgImage);
+				result.add(cp);
 			}
 		} catch (LowVisionProblemException e) {
 		}
-		return (null);
+		return (result);
 
 		/*
 		 * if (!(_lvType.doChangeColors())) { //TODO ColorIRGB fgSim = null;
@@ -381,8 +386,8 @@ public class PageElement {
 			short type = fontSizeType(fontStr);
 			if (type == FONT_SIZE_FIXED) { // not include "pt"
 				try {
-					FixedSizeFontProblem problem = new FixedSizeFontProblem(this, _lvType,
-							PageElement.SEVERITY_FIXED_SIZE_FONT);
+					FixedSizeFontProblem problem = new FixedSizeFontProblem(
+							this, _lvType, PageElement.SEVERITY_FIXED_SIZE_FONT);
 					problem.setElement(style.getElement());
 					return (problem);
 				} catch (LowVisionProblemException e) {
@@ -486,8 +491,8 @@ public class PageElement {
 
 		if (fixedFlag) {
 			try {
-				FixedSizeFontProblem problem = new FixedSizeFontProblem(this, _lvType,
-						PageElement.SEVERITY_FIXED_SIZE_FONT);
+				FixedSizeFontProblem problem = new FixedSizeFontProblem(this,
+						_lvType, PageElement.SEVERITY_FIXED_SIZE_FONT);
 				problem.setElement(style.getElement());
 				return (problem);
 			} catch (LowVisionProblemException e) {

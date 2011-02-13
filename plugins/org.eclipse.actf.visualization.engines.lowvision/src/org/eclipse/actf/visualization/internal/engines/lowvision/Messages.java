@@ -42,6 +42,7 @@ public final class Messages extends NLS {
 	public static String ImageDumpUtil_TrueColor;
 	public static String ContrastRatio;
 	public static String TargetString;
+	public static String BackgroundImage;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

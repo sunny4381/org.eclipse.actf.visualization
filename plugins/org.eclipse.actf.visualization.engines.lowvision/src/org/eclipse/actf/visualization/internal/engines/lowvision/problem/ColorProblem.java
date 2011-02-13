@@ -76,6 +76,9 @@ public class ColorProblem extends LowVisionProblem{
 
 	public String getAdditionalDescription(){
 		StringBuffer tmpSB = new StringBuffer();
+		if(hasBackgroundImage&&problemType==LOWVISION_COLOR_PROBLEM){
+			tmpSB.append(Messages.BackgroundImage);
+		}
 		if(targetStrings!=null && targetStrings.length>0){
 			tmpSB.append("("+Messages.TargetString+" = ");
 			for(String tmpS : targetStrings){
@@ -99,17 +102,20 @@ public class ColorProblem extends LowVisionProblem{
 		return( backgroundColor );
 	}
 
-	public boolean isHasBackgroundImage() {
+	public boolean hasBackgroundImage() {
 		return hasBackgroundImage;
 	}
 
 	public void setHasBackgroundImage(boolean hasBackgroundImage) {
 		this.hasBackgroundImage = hasBackgroundImage;
-		if(hasBackgroundImage){
+	}
+	
+	public void setIsWarning(boolean isWarning){
+		if(isWarning){
 			problemType = LOWVISION_BACKGROUND_IMAGE_WARNING;
 		}else{
 			problemType = LOWVISION_COLOR_PROBLEM;
-		}
+		}		
 	}
 
 	public double getContrast() {
