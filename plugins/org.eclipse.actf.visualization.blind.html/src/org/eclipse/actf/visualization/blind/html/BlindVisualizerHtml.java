@@ -213,10 +213,10 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			checkResult.setProblemList(engine.getProbelems());
 			checkResult.setTargetUrl(targetUrl);
 
-			if(variantFile!=null){
+			if (variantFile != null) {
 				variantFile.delete();
 			}
-			variantFile = engine.getVariantFile();			
+			variantFile = engine.getVariantFile();
 			checkResult.addAssociateFile(variantFile);
 
 			IVisualizeMapData mapData = engine.getVisualizeMapData();
@@ -255,8 +255,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 					tmpResults.addAll(((IHtmlChecker) checkers[i])
 							.checkHtml(checkTarget));
 				} else if (checkers[i].isTargetFormat(webBrowser
-						.getCurrentMIMEType())
-						&& checkers[i].isEnabled()) {
+						.getCurrentMIMEType()) && checkers[i].isEnabled()) {
 					tmpResults.addAll(checkers[i].check(checkTarget));
 				}
 			}
@@ -270,8 +269,10 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 				HighlightTargetNodeInfo nodeInfo = tmpItem
 						.getHighlightTargetNodeInfo();
 				if (nodeInfo != null) {
-					tmpItem.setHighlightTargetIds(nodeInfo
-							.getHighlightTargetIds(mapData.getOrig2idMap()));
+					if (tmpItem.getHighlightTargetIds().length == 0) {
+						tmpItem.setHighlightTargetIds(nodeInfo
+								.getHighlightTargetIds(mapData.getOrig2idMap()));
+					}
 					if (EvaluationUtil.isOriginalDOM()) {
 						tmpItem.setHighlightTargetSourceInfo(nodeInfo
 								.getHighlightTargetSourceInfo(html2ViewMapV));
