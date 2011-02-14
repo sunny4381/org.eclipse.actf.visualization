@@ -40,7 +40,6 @@ public class TextChecker {
 
 	private static final String NIHONGO = "(\\p{InCJKUnifiedIdeographs}|\\p{InHiragana}|\\p{InKatakana})"; //$NON-NLS-1$
 
-	@SuppressWarnings("unused")
 	private static final String KANJI = "(\\p{InCJKUnifiedIdeographs})"; //$NON-NLS-1$
 
 	private static final String ALT_TEXT_PROPERTIES_FILE = "altText.properties"; //$NON-NLS-1$
@@ -55,8 +54,7 @@ public class TextChecker {
 
 	private Set<String> ngwordset2 = new TreeSet<String>();
 
-	// private Preferences pref = BlindVizEnginePlugin.getDefault()
-	// .getPluginPreferences();
+	private Set<String> ngPatterns = new HashSet<String>();
 
 	private IPreferenceStore pref = BlindVizEnginePlugin.getDefault()
 			.getPreferenceStore();
@@ -112,6 +110,8 @@ public class TextChecker {
 				}
 			}
 		}
+
+		ngPatterns.add("\u753B\u50CF\\s*\\d+");
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class TextChecker {
 	 *         <li>3: space separated chars</li>
 	 *         </ul>
 	 */
-	public int checkInappropriateAlt(String alt) {
+	public int checkInappropriateAlt(final String alt) {
 		String[] tmpSA = alt.toLowerCase().split(
 				"(" + KIGOU + "|\\p{Punct}|\\p{Space})"); //$NON-NLS-1$ //$NON-NLS-2$
 		int count = 0;
@@ -256,13 +256,15 @@ public class TextChecker {
 		String tmpS = target.trim();
 		tmpS = tmpS.toLowerCase();
 
-		// \u3000 = double byte space
-		String regexp1 = ".*(" + NIHONGO //$NON-NLS-1$
-				+ "((\\p{Space}|\u3000|\u00A0)+" + NIHONGO + ")+).*"; //$NON-NLS-1$ //$NON-NLS-2$
-		//		String regexp2 = ".*" + KANJI + ".*"; //$NON-NLS-1$ //$NON-NLS-2$
 		// TODO rewrite regexp (combination of Japanese and English)
+		// \u3000 = double byte space
+		// \u00A0 = &nbsp;
+		@SuppressWarnings("unused")
+		String regexp1 = ".*" + KANJI + ".*"; //$NON-NLS-1$ //$NON-NLS-2$
+		String regexp2 = ".*\\b" + NIHONGO + "[\\p{Space}\u3000\u00A0]+"
+				+ NIHONGO + "\\b.*";
 
-		if (tmpS.matches(regexp1)) {
+		if (tmpS.matches(regexp2)) {
 			return true;
 		} else {
 			return false;
@@ -345,6 +347,7 @@ public class TextChecker {
 	 */
 	public TextCheckResult checkAlt(String alt, String src, Set<String> ngWords) {
 		// First do not trim the given ALT string!
+		String origAlt = alt;
 		int origLength = alt.length();
 
 		alt = alt.toLowerCase();
@@ -365,6 +368,11 @@ public class TextChecker {
 		// exact match with entire ALT string
 		if (ngwordset.contains(alt) || ngWords.contains(alt))
 			return TextCheckResult.NG_WORD;
+
+		for (String patterns : ngPatterns) {
+			if (alt.matches(patterns))
+				return TextCheckResult.NG_WORD;
+		}
 
 		if (src != null) {
 			Matcher m = Pattern.compile(".*?([^/]+)")
@@ -401,9 +409,8 @@ public class TextChecker {
 			}
 		}
 
-		if (origLength > 0 && ((double) charLength / (double) origLength) < 0.5) {
+		if (isAsciiArtString(origAlt))
 			return TextCheckResult.ASCII_ART; // case 1
-		}
 
 		if (((double) wordCountNG / (double) wordCountAll) > 0.6)
 			return TextCheckResult.INCLUDING_MANY_NG_WORD; // case 2
@@ -412,5 +419,21 @@ public class TextChecker {
 		}
 
 		return TextCheckResult.OK;
+	}
+
+	public boolean isAsciiArtString(String str) {
+		int origLength = str.length();
+		str = str.toLowerCase();
+		List<String> wordList = Arrays.asList(str.toLowerCase().split(
+				"(" + KIGOU + "|\\p{Punct}|\\p{Space})")); //$NON-NLS-1$ //$NON-NLS-2$
+		int charLength = 0;
+		for (String word : wordList) {
+			charLength += word.length();
+		}
+
+		boolean isBlank = str.matches("[\\p{Space}\\u3000\\u00A0]*");
+
+		return (origLength > 0
+				&& ((double) charLength / (double) origLength) < 0.5 && !isBlank);
 	}
 }

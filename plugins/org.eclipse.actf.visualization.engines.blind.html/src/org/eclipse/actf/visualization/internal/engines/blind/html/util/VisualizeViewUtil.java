@@ -88,9 +88,8 @@ public class VisualizeViewUtil {
 
 		// div for arrow
 		Element div = result.createElement(DIV);
-		div
-				.setAttribute(STYLE,
-						"position:absolute;pixelLeft= 10;pixelTop=10; color:red;font-size=12pt");
+		div.setAttribute(STYLE,
+				"position:absolute;pixelLeft= 10;pixelTop=10; color:red;font-size=12pt");
 		div.setAttribute(ID, "test");
 
 		// bodyEl.item(bodyEl.getLength() - 1).appendChild(div);
@@ -144,9 +143,7 @@ public class VisualizeViewUtil {
 			if (!alreadySet.contains(href)) {
 
 				Element imgel2 = doc.createElement(IMG);
-				imgel2
-						.setAttribute(ALT, "Intra-page link destination: "
-								+ href);
+				imgel2.setAttribute(ALT, "Intra-page link destination: " + href);
 				imgel2.setAttribute(TITLE, "Intra-page link destination: "
 						+ href);
 				imgel2.setAttribute(SRC, baseUrl + "img/dest.gif");
@@ -168,10 +165,9 @@ public class VisualizeViewUtil {
 	private static void insertControlPane(Document result) {
 		NodeList bodyEl = result.getElementsByTagName(BODY);
 		Element div = result.createElement(DIV);
-		div
-				.setAttribute(
-						STYLE,
-						"position:absolute;font-size: medium; background-color: #FFFFFF; border-color: #333333 #000000 #000000; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px");
+		div.setAttribute(
+				STYLE,
+				"position:absolute;font-size: medium; background-color: #FFFFFF; border-color: #333333 #000000 #000000; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px");
 		div.setAttribute(ID, "control_pane");
 
 		Element input1 = result.createElement(INPUT);
@@ -294,10 +290,9 @@ public class VisualizeViewUtil {
 			}
 
 			Element div = result.createElement(DIV);
-			div
-					.setAttribute(
-							STYLE,
-							"position:absolute;font-size: medium; background-color: #FFFFFF; border-color: #333333 #000000 #000000; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px");
+			div.setAttribute(
+					STYLE,
+					"position:absolute;font-size: medium; background-color: #FFFFFF; border-color: #333333 #000000 #000000; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px");
 			div.setAttribute(ID, "balloon");
 
 			Element messageDiv = result.createElement(DIV);
@@ -345,7 +340,12 @@ public class VisualizeViewUtil {
 
 			VisualizationNodeInfo info = mapData.getNodeInfo(node);
 			if (info != null) {
-				info.appendComment(prob.getDescription());
+				if (IBlindProblem.WRONG_NBSP_ALT_IMG == prob.getSubType()) {
+					info.appendComment(prob.getDescription().replaceAll("&",
+							"&amp;"));
+				} else {
+					info.appendComment(prob.getDescription());
+				}
 			} else {
 				if (node != null && node.getNodeType() == Node.ELEMENT_NODE) {
 					try {
@@ -364,6 +364,7 @@ public class VisualizeViewUtil {
 			switch (prob.getSubType()) {
 			case IBlindProblem.NO_ALT_IMG:
 			case IBlindProblem.WRONG_ALT_IMG:
+			case IBlindProblem.WRONG_NBSP_ALT_IMG:
 				Element el = (Element) node;
 				Node replacement = mapData.getReplacement(el);
 				if (replacement != null) {
@@ -439,7 +440,12 @@ public class VisualizeViewUtil {
 			IProblemItem prob, Integer idObj, String baseUrlS) {
 		Element img = target.getOwnerDocument().createElement(IMG);
 		img.setAttribute(ALT, "error icon");
-		img.setAttribute(TITLE, prob.getDescription());
+		if (IBlindProblem.WRONG_NBSP_ALT_IMG == prob.getSubType()) {
+			img.setAttribute(TITLE,
+					prob.getDescription().replaceAll("&", "&amp;"));
+		} else {
+			img.setAttribute(TITLE, prob.getDescription());
+		}
 		img.setAttribute("onmouseover", "updateBaloon('id" + idObj + "');");
 		img.setAttribute(SRC, baseUrlS + "img/"
 				+ VisualizeEngine.ERROR_ICON_NAME);

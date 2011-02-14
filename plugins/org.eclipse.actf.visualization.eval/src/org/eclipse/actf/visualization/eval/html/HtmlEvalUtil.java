@@ -15,18 +15,15 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 import java.util.Vector;
 
 import org.eclipse.actf.util.xpath.XPathService;
 import org.eclipse.actf.util.xpath.XPathServiceFactory;
-import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.html.statistics.FlashData;
 import org.eclipse.actf.visualization.eval.html.statistics.HeadingsData;
 import org.eclipse.actf.visualization.eval.html.statistics.ImageStatData;
@@ -69,8 +66,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private static final XPathService xpathService = XPathServiceFactory
 			.newService();
-	private static final Object EXP1 = xpathService.compile(".//a[@" //$NON-NLS-1$
-			+ ATTR_HREF + "]"); //$NON-NLS-1$
+	private static final Object EXP1 = xpathService.compile(".//a[@href]"); //$NON-NLS-1$
+
 	private static final Object EXP2 = xpathService
 			.compile("//h1|//h2|//h3|//h4|//h5|//h6"); //$NON-NLS-1$
 
@@ -160,17 +157,20 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private PageData pageData;
 
-	private int invisibleElementCount = 0;
-
-	private String[] invisibleLinkStrings = new String[0];
-
-	private HashSet<String> notExistHrefSet = new HashSet<String>();
+	// private int invisibleElementCount = 0;
+	//
+	// private String[] invisibleLinkStrings = new String[0];
+	//
+	// private HashSet<String> notExistHrefSet = new HashSet<String>();
 
 	// for new JIS
 	private List<Element> imageButtonList;
 	private List<Element> textButtonList;
 	private List<Element> areaList;
 	private List<Element> appletList;
+	private List<Element> accessKeyList;
+	private List<Element> styleList;
+	private List<Element> styleElementList;
 
 	/**
 	 * Constructor of the class.
@@ -228,7 +228,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 *            true if target is live DOM
 	 */
 	@SuppressWarnings("nls")
-	public HtmlEvalUtil(Document target, Document resultDoc, String url,
+	private HtmlEvalUtil(Document target, Document resultDoc, String url,
 			Map<Node, Integer> document2IdMap, Document srcDom,
 			Document liveDom, PageData pageData, int invisibleElementCount,
 			String[] invisibleLinkStrings, boolean isDBCS, boolean isLive) {
@@ -250,10 +250,10 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		}
 
 		this.invalidLinkRatio = 0;
-		this.invisibleElementCount = invisibleElementCount;
-		if (invisibleLinkStrings != null) {
-			this.invisibleLinkStrings = invisibleLinkStrings;
-		}
+		// this.invisibleElementCount = invisibleElementCount;
+		// if (invisibleLinkStrings != null) {
+		// this.invisibleLinkStrings = invisibleLinkStrings;
+		// }
 
 		this.document2IdMap = document2IdMap;
 		// this.html2ViewMapData = html2ViewMapData;
@@ -447,9 +447,10 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		if (PERFORMANCE_DEBUG)
 			System.out.println("collectScriptElements\t"
 					+ (new Date()).getTime());
-		calcDomDifference();
-		if (PERFORMANCE_DEBUG)
-			System.out.println("calcDomDifference\t" + (new Date()).getTime());
+		/*
+		 * calcDomDifference(); if (PERFORMANCE_DEBUG)
+		 * System.out.println("calcDomDifference\t" + (new Date()).getTime());
+		 */
 	}
 
 	private Element[] getElementsArray(Document target, String tagName) {
@@ -506,6 +507,17 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			result[i] = tmpE;
 		}
 		return result;
+	}
+
+	private List<Element> getElementsListByXPath(Document target, String xpath) {
+		NodeList tmpNL = xpathService.evalPathForNodeList(xpath, target);
+		int length = tmpNL.getLength();
+		// Element[] result = new Element[length];
+		List<Element> elements = new ArrayList<Element>();
+		for (int i = 0; i < length; i++) {
+			elements.add((Element) tmpNL.item(i));
+		}
+		return elements;
 	}
 
 	@SuppressWarnings("nls")
@@ -565,71 +577,71 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		pageData.setHasJavascript(hasJavascript);
 	}
 
-	private void calcDomDifference() {
-
-		if (EvaluationUtil.isOriginalDOM()) {
-			// target = orig DOM
-			if (isLiveDom || null == liveDom) {
-				// parse error
-				return;
-			}
-
-			TreeSet<String> existSet = new TreeSet<String>(
-					Arrays.asList(aWithHref_hrefs));
-			// trim()?
-
-			for (String href : aWithHref_hrefs) {
-				if (!href.startsWith("http://") && !href.startsWith("https://")) {
-					try {
-						existSet.add(new URL(baseUrl, href).toString());
-						// System.out.println(href +" : "+new
-						// URL(baseUrl,href));
-					} catch (MalformedURLException e) {
-					}
-				}
-			}
-
-			/*
-			 * NodeList ieNL = xpathService.evalForNodeList(EXP1, liveDom); int
-			 * size = ieNL.getLength();
-			 */
-
-			NodeList ieNL = liveDom.getElementsByTagName("a");
-			int size = ieNL.getLength();
-
-			for (int i = 0; i < size; i++) {
-				Element tmpE = (Element) ieNL.item(i);
-				if (!tmpE.hasAttribute(ATTR_HREF)) {
-					continue;
-				}
-				String tmpS = tmpE.getAttribute(ATTR_HREF);
-				if (!existSet.contains(tmpS)) {
-					// System.out.println("ie:"+tmpS);
-					notExistHrefSet.add(tmpS);
-				}
-			}
-		} else {
-			// target = IE DOM
-			NodeList orgNL = xpathService.evalForNodeList(EXP1, srcDom);
-			int size = orgNL.getLength();
-			TreeSet<String> existSet = new TreeSet<String>();
-			for (int i = 0; i < size; i++) {
-				existSet.add(((Element) orgNL.item(i)).getAttribute(ATTR_HREF));
-				// System.out.println("Src:"+((Element)
-				// orgNL.item(i)).getAttribute(ATTR_HREF));
-			}
-
-			size = aWithHref_hrefs.length;
-			for (int i = 0; i < size; i++) {
-				if (!existSet.contains(aWithHref_hrefs[i])) {
-					notExistHrefSet.add(aWithHref_hrefs[i]);
-				}
-				// System.out.println("IE:"+aWithHref_hrefs[i]);
-			}
-
-		}
-
-	}
+	// private void calcDomDifference() {
+	//
+	// if (EvaluationUtil.isOriginalDOM()) {
+	// // target = orig DOM
+	// if (isLiveDom || null == liveDom) {
+	// // parse error
+	// return;
+	// }
+	//
+	// TreeSet<String> existSet = new TreeSet<String>(
+	// Arrays.asList(aWithHref_hrefs));
+	// // trim()?
+	//
+	// for (String href : aWithHref_hrefs) {
+	// if (!href.startsWith("http://") && !href.startsWith("https://")) {
+	// try {
+	// existSet.add(new URL(baseUrl, href).toString());
+	// // System.out.println(href +" : "+new
+	// // URL(baseUrl,href));
+	// } catch (MalformedURLException e) {
+	// }
+	// }
+	// }
+	//
+	// /*
+	// * NodeList ieNL = xpathService.evalForNodeList(EXP1, liveDom); int
+	// * size = ieNL.getLength();
+	// */
+	//
+	// NodeList ieNL = liveDom.getElementsByTagName("a");
+	// int size = ieNL.getLength();
+	//
+	// for (int i = 0; i < size; i++) {
+	// Element tmpE = (Element) ieNL.item(i);
+	// if (!tmpE.hasAttribute(ATTR_HREF)) {
+	// continue;
+	// }
+	// String tmpS = tmpE.getAttribute(ATTR_HREF);
+	// if (!existSet.contains(tmpS)) {
+	// // System.out.println("ie:"+tmpS);
+	// notExistHrefSet.add(tmpS);
+	// }
+	// }
+	// } else {
+	// // target = IE DOM
+	// NodeList orgNL = xpathService.evalForNodeList(EXP1, srcDom);
+	// int size = orgNL.getLength();
+	// TreeSet<String> existSet = new TreeSet<String>();
+	// for (int i = 0; i < size; i++) {
+	// existSet.add(((Element) orgNL.item(i)).getAttribute(ATTR_HREF));
+	// // System.out.println("Src:"+((Element)
+	// // orgNL.item(i)).getAttribute(ATTR_HREF));
+	// }
+	//
+	// size = aWithHref_hrefs.length;
+	// for (int i = 0; i < size; i++) {
+	// if (!existSet.contains(aWithHref_hrefs[i])) {
+	// notExistHrefSet.add(aWithHref_hrefs[i]);
+	// }
+	// // System.out.println("IE:"+aWithHref_hrefs[i]);
+	// }
+	//
+	// }
+	//
+	// }
 
 	private boolean is1Row1ColTable(Element el) {
 		NodeList cellNl = el.getElementsByTagName("tr"); //$NON-NLS-1$
@@ -743,21 +755,57 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	}
 
 	/**
-	 * Get all applet elements. for new JIS
+	 * Get all elements that has accessKey.
+	 * 
+	 * @return
+	 */
+	public List<Element> getAccessKeyElements() {
+		if (accessKeyList == null) {
+			accessKeyList = getElementsListByXPath(target, "//*[@accesskey]");
+		}
+		return accessKeyList;
+	}
+
+	/**
+	 * Get all elements that has style attribute.
+	 * 
+	 * @return
+	 */
+	public List<Element> getElementsWithStyle() {
+		if (styleList == null) {
+			styleList = getElementsListByXPath(target, "//*[@style]");
+		}
+		return styleList;
+	}
+
+	/**
+	 * Get all style elements.
+	 * 
+	 * @return
+	 */
+	public List<Element> getStyleElements() {
+		if (styleElementList == null) {
+			styleElementList = new ArrayList<Element>();
+			for (Element applet : getElementsList(target, "style"))
+				styleElementList.add(applet);
+		}
+		return styleElementList;
+	}
+
+	/**
+	 * Get all applet elements.
 	 * 
 	 * @return
 	 */
 	public List<Element> getAppletElements() {
 		if (appletList == null) {
-			appletList = new ArrayList<Element>();
-			for (Element applet : getElementsList(target, "applet"))
-				appletList.add(applet);
+			appletList = getElementsList(target, "applet");
 		}
 		return appletList;
 	}
 
 	/**
-	 * Get all area elements. for new JIS
+	 * Get all area elements.
 	 * 
 	 * @return
 	 */
@@ -930,7 +978,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	}
 
 	/**
-	 * Get all image button (input elements whose type is "image"). For new JIS
+	 * Get all image button (input elements whose type is "image").
 	 * 
 	 * @return
 	 */
@@ -948,12 +996,12 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	}
 
 	/**
-	 * Get all text-based button. For new JIS
+	 * Get all text-based button.
 	 * 
 	 * @return
 	 */
 	// TODO treat button elements...
-	// for new JIS
+	//
 	public List<Element> getTextButtons() {
 		if (textButtonList == null) {
 			textButtonList = new ArrayList<Element>();
@@ -979,18 +1027,22 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 * Get number of invisible {@link Element}
 	 * 
 	 * @return number of invisible elements
+	 * @deprecated
 	 */
 	public int getInvisibleElementCount() {
-		return invisibleElementCount;
+		// return invisibleElementCount;
+		return 0;
 	}
 
 	/**
 	 * Get array of link target urls of invisible anchor {@link Element}
 	 * 
 	 * @return array of link target urls of invisible anchor elements
+	 * @deprecated
 	 */
 	public String[] getInvisibleLinkStrings() {
-		return invisibleLinkStrings;
+		// return invisibleLinkStrings;
+		return new String[0];
 	}
 
 	/**
@@ -1016,9 +1068,11 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 * live DOM. (might be inaccessible without JavaScript)
 	 * 
 	 * @return
+	 * @deprecated
 	 */
 	public HashSet<String> getNotExistHrefSet() {
-		return notExistHrefSet;
+		// return notExistHrefSet;
+		return new HashSet<String>();
 	}
 
 	/**

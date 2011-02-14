@@ -11,10 +11,14 @@
 
 package org.eclipse.actf.visualization.eval.html;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -227,4 +231,16 @@ public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
 		return (false);
 	}
 
+	public static List<Element> getImgElementsFromMap(Document target,
+			Element map) {
+		List<Element> result = new ArrayList<Element>();
+		String mapName = map.getAttribute("name");
+		NodeList images = XPathServiceFactory.newService().evalPathForNodeList(
+				"//img[@usemap='#" + mapName + "']", target);
+		for (int i = 0; i < images.getLength(); i++) {
+			Element image = (Element) images.item(i);
+			result.add(image);
+		}
+		return result;
+	}
 }

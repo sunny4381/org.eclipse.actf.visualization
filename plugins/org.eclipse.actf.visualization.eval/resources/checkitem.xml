@@ -709,10 +709,10 @@
     </checkitem>
     <checkitem type="user" id="L_10">
         <guideline>
-            <gItem techniques="G18, G145" id="7.1.4.3" name="JIS"/>
-            <gItem techniques="G17, G18" id="7.1.4.6" name="JIS"/>
-            <gItem techniques="G18, G145" id="1.4.3" name="WCAG 2.0"/>
-            <gItem techniques="G17, G18" id="1.4.6" name="WCAG 2.0"/>
+            <gItem techniques="F83, G18, G145" id="7.1.4.3" name="JIS"/>
+            <gItem techniques="F83, G17, G18" id="7.1.4.6" name="JIS"/>
+            <gItem techniques="F83, G18, G145" id="1.4.3" name="WCAG 2.0"/>
+            <gItem techniques="F83, G17, G18" id="1.4.6" name="WCAG 2.0"/>
         </guideline>
         <metrics>
             <mItem name="Perceivable"/>
