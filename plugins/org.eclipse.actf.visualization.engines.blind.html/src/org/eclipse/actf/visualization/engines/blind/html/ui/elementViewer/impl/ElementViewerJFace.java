@@ -111,10 +111,10 @@ public class ElementViewerJFace {
 		viewer = new TableViewer(table);
 
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			@SuppressWarnings("unchecked")
 			public void selectionChanged(SelectionChangedEvent arg0) {
 				List<VisualizationAttributeInfo> list = new ArrayList<VisualizationAttributeInfo>();
-				for (Iterator i = ((IStructuredSelection) arg0.getSelection())
+				for (@SuppressWarnings("rawtypes")
+				Iterator i = ((IStructuredSelection) arg0.getSelection())
 						.iterator(); i.hasNext();) {
 					Object tmpO = i.next();
 					if (tmpO instanceof VisualizationAttributeInfo) {

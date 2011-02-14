@@ -260,6 +260,7 @@ public class ImgChecker {
 	 * @param img
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private boolean isIgnoredByAT(Element img) {
 		String alt = img.getAttribute(ALT);
 		// System.out.println(Integer.toHexString(alt.codePointAt(0)));
