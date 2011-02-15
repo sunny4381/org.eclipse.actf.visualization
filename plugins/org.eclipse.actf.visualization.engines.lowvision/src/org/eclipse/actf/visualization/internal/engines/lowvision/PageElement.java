@@ -370,6 +370,10 @@ public class PageElement {
 		if (!isTextTag()) {
 			return (null);
 		}
+		
+		if (!style.hasChildText()){
+			return (null);
+		}
 
 		// difficult to change font size
 		if (isAlwaysFixedSizeFontTag(tagName)) {
@@ -631,6 +635,10 @@ public class PageElement {
 		double eyesightLength = _lvType.getEyesightLength();
 
 		if (!isTextTag()) {
+			return (null);
+		}
+		
+		if (!style.hasChildText()){
 			return (null);
 		}
 
