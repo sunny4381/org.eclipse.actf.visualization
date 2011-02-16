@@ -67,11 +67,12 @@ public class CopyAction extends Action {
 				.getSelection()).toList();
 
 		ReportUtil reportUtil = new ReportUtil();
+		reportUtil.setMode(ReportUtil.TAB);
 		StringBuffer tmpSB = new StringBuffer(reportUtil.getFirstLine()
 				+ ReportUtil.LINE_SEP);
 
 		for (IProblemItem tmpItem : targetList) {
-			tmpSB.append(reportUtil.getCSV(tmpItem) + ReportUtil.LINE_SEP);
+			tmpSB.append(reportUtil.toString(tmpItem) + ReportUtil.LINE_SEP);
 		}
 
 		Clipboard clipboard = new Clipboard(tableViewer.getControl()

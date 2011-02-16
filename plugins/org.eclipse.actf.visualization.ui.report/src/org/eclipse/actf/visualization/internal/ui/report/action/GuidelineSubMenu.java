@@ -28,7 +28,7 @@ import org.eclipse.jface.viewers.TableViewer;
 
 public class GuidelineSubMenu extends MenuManager {
 
-	private ResultTableViewer _resultTableViewer;
+//	private ResultTableViewer _resultTableViewer;
 
 	private TableViewer _tableViewer;
 
@@ -37,7 +37,7 @@ public class GuidelineSubMenu extends MenuManager {
 	public GuidelineSubMenu(ResultTableViewer resultTableViewer) {
 		super(Messages.ProblemTable_View_Guideline_16);
 
-		this._resultTableViewer = resultTableViewer;
+//		this._resultTableViewer = resultTableViewer;
 		this._tableViewer = resultTableViewer.getTableViewer();
 
 		this._tableViewer

@@ -201,6 +201,27 @@ function updateBaloon(curId) {
   }
 }
 
+function updateBaloon2(curId, message) {
+  if(messageDiv != null){
+	messageDiv.style.visibility = "visible";
+	messageDiv.innerHTML = "<b>&nbsp";
+	messageDiv.innerHTML += id2time[curId];
+	messageDiv.innerHTML += "</b> seconds from top.";
+
+	if (id2time[curId] > 90) {
+	  messageDiv.innerHTML += "<img src='" + baseUrl +acc_imageDir+ "face-sad.gif'>";		
+
+				
+	} else if (id2time[curId] > 30) { 
+	  messageDiv.innerHTML += "<img src='" + baseUrl +acc_imageDir+ "face-usual.gif'>";
+	} else {
+	  messageDiv.innerHTML += "<img src='" + baseUrl +acc_imageDir+ "face-smile.gif'>";
+	}
+	messageDiv.innerHTML += "<br><b>" + message + "</b>";
+
+  }
+}
+
 function stopHandler(){
 
   var e = window.event;
@@ -385,8 +406,8 @@ function search_Jump() {
 	  }
 	  i=i+1;
 			
-	  if(isAlert==true && idNumber>2000){
-		alert("This page contains too many intra-page links.\nIn this page, aDesigner can visualize some of intra-page links by arrow.");
+	  if(isAlert==true && idNumber>3000){
+		alert("This page contains too many intra-page links.\nIn this page, ACTF can visualize some of intra-page links by arrow.");
 		break;
 	  }
 

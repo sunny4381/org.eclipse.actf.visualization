@@ -31,7 +31,7 @@ import org.eclipse.jface.viewers.TableViewer;
 
 public class TechniquesSubMenu extends MenuManager {
 
-	private ResultTableViewer _resultTableViewer;
+//	private ResultTableViewer _resultTableViewer;
 
 	private TableViewer _tableViewer;
 
@@ -40,7 +40,7 @@ public class TechniquesSubMenu extends MenuManager {
 	public TechniquesSubMenu(ResultTableViewer resultTableViewer) {
 		super(Messages.ViewTechniques);
 
-		this._resultTableViewer = resultTableViewer;
+//		this._resultTableViewer = resultTableViewer;
 		this._tableViewer = resultTableViewer.getTableViewer();
 
 		this._tableViewer
