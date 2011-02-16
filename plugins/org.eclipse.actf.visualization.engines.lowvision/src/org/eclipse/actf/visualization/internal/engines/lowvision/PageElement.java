@@ -67,9 +67,8 @@ public class PageElement {
 	@SuppressWarnings("nls")
 	private static final String[] nonTextTagNames = { "area", "base",
 			"basefont", "br", "col", "colgroup", "frame", "frameset", "head",
-			"html", "hr", "img", "input", "isindex", "link", "meta",
-			"optgroup", "option", "param", "script", "select", "style",
-			"textarea", "title" };
+			"html", "hr", "img", "isindex", "link", "meta", "optgroup",
+			"param", "script", "select", "style", "title" };
 
 	// tags that change font size when that succeeded pt from <body>
 	@SuppressWarnings("nls")
@@ -79,10 +78,11 @@ public class PageElement {
 
 	/*
 	 * tags that usually uses same font size (can change by using %,em,ex)
+	 * -> now we can change font size of these elements
 	 */
-	@SuppressWarnings("nls")
-	private static final String[] alwaysFixedFontSizeTags = { "button",
-			"option", "textarea" };
+//	@SuppressWarnings("nls")
+//	private static final String[] alwaysFixedFontSizeTags = { "button",
+//			"option", "textarea" };
 
 	public static final int UNSET_POSITION = -1;
 
@@ -363,22 +363,22 @@ public class PageElement {
 
 	private FixedSizeFontProblem checkFixedSizeFont(LowVisionType _lvType)
 			throws LowVisionException {
-		if (!(_lvType.doBlur())) {
-			return (null);
-		}
+		// if (!(_lvType.doBlur())) {
+		// return (null);
+		// }
 
 		if (!isTextTag()) {
 			return (null);
 		}
-		
-		if (!style.hasChildText()){
+
+		if (!style.hasChildText()) {
 			return (null);
 		}
 
 		// difficult to change font size
-		if (isAlwaysFixedSizeFontTag(tagName)) {
-			return (null);
-		}
+		// if (isAlwaysFixedSizeFontTag(tagName)) {
+		// return (null);
+		// }
 
 		String fontStr = style.getFontSize().toLowerCase();
 
@@ -388,7 +388,8 @@ public class PageElement {
 		if (fontStr.indexOf(DELIM) == -1) {
 			fontStr = digitToFontSetting(fontStr);
 			short type = fontSizeType(fontStr);
-			if (type == FONT_SIZE_FIXED) { // not include "pt"
+			//TODO check "pt" 
+			if (type == FONT_SIZE_FIXED){ // not include "pt" because IE usually returns "pt"
 				try {
 					FixedSizeFontProblem problem = new FixedSizeFontProblem(
 							this, _lvType, PageElement.SEVERITY_FIXED_SIZE_FONT);
@@ -607,20 +608,20 @@ public class PageElement {
 		return (false);
 	}
 
-	private boolean isAlwaysFixedSizeFontTag(String _st) {
-		String s = _st.toLowerCase();
-		int index = s.indexOf(DELIM);
-		if (index > -1) {
-			s = s.substring(0, index);
-		}
-		int len = alwaysFixedFontSizeTags.length;
-		for (int i = 0; i < len; i++) {
-			if (s.equals(alwaysFixedFontSizeTags[i])) {
-				return (true);
-			}
-		}
-		return (false);
-	}
+//	private boolean isAlwaysFixedSizeFontTag(String _st) {
+//		String s = _st.toLowerCase();
+//		int index = s.indexOf(DELIM);
+//		if (index > -1) {
+//			s = s.substring(0, index);
+//		}
+//		int len = alwaysFixedFontSizeTags.length;
+//		for (int i = 0; i < len; i++) {
+//			if (s.equals(alwaysFixedFontSizeTags[i])) {
+//				return (true);
+//			}
+//		}
+//		return (false);
+//	}
 
 	/*
 	 * note: reset at td/th is experimental behaviour in IE6
@@ -637,8 +638,8 @@ public class PageElement {
 		if (!isTextTag()) {
 			return (null);
 		}
-		
-		if (!style.hasChildText()){
+
+		if (!style.hasChildText()) {
 			return (null);
 		}
 
