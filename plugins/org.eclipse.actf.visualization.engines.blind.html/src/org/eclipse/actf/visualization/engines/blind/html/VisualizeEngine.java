@@ -258,6 +258,7 @@ public class VisualizeEngine {
 							case IBlindProblem.WRONG_ALT_INPUT:
 							case IBlindProblem.SEPARATE_DBCS_ALT_IMG:
 							case IBlindProblem.SEPARATE_DBCS_ALT_INPUT:
+							case IBlindProblem.WRONG_NBSP_ALT_IMG:
 								wrong++;
 								errorCount++;
 							case IBlindProblem.NO_ALT_AREA: // TODO

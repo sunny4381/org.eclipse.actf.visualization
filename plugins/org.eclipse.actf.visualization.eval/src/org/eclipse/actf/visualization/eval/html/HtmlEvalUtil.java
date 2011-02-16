@@ -28,6 +28,7 @@ import org.eclipse.actf.visualization.eval.html.statistics.FlashData;
 import org.eclipse.actf.visualization.eval.html.statistics.HeadingsData;
 import org.eclipse.actf.visualization.eval.html.statistics.ImageStatData;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
+import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -171,6 +172,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	private List<Element> accessKeyList;
 	private List<Element> styleList;
 	private List<Element> styleElementList;
+	private List<Element> idElementList;
 
 	/**
 	 * Constructor of the class.
@@ -779,6 +781,19 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	}
 
 	/**
+	 * Get all elements that has id attribute.
+	 * 
+	 * @return
+	 */
+	public List<Element> getElementsWithId() {
+		if (idElementList == null) {
+			idElementList = getElementsListByXPath(target, "//*[@id]");
+		}
+		return idElementList;
+	}
+	
+	
+	/**
 	 * Get all style elements.
 	 * 
 	 * @return
@@ -1307,5 +1322,55 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 */
 	public void setLiveFile(File liveFile) {
 		this.liveFile = liveFile;
+	}
+
+	/**
+	 * Append an error icon to an element in the blind view. If it is already
+	 * appended or it failed to append, returns false.
+	 * 
+	 * @param pitem
+	 * @param original
+	 * @return
+	 */
+	public boolean appendErrorIcon(IProblemItem pitem, Element original) {
+		try {
+			String id = document2IdMap.get(original).toString();
+			Element tmpE = resultDoc.getElementById("id" + id);
+			if (tmpE != null && "area".equalsIgnoreCase(tmpE.getTagName())) {
+				tmpE = resultDoc.getElementById("id" + id + "-span");
+			}
+			if (tmpE != null
+					&& tmpE.getElementsByTagName("img").getLength() == 0) {
+				Element errorImg = resultDoc.createElement("img");
+				errorImg.setAttribute(ATTR_ALT, "error icon");
+				errorImg.setAttribute(ATTR_SRC, "img/exclawhite21.gif");
+				errorImg.setAttribute(ATTR_TITLE, pitem.getDescription());
+
+				String comment = pitem.getDescription();
+				StringBuffer comment_sb = new StringBuffer();
+				// if (871 == curInfo.getId()) {
+				for (int x = 0; x < comment.length(); x++) {
+					if (comment.charAt(x) == '\"') {
+						comment_sb.append("\\");
+					}
+					if (comment.charAt(x) == '\'') {
+						comment_sb.append('\\');
+					}
+					comment_sb.append(comment.charAt(x));
+				}
+
+				String tmpS = comment_sb.toString().replaceAll("\n", "")
+						.replaceAll("\r", "");
+
+				errorImg.setAttribute("onmouseover", "updateBaloon2(\"id" + id
+						+ "\",\"" + tmpS + "\");");
+				tmpE.appendChild(errorImg);
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

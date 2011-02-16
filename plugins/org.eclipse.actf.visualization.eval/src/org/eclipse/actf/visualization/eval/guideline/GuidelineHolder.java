@@ -14,20 +14,30 @@ package org.eclipse.actf.visualization.eval.guideline;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.eval.ICheckerInfoProvider;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.IGuidelineItem;
+import org.eclipse.actf.visualization.eval.ITechniquesItem;
 import org.eclipse.actf.visualization.eval.preferences.ICheckerPreferenceConstants;
+import org.eclipse.actf.visualization.eval.problem.IProblemItem;
+import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;
+import org.eclipse.actf.visualization.eval.problem.ReportUtil;
 import org.eclipse.actf.visualization.internal.eval.CheckerExtension;
 import org.eclipse.actf.visualization.internal.eval.EvaluationItemImpl;
 import org.eclipse.actf.visualization.internal.eval.EvaluationPlugin;
@@ -84,7 +94,7 @@ public class GuidelineHolder {
 	private Map<String, IEvaluationItem> checkitemMap = new HashMap<String, IEvaluationItem>();
 
 	private String[] metricsNames = new String[0];
-	
+
 	private String[] localizedMetricsNames = new String[0];
 
 	private boolean[][] correspondingMetricsOfLeafGuideline;
@@ -104,6 +114,15 @@ public class GuidelineHolder {
 	private Set<IGuidelineSlectionChangedListener> guidelineSelectionChangedListenerSet = new HashSet<IGuidelineSlectionChangedListener>();
 
 	private String currentMimeType = "text/html"; //$NON-NLS-1$
+
+	/**
+	 * for debug/print use. Set of TechniquesItems
+	 */
+	private SortedSet<ITechniquesItem> techniquesItemSet;
+	/**
+	 * for debug/print use. Map from a techniques ID to a Set of ProblemItems
+	 */
+	private Map<String, Set<IProblemItem>> techniquesProblemMap;
 
 	// TODO guideline base -> check item base On/Off
 
@@ -198,19 +217,23 @@ public class GuidelineHolder {
 				localizedMetricsNames = new String[metricsNameSet.size()];
 				metricsNameSet.toArray(metricsNames);
 				metricsNameSet.toArray(localizedMetricsNames);
-				
-				for(int i=0; i<localizedMetricsNames.length;i++){
-					if(localizedMetricsNames[i].equalsIgnoreCase("perceivable")){
+
+				for (int i = 0; i < localizedMetricsNames.length; i++) {
+					if (localizedMetricsNames[i]
+							.equalsIgnoreCase("perceivable")) {
 						localizedMetricsNames[i] = Messages.Perceivable;
-					}else if(localizedMetricsNames[i].equalsIgnoreCase("operable")){
+					} else if (localizedMetricsNames[i]
+							.equalsIgnoreCase("operable")) {
 						localizedMetricsNames[i] = Messages.Operable;
-					}else if(localizedMetricsNames[i].equalsIgnoreCase("understandable")){
+					} else if (localizedMetricsNames[i]
+							.equalsIgnoreCase("understandable")) {
 						localizedMetricsNames[i] = Messages.Understandable;
-					}else if(localizedMetricsNames[i].equalsIgnoreCase("robust")){
+					} else if (localizedMetricsNames[i]
+							.equalsIgnoreCase("robust")) {
 						localizedMetricsNames[i] = Messages.Robust;
 					}
 				}
-				
+
 				enabledMetrics = new boolean[metricsNameSet.size()];
 				Arrays.fill(enabledMetrics, true);
 			} else {
@@ -221,7 +244,7 @@ public class GuidelineHolder {
 		}
 
 		for (IEvaluationItem tmpItem : checkitemMap.values()) {
-			if(tmpItem instanceof EvaluationItemImpl){
+			if (tmpItem instanceof EvaluationItemImpl) {
 				((EvaluationItemImpl) tmpItem).initMetrics(metricsNames);
 			}
 			addGuidelineSelectionChangedListener(tmpItem);
@@ -480,7 +503,6 @@ public class GuidelineHolder {
 		return localizedMetricsNames;
 	}
 
-	
 	private void initGuidelineNameLevel2checkItem() {
 		for (GuidelineData data : guidelineMaps.values()) {
 			data.setEvaluationItems(checkitemMap.values(), metricsNames);
@@ -762,4 +784,159 @@ public class GuidelineHolder {
 		return guidelineNames;
 	}
 
+	private class ItemType {
+		boolean error = false;
+		boolean warning = false;
+		boolean user = false;
+		boolean info = false;
+
+		public ItemType(int severity) {
+			setSeverity(severity);
+		}
+
+		public void setSeverity(int severity) {
+			switch (severity) {
+			case IProblemItem.SEV_ERROR:
+				error = true;
+				break;
+			case IProblemItem.SEV_WARNING:
+				warning = true;
+				break;
+			case IProblemItem.SEV_USER:
+				user = true;
+				break;
+			case IProblemItem.SEV_INFO:
+				info = true;
+				break;
+			}
+		}
+
+		@Override
+		public String toString() {
+			StringBuffer tmpSB = new StringBuffer();
+			if (error) {
+				tmpSB.append(Messages.ProblemConst_Essential_2 + " / ");
+			}
+			if (warning) {
+				tmpSB.append(Messages.ProblemConst_Warning + " / ");
+			}
+			if (user) {
+				tmpSB.append(Messages.ProblemConst_User_Check_5 + " / ");
+			}
+			if (info) {
+				tmpSB.append(Messages.ProblemConst_Info + " / ");
+			}
+			if (tmpSB.length() > 3) {
+				tmpSB.setLength(tmpSB.length() - 3);
+			}
+			return tmpSB.toString();
+		}
+	}
+
+	@Override
+	public String toString() {
+		Set<IEvaluationItem> eSet = getMatchedCheckitemSet();
+		ArrayList<IProblemItem> ar = new ArrayList<IProblemItem>();
+		for (IEvaluationItem i : eSet) {
+			ar.add(new ProblemItemImpl(i.getId()));
+		}
+		Map<String, ItemType> itemMap = new HashMap<String, ItemType>();
+		ReportUtil ru = new ReportUtil();
+		ru.setMode(ReportUtil.TAB);
+		StringBuffer tmpSB = new StringBuffer();
+		tmpSB.append("ACTF id\t" + ru.getFirstLine() + FileUtils.LINE_SEP);
+		for (IProblemItem i : ar) {
+			tmpSB.append(i.getId() + "\t" + ru.toString(i) + FileUtils.LINE_SEP);
+			String[] techS = i.getEvaluationItem().getTableDataTechniques()
+					.split(",");
+			for (String s : techS) {
+				String tech = s.trim();
+				ItemType itemType = itemMap.get(tech);
+				if (itemType == null) {
+					itemType = new ItemType(i.getSeverity());
+					itemMap.put(tech, itemType);
+				} else {
+					itemType.setSeverity(i.getSeverity());
+				}
+			}
+		}
+		tmpSB.append(FileUtils.LINE_SEP);
+
+		Set<String> keys = new TreeSet<String>(new Comparator<String>() {
+			public int compare(String o1, String o2) {
+
+				Pattern TECH_ID = Pattern.compile("(\\p{Alpha}+)(\\d+)");
+				Matcher m1 = TECH_ID.matcher(o1);
+				m1.matches();
+				String prefix1 = m1.group(1);
+				int number1 = Integer.parseInt(m1.group(2));
+				Matcher m2 = TECH_ID.matcher(o2);
+				m2.matches();
+				String prefix2 = m2.group(1);
+				int number2 = Integer.parseInt(m2.group(2));
+
+				int flag = prefix1.compareTo(prefix2);
+				if (flag == 0) {
+					flag = new Integer(number1).compareTo(new Integer(number2));
+				}
+				return flag;
+			}
+		});
+
+		keys.addAll(itemMap.keySet());
+
+		for (String key : keys) {
+			tmpSB.append(key + "\t" + itemMap.get(key) + FileUtils.LINE_SEP);
+		}
+
+		return tmpSB.toString();
+	}
+
+	public SortedSet<ITechniquesItem> getTechniquesItemSet() {
+		if (techniquesItemSet == null)
+			createTechSet();
+		return techniquesItemSet;
+	}
+
+	private void createTechSet() {
+		techniquesItemSet = new TreeSet<ITechniquesItem>();
+
+		for (IEvaluationItem i : matchedCheckitemSet) {
+			ProblemItemImpl pitem = new ProblemItemImpl(i.getId());
+			ITechniquesItem[][] techs = pitem.getEvaluationItem()
+					.getTechniques();
+			for (int j = 0; j < techs.length; j++) {
+				for (int j2 = 0; j2 < techs[j].length; j2++) {
+					techniquesItemSet.add(techs[j][j2]);
+				}
+			}
+		}
+	}
+
+	public Map<String, Set<IProblemItem>> getTechProbMap() {
+		if (techniquesProblemMap == null)
+			createTechProbMap();
+		return techniquesProblemMap;
+	}
+
+	private void createTechProbMap() {
+		techniquesProblemMap = new HashMap<String, Set<IProblemItem>>();
+
+		for (IEvaluationItem i : matchedCheckitemSet) {
+			ProblemItemImpl pitem = new ProblemItemImpl(i.getId());
+			ITechniquesItem[][] techs = pitem.getEvaluationItem()
+					.getTechniques();
+			for (int j = 0; j < techs.length; j++) {
+				for (int j2 = 0; j2 < techs[j].length; j2++) {
+					ITechniquesItem tech = techs[j][j2];
+					techniquesItemSet.add(tech);
+					if (!techniquesProblemMap.containsKey(tech.getId())) {
+						techniquesProblemMap.put(tech.getId(),
+								new HashSet<IProblemItem>());
+					}
+					techniquesProblemMap.get(tech.getId()).add(pitem);
+				}
+			}
+		}
+	}
 }

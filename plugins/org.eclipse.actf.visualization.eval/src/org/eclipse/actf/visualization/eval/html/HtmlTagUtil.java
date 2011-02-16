@@ -243,4 +243,22 @@ public class HtmlTagUtil implements IHtmlEventHandlerAttributes {
 		}
 		return result;
 	}
+
+	public static boolean isTextControl(Element ctrl) {
+		String tagName = ctrl.getTagName().toLowerCase();
+		return (tagName.equals("textarea") || (tagName.equals("input") && ctrl
+				.getAttribute("type").toLowerCase().matches("|text|password")));
+	}
+
+	public static boolean isButtonControl(Element ctrl) {
+		String tagName = ctrl.getTagName().toLowerCase();
+		return ((tagName.equals("button") && ctrl.getAttribute("type")
+				.toLowerCase().matches("submit|reset|button")) || (tagName
+				.equals("input") && ctrl.getAttribute("type").toLowerCase()
+				.matches("submit|reset|button|image")));
+	}
+
+	public static boolean isBlankString(String str) {
+		return str.matches("[\\p{Space}\u3000\u00A0]*");
+	}
 }

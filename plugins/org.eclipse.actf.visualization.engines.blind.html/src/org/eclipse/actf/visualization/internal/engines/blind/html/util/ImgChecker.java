@@ -108,6 +108,7 @@ public class ImgChecker {
 			if (info != null) {
 				isVisible = !info.isInvisible();
 			}
+			img.removeAttribute("id");
 
 			if (imgText.length() > 0 && isVisible) {
 				spanEl.appendChild(doc.createTextNode(imgText));
@@ -125,7 +126,9 @@ public class ImgChecker {
 					Element areaE = (Element) areaNL.item(i);
 					BlindProblem prob = null;
 					Integer idObj = null;
-
+					
+					areaEl.setAttribute("id", areaE.getAttribute("id")+"-span");
+					
 					if (!areaE.hasAttribute(ALT)) {
 						if (areaE.hasAttribute("href")) {
 							prob = new BlindProblem(IBlindProblem.NO_ALT_AREA,

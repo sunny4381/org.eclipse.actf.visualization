@@ -15,8 +15,6 @@ import java.net.URL;
 import java.util.Vector;
 
 import org.eclipse.actf.util.FileUtils;
-import org.eclipse.actf.util.xpath.XPathService;
-import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.ProblemItemImpl;

@@ -14,14 +14,13 @@ package org.eclipse.actf.visualization.eval;
 /**
  * Interface to hold Techniques item information
  */
-public interface ITechniquesItem {
+public interface ITechniquesItem extends Comparable<ITechniquesItem> {
 
 	/**
 	 * @return name of guideline
 	 */
 	public abstract String getGuidelineName();
 
-	
 	/**
 	 * @return ID of Techniques item (e.g., H1, G1, etc.)
 	 */

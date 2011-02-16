@@ -31,8 +31,8 @@ public class EvaluationUtil {
 	 */
 	public static boolean isOriginalDOM() {
 		return IPreferenceConstants.CHECKER_ORG_DOM.equals(EvaluationPlugin
-				.getDefault().getPluginPreferences().getString(
-						IPreferenceConstants.CHECKER_TARGET));
+				.getDefault().getPreferenceStore()
+				.getString(IPreferenceConstants.CHECKER_TARGET));
 	}
 
 	/**
