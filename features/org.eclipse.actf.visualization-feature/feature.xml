@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.actf.visualization"
       label="%featureName"
-      version="0.8.2.qualifier"
+      version="0.9.0.qualifier"
       provider-name="Eclipse.org"
       ws="win32"
       arch="x86">
@@ -20,7 +20,7 @@
    </license>
 
    <url>
-      <update label="Eclipse ACTF Update Site" url="http://download.eclipse.org/technology/actf/0.8/update-site/"/>
+      <update label="Eclipse ACTF Update Site" url="http://download.eclipse.org/technology/actf/0.9/update-site/"/>
    </url>
 
    <requires>
