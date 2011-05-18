@@ -30,6 +30,8 @@ public interface IBlindPreferenceConstants {
 
     String LANG_JA = "ja";
 
+	String LANG_ZH = "zh";
+
     String BLIND_MAX_TIME_SECOND = "ADesigner.blind.maxTimeSecond";
 
     String BLIND_MAX_TIME_COLOR = "ADesigner.blind.maxTimeColor";

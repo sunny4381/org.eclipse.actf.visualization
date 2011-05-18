@@ -57,6 +57,7 @@ public final class Messages extends NLS {
 	public static String DialogSettingBlind_Language_4;
 	public static String DialogSettingBlind_English_15;
 	public static String DialogSettingBlind_Japanese_16;
+	public static String DialogSettingBlind_SimpliedChinese_17;
 	public static String DialogSettingBlind_LayoutModeSetting;
 	public static String DialogSettingBlind_Visualization_mode_3;
 	public static String DialogSettingBlind_Voice_browser_output_mode_8;
