@@ -67,9 +67,12 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 						{ Messages.DialogSettingBlind_English_15,
 								IBlindPreferenceConstants.LANG_EN },
 						{ Messages.DialogSettingBlind_Japanese_16,
-								IBlindPreferenceConstants.LANG_JA },
-						{ Messages.DialogSettingBlind_SimpliedChinese_17,
-								IBlindPreferenceConstants.LANG_ZH }}, parent));
+								IBlindPreferenceConstants.LANG_JA }
+								//TODO
+				// ,
+				// { Messages.DialogSettingBlind_SimpliedChinese_17,
+				// IBlindPreferenceConstants.LANG_ZH }
+								}, parent));
 	}
 
 	private void editNgwordWrongtxt() {
