@@ -277,7 +277,7 @@ public class EvaluationItemImpl implements IEvaluationItem {
 							metricsIcons[i] = WARN_IMAGE;
 						}
 						tableDataMetrics[i] = tableDataMetrics[i] + "("
-								+ IProblemConst.USER_CHECK + ")";
+								+ IProblemConst.WARNING + ")";
 						break;
 					case SEV_USER:
 						if (curName.equalsIgnoreCase(PERCEIVABLE)) {
