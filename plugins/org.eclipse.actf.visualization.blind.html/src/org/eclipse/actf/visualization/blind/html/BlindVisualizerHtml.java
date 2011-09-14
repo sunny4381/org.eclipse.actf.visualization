@@ -122,6 +122,9 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 				if (html2ViewMapV.size() == 0) {
 					isIEhtml = true;
 				}
+				if (PERFORMANCE_DEBUG)
+					System.out
+							.println("map finish\t" + (new Date()).getTime());
 			} else {
 				isIEhtml = true;
 			}

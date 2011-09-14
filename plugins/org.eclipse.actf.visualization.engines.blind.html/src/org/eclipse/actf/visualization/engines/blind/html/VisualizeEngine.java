@@ -13,6 +13,7 @@ package org.eclipse.actf.visualization.engines.blind.html;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 import org.eclipse.actf.visualization.engines.blind.TextCheckResult;
 import org.eclipse.actf.visualization.engines.blind.TextChecker;
@@ -153,13 +155,24 @@ public class VisualizeEngine {
 		// TODO move to screen reader engine
 		DocumentCleaner.removeDisplayNone(document);
 
+		DebugPrintUtil.devOrDebugPrintln("remove display none\t" + (new Date()).getTime());
+		
 		orig = document;
 		result = (Document) document.cloneNode(true);
+
+		DebugPrintUtil.devOrDebugPrintln("clone node\t" + (new Date()).getTime());
+		
 		jwatc.setDocument(result);
+		
+		DebugPrintUtil.devOrDebugPrintln("jwatc\t" + (new Date()).getTime());
+
 		pageData = new PageData();
 		mapData = new VisualizeMapDataImpl();
 
 		VisualizeMapUtil.createNode2NodeMap(document, result, mapData);
+		
+		DebugPrintUtil.devOrDebugPrintln("create node2node map\t" + (new Date()).getTime());
+
 	}
 
 	private void cleanupPacketCollection(IPacketCollection pc) {
@@ -191,27 +204,45 @@ public class VisualizeEngine {
 			problems = new Vector<IProblemItem>();
 			allPc = jwatc.getPacketCollection();
 
+			DebugPrintUtil.devOrDebugPrintln("packet collection\t" + (new Date()).getTime());
+			
 			cleanupPacketCollection(allPc);
+
+			DebugPrintUtil.devOrDebugPrintln("cleanup packet collection\t" + (new Date()).getTime());
 
 			ParamBlind curParamBlind = ParamBlind.getInstance();
 
 			// get packet and create map and list
 			NodeInfoCreator nodeInfoCreator = new NodeInfoCreator(mapData,
 					textChecker, problems, invisibleIdSet, curParamBlind);
+			
+			DebugPrintUtil.devOrDebugPrintln("Nodeinfo init\t" + (new Date()).getTime());
+
 			nodeInfoCreator.prepareNodeInfo(allPc);
+			
+			DebugPrintUtil.devOrDebugPrintln("Nodeinfo prep\t" + (new Date()).getTime());
+
 			nodeInfoCreator.createAdditionalNodeInfo(result);
+			
+			DebugPrintUtil.devOrDebugPrintln("Nodeinfo additional\t" + (new Date()).getTime());
 
 			// link analysis preparation
 			LinkAnalyzer linkAnalyzer = new LinkAnalyzer(result, allPc,
 					mapData, problems, invisibleIdSet, curParamBlind, pageData);
 
+			DebugPrintUtil.devOrDebugPrintln("link analyzer\t" + (new Date()).getTime());
+
 			styleInfo = new VisualizeStyleInfo(orig, mapData);
+
+			DebugPrintUtil.devOrDebugPrintln("style info\t" + (new Date()).getTime());
 
 			/*
 			 * rewrite DOM from here
 			 */
 			// insert ID attributes to elements
 			mapData.makeIdMapping(Html2ViewMapData.ACTF_ID);
+			
+			DebugPrintUtil.devOrDebugPrintln("id mapping\t" + (new Date()).getTime());
 
 			styleInfo.setImportedCssSet(DocumentCleaner.removeCSS(result,
 					targetUrl));
@@ -230,12 +261,21 @@ public class VisualizeEngine {
 					mapData, curParamBlind);
 			colorUtil.setColorAll();
 
+			DebugPrintUtil.devOrDebugPrintln("color\t" + (new Date()).getTime());
+			
 			calMaxTime();
 
+			DebugPrintUtil.devOrDebugPrintln("max time\t" + (new Date()).getTime());
+			
 			problems.addAll(linkAnalyzer.skipLinkCheck(iMaxTime, iMaxTimeLeaf));
+
+			DebugPrintUtil.devOrDebugPrintln("skiplink check\t" + (new Date()).getTime());
 
 			replaceImgAndCheck(result, mapData, curParamBlind.oReplaceImage);
 
+			DebugPrintUtil.devOrDebugPrintln("image check\t" + (new Date()).getTime());
+
+			
 			int errorCount = 0;
 			int missing = 0;
 			int wrong = 0;
@@ -280,6 +320,8 @@ public class VisualizeEngine {
 			VisualizeViewUtil
 					.visualizeError(result, problems, mapData, baseUrl);
 
+			DebugPrintUtil.devOrDebugPrintln("error visualization\t" + (new Date()).getTime());
+			
 			DocumentCleaner.removeJavaScript(mapData.getNodeInfoList(), result);
 			DocumentCleaner.removeMeta(result);
 			DocumentCleaner.removeObject(result);
@@ -288,9 +330,11 @@ public class VisualizeEngine {
 			DocumentCleaner.removeBase(result);
 			DocumentCleaner.removePI(result);
 
+			DebugPrintUtil.devOrDebugPrintln("document cleaner\t" + (new Date()).getTime());
+			
 			VisualizationResultCleaner.clean(result, targetUrl);
-
-			// System.out.println("remove elements fin");
+			
+			DebugPrintUtil.devOrDebugPrintln("result cleaner\t" + (new Date()).getTime());
 
 			// TODO merge with visualizeError
 			Id2LineViaActfId id2line = null;
@@ -299,6 +343,8 @@ public class VisualizeEngine {
 						html2viewMapV);
 			}
 
+			DebugPrintUtil.devOrDebugPrintln("id2line\t" + (new Date()).getTime());
+			
 			for (IProblemItem i : problems) {
 				BlindProblem tmpBP = (BlindProblem) i;
 				tmpBP.prepareHighlight();
