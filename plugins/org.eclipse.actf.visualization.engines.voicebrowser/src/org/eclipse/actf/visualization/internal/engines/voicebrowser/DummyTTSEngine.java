@@ -11,6 +11,8 @@
 
 package org.eclipse.actf.visualization.internal.engines.voicebrowser;
 
+import java.io.File;
+
 import org.eclipse.actf.ai.tts.ITTSEngine;
 import org.eclipse.actf.ai.voice.IVoiceEventListener;
 
@@ -46,6 +48,14 @@ public class DummyTTSEngine implements ITTSEngine {
     }
 
 	public boolean isDisposed() {
+		return false;
+	}
+
+	public boolean canSpeakToFile() {
+		return false;
+	}
+
+	public boolean speakToFile(String text, File file) {
 		return false;
 	}
 
