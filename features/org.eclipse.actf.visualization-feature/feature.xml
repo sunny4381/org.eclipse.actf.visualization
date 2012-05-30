@@ -20,7 +20,7 @@
    </license>
 
    <url>
-      <update label="Eclipse ACTF Update Site" url="http://download.eclipse.org/technology/actf/0.9/update-site/"/>
+      <update label="Eclipse ACTF Update Site" url="http://download.eclipse.org/technology/actf/1.0/update-site/"/>
    </url>
 
    <requires>
