@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ACTF Flash Visualization Fragment (Incubation)
 Bundle-SymbolicName: org.eclipse.actf.visualization.flash;singleton:=true
-Bundle-Version: 0.9.2.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: fragment
 Fragment-Host: org.eclipse.actf.visualization.gui
