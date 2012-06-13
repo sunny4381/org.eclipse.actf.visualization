@@ -21,10 +21,19 @@
       <update label="Eclipse ACTF Update Site" url="http://download.eclipse.org/technology/actf/1.0/update-site/"/>
    </url>
 
+   <includes
+         id="org.eclipse.actf.visualization"
+         version="0.0.0"/>
+
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.ui"/>
       <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
+      <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
+      <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
+      <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
+      <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
+      <import plugin="org.eclipse.actf.ui"/>
    </requires>
 
    <plugin
