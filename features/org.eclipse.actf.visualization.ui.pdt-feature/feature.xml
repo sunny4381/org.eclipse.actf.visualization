@@ -28,12 +28,8 @@
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.ui"/>
-      <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
-      <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
-      <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
-      <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
-      <import feature="org.eclipse.actf.visualization" version="1.0.0"/>
       <import plugin="org.eclipse.actf.ui"/>
+      <import plugin="org.eclipse.actf.visualization"/>
    </requires>
 
    <plugin
