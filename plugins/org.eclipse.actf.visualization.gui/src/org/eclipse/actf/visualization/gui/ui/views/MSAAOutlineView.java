@@ -147,7 +147,13 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 		hookContextMenu();
 		contributeToActionBars();
 		MSAAViewRegistory.refreshRootObject();
-		MSAAViewRegistory.showView(IGuiViewIDs.ID_EVENTVIEW, false);
+		Display.getDefault().asyncExec(new Runnable() {
+			
+			@Override
+			public void run() {
+				MSAAViewRegistory.showView(IGuiViewIDs.ID_EVENTVIEW, false);
+			}
+		});
 		
 		HighlightComposite.initOverlayWindow();
 	}
