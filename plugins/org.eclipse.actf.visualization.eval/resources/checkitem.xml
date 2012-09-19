@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
- Copyright (c) 2005, 2011 IBM Corporation and others.
+ Copyright (c) 2005, 2012 IBM Corporation and others.
  All rights reserved. This program and the accompanying materials
  are made available under the terms of the Eclipse Public License v1.0
  which accompanies this distribution, and is available at
@@ -66,8 +66,6 @@
         <guideline>
             <gItem id="3.2" name="WCAG"/>
             <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
-            <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -114,6 +112,19 @@
         </metrics>
         <description>
             <desc>As no DOCTYPE declaration is found, validators may produce wrong results and conformance of the document is not able to be checked.</desc>
+        </description>
+    </checkitem>
+    <checkitem type="warning" id="C_1000.8">
+        <guideline>
+            <gItem id="3.2" name="WCAG"/>
+            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
+        </guideline>
+        <metrics>
+            <mItem score="2" name="Robust"/>
+        </metrics>
+        <description>
+            <desc>Byte-Order Mark (BOM) found in UTF-8 HTML file. BOM should be removed to avoid unexpected error.</desc>
         </description>
     </checkitem>
     <checkitem type="error" id="B_0">
