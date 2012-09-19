@@ -149,7 +149,6 @@ public class MSAAOutlineView extends ViewPart implements IMSAAOutlineView {
 		MSAAViewRegistory.refreshRootObject();
 		Display.getDefault().asyncExec(new Runnable() {
 			
-			@Override
 			public void run() {
 				MSAAViewRegistory.showView(IGuiViewIDs.ID_EVENTVIEW, false);
 			}
