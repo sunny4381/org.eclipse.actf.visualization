@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ACTF ODF Visualization Fragment
 Bundle-SymbolicName: org.eclipse.actf.visualization.blind.odfbyhtml;singleton:=true
-Bundle-Version: 1.0.1.qualifier
+Bundle-Version: 1.0.2.qualifier
 Bundle-Vendor: Eclipse.org
 Bundle-Localization: fragmentodf
 Fragment-Host: org.eclipse.actf.visualization.blind;bundle-version="0.0.1"

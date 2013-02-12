@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.actf.visualization"
       label="%featureName"
-      version="1.0.1.qualifier"
+      version="1.0.2.qualifier"
       provider-name="Eclipse.org"
       ws="win32"
       arch="x86">
