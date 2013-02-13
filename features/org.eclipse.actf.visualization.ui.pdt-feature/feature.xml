@@ -3,7 +3,10 @@
       id="org.eclipse.actf.visualization.ui.pdt"
       label="%featureName"
       version="1.0.2.qualifier"
-      provider-name="Eclipse.org">
+      provider-name="Eclipse.org"
+      os="win32"
+      ws="win32"
+      arch="x86">
 
    <description>
       %description
