@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and Others
+ * Copyright (c) 2005, 2013 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,8 +11,11 @@
 
 package org.eclipse.actf.visualization.internal.eval;
 
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
@@ -129,6 +132,8 @@ public class EvaluationItemImpl implements IEvaluationItem {
 
 	private String severityStr = SEV_INFO_STR;
 
+	private Pattern pattern = Pattern.compile("\\d+");
+
 	/**
 	 * @param id
 	 */
@@ -154,11 +159,49 @@ public class EvaluationItemImpl implements IEvaluationItem {
 		this.guidelines = guidelines;
 	}
 
+	private TreeSet<String> getTechniquesSortTree(){
+		return new TreeSet<String>(new Comparator<String>() {
+			public int compare(String arg1, String arg2) {
+				int result;
+				String str1, str2;
+				int num1, num2;
+
+				Matcher matcher1 = pattern.matcher(arg1);
+				Matcher matcher2 = pattern.matcher(arg2);
+
+				if (matcher1.find()) {
+					str1 = arg1.substring(0, matcher1.start());
+					num1 = Integer.parseInt(matcher1.group());
+				} else {
+					str1 = arg1;
+					num1 = Integer.MIN_VALUE;
+				}
+
+				if (matcher2.find()) {
+					str2 = arg2.substring(0, matcher2.start());
+					num2 = Integer.parseInt(matcher2.group());
+				} else {
+					str2 = arg2;
+					num2 = Integer.MIN_VALUE;
+				}
+
+				result = str1.compareTo(str2);
+				if (result != 0)
+					return result;
+				result = Integer.compare(num1, num2);
+				if (result != 0)
+					return result;
+				return arg1.compareTo(arg2);
+			}
+		});
+	}
+	
 	public void setTechniques(ITechniquesItem[][] techniques) {
 		this.techniques = techniques;
 
 		// init
-		TreeSet<String> tmpTree = new TreeSet<String>();
+		TreeSet<String> tmpTree = getTechniquesSortTree();
+
 		for (int i = 0; i < techniques.length; i++) {
 			ITechniquesItem[] ti = techniques[i];
 			for (ITechniquesItem tech : ti) {
@@ -199,9 +242,9 @@ public class EvaluationItemImpl implements IEvaluationItem {
 			} else if (SEV_WARNING_STR.equalsIgnoreCase(_severityStr)) {
 				severity = SEV_WARNING;
 				severityStr = IProblemConst.WARNING;
-			} else if (SEV_USER_STR.equalsIgnoreCase(_severityStr)){
+			} else if (SEV_USER_STR.equalsIgnoreCase(_severityStr)) {
 				severity = SEV_USER;
-				severityStr = IProblemConst.USER_CHECK;				
+				severityStr = IProblemConst.USER_CHECK;
 			}
 			// else{
 			// severity = SEV_INFO;
@@ -380,7 +423,7 @@ public class EvaluationItemImpl implements IEvaluationItem {
 	}
 
 	private void updateTableDataTechniques() {
-		TreeSet<String> tmpTree = new TreeSet<String>();
+		TreeSet<String> tmpTree = getTechniquesSortTree();
 		for (int i = 0; i < guidelines.length; i++) {
 			if (guidelines[i].isEnabled()) {
 				ITechniquesItem[] ti = techniques[i];

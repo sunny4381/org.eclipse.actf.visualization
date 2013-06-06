@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and Others
+ * Copyright (c) 2005, 2013 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -73,8 +73,9 @@ public class ResultTableSorter extends ResultTableSorterBase {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.eclipse.jface.viewers.ViewerSorter#compare(org.eclipse.jface.viewers.Viewer,
-	 *      java.lang.Object, java.lang.Object)
+	 * @see
+	 * org.eclipse.jface.viewers.ViewerSorter#compare(org.eclipse.jface.viewers
+	 * .Viewer, java.lang.Object, java.lang.Object)
 	 */
 	public int compare(Viewer arg0, Object arg1, Object arg2) {
 		int result = 0;
@@ -96,10 +97,13 @@ public class ResultTableSorter extends ResultTableSorterBase {
 					result = compareGuideline(tmp1, tmp2, curColumn
 							- metricsFinPos);
 				} else if (curColumn == guidelineFinPos) {
+					result = compareEvalItem(tmp1.getEvaluationItem(),
+							tmp2.getEvaluationItem());
+				} else if (curColumn == guidelineFinPos + 1) {
 					result = compareLine(tmp1, tmp2);
 				} else {
-					result = compareString(tmp1.getDescription(), tmp2
-							.getDescription());
+					result = compareString(tmp1.getDescription(),
+							tmp2.getDescription());
 				}
 
 				if (result == 0) {

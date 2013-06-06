@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and Others
+ * Copyright (c) 2005, 2013 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,8 +11,11 @@
 package org.eclipse.actf.visualization.ui.report.table;
 
 import java.util.Comparator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.actf.util.comparator.ChainComparator;
+import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.graphics.Image;
@@ -28,6 +31,8 @@ import org.eclipse.swt.graphics.Image;
  */
 public abstract class ResultTableSorterBase extends ViewerSorter implements
 		IResultTableSorter {
+
+	private Pattern pattern = Pattern.compile("\\d+");
 
 	/**
 	 * Sort {@link IProblemItem} based on it's score
@@ -194,6 +199,56 @@ public abstract class ResultTableSorterBase extends ViewerSorter implements
 			return (-1);
 		}
 		return (target1.compareTo(target2));
+	}
+
+	private int compareEvalItem(String arg1, String arg2) {
+		if (arg1.length() == 0) {
+			if (arg2.length() > 0) {
+				return 1;
+			}
+			return 0;
+		} else if (arg2.length() == 0) {
+			return -1;
+		}
+
+		int result;
+		String str1, str2;
+		int num1, num2;
+
+		Matcher matcher1 = pattern.matcher(arg1);
+		Matcher matcher2 = pattern.matcher(arg2);
+
+		if (matcher1.find()) {
+			str1 = arg1.substring(0, matcher1.start());
+			num1 = Integer.parseInt(matcher1.group());
+		} else {
+			str1 = arg1;
+			num1 = Integer.MIN_VALUE;
+		}
+
+		if (matcher2.find()) {
+			str2 = arg2.substring(0, matcher2.start());
+			num2 = Integer.parseInt(matcher2.group());
+		} else {
+			str2 = arg2;
+			num2 = Integer.MIN_VALUE;
+		}
+
+		result = str1.compareTo(str2);
+		if (result != 0)
+			return result;
+		result = Integer.compare(num1, num2);
+		if (result != 0)
+			return result;
+		return compareEvalItem(arg1.substring(matcher1.end()),
+				arg2.substring(matcher2.end()));
+
+	}
+
+	protected int compareEvalItem(IEvaluationItem target1,
+			IEvaluationItem target2) {
+		return compareEvalItem(target1.getTableDataTechniques(),
+				target2.getTableDataTechniques());
 	}
 
 }
