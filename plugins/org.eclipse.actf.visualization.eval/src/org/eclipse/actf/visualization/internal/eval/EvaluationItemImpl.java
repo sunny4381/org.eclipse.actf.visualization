@@ -188,7 +188,9 @@ public class EvaluationItemImpl implements IEvaluationItem {
 				result = str1.compareTo(str2);
 				if (result != 0)
 					return result;
-				result = Integer.compare(num1, num2);
+				//TODO Java 1.7 or later
+				//result = Integer.compare(num1, num2);
+				result = Integer.valueOf(num1).compareTo(num2);
 				if (result != 0)
 					return result;
 				return arg1.compareTo(arg2);
