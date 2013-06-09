@@ -719,7 +719,7 @@
             <gItem techniques="F3" id="7.1.1.1" name="JIS"/>
             <gItem techniques="F83, G18, G145" id="7.1.4.3" name="JIS"/>
             <gItem techniques="F83, G17, G18" id="7.1.4.6" name="JIS"/>
-            <gItem techniques="F3" id="7.1.1.1" name="WCAG 2.0"/>
+            <gItem techniques="F3" id="1.1.1" name="WCAG 2.0"/>
             <gItem techniques="F83, G18, G145" id="1.4.3" name="WCAG 2.0"/>
             <gItem techniques="F83, G17, G18" id="1.4.6" name="WCAG 2.0"/>
         </guideline>
