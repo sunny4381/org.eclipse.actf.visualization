@@ -17,6 +17,4 @@ Export-Package: org.eclipse.actf.visualization.eval,
  org.eclipse.actf.visualization.eval.html,
  org.eclipse.actf.visualization.eval.html.statistics,
  org.eclipse.actf.visualization.eval.problem
-Bundle-ClassPath: runtimes/checker.jar,
- .
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
