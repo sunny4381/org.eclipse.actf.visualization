@@ -4,6 +4,6 @@ Bundle-Name: ACTF HTML Visualization Fragment
 Bundle-SymbolicName: org.eclipse.actf.visualization.blind.html;singleton:=true
 Bundle-Version: 1.2.0.qualifier
 Bundle-Vendor: Eclipse.org
-Bundle-Localization: fragment
+Bundle-Localization: plugin
 Fragment-Host: org.eclipse.actf.visualization.blind;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
