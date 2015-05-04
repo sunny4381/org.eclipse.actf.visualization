@@ -4,7 +4,7 @@ Bundle-Name: ACTF Flash Visualization Fragment
 Bundle-SymbolicName: org.eclipse.actf.visualization.flash;singleton:=true
 Bundle-Version: 1.2.0.qualifier
 Bundle-Vendor: Eclipse.org
-Bundle-Localization: fragment
+Bundle-Localization: plugin
 Fragment-Host: org.eclipse.actf.visualization.gui
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
