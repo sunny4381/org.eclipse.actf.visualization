@@ -2,8 +2,8 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: ACTF Visualization
 Bundle-SymbolicName: org.eclipse.actf.visualization;singleton:=true
-Bundle-Version: 1.2.0.qualifier
-Bundle-Vendor: Eclipse.org
+Bundle-Version: 1.3.0.qualifier
+Bundle-Vendor: Eclipse ACTF Project
 Export-Package: org.eclipse.actf.visualization,
  org.eclipse.actf.visualization.ui,
  org.eclipse.actf.visualization.util,
