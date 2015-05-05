@@ -17,7 +17,7 @@ import org.eclipse.ui.views.properties.IPropertySource;
 
 public class FlashPropertySourceAdapterFactory implements IAdapterFactory {
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Object getAdapter(Object adaptableObject, Class adapterType) {
 		if (IPropertySource.class == adapterType) {
 			if (adaptableObject instanceof IFlashPlayer) {
@@ -31,7 +31,7 @@ public class FlashPropertySourceAdapterFactory implements IAdapterFactory {
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("rawtypes")
 	public Class[] getAdapterList() {
 		return new Class[] { IPropertySource.class };
 	}
