@@ -40,16 +40,17 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 
 	private boolean flag = true;
 
+	private int doctype_line = -1;
+
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.eclipse.actf.model.dom.html.IErrorLogListener#errorLog(int,
-	 *      java.lang.String)
+	 * java.lang.String)
 	 */
 	@SuppressWarnings("nls")
 	public void errorLog(int arg0, String arg1) {
-		if (arg0 != IParserError.ILLEGAL_ATTRIBUTE
-				|| arg1.indexOf(Html2ViewMapData.ACTF_ID) < 0) {
+		if (arg0 != IParserError.ILLEGAL_ATTRIBUTE || arg1.indexOf(Html2ViewMapData.ACTF_ID) < 0) {
 			// TODO create HTML problems
 			switch (arg0) {
 			case IParserError.DOCTYPE_MISSED:
@@ -58,16 +59,29 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 			case IParserError.ILLEGAL_DOCTYPE:
 				if (arg1.indexOf("Invalid DOCTYPE declaration.") > -1) {
 					isNonPublic = true;
-				} else if (arg1
-						.matches(".*Instead of \".*\" use \".*\" as a DTD.")) {
+				} else if (arg1.matches(".*Instead of \".*\" use \".*\" as a DTD.")) {
 					orgDoctype = arg1.substring(arg1.indexOf("\"") + 1);
-					orgDoctype = orgDoctype.substring(0, orgDoctype
-							.indexOf("\""));
-					if (orgDoctype
-							.matches("-//W3C//DTD XHTML ((1.0 (Strict|Transitional|Frameset))|1.1|Basic 1.0|Basic 1.1)//EN")) {
+					orgDoctype = orgDoctype.substring(0, orgDoctype.indexOf("\""));
+					if (orgDoctype.matches(
+							"-//W3C//DTD XHTML ((1.0 (Strict|Transitional|Frameset))|1.1|Basic 1.0|Basic 1.1)//EN")) {
 						orgDoctype = "";
 					} else {
 						isInvalidDoctype = true;
+					}
+				} else if (arg1.matches(".*Instead of SYSTEM \".*\" use PUBLIC \".*\" as a DTD.")) {
+					orgDoctype = arg1.substring(arg1.indexOf("\"") + 1);
+					orgDoctype = orgDoctype.substring(0, orgDoctype.indexOf("\""));
+					if (orgDoctype.equalsIgnoreCase("about:legacy-compat")) {
+						orgDoctype = "";
+					} else {
+						isInvalidDoctype = true;
+					}
+				}
+				String tmpS[] = arg1.split(":"); //$NON-NLS-1$
+				if (tmpS.length > 0) {
+					try {
+						doctype_line = Integer.parseInt(tmpS[0].trim());
+					} catch (Exception e) {
 					}
 				}
 				break;
@@ -76,14 +90,11 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 				// System.out.println(arg0+" : "+arg1);
 				if (arg1.matches(".*<head.*> must be before <body.*")) {
 					addHtmlProblem("C_1000.1", arg1);
-				} else if (arg1
-						.matches(".*<html.*> is not allowed as a child of <.*")) {
+				} else if (arg1.matches(".*<html.*> is not allowed as a child of <.*")) {
 					addHtmlProblem("C_1000.2", arg1);
-				} else if (arg1
-						.matches(".*<body.*> is not allowed as a child of <.*")) {
+				} else if (arg1.matches(".*<body.*> is not allowed as a child of <.*")) {
 					addHtmlProblem("C_1000.3", arg1);
-				} else if (arg1
-						.matches(".*Order of <html.*>'s children is wrong.*")) {
+				} else if (arg1.matches(".*Order of <html.*>'s children is wrong.*")) {
 					addHtmlProblem("C_1000.5", arg1);
 				}
 				break;
@@ -153,7 +164,11 @@ public class HtmlErrorLogListener implements IErrorLogListener {
 			// (IE based LIVE DOM)->DOCTYPE was removed by IE
 			if (EvaluationUtil.isOriginalDOM() && isNoDoctypeDeclaration()) {
 				if (isInvalidDoctype() || isNonPublicDoctype()) {
-					problemV.add(new ProblemItemImpl("C_1000.6"));
+					IProblemItem item = new ProblemItemImpl("C_1000.6");
+					if (doctype_line > -1) {
+						item.setLine(doctype_line);
+					}
+					problemV.add(item);
 				} else {
 					problemV.add(new ProblemItemImpl("C_1000.7"));
 				}

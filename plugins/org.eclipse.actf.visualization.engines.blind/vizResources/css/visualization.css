@@ -1,0 +1,19 @@
+div.main {
+	border: 5px blue solid; padding: 2px; margin: 1px;
+}
+
+article,nav {			
+	border: 2px blue solid; padding: 2px; margin: 1px;
+}
+
+.header_footer {			
+	border: 2px blue solid; padding: 2px; margin: 1px;
+}
+
+aside {			
+	border: 1px blue solid; padding: 1px; margin: 1px;
+}
+
+section {
+	border: 1px blue dotted; padding: 1px; margin: 1px;
+}

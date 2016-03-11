@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 IBM Corporation and Others
+ * Copyright (c) 2004, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -30,8 +30,8 @@ import org.eclipse.actf.visualization.eval.IEvaluationResult;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
-import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.eval.problem.IProblemConst;
+import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -50,34 +50,29 @@ public class SaveReportBlind {
 	private static final String IMG = "img";
 	private static final String SRC = "src";
 
-	private static final String[] ICON_NAMES = { "Err.png", "Warn.png",
-			"Conf.png", "Info.png" };
+	private static final String[] ICON_NAMES = { "Err.png", "Warn.png", "Conf.png", "Info.png" };
 
 	// moved from PartRightBlind
 	// TODO renew
 
 	// TODO include only selected guideline/metrics
 
-	public static void saveReport(Document result, IACTFReport checkResult,
-			String sFileName, String imageBriefDir, String maxTime,
-			PageEvaluation pageEval,
+	public static void saveReport(Document result, IACTFReport checkResult, String sFileName, String imageBriefDir,
+			String maxTime, PageEvaluation pageEval,
 			// String strUrl,
 			boolean bAccessory) {
 		if (null != checkResult && checkResult instanceof IEvaluationResult) {
 
 			IEvaluationResult evalResult = (IEvaluationResult) checkResult;
 
-			String saveDir = sFileName.substring(0,
-					sFileName.lastIndexOf(File.separator) + 1);
+			String saveDir = sFileName.substring(0, sFileName.lastIndexOf(File.separator) + 1);
 			String imageDir = saveDir + imageBriefDir;
 			File fDir = new File(imageDir);
 			if ((!fDir.isDirectory() || !fDir.canWrite()) && !fDir.mkdirs()) {
 				System.err.println("can't create image dir:" + imageDir);
 			}
 
-			String preName = sFileName.substring(
-					sFileName.lastIndexOf(File.separator) + 1,
-					sFileName.lastIndexOf("."));
+			String preName = sFileName.substring(sFileName.lastIndexOf(File.separator) + 1, sFileName.lastIndexOf("."));
 			String scriptVariantName = preName + "_variant.js";
 			String reportImgSaveName = preName + ".png";
 
@@ -90,23 +85,19 @@ public class SaveReportBlind {
 				File[] assFiles = evalResult.getAssociateFiles();
 
 				for (File target : assFiles) {
-					if (target.getName().startsWith("variant")
-							&& target.getName().endsWith(".js")) {
-						FileUtils.copyFile(target,
-								imageDir + scriptVariantName, true);
+					if (target.getName().startsWith("variant") && target.getName().endsWith(".js")) {
+						FileUtils.copyFile(target, imageDir + scriptVariantName, true);
 						variantFileS = target.getName();
 					} else {
-						FileUtils.copyFile(target, imageDir + target.getName(),
-								true);
+						FileUtils.copyFile(target, imageDir + target.getName(), true);
 
 					}
 				}
 
 				PrintWriter pw;
 				try {
-					pw = new PrintWriter(new OutputStreamWriter(
-							new FileOutputStream(imageDir + scriptVariantName,
-									true), "UTF-8"));
+					pw = new PrintWriter(
+							new OutputStreamWriter(new FileOutputStream(imageDir + scriptVariantName, true), "UTF-8"));
 					pw.write("var acc_imageDir = '" + imageBriefDir + "'; ");
 					pw.flush();
 					pw.close();
@@ -114,9 +105,7 @@ public class SaveReportBlind {
 					// e.printStackTrace();
 				}
 
-				FileUtils.copyFile(
-						new File(BlindVizResourceUtil.getTempDirectory(),
-								"pagerating.png"),
+				FileUtils.copyFile(new File(BlindVizResourceUtil.getTempDirectory(), "pagerating.png"),
 						imageDir + reportImgSaveName, true);
 
 			}
@@ -155,16 +144,14 @@ public class SaveReportBlind {
 
 				Element newEle = result.createElement("script");
 				StringBuffer buffer = new StringBuffer();
-				buffer.append(FileUtils.LINE_SEP
-						+ "if(navigator.appName.toLowerCase().indexOf(\"microsoft\")>=0){"
+				buffer.append(FileUtils.LINE_SEP + "if(navigator.appName.toLowerCase().indexOf(\"microsoft\")>=0){"
 						+ FileUtils.LINE_SEP);
 				buffer.append("jsFile=\"highlight.js\";" + FileUtils.LINE_SEP);
 				buffer.append("}else{" + FileUtils.LINE_SEP);
-				buffer.append("jsFile=\"highlight_moz.js\";"
-						+ FileUtils.LINE_SEP);
+				buffer.append("jsFile=\"highlight_moz.js\";" + FileUtils.LINE_SEP);
 				buffer.append("}" + FileUtils.LINE_SEP);
-				buffer.append("document.write(\"<script src=\"+acc_imageDir+jsFile+\"></script>\");"
-						+ FileUtils.LINE_SEP);
+				buffer.append(
+						"document.write(\"<script src=\"+acc_imageDir+jsFile+\"></script>\");" + FileUtils.LINE_SEP);
 				newEle.appendChild(result.createComment(buffer.toString()));
 				el.appendChild(newEle);
 			}
@@ -198,16 +185,14 @@ public class SaveReportBlind {
 				lastBody.insertBefore(tmpElement, lastBody.getFirstChild());
 
 				Element tmpDiv = result.createElement(DIV);
-				tmpDiv.setAttribute(STYLE,
-						"width: 100%; background-color:white;");
+				tmpDiv.setAttribute(STYLE, "width: 100%; background-color:white;");
 
 				tmpElement = result.createElement(DIV);
 				// tmpElement.setAttribute("style", "float: left; width: 45%;");
 
 				// TODO
 				int count = 0;
-				boolean enabledMetrics[] = GuidelineHolder.getInstance()
-						.getMatchedMetrics();
+				boolean enabledMetrics[] = GuidelineHolder.getInstance().getMatchedMetrics();
 				for (int i = 0; i < enabledMetrics.length; i++) {
 					if (enabledMetrics[i]) {
 						count++;
@@ -224,8 +209,7 @@ public class SaveReportBlind {
 				tmpElement = result.createElement(DIV);
 				// tmpElement.setAttribute("style", "float: right; width:
 				// 50%;");
-				VisualizeReportUtil.appendRatingTableAndTitle(pageEval,
-						imageBriefDir, result, tmpElement);
+				VisualizeReportUtil.appendRatingTableAndTitle(pageEval, imageBriefDir, result, tmpElement);
 				tmpDiv.appendChild(tmpElement);
 
 				lastBody.insertBefore(tmpDiv, lastBody.getFirstChild());
@@ -254,32 +238,27 @@ public class SaveReportBlind {
 				Element trElement = result.createElement(TR);
 				tableElement.appendChild(trElement);
 				Element tdElement = result.createElement(TH);
-				tdElement.appendChild(result
-						.createTextNode(IProblemConst.TITLE_ICON));
+				tdElement.appendChild(result.createTextNode(IProblemConst.TITLE_ICON));
 				trElement.appendChild(tdElement);
 
 				if (EvaluationUtil.isOriginalDOM()) {
 					tdElement = result.createElement(TH);
-					tdElement.appendChild(result
-							.createTextNode(IProblemConst.TITLE_LINE));
+					tdElement.appendChild(result.createTextNode(IProblemConst.TITLE_LINE));
 					trElement.appendChild(tdElement);
 				}
 
-				IGuidelineData[] guidelineDataArray = GuidelineHolder
-						.getInstance().getGuidelineData();
+				IGuidelineData[] guidelineDataArray = GuidelineHolder.getInstance().getGuidelineData();
 				for (int i = 0; i < guidelineDataArray.length; i++) {
 					IGuidelineData data = guidelineDataArray[i];
 					if (data.isMatched()) {
 						tdElement = result.createElement(TH);
-						tdElement.appendChild(result.createTextNode(data
-								.getGuidelineName()));
+						tdElement.appendChild(result.createTextNode(data.getGuidelineName()));
 						trElement.appendChild(tdElement);
 					}
 				}
 
 				tdElement = result.createElement(TH);
-				tdElement.appendChild(result
-						.createTextNode(IProblemConst.TITLE_DESCRIPTION));
+				tdElement.appendChild(result.createTextNode(IProblemConst.TITLE_DESCRIPTION));
 				trElement.appendChild(tdElement);
 
 				// int iconId; //TODO
@@ -295,18 +274,15 @@ public class SaveReportBlind {
 					trElement = result.createElement(TR);
 
 					// for highlight(kentarou:031113)
-					trElement.setAttribute("onClick",
-							"clearTrHighlight();clearHighlight()");
+					trElement.setAttribute("onClick", "clearTrHighlight();clearHighlight()");
 					if (current.isCanHighlight()) {
 
-						HighlightTargetId[] targets = current
-								.getHighlightTargetIds();
+						HighlightTargetId[] targets = current.getHighlightTargetIds();
 						int length = targets.length;
 
 						String strSet = NULL_STRING;
 						if (length == 1) {
-							strSet = "setHighlight(" + targets[0].getStartId()
-									+ "," + targets[0].getEndId() + ");";
+							strSet = "setHighlight(" + targets[0].getStartId() + "," + targets[0].getEndId() + ");";
 						} else if (length > 1) {
 							StringBuffer strStart = new StringBuffer(2048);
 							StringBuffer strEnd = new StringBuffer(2048);
@@ -316,15 +292,12 @@ public class SaveReportBlind {
 								strStart.append("," + targets[j].getStartId());
 								strEnd.append("," + targets[j].getEndId());
 							}
-							strSet = "setHighlight2(new Array("
-									+ strStart.toString() + "), new Array("
+							strSet = "setHighlight2(new Array(" + strStart.toString() + "), new Array("
 									+ strEnd.toString() + "));";
 						}
 
-						trElement.setAttribute("onclick",
-								"highlightTr(this);clearHighlight();" + strSet);
-						trElement.setAttribute("STYLE",
-								"COLOR:blue;TEXT-DECORATION:underline");
+						trElement.setAttribute("onclick", "highlightTr(this);clearHighlight();" + strSet);
+						trElement.setAttribute("STYLE", "COLOR:blue;TEXT-DECORATION:underline");
 						// (
 					}
 
@@ -371,11 +344,9 @@ public class SaveReportBlind {
 							tdElement = result.createElement(TD);
 							String sTmp = guidelines[j];
 							if (sTmp != null && !sTmp.equals(NULL_STRING))
-								tdElement.appendChild(result
-										.createTextNode(sTmp));
+								tdElement.appendChild(result.createTextNode(sTmp));
 							else
-								tdElement.appendChild(result
-										.createTextNode("-"));
+								tdElement.appendChild(result.createTextNode("-"));
 
 							trElement.appendChild(tdElement);
 						}
@@ -404,6 +375,7 @@ public class SaveReportBlind {
 			// + "saveResultTmp.html", sFileName);
 
 			DomPrintUtil dpu = new DomPrintUtil(result);
+			dpu.setHTML5(true); // TODO
 			try {
 				dpu.writeToFile(sFileName);
 			} catch (IOException e) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 IBM Corporation and Others
+ * Copyright (c) 2004, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,10 @@ import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.w3c.dom.Node;
 
 
+/**
+ * @author kentarou
+ *
+ */
 public class VisualizationNodeInfo {
 
 	//separated from VisualizeEngine
@@ -43,8 +47,10 @@ public class VisualizationNodeInfo {
     private Node node = null; // only when packet is null
 
     private boolean isHeading = false;
+    
+    private boolean isLandmark = false; //for html5
 
-    private boolean tableHeader = false;
+	private boolean tableHeader = false;
 
     private boolean isLabel = false;
 
@@ -308,7 +314,7 @@ public class VisualizationNodeInfo {
     }
 
     /**
-     * Returns the headingOrListitem.
+     * Returns the heading.
      * 
      * @return boolean
      */
@@ -317,15 +323,30 @@ public class VisualizationNodeInfo {
     }
 
     /**
-     * Sets the headingOrListitem.
+     * Sets the heading.
      * 
-     * @param headingOrListitem
-     *            The headingOrListitem to set
+     * @param heading
+     *            The heading to set
      */
-    public void setHeading(boolean headingOrListitem) {
-        this.isHeading = headingOrListitem;
+    public void setHeading(boolean heading) {
+        this.isHeading = heading;
     }
 
+    /**
+     * @return
+     */
+    public boolean isLandmark() {
+		return isLandmark;
+	}
+
+	/**
+	 * @param isLandmark
+	 */
+	public void setLandmark(boolean isLandmark) {
+		this.isLandmark = isLandmark;
+	}
+
+    
     /**
      * Returns the time.
      * 

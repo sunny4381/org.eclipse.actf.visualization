@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and Others
+ * Copyright (c) 2008, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,10 +22,13 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Vector;
 
+import org.eclipse.actf.model.dom.html.DocumentTypeUtil;
 import org.eclipse.actf.model.dom.html.HTMLParserFactory;
 import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.ui.IModelService;
 import org.eclipse.actf.model.ui.editor.browser.IWebBrowserACTF;
+import org.eclipse.actf.model.ui.util.ModelServiceUtils;
+import org.eclipse.actf.ui.util.PlatformUIUtil;
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.util.dom.DomPrintUtil;
 import org.eclipse.actf.util.logging.DebugPrintUtil;
@@ -50,12 +53,13 @@ import org.eclipse.actf.visualization.eval.problem.HighlightTargetNodeInfo;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.eclipse.actf.visualization.util.html2view.Html2ViewMapMaker;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.IEditorPart;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-public class BlindVisualizerHtml extends BlindVisualizerBase implements
-		IBlindVisualizer {
+public class BlindVisualizerHtml extends BlindVisualizerBase implements IBlindVisualizer {
 
 	public static final int FRAME = 1;
 
@@ -93,38 +97,36 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 		File srcFile;
 		File liveFile;
 		File targetFile;
+		
+		boolean isHTML5 = false;
 
 		try {
 			if (PERFORMANCE_DEBUG)
-				System.out
-						.println("vizualize start\t" + (new Date()).getTime());
+				System.out.println("vizualize start\t" + (new Date()).getTime()); //$NON-NLS-1$
 			srcFile = webBrowser.saveOriginalDocument(tmpDirS + ORIG_HTML_FILE);
-			liveFile = webBrowser
-					.saveDocumentAsHTMLFile(tmpDirS + IE_HTML_FILE);
+			liveFile = webBrowser.saveDocumentAsHTMLFile(tmpDirS + IE_HTML_FILE);
 			// for srcViewer
 			webBrowser.saveOriginalDocument(tmpDirS + HTML_SOURCE_FILE);
 
 			if (PERFORMANCE_DEBUG)
-				System.out.println("save documents\t" + (new Date()).getTime());
+				System.out.println("save documents\t" + (new Date()).getTime()); //$NON-NLS-1$
 
 			Vector<Html2ViewMapData> html2ViewMapV = new Vector<Html2ViewMapData>();
 			IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
 			HtmlErrorLogListener errorLogListener = new HtmlErrorLogListener();
 			htmlParser.addErrorLogListener(errorLogListener);
-			String targetFileName = tmpDirS + MAPPED_HTML_FILE_PRE + frameId
-					+ ".html"; //$NON-NLS-1$
+			String targetFileName = tmpDirS + MAPPED_HTML_FILE_PRE + frameId + ".html"; //$NON-NLS-1$
 
 			boolean isIEhtml = false;
 			if (EvaluationUtil.isOriginalDOM()) {
-				html2ViewMapV = Html2ViewMapMaker.makeMap(ORIG_HTML_FILE,
-						MAPPED_HTML_FILE_PRE + frameId + ".html", tmpDirS); //$NON-NLS-1$
+				html2ViewMapV = Html2ViewMapMaker.makeMap(ORIG_HTML_FILE, MAPPED_HTML_FILE_PRE + frameId + ".html", //$NON-NLS-1$
+						tmpDirS);
 				// decode miss
 				if (html2ViewMapV.size() == 0) {
 					isIEhtml = true;
 				}
 				if (PERFORMANCE_DEBUG)
-					System.out
-							.println("map finish\t" + (new Date()).getTime());
+					System.out.println("map finish\t" + (new Date()).getTime()); //$NON-NLS-1$
 			} else {
 				isIEhtml = true;
 			}
@@ -139,14 +141,11 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 				ieDom = webBrowser.getLiveDocument();
 
 				// TODO replace with DomByCom (need clone/write support)
-				IHTMLParser tmpHtmlParser = HTMLParserFactory
-						.createHTMLParser();
-				tmpHtmlParser
-						.parse(new FileInputStream(tmpDirS + IE_HTML_FILE));
+				IHTMLParser tmpHtmlParser = HTMLParserFactory.createHTMLParser();
+				tmpHtmlParser.parse(new FileInputStream(tmpDirS + IE_HTML_FILE));
 				document = tmpHtmlParser.getDocument();
 
-				tmpHtmlParser.parse(new FileInputStream(tmpDirS
-						+ ORIG_HTML_FILE));
+				tmpHtmlParser.parse(new FileInputStream(tmpDirS + ORIG_HTML_FILE));
 				originalDocument = tmpHtmlParser.getDocument();
 
 				targetFile = liveFile;
@@ -159,9 +158,11 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 				targetFile = srcFile;
 			}
+			
+			isHTML5 = DocumentTypeUtil.isOriginalHTML5(originalDocument.getDoctype());
+			
 			if (PERFORMANCE_DEBUG)
-				System.out
-						.println("parse documents\t" + (new Date()).getTime());
+				System.out.println("parse documents\t" + (new Date()).getTime()); //$NON-NLS-1$
 
 			// System.out.println(document+" "+ _originalDom+" "+ ieDom);
 
@@ -185,6 +186,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			engine.setTargetUrl(targetUrl);
 			engine.setDocument(document);
 			engine.setHtml2viewMapV(html2ViewMapV);
+			engine.setHTML5(isHTML5);
 
 			// TODO invisibleElements
 			// HashSet invisibleIdSet = new HashSet();
@@ -198,16 +200,15 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 
 			engine.setInvisibleIdSet(new HashSet<String>());
 			if (PERFORMANCE_DEBUG)
-				System.out.println("setInvisibleIdSet\t"
-						+ (new Date()).getTime());
+				System.out.println("setInvisibleIdSet\t" + (new Date()).getTime()); //$NON-NLS-1$
 
 			engine.setPageData(pageData);
 			if (PERFORMANCE_DEBUG)
-				System.out.println("setPageData\t" + (new Date()).getTime());
+				System.out.println("setPageData\t" + (new Date()).getTime()); //$NON-NLS-1$
 
 			engine.visualize();
 			if (PERFORMANCE_DEBUG)
-				System.out.println("do vizualize\t" + (new Date()).getTime());
+				System.out.println("do vizualize\t" + (new Date()).getTime()); //$NON-NLS-1$
 
 			maxReachingTime = engine.getMaxTime();
 			setInfoMessage(getMaxReachingTime());
@@ -232,72 +233,86 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 				isDBCS = true;
 			}
 
-			HtmlEvalUtil edu = new HtmlEvalUtil(document, resultDocument,
-					targetUrl, mapData.getOrig2idMap(), originalDocument,
-					ieDom, pageData, isDBCS, isIEhtml);
+			HtmlEvalUtil edu = new HtmlEvalUtil(document, resultDocument, targetUrl, mapData.getOrig2idMap(),
+					originalDocument, ieDom, pageData, isDBCS, isIEhtml);
 			edu.setLiveFile(liveFile);
 			edu.setSrcFile(srcFile);
 			edu.setTargetFile(targetFile);
 
 			if (PERFORMANCE_DEBUG)
-				System.out.println("HtmlEvalUtil\t" + (new Date()).getTime());
+				System.out.println("HtmlEvalUtil\t" + (new Date()).getTime()); //$NON-NLS-1$
 
-			ArrayList<IProblemItem> tmpResults = new ArrayList<IProblemItem>(
-					1024);
+			ArrayList<IProblemItem> tmpResults = new ArrayList<IProblemItem>(1024);
 
 			// TODO re-impl BrowserAndStyleInfo
 			//
 			// BrowserAndStyleInfo data =
 			// webBrowser.getBrowserAndStyleInfo();
-			IHtmlCheckTarget checkTarget = CheckTargetFactory
-					.createHtmlCheckTarget(document, webBrowser.getURL(), null,
-							edu);
+			IHtmlCheckTarget checkTarget = CheckTargetFactory.createHtmlCheckTarget(document, webBrowser.getURL(), null,
+					edu);
 
 			for (int i = 0; i < checkers.length; i++) {
 				if (checkers[i] instanceof IHtmlChecker) {
-					tmpResults.addAll(((IHtmlChecker) checkers[i])
-							.checkHtml(checkTarget));
-				} else if (checkers[i].isTargetFormat(webBrowser
-						.getCurrentMIMEType()) && checkers[i].isEnabled()) {
+					tmpResults.addAll(((IHtmlChecker) checkers[i]).checkHtml(checkTarget));
+				} else if (checkers[i].isTargetFormat(webBrowser.getCurrentMIMEType()) && checkers[i].isEnabled()) {
 					tmpResults.addAll(checkers[i].check(checkTarget));
 				}
 			}
 
 			if (PERFORMANCE_DEBUG)
-				System.out.println("checked\t" + (new Date()).getTime());
+				System.out.println("checked\t" + (new Date()).getTime()); //$NON-NLS-1$
 
+			boolean hasBOM = false;
+			Vector<IProblemItem> tmpV = errorLogListener.getHtmlProblemVector();
+			if (isHTML5) {
+				int bomError = -1;
+				for (int i = 0; i < tmpV.size(); i++) {
+					IProblemItem item = tmpV.get(i);
+					if (item.getId().equals("C_1000.8")) { //$NON-NLS-1$
+						bomError = i;
+					}
+				}
+				if (bomError > -1) {
+					tmpV.remove(bomError);
+					hasBOM = true;
+				}
+			}
+
+			int charsetProblem = -1;
 			// TODO support blind biz -> visitor
 			for (int i = 0; i < tmpResults.size(); i++) {
 				IProblemItem tmpItem = tmpResults.get(i);
-				HighlightTargetNodeInfo nodeInfo = tmpItem
-						.getHighlightTargetNodeInfo();
+				HighlightTargetNodeInfo nodeInfo = tmpItem.getHighlightTargetNodeInfo();
 				if (nodeInfo != null) {
 					if (tmpItem.getHighlightTargetIds().length == 0) {
-						tmpItem.setHighlightTargetIds(nodeInfo
-								.getHighlightTargetIds(mapData.getOrig2idMap()));
+						tmpItem.setHighlightTargetIds(nodeInfo.getHighlightTargetIds(mapData.getOrig2idMap()));
 					}
 					if (EvaluationUtil.isOriginalDOM()) {
-						tmpItem.setHighlightTargetSourceInfo(nodeInfo
-								.getHighlightTargetSourceInfo(html2ViewMapV));
+						tmpItem.setHighlightTargetSourceInfo(nodeInfo.getHighlightTargetSourceInfo(html2ViewMapV));
 					}
 				}
+				if (hasBOM && tmpItem.getId().equals("C_88.1")) { //$NON-NLS-1$
+					hasBOM = false; // do not check from here
+					charsetProblem = i;
+				}
+			}
+			if (charsetProblem > -1) {
+				tmpResults.remove(charsetProblem);
 			}
 			checkResult.addProblemItems(tmpResults);
-			checkResult
-					.addProblemItems(errorLogListener.getHtmlProblemVector());
+
+			checkResult.addProblemItems(tmpV);
 			checkResult.accept(pageData);
 
 			if (PERFORMANCE_DEBUG)
-				System.out.println("process problems\t"
-						+ (new Date()).getTime());
+				System.out.println("process problems\t" + (new Date()).getTime()); //$NON-NLS-1$
 
 			// TODO move (add Icons into result doc) here
 
 			if (resultFile != null) {
 				resultFile.delete();
 			}
-			resultFile = BlindVizResourceUtil.createTempFile(
-					IVisualizationConst.PREFIX_RESULT,
+			resultFile = BlindVizResourceUtil.createTempFile(IVisualizationConst.PREFIX_RESULT,
 					IVisualizationConst.SUFFIX_HTML);
 			// File tmpFile = BlindVizEnginePlugin.createTempFile("tmp",
 			// IVisualizationConst.SUFFIX_HTML);
@@ -306,15 +321,43 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 				// HtmlParserUtil.saveHtmlDocumentAsUTF8(
 				// (SHDocument) resultDocument, tmpFile, resultFile);
 				DomPrintUtil dpu = new DomPrintUtil(resultDocument);
+				dpu.setHTML5(isHTML5);
 				dpu.writeToFile(resultFile);
 
 			} catch (Exception e3) {
-				DebugPrintUtil
-						.devOrDebugPrintln("error: saveHtmlDocumentAsUTF8"); //$NON-NLS-1$
+				DebugPrintUtil.devOrDebugPrintln("error: saveHtmlDocumentAsUTF8"); //$NON-NLS-1$
+			}
+
+			try {
+				Element[] iframes = getElementsArray(ieDom, "iframe"); //$NON-NLS-1$
+				HashSet<String> urlS = new HashSet<String>();
+				if (iframes.length > 0) {
+					for (Element e : iframes) {
+						String src = e.getAttribute("src"); //$NON-NLS-1$
+						if (src != null) {
+							if (src.startsWith("http")) { //$NON-NLS-1$
+								urlS.add(src);
+							} else {
+								System.err.println(src);
+							}
+						}
+					}
+					if (!urlS.isEmpty() && MessageDialog.openConfirm(PlatformUIUtil.getShell(),
+							Messages.BlindVisualizerHtml_15, Messages.BlindVisualizerHtml_16)) {
+						IEditorPart currentE = PlatformUIUtil.getActiveEditor();
+						for (String s : urlS) {
+							System.out.println(s);
+							ModelServiceUtils.launch(s);
+						}
+						PlatformUIUtil.getActivePage().activate(currentE);
+					}
+				}
+			} catch (Exception e2) {
+
 			}
 
 			if (PERFORMANCE_DEBUG)
-				System.out.println("vizualize end\t" + (new Date()).getTime());
+				System.out.println("vizualize end\t" + (new Date()).getTime()); //$NON-NLS-1$
 			if (hasFrame) {
 				pageData.setHasFrame(true);
 				return FRAME;
@@ -336,25 +379,23 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 	@SuppressWarnings("nls")
 	private boolean hasFrameset(Document document, IWebBrowserACTF webBrowser) {
 
-		NodeList framesetNl = document.getElementsByTagName("frameset");
+		NodeList framesetNl = document.getElementsByTagName("frameset"); //$NON-NLS-1$
 
 		if (framesetNl.getLength() > 0) {
 
-			NodeList frameList = document.getElementsByTagName("frame");
+			NodeList frameList = document.getElementsByTagName("frame"); //$NON-NLS-1$
 
-			String sFileName = BlindVizResourceUtil.getTempDirectory()
-					+ "frameList.html";
+			String sFileName = BlindVizResourceUtil.getTempDirectory() + "frameList.html"; //$NON-NLS-1$
 
 			String base = webBrowser.getURL();
 
 			try {
 				URL baseURL = new URL(base);
 
-				NodeList baseNL = document.getElementsByTagName("base");
+				NodeList baseNL = document.getElementsByTagName("base"); //$NON-NLS-1$
 				if (baseNL.getLength() > 0) {
-					Element baseE = (Element) baseNL
-							.item(baseNL.getLength() - 1);
-					String baseUrlS = baseE.getAttribute("href");
+					Element baseE = (Element) baseNL.item(baseNL.getLength() - 1);
+					String baseUrlS = baseE.getAttribute("href"); //$NON-NLS-1$
 					if (baseUrlS.length() > 0) {
 						URL tmpUrl = new URL(baseURL, baseUrlS);
 						base = tmpUrl.toString();
@@ -366,46 +407,40 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 			PrintWriter fileOutput;
 
 			try {
-				fileOutput = new PrintWriter(new OutputStreamWriter(
-						new FileOutputStream(sFileName), "UTF-8"));
+				fileOutput = new PrintWriter(new OutputStreamWriter(new FileOutputStream(sFileName), "UTF-8")); //$NON-NLS-1$
 			} catch (IOException e) {
 				// e.printStackTrace();
 				// TODO
 				return true;
 			}
 
-			fileOutput.write("<html>");
+			fileOutput.write("<html>"); //$NON-NLS-1$
 			// " lang=\""+lang+\">"); //use var
-			fileOutput.write("<head>" + FileUtils.LINE_SEP);
-			fileOutput
-					.write("<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" >"
-							+ FileUtils.LINE_SEP);
-			fileOutput.write("<base href=\"" + base + "\"></head>"
-					+ FileUtils.LINE_SEP + "<body><P>");
-			fileOutput.write("This page contains of "); // var
+			fileOutput.write("<head>" + FileUtils.LINE_SEP); //$NON-NLS-1$
+			fileOutput.write(
+					"<meta http-equiv=\"Content-Type\" content=\"text/html;charset=utf-8\" >" + FileUtils.LINE_SEP); //$NON-NLS-1$
+			fileOutput.write("<base href=\"" + base + "\"></head>" + FileUtils.LINE_SEP + "<body><P>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			fileOutput.write(Messages.BlindVisualizerHtml_1); // var
 			fileOutput.write(String.valueOf(frameList.getLength()));
-			fileOutput.write(" frames."); // var
-			fileOutput.write("<br>" + FileUtils.LINE_SEP);
-			fileOutput.write("Please select one of them."); // var
-			fileOutput.write("</P>" + FileUtils.LINE_SEP + "<ol>"
-					+ FileUtils.LINE_SEP);
+			fileOutput.write(Messages.BlindVisualizerHtml_2); // var
+			fileOutput.write("<br>" + FileUtils.LINE_SEP); //$NON-NLS-1$
+			fileOutput.write(Messages.BlindVisualizerHtml_0); // var
+			fileOutput.write("</P>" + FileUtils.LINE_SEP + "<ol>" + FileUtils.LINE_SEP); //$NON-NLS-1$ //$NON-NLS-2$
 
 			String strTitle, strName;
 			for (int i = 0; i < frameList.getLength(); i++) {
 				Element frameEl = (Element) frameList.item(i);
-				strTitle = frameEl.getAttribute("title");
-				strName = frameEl.getAttribute("name");
-				if (strTitle.equals(""))
-					strTitle.equals("none");
-				if (strName.equals(""))
-					strName.equals("none");
-				fileOutput.write("<li><a href=\"" + frameEl.getAttribute("src")
-						+ "\">Title: \"" + strTitle + "\".<BR> Name: \""
-						+ strName + "\".<BR> src: \""
-						+ frameEl.getAttribute("src") + "\".</a>"
+				strTitle = frameEl.getAttribute("title"); //$NON-NLS-1$
+				strName = frameEl.getAttribute("name"); //$NON-NLS-1$
+				if (strTitle.equals("")) //$NON-NLS-1$
+					strTitle.equals("none"); //$NON-NLS-1$
+				if (strName.equals("")) //$NON-NLS-1$
+					strName.equals("none"); //$NON-NLS-1$
+				fileOutput.write("<li><a href=\"" + frameEl.getAttribute("src") + "\">Title: \"" + strTitle //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						+ "\".<BR> Name: \"" + strName + "\".<BR> src: \"" + frameEl.getAttribute("src") + "\".</a>" //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 						+ FileUtils.LINE_SEP);
 			}
-			fileOutput.write("</ol></body></html>");
+			fileOutput.write("</ol></body></html>"); //$NON-NLS-1$
 
 			fileOutput.flush();
 			fileOutput.close();
@@ -416,6 +451,16 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements
 		} else {
 			return false;
 		}
+	}
+
+	private Element[] getElementsArray(Document target, String tagName) {
+		NodeList tmpNL = target.getElementsByTagName(tagName);
+		int length = tmpNL.getLength();
+		Element[] result = new Element[length];
+		for (int i = 0; i < length; i++) {
+			result[i] = (Element) tmpNL.item(i);
+		}
+		return (result);
 	}
 
 }

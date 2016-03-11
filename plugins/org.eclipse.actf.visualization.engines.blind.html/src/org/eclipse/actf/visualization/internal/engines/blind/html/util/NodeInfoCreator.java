@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and Others
+ * Copyright (c) 2005, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,8 +35,11 @@ public class NodeInfoCreator {
 
 	private static final String LIST_TAGS = "ul|ol|dl"; //$NON-NLS-1$
 
-	private static final Set<String> BLOCK_TAG_SET = HtmlTagUtil
-			.getBlockElementSet();
+	private static final String LANDMARK_TAGS = "nav|main|article|aside"; //$NON-NLS-1$
+
+	private static final String HEADER_FOOTER_TAGS = "header|footer"; //$NON-NLS-1$
+
+	private static final Set<String> BLOCK_TAG_SET = HtmlTagUtil.getBlockElementSet();
 
 	private VisualizeMapDataImpl mapData;
 
@@ -51,8 +54,7 @@ public class NodeInfoCreator {
 	/**
 	 * 
 	 */
-	public NodeInfoCreator(VisualizeMapDataImpl mapData,
-			TextChecker textChecker, List<IProblemItem> problems,
+	public NodeInfoCreator(VisualizeMapDataImpl mapData, TextChecker textChecker, List<IProblemItem> problems,
 			Set<String> invisibleIdSet, ParamBlind paramBlind) {
 		this.mapData = mapData;
 		this.textChecker = textChecker;
@@ -67,8 +69,7 @@ public class NodeInfoCreator {
 			String nodeS = targetNode.getNodeName();
 			if (nodeS.equals("img") || nodeS.equals("applet")) {// AREA?
 				if (targetS.endsWith(".]")) {
-					targetS = targetS.substring(0, targetS.lastIndexOf(".]"))
-							+ "]";
+					targetS = targetS.substring(0, targetS.lastIndexOf(".]")) + "]";
 				}
 			}
 		}
@@ -84,8 +85,7 @@ public class NodeInfoCreator {
 			return true;
 		} else if (tagName.equals("input")) {
 			String type = el.getAttribute("type").toLowerCase();
-			if ((type.length() == 0) | type.equals("text")
-					| type.equals("textarea") | type.equals("radio")
+			if ((type.length() == 0) | type.equals("text") | type.equals("textarea") | type.equals("radio")
 					| type.equals("checkbox")) {
 				return true;
 			}
@@ -135,12 +135,11 @@ public class NodeInfoCreator {
 
 				// TODO consider ALT text ('['+alt+']')
 				// check inappropritate text
-				
+
 				if (textChecker.isSeparatedJapaneseChars(curText)) {
 					String nodeName = p.getNode().getNodeName();
-					if (!nodeName.matches("img|input|area")) {//already checked
-						BlindProblem prob = new BlindProblem(
-								IBlindProblem.WRONG_TEXT, curText);
+					if (!nodeName.matches("img|input|area")) {// already checked
+						BlindProblem prob = new BlindProblem(IBlindProblem.WRONG_TEXT, curText);
 						prob.setNode(p.getNode());
 						prob.setTargetNode(mapData.getOrigNode(p.getNode()));
 						problems.add(prob);
@@ -149,8 +148,7 @@ public class NodeInfoCreator {
 
 				// check redundant texts
 				if ((prevPacket != null)
-						&& (p.getContext().isInsideAnchor() == prevPacket
-								.getContext().isInsideAnchor())) {
+						&& (p.getContext().isInsideAnchor() == prevPacket.getContext().isInsideAnchor())) {
 					Node curNode = p.getNode();
 					Node prevNode = prevPacket.getNode();
 
@@ -161,28 +159,23 @@ public class NodeInfoCreator {
 
 						if (textChecker.isRedundantText(prevText, curText)) {
 							if (!HtmlTagUtil.hasAncestor(curNode, "noscript")
-									&& !HtmlTagUtil.hasAncestor(prevNode,
-											"noscript")) {
+									&& !HtmlTagUtil.hasAncestor(prevNode, "noscript")) {
 								// remove "." from error (comment from JIM)
 								prevText = removePeriod(prevText, prevNode);
 								curText = removePeriod(curText, curNode);
 
-								BlindProblem prob = new BlindProblem(
-										IBlindProblem.REDUNDANT_ALT, "\""
-												+ prevText + "\" & \""
-												+ curText + "\"");
+								BlindProblem prob = new BlindProblem(IBlindProblem.REDUNDANT_ALT,
+										"\"" + prevText + "\" & \"" + curText + "\"");
 								prob.setNode(prevNode);
 								prob.addNode(curNode);
 
 								// TODO insideAnchor -> check same target?
 								if (prevNode.getNodeName().equals("img")) {
-									prob.setTargetNode(mapData
-											.getOrigNode(prevNode));
+									prob.setTargetNode(mapData.getOrigNode(prevNode));
 									prob.setTargetStringForExport(prevText);
 									problems.add(prob);
 								} else if (curNode.getNodeName().equals("img")) {
-									prob.setTargetNode(mapData
-											.getOrigNode(curNode));
+									prob.setTargetNode(mapData.getOrigNode(curNode));
 									prob.setTargetStringForExport(curText);
 									problems.add(prob);
 								} else {
@@ -233,9 +226,7 @@ public class NodeInfoCreator {
 						info.appendComment("Table header.");
 					} else if (nodeName.equals("label")) {
 						info.setLabel(true);
-						info.appendComment("Label for '"
-								+ ((Element) curNode).getAttribute("for")
-								+ "'. ");
+						info.appendComment("Label for '" + ((Element) curNode).getAttribute("for") + "'. ");
 					}
 
 					if (nodeName.equals("body")) {
@@ -274,7 +265,6 @@ public class NodeInfoCreator {
 	}
 
 	@SuppressWarnings("nls")
-	// TODO
 	public void createAdditionalNodeInfo(Document doc) {
 		// create elementList
 		// set node info ID
@@ -305,8 +295,7 @@ public class NodeInfoCreator {
 
 				while ((curNode != null) && (stack.size() > 0)) {
 					String curNodeName = curNode.getNodeName();
-					VisualizationNodeInfo curInfo = mapData
-							.getNodeInfo(curNode);
+					VisualizationNodeInfo curInfo = mapData.getNodeInfo(curNode);
 
 					if (curNode.getNodeType() == Node.TEXT_NODE) {
 						// add text nodes involved in the PacketCollection.
@@ -346,17 +335,32 @@ public class NodeInfoCreator {
 
 						if (curNodeName.equals("img")) {
 							// TODO handle invisible map
-							String map = ((Element) curNode)
-									.getAttribute("usemap");
+							String map = ((Element) curNode).getAttribute("usemap");
 							if ((map != null) && (map.length() > 0)) {
 								int words = curInfo.getWords();
-								String curText = mapTextMap.get(map
-										.toLowerCase().substring(1));
+								String curText = mapTextMap.get(map.toLowerCase().substring(1));
 								int add = textCounter.getWordCount(curText);
 								curInfo.setWords(words + add);
 								curInfo.setLines(curInfo.getLines() + 1);
 							}
 						}
+
+						if (curNodeName.matches(LANDMARK_TAGS)) {
+							curInfo.setLandmark(true);
+							curInfo.appendComment("Landmark: " + curNodeName + ".");
+							// System.out.println("Landmark: " + curNodeName +
+							// ".");
+						} else if (curNodeName.matches(HEADER_FOOTER_TAGS)) {
+							if (!HtmlTagUtil.hasAncestor(curNode, "article")
+									&& !HtmlTagUtil.hasAncestor(curNode, "section")) {
+								curInfo.setLandmark(true);
+								curInfo.appendComment(
+										"Landmark: " + curNodeName + " without ancestor article/section.");
+								// System.out.println("Landmark: " + curNodeName
+								// + " without ancestor article/section.");
+							}
+						}
+
 					}
 
 					if (curInfo != null) {
@@ -377,14 +381,12 @@ public class NodeInfoCreator {
 						if (curNode.getNodeType() == Node.ELEMENT_NODE) {
 							if (isIdRequiredInput((Element) curNode)) {
 								curInfo.setIdRequiredInput(true);
-								curInfo.appendComment("Input with id, '"
-										+ ((Element) curNode)
-												.getAttribute("id") + "'. ");
+								curInfo.appendComment(
+										"Input with id, '" + ((Element) curNode).getAttribute("id") + "'. ");
 							}
 						}
 
-						mapData.addNodeIdMapping(curInfo.getNode(),
-								new Integer(curInfo.getId()));
+						mapData.addNodeIdMapping(curInfo.getNode(), new Integer(curInfo.getId()));
 
 					}
 

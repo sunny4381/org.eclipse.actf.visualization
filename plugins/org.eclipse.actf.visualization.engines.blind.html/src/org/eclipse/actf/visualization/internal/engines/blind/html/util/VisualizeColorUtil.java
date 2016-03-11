@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 IBM Corporation and Others
+ * Copyright (c) 2004, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,6 +40,8 @@ public class VisualizeColorUtil {
 
 	private ParamBlind param;
 
+	private boolean isHTML5;
+
 	/**
 	 * @param result
 	 * @param mapData
@@ -47,13 +49,13 @@ public class VisualizeColorUtil {
 	 * @param linkMap
 	 * @param param
 	 */
-	public VisualizeColorUtil(Document result, VisualizeMapDataImpl mapData,
-			ParamBlind param) {
+	public VisualizeColorUtil(Document result, VisualizeMapDataImpl mapData, ParamBlind param, boolean isHTML5) {
 		this.result = result;
 		this.mapData = mapData;
 		this.nodeInfoList = mapData.getNodeInfoList();
 		this.linkMap = mapData.getIntraPageLinkMap();
 		this.param = param;
+		this.isHTML5 = isHTML5;
 	}
 
 	public void setColorAll() {
@@ -91,8 +93,7 @@ public class VisualizeColorUtil {
 				styleEl.setAttribute("type", "text/css");
 				strRGB = getRGBString(param.tableBorderColor, "#000000");
 				Comment comment = result
-						.createComment("td {border-width: 1px; border-style: dashed; border-color: "
-								+ strRGB + "}");
+						.createComment("td {border-width: 1px; border-style: dashed; border-color: " + strRGB + "}");
 				styleEl.appendChild(comment);
 				headEl.appendChild(styleEl);
 
@@ -131,14 +132,12 @@ public class VisualizeColorUtil {
 				}
 
 			} else {
-				DebugPrintUtil
-						.devOrDebugPrintln("VisualizeColorUtil: unknown node in the nodeList"); //$NON-NLS-1$
+				DebugPrintUtil.devOrDebugPrintln("VisualizeColorUtil: unknown node in the nodeList"); //$NON-NLS-1$
 				continue;
 			}
 
 			if (param.bColorizeTags
-					&& (info.isHeading() | info.isTableHeader()
-							| info.isLabel() | info.isIdRequiredInput())) {
+					&& (info.isHeading() | info.isTableHeader() | info.isLabel() | info.isIdRequiredInput())) {
 				if (info.isHeading()) {
 					strRGB = getRGBString(param.headingTagsColor, "#33CCFF");
 				}
@@ -151,9 +150,7 @@ public class VisualizeColorUtil {
 				if (info.isIdRequiredInput()) {
 					strRGB = getRGBString(param.inputTagsColor, "#FF9900");
 				}
-				el.setAttribute("style",
-						"color: black; background-image: none; background-color:"
-								+ strRGB);// +
+				el.setAttribute("style", "color: black; background-image: none; background-color:" + strRGB);// +
 				// "}");
 				// } else if (info.getWords() > 0) {
 			} else {
@@ -161,31 +158,25 @@ public class VisualizeColorUtil {
 				if (time == 0) {
 					switch (param.iLanguage) {
 					case 1: // japanese
-						time = calcTimeJp(info.getTotalWords(), info
-								.getTotalLines());
+						time = calcTimeJp(info.getTotalWords(), info.getTotalLines());
 						break;
 					default: // english
-						time = calcTime(info.getTotalWords(), info
-								.getTotalLines());
+						time = calcTime(info.getTotalWords(), info.getTotalLines());
 						break;
 					}
 					info.setTime(time);
 				}
 
 				if (param.bVisualizeTime == true) {
-					el.setAttribute("style",
-							"color: black; background-image: none; background-color: #"
-									+ calcColor(time, param.maxTimeColor,
-											param.iMaxTime));
+					el.setAttribute("style", "color: black; background-image: none; background-color: #"
+							+ calcColor(time, param.maxTimeColor, param.iMaxTime));
 
 				} else {
-					el
-							.setAttribute("style",
-									"color: black; background-image: none; background-color: transparent");
+					el.setAttribute("style", "color: black; background-image: none; background-color: transparent");
 				}
 			} /*
-			 * else { }
-			 */
+				 * else { }
+				 */
 			/*
 			 * el.setAttribute( "comment", info.getPacketId() + "," +
 			 * info.getId() + "," + info.getTotalWords() + "," + info.getWords()
@@ -200,28 +191,22 @@ public class VisualizeColorUtil {
 		double maxTimeD = maxTime;
 
 		if (time >= maxTime) {
-			java.awt.Color color = new java.awt.Color(rgb.red, rgb.green,
-					rgb.blue);
+			java.awt.Color color = new java.awt.Color(rgb.red, rgb.green, rgb.blue);
 			return Integer.toHexString(color.getRGB()).substring(2);
 		} else {
 
-			int colorValueR = (int) (255.0 - (timeD / maxTimeD)
-					* (255.0 - rgb.red));
-			int colorValueG = (int) (255.0 - (timeD / maxTimeD)
-					* (255.0 - rgb.green));
-			int colorValueB = (int) (255.0 - (timeD / maxTimeD)
-					* (255.0 - rgb.blue));
+			int colorValueR = (int) (255.0 - (timeD / maxTimeD) * (255.0 - rgb.red));
+			int colorValueG = (int) (255.0 - (timeD / maxTimeD) * (255.0 - rgb.green));
+			int colorValueB = (int) (255.0 - (timeD / maxTimeD) * (255.0 - rgb.blue));
 
-			java.awt.Color color = new java.awt.Color(colorValueR, colorValueG,
-					colorValueB);
+			java.awt.Color color = new java.awt.Color(colorValueR, colorValueG, colorValueB);
 			return Integer.toHexString(color.getRGB()).substring(2);
 		}
 	}
 
 	private String getRGBString(RGB target, String defaultValue) {
 		if (target != null) {
-			return ("rgb(" + target.red + "," + target.green + ","
-					+ target.blue + ")");
+			return ("rgb(" + target.red + "," + target.green + "," + target.blue + ")");
 		}
 		return (defaultValue);
 	}
@@ -230,6 +215,7 @@ public class VisualizeColorUtil {
 		// TODO consider combination of skip nav and Headings
 
 		int headingCount = 0;
+		int landmarkCount = 0;
 
 		int curTotalWords = 0;
 		int curTotalLines = 0;
@@ -238,7 +224,31 @@ public class VisualizeColorUtil {
 		for (int i = 0; i < size; i++) {
 			VisualizationNodeInfo curInfo = nodeInfoList.get(i);
 
-			if (curInfo.isHeading()) {
+			if (isHTML5 && curInfo.isLandmark()) {
+				landmarkCount++;
+
+				int words = wordcountForLandmark(landmarkCount);
+				if (calcTime(curTotalWords, curTotalLines) >= calcTime(words, 0)) {
+					curTotalWords = words;
+					curTotalLines = 0;
+				}
+
+				// TODO enable after NVDA support navigation key for "main"
+				// if (curInfo.getNode().getNodeName().equalsIgnoreCase("main"))
+				// {
+				// // some screen readers has navigation key (JAWS: "q") for
+				// "main"
+				// curTotalWords = 0;
+				// curTotalLines = 0;
+				// }
+
+				curInfo.setTotalWords(curTotalWords);
+				curInfo.setTotalLines(curTotalLines);
+
+				curTotalWords += curInfo.getWords();
+				curTotalLines += curInfo.getLines();
+
+			} else if (curInfo.isHeading()) {
 				if (curInfo.getNode().getNodeName().matches("h[1-6]")) {
 					headingCount++;
 				}
@@ -248,8 +258,7 @@ public class VisualizeColorUtil {
 				// System.out.println(headingCount+": "+curTotalWords+"
 				// "+tmpTotalWords+" "+curInfo.getTotalWords()+"
 				// "+curInfo.getWords());
-				if (calcTime(curTotalWords, curTotalLines) >= calcTime(
-						tmpTotalWords, 0)) {
+				if (calcTime(curTotalWords, curTotalLines) >= calcTime(tmpTotalWords, 0)) {
 					curTotalWords = tmpTotalWords;
 					curTotalLines = 0;
 				}
@@ -262,8 +271,8 @@ public class VisualizeColorUtil {
 
 			} else {
 
-				if (calcTime(curInfo.getTotalWords(), curInfo.getTotalLines()) > calcTime(
-						curTotalWords, curTotalLines)) {
+				if (calcTime(curInfo.getTotalWords(), curInfo.getTotalLines()) > calcTime(curTotalWords,
+						curTotalLines)) {
 					curInfo.setTotalWords(curTotalWords);
 					curInfo.setTotalLines(curTotalLines);
 
@@ -272,10 +281,8 @@ public class VisualizeColorUtil {
 
 				} else {
 
-					curTotalWords = curInfo.getTotalWords()
-							+ curInfo.getWords();
-					curTotalLines = curInfo.getTotalLines()
-							+ curInfo.getLines();
+					curTotalWords = curInfo.getTotalWords() + curInfo.getWords();
+					curTotalLines = curInfo.getTotalLines() + curInfo.getLines();
 
 				}
 			}
@@ -287,8 +294,7 @@ public class VisualizeColorUtil {
 		for (int i = 0; i < size; i++) {
 			VisualizationNodeInfo curInfo = nodeInfoList.get(i);
 
-			int time = calcTime(curInfo.getTotalWords(), curInfo
-					.getTotalLines());
+			int time = calcTime(curInfo.getTotalWords(), curInfo.getTotalLines());
 
 			curInfo.setTime(time);
 			if (curInfo.getNode().getNodeName().matches("h[1-6]")) {
@@ -302,8 +308,7 @@ public class VisualizeColorUtil {
 		for (int i = 0; i < size; i++) {
 			VisualizationNodeInfo curInfo = nodeInfoList.get(i);
 
-			int time = calcTime(curInfo.getOrgTotalWords(), curInfo
-					.getOrgTotalLines());
+			int time = calcTime(curInfo.getOrgTotalWords(), curInfo.getOrgTotalLines());
 
 			curInfo.setOrgTime(time);
 		}
@@ -314,8 +319,7 @@ public class VisualizeColorUtil {
 			Node parent = target.getParentNode();
 			while (parent != null) {
 				if (parent.getFirstChild() == target) {
-					VisualizationNodeInfo nodeInfo = mapData
-							.getNodeInfo(parent);
+					VisualizationNodeInfo nodeInfo = mapData.getNodeInfo(parent);
 					if (nodeInfo != null && nodeInfo.getTime() > time) {
 						nodeInfo.setTime(time);
 					}
@@ -328,17 +332,13 @@ public class VisualizeColorUtil {
 		}
 	}
 
-	private void replaceParentInfoWord(Node target, int word, int line,
-			int newTime) {
+	private void replaceParentInfoWord(Node target, int word, int line, int newTime) {
 		if (target != null) {
 			Node parent = target.getParentNode();
 			while (parent != null) {
 				if (parent.getFirstChild() == target) {
-					VisualizationNodeInfo nodeInfo = mapData
-							.getNodeInfo(parent);
-					if (nodeInfo != null
-							&& calcTime(nodeInfo.getTotalWords(), nodeInfo
-									.getTotalLines()) > newTime) {
+					VisualizationNodeInfo nodeInfo = mapData.getNodeInfo(parent);
+					if (nodeInfo != null && calcTime(nodeInfo.getTotalWords(), nodeInfo.getTotalLines()) > newTime) {
 						nodeInfo.setTotalWords(word);
 						nodeInfo.setTotalLines(line);
 					}
@@ -373,21 +373,18 @@ public class VisualizeColorUtil {
 
 			VisualizationNodeInfo fromInfo = nodeInfoList.get(fromId);
 			if (fromInfo.getNode() != fromNode) {
-				DebugPrintUtil.devOrDebugPrintln("from node does not exists: "
-						+ fromId + " " + fromNode);
+				DebugPrintUtil.devOrDebugPrintln("from node does not exists: " + fromId + " " + fromNode);
 				continue;
 			}
 			VisualizationNodeInfo toInfo = nodeInfoList.get(toId);
 			if (toInfo.getNode() != toNode) {
-				DebugPrintUtil.devOrDebugPrintln("to node does not exists: "
-						+ toId + " " + toNode);
+				DebugPrintUtil.devOrDebugPrintln("to node does not exists: " + toId + " " + toNode);
 				continue;
 			}
 
 			VisualizationNodeInfo curInfo = toInfo;
 			int curId = toId;
-			int curTotalWords = fromInfo.getTotalWords()
-					+ getWordcountFor2sec();
+			int curTotalWords = fromInfo.getTotalWords() + getWordcountFor2sec();
 			int curTotalLines = fromInfo.getTotalLines();
 			int newTime = calcTime(curTotalWords, curTotalLines);
 
@@ -396,8 +393,7 @@ public class VisualizeColorUtil {
 				curInfo.setTotalWords(curTotalWords);
 				curInfo.setTotalLines(curTotalLines);
 
-				replaceParentInfoWord(curInfo.getNode(), curTotalWords,
-						curTotalLines, newTime);
+				replaceParentInfoWord(curInfo.getNode(), curTotalWords, curTotalLines, newTime);
 
 				// elements after intra page link
 				curId++;
@@ -435,14 +431,26 @@ public class VisualizeColorUtil {
 		return (int) ((words * WORD_JP) + (lines * (0.6)));
 	}
 
-	private int wordcountForHeading(int headingNumber) {
+	private int wordcountForLandmark(int landmarkNumber) {
 		switch (param.iLanguage) {
 		case ParamBlind.EN:
-			return 6 * (headingNumber - 1) + 15;
+			return 3 * landmarkNumber + 9;
 		case ParamBlind.JP:
-			return 13 * (headingNumber - 1) + 31;
+			return (int) Math.round(6.5 * landmarkNumber) + 18;
 		default:
-			return 6 * (headingNumber - 1) + 15;
+			return 3 * landmarkNumber + 9;
+		}
+	}
+
+	private int wordcountForHeading(int headingNumber) {
+		// use 1 sec for each landmark (text is shorter than headings)
+		switch (param.iLanguage) {
+		case ParamBlind.EN:
+			return 6 * headingNumber + 9;
+		case ParamBlind.JP:
+			return 13 * headingNumber + 18;
+		default:
+			return 6 * headingNumber + 9;
 		}
 
 	}

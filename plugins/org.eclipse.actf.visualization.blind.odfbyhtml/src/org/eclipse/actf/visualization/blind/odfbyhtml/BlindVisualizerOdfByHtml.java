@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and Others
+ * Copyright (c) 2008, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Vector;
 
+import org.eclipse.actf.model.dom.html.DocumentTypeUtil;
 import org.eclipse.actf.model.dom.html.HTMLParserFactory;
 import org.eclipse.actf.model.dom.html.IHTMLParser;
 import org.eclipse.actf.model.ui.IModelService;
@@ -30,7 +31,6 @@ import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.eval.EvaluationResultBlind;
 import org.eclipse.actf.visualization.engines.blind.html.IVisualizeMapData;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
-import org.eclipse.actf.visualization.engines.blind.html.util.HtmlErrorLogListener;
 import org.eclipse.actf.visualization.engines.blind.html.util.VisualizeReportUtil;
 import org.eclipse.actf.visualization.eval.CheckTargetFactory;
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
@@ -46,8 +46,7 @@ import org.eclipse.actf.visualization.util.html2view.Html2ViewMapMaker;
 import org.w3c.dom.Document;
 
 @SuppressWarnings("nls")
-public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
-		IBlindVisualizer {
+public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements IBlindVisualizer {
 
 	private final String ODF_HTML_FILE_NAME = "ODF.html";
 
@@ -75,8 +74,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			return ERROR;
 		}
 
-		GuidelineHolder.getInstance().setTargetMimeType(
-				modelService.getCurrentMIMEType());
+		GuidelineHolder.getInstance().setTargetMimeType(modelService.getCurrentMIMEType());
 
 		modelService.saveDocumentAsHTMLFile(odf_html_fileS);
 
@@ -84,18 +82,17 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 
 		try {
 
-			FileUtils
-					.copyFile(odf_html_fileS, tmpDirS + HTML_SOURCE_FILE, true);
+			FileUtils.copyFile(odf_html_fileS, tmpDirS + HTML_SOURCE_FILE, true);
 
 			Vector<Html2ViewMapData> html2ViewMapV = new Vector<Html2ViewMapData>();
 
-			IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
-			HtmlErrorLogListener errorLogListener = new HtmlErrorLogListener();
-			htmlParser.addErrorLogListener(errorLogListener);
+			// IHTMLParser htmlParser = HTMLParserFactory.createHTMLParser();
+			// HtmlErrorLogListener errorLogListener = new
+			// HtmlErrorLogListener();
+			// htmlParser.addErrorLogListener(errorLogListener);
 			String targetFile = tmpDirS + MAPPED_HTML_FILE_PRE + ".html";
 
-			html2ViewMapV = Html2ViewMapMaker.makeMap(ODF_HTML_FILE_NAME,
-					MAPPED_HTML_FILE_PRE + ".html", tmpDirS);
+			html2ViewMapV = Html2ViewMapMaker.makeMap(ODF_HTML_FILE_NAME, MAPPED_HTML_FILE_PRE + ".html", tmpDirS);
 			if (html2ViewMapV.size() == 0) {
 				targetFile = odf_html_fileS;
 			}
@@ -107,6 +104,8 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			if (document == null) {
 				return ERROR;
 			}
+			
+			boolean isHTML5 = DocumentTypeUtil.isOriginalHTML5(document.getDoctype());
 
 			setStatusMessage(Messages.BlindView_Now_processing); //
 
@@ -122,6 +121,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			engine.setHtml2viewMapV(html2ViewMapV);
 			engine.setInvisibleIdSet(new HashSet<String>());
 			engine.setPageData(pageData);
+			engine.setHTML5(isHTML5);
 			engine.visualize();
 
 			maxReachingTime = engine.getMaxTime();
@@ -130,34 +130,29 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			resultDocument = engine.getResult();
 			checkResult.setProblemList(engine.getProbelems());
 			checkResult.setTargetUrl(targetUrl);
-			
-			if(variantFile!=null){
+
+			if (variantFile != null) {
 				variantFile.delete();
 			}
-			variantFile = engine.getVariantFile();			
+			variantFile = engine.getVariantFile();
 			checkResult.addAssociateFile(variantFile);
 
 			IVisualizeMapData mapData = engine.getVisualizeMapData();
 
 			checkResult.setSourceFile(null);
 
-			ArrayList<IProblemItem> tmpResults = new ArrayList<IProblemItem>(
-					1024);
+			ArrayList<IProblemItem> tmpResults = new ArrayList<IProblemItem>(1024);
 
 			Document odfDoc = modelService.getDocument();
-			ICheckTarget checkTarget = CheckTargetFactory.createCheckTarget(
-					odfDoc, modelService.getURL());
+			ICheckTarget checkTarget = CheckTargetFactory.createCheckTarget(odfDoc, modelService.getURL());
 			checkTarget.setAdditionalDocument("html", document);
 			IChecker[] checkers = EvaluationUtil.getCheckers();
 			for (int i = 0; i < checkers.length; i++) {
 				// TODO mimetype -> ???
-				if (checkers[i].isTargetFormat(modelService
-						.getCurrentMIMEType())
-						&& checkers[i].isEnabled()) {
+				if (checkers[i].isTargetFormat(modelService.getCurrentMIMEType()) && checkers[i].isEnabled()) {
 					long startTime = System.currentTimeMillis();
 					tmpResults.addAll(checkers[i].check(checkTarget));
-					DebugPrintUtil.devOrDebugPrintln(System.currentTimeMillis()
-							- startTime);
+					DebugPrintUtil.devOrDebugPrintln(System.currentTimeMillis() - startTime);
 				}
 			}
 
@@ -166,11 +161,9 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 			// TODO support blind biz -> visitor
 			for (int i = 0; i < tmpResults.size(); i++) {
 				IProblemItem tmpItem = tmpResults.get(i);
-				HighlightTargetNodeInfo nodeInfo = tmpItem
-						.getHighlightTargetNodeInfo();
+				HighlightTargetNodeInfo nodeInfo = tmpItem.getHighlightTargetNodeInfo();
 				if (nodeInfo != null) {
-					tmpItem.setHighlightTargetIds(nodeInfo
-							.getHighlightTargetIds(mapData.getOrig2idMap()));
+					tmpItem.setHighlightTargetIds(nodeInfo.getHighlightTargetIds(mapData.getOrig2idMap()));
 				}
 			}
 			checkResult.addProblemItems(tmpResults);
@@ -178,11 +171,10 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 
 			// TODO move (add Icons into result doc) here
 
-			if(resultFile!=null){
+			if (resultFile != null) {
 				resultFile.delete();
 			}
-			resultFile = BlindVizResourceUtil.createTempFile(
-					IVisualizationConst.PREFIX_RESULT,
+			resultFile = BlindVizResourceUtil.createTempFile(IVisualizationConst.PREFIX_RESULT,
 					IVisualizationConst.SUFFIX_HTML);
 
 			try {
@@ -192,6 +184,7 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 				// pw.flush();
 				// pw.close();
 				DomPrintUtil dpu = new DomPrintUtil(resultDocument);
+				dpu.setHTML5(isHTML5);
 				dpu.writeToFile(resultFile);
 			} catch (Exception e3) {
 				e3.printStackTrace();
@@ -206,8 +199,8 @@ public class BlindVisualizerOdfByHtml extends BlindVisualizerBase implements
 	}
 
 	public boolean isTarget(IModelService modelService) {
-		return (null != modelService && modelService.getCurrentMIMEType()
-				.startsWith("application/vnd.oasis.opendocument."));
+		return (null != modelService
+				&& modelService.getCurrentMIMEType().startsWith("application/vnd.oasis.opendocument."));
 	}
 
 	private void visualizeError(Document resultDoc, List<IProblemItem> problems) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2011 IBM Corporation and Others
+ * Copyright (c) 2004, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -56,8 +56,7 @@ public class TextChecker {
 
 	private Set<String> ngPatterns = new HashSet<String>();
 
-	private IPreferenceStore pref = BlindVizEnginePlugin.getDefault()
-			.getPreferenceStore();
+	private IPreferenceStore pref = BlindVizEnginePlugin.getDefault().getPreferenceStore();
 
 	// TODO spell out check
 
@@ -68,8 +67,7 @@ public class TextChecker {
 
 			Properties prop = new Properties();
 			try {
-				InputStream prefIS = FileLocator.openStream(
-						Platform.getBundle(BlindVizEnginePlugin.PLUGIN_ID),
+				InputStream prefIS = FileLocator.openStream(Platform.getBundle(BlindVizEnginePlugin.PLUGIN_ID),
 						new Path("config/" + ALT_TEXT_PROPERTIES_FILE), false); //$NON-NLS-1$
 				if (prefIS != null) {
 					prop.load(prefIS);
@@ -137,15 +135,12 @@ public class TextChecker {
 	 */
 	public boolean isRedundantText(String prevText, String curText) {
 
-		if ((prevText != null) && (prevText.length() > 1)
-				&& (curText.length() > 1)) {
+		if ((prevText != null) && (prevText.length() > 1) && (curText.length() > 1)) {
 
-			String prevText2 = prevText.replaceAll(
-					"\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
+			String prevText2 = prevText.replaceAll("\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
 			prevText2 = prevText2.trim();
 
-			String curText2 = curText.replaceAll(
-					"\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
+			String curText2 = curText.replaceAll("\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
 			curText2 = curText2.trim();
 
 			if (curText2.equalsIgnoreCase(prevText2)) {
@@ -179,7 +174,8 @@ public class TextChecker {
 	 * 
 	 * @param alt
 	 *            target alternative text
-	 * @return <ul>
+	 * @return
+	 * 		<ul>
 	 *         <li>0: OK</li>
 	 *         <li>1: possibly inappropriate</li>
 	 *         <li>2: inappropriate</li>
@@ -187,8 +183,7 @@ public class TextChecker {
 	 *         </ul>
 	 */
 	public int checkInappropriateAlt(final String alt) {
-		String[] tmpSA = alt.toLowerCase().split(
-				"(" + KIGOU + "|\\p{Punct}|\\p{Space})"); //$NON-NLS-1$ //$NON-NLS-2$
+		String[] tmpSA = alt.toLowerCase().split("(" + KIGOU + "|\\p{Punct}|\\p{Space})"); //$NON-NLS-1$ //$NON-NLS-2$
 		int count = 0;
 		int all = 0;
 		int charLength = 0;
@@ -261,8 +256,7 @@ public class TextChecker {
 		// \u00A0 = &nbsp;
 		@SuppressWarnings("unused")
 		String regexp1 = ".*" + KANJI + ".*"; //$NON-NLS-1$ //$NON-NLS-2$
-		String regexp2 = ".*\\b" + NIHONGO + "[\\p{Space}\u3000\u00A0]+"
-				+ NIHONGO + "\\b.*";
+		String regexp2 = ".*\\b" + NIHONGO + "[\\p{Space}\u3000\u00A0]+" + NIHONGO + "\\b.*";
 
 		if (tmpS.matches(regexp2)) {
 			return true;
@@ -375,8 +369,7 @@ public class TextChecker {
 		}
 
 		if (src != null) {
-			Matcher m = Pattern.compile(".*?([^/]+)")
-					.matcher(src.toLowerCase());
+			Matcher m = Pattern.compile(".*?([^/]+)").matcher(src.toLowerCase());
 			if (m.matches()) {
 				String fileName = m.group(1);
 				if (alt.equals(fileName)) {
@@ -395,11 +388,13 @@ public class TextChecker {
 			return TextCheckResult.SPACE_SEPARATED_JP;
 
 		// Counts number of NG "word"s in ALT
-		List<String> wordList = Arrays.asList(alt.toLowerCase().split(
-				"(" + KIGOU + "|\\p{Punct}|\\p{Space})")); //$NON-NLS-1$ //$NON-NLS-2$
+		List<String> wordList = Arrays.asList(alt.toLowerCase().split("(" + KIGOU + "|\\p{Punct}|\\p{Space})")); //$NON-NLS-1$ //$NON-NLS-2$
 		int wordCountNG = 0;
 		int wordCountAll = 0;
+
+		@SuppressWarnings("unused")
 		int charLength = 0;
+
 		for (String word : wordList) {
 			charLength += word.length();
 			if (word.length() > 0)
@@ -424,8 +419,7 @@ public class TextChecker {
 	public boolean isAsciiArtString(String str) {
 		int origLength = str.length();
 		str = str.toLowerCase();
-		List<String> wordList = Arrays.asList(str.toLowerCase().split(
-				"(" + KIGOU + "|\\p{Punct}|\\p{Space})")); //$NON-NLS-1$ //$NON-NLS-2$
+		List<String> wordList = Arrays.asList(str.toLowerCase().split("(" + KIGOU + "|\\p{Punct}|\\p{Space})")); //$NON-NLS-1$ //$NON-NLS-2$
 		int charLength = 0;
 		for (String word : wordList) {
 			charLength += word.length();
@@ -433,7 +427,6 @@ public class TextChecker {
 
 		boolean isBlank = str.matches("[\\p{Space}\\u3000\\u00A0]*");
 
-		return (origLength > 0
-				&& ((double) charLength / (double) origLength) < 0.5 && !isBlank);
+		return (origLength > 0 && ((double) charLength / (double) origLength) < 0.5 && !isBlank);
 	}
 }

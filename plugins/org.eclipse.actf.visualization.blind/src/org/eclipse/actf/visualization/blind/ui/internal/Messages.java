@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2008 IBM Corporation and Others
+ * Copyright (c) 2006, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,6 +29,11 @@ public final class Messages extends NLS {
 	public static String BlindView_end_saving_file;
 	public static String BlindView_Visualize_4;
 	public static String BlindVisualizationAction_0;
+	public static String BlindVisualizerHtml_0;
+	public static String BlindVisualizerHtml_1;
+	public static String BlindVisualizerHtml_15;
+	public static String BlindVisualizerHtml_16;
+	public static String BlindVisualizerHtml_2;
 	public static String Visualization_Error;
 	public static String Report;
 

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -93,6 +93,8 @@ public class VisualizeEngine {
 
 	private boolean servletMode = false; // for future use
 
+	private boolean isHTML5 = false;
+
 	private int iMaxTime;
 
 	private int iMaxTimeLeaf;
@@ -158,21 +160,18 @@ public class VisualizeEngine {
 		DocumentCleaner.removeDisplayNone(document);
 
 		if (DEBUG)
-			DebugPrintUtil.debugPrintln("remove display none\t"
-					+ (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("remove display none\t" + (new Date()).getTime());
 
 		orig = document;
 		result = (Document) document.cloneNode(true);
 
 		if (DEBUG)
-			DebugPrintUtil.debugPrintln("clone node\t"
-					+ (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("clone node\t" + (new Date()).getTime());
 
 		jwatc.setDocument(result);
 
 		if (DEBUG)
-			DebugPrintUtil
-					.debugPrintln("jwatc\t" + (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("jwatc\t" + (new Date()).getTime());
 
 		pageData = new PageData();
 		mapData = new VisualizeMapDataImpl();
@@ -180,7 +179,7 @@ public class VisualizeEngine {
 		VisualizeMapUtil.createNode2NodeMap(document, result, mapData);
 
 		if (DEBUG)
-			DebugPrintUtil.debugPrintln("create node2node map\t"
+			DebugPrintUtil.debugPrintln("create node2node map\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 	}
@@ -214,44 +213,39 @@ public class VisualizeEngine {
 			problems = new Vector<IProblemItem>();
 			allPc = jwatc.getPacketCollection();
 
-			DebugPrintUtil.debugPrintln("packet collection\t"
+			DebugPrintUtil.debugPrintln("packet collection\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 			cleanupPacketCollection(allPc);
 
-			DebugPrintUtil.debugPrintln("cleanup packet collection\t"
+			DebugPrintUtil.debugPrintln("cleanup packet collection\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 			ParamBlind curParamBlind = ParamBlind.getInstance();
 
 			// get packet and create map and list
-			NodeInfoCreator nodeInfoCreator = new NodeInfoCreator(mapData,
-					textChecker, problems, invisibleIdSet, curParamBlind);
+			NodeInfoCreator nodeInfoCreator = new NodeInfoCreator(mapData, textChecker, problems, invisibleIdSet,
+					curParamBlind);
 
-			DebugPrintUtil.debugPrintln("Nodeinfo init\t"
-					+ (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("Nodeinfo init\t" + (new Date()).getTime());
 
 			nodeInfoCreator.prepareNodeInfo(allPc);
 
-			DebugPrintUtil.debugPrintln("Nodeinfo prep\t"
-					+ (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("Nodeinfo prep\t" + (new Date()).getTime());
 
 			nodeInfoCreator.createAdditionalNodeInfo(result);
 
-			DebugPrintUtil.debugPrintln("Nodeinfo additional\t"
-					+ (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("Nodeinfo additional\t" + (new Date()).getTime());
 
 			// link analysis preparation
-			LinkAnalyzer linkAnalyzer = new LinkAnalyzer(result, allPc,
-					mapData, problems, invisibleIdSet, curParamBlind, pageData);
+			LinkAnalyzer linkAnalyzer = new LinkAnalyzer(result, allPc, mapData, problems, invisibleIdSet,
+					curParamBlind, pageData);
 
-			DebugPrintUtil.debugPrintln("link analyzer\t"
-					+ (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("link analyzer\t" + (new Date()).getTime());
 
 			styleInfo = new VisualizeStyleInfo(orig, mapData);
 
-			DebugPrintUtil.debugPrintln("style info\t"
-					+ (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("style info\t" + (new Date()).getTime());
 
 			/*
 			 * rewrite DOM from here
@@ -259,11 +253,9 @@ public class VisualizeEngine {
 			// insert ID attributes to elements
 			mapData.makeIdMapping(Html2ViewMapData.ACTF_ID);
 
-			DebugPrintUtil.debugPrintln("id mapping\t"
-					+ (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("id mapping\t" + (new Date()).getTime());
 
-			styleInfo.setImportedCssSet(DocumentCleaner.removeCSS(result,
-					targetUrl));
+			styleInfo.setImportedCssSet(DocumentCleaner.removeCSS(result, targetUrl));
 
 			// prepare head
 			if (result.getElementsByTagName("head").getLength() == 0) { //$NON-NLS-1$
@@ -275,31 +267,31 @@ public class VisualizeEngine {
 			}
 
 			// calculate time and set color
-			VisualizeColorUtil colorUtil = new VisualizeColorUtil(result,
-					mapData, curParamBlind);
+			VisualizeColorUtil colorUtil = new VisualizeColorUtil(result, mapData, curParamBlind, isHTML5);
 			colorUtil.setColorAll();
 
-			DebugPrintUtil
-					.debugPrintln("color\t" + (new Date()).getTime());
+			DebugPrintUtil.debugPrintln("color\t" + (new Date()).getTime()); //$NON-NLS-1$
 
 			calMaxTime();
 
-			DebugPrintUtil.debugPrintln("max time\t"
+			DebugPrintUtil.debugPrintln("max time\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 			problems.addAll(linkAnalyzer.skipLinkCheck(iMaxTime, iMaxTimeLeaf));
 
-			DebugPrintUtil.debugPrintln("skiplink check\t"
+			DebugPrintUtil.debugPrintln("skiplink check\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 			replaceImgAndCheck(result, mapData, curParamBlind.oReplaceImage);
 
-			DebugPrintUtil.debugPrintln("image check\t"
+			DebugPrintUtil.debugPrintln("image check\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 			int errorCount = 0;
 			int missing = 0;
 			int wrong = 0;
+
+			@SuppressWarnings("unused")
 			int area = 0;
 
 			// remove unnecessary problems
@@ -338,10 +330,9 @@ public class VisualizeEngine {
 			pageData.setWrongAltNum(wrong);
 			pageData.setMissingAltNum(missing);
 
-			VisualizeViewUtil
-					.visualizeError(result, problems, mapData, baseUrl);
+			VisualizeViewUtil.visualizeError(result, problems, mapData, baseUrl);
 
-			DebugPrintUtil.debugPrintln("error visualization\t"
+			DebugPrintUtil.debugPrintln("error visualization\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 			DocumentCleaner.removeJavaScript(mapData.getNodeInfoList(), result);
@@ -352,22 +343,21 @@ public class VisualizeEngine {
 			DocumentCleaner.removeBase(result);
 			DocumentCleaner.removePI(result);
 
-			DebugPrintUtil.debugPrintln("document cleaner\t"
+			DebugPrintUtil.debugPrintln("document cleaner\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 			VisualizationResultCleaner.clean(result, targetUrl);
 
-			DebugPrintUtil.debugPrintln("result cleaner\t"
+			DebugPrintUtil.debugPrintln("result cleaner\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 			// TODO merge with visualizeError
 			Id2LineViaActfId id2line = null;
 			if (EvaluationUtil.isOriginalDOM()) {
-				id2line = new Id2LineViaActfId(mapData.getId2AccIdMap(),
-						html2viewMapV);
+				id2line = new Id2LineViaActfId(mapData.getId2AccIdMap(), html2viewMapV);
 			}
 
-			DebugPrintUtil.debugPrintln("id2line\t"
+			DebugPrintUtil.debugPrintln("id2line\t" //$NON-NLS-1$
 					+ (new Date()).getTime());
 
 			for (IProblemItem i : problems) {
@@ -379,24 +369,23 @@ public class VisualizeEngine {
 			}
 			// merge
 
-			VisualizeStyleInfoManager.getInstance()
-					.fireVisualizeStyleInfoUpdate(styleInfo);
+			VisualizeStyleInfoManager.getInstance().fireVisualizeStyleInfoUpdate(styleInfo);
 
-			if (curParamBlind.visualizeMode
-					.equals(ParamBlind.BLIND_BROWSER_MODE)) {
+			if (curParamBlind.visualizeMode.equals(ParamBlind.BLIND_BROWSER_MODE)) {
 				VisualizeViewUtil.returnTextView(result, allPc, baseUrl);
 				return;
 			} else {
-				variantFile = VisualizeViewUtil.prepareActions(result, mapData,
-						baseUrl, servletMode);
+				variantFile = VisualizeViewUtil.prepareActions(result, mapData, baseUrl, servletMode);
+				if (isHTML5) {
+					VisualizeViewUtil.visualizeLandmark(result, baseUrl);
+				}
 				return;
 			}
 		}
 	}
 
 	@SuppressWarnings("nls")
-	private void replaceImgAndCheck(Document doc, VisualizeMapDataImpl mapData,
-			boolean remove) {
+	private void replaceImgAndCheck(Document doc, VisualizeMapDataImpl mapData, boolean remove) {
 
 		NodeList mapList = doc.getElementsByTagName("map");
 		Map<String, Element> mapMap = new HashMap<String, Element>();
@@ -410,8 +399,7 @@ public class VisualizeEngine {
 		int size = nl.getLength();
 		Vector<IProblemItem> problemV = new Vector<IProblemItem>();
 
-		ImgChecker imgChecker = new ImgChecker(mapData, mapMap, textChecker,
-				problemV, baseUrl, checkItems);
+		ImgChecker imgChecker = new ImgChecker(mapData, mapMap, textChecker, problemV, baseUrl, checkItems);
 
 		pageData.setTotalImageNumber(size);
 		for (int i = size - 1; i >= 0; i--) {
@@ -462,12 +450,10 @@ public class VisualizeEngine {
 				div.setAttribute("width", iframe.getAttribute("width"));
 				div.setAttribute("height", iframe.getAttribute("height"));
 				if (error) {
-					div.appendChild(doc
-							.createTextNode("[iframe: (without title)]"));
+					div.appendChild(doc.createTextNode("[iframe: (without title)]"));
 					div.setAttribute("style", errorStyle);
 				} else {
-					div.appendChild(doc.createTextNode("[iframe: title=\""
-							+ title + "\"]"));
+					div.appendChild(doc.createTextNode("[iframe: title=\"" + title + "\"]"));
 					if (title.matches("^[\\s\u3000]*$")) {
 						div.setAttribute("style", errorStyle);
 					} else {
@@ -506,8 +492,7 @@ public class VisualizeEngine {
 					// TODO space separated
 					input.setAttribute("value", altNode.getNodeValue());
 				} else {
-					BlindProblem prob = new BlindProblem(
-							IBlindProblem.NO_ALT_INPUT);
+					BlindProblem prob = new BlindProblem(IBlindProblem.NO_ALT_INPUT);
 					Integer idObj = mapData.getIdOfNode(input);
 					if (idObj != null) {
 						prob.setNode(input, idObj.intValue());
@@ -528,16 +513,13 @@ public class VisualizeEngine {
 				if (valueS.length() == 0) {
 					if (typeS.equals("button")) {
 						// not readable
-						prob = new BlindProblem(
-								IBlindProblem.NO_VALUE_INPUT_BUTTON);
+						prob = new BlindProblem(IBlindProblem.NO_VALUE_INPUT_BUTTON);
 					}
 				} else {
 					TextCheckResult result = textChecker.checkAlt(valueS);
 					if (result.equals(TextCheckResult.SPACE_SEPARATED)
-							|| result
-									.equals(TextCheckResult.SPACE_SEPARATED_JP)) {
-						prob = new BlindProblem(
-								IBlindProblem.SEPARATE_DBCS_INPUT_VALUE, valueS);
+							|| result.equals(TextCheckResult.SPACE_SEPARATED_JP)) {
+						prob = new BlindProblem(IBlindProblem.SEPARATE_DBCS_INPUT_VALUE, valueS);
 					}
 				}
 				if (prob != null) {
@@ -566,8 +548,7 @@ public class VisualizeEngine {
 		fIsActivating = true;
 		if (jwatc == null) {
 			try {
-				jwatc = VoiceBrowserControllerFactory
-						.createVoiceBrowserController();
+				jwatc = VoiceBrowserControllerFactory.createVoiceBrowserController();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -626,8 +607,7 @@ public class VisualizeEngine {
 				iMaxTime = time;
 
 			// TODO other sequencial elements (like list)
-			if (curInfo.isBlockElement() && !curInfo.isSequence()
-					&& time > iMaxTimeLeaf) {
+			if (curInfo.isBlockElement() && !curInfo.isSequence() && time > iMaxTimeLeaf) {
 				iMaxTimeLeaf = time;
 			}
 
@@ -689,9 +669,19 @@ public class VisualizeEngine {
 	}
 
 	/**
+	 * Set true if the target document is HTML5.
+	 * 
+	 * @param isHTML5
+	 */
+	public void setHTML5(boolean isHTML5) {
+		this.isHTML5 = isHTML5;
+	}
+
+	/**
 	 * @return variant for visualization as {@link File}
 	 */
 	public File getVariantFile() {
 		return variantFile;
 	}
+
 }

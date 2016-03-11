@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 IBM Corporation and Others
+ * Copyright (c) 2004, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ import org.eclipse.actf.visualization.engines.blind.html.IBlindProblem;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacket;
 import org.eclipse.actf.visualization.engines.voicebrowser.IPacketCollection;
+import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.problem.HighlightTargetId;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.internal.engines.blind.html.BlindProblem;
@@ -57,12 +58,11 @@ public class VisualizeViewUtil {
 	private static final String SRC = "src"; //$NON-NLS-1$
 
 	@SuppressWarnings("nls")
-	public static File prepareActions(Document result,
-			VisualizeMapDataImpl mapData, String baseUrl, boolean servletMode) {
+	public static File prepareActions(Document result, VisualizeMapDataImpl mapData, String baseUrl,
+			boolean servletMode) {
 
 		Map<Node, Node> linkMap = mapData.getIntraPageLinkMap();
-		List<VisualizationNodeInfo> targetElementList = mapData
-				.getNodeInfoList();
+		List<VisualizationNodeInfo> targetElementList = mapData.getNodeInfoList();
 
 		NodeList bodyEl = result.getElementsByTagName(BODY);
 
@@ -79,8 +79,7 @@ public class VisualizeViewUtil {
 			if (tmpN != null) {
 				tmpN.appendChild(result.createElement(BODY));
 			} else {
-				DebugPrintUtil
-						.devOrDebugPrintln("VisualizeViewUtil: no doc element");
+				DebugPrintUtil.devOrDebugPrintln("VisualizeViewUtil: no doc element");
 				// TODO test
 				return null;
 			}
@@ -88,8 +87,7 @@ public class VisualizeViewUtil {
 
 		// div for arrow
 		Element div = result.createElement(DIV);
-		div.setAttribute(STYLE,
-				"position:absolute;pixelLeft= 10;pixelTop=10; color:red;font-size=12pt");
+		div.setAttribute(STYLE, "position:absolute;pixelLeft= 10;pixelTop=10; color:red;font-size=12pt");
 		div.setAttribute(ID, "test");
 
 		// bodyEl.item(bodyEl.getLength() - 1).appendChild(div);
@@ -111,15 +109,12 @@ public class VisualizeViewUtil {
 			}
 		}
 
-		return (createScriptFile(result, targetElementList, baseUrl,
-				servletMode));
+		return (createScriptFile(result, targetElementList, baseUrl, servletMode));
 
 	}
 
 	@SuppressWarnings("nls")
-	// TODO
-	private static void insertLinkIcon(Document doc, Map<Node, Node> linkMap,
-			String baseUrl) {
+	private static void insertLinkIcon(Document doc, Map<Node, Node> linkMap, String baseUrl) {
 		Iterator<Node> it = linkMap.keySet().iterator();
 		Set<String> alreadySet = new HashSet<String>();
 		int id = 0;
@@ -144,8 +139,7 @@ public class VisualizeViewUtil {
 
 				Element imgel2 = doc.createElement(IMG);
 				imgel2.setAttribute(ALT, "Intra-page link destination: " + href);
-				imgel2.setAttribute(TITLE, "Intra-page link destination: "
-						+ href);
+				imgel2.setAttribute(TITLE, "Intra-page link destination: " + href);
 				imgel2.setAttribute(SRC, baseUrl + "img/dest.gif");
 				imgel2.setAttribute(NAME, href);
 
@@ -160,13 +154,77 @@ public class VisualizeViewUtil {
 		}
 	}
 
+	private static void addLandmarkImg(Document doc, Element target, String baseUrl) {
+		Element imgel1 = doc.createElement(IMG);
+		String name = target.getTagName().toLowerCase();
+		imgel1.setAttribute(ALT, "Landmark: " + name);
+		// imgel1.setAttribute(TITLE, name);
+		imgel1.setAttribute(SRC, baseUrl + "img/" + name + ".gif");
+
+		if (target.hasChildNodes()) {
+			target.insertBefore(imgel1, target.getFirstChild());
+		} else {
+			target.appendChild(imgel1);
+		}
+	}
+
+	public static void visualizeLandmark(Document doc, String baseUrl) {
+		String[] landmarks = { "nav", "article", "aside" };
+
+		NodeList tmpNl = doc.getElementsByTagName("main");
+		for (int i = 0; i < tmpNl.getLength(); i++) {
+			Element landE = (Element) tmpNl.item(i);
+			addLandmarkImg(doc, landE, baseUrl);
+
+			try {
+				Element parentE = (Element) landE.getParentNode();
+				Element divE = doc.createElement("div");
+				divE.setAttribute("class", "main");
+				parentE.insertBefore(divE, landE);
+				divE.appendChild(landE);
+			} catch (Exception e) {
+			}
+		}
+
+		for (String tag : landmarks) {
+			tmpNl = doc.getElementsByTagName(tag);
+			for (int i = 0; i < tmpNl.getLength(); i++) {
+				Element landE = (Element) tmpNl.item(i);
+				addLandmarkImg(doc, landE, baseUrl);
+			}
+		}
+
+		for (String tag : new String[] { "header", "footer" }) {
+			tmpNl = doc.getElementsByTagName(tag);
+			for (int i = 0; i < tmpNl.getLength(); i++) {
+				Element landE = (Element) tmpNl.item(i);
+				if (!HtmlTagUtil.hasAncestor(landE, "article") && !HtmlTagUtil.hasAncestor(landE, "section")) {
+					landE.setAttribute("class", "header_footer");
+					addLandmarkImg(doc, landE, baseUrl);
+				}
+			}
+		}
+
+		NodeList nl = doc.getElementsByTagName("head");
+		if (nl.getLength() > 0) {
+			Element el = (Element) nl.item(0);
+
+			Element cssE = doc.createElement("link");
+			cssE.setAttribute("rel", "stylesheet");
+			cssE.setAttribute("type", "text/css");
+			cssE.setAttribute("href", "img/visualization.css");
+			cssE.setAttribute("media", "all");
+			el.appendChild(cssE);
+		}
+
+	}
+
 	@SuppressWarnings("nls")
 	// TODO
 	private static void insertControlPane(Document result) {
 		NodeList bodyEl = result.getElementsByTagName(BODY);
 		Element div = result.createElement(DIV);
-		div.setAttribute(
-				STYLE,
+		div.setAttribute(STYLE,
 				"position:absolute;font-size: medium; background-color: #FFFFFF; border-color: #333333 #000000 #000000; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px");
 		div.setAttribute(ID, "control_pane");
 
@@ -204,16 +262,13 @@ public class VisualizeViewUtil {
 	}
 
 	@SuppressWarnings("nls")
-	private static File createScriptFile(Document result,
-			List<VisualizationNodeInfo> elementList, String baseUrl,
+	private static File createScriptFile(Document result, List<VisualizationNodeInfo> elementList, String baseUrl,
 			boolean servletMode) {
 		try {
 			PrintWriter pw;
 
-			File valiantFile = BlindVizResourceUtil.createTempFile("variant",
-					".js");
-			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(
-					valiantFile), "UTF-8"));
+			File valiantFile = BlindVizResourceUtil.createTempFile("variant", ".js");
+			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(valiantFile), "UTF-8"));
 
 			StringBuffer sb = new StringBuffer();
 			sb.append("var id2time = new Array();");
@@ -252,8 +307,7 @@ public class VisualizeViewUtil {
 
 			}
 
-			String tmpS = sb.toString().replaceAll("\n", NULL_STRING)
-					.replaceAll("\r", NULL_STRING);
+			String tmpS = sb.toString().replaceAll("\n", NULL_STRING).replaceAll("\r", NULL_STRING);
 			pw.write(tmpS);
 
 			sb = new StringBuffer();
@@ -290,8 +344,7 @@ public class VisualizeViewUtil {
 			}
 
 			Element div = result.createElement(DIV);
-			div.setAttribute(
-					STYLE,
+			div.setAttribute(STYLE,
 					"position:absolute;font-size: medium; background-color: #FFFFFF; border-color: #333333 #000000 #000000; padding-top: 5px; padding-right: 5px; padding-bottom: 5px; padding-left: 5px; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px");
 			div.setAttribute(ID, "balloon");
 
@@ -313,8 +366,7 @@ public class VisualizeViewUtil {
 		return null;
 	}
 
-	public static void visualizeError(Document doc,
-			List<IProblemItem> problems, VisualizeMapDataImpl mapData,
+	public static void visualizeError(Document doc, List<IProblemItem> problems, VisualizeMapDataImpl mapData,
 			String baseUrlS) {
 		int size = problems.size();
 
@@ -341,8 +393,7 @@ public class VisualizeViewUtil {
 			VisualizationNodeInfo info = mapData.getNodeInfo(node);
 			if (info != null) {
 				if (IBlindProblem.WRONG_NBSP_ALT_IMG == prob.getSubType()) {
-					info.appendComment(prob.getDescription().replaceAll("&",
-							"&amp;"));
+					info.appendComment(prob.getDescription().replaceAll("&", "&amp;"));
 				} else {
 					info.appendComment(prob.getDescription());
 				}
@@ -370,8 +421,7 @@ public class VisualizeViewUtil {
 				if (replacement != null) {
 					el = (Element) replacement;
 				}
-				Element img = createErrorImageElement(node, prob, idObj,
-						baseUrlS);
+				Element img = createErrorImageElement(node, prob, idObj, baseUrlS);
 				el.appendChild(img);
 				break;
 			case IBlindProblem.REDUNDANT_ALT:
@@ -409,14 +459,12 @@ public class VisualizeViewUtil {
 			case IBlindProblem.INVISIBLE_INTRAPAGE_LINK:
 			case IBlindProblem.WRONG_SKIP_LINK_TITLE:
 				Element element = (Element) node;
-				Element image = createErrorImageElement(element, prob, idObj,
-						baseUrlS);
+				Element image = createErrorImageElement(element, prob, idObj, baseUrlS);
 				element.appendChild(image);
 				break;
 			case IBlindProblem.WRONG_TEXT:
 				// Node node = prob.getNode();
-				Element image2 = createErrorImageElement(node, prob, idObj,
-						baseUrlS);
+				Element image2 = createErrorImageElement(node, prob, idObj, baseUrlS);
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					node.appendChild(image2);
 				} else {
@@ -425,8 +473,7 @@ public class VisualizeViewUtil {
 				break;
 			case IBlindProblem.NO_VALUE_INPUT_BUTTON:
 			case IBlindProblem.SEPARATE_DBCS_INPUT_VALUE:
-				Element image3 = createErrorImageElement(node, prob, idObj,
-						baseUrlS);
+				Element image3 = createErrorImageElement(node, prob, idObj, baseUrlS);
 				node.getParentNode().insertBefore(image3, node);
 				break;
 
@@ -436,25 +483,21 @@ public class VisualizeViewUtil {
 	}
 
 	@SuppressWarnings("nls")
-	private static Element createErrorImageElement(Node target,
-			IProblemItem prob, Integer idObj, String baseUrlS) {
+	private static Element createErrorImageElement(Node target, IProblemItem prob, Integer idObj, String baseUrlS) {
 		Element img = target.getOwnerDocument().createElement(IMG);
 		img.setAttribute(ALT, "error icon");
 		if (IBlindProblem.WRONG_NBSP_ALT_IMG == prob.getSubType()) {
-			img.setAttribute(TITLE,
-					prob.getDescription().replaceAll("&", "&amp;"));
+			img.setAttribute(TITLE, prob.getDescription().replaceAll("&", "&amp;"));
 		} else {
 			img.setAttribute(TITLE, prob.getDescription());
 		}
 		img.setAttribute("onmouseover", "updateBaloon('id" + idObj + "');");
-		img.setAttribute(SRC, baseUrlS + "img/"
-				+ VisualizeEngine.ERROR_ICON_NAME);
+		img.setAttribute(SRC, baseUrlS + "img/" + VisualizeEngine.ERROR_ICON_NAME);
 		return (img);
 	}
 
 	@SuppressWarnings("nls")
-	public static Document returnTextView(Document result,
-			IPacketCollection allPc, String baseUrl) {
+	public static Document returnTextView(Document result, IPacketCollection allPc, String baseUrl) {
 		NodeList bodyNl = result.getElementsByTagName(BODY);
 
 		// TODO remove second Body, script, etc.
@@ -483,8 +526,7 @@ public class VisualizeViewUtil {
 					bodyEl.appendChild(spanEl);
 
 					if (insideLink)
-						spanEl.setAttribute(STYLE,
-								"text-decoration: underline;");
+						spanEl.setAttribute(STYLE, "text-decoration: underline;");
 					brFlag = false;
 				}
 				if (p.getContext().isLineDelimiter()) {
