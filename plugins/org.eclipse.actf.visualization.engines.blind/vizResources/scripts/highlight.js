@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 IBM Corporation and others.
+ * Copyright (c) 2004, 2016 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -101,13 +101,15 @@ function setDivStyle(node, div){
 	left+=node.offsetLeft;
 	node = node.offsetParent;
   }
+  
+  left = left-HIGHLIGHT_BORDER_WIDTH;
+  top = top-HIGHLIGHT_BORDER_WIDTH;
 
-  div.style.left = left-HIGHLIGHT_BORDER_WIDTH;
-  div.style.top = top-HIGHLIGHT_BORDER_WIDTH;
-  div.style.width = width;
-  div.style.height = height;
+  div.style.left = left+"px";
+  div.style.top = top+"px";
+  div.style.width = width+"px";
+  div.style.height = height+"px";
   div.style.display = "block";
-
 }
 
 function reHighlight(){
