@@ -13,7 +13,7 @@
     <checkitem type="error" id="C_1000.0">
         <guideline>
             <gItem id="3.2" name="WCAG"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="JIS"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -26,7 +26,7 @@
     <checkitem type="error" id="C_1000.1">
         <guideline>
             <gItem id="3.2" name="WCAG"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="JIS"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -39,7 +39,7 @@
     <checkitem type="error" id="C_1000.2">
         <guideline>
             <gItem id="3.2" name="WCAG"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="JIS"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -52,7 +52,7 @@
     <checkitem type="error" id="C_1000.3">
         <guideline>
             <gItem id="3.2" name="WCAG"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="JIS"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -65,7 +65,7 @@
     <checkitem type="error" id="C_1000.4">
         <guideline>
             <gItem id="3.2" name="WCAG"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="JIS"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -78,7 +78,7 @@
     <checkitem type="warning" id="C_1000.5">
         <guideline>
             <gItem id="3.2" name="WCAG"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="JIS"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -91,7 +91,7 @@
     <checkitem type="user" id="C_1000.6">
         <guideline>
             <gItem id="3.2" name="WCAG"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="JIS"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -104,7 +104,7 @@
     <checkitem type="warning" id="C_1000.7">
         <guideline>
             <gItem id="3.2" name="WCAG"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="JIS"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -117,7 +117,7 @@
     <checkitem type="user" id="C_1000.8">
         <guideline>
             <gItem id="3.2" name="WCAG"/>
-            <gItem techniques="H88" id="7.4.1.1" name="JIS"/>
+            <gItem techniques="H88" id="4.1.1" name="JIS"/>
             <gItem techniques="H88" id="4.1.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -131,7 +131,7 @@
         <guideline>
             <gItem id="1.1" name="WCAG"/>
             <gItem id="a" name="Section508"/>
-            <gItem techniques="H37,H67,F38,F65" id="7.1.1.1" name="JIS"/>
+            <gItem techniques="H37,H67,F38,F65" id="1.1.1" name="JIS"/>
             <gItem id="1" name="IBMGuideline"/>
             <gItem techniques="H37,H67,F38,F65" id="1.1.1" name="WCAG 2.0"/>
         </guideline>
@@ -147,7 +147,7 @@
             <gItem id="1.1" name="WCAG"/>
             <gItem id="a" name="Section508"/>
             <gItem id="n" name="Section508"/>
-            <gItem techniques="H36,F65" id="7.1.1.1" name="JIS"/>
+            <gItem techniques="H36,F65" id="1.1.1" name="JIS"/>
             <gItem id="7" name="IBMGuideline"/>
             <gItem techniques="H36,F65" id="1.1.1" name="WCAG 2.0"/>
         </guideline>
@@ -162,7 +162,7 @@
         <guideline>
             <gItem id="1.1" name="WCAG"/>
             <gItem id="a" name="Section508"/>
-            <gItem techniques="H24,F65" id="7.1.1.1" name="JIS"/>
+            <gItem techniques="H24,F65" id="1.1.1" name="JIS"/>
             <gItem id="2" name="IBMGuideline"/>
             <gItem techniques="H24,F65" id="1.1.1" name="WCAG 2.0"/>
         </guideline>
@@ -188,7 +188,7 @@
     <checkitem type="warning" id="B_5">
         <guideline>
             <gItem id="1.1" name="WCAG"/>
-            <gItem techniques="F30,G94" id="7.1.1.1" name="JIS"/>
+            <gItem techniques="F30,G94" id="1.1.1" name="JIS"/>
             <gItem id="7" name="IBMGuideline"/>
             <gItem techniques="F30,G94" id="1.1.1" name="WCAG 2.0"/>
         </guideline>
@@ -202,7 +202,7 @@
     <checkitem type="warning" id="B_6">
         <guideline>
             <gItem id="1.1" name="WCAG"/>
-            <gItem techniques="F30,G94" id="7.1.1.1" name="JIS"/>
+            <gItem techniques="F30,G94" id="1.1.1" name="JIS"/>
             <gItem id="2" name="IBMGuideline"/>
             <gItem techniques="F30,G94" id="1.1.1" name="WCAG 2.0"/>
         </guideline>
@@ -217,7 +217,7 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G123,G124" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G123,G124" id="2.4.1" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G123,G124" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
@@ -231,7 +231,7 @@
     <checkitem type="error" id="B_9">
         <guideline>
             <gItem id="13.1" name="WCAG"/>
-            <gItem techniques="H2" id="7.1.1.1" name="JIS"/>
+            <gItem techniques="H2" id="1.1.1" name="JIS"/>
             <gItem id="1" name="IBMGuideline"/>
             <gItem id="2" name="IBMGuideline"/>
             <gItem id="7" name="IBMGuideline"/>
@@ -248,7 +248,7 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G1" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G1" id="2.4.1" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G1" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
@@ -263,9 +263,9 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="H42" id="7.1.3.1" name="JIS"/>
-            <gItem techniques="G1, G123, G124, H69" id="7.2.4.1" name="JIS"/>
-            <gItem techniques="G141" id="7.2.4.10" name="JIS"/>
+            <gItem techniques="H42" id="1.3.1" name="JIS"/>
+            <gItem techniques="G1, G123, G124, H69" id="2.4.1" name="JIS"/>
+            <gItem techniques="G141" id="2.4.10" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="H42" id="1.3.1" name="WCAG 2.0"/>
             <gItem techniques="G1, G123, G124, H69" id="2.4.1" name="WCAG 2.0"/>
@@ -282,9 +282,9 @@
     <checkitem type="error" id="B_14">
         <guideline>
             <gItem id="13.1" name="WCAG"/>
-            <gItem techniques="H30" id="7.1.1.1" name="JIS"/>
-            <gItem techniques="H30" id="7.2.4.4" name="JIS"/>
-            <gItem techniques="H30" id="7.2.4.9" name="JIS"/>
+            <gItem techniques="H30" id="1.1.1" name="JIS"/>
+            <gItem techniques="H30" id="2.4.4" name="JIS"/>
+            <gItem techniques="H30" id="2.4.9" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="H30" id="1.1.1" name="WCAG 2.0"/>
             <gItem techniques="H30" id="2.4.4" name="WCAG 2.0"/>
@@ -301,7 +301,7 @@
     <checkitem type="warning" id="B_15">
         <guideline>
             <gItem id="14.1" name="WCAG"/>
-            <gItem techniques="C8,F32" id="7.1.3.2" name="JIS"/>
+            <gItem techniques="C8,F32" id="1.3.2" name="JIS"/>
             <gItem techniques="C8,F32" id="1.3.2" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -329,7 +329,7 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G1" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G1" id="2.4.1" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G1" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
@@ -344,7 +344,7 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G1" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G1" id="2.4.1" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G1" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
@@ -359,7 +359,7 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G1" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G1" id="2.4.1" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G1" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
@@ -374,7 +374,7 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G1" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G1" id="2.4.1" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G1" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
@@ -389,7 +389,7 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G1" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G1" id="2.4.1" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G1" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
@@ -404,8 +404,8 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G123,H69" id="7.2.4.1" name="JIS"/>
-            <gItem id="7.2.4.10" name="JIS"/>
+            <gItem techniques="G123,H69" id="2.4.1" name="JIS"/>
+            <gItem id="2.4.10" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G123,H69" id="2.4.1" name="WCAG 2.0"/>
             <gItem id="2.4.10" name="WCAG 2.0"/>
@@ -421,8 +421,8 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G123,H69" id="7.2.4.1" name="JIS"/>
-            <gItem id="7.2.4.10" name="JIS"/>
+            <gItem techniques="G123,H69" id="2.4.1" name="JIS"/>
+            <gItem id="2.4.10" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G123,H69" id="2.4.1" name="WCAG 2.0"/>
             <gItem id="2.4.10" name="WCAG 2.0"/>
@@ -438,8 +438,8 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G123,H69" id="7.2.4.1" name="JIS"/>
-            <gItem id="7.2.4.10" name="JIS"/>
+            <gItem techniques="G123,H69" id="2.4.1" name="JIS"/>
+            <gItem id="2.4.10" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G123,H69" id="2.4.1" name="WCAG 2.0"/>
             <gItem id="2.4.10" name="WCAG 2.0"/>
@@ -454,9 +454,9 @@
     <checkitem type="warning" id="B_25">
         <guideline>
             <gItem id="13.1" name="WCAG"/>
-            <gItem techniques="H30" id="7.1.1.1" name="JIS"/>
-            <gItem techniques="H30" id="7.2.4.4" name="JIS"/>
-            <gItem techniques="H30" id="7.2.4.9" name="JIS"/>
+            <gItem techniques="H30" id="1.1.1" name="JIS"/>
+            <gItem techniques="H30" id="2.4.4" name="JIS"/>
+            <gItem techniques="H30" id="2.4.9" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="H30" id="1.1.1" name="WCAG 2.0"/>
             <gItem techniques="H30" id="2.4.4" name="WCAG 2.0"/>
@@ -474,7 +474,7 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G1" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G1" id="2.4.1" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G1" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
@@ -489,7 +489,7 @@
         <guideline>
             <gItem id="1.1" name="WCAG"/>
             <gItem id="a" name="Section508"/>
-            <gItem techniques="F30,G94" id="7.1.1.1" name="JIS"/>
+            <gItem techniques="F30,G94" id="1.1.1" name="JIS"/>
             <gItem id="1" name="IBMGuideline"/>
             <gItem techniques="F30,G94" id="1.1.1" name="WCAG 2.0"/>
         </guideline>
@@ -504,7 +504,7 @@
         <guideline>
             <gItem id="1.1" name="WCAG"/>
             <gItem id="14.1" name="WCAG"/>
-            <gItem techniques="C8,F32" id="7.1.3.2" name="JIS"/>
+            <gItem techniques="C8,F32" id="1.3.2" name="JIS"/>
             <gItem id="1" name="IBMGuideline"/>
             <gItem techniques="C8,F32" id="1.3.2" name="WCAG 2.0"/>
         </guideline>
@@ -519,7 +519,7 @@
         <guideline>
             <gItem id="1.1" name="WCAG"/>
             <gItem id="14.1" name="WCAG"/>
-            <gItem techniques="C8,F32" id="7.1.3.2" name="JIS"/>
+            <gItem techniques="C8,F32" id="1.3.2" name="JIS"/>
             <gItem id="7" name="IBMGuideline"/>
             <gItem techniques="C8,F32" id="1.3.2" name="WCAG 2.0"/>
         </guideline>
@@ -534,7 +534,7 @@
         <guideline>
             <gItem id="1.1" name="WCAG"/>
             <gItem id="14.1" name="WCAG"/>
-            <gItem techniques="C8,F32" id="7.1.3.2" name="JIS"/>
+            <gItem techniques="C8,F32" id="1.3.2" name="JIS"/>
             <gItem id="2" name="IBMGuideline"/>
             <gItem techniques="C8,F32" id="1.3.2" name="WCAG 2.0"/>
         </guideline>
@@ -549,7 +549,7 @@
         <guideline>
             <gItem id="13.6" name="WCAG"/>
             <gItem id="o" name="Section508"/>
-            <gItem techniques="G123,G124" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G123,G124" id="2.4.1" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="G123,G124" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
@@ -563,7 +563,7 @@
     <checkitem type="warning" id="B_34">
         <guideline>
             <gItem id="1.1" name="WCAG"/>
-            <gItem techniques="C8,F32" id="7.1.3.2" name="JIS"/>
+            <gItem techniques="C8,F32" id="1.3.2" name="JIS"/>
             <gItem id="1" name="IBMGuideline"/>
             <gItem techniques="C8,F32" id="1.3.2" name="WCAG 2.0"/>
         </guideline>
@@ -576,7 +576,7 @@
     </checkitem>
     <checkitem type="warning" id="B_35">
         <guideline>
-            <gItem techniques="G1,G123,G124" id="7.2.4.1" name="JIS"/>
+            <gItem techniques="G1,G123,G124" id="2.4.1" name="JIS"/>
             <gItem techniques="G1,G123,G124" id="2.4.1" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -598,7 +598,7 @@
     <checkitem type="warning" id="B_37">
         <guideline>
             <gItem id="14.1" name="WCAG"/>
-            <gItem techniques="C8,F32" id="7.1.3.2" name="JIS"/>
+            <gItem techniques="C8,F32" id="1.3.2" name="JIS"/>
             <gItem id="7" name="IBMGuideline"/>
             <gItem techniques="C8,F32" id="1.3.2" name="WCAG 2.0"/>
         </guideline>
@@ -612,8 +612,8 @@
     <checkitem type="error" id="L_1.0">
         <guideline>
             <gItem id="2.2" name="WCAG"/>
-            <gItem techniques="G18,G145" id="7.1.4.3" name="JIS"/>
-            <gItem techniques="G17,G18" id="7.1.4.6" name="JIS"/>
+            <gItem techniques="G18,G145" id="1.4.3" name="JIS"/>
+            <gItem techniques="G17,G18" id="1.4.6" name="JIS"/>
             <gItem techniques="G18,G145" id="1.4.3" name="WCAG 2.0"/>
             <gItem techniques="G17,G18" id="1.4.6" name="WCAG 2.0"/>
         </guideline>
@@ -627,8 +627,8 @@
     <checkitem type="warning" id="L_1.1">
         <guideline>
             <gItem id="2.2" name="WCAG"/>
-            <gItem techniques="G18" id="7.1.4.3" name="JIS"/>
-            <gItem techniques="G17,G18" id="7.1.4.6" name="JIS"/>
+            <gItem techniques="G18" id="1.4.3" name="JIS"/>
+            <gItem techniques="G17,G18" id="1.4.6" name="JIS"/>
             <gItem techniques="G18" id="1.4.3" name="WCAG 2.0"/>
             <gItem techniques="G17,G18" id="1.4.6" name="WCAG 2.0"/>
         </guideline>
@@ -642,7 +642,7 @@
     <checkitem type="warning" id="L_1.2">
         <guideline>
             <gItem id="2.2" name="WCAG"/>
-            <gItem techniques="G17" id="7.1.4.6" name="JIS"/>
+            <gItem techniques="G17" id="1.4.6" name="JIS"/>
             <gItem techniques="G17" id="1.4.6" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -667,8 +667,8 @@
             <gItem id="2.1" name="WCAG"/>
             <gItem id="2.2" name="WCAG"/>
             <gItem id="c" name="Section508"/>
-            <gItem techniques="G18,G145" id="7.1.4.3" name="JIS"/>
-            <gItem techniques="G17,G18" id="7.1.4.6" name="JIS"/>
+            <gItem techniques="G18,G145" id="1.4.3" name="JIS"/>
+            <gItem techniques="G17,G18" id="1.4.6" name="JIS"/>
             <gItem id="12" name="IBMGuideline"/>
             <gItem techniques="G18,G145" id="1.4.3" name="WCAG 2.0"/>
             <gItem techniques="G17,G18" id="1.4.6" name="WCAG 2.0"/>
@@ -683,7 +683,7 @@
     <checkitem type="error" id="L_4">
         <guideline>
             <gItem id="3.4" name="WCAG"/>
-            <gItem techniques="C12,C13,C14" id="7.1.4.4" name="JIS"/>
+            <gItem techniques="C12,C13,C14" id="1.4.4" name="JIS"/>
             <gItem techniques="C12,C13,C14" id="1.4.4" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -704,7 +704,7 @@
     </checkitem>
     <checkitem type="error" id="L_6">
         <guideline>
-            <gItem techniques="C12,C13,C14" id="7.1.4.4" name="JIS"/>
+            <gItem techniques="C12,C13,C14" id="1.4.4" name="JIS"/>
             <gItem techniques="C12,C13,C14" id="1.4.4" name="WCAG 2.0"/>
         </guideline>
         <metrics>
@@ -716,9 +716,9 @@
     </checkitem>
     <checkitem type="user" id="L_10">
         <guideline>
-            <gItem techniques="F3" id="7.1.1.1" name="JIS"/>
-            <gItem techniques="F83, G18, G145" id="7.1.4.3" name="JIS"/>
-            <gItem techniques="F83, G17, G18" id="7.1.4.6" name="JIS"/>
+            <gItem techniques="F3" id="1.1.1" name="JIS"/>
+            <gItem techniques="F83, G18, G145" id="1.4.3" name="JIS"/>
+            <gItem techniques="F83, G17, G18" id="1.4.6" name="JIS"/>
             <gItem techniques="F3" id="1.1.1" name="WCAG 2.0"/>
             <gItem techniques="F83, G18, G145" id="1.4.3" name="WCAG 2.0"/>
             <gItem techniques="F83, G17, G18" id="1.4.6" name="WCAG 2.0"/>
@@ -733,7 +733,7 @@
     <checkitem type="error" id="B_38">
         <guideline>
             <gItem id="1.1" name="WCAG"/>
-            <gItem techniques="F30,G94,H67" id="7.1.1.1" name="JIS"/>
+            <gItem techniques="F30,G94,H67" id="1.1.1" name="JIS"/>
             <gItem id="1" name="IBMGuideline"/>
             <gItem techniques="F30,G94,H67" id="1.1.1" name="WCAG 2.0"/>
         </guideline>
