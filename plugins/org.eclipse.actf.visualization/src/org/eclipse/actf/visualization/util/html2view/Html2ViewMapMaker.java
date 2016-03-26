@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2007 IBM Corporation and Others
+ * Copyright (c) 2007, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -132,7 +132,7 @@ public class Html2ViewMapMaker {
 	private Vector<Html2ViewMapData> makeMapLocal(String filename,
 			String resultFileName, String tmpDir, boolean useTmpDir) {
 
-		PrintWriter htmlWriter;
+		PrintWriter htmlWriter=null;
 		FileInputStream fis = null;
 
 		String _tmpDir = "";
@@ -182,10 +182,10 @@ public class Html2ViewMapMaker {
 			htmlWriter = new PrintWriter(bos);
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
-			return new Vector<Html2ViewMapData>();
+			return new Vector<Html2ViewMapData>();			
 		} catch (UnsupportedEncodingException uee) {
 			uee.printStackTrace();
-			return new Vector<Html2ViewMapData>();
+			return new Vector<Html2ViewMapData>();			
 		}
 
 		try {
@@ -237,6 +237,7 @@ public class Html2ViewMapMaker {
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
+				htmlWriter.close();
 				return (new Vector<Html2ViewMapData>());
 			}
 		} finally {
