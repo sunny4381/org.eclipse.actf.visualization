@@ -36,6 +36,7 @@ import org.eclipse.actf.visualization.engines.voicebrowser.VoiceBrowserControlle
 import org.eclipse.actf.visualization.eval.EvaluationUtil;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
+import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.internal.engines.blind.html.BlindProblem;
@@ -194,6 +195,27 @@ public class VisualizeEngine {
 				Node tmpNode = p.getNode();
 				while (tmpNode != null) {
 					if (tmpNode.getNodeName().equals("noscript")) { //$NON-NLS-1$
+						pc.remove(i);
+						break;
+					}
+					tmpNode = tmpNode.getParentNode();
+				}
+			}
+		}
+	}
+
+	private void replaceMathML_SVG_PacketCollection(IPacketCollection pc) {
+		// remove text in noscript tag
+		if (pc != null) {
+			int size = pc.size();
+			for (int i = size - 1; i >= 0; i--) {
+				IPacket p = pc.get(i);
+
+				Node tmpNode = p.getNode();
+				while (tmpNode != null) {
+					String name = tmpNode.getNodeName();
+					if (name.equals("math") || name.equals("svg")) { //$NON-NLS-1$
+						// TODO replace
 						pc.remove(i);
 						break;
 					}
@@ -372,6 +394,7 @@ public class VisualizeEngine {
 			VisualizeStyleInfoManager.getInstance().fireVisualizeStyleInfoUpdate(styleInfo);
 
 			if (curParamBlind.visualizeMode.equals(ParamBlind.BLIND_BROWSER_MODE)) {
+				replaceMathML_SVG_PacketCollection(allPc);
 				VisualizeViewUtil.returnTextView(result, allPc, baseUrl);
 				return;
 			} else {
@@ -382,6 +405,46 @@ public class VisualizeEngine {
 				return;
 			}
 		}
+	}
+
+	@SuppressWarnings("nls")
+	private void replaceElement(Document doc, String tag, String[] childTags, String message) {
+		NodeList nl = doc.getElementsByTagName(tag);
+		int size = nl.getLength();
+		for (int i = size - 1; i >= 0; i--) {
+			Element target = (Element) nl.item(i);
+			Element div = doc.createElement("div");
+			div.setAttribute("comment", target.getAttribute("comment"));
+			div.setAttribute("id", target.getAttribute("id"));
+
+			StringBuffer tmpSB = new StringBuffer();
+			tmpSB.append("[" + message);
+
+			for (int j = 0; j < childTags.length; j++) {
+				NodeList nl2 = target.getElementsByTagName(childTags[j]);
+				for (int k = 0; k < nl2.getLength(); k++) {
+					Node tmpN = nl2.item(0).getFirstChild();
+					String tmpS = "";
+					if (tmpN != null) {
+						tmpS = HtmlTagUtil.getTextDescendant(tmpN);
+					}
+					if (tmpS.length() > 0) {
+						tmpSB.append(" " + childTags[j] + ": \"" + tmpS+"\"");
+						break;
+					}
+				}
+			}
+			tmpSB.append("]");
+
+			// remove other tags and attributes
+
+			div.appendChild(doc.createTextNode(tmpSB.toString()));
+			Node parent = target.getParentNode();
+			parent.insertBefore(div, target);
+			mapData.addReplacedNodeMapping(target, div);
+			parent.removeChild(target);
+		}
+
 	}
 
 	@SuppressWarnings("nls")
@@ -466,6 +529,10 @@ public class VisualizeEngine {
 				parent.removeChild(iframe);
 			}
 		}
+
+		// mathML/SVG
+		replaceElement(doc, "math", new String[0], "MathML");
+		replaceElement(doc, "svg", new String[] { "title", "desc" }, "SVG");
 
 		// image button
 		nl = doc.getElementsByTagName("input");
