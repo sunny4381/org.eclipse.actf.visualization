@@ -331,27 +331,23 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements IBlindVi
 			try {
 				Element[] iframes = getElementsArray(ieDom, "iframe"); //$NON-NLS-1$
 				HashSet<String> urlS = new HashSet<String>();
-				HashSet<Element> srcLessIframe = new HashSet<Element>();
 				if (iframes.length > 0) {
 					for (Element e : iframes) {
 						String src = e.getAttribute("src"); //$NON-NLS-1$
 						if (src != null && src.startsWith("http")) { //$NON-NLS-1$
 							urlS.add(src);
 						} else {
-							srcLessIframe.add(e);
-						}
-					}
-					for (Element e : srcLessIframe) {
-						NodeList nl = e.getChildNodes();
-						if (nl.getLength() > 0 && nl.item(0).getNodeName().equalsIgnoreCase("html")) {
-							try {
-								File iframeDump = BlindVizResourceUtil.createTempFile("IFRAME",
-										IVisualizationConst.SUFFIX_HTML);
-								DomPrintUtil dpu = new DomPrintUtil(e);
-								dpu.setHTML5(true);
-								dpu.writeToFile(iframeDump);
-								urlS.add(iframeDump.toURI().toURL().toString());
-							} catch (Exception e4) {
+							NodeList nl = e.getChildNodes();
+							if (nl.getLength() > 0 && nl.item(0).getNodeName().equalsIgnoreCase("html")) {
+								try {
+									File iframeDump = BlindVizResourceUtil.createTempFile("IFRAME",
+											IVisualizationConst.SUFFIX_HTML);
+									DomPrintUtil dpu = new DomPrintUtil(nl.item(0));
+									dpu.setHTML5(true);
+									dpu.writeToFile(iframeDump);
+									urlS.add(iframeDump.toURI().toURL().toString());
+								} catch (Exception e4) {
+								}
 							}
 						}
 					}
@@ -359,14 +355,7 @@ public class BlindVisualizerHtml extends BlindVisualizerBase implements IBlindVi
 							Messages.BlindVisualizerHtml_15, Messages.BlindVisualizerHtml_16)) {
 						IEditorPart currentE = PlatformUIUtil.getActiveEditor();
 						for (String s : urlS) {
-							final String ss = s;
-							PlatformUIUtil.getShell().getDisplay().asyncExec(new Runnable() {
-								public void run() {
-									IEditorPart iep = ModelServiceUtils.launch(ss);
-									PlatformUIUtil.getActivePage().activate(iep);									
-									iep.setFocus();
-								}
-							});
+							ModelServiceUtils.launchNew(s);
 						}
 						PlatformUIUtil.getActivePage().activate(currentE);
 					}
