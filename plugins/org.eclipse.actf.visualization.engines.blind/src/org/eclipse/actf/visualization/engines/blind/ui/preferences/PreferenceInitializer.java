@@ -46,6 +46,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
         store.setDefault(IBlindPreferenceConstants.BLIND_INPUT_TAGS_COLOR, "255,153,0");
         store.setDefault(IBlindPreferenceConstants.BLIND_LABEL_TAGS_COLOR, "255,128,255");
         store.setDefault(IBlindPreferenceConstants.BLIND_TABLE_BORDER_COLOR, "0,0,0");
+        store.setDefault(IBlindPreferenceConstants.BLIND_CAPTION_COLOR, "255,255,128");
                      
     }
 

@@ -187,6 +187,7 @@ public class VisualizeEngine {
 
 	private void cleanupPacketCollection(IPacketCollection pc) {
 		// remove text in noscript tag
+		// remove template (temp code (remove after IE supports template tag)
 		if (pc != null) {
 			int size = pc.size();
 			for (int i = size - 1; i >= 0; i--) {
@@ -194,7 +195,8 @@ public class VisualizeEngine {
 
 				Node tmpNode = p.getNode();
 				while (tmpNode != null) {
-					if (tmpNode.getNodeName().equals("noscript")) { //$NON-NLS-1$
+					String name = tmpNode.getNodeName();
+					if ("noscript".equals(name)||"template".equals(name)) { //$NON-NLS-1$
 						pc.remove(i);
 						break;
 					}
@@ -205,7 +207,6 @@ public class VisualizeEngine {
 	}
 
 	private void replaceMathML_SVG_PacketCollection(IPacketCollection pc) {
-		// remove text in noscript tag
 		if (pc != null) {
 			int size = pc.size();
 			for (int i = size - 1; i >= 0; i--) {
@@ -417,28 +418,31 @@ public class VisualizeEngine {
 			div.setAttribute("comment", target.getAttribute("comment"));
 			div.setAttribute("id", target.getAttribute("id"));
 
-			StringBuffer tmpSB = new StringBuffer();
-			tmpSB.append("[" + message);
+			if (message != null) {
+				StringBuffer tmpSB = new StringBuffer();
+				tmpSB.append("[" + message);
 
-			for (int j = 0; j < childTags.length; j++) {
-				NodeList nl2 = target.getElementsByTagName(childTags[j]);
-				for (int k = 0; k < nl2.getLength(); k++) {
-					Node tmpN = nl2.item(0).getFirstChild();
-					String tmpS = "";
-					if (tmpN != null) {
-						tmpS = HtmlTagUtil.getTextDescendant(tmpN);
-					}
-					if (tmpS.length() > 0) {
-						tmpSB.append(" " + childTags[j] + ": \"" + tmpS+"\"");
-						break;
+				for (int j = 0; j < childTags.length; j++) {
+					NodeList nl2 = target.getElementsByTagName(childTags[j]);
+					for (int k = 0; k < nl2.getLength(); k++) {
+						Node tmpN = nl2.item(0).getFirstChild();
+						String tmpS = "";
+						if (tmpN != null) {
+							tmpS = HtmlTagUtil.getTextDescendant(tmpN);
+						}
+						if (tmpS.length() > 0) {
+							tmpSB.append(" " + childTags[j] + ": \"" + tmpS + "\"");
+							break;
+						}
 					}
 				}
+				tmpSB.append("]");
+
+				// remove other tags and attributes
+
+				div.appendChild(doc.createTextNode(tmpSB.toString()));
 			}
-			tmpSB.append("]");
 
-			// remove other tags and attributes
-
-			div.appendChild(doc.createTextNode(tmpSB.toString()));
 			Node parent = target.getParentNode();
 			parent.insertBefore(div, target);
 			mapData.addReplacedNodeMapping(target, div);
@@ -533,6 +537,9 @@ public class VisualizeEngine {
 		// mathML/SVG
 		replaceElement(doc, "math", new String[0], "MathML");
 		replaceElement(doc, "svg", new String[] { "title", "desc" }, "SVG");
+
+		// template (temp code (remove after IE supports template tag)
+		replaceElement(doc, "template", new String[0], null);
 
 		// image button
 		nl = doc.getElementsByTagName("input");

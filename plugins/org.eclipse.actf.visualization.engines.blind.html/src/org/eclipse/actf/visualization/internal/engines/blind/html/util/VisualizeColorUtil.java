@@ -136,20 +136,28 @@ public class VisualizeColorUtil {
 				continue;
 			}
 
+			String headingRGB = getRGBString(param.headingTagsColor, "#33CCFF");
+			String thRGB = getRGBString(param.tableHeaderColor, "#99FF00");
+			String labelRGB = getRGBString(param.labelTagsColor, "#FFFF00");
+			String inputRGB = getRGBString(param.inputTagsColor, "#FF9900");
+			String captionRGB = getRGBString(param.captionColor, "#FFFF80");
+
 			if (param.bColorizeTags
-					&& (info.isHeading() | info.isTableHeader() | info.isLabel() | info.isIdRequiredInput())) {
+					&& (info.isHeading() | info.isTableHeader() | info.isLabel() | info.isIdRequiredInput() | info.isCaption())) {
 				if (info.isHeading()) {
-					strRGB = getRGBString(param.headingTagsColor, "#33CCFF");
+					strRGB = headingRGB;
+				} else if (info.isTableHeader()) {
+					strRGB = thRGB;
+				} else if (info.isLabel()) {
+					strRGB = labelRGB;
+				} else if (info.isIdRequiredInput()) {
+					strRGB = inputRGB;
+				} else if (info.isCaption()){
+					strRGB = captionRGB;
 				}
-				if (info.isTableHeader()) {
-					strRGB = getRGBString(param.tableHeaderColor, "#99FF00");
-				}
-				if (info.isLabel()) {
-					strRGB = getRGBString(param.labelTagsColor, "#FFFF00");
-				}
-				if (info.isIdRequiredInput()) {
-					strRGB = getRGBString(param.inputTagsColor, "#FF9900");
-				}
+				
+				//TBD caption
+				
 				el.setAttribute("style", "color: black; background-image: none; background-color:" + strRGB);// +
 				// "}");
 				// } else if (info.getWords() > 0) {

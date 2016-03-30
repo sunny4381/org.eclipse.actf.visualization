@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2006, 2008 IBM Corporation and Others
+ * Copyright (c) 2006, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,13 +29,11 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
-
-public class BlindPreferencePage extends GroupFieldEditorPreferencePage
-		implements IWorkbenchPreferencePage {
+public class BlindPreferencePage extends GroupFieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
 	public static final String ID = BlindPreferencePage.class.getName();
 
-//	private RadioGroupFieldEditor modeRadio;
+	// private RadioGroupFieldEditor modeRadio;
 
 	private Group visualizationSetting;
 
@@ -61,18 +59,14 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 
 	private void createLanguagePart(Composite parent) {
 
-		addField(new RadioGroupFieldEditor(
-				IBlindPreferenceConstants.BLIND_LANG, Messages.DialogSettingBlind_Language_4, 1,
-				new String[][] {
-						{ Messages.DialogSettingBlind_English_15,
-								IBlindPreferenceConstants.LANG_EN },
-						{ Messages.DialogSettingBlind_Japanese_16,
-								IBlindPreferenceConstants.LANG_JA }
-								//TODO
+		addField(new RadioGroupFieldEditor(IBlindPreferenceConstants.BLIND_LANG, Messages.DialogSettingBlind_Language_4,
+				1, new String[][] { { Messages.DialogSettingBlind_English_15, IBlindPreferenceConstants.LANG_EN },
+						{ Messages.DialogSettingBlind_Japanese_16, IBlindPreferenceConstants.LANG_JA }
+				// TODO
 				// ,
 				// { Messages.DialogSettingBlind_SimpliedChinese_17,
 				// IBlindPreferenceConstants.LANG_ZH }
-								}, parent));
+		}, parent));
 	}
 
 	private void editNgwordWrongtxt() {
@@ -84,54 +78,43 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 
 		Composite parent = getFieldEditorParent();
 
-//		modeRadio = new RadioGroupFieldEditor(
-//				IBlindPreferenceConstants.BLIND_MODE,
-//				Messages.DialogSettingBlind_Visualization_mode_3,
-//				1,
-//				new String[][] {
-//						{
-//								Messages.DialogSettingBlind_Layout_mode_9,
-//								IBlindPreferenceConstants.BLIND_LAYOUT_MODE },
-//						{
-//								Messages.DialogSettingBlind_Voice_browser_output_mode_8,
-//								IBlindPreferenceConstants.BLIND_BROWSER_MODE } },
-//				parent);
-//
-//		addField(modeRadio);
+		// modeRadio = new RadioGroupFieldEditor(
+		// IBlindPreferenceConstants.BLIND_MODE,
+		// Messages.DialogSettingBlind_Visualization_mode_3,
+		// 1,
+		// new String[][] {
+		// {
+		// Messages.DialogSettingBlind_Layout_mode_9,
+		// IBlindPreferenceConstants.BLIND_LAYOUT_MODE },
+		// {
+		// Messages.DialogSettingBlind_Voice_browser_output_mode_8,
+		// IBlindPreferenceConstants.BLIND_BROWSER_MODE } },
+		// parent);
+		//
+		// addField(modeRadio);
 
 		visualizationSetting = createFieldGroup(Messages.DialogSettingBlind_LayoutModeSetting);
 
-		addField(new ColorFieldEditor(
-				IBlindPreferenceConstants.BLIND_MAX_TIME_COLOR,
-				Messages.DialogSettingBlind_Color_for_maximum_time_19,
-				visualizationSetting));
+		addField(new ColorFieldEditor(IBlindPreferenceConstants.BLIND_MAX_TIME_COLOR,
+				Messages.DialogSettingBlind_Color_for_maximum_time_19, visualizationSetting));
 		ScaleFieldEditorWithValue maxTime = new ScaleFieldEditorWithValue(
-				IBlindPreferenceConstants.BLIND_MAX_TIME_SECOND,
-				Messages.DialogSettingBlind_Maximum_time_17,
+				IBlindPreferenceConstants.BLIND_MAX_TIME_SECOND, Messages.DialogSettingBlind_Maximum_time_17,
 				visualizationSetting, 30, 180, 5, 30);
 		addField(maxTime);
 
-		addField(new ColorFieldEditor(
-				IBlindPreferenceConstants.BLIND_TABLE_BORDER_COLOR,
-				Messages.DialogSettingBlind_Tabel_border_24,
-				visualizationSetting));
+		addField(new ColorFieldEditor(IBlindPreferenceConstants.BLIND_TABLE_BORDER_COLOR,
+				Messages.DialogSettingBlind_Tabel_border_24, visualizationSetting));
 
-		addField(new ColorFieldEditor(
-				IBlindPreferenceConstants.BLIND_HEADING_TAGS_COLOR,
-				Messages.DialogSettingBlind_Heading_tags_21,
-				visualizationSetting));
-		addField(new ColorFieldEditor(
-				IBlindPreferenceConstants.BLIND_TABLE_HEADER_COLOR,
-				Messages.DialogSettingBlind_Table_headers_20,
-				visualizationSetting));
-		addField(new ColorFieldEditor(
-				IBlindPreferenceConstants.BLIND_INPUT_TAGS_COLOR,
-				Messages.DialogSettingBlind_Input_tags_22,
-				visualizationSetting));
-		addField(new ColorFieldEditor(
-				IBlindPreferenceConstants.BLIND_LABEL_TAGS_COLOR,
-				Messages.DialogSettingBlind_Label_tags_23,
-				visualizationSetting));
+		addField(new ColorFieldEditor(IBlindPreferenceConstants.BLIND_HEADING_TAGS_COLOR,
+				Messages.DialogSettingBlind_Heading_tags_21, visualizationSetting));
+		addField(new ColorFieldEditor(IBlindPreferenceConstants.BLIND_TABLE_HEADER_COLOR,
+				Messages.DialogSettingBlind_Table_headers_20, visualizationSetting));
+		addField(new ColorFieldEditor(IBlindPreferenceConstants.BLIND_INPUT_TAGS_COLOR,
+				Messages.DialogSettingBlind_Input_tags_22, visualizationSetting));
+		addField(new ColorFieldEditor(IBlindPreferenceConstants.BLIND_LABEL_TAGS_COLOR,
+				Messages.DialogSettingBlind_Label_tags_23, visualizationSetting));
+		addField(new ColorFieldEditor(IBlindPreferenceConstants.BLIND_CAPTION_COLOR,
+				Messages.DialogSettingBlind_Caption_tags_25, visualizationSetting));
 
 		createInappropriateAltPart(parent);
 
@@ -141,8 +124,7 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 		}
 
 		boolean isLayoutMode = IBlindPreferenceConstants.BLIND_LAYOUT_MODE
-				.equals(getPreferenceStore().getString(
-						IBlindPreferenceConstants.BLIND_MODE));
+				.equals(getPreferenceStore().getString(IBlindPreferenceConstants.BLIND_MODE));
 		visualizationSetting.setEnabled(isLayoutMode);
 		visualizationSetting.setVisible(isLayoutMode);
 
@@ -153,25 +135,24 @@ public class BlindPreferencePage extends GroupFieldEditorPreferencePage
 		super.performDefaults();
 
 		boolean isLayoutMode = IBlindPreferenceConstants.BLIND_LAYOUT_MODE
-				.equals(getPreferenceStore().getString(
-						IBlindPreferenceConstants.BLIND_MODE));
+				.equals(getPreferenceStore().getString(IBlindPreferenceConstants.BLIND_MODE));
 		visualizationSetting.setEnabled(isLayoutMode);
 		visualizationSetting.setVisible(isLayoutMode);
 	}
 
-//	@Override
-//	public void propertyChange(PropertyChangeEvent event) {
-//		super.propertyChange(event);
-//
-//		if (event.getSource() == modeRadio) {
-//			if (!event.getOldValue().equals(event.getNewValue())) {
-//				boolean isLayoutMode = IBlindPreferenceConstants.BLIND_LAYOUT_MODE
-//						.equals(event.getNewValue());
-//				visualizationSetting.setEnabled(isLayoutMode);
-//				visualizationSetting.setVisible(isLayoutMode);
-//			}
-//		}
-//	}
+	// @Override
+	// public void propertyChange(PropertyChangeEvent event) {
+	// super.propertyChange(event);
+	//
+	// if (event.getSource() == modeRadio) {
+	// if (!event.getOldValue().equals(event.getNewValue())) {
+	// boolean isLayoutMode = IBlindPreferenceConstants.BLIND_LAYOUT_MODE
+	// .equals(event.getNewValue());
+	// visualizationSetting.setEnabled(isLayoutMode);
+	// visualizationSetting.setVisible(isLayoutMode);
+	// }
+	// }
+	// }
 
 	@Override
 	public boolean performOk() {

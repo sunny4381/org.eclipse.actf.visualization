@@ -227,6 +227,9 @@ public class NodeInfoCreator {
 					} else if (nodeName.equals("label")) {
 						info.setLabel(true);
 						info.appendComment("Label for '" + ((Element) curNode).getAttribute("for") + "'. ");
+					} else if (nodeName.contains("caption")){
+						info.setCaption(true);
+						info.appendComment(curNode.getNodeName());
 					}
 
 					if (nodeName.equals("body")) {

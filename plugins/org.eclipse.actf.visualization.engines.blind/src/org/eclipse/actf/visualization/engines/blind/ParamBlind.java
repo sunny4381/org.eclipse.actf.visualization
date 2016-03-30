@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2004, 2008 IBM Corporation and Others
+ * Copyright (c) 2004, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -59,6 +59,8 @@ public class ParamBlind {
 
 	public RGB tableBorderColor;
 
+	public RGB captionColor;
+
 	/**
 	 * Get instance of {@link ParamBlind}
 	 * 
@@ -80,33 +82,24 @@ public class ParamBlind {
 	}
 
 	private static void setValues(ParamBlind pb) {
-		IPreferenceStore store = BlindVizEnginePlugin.getDefault()
-				.getPreferenceStore();
+		IPreferenceStore store = BlindVizEnginePlugin.getDefault().getPreferenceStore();
 
-		if (store.getDefaultString(IBlindPreferenceConstants.BLIND_LANG)
-				.equals(IBlindPreferenceConstants.LANG_JA)) {
+		if (store.getDefaultString(IBlindPreferenceConstants.BLIND_LANG).equals(IBlindPreferenceConstants.LANG_JA)) {
 			pb.iLanguage = JP;
 		} else {
 			pb.iLanguage = EN;
 		}
 
-		pb.visualizeMode = store
-				.getString(IBlindPreferenceConstants.BLIND_MODE);
+		pb.visualizeMode = store.getString(IBlindPreferenceConstants.BLIND_MODE);
 
-		pb.iMaxTime = store
-				.getInt(IBlindPreferenceConstants.BLIND_MAX_TIME_SECOND);
-		pb.maxTimeColor = PreferenceConverter.getColor(store,
-				IBlindPreferenceConstants.BLIND_MAX_TIME_COLOR);
-		pb.tableHeaderColor = PreferenceConverter.getColor(store,
-				IBlindPreferenceConstants.BLIND_TABLE_HEADER_COLOR);
-		pb.headingTagsColor = PreferenceConverter.getColor(store,
-				IBlindPreferenceConstants.BLIND_HEADING_TAGS_COLOR);
-		pb.inputTagsColor = PreferenceConverter.getColor(store,
-				IBlindPreferenceConstants.BLIND_INPUT_TAGS_COLOR);
-		pb.labelTagsColor = PreferenceConverter.getColor(store,
-				IBlindPreferenceConstants.BLIND_LABEL_TAGS_COLOR);
-		pb.tableBorderColor = PreferenceConverter.getColor(store,
-				IBlindPreferenceConstants.BLIND_TABLE_BORDER_COLOR);
+		pb.iMaxTime = store.getInt(IBlindPreferenceConstants.BLIND_MAX_TIME_SECOND);
+		pb.maxTimeColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_MAX_TIME_COLOR);
+		pb.tableHeaderColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_TABLE_HEADER_COLOR);
+		pb.headingTagsColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_HEADING_TAGS_COLOR);
+		pb.inputTagsColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_INPUT_TAGS_COLOR);
+		pb.labelTagsColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_LABEL_TAGS_COLOR);
+		pb.tableBorderColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_TABLE_BORDER_COLOR);
+		pb.captionColor = PreferenceConverter.getColor(store, IBlindPreferenceConstants.BLIND_CAPTION_COLOR);
 
 	}
 

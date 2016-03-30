@@ -49,6 +49,8 @@ public class VisualizationNodeInfo {
     private boolean isHeading = false;
     
     private boolean isLandmark = false; //for html5
+    
+    private boolean isCaption = false; //caption/figcaption
 
 	private boolean tableHeader = false;
 
@@ -333,10 +335,19 @@ public class VisualizationNodeInfo {
     }
 
     /**
-     * @return
+     * Returns true if the node is landmark
+     * @return boolean
      */
     public boolean isLandmark() {
 		return isLandmark;
+	}
+
+	public boolean isCaption() {
+		return isCaption;
+	}
+
+	public void setCaption(boolean isCaption) {
+		this.isCaption = isCaption;
 	}
 
 	/**

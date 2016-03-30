@@ -69,6 +69,7 @@ public final class Messages extends NLS {
 	public static String DialogSettingBlind_Input_tags_22;
 	public static String DialogSettingBlind_Label_tags_23;
 	public static String DialogSettingBlind_Tabel_border_24;
+	public static String DialogSettingBlind_Caption_tags_25;
 	
 	public static String VisualizeBrowserMode;
 	public static String VisualizeBrowserModeTooltip;
