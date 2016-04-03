@@ -13,7 +13,6 @@ package org.eclipse.actf.visualization.engines.blind.html;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,7 +21,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
-import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
 import org.eclipse.actf.visualization.engines.blind.TextCheckResult;
 import org.eclipse.actf.visualization.engines.blind.TextChecker;
@@ -67,8 +65,6 @@ public class VisualizeEngine {
 	private static final String errorStyle = "color: #dd0000; background-color: #FFFFFF; border-width: medium; border-style: solid; border-color: #dd0000;"; //$NON-NLS-1$
 
 	private static final String CHECK_ITEM_PATTERN = "B_\\p{Digit}+"; //$NON-NLS-1$
-
-	private static final boolean DEBUG = false;
 
 	private String baseUrl = ""; // default value //$NON-NLS-1$
 
@@ -160,28 +156,25 @@ public class VisualizeEngine {
 		// TODO move to screen reader engine
 		DocumentCleaner.removeDisplayNone(document);
 
-		if (DEBUG)
-			DebugPrintUtil.debugPrintln("remove display none\t" + (new Date()).getTime());
+		// TODO move to DocumentCleaner
+		NodeList tmpNL = document.getElementsByTagName("template");
+		for (int i = 0; i < tmpNL.getLength(); i++) {
+			Element e = (Element) tmpNL.item(i);
+			NodeList tmpChilds = e.getChildNodes();
+			for (int j = tmpChilds.getLength() - 1; j >= 0; j--) {
+				e.removeChild(tmpChilds.item(j));
+			}
+		}
 
 		orig = document;
 		result = (Document) document.cloneNode(true);
 
-		if (DEBUG)
-			DebugPrintUtil.debugPrintln("clone node\t" + (new Date()).getTime());
-
 		jwatc.setDocument(result);
-
-		if (DEBUG)
-			DebugPrintUtil.debugPrintln("jwatc\t" + (new Date()).getTime());
 
 		pageData = new PageData();
 		mapData = new VisualizeMapDataImpl();
 
 		VisualizeMapUtil.createNode2NodeMap(document, result, mapData);
-
-		if (DEBUG)
-			DebugPrintUtil.debugPrintln("create node2node map\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
 
 	}
 
@@ -196,7 +189,7 @@ public class VisualizeEngine {
 				Node tmpNode = p.getNode();
 				while (tmpNode != null) {
 					String name = tmpNode.getNodeName();
-					if ("noscript".equals(name)||"template".equals(name)) { //$NON-NLS-1$
+					if ("noscript".equals(name) || "template".equals(name)) { //$NON-NLS-1$
 						pc.remove(i);
 						break;
 					}
@@ -236,47 +229,25 @@ public class VisualizeEngine {
 			problems = new Vector<IProblemItem>();
 			allPc = jwatc.getPacketCollection();
 
-			DebugPrintUtil.debugPrintln("packet collection\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
-
 			cleanupPacketCollection(allPc);
-
-			DebugPrintUtil.debugPrintln("cleanup packet collection\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
-
 			ParamBlind curParamBlind = ParamBlind.getInstance();
 
 			// get packet and create map and list
 			NodeInfoCreator nodeInfoCreator = new NodeInfoCreator(mapData, textChecker, problems, invisibleIdSet,
 					curParamBlind);
-
-			DebugPrintUtil.debugPrintln("Nodeinfo init\t" + (new Date()).getTime());
-
 			nodeInfoCreator.prepareNodeInfo(allPc);
-
-			DebugPrintUtil.debugPrintln("Nodeinfo prep\t" + (new Date()).getTime());
-
 			nodeInfoCreator.createAdditionalNodeInfo(result);
-
-			DebugPrintUtil.debugPrintln("Nodeinfo additional\t" + (new Date()).getTime());
 
 			// link analysis preparation
 			LinkAnalyzer linkAnalyzer = new LinkAnalyzer(result, allPc, mapData, problems, invisibleIdSet,
 					curParamBlind, pageData);
-
-			DebugPrintUtil.debugPrintln("link analyzer\t" + (new Date()).getTime());
-
 			styleInfo = new VisualizeStyleInfo(orig, mapData);
-
-			DebugPrintUtil.debugPrintln("style info\t" + (new Date()).getTime());
 
 			/*
 			 * rewrite DOM from here
 			 */
 			// insert ID attributes to elements
 			mapData.makeIdMapping(Html2ViewMapData.ACTF_ID);
-
-			DebugPrintUtil.debugPrintln("id mapping\t" + (new Date()).getTime());
 
 			styleInfo.setImportedCssSet(DocumentCleaner.removeCSS(result, targetUrl));
 
@@ -292,23 +263,31 @@ public class VisualizeEngine {
 			// calculate time and set color
 			VisualizeColorUtil colorUtil = new VisualizeColorUtil(result, mapData, curParamBlind, isHTML5);
 			colorUtil.setColorAll();
-
-			DebugPrintUtil.debugPrintln("color\t" + (new Date()).getTime()); //$NON-NLS-1$
-
 			calMaxTime();
 
-			DebugPrintUtil.debugPrintln("max time\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
-
 			problems.addAll(linkAnalyzer.skipLinkCheck(iMaxTime, iMaxTimeLeaf));
+			
+			// remove embedded elements (original/results)
+			for (String s : new String[] { "svg", "math" }) {
+				NodeList tmpNL = orig.getElementsByTagName(s);
+				for (int i = 0; i < tmpNL.getLength(); i++) {
+					Element e = (Element) tmpNL.item(i);
+					NodeList tmpChilds = e.getChildNodes();
+					for (int j = tmpChilds.getLength() - 1; j >= 0; j--) {
+						e.removeChild(tmpChilds.item(j));
+					}
+				}
+			}
+			replaceElement(result, "math", new String[0], "MathML");
+			replaceElement(result, "svg", new String[] { "title", "desc" }, "SVG");
+			replaceElement(result, "video", new String[0], "video"); //src or source?
+			replaceElement(result, "audio", new String[0], "audio"); //src or source?
 
-			DebugPrintUtil.debugPrintln("skiplink check\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
+			// template (temp code (remove after IE supports template tag)
+			replaceElement(result, "template", new String[0], null);
+			
 
 			replaceImgAndCheck(result, mapData, curParamBlind.oReplaceImage);
-
-			DebugPrintUtil.debugPrintln("image check\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
 
 			int errorCount = 0;
 			int missing = 0;
@@ -355,9 +334,6 @@ public class VisualizeEngine {
 
 			VisualizeViewUtil.visualizeError(result, problems, mapData, baseUrl);
 
-			DebugPrintUtil.debugPrintln("error visualization\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
-
 			DocumentCleaner.removeJavaScript(mapData.getNodeInfoList(), result);
 			DocumentCleaner.removeMeta(result);
 			DocumentCleaner.removeObject(result);
@@ -366,22 +342,13 @@ public class VisualizeEngine {
 			DocumentCleaner.removeBase(result);
 			DocumentCleaner.removePI(result);
 
-			DebugPrintUtil.debugPrintln("document cleaner\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
-
 			VisualizationResultCleaner.clean(result, targetUrl);
-
-			DebugPrintUtil.debugPrintln("result cleaner\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
 
 			// TODO merge with visualizeError
 			Id2LineViaActfId id2line = null;
 			if (EvaluationUtil.isOriginalDOM()) {
 				id2line = new Id2LineViaActfId(mapData.getId2AccIdMap(), html2viewMapV);
 			}
-
-			DebugPrintUtil.debugPrintln("id2line\t" //$NON-NLS-1$
-					+ (new Date()).getTime());
 
 			for (IProblemItem i : problems) {
 				BlindProblem tmpBP = (BlindProblem) i;
@@ -420,7 +387,7 @@ public class VisualizeEngine {
 
 			if (message != null) {
 				StringBuffer tmpSB = new StringBuffer();
-				tmpSB.append("[" + message);
+				tmpSB.append("(" + message);
 
 				for (int j = 0; j < childTags.length; j++) {
 					NodeList nl2 = target.getElementsByTagName(childTags[j]);
@@ -436,7 +403,7 @@ public class VisualizeEngine {
 						}
 					}
 				}
-				tmpSB.append("]");
+				tmpSB.append(")");
 
 				// remove other tags and attributes
 
@@ -533,13 +500,6 @@ public class VisualizeEngine {
 				parent.removeChild(iframe);
 			}
 		}
-
-		// mathML/SVG
-		replaceElement(doc, "math", new String[0], "MathML");
-		replaceElement(doc, "svg", new String[] { "title", "desc" }, "SVG");
-
-		// template (temp code (remove after IE supports template tag)
-		replaceElement(doc, "template", new String[0], null);
 
 		// image button
 		nl = doc.getElementsByTagName("input");
