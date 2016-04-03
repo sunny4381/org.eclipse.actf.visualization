@@ -85,11 +85,15 @@ public class NodeInfoCreator {
 			return true;
 		} else if (tagName.equals("input")) {
 			String type = el.getAttribute("type").toLowerCase();
-			if ((type.length() == 0) | type.equals("text") | type.equals("textarea") | type.equals("radio")
-					| type.equals("checkbox")) {
+			if (type.equals("submit") || type.equals("reset") || type.equals("hidden") || type.equals("image")) {
+				//TODO update by using techniques (only hidden state is not labelable in HTML5)
+				return false;
+			} else {
 				return true;
 			}
 		}
+		//TODO update by using techniques 
+		//keygen, meter, output, progress
 		return false;
 	}
 
@@ -227,10 +231,10 @@ public class NodeInfoCreator {
 					} else if (nodeName.equals("label")) {
 						info.setLabel(true);
 						info.appendComment("Label for '" + ((Element) curNode).getAttribute("for") + "'. ");
-					} else if (nodeName.contains("caption")){
+					} else if (nodeName.contains("caption")) {
 						info.setCaption(true);
 						info.appendComment(curNode.getNodeName());
-					} else if (nodeName.equals("mark")){
+					} else if (nodeName.equals("mark")) {
 						info.appendComment("mark");
 					}
 

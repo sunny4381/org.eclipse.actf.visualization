@@ -378,7 +378,6 @@ public class VisualizeEngine {
 					for(int j = 0; j < tmpNL2.getLength(); j++){
 						Element e2 = (Element) tmpNL2.item(j);
 						String id = e2.getAttribute("id");
-						System.out.println(listS+" : "+id);
 						if(id!=null && id.equals(listS)){
 							Node tmpN = mapData.getResultNode(e2);
 							if(tmpN!=null && tmpN instanceof Element){

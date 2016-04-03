@@ -143,16 +143,16 @@ public class VisualizeColorUtil {
 			String inputRGB = getRGBString(param.inputTagsColor, "#FF9900");
 			String captionRGB = getRGBString(param.captionColor, "#FFFF80");
 
-			if (param.bColorizeTags && (info.isHeading() | info.isTableHeader() | info.isLabel()
-					| info.isIdRequiredInput() | info.isCaption())) {
+			if (param.bColorizeTags && (info.isHeading() || info.isTableHeader() || info.isLabel()
+					|| info.isIdRequiredInput() || info.isCaption())) {
 				if (info.isHeading()) {
 					strRGB = headingRGB;
 				} else if (info.isTableHeader()) {
 					strRGB = thRGB;
-				} else if (info.isLabel()) {
-					strRGB = labelRGB;
 				} else if (info.isIdRequiredInput()) {
 					strRGB = inputRGB;
+				} else if (info.isLabel()) {
+					strRGB = labelRGB;
 				} else if (info.isCaption()) {
 					strRGB = captionRGB;
 				}
@@ -177,7 +177,7 @@ public class VisualizeColorUtil {
 				}
 
 				if (param.bVisualizeTime == true) {
-					if ("mark".equals(el.getTagName())||HtmlTagUtil.hasAncestor(el, "mark")) {
+					if ("mark".equals(el.getTagName()) || HtmlTagUtil.hasAncestor(el, "mark")) {
 						el.setAttribute("style", "color: black; background-image: none;");
 					} else {
 						el.setAttribute("style", "color: black; background-image: none; background-color: #"

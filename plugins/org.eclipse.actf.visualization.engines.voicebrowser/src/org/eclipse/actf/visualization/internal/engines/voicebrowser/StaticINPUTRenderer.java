@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,9 +22,9 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionIn(Element,
 	 *      Context)
 	 */
-	//@SuppressWarnings("nls")
-	public PacketCollection getPacketCollectionIn(Element element,
-			Context curContext, String url, MessageCollection mc) {
+	// @SuppressWarnings("nls")
+	public PacketCollection getPacketCollectionIn(Element element, Context curContext, String url,
+			MessageCollection mc) {
 		try {
 			setContextIn(element, curContext);
 			NamedNodeMap attrs = element.getAttributes();
@@ -54,7 +54,17 @@ public class StaticINPUTRenderer implements IElementRenderer {
 						result = inputTypeFile(element, attrs, mc, url);
 					} else if (type.equals("hidden")) {
 						result = inputTypeHidden(element, attrs, mc, url);
+					} else if (type.equals("range")) {
+						result = inputTypeRange(element, attrs, mc, url);
+					} else if (type.equals("tel") || type.equals("search") || type.equals("url") || type.equals("email")
+							|| type.equals("number")) {
+						// temp for (supported) tel, search, url, email, number,
+						result = inputTypeOther(element, attrs, mc, url, type);
+					} else if (type.equals("date") || type.equals("time") || type.equals("color")) {
+						// temp for (not supported) date, time, color
+						result = inputTypeText(element, attrs, mc, url);
 					}
+					// other??
 				}
 			} else {
 				result = inputTypeText(element, attrs, mc, url);
@@ -65,8 +75,12 @@ public class StaticINPUTRenderer implements IElementRenderer {
 			}
 			if (result != null) {
 				result = result.trim();
-				return new PacketCollection(new Packet(element, result,
-						curContext, true));
+
+				if(DomUtil.isDisabled(element)){
+					result = "(disabled)"+result;
+				}
+
+				return new PacketCollection(new Packet(element, result, curContext, true));
 			} else {
 				return null;
 			}
@@ -83,16 +97,14 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypeImage(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
+	private String inputTypeImage(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
 		String result = null;
 		String value = null;
 		Node valueNode = attrs.getNamedItem("alt");
 		if (valueNode != null) {
 			value = valueNode.getNodeValue();
 			if (value != null && value.length() > 0) {
-				result = OutLoud.buildResultString(mc, url, element, "image",
-						"hasstr", "name=str1", value);
+				result = OutLoud.buildResultString(mc, url, element, "image", "hasstr", "name=str1", value);
 				if (result == null)
 					result = "[" + value + ": Image button.]";
 			}
@@ -116,13 +128,11 @@ public class StaticINPUTRenderer implements IElementRenderer {
 				}
 			}
 			if (value != null && value.length() > 0) {
-				result = OutLoud.buildResultString(mc, url, element, "image",
-						"hasstr", "name=str", value);
+				result = OutLoud.buildResultString(mc, url, element, "image", "hasstr", "name=str", value);
 				if (result == null)
 					result = "[" + value + ": Image button.]";
 			} else {
-				result = OutLoud.buildResultString(mc, url, element, "image",
-						"nostr");
+				result = OutLoud.buildResultString(mc, url, element, "image", "nostr");
 				if (result == null)
 					result = "[Image button.]";
 			}
@@ -138,12 +148,27 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypeText(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
-		String result = OutLoud.buildResultString(mc, url, element, "text",
-				null);
+	private String inputTypeText(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
+		String result = OutLoud.buildResultString(mc, url, element, "text", null);
 		if (result == null)
 			result = "[Text.]";
+		return result;
+	}
+
+	/**
+	 * Method inputTypeOther.
+	 * 
+	 * @param nodeName
+	 * @param attrs
+	 * @param mc
+	 * @return String
+	 */
+	private String inputTypeOther(Element element, NamedNodeMap attrs, MessageCollection mc, String url, String type) {
+		// String result = OutLoud.buildResultString(mc, url, element, "text",
+		// null);
+		String result = null;
+		if (result == null)
+			result = "[" + type + ".]";
 		return result;
 	}
 
@@ -155,21 +180,18 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypeSubmit(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
+	private String inputTypeSubmit(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
 		String result = null;
 		String value = null;
 		Node valueNode = attrs.getNamedItem("VALUE");
 		if (valueNode != null)
 			value = valueNode.getNodeValue();
 		if (value != null && value.length() > 0) {
-			result = OutLoud.buildResultString(mc, url, element, "submit",
-					"hasstr", "name=str1", value);
+			result = OutLoud.buildResultString(mc, url, element, "submit", "hasstr", "name=str1", value);
 			if (result == null)
 				result = "[" + value + ": Submit button.]";
 		} else {
-			result = OutLoud.buildResultString(mc, url, element, "submit",
-					"nostr");
+			result = OutLoud.buildResultString(mc, url, element, "submit", "nostr");
 			if (result == null)
 				result = "[Submit button.]";
 		}
@@ -184,21 +206,18 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypeReset(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
+	private String inputTypeReset(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
 		String result = null;
 		String value = null;
 		Node valueNode = attrs.getNamedItem("VALUE");
 		if (valueNode != null)
 			value = valueNode.getNodeValue();
 		if (value != null && value.length() > 0) {
-			result = OutLoud.buildResultString(mc, url, element, "reset",
-					"hasstr", "name=str1", value);
+			result = OutLoud.buildResultString(mc, url, element, "reset", "hasstr", "name=str1", value);
 			if (result == null)
 				result = "[" + value + ": Reset button.]";
 		} else {
-			result = OutLoud.buildResultString(mc, url, element, "reset",
-					"nostr");
+			result = OutLoud.buildResultString(mc, url, element, "reset", "nostr");
 			if (result == null)
 				result = "[Reset button.]";
 		}
@@ -213,21 +232,18 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypeButton(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
+	private String inputTypeButton(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
 		String result = null;
 		String value = null;
 		Node valueNode = attrs.getNamedItem("VALUE");
 		if (valueNode != null)
 			value = valueNode.getNodeValue();
 		if (value != null && value.length() > 0) {
-			result = OutLoud.buildResultString(mc, url, element, "button",
-					"hasstr", "name=str1", value);
+			result = OutLoud.buildResultString(mc, url, element, "button", "hasstr", "name=str1", value);
 			if (result == null)
 				result = "[" + value + ": Button.]";
 		} else {
-			result = OutLoud.buildResultString(mc, url, element, "button",
-					"nostr");
+			result = OutLoud.buildResultString(mc, url, element, "button", "nostr");
 			if (result == null)
 				result = "[Button.]";
 		}
@@ -242,10 +258,8 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypePassword(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
-		String result = OutLoud.buildResultString(mc, url, element, "password",
-				null);
+	private String inputTypePassword(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
+		String result = OutLoud.buildResultString(mc, url, element, "password", null);
 		if (result == null)
 			result = "[Password.]";
 		return result;
@@ -259,18 +273,15 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypeCheckbox(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
+	private String inputTypeCheckbox(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
 		String result = null;
 		Node cnode = attrs.getNamedItem("checked");
 		if (cnode == null) {
-			result = OutLoud.buildResultString(mc, url, element, "checkbox",
-					"off");
+			result = OutLoud.buildResultString(mc, url, element, "checkbox", "off");
 			if (result == null)
 				result = "[Not Checked.]";
 		} else {
-			result = OutLoud.buildResultString(mc, url, element, "checkbox",
-					"on");
+			result = OutLoud.buildResultString(mc, url, element, "checkbox", "on");
 			if (result == null)
 				result = "[Checked.]";
 		}
@@ -285,13 +296,11 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypeRadio(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
+	private String inputTypeRadio(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
 		String result = null;
 		Node cnode = attrs.getNamedItem("checked");
 		if (cnode == null) {
-			result = OutLoud
-					.buildResultString(mc, url, element, "radio", "off");
+			result = OutLoud.buildResultString(mc, url, element, "radio", "off");
 			if (result == null)
 				result = "[Not Pressed.]";
 		} else {
@@ -310,10 +319,8 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypeFile(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
-		String result = OutLoud.buildResultString(mc, url, element, "file",
-				null);
+	private String inputTypeFile(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
+		String result = OutLoud.buildResultString(mc, url, element, "file", null);
 		if (result == null)
 			result = "[Browse button.]";
 		return result;
@@ -327,17 +334,44 @@ public class StaticINPUTRenderer implements IElementRenderer {
 	 * @param mc
 	 * @return String
 	 */
-	private String inputTypeHidden(Element element, NamedNodeMap attrs,
-			MessageCollection mc, String url) {
+	private String inputTypeHidden(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
 		return null;
+	}
+
+	/**
+	 * Method inputTypeRange.
+	 * 
+	 * @param nodeName
+	 * @param attrs
+	 * @param mc
+	 * @return String
+	 */
+	private String inputTypeRange(Element element, NamedNodeMap attrs, MessageCollection mc, String url) {
+		String result = null;
+		String value = null;
+		Node valueNode = attrs.getNamedItem("VALUE");
+		if (valueNode != null)
+			value = valueNode.getNodeValue();
+		if (value != null && value.length() > 0) {
+			try {
+				double val = Double.parseDouble(value);
+				result = "[slider:" + val + "]";
+			} catch (Exception e) {
+
+			}
+		}
+		if (result == null) {
+			result = "[slider]";
+		}
+		return result;
 	}
 
 	/**
 	 * @see org.eclipse.actf.visualization.internal.engines.voicebrowser.IElementRenderer#getPacketCollectionOut(Element,
 	 *      Context)
 	 */
-	public PacketCollection getPacketCollectionOut(Element element,
-			Context curContext, String url, MessageCollection mc) {
+	public PacketCollection getPacketCollectionOut(Element element, Context curContext, String url,
+			MessageCollection mc) {
 		setContextOut(element, curContext);
 		return null;
 	}
@@ -355,7 +389,7 @@ public class StaticINPUTRenderer implements IElementRenderer {
 			if (typeNode != null) {
 				type = typeNode.getNodeValue();
 				if (type.length() > 0) {
-					if (type.equals("submit") || type.equals("reset")) { //$NON-NLS-1$  //$NON-NLS-2$
+					if (type.equals("submit") || type.equals("reset")) { //$NON-NLS-1$ //$NON-NLS-2$
 						curContext.setLineDelimiter(true);
 					} else {
 						curContext.setLineDelimiter(false);

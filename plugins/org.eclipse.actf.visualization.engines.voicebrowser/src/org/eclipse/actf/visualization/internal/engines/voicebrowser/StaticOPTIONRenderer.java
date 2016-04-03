@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -79,6 +79,11 @@ public class StaticOPTIONRenderer implements IElementRenderer {
 		}
 		if (result != null)
 			result = result.trim();
+		
+		if(DomUtil.isDisabled(element)){
+			result = "(disabled)"+result;
+		}
+
 		return new PacketCollection(
 			new Packet(element, result, curContext, true));
 	}

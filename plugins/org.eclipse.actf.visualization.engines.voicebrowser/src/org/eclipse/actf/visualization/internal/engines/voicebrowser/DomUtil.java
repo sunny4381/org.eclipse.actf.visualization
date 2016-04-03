@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,6 +34,7 @@ public class DomUtil {
 
 	/**
 	 * Method recursiveWalk.
+	 * 
 	 * @param node
 	 * @param num
 	 */
@@ -41,9 +42,7 @@ public class DomUtil {
 		getNodeInfo(node, num);
 		tab++;
 		cnt = 0;
-		for (Node child = node.getFirstChild();
-			child != null;
-			child = child.getNextSibling(), cnt++) {
+		for (Node child = node.getFirstChild(); child != null; child = child.getNextSibling(), cnt++) {
 			recursiveWalk(child, cnt);
 		}
 		tab--;
@@ -51,6 +50,7 @@ public class DomUtil {
 
 	/**
 	 * Method getString.
+	 * 
 	 * @param node
 	 * @return String
 	 */
@@ -64,6 +64,7 @@ public class DomUtil {
 
 	/**
 	 * Method getNodeInfo.
+	 * 
 	 * @param node
 	 * @param num
 	 */
@@ -82,12 +83,10 @@ public class DomUtil {
 				str += ">";
 				System.out.println(str);
 			} else {
-				System.out.println(
-					"<" + nodeName + ":" + node.getNodeValue() + ">");
+				System.out.println("<" + nodeName + ":" + node.getNodeValue() + ">");
 			}
 		} else {
-			System.out.println(
-				"<" + nodeName + ":" + node.getNodeValue() + ">");
+			System.out.println("<" + nodeName + ":" + node.getNodeValue() + ">");
 		}
 	}
 
@@ -102,13 +101,13 @@ public class DomUtil {
 
 	/**
 	 * Method isNameAttr.
+	 * 
 	 * @param node
 	 * @return boolean
 	 */
 	public static boolean isNameAttr(Node node) {
 		if (node != null) {
-			if (node.getNodeType() == Node.ELEMENT_NODE
-				&& node.getNodeName().toLowerCase().equals("a")) {
+			if (node.getNodeType() == Node.ELEMENT_NODE && node.getNodeName().toLowerCase().equals("a")) {
 				NamedNodeMap attrs = node.getAttributes();
 				Node altNode = attrs.getNamedItem("name");
 				if (altNode != null)
@@ -120,6 +119,7 @@ public class DomUtil {
 
 	/**
 	 * Method dumpPC.
+	 * 
 	 * @param pc
 	 */
 	public static void dumpPC(PacketCollection pc) {
@@ -136,6 +136,7 @@ public class DomUtil {
 
 	/**
 	 * Method setFormList.
+	 * 
 	 * @param node
 	 */
 	public static void setFormList(Node node) {
@@ -146,6 +147,7 @@ public class DomUtil {
 
 	/**
 	 * Method getFormNum.
+	 * 
 	 * @param element
 	 * @return int
 	 */
@@ -160,4 +162,47 @@ public class DomUtil {
 		}
 		return 0;
 	}
+
+	/**
+	 * Get ancestor node whose name is specified target name
+	 * 
+	 * @param target
+	 *            target {@link Node}
+	 * @param ancestorName
+	 *            target ancestor tag name
+	 * @return target ancestor {@link Node} or null
+	 */
+	public static Node getAncestor(Node target, String ancestorName) {
+		Node tmpNode = target;
+		while (tmpNode != null) {
+			if (tmpNode.getNodeName().equals(ancestorName)) {
+				return tmpNode;
+			}
+			tmpNode = tmpNode.getParentNode();
+		}
+		return null;
+	}
+	
+	
+	
+	public static boolean isDisabled(Element target){
+		if(target.hasAttribute("disabled")){
+			String disabled = target.getAttribute("disabled");
+			if (!"false".equals(disabled)) {
+				return true;
+			}			
+		}
+		Node tmpN = DomUtil.getAncestor(target, "fieldset");
+		if (null != tmpN && tmpN instanceof Element) {
+			Element fieldset = (Element) tmpN;
+			if (fieldset.hasAttribute("disabled")) {
+				String disabled = ((Element) fieldset).getAttribute("disabled");
+				if (!"false".equals(disabled)) {
+					return true;
+				}
+			}
+		}		
+		return false;
+	}
+
 }
