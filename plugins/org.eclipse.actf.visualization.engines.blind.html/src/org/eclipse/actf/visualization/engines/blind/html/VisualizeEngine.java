@@ -38,6 +38,7 @@ import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.actf.visualization.eval.html.statistics.PageData;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.internal.engines.blind.html.BlindProblem;
+import org.eclipse.actf.visualization.internal.engines.blind.html.Messages;
 import org.eclipse.actf.visualization.internal.engines.blind.html.util.DocumentCleaner;
 import org.eclipse.actf.visualization.internal.engines.blind.html.util.ImgChecker;
 import org.eclipse.actf.visualization.internal.engines.blind.html.util.LinkAnalyzer;
@@ -266,7 +267,7 @@ public class VisualizeEngine {
 			calMaxTime();
 
 			problems.addAll(linkAnalyzer.skipLinkCheck(iMaxTime, iMaxTimeLeaf));
-			
+
 			// remove embedded elements (original/results)
 			for (String s : new String[] { "svg", "math" }) {
 				NodeList tmpNL = orig.getElementsByTagName(s);
@@ -280,12 +281,20 @@ public class VisualizeEngine {
 			}
 			replaceElement(result, "math", new String[0], "MathML");
 			replaceElement(result, "svg", new String[] { "title", "desc" }, "SVG");
-			replaceElement(result, "video", new String[0], "video"); //src or source?
-			replaceElement(result, "audio", new String[0], "audio"); //src or source?
+			replaceElement(result, "canvas", new String[0], "canvas");
+
+			// TBD src/source
+			replaceElement(result, "video", new String[0], "video");
+			replaceElement(result, "audio", new String[0], "audio");
 
 			// template (temp code (remove after IE supports template tag)
 			replaceElement(result, "template", new String[0], null);
-			
+
+			// progress
+			visualizeProgress(result); // TODO move to jwatc
+
+			// meter (JAWS 15/NVDA 2016) do not support
+			replaceElement(result, "meter", new String[0], "meter");
 
 			replaceImgAndCheck(result, mapData, curParamBlind.oReplaceImage);
 
@@ -359,6 +368,29 @@ public class VisualizeEngine {
 			}
 			// merge
 
+			// datalist
+			NodeList tmpNL = result.getElementsByTagName("input");
+			NodeList tmpNL2 = orig.getElementsByTagName("datalist");
+			if (tmpNL2.getLength() > 0) {
+				for (int i = 0; i < tmpNL.getLength(); i++) {
+					Element e = (Element) tmpNL.item(i);
+					String listS = e.getAttribute("list");
+					for(int j = 0; j < tmpNL2.getLength(); j++){
+						Element e2 = (Element) tmpNL2.item(j);
+						String id = e2.getAttribute("id");
+						System.out.println(listS+" : "+id);
+						if(id!=null && id.equals(listS)){
+							Node tmpN = mapData.getResultNode(e2);
+							if(tmpN!=null && tmpN instanceof Element){
+								String targetId = ((Element)tmpN).getAttribute("id");
+								e.setAttribute("list", targetId);
+							}
+						}
+					}
+				}
+				
+			}
+
 			VisualizeStyleInfoManager.getInstance().fireVisualizeStyleInfoUpdate(styleInfo);
 
 			if (curParamBlind.visualizeMode.equals(ParamBlind.BLIND_BROWSER_MODE)) {
@@ -409,6 +441,59 @@ public class VisualizeEngine {
 
 				div.appendChild(doc.createTextNode(tmpSB.toString()));
 			}
+
+			Node parent = target.getParentNode();
+			parent.insertBefore(div, target);
+			mapData.addReplacedNodeMapping(target, div);
+			parent.removeChild(target);
+		}
+
+	}
+
+	@SuppressWarnings("nls")
+	private void visualizeProgress(Document doc) {
+		NodeList nl = doc.getElementsByTagName("progress");
+		int size = nl.getLength();
+		for (int i = size - 1; i >= 0; i--) {
+			Element target = (Element) nl.item(i);
+			Element div = doc.createElement("div");
+			div.setAttribute("comment", target.getAttribute("comment"));
+			div.setAttribute("id", target.getAttribute("id"));
+
+			StringBuffer tmpSB = new StringBuffer();
+			tmpSB.append("(progress bar: ");
+			double max = 1.0; // default
+			double value = 0; // default
+
+			if (target.hasAttribute("value")) {
+				try {
+					double tmpValue = Double.parseDouble(target.getAttribute("value"));
+					if (tmpValue > value) {
+						value = tmpValue;
+					}
+				} catch (NumberFormatException e) {
+				}
+				if (target.hasAttribute("max")) {
+					double tmpValue = Double.parseDouble(target.getAttribute("max"));
+					if (tmpValue > 0) {
+						max = tmpValue;
+					}
+				}
+				if (value > max) {
+					tmpSB.append("100%");
+				} else {
+					tmpSB.append(value / max * 100);
+					tmpSB.append("%");
+				}
+			} else {
+				tmpSB.append(Messages.ProgressBar_1); // –¢Šm’è
+			}
+
+			tmpSB.append(")");
+
+			// remove other tags and attributes
+
+			div.appendChild(doc.createTextNode(tmpSB.toString()));
 
 			Node parent = target.getParentNode();
 			parent.insertBefore(div, target);

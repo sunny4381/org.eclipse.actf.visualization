@@ -230,6 +230,8 @@ public class NodeInfoCreator {
 					} else if (nodeName.contains("caption")){
 						info.setCaption(true);
 						info.appendComment(curNode.getNodeName());
+					} else if (nodeName.equals("mark")){
+						info.appendComment("mark");
 					}
 
 					if (nodeName.equals("body")) {

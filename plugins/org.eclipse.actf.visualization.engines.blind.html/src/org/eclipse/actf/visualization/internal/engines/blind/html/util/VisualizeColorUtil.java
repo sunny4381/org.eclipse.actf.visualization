@@ -18,6 +18,7 @@ import java.util.Set;
 
 import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.engines.blind.ParamBlind;
+import org.eclipse.actf.visualization.eval.html.HtmlTagUtil;
 import org.eclipse.swt.graphics.RGB;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
@@ -142,8 +143,8 @@ public class VisualizeColorUtil {
 			String inputRGB = getRGBString(param.inputTagsColor, "#FF9900");
 			String captionRGB = getRGBString(param.captionColor, "#FFFF80");
 
-			if (param.bColorizeTags
-					&& (info.isHeading() | info.isTableHeader() | info.isLabel() | info.isIdRequiredInput() | info.isCaption())) {
+			if (param.bColorizeTags && (info.isHeading() | info.isTableHeader() | info.isLabel()
+					| info.isIdRequiredInput() | info.isCaption())) {
 				if (info.isHeading()) {
 					strRGB = headingRGB;
 				} else if (info.isTableHeader()) {
@@ -152,12 +153,12 @@ public class VisualizeColorUtil {
 					strRGB = labelRGB;
 				} else if (info.isIdRequiredInput()) {
 					strRGB = inputRGB;
-				} else if (info.isCaption()){
+				} else if (info.isCaption()) {
 					strRGB = captionRGB;
 				}
-				
-				//TBD caption
-				
+
+				// TBD caption
+
 				el.setAttribute("style", "color: black; background-image: none; background-color:" + strRGB);// +
 				// "}");
 				// } else if (info.getWords() > 0) {
@@ -176,8 +177,12 @@ public class VisualizeColorUtil {
 				}
 
 				if (param.bVisualizeTime == true) {
-					el.setAttribute("style", "color: black; background-image: none; background-color: #"
-							+ calcColor(time, param.maxTimeColor, param.iMaxTime));
+					if ("mark".equals(el.getTagName())||HtmlTagUtil.hasAncestor(el, "mark")) {
+						el.setAttribute("style", "color: black; background-image: none;");
+					} else {
+						el.setAttribute("style", "color: black; background-image: none; background-color: #"
+								+ calcColor(time, param.maxTimeColor, param.iMaxTime));
+					}
 
 				} else {
 					el.setAttribute("style", "color: black; background-image: none; background-color: transparent");
