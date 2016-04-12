@@ -822,6 +822,20 @@
  <technique id="G202">
   <helpUrl>http://waic.jp/docs/WCAG-TECHS/G202.html</helpUrl>
  </technique>
+ <!-- 2016/02 start-->
+ <technique id="G203">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/G203.html</helpUrl>
+ </technique>
+ <technique id="G204">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/G204.html</helpUrl>
+ </technique>
+ <technique id="G205">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/G205.html</helpUrl>
+ </technique>
+ <technique id="G206">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/G206.html</helpUrl>
+ </technique> 
+ <!-- 2016/02 end  -->
  <technique id="H1">
   <helpUrl>http://waic.jp/docs/WCAG-TECHS/H1.html</helpUrl>
  </technique>
@@ -1104,6 +1118,17 @@
  <technique id="H94">
   <helpUrl>http://waic.jp/docs/WCAG-TECHS/H94.html</helpUrl>
  </technique>
+ <!-- 2016/02 start-->
+ <technique id="H95">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/H95.html</helpUrl>
+ </technique>
+ <technique id="H96">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/H96.html</helpUrl>
+ </technique>
+ <technique id="H97">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/H97.html</helpUrl>
+ </technique>
+ <!-- 2016/02 end  --> 
  <technique id="C1">
   <helpUrl>http://waic.jp/docs/WCAG-TECHS/C1.html</helpUrl>
  </technique>
@@ -1305,6 +1330,11 @@
  <technique id="SCR37">
   <helpUrl>http://waic.jp/docs/WCAG-TECHS/SCR37.html</helpUrl>
  </technique>
+ <!-- 2016/02 start-->
+ <technique id="SCR38">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/SCR38.html</helpUrl>
+ </technique>
+ <!-- 2016/02 end  --> 
  <technique id="SVR1">
   <helpUrl>http://waic.jp/docs/WCAG-TECHS/SVR1.html</helpUrl>
  </technique>
@@ -1383,7 +1413,60 @@
  <technique id="ARIA4">
   <helpUrl>http://waic.jp/docs/WCAG-TECHS/ARIA4.html</helpUrl>
  </technique>
-  <technique id="FLASH1">
+ <!-- 2016/02 start-->
+ <technique id="ARIA5">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA5.html</helpUrl>
+ </technique>
+ <technique id="ARIA6">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA6.html</helpUrl>
+ </technique>
+ <technique id="ARIA7">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA7.html</helpUrl>
+ </technique>
+ <technique id="ARIA8">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA8.html</helpUrl>
+ </technique>
+ <technique id="ARIA9">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA9.html</helpUrl>
+ </technique>
+ <technique id="ARIA10">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA10.html</helpUrl>
+ </technique>
+ <technique id="ARIA11">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA11.html</helpUrl>
+ </technique>
+ <technique id="ARIA12">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA12.html</helpUrl>
+ </technique>
+ <technique id="ARIA13">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA13.html</helpUrl>
+ </technique>
+ <technique id="ARIA14">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA14.html</helpUrl>
+ </technique>
+ <technique id="ARIA15">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA15.html</helpUrl>
+ </technique>
+ <technique id="ARIA16">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA16.html</helpUrl>
+ </technique>
+ <technique id="ARIA17">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA17.html</helpUrl>
+ </technique>
+ <technique id="ARIA18">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA18.html</helpUrl>
+ </technique>
+ <technique id="ARIA19">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA19.html</helpUrl>
+ </technique>
+ <technique id="ARIA20">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA20.html</helpUrl>
+ </technique>
+ <technique id="ARIA21">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/ARIA21.html</helpUrl>
+ </technique>
+ <!-- 2016/02 end  --> 
+ <technique id="FLASH1">
   <helpUrl>http://waic.jp/docs/WCAG-TECHS/FLASH1.html</helpUrl>
  </technique>
  <technique id="FLASH2">
@@ -1758,5 +1841,19 @@
  <technique id="F89">
   <helpUrl>http://waic.jp/docs/WCAG-TECHS/F89.html</helpUrl>
  </technique>
+ <!-- 2016/02 start-->
+ <technique id="F90">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/F90.html</helpUrl>
+ </technique>
+ <technique id="F91">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/F91.html</helpUrl>
+ </technique>
+ <technique id="F92">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/F92.html</helpUrl>
+ </technique>
+ <technique id="F93">
+  <helpUrl>http://www.w3.org/TR/WCAG20-TECHS/F93.html</helpUrl>
+ </technique>
+ <!-- 2016/02 end  --> 
 </techniques>
 </guideline>
