@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2008 IBM Corporation and Others
+ * Copyright (c) 2005, 2016 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -42,35 +42,27 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 	private static final boolean PERFORMANCE_DEBUG = false;
 
-	private static final int LONG_TEXT_NUM = 200; // TODO check
+	private static final int LONG_TEXT_NUM = 250; // TODO check
 
-	private static final String[] HEADING_LEVEL = {
-			"h1", "h2", "h3", "h4", "h5", "h6" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
+	private static final String[] HEADING_LEVEL = { "h1", "h2", "h3", "h4", "h5", "h6" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 
-	public static final String[] EVENT_MOUSE_BUTTON = { ATTR_ONCLICK,
-			ATTR_ONDBLCLICK, ATTR_ONMOUSEUP, ATTR_ONMOUSEDOWN };
+	public static final String[] EVENT_MOUSE_BUTTON = { ATTR_ONCLICK, ATTR_ONDBLCLICK, ATTR_ONMOUSEUP,
+			ATTR_ONMOUSEDOWN };
 
-	public static final String[] EVENT_MOUSE_FOCUS = { ATTR_ONMOUSEOVER,
-			ATTR_ONMOUSEOUT, ATTR_ONMOUSEMOVE };
+	public static final String[] EVENT_MOUSE_FOCUS = { ATTR_ONMOUSEOVER, ATTR_ONMOUSEOUT, ATTR_ONMOUSEMOVE };
 
-	public static final String[] EVENT_ON_KEY = { ATTR_ONKEYDOWN,
-			ATTR_ONKEYPRESS, ATTR_ONKEYUP };
+	public static final String[] EVENT_ON_KEY = { ATTR_ONKEYDOWN, ATTR_ONKEYPRESS, ATTR_ONKEYUP };
 
-	public static final String[] EVENT_LOAD = { ATTR_ONLOAD, ATTR_ONUNLOAD,
-			ATTR_ONABORT, ATTR_ONERROR };
+	public static final String[] EVENT_LOAD = { ATTR_ONLOAD, ATTR_ONUNLOAD, ATTR_ONABORT, ATTR_ONERROR };
 
-	public static final String[] EVENT_WINDOW = { ATTR_ONRESIZE, ATTR_ONMOVE,
-			ATTR_ONDRAGDROP };
+	public static final String[] EVENT_WINDOW = { ATTR_ONRESIZE, ATTR_ONMOVE, ATTR_ONDRAGDROP };
 
-	public static final String[] EVENT_FOCUS = { ATTR_ONFOCUS, ATTR_ONBLUR,
-			ATTR_ONSELECT };
+	public static final String[] EVENT_FOCUS = { ATTR_ONFOCUS, ATTR_ONBLUR, ATTR_ONSELECT };
 
-	private static final XPathService xpathService = XPathServiceFactory
-			.newService();
+	private static final XPathService xpathService = XPathServiceFactory.newService();
 	private static final Object EXP1 = xpathService.compile(".//a[@href]"); //$NON-NLS-1$
 
-	private static final Object EXP2 = xpathService
-			.compile("//h1|//h2|//h3|//h4|//h5|//h6"); //$NON-NLS-1$
+	private static final Object EXP2 = xpathService.compile("//h1|//h2|//h3|//h4|//h5|//h6"); //$NON-NLS-1$
 
 	private Document target;
 
@@ -196,11 +188,9 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 * @param isLive
 	 *            true if target is live DOM
 	 */
-	public HtmlEvalUtil(Document target, Document resultDoc, String url,
-			Map<Node, Integer> document2IdMap, Document srcDom,
-			Document liveDom, PageData pageData, boolean isDBCS, boolean isLive) {
-		this(target, resultDoc, url, document2IdMap, srcDom, liveDom, pageData,
-				0, null, isDBCS, isLive);
+	public HtmlEvalUtil(Document target, Document resultDoc, String url, Map<Node, Integer> document2IdMap,
+			Document srcDom, Document liveDom, PageData pageData, boolean isDBCS, boolean isLive) {
+		this(target, resultDoc, url, document2IdMap, srcDom, liveDom, pageData, 0, null, isDBCS, isLive);
 	}
 
 	/**
@@ -230,9 +220,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 *            true if target is live DOM
 	 */
 	@SuppressWarnings("nls")
-	private HtmlEvalUtil(Document target, Document resultDoc, String url,
-			Map<Node, Integer> document2IdMap, Document srcDom,
-			Document liveDom, PageData pageData, int invisibleElementCount,
+	private HtmlEvalUtil(Document target, Document resultDoc, String url, Map<Node, Integer> document2IdMap,
+			Document srcDom, Document liveDom, PageData pageData, int invisibleElementCount,
 			String[] invisibleLinkStrings, boolean isDBCS, boolean isLive) {
 		this.target = target;
 		this.resultDoc = resultDoc;
@@ -363,12 +352,10 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		object_elements = new Element[length];
 		for (int i = 0; i < length; i++) {
 			object_elements[i] = (Element) tmpNL.item(i);
-			if (FLASH_OBJECT.equalsIgnoreCase(object_elements[i]
-					.getAttribute("classid"))) {
+			if (FLASH_OBJECT.equalsIgnoreCase(object_elements[i].getAttribute("classid"))) {
 				// TODO check codebase
 				// TODO get width hight align ... loop quality...
-				NodeList paramNL = object_elements[i]
-						.getElementsByTagName("param");
+				NodeList paramNL = object_elements[i].getElementsByTagName("param");
 				String src = "";
 				for (int j = 0; j < paramNL.getLength(); j++) {
 					try {
@@ -383,16 +370,13 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 					}
 				}
 				if (src != null && src.length() > 0) {
-					FlashData flashD = new FlashData(object_elements[i], src,
-							true);
+					FlashData flashD = new FlashData(object_elements[i], src, true);
 					pageData.addFlashData(flashD);
 
-					NodeList embedNL = object_elements[i]
-							.getElementsByTagName("embed");
+					NodeList embedNL = object_elements[i].getElementsByTagName("embed");
 					for (int j = 0; j < embedNL.getLength(); j++) {
 						Element tmpE = (Element) embedNL.item(j);
-						if (FLASH_TYPE.equalsIgnoreCase(tmpE
-								.getAttribute("type"))) {
+						if (FLASH_TYPE.equalsIgnoreCase(tmpE.getAttribute("type"))) {
 							// TODO check PLUGINSPAGE
 							// TODO get width hight align ... loop quality...
 
@@ -402,8 +386,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 									embedInObjectSet.add(tmpE);
 									flashD.setWithEmbed(true);
 								} else {
-									pageData.addFlashData(new FlashData(tmpE,
-											src, false));
+									pageData.addFlashData(new FlashData(tmpE, src, false));
 								}
 							}
 						}
@@ -417,8 +400,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		embed_elements = getElementsArray(target, "embed");
 		for (int i = 0; i < embed_elements.length; i++) {
 			Element tmpE = embed_elements[i];
-			if (!embedInObjectSet.contains(tmpE)
-					&& FLASH_TYPE.equals(tmpE.getAttribute("type"))) {
+			if (!embedInObjectSet.contains(tmpE) && FLASH_TYPE.equals(tmpE.getAttribute("type"))) {
 				// TODO check PLUGINSPAGE
 				// TODO get width hight align ... loop quality...
 				String src = tmpE.getAttribute("src");
@@ -447,8 +429,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 		collectScriptElements();
 		if (PERFORMANCE_DEBUG)
-			System.out.println("collectScriptElements\t"
-					+ (new Date()).getTime());
+			System.out.println("collectScriptElements\t" + (new Date()).getTime());
 		/*
 		 * calcDomDifference(); if (PERFORMANCE_DEBUG)
 		 * System.out.println("calcDomDifference\t" + (new Date()).getTime());
@@ -479,8 +460,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	 *         of the node.
 	 */
 	// for new JIS
-	public List<Element> getElementsList(Node node, String tagName,
-			String... tagNames) {
+	public List<Element> getElementsList(Node node, String tagName, String... tagNames) {
 		List<Element> nodes = new ArrayList<Element>();
 		NodeList nl = null;
 		if (node instanceof Document)
@@ -526,8 +506,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 	private void collectScriptElements() {
 		script_elements = getElementsArray(target, "script");
 
-		javascript_elements = getElementsArrayByXPath(target,
-				"//script[@type=\"text/javascript\"]");
+		javascript_elements = getElementsArrayByXPath(target, "//script[@type=\"text/javascript\"]");
 
 		// allEventElements = getElementsArrayByXPath(
 		// target,
@@ -539,16 +518,11 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 
 		eventMouseButtonElements = getElementsArrayByXPath(target,
 				"//*[@onclick or @ondblclick or @onmouseup or @onmousedown]");
-		eventMouseFocusElements = getElementsArrayByXPath(target,
-				"//*[@onmouseover or @onmouseout or @onmousemove]");
-		eventOnKeyElements = getElementsArrayByXPath(target,
-				"//*[@onkeydown or @onkeyup or @onkeypress]");
-		eventLoadElements = getElementsArrayByXPath(target,
-				"//*[@onload or @onunload or @onabort or @onerror]");
-		eventWindowElements = getElementsArrayByXPath(target,
-				"//*[@onresize or @onmove or @ondragdrop]");
-		eventFocusElements = getElementsArrayByXPath(target,
-				"//*[@onfocus or @onblur or @onselect]");
+		eventMouseFocusElements = getElementsArrayByXPath(target, "//*[@onmouseover or @onmouseout or @onmousemove]");
+		eventOnKeyElements = getElementsArrayByXPath(target, "//*[@onkeydown or @onkeyup or @onkeypress]");
+		eventLoadElements = getElementsArrayByXPath(target, "//*[@onload or @onunload or @onabort or @onerror]");
+		eventWindowElements = getElementsArrayByXPath(target, "//*[@onresize or @onmove or @ondragdrop]");
+		eventFocusElements = getElementsArrayByXPath(target, "//*[@onfocus or @onblur or @onselect]");
 
 		Vector<Element> tmpV1 = new Vector<Element>();
 		Vector<String> tmpV2 = new Vector<String>();
@@ -569,10 +543,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		tmpV2.toArray(javascriptHref_hrefs);
 		tmpV3.toArray(javascriptHref_strings);
 
-		int javascriptNum = javascript_elements.length
-				+ eventFocusElements.length + eventLoadElements.length
-				+ eventMouseButtonElements.length
-				+ eventMouseFocusElements.length + eventOnKeyElements.length
+		int javascriptNum = javascript_elements.length + eventFocusElements.length + eventLoadElements.length
+				+ eventMouseButtonElements.length + eventMouseFocusElements.length + eventOnKeyElements.length
 				+ eventWindowElements.length + javascriptHref_hrefs.length;
 
 		hasJavascript = (javascriptNum > 0);
@@ -653,10 +625,8 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			boolean bMultiCol = false;
 			int length = cellNl.getLength();
 			for (int i = 0; i < length; i++) {
-				NodeList thNl = ((Element) cellNl.item(i))
-						.getElementsByTagName("th"); //$NON-NLS-1$
-				NodeList tdNl = ((Element) cellNl.item(i))
-						.getElementsByTagName("td"); //$NON-NLS-1$
+				NodeList thNl = ((Element) cellNl.item(i)).getElementsByTagName("th"); //$NON-NLS-1$
+				NodeList tdNl = ((Element) cellNl.item(i)).getElementsByTagName("td"); //$NON-NLS-1$
 				if ((thNl.getLength() + tdNl.getLength()) > 1) {
 					bMultiCol = true;
 					break;
@@ -730,10 +700,14 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		if (getTextAltDescendant(el).length() > LONG_TEXT_NUM) {
 			return false;
 		}
-		NodeList aNl = el.getElementsByTagName("a"); //$NON-NLS-1$
-		NodeList liNl = el.getElementsByTagName("li"); //$NON-NLS-1$
+		// NodeList aNl = el.getElementsByTagName("a"); //$NON-NLS-1$
+		// NodeList liNl = el.getElementsByTagName("li"); //$NON-NLS-1$
+		// NodeList imgNl = el.getElementsByTagName("img"); //$NON-NLS-1$
+		// if ((aNl.getLength() + liNl.getLength() + imgNl.getLength()) > 3) {
+		// return false;
+		// }
 		NodeList imgNl = el.getElementsByTagName("img"); //$NON-NLS-1$
-		if ((aNl.getLength() + liNl.getLength() + imgNl.getLength()) > 3) {
+		if (imgNl.getLength() > 10) {
 			return false;
 		}
 
@@ -791,8 +765,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 		}
 		return idElementList;
 	}
-	
-	
+
 	/**
 	 * Get all style elements.
 	 * 
@@ -1339,8 +1312,7 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 			if (tmpE != null && "area".equalsIgnoreCase(tmpE.getTagName())) {
 				tmpE = resultDoc.getElementById("id" + id + "-span");
 			}
-			if (tmpE != null
-					&& tmpE.getElementsByTagName("img").getLength() == 0) {
+			if (tmpE != null && tmpE.getElementsByTagName("img").getLength() == 0) {
 				Element errorImg = resultDoc.createElement("img");
 				errorImg.setAttribute(ATTR_ALT, "error icon");
 				errorImg.setAttribute(ATTR_SRC, "img/exclawhite21.gif");
@@ -1359,11 +1331,9 @@ public class HtmlEvalUtil extends HtmlTagUtil {
 					comment_sb.append(comment.charAt(x));
 				}
 
-				String tmpS = comment_sb.toString().replaceAll("\n", "")
-						.replaceAll("\r", "");
+				String tmpS = comment_sb.toString().replaceAll("\n", "").replaceAll("\r", "");
 
-				errorImg.setAttribute("onmouseover", "updateBaloon2(\"id" + id
-						+ "\",\"" + tmpS + "\");");
+				errorImg.setAttribute("onmouseover", "updateBaloon2(\"id" + id + "\",\"" + tmpS + "\");");
 				tmpE.appendChild(errorImg);
 				return true;
 			} else {
