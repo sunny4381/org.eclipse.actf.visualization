@@ -22,6 +22,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.actf.util.logging.DebugPrintUtil;
+import org.eclipse.actf.util.xpath.XPathService;
+import org.eclipse.actf.util.xpath.XPathServiceFactory;
 import org.eclipse.actf.visualization.engines.blind.BlindVizResourceUtil;
 import org.eclipse.actf.visualization.engines.blind.html.IBlindProblem;
 import org.eclipse.actf.visualization.engines.blind.html.VisualizeEngine;
@@ -39,6 +41,8 @@ import org.w3c.dom.NodeList;
 public class VisualizeViewUtil {
 
 	// separated from VisualizeEngine
+
+	private static final XPathService xpathService = XPathServiceFactory.newService();
 
 	private static final String SCRIPT = "script"; //$NON-NLS-1$
 	private static final String NAME = "name"; //$NON-NLS-1$
@@ -168,13 +172,27 @@ public class VisualizeViewUtil {
 		}
 	}
 
-	public static void visualizeLandmark(Document doc, String baseUrl) {
-		String[] landmarks = { "nav", "article", "aside" };
+	private static void addLandmarkImg(Document doc, Element target, String baseUrl, String landmarkName) {
+		Element imgel1 = doc.createElement(IMG);
+		imgel1.setAttribute(ALT, "Landmark: " + landmarkName);
+		// imgel1.setAttribute(TITLE, name);
+		imgel1.setAttribute(SRC, baseUrl + "img/" + landmarkName + ".gif");
 
-		NodeList tmpNl = doc.getElementsByTagName("main");
+		if (target.hasChildNodes()) {
+			target.insertBefore(imgel1, target.getFirstChild());
+		} else {
+			target.appendChild(imgel1);
+		}
+	}
+
+	public static void visualizeLandmark(Document doc, String baseUrl) {
+		// String[] landmarks = { "nav", "article", "aside" };
+
+		// NodeList tmpNl = doc.getElementsByTagName("main");
+		NodeList tmpNl = xpathService.evalPathForNodeList("//main|//*[@role='main']", doc);
 		for (int i = 0; i < tmpNl.getLength(); i++) {
 			Element landE = (Element) tmpNl.item(i);
-			addLandmarkImg(doc, landE, baseUrl);
+			addLandmarkImg(doc, landE, baseUrl, "main");
 
 			try {
 				Element parentE = (Element) landE.getParentNode();
@@ -186,11 +204,26 @@ public class VisualizeViewUtil {
 			}
 		}
 
-		for (String tag : landmarks) {
-			tmpNl = doc.getElementsByTagName(tag);
-			for (int i = 0; i < tmpNl.getLength(); i++) {
-				Element landE = (Element) tmpNl.item(i);
-				addLandmarkImg(doc, landE, baseUrl);
+		tmpNl = xpathService.evalPathForNodeList("//article|//*[@role='article']", doc);
+		for (int i = 0; i < tmpNl.getLength(); i++) {
+			addLandmarkImg(doc, (Element) tmpNl.item(i), baseUrl, "article");
+		}
+
+		tmpNl = xpathService.evalPathForNodeList("//nav|//*[@role='navigation']", doc);
+		for (int i = 0; i < tmpNl.getLength(); i++) {
+			addLandmarkImg(doc, (Element) tmpNl.item(i), baseUrl, "nav");
+		}
+
+		tmpNl = doc.getElementsByTagName("aside");
+		for (int i = 0; i < tmpNl.getLength(); i++) {
+			addLandmarkImg(doc, (Element) tmpNl.item(i), baseUrl);
+		}
+
+		tmpNl = xpathService.evalPathForNodeList("//*[@role='complementary']", doc);
+		for (int i = 0; i < tmpNl.getLength(); i++) {
+			Element landE = (Element) tmpNl.item(i);
+			if (!"aside".equalsIgnoreCase(landE.getNodeName())) {
+				addLandmarkImg(doc, landE, baseUrl, "complementary");
 			}
 		}
 
@@ -204,6 +237,33 @@ public class VisualizeViewUtil {
 				}
 			}
 		}
+
+		tmpNl = xpathService.evalPathForNodeList("//*[@role='banner']", doc);
+		for (int i = 0; i < tmpNl.getLength(); i++) {
+			Element landE = (Element) tmpNl.item(i);
+			if (!"header".equalsIgnoreCase(landE.getNodeName())) {
+				addLandmarkImg(doc, landE, baseUrl, "banner");
+			}
+		}
+
+		tmpNl = xpathService.evalPathForNodeList("//*[@role='contentinfo']", doc);
+		for (int i = 0; i < tmpNl.getLength(); i++) {
+			Element landE = (Element) tmpNl.item(i);
+			if (!"footer".equalsIgnoreCase(landE.getNodeName())) {
+				addLandmarkImg(doc, landE, baseUrl, "contentinfo");
+			}
+		}
+
+		tmpNl = xpathService.evalPathForNodeList("//*[@role='application']", doc);
+		for (int i = 0; i < tmpNl.getLength(); i++) {
+			addLandmarkImg(doc, (Element) tmpNl.item(i), baseUrl, "application");
+		}
+		
+		tmpNl = xpathService.evalPathForNodeList("//*[@role='search']", doc);
+		for (int i = 0; i < tmpNl.getLength(); i++) {
+			addLandmarkImg(doc, (Element) tmpNl.item(i), baseUrl, "search");
+		}
+
 
 		NodeList nl = doc.getElementsByTagName("head");
 		if (nl.getLength() > 0) {

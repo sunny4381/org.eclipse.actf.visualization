@@ -265,11 +265,11 @@
             <gItem id="o" name="Section508"/>
             <gItem techniques="H42" id="1.3.1" name="JIS"/>
             <gItem techniques="G1, G123, G124, H69" id="2.4.1" name="JIS"/>
-            <gItem techniques="G141" id="2.4.10" name="JIS"/>
+            <gItem techniques="G141,ARIA12" id="2.4.10" name="JIS"/>
             <gItem id="8" name="IBMGuideline"/>
             <gItem techniques="H42" id="1.3.1" name="WCAG 2.0"/>
             <gItem techniques="G1, G123, G124, H69" id="2.4.1" name="WCAG 2.0"/>
-            <gItem techniques="G141" id="2.4.10" name="WCAG 2.0"/>
+            <gItem techniques="G141,ARIA12" id="2.4.10" name="WCAG 2.0"/>
         </guideline>
         <metrics>
             <mItem name="Perceivable"/>

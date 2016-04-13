@@ -72,6 +72,12 @@ public class BlindVizResourceUtil {
 		FileUtils.copyFile(bundleBlind, new Path("vizResources/landmark_icons/header.gif"), path + "header.gif", true);
 		FileUtils.copyFile(bundleBlind, new Path("vizResources/landmark_icons/main.gif"), path + "main.gif", true);
 		FileUtils.copyFile(bundleBlind, new Path("vizResources/landmark_icons/nav.gif"), path + "nav.gif", true);
+		FileUtils.copyFile(bundleBlind, new Path("vizResources/landmark_icons/application.gif"), path + "application.gif", true);
+		FileUtils.copyFile(bundleBlind, new Path("vizResources/landmark_icons/banner.gif"), path + "banner.gif", true);
+		FileUtils.copyFile(bundleBlind, new Path("vizResources/landmark_icons/complementary.gif"), path + "complementary.gif", true);
+		FileUtils.copyFile(bundleBlind, new Path("vizResources/landmark_icons/contentinfo.gif"), path + "contentinfo.gif", true);
+		FileUtils.copyFile(bundleBlind, new Path("vizResources/landmark_icons/search.gif"), path + "search.gif", true);
+		//FileUtils.copyFile(bundleBlind, new Path("vizResources/landmark_icons/form.gif"), path + "form.gif", true);
 
 	}
 

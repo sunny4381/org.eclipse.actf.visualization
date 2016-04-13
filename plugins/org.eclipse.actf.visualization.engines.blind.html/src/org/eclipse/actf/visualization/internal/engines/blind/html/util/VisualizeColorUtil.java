@@ -262,8 +262,14 @@ public class VisualizeColorUtil {
 				curTotalLines += curInfo.getLines();
 
 			} else if (curInfo.isHeading()) {
-				if (curInfo.getNode().getNodeName().matches("h[1-6]")) {
+				Node tmpN = curInfo.getNode();
+				if (tmpN.getNodeName().matches("h[1-6]")) {
 					headingCount++;
+				} else if (tmpN instanceof Element) {
+					Element tmpE = (Element) tmpN;
+					if (tmpE.hasAttribute("role") && "heading".equalsIgnoreCase(tmpE.getAttribute("role"))) {
+						headingCount++;
+					}
 				}
 
 				int tmpTotalWords = wordcountForHeading(headingCount);

@@ -38,6 +38,9 @@ public class NodeInfoCreator {
 	private static final String LANDMARK_TAGS = "nav|main|article|aside"; //$NON-NLS-1$
 
 	private static final String HEADER_FOOTER_TAGS = "header|footer"; //$NON-NLS-1$
+	
+	private static final String LANDMARK_ROLES = "banner|navigation|main|contentinfor|complementary|article|search|application"; 
+	//TBD form (not supported in some env)
 
 	private static final Set<String> BLOCK_TAG_SET = HtmlTagUtil.getBlockElementSet();
 
@@ -86,14 +89,15 @@ public class NodeInfoCreator {
 		} else if (tagName.equals("input")) {
 			String type = el.getAttribute("type").toLowerCase();
 			if (type.equals("submit") || type.equals("reset") || type.equals("hidden") || type.equals("image")) {
-				//TODO update by using techniques (only hidden state is not labelable in HTML5)
+				// TODO update by using techniques (only hidden state is not
+				// labelable in HTML5)
 				return false;
 			} else {
 				return true;
 			}
 		}
-		//TODO update by using techniques 
-		//keygen, meter, output, progress
+		// TODO update by using techniques
+		// keygen, meter, output, progress
 		return false;
 	}
 
@@ -209,6 +213,7 @@ public class NodeInfoCreator {
 
 				Node curNode = p.getNode();
 				while (curNode != null) {
+					boolean hasHeadingRole = false;
 					String nodeName = curNode.getNodeName();
 					if (curNode.getNodeType() == Node.ELEMENT_NODE) {
 						Element tmpE = (Element) curNode;
@@ -219,6 +224,9 @@ public class NodeInfoCreator {
 							info.setInvisible(true);
 							isVisible = false;
 							// System.out.println(tmpE.getAttribute("id"));
+						}
+						if (tmpE.hasAttribute("role") && "heading".equalsIgnoreCase(tmpE.getAttribute("role"))) {
+							hasHeadingRole = true;
 						}
 					}
 
@@ -236,6 +244,11 @@ public class NodeInfoCreator {
 						info.appendComment(curNode.getNodeName());
 					} else if (nodeName.equals("mark")) {
 						info.appendComment("mark");
+					}
+
+					if (hasHeadingRole && !info.isHeading()) {
+						info.setHeading(true);
+						info.appendComment("Heading: " + nodeName + " (role=\"heading\").");
 					}
 
 					if (nodeName.equals("body")) {
@@ -368,8 +381,16 @@ public class NodeInfoCreator {
 								// System.out.println("Landmark: " + curNodeName
 								// + " without ancestor article/section.");
 							}
+						} else {
+							Element tmpE = (Element) curNode;
+							if (tmpE.hasAttribute("role")) {
+								String roleS = tmpE.getAttribute("role");
+								if(roleS.matches(LANDMARK_ROLES)){
+									curInfo.setLandmark(true);
+									curInfo.appendComment("Landmark: " + curNodeName + "(role=\""+roleS+"\").");									
+								}								
+							}
 						}
-
 					}
 
 					if (curInfo != null) {
