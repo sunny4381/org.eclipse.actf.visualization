@@ -7,10 +7,15 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    Kentarou FUKUDA - 514944
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.lowvision.io;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionIOException;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
@@ -19,8 +24,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.image.IInt2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.ImageUtil;
 
 public class ImageReader {
-	public static BufferedImage readBufferedImage(String _fileName)
-			throws LowVisionIOException {
+	public static BufferedImage readBufferedImage(String _fileName) throws LowVisionIOException {
 		short type = IoUtil.getFileType(_fileName);
 		if (type != IoUtil.TYPE_UNKNOWN)
 			return (readBufferedImage(_fileName, type));
@@ -28,13 +32,17 @@ public class ImageReader {
 			throw new LowVisionIOException("Unknown image format: _fileName"); //$NON-NLS-1$
 	}
 
-	public static BufferedImage readBufferedImage(String _fileName, short _type)
-			throws LowVisionIOException {
+	public static BufferedImage readBufferedImage(String _fileName, short _type) throws LowVisionIOException {
 		BufferedImage bufIm = null;
 		if (_type == IoUtil.TYPE_BMP) {
 			bufIm = BMPReader.readBufferedImage(_fileName);
 		} else if (_type == IoUtil.TYPE_JPEG) {
-			bufIm = JPEGReader.readBufferedImage(_fileName);
+			try {
+				bufIm = ImageIO.read(new File(_fileName));
+			} catch (IOException e) {
+				e.printStackTrace();
+				throw new LowVisionIOException("IO error occurred while decoding JPEG file."); //$NON-NLS-1$
+			}
 		} else if (_type == IoUtil.TYPE_GIF) {
 			bufIm = ImageFileReader.readBufferedImage(_fileName);
 		} else if (_type == IoUtil.TYPE_PNG) {
@@ -52,29 +60,23 @@ public class ImageReader {
 
 	public static IInt2D readInt2D(String _fileName) throws LowVisionIOException {
 		try {
-			return (ImageUtil
-					.bufferedImageToInt2D(readBufferedImage(_fileName)));
+			return (ImageUtil.bufferedImageToInt2D(readBufferedImage(_fileName)));
 		} catch (ImageException e) {
 			e.printStackTrace();
-			throw new LowVisionIOException(
-					"ImageException occurred while converting BufferedImage into Int2D."); //$NON-NLS-1$
+			throw new LowVisionIOException("ImageException occurred while converting BufferedImage into Int2D."); //$NON-NLS-1$
 		}
 	}
 
-	public static IInt2D readInt2D(String _fileName, short _type)
-			throws LowVisionIOException {
+	public static IInt2D readInt2D(String _fileName, short _type) throws LowVisionIOException {
 		try {
-			return (ImageUtil.bufferedImageToInt2D(readBufferedImage(_fileName,
-					_type)));
+			return (ImageUtil.bufferedImageToInt2D(readBufferedImage(_fileName, _type)));
 		} catch (ImageException e) {
 			e.printStackTrace();
-			throw new LowVisionIOException(
-					"ImageException occurred while converting BufferedImage into Int2D."); //$NON-NLS-1$
+			throw new LowVisionIOException("ImageException occurred while converting BufferedImage into Int2D."); //$NON-NLS-1$
 		}
 	}
 
-	public static BinaryImage readBinaryImage(String _fileName)
-			throws LowVisionIOException {
+	public static BinaryImage readBinaryImage(String _fileName) throws LowVisionIOException {
 		short type = IoUtil.getFileType(_fileName);
 		if (type != IoUtil.TYPE_UNKNOWN)
 			return (readBinaryImage(_fileName, type));
@@ -82,12 +84,22 @@ public class ImageReader {
 			throw new LowVisionIOException("Unknown image format."); //$NON-NLS-1$
 	}
 
-	public static BinaryImage readBinaryImage(String _fileName, short _type)
-			throws LowVisionIOException {
+	public static BinaryImage readBinaryImage(String _fileName, short _type) throws LowVisionIOException {
 		if (_type == IoUtil.TYPE_PBM)
 			return (PBMReader.readBinaryImage(_fileName));
 		else
 			throw new LowVisionIOException("Unknown image format."); //$NON-NLS-1$
 	}
+
+	//for test
+	// public static void main(String[] args) {
+	// try {
+	// BufferedImage tmpBI = readBufferedImage("C://test/test.jpg");
+	// ImageWriter.writeBufferedImage(tmpBI, "C://test/test2.jpg");
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	//
+	// }
 
 }
