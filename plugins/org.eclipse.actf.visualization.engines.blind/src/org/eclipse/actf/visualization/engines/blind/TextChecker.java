@@ -137,10 +137,10 @@ public class TextChecker {
 
 		if ((prevText != null) && (prevText.length() > 1) && (curText.length() > 1)) {
 
-			String prevText2 = prevText.replaceAll("\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
+			String prevText2 = prevText.replaceAll("\\[|\\]|\\.|\\!|\\>|\\n", NULL_STRING); //$NON-NLS-1$
 			prevText2 = prevText2.trim();
 
-			String curText2 = curText.replaceAll("\\[|\\]|\\.|\\!|\\>", NULL_STRING); //$NON-NLS-1$
+			String curText2 = curText.replaceAll("\\[|\\]|\\.|\\!|\\>|\\n", NULL_STRING); //$NON-NLS-1$
 			curText2 = curText2.trim();
 
 			if (curText2.equalsIgnoreCase(prevText2)) {
