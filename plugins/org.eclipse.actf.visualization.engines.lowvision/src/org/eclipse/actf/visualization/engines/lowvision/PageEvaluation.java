@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
 import org.eclipse.actf.visualization.internal.engines.lowvision.ScoreUtil;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.io.ImageWriter;
-import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ProblemItemLV;
@@ -215,7 +215,7 @@ public class PageEvaluation {
 				if (curElement == null) {
 					continue;
 				}
-				LowVisionProblem[] curProblemArray = curElement.check(type,
+				ILowVisionProblem[] curProblemArray = curElement.check(type,
 						allowedForegroundColors, allowedBackgroundColors);
 				int curLen = 0;
 				if (curProblemArray != null) {
@@ -224,7 +224,7 @@ public class PageEvaluation {
 
 				// convert to LowVisionProblemGroup
 				for (int j = 0; j < curLen; j++) {
-					Vector<LowVisionProblem> tmpVec = new Vector<LowVisionProblem>();
+					Vector<ILowVisionProblem> tmpVec = new Vector<ILowVisionProblem>();
 					tmpVec.addElement(curProblemArray[j]);
 					LowVisionProblemGroup lvpGroup = null;
 					try {

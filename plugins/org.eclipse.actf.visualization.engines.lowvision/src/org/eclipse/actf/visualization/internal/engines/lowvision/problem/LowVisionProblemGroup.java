@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    IBM Corporation - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.internal.engines.lowvision.problem;
@@ -22,31 +23,29 @@ import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
 public class LowVisionProblemGroup extends LowVisionProblem {
 	int numProblems; // problems.length;
 
-	LowVisionProblem[] problems;
+	ILowVisionProblem[] problems;
 
-	LowVisionProblem representative = null;
+	ILowVisionProblem representative = null;
 
-	double sumCharacterScores; // 
+	double sumCharacterScores; //
 
 	double groupScore; // (sumCharacterScore/area)
 
-	public LowVisionProblemGroup(Vector<LowVisionProblem> _vec)
-			throws LowVisionProblemException {
+	public LowVisionProblemGroup(Vector<ILowVisionProblem> _vec) throws LowVisionProblemException {
 		numProblems = _vec.size();
 		if (numProblems <= 0) {
-			throw new LowVisionProblemException(
-					"No instance belong to the group."); //$NON-NLS-1$
+			throw new LowVisionProblemException("No instance belong to the group."); //$NON-NLS-1$
 		}
 		problems = new LowVisionProblem[numProblems];
 
 		representative = _vec.elementAt(0);
 		problems[0] = representative;
-		this.pageImage = representative.pageImage;
-		this.lowVisionType = representative.lowVisionType;
-		this.problemType = representative.problemType;
-		this.componentType = representative.componentType;
-		this.description = representative.description;
-		sumCharacterScores = representative.characterScore;
+		this.pageImage = representative.getPageImage();
+		this.lowVisionType = representative.getLowVisionType();
+		this.problemType = representative.getLowVisionProblemType();
+		this.componentType = representative.getComponentType();
+		this.description = representative.getDescription();
+		sumCharacterScores = representative.getCharacterScore();
 		setRecommendations();
 		this.isGroupFlag = true;
 
@@ -55,10 +54,9 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 		int tmpTop = representative.getY();
 		int tmpBottom = tmpTop + representative.getHeight();
 		for (int i = 1; i < numProblems; i++) {
-			LowVisionProblem curProb = _vec.elementAt(i);
-			if (curProb.problemType != this.problemType) {
-				throw new LowVisionProblemException(
-						"Problems of different types cannot be grouped."); //$NON-NLS-1$
+			ILowVisionProblem curProb = _vec.elementAt(i);
+			if (curProb.getLowVisionProblemType() != this.problemType) {
+				throw new LowVisionProblemException("Problems of different types cannot be grouped."); //$NON-NLS-1$
 			}
 			problems[i] = curProb;
 			int curLeft = curProb.getX();
@@ -77,7 +75,7 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 			if (tmpBottom < curBottom) {
 				tmpBottom = curBottom;
 			}
-			sumCharacterScores += curProb.characterScore;
+			sumCharacterScores += curProb.getCharacterScore();
 		}
 		this.left = tmpLeft;
 		this.top = tmpTop;
@@ -90,22 +88,20 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 	}
 
 	protected void setRecommendations() {
-		this.numRecommendations = representative.numRecommendations;
-		this.recommendations = representative.recommendations;
+		this.recommendations = representative.getRecommendations();
 	}
 
 	private void calcProbability() throws LowVisionProblemException {
 		if (numProblems <= 0) {
-			throw new LowVisionProblemException(
-					"There are no Problems in this ProblemGroup."); //$NON-NLS-1$
+			throw new LowVisionProblemException("There are no Problems in this ProblemGroup."); //$NON-NLS-1$
 		}
 		probability = 0.0;
 		// double problemArea = 0.0;
 		double maxProba = 0.0;
 		for (int i = 0; i < numProblems; i++) {
-			LowVisionProblem curProb = problems[i];
-			if (maxProba < curProb.probability) {
-				maxProba = curProb.probability;
+			ILowVisionProblem curProb = problems[i];
+			if (maxProba < curProb.getProbability()) {
+				maxProba = curProb.getProbability();
 			}
 			// double curArea = curProb.width * curProb.height;
 			// probability += (curProb.probability * curArea);
@@ -127,18 +123,17 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 	}
 
 	private void calcPriority() throws LowVisionProblemException {
-		if (problems[0].pageComponent == null) {
+		if (problems[0].getPageComponent() == null) {
 			priority = 0;
 			return;
 		}
 
-		IPageImage pi = problems[0].pageComponent.getPageImage();
+		IPageImage pi = problems[0].getPageComponent().getPageImage();
 		if (problemType == LowVisionProblem.LOWVISION_IMAGE_COLOR_PROBLEM) {
 			priority = 0;
 		} else {
 			if (pi == null) {
-				throw new LowVisionProblemException(
-						"PageImage of the Problem is null."); //$NON-NLS-1$
+				throw new LowVisionProblemException("PageImage of the Problem is null."); //$NON-NLS-1$
 			}
 			int pageWidth = pi.getWidth();
 			int pageHeight = pi.getHeight();
@@ -146,7 +141,7 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 		}
 	}
 
-	public LowVisionProblem getRepresentative() {
+	public ILowVisionProblem getRepresentative() {
 		return (representative);
 	}
 
@@ -154,7 +149,7 @@ public class LowVisionProblemGroup extends LowVisionProblem {
 		return (numProblems);
 	}
 
-	public LowVisionProblem[] getProblems() {
+	public ILowVisionProblem[] getProblems() {
 		return (problems);
 	}
 

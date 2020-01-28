@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    IBM Corporation - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.internal.engines.lowvision.problem;
@@ -14,11 +15,7 @@ package org.eclipse.actf.visualization.internal.engines.lowvision.problem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.Messages;
 
 public class ChangableFontRecommendation extends LowVisionRecommendation {
-	public ChangableFontRecommendation(LowVisionProblem _prob)
-			throws LowVisionProblemException {
-		super(
-				CHANGABLE_FONT_RECOMMENDATION,
-				_prob,
-				Messages.ChangableFontRecommendation_Do_not_use_fixed_size_font__1);
+	public ChangableFontRecommendation(ILowVisionProblem _prob) throws LowVisionProblemException {
+		super(CHANGABLE_FONT_RECOMMENDATION, _prob, Messages.ChangableFontRecommendation_Do_not_use_fixed_size_font__1);
 	}
 }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 IBM Corporation and Others
+ * Copyright (c) 2008, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  * 	  Junji MAEDA - initial API and implementation
+ * 	  IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.lowvision.checker;
 
@@ -33,6 +34,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.image.Topology;
 import org.eclipse.actf.visualization.internal.engines.lowvision.operator.LowVisionFilter;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.BlurProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ColorProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
@@ -582,7 +584,7 @@ public class CharacterChecker {
 			Stack<LowVisionProblem> searchStack = new Stack<LowVisionProblem>();
 			searchStack.push(_curProb);
 			while (!searchStack.empty()) {
-				LowVisionProblem sProb = searchStack.pop();
+				ILowVisionProblem sProb = searchStack.pop();
 				for (int i = 0; i < _size; i++) {
 					if (_idMap[i] == 0) {
 						LowVisionProblem tmpProb = _tmpVec.elementAt(i);
@@ -603,7 +605,7 @@ public class CharacterChecker {
 	private void makeProblemGroupByID(Vector<LowVisionProblemGroup> _resultVec,
 			int _id, Vector<LowVisionProblem> _tmpVec, int _size, int[] _idMap)
 			throws ImageException {
-		Vector<LowVisionProblem> groupVector = new Vector<LowVisionProblem>();
+		Vector<ILowVisionProblem> groupVector = new Vector<ILowVisionProblem>();
 
 		for (int i = 0; i < _size; i++) {
 			if (_idMap[i] == _id) {

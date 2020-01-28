@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    IBM Corporation - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.internal.engines.lowvision.image;
@@ -23,6 +24,7 @@ import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.DecisionMaker;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorIRGB;
 import org.eclipse.actf.visualization.internal.engines.lowvision.operator.LowVisionFilter;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ImageColorProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
@@ -224,7 +226,7 @@ public class InteriorImage extends PageComponent {
 			return (null);
 		}
 
-		Vector<LowVisionProblem> problemVector = new Vector<LowVisionProblem>();
+		Vector<ILowVisionProblem> problemVector = new Vector<ILowVisionProblem>();
 		try {
 			for (int k = 0; k < numLargeComponents - 1; k++) {
 				for (int l = k + 1; l < numLargeComponents; l++) {
@@ -311,7 +313,7 @@ public class InteriorImage extends PageComponent {
 			// search problems should be merged with curProb
 			LowVisionProblem curProb = _vec.elementAt(curSize - 1);
 			_vec.removeElementAt(curSize - 1);
-			Vector<LowVisionProblem> curVec = new Vector<LowVisionProblem>();
+			Vector<ILowVisionProblem> curVec = new Vector<ILowVisionProblem>();
 			curVec.addElement(curProb);
 
 			short curType = curProb.getType();
@@ -343,8 +345,8 @@ public class InteriorImage extends PageComponent {
 		return (answerVec);
 	}
 
-	private class CompareByProbability implements Comparator<LowVisionProblem> {
-		public int compare(LowVisionProblem _o1, LowVisionProblem _o2) {
+	private class CompareByProbability implements Comparator<ILowVisionProblem> {
+		public int compare(ILowVisionProblem _o1, ILowVisionProblem _o2) {
 			double diff = _o2.getProbability() - _o1.getProbability();
 			if (diff > 0) {
 				return (1);

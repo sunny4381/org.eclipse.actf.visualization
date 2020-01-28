@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2011 IBM Corporation and Others
+ * Copyright (c) 2003, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,13 +21,14 @@ import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
+import org.eclipse.actf.visualization.eval.problem.ILowvisionProblemSubtype;
 import org.eclipse.actf.visualization.internal.engines.lowvision.checker.W3CColorChecker;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorCSS;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorIRGB;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ColorProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.FixedSizeFontProblem;
-import org.eclipse.actf.visualization.internal.engines.lowvision.problem.FixedSmallFontProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ProhibitedBackgroundColorProblem;
@@ -50,11 +51,6 @@ public class PageElement {
 	static final double IE_SMALLER_SCALING = 1.00; // "smaller" in largest
 	// (experimental)
 
-	// severity for fixed size font (0-1)
-	public static final double SEVERITY_FIXED_SIZE_FONT = 0.25;
-	public static final double SEVERITY_SMALL_FONT = 0.25;
-	public static final double SEVERITY_FIXED_SMALL_FONT = SEVERITY_FIXED_SIZE_FONT
-			+ SEVERITY_SMALL_FONT;
 	// severity for color problems
 	public static final double SEVERITY_PROHIBITED_FOREGROUND_COLOR = 0.5;
 	public static final double SEVERITY_PROHIBITED_BACKGROUND_COLOR = 0.5;
@@ -65,24 +61,22 @@ public class PageElement {
 
 	// text check
 	@SuppressWarnings("nls")
-	private static final String[] nonTextTagNames = { "area", "base",
-			"basefont", "br", "col", "colgroup", "frame", "frameset", "head",
-			"html", "hr", "img", "isindex", "link", "meta", "optgroup",
-			"param", "script", "select", "style", "title" };
+	private static final String[] nonTextTagNames = { "area", "base", "basefont", "br", "col", "colgroup", "frame",
+			"frameset", "head", "html", "hr", "img", "isindex", "link", "meta", "optgroup", "param", "script", "select",
+			"style", "title" };
 
 	// tags that change font size when that succeeded pt from <body>
 	@SuppressWarnings("nls")
-	private static final String[] fontSizeChangeTags = { "big", "code", "h1",
-			"h2", "h3", "h5", "h6", "kbd", "pre", "samp", "small", "sub",
-			"sup", "tt" };
+	private static final String[] fontSizeChangeTags = { "big", "code", "h1", "h2", "h3", "h5", "h6", "kbd", "pre",
+			"samp", "small", "sub", "sup", "tt" };
 
 	/*
-	 * tags that usually uses same font size (can change by using %,em,ex)
-	 * -> now we can change font size of these elements
+	 * tags that usually uses same font size (can change by using %,em,ex) ->
+	 * now we can change font size of these elements
 	 */
-//	@SuppressWarnings("nls")
-//	private static final String[] alwaysFixedFontSizeTags = { "button",
-//			"option", "textarea" };
+	// @SuppressWarnings("nls")
+	// private static final String[] alwaysFixedFontSizeTags = { "button",
+	// "option", "textarea" };
 
 	public static final int UNSET_POSITION = -1;
 
@@ -172,9 +166,8 @@ public class PageElement {
 	}
 
 	// _lvType: for LowVision error check
-	public LowVisionProblem[] check(LowVisionType _lvType,
-			String[] allowedFgColors, String[] allowedBgColors) {
-		Vector<LowVisionProblem> problemVec = new Vector<LowVisionProblem>();
+	public ILowVisionProblem[] check(LowVisionType _lvType, String[] allowedFgColors, String[] allowedBgColors) {
+		Vector<ILowVisionProblem> problemVec = new Vector<ILowVisionProblem>();
 
 		// ignore elements not in the rendered area
 		if (x < 0 || y < 0) {
@@ -195,9 +188,8 @@ public class PageElement {
 		try {
 			fsfp = checkFixedSizeFont(_lvType);
 		} catch (LowVisionException e) {
-			DebugUtil.errMsg(this,
-					"Error occurred in checking fixed-size font: id = " //$NON-NLS-1$
-							+ this.id);
+			DebugUtil.errMsg(this, "Error occurred in checking fixed-size font: id = " //$NON-NLS-1$
+					+ this.id);
 			e.printStackTrace();
 		}
 
@@ -205,8 +197,7 @@ public class PageElement {
 		try {
 			sfp = checkSmallFont(_lvType);
 		} catch (LowVisionException e) {
-			DebugUtil.errMsg(this,
-					"Error occurred in checking small font: id = " + this.id); //$NON-NLS-1$
+			DebugUtil.errMsg(this, "Error occurred in checking small font: id = " + this.id); //$NON-NLS-1$
 			e.printStackTrace();
 		}
 
@@ -215,16 +206,37 @@ public class PageElement {
 			// double proba = Math.max( fsfp.getProbability(),
 			// sfp.getProbability() );
 
-			// use fixed severity
-			double proba = PageElement.SEVERITY_FIXED_SMALL_FONT;
-			FixedSmallFontProblem newProblem = null;
-			try {
-				newProblem = new FixedSmallFontProblem(this, _lvType, proba);
-				newProblem.setElement(fsfp.getElement());
-				problemVec.addElement(newProblem);
-			} catch (LowVisionProblemException e) {
-				e.printStackTrace();
+			int type = fsfp.getLowVisionProblemType();
+			String attrName = null;
+			switch (type) {
+			case ILowvisionProblemSubtype.LOWVISION_FIXED_SIZE_FONT_PROBLEM:
+				attrName = fsfp.getAttrName();
+				try {
+					fsfp.changeType(ILowvisionProblemSubtype.LOWVISION_FIXED_SMALL_FONT_PROBLEM);
+					if (attrName != null && !attrName.isEmpty()) {
+						fsfp.setAttrName(attrName);
+					}
+					problemVec.addElement(fsfp);
+				} catch (LowVisionProblemException e) {
+					e.printStackTrace();
+				}
+				break;
+			case ILowvisionProblemSubtype.LOWVISION_FIXED_SIZE_FONT_WARNING:
+				attrName = fsfp.getAttrName();
+				try {
+					fsfp.changeType(ILowvisionProblemSubtype.LOWVISION_FIXED_SMALL_FONT_WARNIG);
+					if (attrName != null && !attrName.isEmpty()) {
+						fsfp.setAttrName(attrName);
+					}
+					problemVec.addElement(fsfp);
+				} catch (LowVisionProblemException e) {
+					e.printStackTrace();
+				}
+				break;
+			default:
+				DebugUtil.errMsg(this, "not fixed size font error/warning: type = " + type); //$NON-NLS-1$
 			}
+			// use fixed severity
 		} else if (fsfp != null) {
 			problemVec.addElement(fsfp);
 		} else if (sfp != null) {
@@ -250,8 +262,8 @@ public class PageElement {
 		}
 		if ((pfcp != null) && (pbcp != null)) {// fg/bg
 			try {
-				problemVec.addElement(new ProhibitedBothColorsProblem(this,
-						_lvType, PageElement.SEVERITY_PROHIBITED_BOTH_COLORS));
+				problemVec.addElement(
+						new ProhibitedBothColorsProblem(this, _lvType, PageElement.SEVERITY_PROHIBITED_BOTH_COLORS));
 			} catch (LowVisionProblemException lvpe) {
 				lvpe.printStackTrace();
 			}
@@ -264,15 +276,14 @@ public class PageElement {
 		}
 
 		int size = problemVec.size();
-		LowVisionProblem[] problemArray = new LowVisionProblem[size];
+		ILowVisionProblem[] problemArray = new ILowVisionProblem[size];
 		for (int i = 0; i < size; i++) {
 			problemArray[i] = problemVec.elementAt(i);
 		}
 		return (problemArray);
 	}
 
-	private List<ColorProblem> checkColors(LowVisionType _lvType)
-			throws LowVisionException {
+	private List<ColorProblem> checkColors(LowVisionType _lvType) throws LowVisionException {
 
 		List<ColorProblem> result = new ArrayList<ColorProblem>();
 
@@ -293,8 +304,8 @@ public class PageElement {
 				return (result);
 			}
 
-			boolean hasBgImage = (style.getComputedBackgroundImage() != null && !style
-					.getComputedBackgroundImage().equalsIgnoreCase("none"));
+			boolean hasBgImage = (style.getComputedBackgroundImage() != null
+					&& !style.getComputedBackgroundImage().equalsIgnoreCase("none"));
 
 			ColorIRGB fgOrg = new ColorIRGB(foregroundColor);
 			ColorIRGB bgOrg = new ColorIRGB(backgroundColor);
@@ -302,8 +313,7 @@ public class PageElement {
 			W3CColorChecker w3c = new W3CColorChecker(fgOrg, bgOrg);
 			double contrast = w3c.calcContrast();
 			if (contrast < 7) {
-				ColorProblem cp = new ColorProblem(this, _lvType,
-						w3c.calcSeverity());
+				ColorProblem cp = new ColorProblem(this, _lvType, w3c.calcSeverity());
 				cp.setElement(style.getElement());
 				cp.setContrast(contrast);
 				cp.setTargetStrings(style.getChildTexts());
@@ -361,8 +371,13 @@ public class PageElement {
 
 	private static final short FONT_SIZE_EM = 6; // em, ex
 
-	private FixedSizeFontProblem checkFixedSizeFont(LowVisionType _lvType)
-			throws LowVisionException {
+	private static final short FONT_SIZE_REM = 7; // rem
+
+	private static final short FONT_SIZE_V = 8; // vw, vh,vmin,vmax
+
+	private static final String[] FIXED_FONT_STRINGS = { "in", "cm", "mm", "pc", "px" };
+
+	private FixedSizeFontProblem checkFixedSizeFont(LowVisionType _lvType) throws LowVisionException {
 		// if (!(_lvType.doBlur())) {
 		// return (null);
 		// }
@@ -388,11 +403,36 @@ public class PageElement {
 		if (fontStr.indexOf(DELIM) == -1) {
 			fontStr = digitToFontSetting(fontStr);
 			short type = fontSizeType(fontStr);
-			//TODO check "pt" 
-			if (type == FONT_SIZE_FIXED){ // not include "pt" because IE usually returns "pt"
+
+			if (type == FONT_SIZE_FIXED) {
+				// not include "pt" because IE usually returns "pt"
+				String typeS = null;
+
+				for (String tmpS : FIXED_FONT_STRINGS) {
+					if (fontStr.endsWith(tmpS)) {
+						typeS = tmpS;
+					}
+				}
+
 				try {
-					FixedSizeFontProblem problem = new FixedSizeFontProblem(
-							this, _lvType, PageElement.SEVERITY_FIXED_SIZE_FONT);
+					FixedSizeFontProblem problem;
+					problem = new FixedSizeFontProblem(ILowvisionProblemSubtype.LOWVISION_FIXED_SIZE_FONT_PROBLEM, this,
+							_lvType);
+					if (typeS != null) {
+						problem.setAttrName(typeS);
+					}
+					problem.setElement(style.getElement());
+					return (problem);
+				} catch (LowVisionProblemException e) {
+					e.printStackTrace();
+					return (null);
+				}
+			} else if (type == FONT_SIZE_PT) {
+				FixedSizeFontProblem problem;
+				try {
+					problem = new FixedSizeFontProblem(ILowvisionProblemSubtype.LOWVISION_FIXED_SIZE_FONT_WARNING, this,
+							_lvType);
+					problem.setAttrName("pt");
 					problem.setElement(style.getElement());
 					return (problem);
 				} catch (LowVisionProblemException e) {
@@ -421,8 +461,7 @@ public class PageElement {
 			}
 			StringTokenizer stTag = new StringTokenizer(tagName, DELIM);
 			if (stTag.countTokens() != tokenCount) {
-				throw new LowVisionException(
-						"# of tagNames and fontSizes did not match."); //$NON-NLS-1$
+				throw new LowVisionException("# of tagNames and fontSizes did not match."); //$NON-NLS-1$
 			}
 			String[] tagNameSequence = new String[tokenCount];
 			for (int i = tokenCount - 1; i >= 0; i--) {
@@ -466,17 +505,14 @@ public class PageElement {
 						if (tmpType == FONT_SIZE_FIXED) {
 							fixedFlag = true;
 							firstPtFlag = true;
-						} else if (tmpType == FONT_SIZE_RELATIVE
-								|| tmpType == FONT_SIZE_ABSOLUTE) {
+						} else if (tmpType == FONT_SIZE_RELATIVE || tmpType == FONT_SIZE_ABSOLUTE) {
 							fixedFlag = false;
 							firstPtFlag = true;
 						} else if (tmpType == FONT_SIZE_PT) {
 							if (!firstPtFlag) {
 								firstPtFlag = true;
 								fixedFlag = false; // need check
-							} else if (curType != FONT_SIZE_PT
-									|| fixedFlag == true
-									|| !isFontSizeChangeTag(tmpTag)) {
+							} else if (curType != FONT_SIZE_PT || fixedFlag == true || !isFontSizeChangeTag(tmpTag)) {
 								fixedFlag = true;
 							}
 							// else{
@@ -496,8 +532,8 @@ public class PageElement {
 
 		if (fixedFlag) {
 			try {
-				FixedSizeFontProblem problem = new FixedSizeFontProblem(this,
-						_lvType, PageElement.SEVERITY_FIXED_SIZE_FONT);
+				FixedSizeFontProblem problem = new FixedSizeFontProblem(
+						ILowvisionProblemSubtype.LOWVISION_FIXED_SIZE_FONT_PROBLEM, this, _lvType);
 				problem.setElement(style.getElement());
 				return (problem);
 			} catch (LowVisionProblemException e) {
@@ -513,14 +549,16 @@ public class PageElement {
 	private short fontSizeType(String _fontSize) {
 		String s = _fontSize.toLowerCase();
 
-		if (s.endsWith("mm") || s.endsWith("cm") || s.endsWith("in") ||
-		// s.endsWith("pt") || // pt is special
-				s.endsWith("pc") || s.endsWith("px")) {
+		if (s.endsWith("vw") || s.endsWith("vh") || s.endsWith("vmin") || s.endsWith("vmax")) {
+			return (FONT_SIZE_V);
+		} else if (s.endsWith("mm") || s.endsWith("cm") || s.endsWith("in") || s.endsWith("pc") || s.endsWith("px")) {
 			return (FONT_SIZE_FIXED);
 		} else if (s.endsWith("pt")) {
 			return (FONT_SIZE_PT);
 		} else if (s.endsWith("%")) {
 			return (FONT_SIZE_PERCENT);
+		} else if (s.endsWith("rem")) {
+			return (FONT_SIZE_REM);
 		} else if (s.endsWith("em") || s.endsWith("ex")) {
 			return (FONT_SIZE_EM);
 		} else if (s.equals("smaller") || s.equals("larger")) {
@@ -531,8 +569,7 @@ public class PageElement {
 	}
 
 	@SuppressWarnings("nls")
-	private String digitToFontSetting(String _fontStr)
-			throws LowVisionException {
+	private String digitToFontSetting(String _fontStr) throws LowVisionException {
 
 		if (_fontStr.length() == 1) {
 			if (_fontStr.equals("1")) {
@@ -550,8 +587,7 @@ public class PageElement {
 			} else if (_fontStr.equals("7")) {
 				return ("xx-large");
 			} else {
-				throw new LowVisionException("Invalid font size setting: "
-						+ _fontStr);
+				throw new LowVisionException("Invalid font size setting: " + _fontStr);
 			}
 		} else if (_fontStr.startsWith("+")) {
 			if (_fontStr.equals("+1")) {
@@ -570,8 +606,7 @@ public class PageElement {
 				// used in some pages
 				return ("100%");
 			} else {
-				throw new LowVisionException("Invalid font size setting: "
-						+ _fontStr);
+				throw new LowVisionException("Invalid font size setting: " + _fontStr);
 			}
 		} else if (_fontStr.startsWith("-")) {
 			if (_fontStr.equals("-1")) {
@@ -589,8 +624,7 @@ public class PageElement {
 			} else if (_fontStr.equals("-0")) {
 				return ("100%");
 			} else {
-				throw new LowVisionException("Invalid font size setting: "
-						+ _fontStr);
+				throw new LowVisionException("Invalid font size setting: " + _fontStr);
 			}
 		} else {
 			return (_fontStr);
@@ -608,27 +642,26 @@ public class PageElement {
 		return (false);
 	}
 
-//	private boolean isAlwaysFixedSizeFontTag(String _st) {
-//		String s = _st.toLowerCase();
-//		int index = s.indexOf(DELIM);
-//		if (index > -1) {
-//			s = s.substring(0, index);
-//		}
-//		int len = alwaysFixedFontSizeTags.length;
-//		for (int i = 0; i < len; i++) {
-//			if (s.equals(alwaysFixedFontSizeTags[i])) {
-//				return (true);
-//			}
-//		}
-//		return (false);
-//	}
+	// private boolean isAlwaysFixedSizeFontTag(String _st) {
+	// String s = _st.toLowerCase();
+	// int index = s.indexOf(DELIM);
+	// if (index > -1) {
+	// s = s.substring(0, index);
+	// }
+	// int len = alwaysFixedFontSizeTags.length;
+	// for (int i = 0; i < len; i++) {
+	// if (s.equals(alwaysFixedFontSizeTags[i])) {
+	// return (true);
+	// }
+	// }
+	// return (false);
+	// }
 
 	/*
 	 * note: reset at td/th is experimental behaviour in IE6
 	 */
 	@SuppressWarnings("nls")
-	private SmallFontProblem checkSmallFont(LowVisionType _lvType)
-			throws LowVisionException {
+	private SmallFontProblem checkSmallFont(LowVisionType _lvType) throws LowVisionException {
 		if (!(_lvType.doBlur())) {
 			return (null);
 		}
@@ -691,18 +724,20 @@ public class PageElement {
 		 * 
 		 * define LARGEST as default to check the small size font in the LARGEST
 		 * setting
+		 * 
 		 */
 		String curFontSize = fontSizeSettings[numFontSizeSettings - 1];
-		if (fontSizeType(curFontSize) == FONT_SIZE_PT) {
-			fontSizeSettings[numFontSizeSettings - 1] = IE_LARGEST_FONT;
-			for (int i = numFontSizeSettings - 2; i >= 0; i--) {
-				if (fontSizeSettings[i].equals(curFontSize)) {
-					fontSizeSettings[i] = IE_LARGEST_FONT;
-				} else {
-					break;
-				}
-			}
-		}
+		/*
+		 * -> Do not replace "pt" values and evaluate it based on the value that
+		 * used in IE. If the size is small, create warning.
+		 */
+		/*
+		 * if (fontSizeType(curFontSize) == FONT_SIZE_PT) {
+		 * fontSizeSettings[numFontSizeSettings - 1] = IE_LARGEST_FONT; for (int
+		 * i = numFontSizeSettings - 2; i >= 0; i--) { if
+		 * (fontSizeSettings[i].equals(curFontSize)) { fontSizeSettings[i] =
+		 * IE_LARGEST_FONT; } else { break; } } }
+		 */
 
 		float scaling = 1.0f; // smaller, larger, em, ex, %
 		short curType = FONT_SIZE_UNKNOWN;
@@ -729,33 +764,48 @@ public class PageElement {
 				}
 				break;
 			} else if (curType == FONT_SIZE_PERCENT) {
-				double value = Double.parseDouble(curFontSize.substring(0,
-						curFontSize.length() - 1));
+				double value = Double.parseDouble(curFontSize.substring(0, curFontSize.length() - 1));
 				scaling *= (value / 100.0);
+			} else if (curType == FONT_SIZE_REM) {
+				// TODO get Root(html element) font size and evaluate size
+				// (font size check for relative spec is currently not used )
 			} else if (curType == FONT_SIZE_EM) {
 				double value = 0.0;
-				value = Double.parseDouble(curFontSize.substring(0,
-						curFontSize.length() - 2));
+				value = Double.parseDouble(curFontSize.substring(0, curFontSize.length() - 2));
 				if (curFontSize.endsWith("ex")) {
 					value /= 2.0;
 				}
 				scaling *= (value * IE_EM_SCALING);
+			} else if (curType == FONT_SIZE_V) {
+				// TODO get viewport and evaluate size
+				// (font size check for relative spec is currently not used )
 			} else if (curFontSize.equals("larger")) {
 				scaling *= IE_LARGER_SCALING;
 			} else if (curFontSize.equals("smaller")) {
 				scaling *= IE_SMALLER_SCALING;
 			} else {
-				throw new LowVisionException("unknown font size setting: "
-						+ curFontSize);
+				throw new LowVisionException("unknown font size setting: " + curFontSize);
 			}
 		}
-		if (curType != FONT_SIZE_FIXED && curType != FONT_SIZE_PT
-				&& curType != FONT_SIZE_ABSOLUTE) {
+
+		if (curType == FONT_SIZE_V || curType == FONT_SIZE_REM || curType == FONT_SIZE_UNKNOWN) {
+			return (null);
+		}
+
+		if (curType != FONT_SIZE_FIXED && curType != FONT_SIZE_PT && curType != FONT_SIZE_ABSOLUTE) {
 			curFontSize = IE_LARGEST_FONT;
 		}
 
-		float value = Float.parseFloat(curFontSize.substring(0,
-				curFontSize.length() - 2));
+		float value;
+		try {
+			// value = Float.parseFloat(curFontSize.substring(0,
+			// curFontSize.length() - 2));
+			String numPart = curFontSize.replaceAll("[^0-9\\.]", "");
+			value = Float.parseFloat(numPart);
+		} catch (Exception e) {
+			throw new LowVisionException("unknown font size unit: " + curFontSize);
+		}
+
 		float sizeInMm = 0.0f;
 		if (curFontSize.endsWith("in")) {
 			sizeInMm = LengthUtil.in2mm(value);
@@ -770,8 +820,7 @@ public class PageElement {
 		} else if (curFontSize.endsWith("px")) {
 			sizeInMm = LengthUtil.px2mm(value);
 		} else {
-			throw new LowVisionException("unknown font size unit: "
-					+ curFontSize);
+			throw new LowVisionException("unknown font size unit: " + curFontSize);
 		}
 		sizeInMm *= scaling;
 
@@ -787,8 +836,7 @@ public class PageElement {
 		if (severity > 0.0) {
 			try {
 				// fixed severity
-				SmallFontProblem problem = new SmallFontProblem(this, _lvType,
-						PageElement.SEVERITY_SMALL_FONT);
+				SmallFontProblem problem = new SmallFontProblem(this, _lvType);
 				problem.setElement(style.getElement());
 				return (problem);
 			} catch (LowVisionProblemException e) {
@@ -800,9 +848,8 @@ public class PageElement {
 		}
 	}
 
-	private ProhibitedForegroundColorProblem checkAllowedForegroundColors(
-			LowVisionType _lvType, String[] _allowedColors)
-			throws LowVisionException {
+	private ProhibitedForegroundColorProblem checkAllowedForegroundColors(LowVisionType _lvType,
+			String[] _allowedColors) throws LowVisionException {
 		if (_allowedColors == null) {
 			return (null);
 		}
@@ -833,9 +880,8 @@ public class PageElement {
 				templateColor = new ColorIRGB(curColorString);
 			} catch (ColorException ce) {
 				ce.printStackTrace();
-				throw new LowVisionException(
-						"ColorException occurs while converting String \"" //$NON-NLS-1$
-								+ curColorString + "\" to a color."); //$NON-NLS-1$
+				throw new LowVisionException("ColorException occurs while converting String \"" //$NON-NLS-1$
+						+ curColorString + "\" to a color."); //$NON-NLS-1$
 			}
 			if (templateColor.equals(foregroundColor)) {
 				return (null);
@@ -851,9 +897,8 @@ public class PageElement {
 		}
 	}
 
-	private ProhibitedBackgroundColorProblem checkAllowedBackgroundColors(
-			LowVisionType _lvType, String[] _allowedColors)
-			throws LowVisionException {
+	private ProhibitedBackgroundColorProblem checkAllowedBackgroundColors(LowVisionType _lvType,
+			String[] _allowedColors) throws LowVisionException {
 		if (_allowedColors == null) {
 			return (null);
 		}
@@ -878,9 +923,8 @@ public class PageElement {
 				templateColor = new ColorIRGB(curColorString);
 			} catch (ColorException ce) {
 				ce.printStackTrace();
-				throw new LowVisionException(
-						"ColorException occurs while converting String \"" //$NON-NLS-1$
-								+ curColorString + "\" to a color."); //$NON-NLS-1$
+				throw new LowVisionException("ColorException occurs while converting String \"" //$NON-NLS-1$
+						+ curColorString + "\" to a color."); //$NON-NLS-1$
 			}
 			if (templateColor.equals(backgroundColor)) {
 				return (null);

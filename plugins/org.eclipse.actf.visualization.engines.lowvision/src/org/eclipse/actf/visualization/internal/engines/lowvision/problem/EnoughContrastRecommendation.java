@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    IBM Corporation - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.internal.engines.lowvision.problem;
@@ -28,7 +29,7 @@ public class EnoughContrastRecommendation extends LowVisionRecommendation{
 	private int recommendedForegroundColor = -1; 
 	private int recommendedBackgroundColor = -1;
 
-	public EnoughContrastRecommendation( LowVisionProblem _prob, int _fg, int _bg ) throws LowVisionProblemException{
+	public EnoughContrastRecommendation( ILowVisionProblem _prob, int _fg, int _bg ) throws LowVisionProblemException{
 		super( ENOUGH_CONTRAST_RECOMMENDATION, _prob, Messages.EnoughContrastRecommendation_Provide_enough_contrast_between_foreground_and_background_colors__1 );
 		originalForegroundColor = _fg;
 		originalBackgroundColor = _bg;

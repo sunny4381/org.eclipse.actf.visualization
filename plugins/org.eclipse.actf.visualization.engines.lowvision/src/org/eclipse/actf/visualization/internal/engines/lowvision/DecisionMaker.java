@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    IBM Corporation - initial API and implementation
  *******************************************************************************/
 
 package org.eclipse.actf.visualization.internal.engines.lowvision;
@@ -28,6 +29,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageCompo
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Topology;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Vector3D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ColorProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemException;
 
@@ -529,8 +531,8 @@ public class DecisionMaker {
 	/*
 	 * merge problems in the same container
 	 */
-	public static boolean areSameGroupProblems(LowVisionProblem _p1,
-			LowVisionProblem _p2) throws LowVisionProblemException {
+	public static boolean areSameGroupProblems(ILowVisionProblem _p1,
+			ILowVisionProblem _p2) throws LowVisionProblemException {
 		if (_p1.isGroup() || _p2.isGroup()) {
 			throw new LowVisionProblemException(
 					"ProblemGroup cannot be grouped any more.");

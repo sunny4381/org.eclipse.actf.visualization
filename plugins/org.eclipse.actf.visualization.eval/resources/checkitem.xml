@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
- Copyright (c) 2005, 2016 IBM Corporation and others.
+ Copyright (c) 2005, 2020 IBM Corporation and others.
  All rights reserved. This program and the accompanying materials
  are made available under the terms of the Eclipse Public License v1.0
  which accompanies this distribution, and is available at
@@ -728,6 +728,31 @@
         </metrics>
         <description>
             <desc>Background image.</desc>
+        </description>
+    </checkitem>
+    <checkitem type="user" id="L_11">
+        <guideline>
+            <gItem id="3.4" name="WCAG"/>
+            <gItem techniques="C12,C13,C14" id="1.4.4" name="JIS"/>
+            <gItem techniques="C12,C13,C14" id="1.4.4" name="WCAG 2.0"/>
+        </guideline>
+        <metrics>
+            <mItem score="5" name="Perceivable"/>
+        </metrics>
+        <description>
+            <desc>Font size might be fixed. （unsupported font-size definitions, etc. This message is also shown in the case where font-size is unspecified.）</desc>
+        </description>
+    </checkitem>
+    <checkitem type="warning" id="L_12">
+        <guideline>
+            <gItem techniques="C12,C13,C14" id="1.4.4" name="JIS"/>
+            <gItem techniques="C12,C13,C14" id="1.4.4" name="WCAG 2.0"/>
+        </guideline>
+        <metrics>
+            <mItem score="5" name="Perceivable"/>
+        </metrics>
+        <description>
+            <desc>This text is too small and its font size might be fixed. （unsupported font-size definitions, etc.）</desc>
         </description>
     </checkitem>
     <checkitem type="error" id="B_38">

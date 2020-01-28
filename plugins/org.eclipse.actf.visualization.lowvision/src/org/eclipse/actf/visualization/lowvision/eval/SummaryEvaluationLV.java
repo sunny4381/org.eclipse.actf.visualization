@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2011 IBM Corporation and Others
+ * Copyright (c) 2005, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -72,8 +72,8 @@ public class SummaryEvaluationLV {
 	public String getOverview() {
 		StringBuffer tmpSB = new StringBuffer(512);
 
-		int problemCount[] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		int severeCount[] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int problemCount[] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int severeCount[] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		for (int i = 0; i < _problems.length; i++) {
 			IProblemItemImage curProblem = _problems[i];
