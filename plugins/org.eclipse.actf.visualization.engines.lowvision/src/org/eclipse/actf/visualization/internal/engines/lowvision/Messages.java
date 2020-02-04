@@ -45,6 +45,9 @@ public final class Messages extends NLS {
 	public static String BackgroundImage;
 	public static String FixedSizeFontWarning;
 	public static String FixedSmallFontWarning;
+	public static String FontAlphaWarning;
+	public static String BackgroundAlphaWarning;
+	public static String BothAlphaWarning;
 
 	static {
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);

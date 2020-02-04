@@ -17,12 +17,13 @@ import java.io.PrintWriter;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
+import org.eclipse.actf.visualization.eval.problem.ILowvisionProblemSubtype;
 import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 import org.w3c.dom.Element;
 
-public interface ILowVisionProblem {
+public interface ILowVisionProblem extends ILowvisionProblemSubtype{
 
 	int UNSET_POSITION = -1;
 	int DEFAULT_PRIORITY = 0;

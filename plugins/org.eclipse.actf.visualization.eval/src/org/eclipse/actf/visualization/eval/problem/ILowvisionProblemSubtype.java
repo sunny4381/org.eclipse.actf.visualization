@@ -27,4 +27,5 @@ public interface ILowvisionProblemSubtype {
 	public static final int LOWVISION_BACKGROUND_IMAGE_WARNING = 10;
 	public static final int LOWVISION_FIXED_SIZE_FONT_WARNING = 11;	//for pt
 	public static final int LOWVISION_FIXED_SMALL_FONT_WARNIG =12;	//for pt
+	public static final int LOWVISION_COLOR_WITH_ALPHA_WARNING = 13;
 }

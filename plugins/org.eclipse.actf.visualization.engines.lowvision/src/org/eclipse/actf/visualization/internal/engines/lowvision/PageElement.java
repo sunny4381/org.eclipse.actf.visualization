@@ -18,6 +18,7 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 import org.eclipse.actf.model.ui.editor.browser.ICurrentStyles;
+import org.eclipse.actf.util.logging.DebugPrintUtil;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionException;
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.image.ImageException;
@@ -27,6 +28,7 @@ import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorCSS;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorException;
 import org.eclipse.actf.visualization.internal.engines.lowvision.color.ColorIRGB;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ColorProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ColorWarning;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.FixedSizeFontProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
@@ -90,16 +92,16 @@ public class PageElement {
 
 	// position in the image
 	private int x = UNSET_POSITION;
-
 	private int y = UNSET_POSITION;
-
 	private int width = UNSET_POSITION;
-
 	private int height = UNSET_POSITION;
 
 	private int foregroundColor = UNSET_COLOR;
-
 	private int backgroundColor = UNSET_COLOR;
+
+	private boolean bForegroundAlpha = false;
+	private boolean bBackgroundAlpha = false;
+	private boolean bOpacity = false;
 
 	public PageElement(String _key, ICurrentStyles _cs) throws ImageException {
 		id = _key;
@@ -126,14 +128,36 @@ public class PageElement {
 
 		String fgStr = style.getComputedColor();
 		String bgStr = style.getComputedBackgroundColor();
+		String opacityStr = style.getOpacity();
+
+		try {
+			double opacity = Double.parseDouble(opacityStr);
+			if (opacity < 1) {
+				bOpacity = true;
+			}
+		} catch (NumberFormatException e1) {
+			DebugPrintUtil.devOrDebugPrintStackTrace(e1);
+		}
+
+		//System.out.println(style.getXPath() + ":\t" + fgStr + " / " + bgStr + " / " + opacityStr);
 
 		try {
 			foregroundColor = (new ColorCSS(fgStr)).toInt();
-			backgroundColor = (new ColorCSS(bgStr)).toInt();
-
 		} catch (ColorException e) {
-			e.printStackTrace();
-			throw new ImageException("Could not interpret colors."); //$NON-NLS-1$
+			if (ColorException.ALPHA_EXISTS.equals(e.getMessage())) {
+				bForegroundAlpha = true;
+			} else {
+				throw new ImageException("Could not interpret colors."); //$NON-NLS-1$
+			}
+		}
+		try {
+			backgroundColor = (new ColorCSS(bgStr)).toInt();
+		} catch (ColorException e) {
+			if (ColorException.ALPHA_EXISTS.equals(e.getMessage())) {
+				bBackgroundAlpha = true;
+			} else {
+				throw new ImageException("Could not interpret colors."); //$NON-NLS-1$
+			}
 		}
 	}
 
@@ -174,15 +198,13 @@ public class PageElement {
 			return (new LowVisionProblem[0]);
 		}
 
-		List<ColorProblem> cp = new ArrayList<ColorProblem>();
 		try {
-			cp = checkColors(_lvType);
+			problemVec.addAll(checkColors(_lvType));
 		} catch (LowVisionException e) {
 			DebugUtil.errMsg(this, "Error occurred in checking colors: id = " //$NON-NLS-1$
 					+ this.id);
 			e.printStackTrace();
 		}
-		problemVec.addAll(cp);
 
 		FixedSizeFontProblem fsfp = null;
 		try {
@@ -246,14 +268,14 @@ public class PageElement {
 		ProhibitedForegroundColorProblem pfcp = null;
 		ProhibitedBackgroundColorProblem pbcp = null;
 
-		if (allowedFgColors != null && allowedFgColors.length > 0) {
+		if (allowedFgColors != null && allowedFgColors.length > 0 && !bForegroundAlpha) {
 			try {
 				pfcp = checkAllowedForegroundColors(_lvType, allowedFgColors);
 			} catch (LowVisionException lve) {
 				lve.printStackTrace();
 			}
 		}
-		if (allowedBgColors != null && allowedBgColors.length > 0) {
+		if (allowedBgColors != null && allowedBgColors.length > 0 && !bBackgroundAlpha) {
 			try {
 				pbcp = checkAllowedBackgroundColors(_lvType, allowedBgColors);
 			} catch (LowVisionException lve) {
@@ -283,9 +305,9 @@ public class PageElement {
 		return (problemArray);
 	}
 
-	private List<ColorProblem> checkColors(LowVisionType _lvType) throws LowVisionException {
+	private List<ILowVisionProblem> checkColors(LowVisionType _lvType) throws LowVisionException {
 
-		List<ColorProblem> result = new ArrayList<ColorProblem>();
+		List<ILowVisionProblem> result = new ArrayList<ILowVisionProblem>();
 
 		if (!isTextTag()) {
 			return (result);
@@ -306,6 +328,27 @@ public class PageElement {
 
 			boolean hasBgImage = (style.getComputedBackgroundImage() != null
 					&& !style.getComputedBackgroundImage().equalsIgnoreCase("none"));
+
+			ColorWarning cw;
+			if (bOpacity) {
+				cw = new ColorWarning(ColorWarning.OPACITY, this, _lvType);
+				result.add(cw);
+				return (result);
+			} else if (bForegroundAlpha) {
+				if (bBackgroundAlpha) {
+					cw = new ColorWarning(ColorWarning.BOTH, this, _lvType);
+				} else {
+					cw = new ColorWarning(ColorWarning.FONT, this, _lvType);
+				}
+				cw.setElement(style.getElement());
+				result.add(cw);
+				return (result);
+			} else if (bBackgroundAlpha) {
+				cw = new ColorWarning(ColorWarning.BACKGROUND, this, _lvType);
+				cw.setElement(style.getElement());
+				result.add(cw);
+				return (result);
+			}
 
 			ColorIRGB fgOrg = new ColorIRGB(foregroundColor);
 			ColorIRGB bgOrg = new ColorIRGB(backgroundColor);

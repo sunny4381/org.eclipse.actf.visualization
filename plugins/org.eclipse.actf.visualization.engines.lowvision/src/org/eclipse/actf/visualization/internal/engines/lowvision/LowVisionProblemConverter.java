@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2011 IBM Corporation and Others
+ * Copyright (c) 2005, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,14 +17,15 @@ import java.util.List;
 import org.eclipse.actf.visualization.eval.problem.ILowvisionProblemSubtype;
 import org.eclipse.actf.visualization.eval.problem.IProblemItem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ColorProblem;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ColorWarning;
+import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblem;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.LowVisionProblemGroup;
 import org.eclipse.actf.visualization.internal.engines.lowvision.problem.ProblemItemLV;
 
 public class LowVisionProblemConverter {
 
-	public static List<IProblemItem> convert(LowVisionProblemGroup[] target,
-			String urlS, int frameId) {
+	public static List<IProblemItem> convert(LowVisionProblemGroup[] target, String urlS, int frameId) {
 
 		ArrayList<IProblemItem> result = new ArrayList<IProblemItem>();
 
@@ -32,15 +33,19 @@ public class LowVisionProblemConverter {
 			int type = target[i].getLowVisionProblemType();
 			ProblemItemLV tmp;
 			ColorProblem cp;
-			if (type == LowVisionProblem.LOWVISION_COLOR_PROBLEM) {
+			switch (type) {
+			case ILowVisionProblem.LOWVISION_COLOR_PROBLEM:
 				cp = (ColorProblem) target[i].getRepresentative();
-				tmp = new ProblemItemLV(
-						"L_"	+ target[i].getLowVisionProblemType() + "." + cp.getLevel()); //$NON-NLS-1$
+				tmp = new ProblemItemLV("L_" + target[i].getLowVisionProblemType() + "." + cp.getLevel()); //$NON-NLS-1$
 				tmp.setTargetNode(cp.getElement());
 				tmp.setTargetString(cp.getAdditionalDescription());
-			} else {
-				tmp = new ProblemItemLV(
-						"L_" + target[i].getLowVisionProblemType()); //$NON-NLS-1$
+				break;
+			case ILowVisionProblem.LOWVISION_COLOR_WITH_ALPHA_WARNING:
+				ColorWarning cw = (ColorWarning) target[i].getRepresentative();
+				tmp = new ProblemItemLV("L_" + target[i].getLowVisionProblemType() + "." + cw.getWarningType()); //$NON-NLS-1$
+				break;
+			default:
+				tmp = new ProblemItemLV("L_" + target[i].getLowVisionProblemType()); //$NON-NLS-1$
 			}
 			tmp.setSubType(type);
 			try {
@@ -55,8 +60,7 @@ public class LowVisionProblemConverter {
 				default:
 					tmp.setDescription(target[i].getDescription());
 					if (target[i].getRepresentative() != null)
-						tmp.setTargetNode(target[i].getRepresentative()
-								.getElement());
+						tmp.setTargetNode(target[i].getRepresentative().getElement());
 				}
 			} catch (Exception e) {
 				tmp.setDescription("unknown"); //$NON-NLS-1$
@@ -82,8 +86,7 @@ public class LowVisionProblemConverter {
 		return (result);
 	}
 
-	private static String getLVProblemColorString(
-			LowVisionProblemGroup problem, boolean isFore) {
+	private static String getLVProblemColorString(LowVisionProblemGroup problem, boolean isFore) {
 		int probType;
 		int origAll;
 		int origR;

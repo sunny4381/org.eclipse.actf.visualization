@@ -17,40 +17,39 @@ import java.io.PrintWriter;
 
 import org.eclipse.actf.visualization.engines.lowvision.LowVisionType;
 import org.eclipse.actf.visualization.engines.lowvision.image.IPageImage;
-import org.eclipse.actf.visualization.eval.problem.ILowvisionProblemSubtype;
 import org.eclipse.actf.visualization.internal.engines.lowvision.PageElement;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.ConnectedComponent;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D;
 import org.eclipse.actf.visualization.internal.engines.lowvision.image.PageComponent;
 import org.w3c.dom.Element;
 
-
-public abstract class LowVisionProblem implements ILowvisionProblemSubtype, ILowVisionProblem{
-	IPageImage pageImage = null; 
+public abstract class LowVisionProblem implements ILowVisionProblem {
+	IPageImage pageImage = null;
 	LowVisionType lowVisionType = null;
-	int problemType; 
-	short componentType = PageComponent.UNDEFINED_TYPE; 
-	PageComponent pageComponent = null; 
-	PageElement pageElement = null; 
-	String description; 
+	int problemType;
+	short componentType = PageComponent.UNDEFINED_TYPE;
+	PageComponent pageComponent = null;
+	PageElement pageElement = null;
+	String description;
 	int left = UNSET_POSITION;
 	int top = UNSET_POSITION;
 	int width = 0;
 	int height = 0;
-	int priority; 
+	int priority;
 
-	double probability = 0.0; // 
+	double probability = 0.0; //
 	double characterScore = 0.0; //
-	//int numRecommendations = 0; // recommendations.length;
+	// int numRecommendations = 0; // recommendations.length;
 	LowVisionRecommendation[] recommendations = null;
 	boolean isGroupFlag = false; // is LowVisionProblemGroup?
-	
+
 	Element element;
-	
-	protected LowVisionProblem(){
+
+	protected LowVisionProblem() {
 	}
-	
-	public LowVisionProblem( int _type, LowVisionType _lvType, String _description, PageComponent _com, double _proba ) throws LowVisionProblemException{
+
+	public LowVisionProblem(int _type, LowVisionType _lvType, String _description, PageComponent _com, double _proba)
+			throws LowVisionProblemException {
 		problemType = _type;
 		lowVisionType = _lvType;
 		description = _description;
@@ -58,7 +57,7 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype, ILow
 		componentType = pageComponent.getType();
 		pageImage = pageComponent.getPageImage();
 		ConnectedComponent cc = pageComponent.getConnectedComponent();
-		if( cc != null ){
+		if (cc != null) {
 			left = cc.getLeft();
 			top = cc.getTop();
 			width = cc.getWidth();
@@ -66,15 +65,15 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype, ILow
 		}
 		setPriority();
 		probability = _proba;
-		characterScore = probability * width * height; 
+		characterScore = probability * width * height;
 	}
 
-	public LowVisionProblem( int _type, LowVisionType _lvType, String _description, PageElement _pe, double _proba ){
+	public LowVisionProblem(int _type, LowVisionType _lvType, String _description, PageElement _pe, double _proba) {
 		problemType = _type;
 		lowVisionType = _lvType;
 		description = _description;
 		pageElement = _pe;
-		if( pageElement != null ){
+		if (pageElement != null) {
 			left = pageElement.getX();
 			top = pageElement.getY();
 			width = pageElement.getWidth();
@@ -83,281 +82,355 @@ public abstract class LowVisionProblem implements ILowvisionProblemSubtype, ILow
 		setPriority();
 		probability = _proba;
 	}
-	
-	private void setPriority(){
-		if( left == UNSET_POSITION || top == UNSET_POSITION ){
+
+	private void setPriority() {
+		if (left == UNSET_POSITION || top == UNSET_POSITION) {
 			priority = DEFAULT_PRIORITY;
-		}else{
+		} else {
 			priority = 0x7fffffff - top * 0xffff - left;
 		}
 		/*
-		PageImage pi = component.getPageImage();
-		if( pi != null ){
-			int pageWidth = pi.getWidth();
-			int pageHeight = pi.getHeight();
-			priority = pageWidth*pageHeight - top*pageWidth - left;
-		}
-		else{
-			priority = DEFAULT_PRIORITY;
-		}
-		*/
+		 * PageImage pi = component.getPageImage(); if( pi != null ){ int
+		 * pageWidth = pi.getWidth(); int pageHeight = pi.getHeight(); priority
+		 * = pageWidth*pageHeight - top*pageWidth - left; } else{ priority =
+		 * DEFAULT_PRIORITY; }
+		 */
 	}
 
 	protected abstract void setRecommendations() throws LowVisionProblemException;
-		
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getType()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getType()
 	 */
 	@Override
 	public short getType() {
-		return( LOWVISION_PROBLEM );
+		return (LOWVISION_PROBLEM);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getLowVisionType()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getLowVisionType()
 	 */
 	@Override
-	public LowVisionType getLowVisionType(){
-		return( lowVisionType );
+	public LowVisionType getLowVisionType() {
+		return (lowVisionType);
 	}
 
 	// LowVision Error type (Color, Blur, etc.)
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getLowVisionProblemType()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getLowVisionProblemType()
 	 */
 	@Override
-	public int getLowVisionProblemType(){
-		return( problemType );
+	public int getLowVisionProblemType() {
+		return (problemType);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getDescription()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getDescription()
 	 */
 	@Override
-	public String getDescription() throws LowVisionProblemException{
-		return( description );
+	public String getDescription() throws LowVisionProblemException {
+		return (description);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getPageImage()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getPageImage()
 	 */
 	@Override
-	public IPageImage getPageImage(){
-		return( pageImage );
+	public IPageImage getPageImage() {
+		return (pageImage);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getX()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getX()
 	 */
 	@Override
-	public int getX(){
-		return( left );
+	public int getX() {
+		return (left);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getY()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getY()
 	 */
 	@Override
-	public int getY(){
-		return( top );
+	public int getY() {
+		return (top);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getWidth()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getWidth()
 	 */
 	@Override
-	public int getWidth(){
-		return( width );
+	public int getWidth() {
+		return (width);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getHeight()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getHeight()
 	 */
 	@Override
-	public int getHeight(){
-		return( height );
+	public int getHeight() {
+		return (height);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getPriority()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getPriority()
 	 */
 	@Override
-	public int getPriority(){
-		return( priority );
+	public int getPriority() {
+		return (priority);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getProbability()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getProbability()
 	 */
 	@Override
-	public double getProbability(){
-		return( probability );
+	public double getProbability() {
+		return (probability);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getIntProbability()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getIntProbability()
 	 */
 	@Override
-	public int getIntProbability(){
-		return( (int)(Math.rint(probability*100.0)) );
+	public int getIntProbability() {
+		return ((int) (Math.rint(probability * 100.0)));
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getCharacterScore()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getCharacterScore()
 	 */
 	@Override
-	public double getCharacterScore(){
-		return( characterScore );
+	public double getCharacterScore() {
+		return (characterScore);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getRecommendations()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getRecommendations()
 	 */
 	@Override
-	public LowVisionRecommendation[] getRecommendations(){
-		return( recommendations );
+	public LowVisionRecommendation[] getRecommendations() {
+		return (recommendations);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#isGroup()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#isGroup()
 	 */
 	@Override
-	public boolean isGroup(){
-		return( isGroupFlag );
+	public boolean isGroup() {
+		return (isGroupFlag);
 	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getComponentType()
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getComponentType()
 	 */
 	@Override
-	public short getComponentType() throws LowVisionProblemException{
-		if( !isGroupFlag ){
-			return( componentType );
-		}
-		else{
-			throw new LowVisionProblemException( "componentType cannot be gotten from a ProblemGroup." ); //$NON-NLS-1$
-		}
-	}
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getPageComponent()
-	 */
-	@Override
-	public PageComponent getPageComponent() throws LowVisionProblemException{
-		if( !isGroupFlag ){
-			return( pageComponent );
-		}
-		else{
-			throw new LowVisionProblemException( "component cannot be gotten from a ProblemGroup." ); //$NON-NLS-1$
+	public short getComponentType() throws LowVisionProblemException {
+		if (!isGroupFlag) {
+			return (componentType);
+		} else {
+			throw new LowVisionProblemException("componentType cannot be gotten from a ProblemGroup."); //$NON-NLS-1$
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getPageElement()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getPageComponent()
 	 */
 	@Override
-	public PageElement getPageElement(){
-		return( pageElement );
+	public PageComponent getPageComponent() throws LowVisionProblemException {
+		if (!isGroupFlag) {
+			return (pageComponent);
+		} else {
+			throw new LowVisionProblemException("component cannot be gotten from a ProblemGroup."); //$NON-NLS-1$
+		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#toString()
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getPageElement()
+	 */
+	@Override
+	public PageElement getPageElement() {
+		return (pageElement);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#toString()
 	 */
 	@Override
 	@SuppressWarnings("nls")
-	public String toString(){
+	public String toString() {
 		String compTypeString = null;
-		if( componentType == PageComponent.SS_CHARACTER_TYPE ){
+		if (componentType == PageComponent.SS_CHARACTER_TYPE) {
 			compTypeString = "(SS)";
-		}
-		else if( componentType == PageComponent.MS_CHARACTER_TYPE ){
+		} else if (componentType == PageComponent.MS_CHARACTER_TYPE) {
 			compTypeString = "(MS)";
-		}
-		else if( componentType == PageComponent.SM_CHARACTER_TYPE ){
+		} else if (componentType == PageComponent.SM_CHARACTER_TYPE) {
 			compTypeString = "(SM)";
-		}
-		else{
-			compTypeString = ""+componentType;
+		} else {
+			compTypeString = "" + componentType;
 		}
 		StringBuffer sb = new StringBuffer();
-		sb.append( "Description=" + description );
-		sb.append( compTypeString );
-		sb.append( ", " );
-		sb.append( "(x,y)=(" + left + "," + top + ")" );
-		sb.append( ", " );
-		sb.append( "[WIDTH x HEIGHT]=[" + width + " x " + height + "]" );
-		sb.append( ", " );
-		sb.append( "Probability=" + (int)(Math.rint(probability*100.0)) );
-		sb.append( ", " );
-		sb.append( "#Recommendations=" + recommendations.length );
-		return( sb.toString() );
+		sb.append("Description=" + description);
+		sb.append(compTypeString);
+		sb.append(", ");
+		sb.append("(x,y)=(" + left + "," + top + ")");
+		sb.append(", ");
+		sb.append("[WIDTH x HEIGHT]=[" + width + " x " + height + "]");
+		sb.append(", ");
+		sb.append("Probability=" + (int) (Math.rint(probability * 100.0)));
+		sb.append(", ");
+		sb.append("#Recommendations=" + recommendations.length);
+		return (sb.toString());
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#dump(java.io.PrintStream, boolean)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#dump(java.io.PrintStream, boolean)
 	 */
 	@Override
-	public void dump( PrintStream _ps, boolean _doRecommendations ) throws LowVisionProblemException{
-		PrintWriter pw = new PrintWriter( _ps, true );
-		dump( pw, _doRecommendations );
+	public void dump(PrintStream _ps, boolean _doRecommendations) throws LowVisionProblemException {
+		PrintWriter pw = new PrintWriter(_ps, true);
+		dump(pw, _doRecommendations);
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#dump(java.io.PrintWriter, boolean)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#dump(java.io.PrintWriter, boolean)
 	 */
 	@Override
 	@SuppressWarnings("nls")
-	public void dump( PrintWriter _pw, boolean _doRecommendations ) throws LowVisionProblemException{
-		_pw.println( "----------" );
-		_pw.println( "dumping a problem");
-		_pw.println( "problemType = " + problemType );
-		_pw.println( "componentType = " + componentType );
-		_pw.println( "description = " + getDescription() );
-		_pw.println( "(x,y) = ( " + getX() + ", " + getY() + ")" );
-		_pw.println( "width, height = " + getWidth() + ", " + getHeight() );
-		_pw.println( "priority = " + getPriority() );
+	public void dump(PrintWriter _pw, boolean _doRecommendations) throws LowVisionProblemException {
+		_pw.println("----------");
+		_pw.println("dumping a problem");
+		_pw.println("problemType = " + problemType);
+		_pw.println("componentType = " + componentType);
+		_pw.println("description = " + getDescription());
+		_pw.println("(x,y) = ( " + getX() + ", " + getY() + ")");
+		_pw.println("width, height = " + getWidth() + ", " + getHeight());
+		_pw.println("priority = " + getPriority());
 		LowVisionRecommendation[] recs = getRecommendations();
-		if( recs != null ){
-			_pw.println( "# of Recommendations = " + recs.length );
+		if (recs != null) {
+			_pw.println("# of Recommendations = " + recs.length);
+		} else {
+			_pw.println("Recommendations are null.");
 		}
-		else{
-			_pw.println( "Recommendations are null." );
-		}
-		if( _doRecommendations && recs != null ){
-			for( int i=0; i<recs.length; i++ ){
-				_pw.println( "Recommendation #" + i );
+		if (_doRecommendations && recs != null) {
+			for (int i = 0; i < recs.length; i++) {
+				_pw.println("Recommendation #" + i);
 				recs[i].dump(_pw);
 			}
 		}
-		_pw.println( "----------" );
+		_pw.println("----------");
 	}
 
-	private static final int[] PROBLEM_COLORS = {
-		0x00ffffff, 0x00ff0000, 0x0000ff00
-	};
-	
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#drawSurroundingBox(org.eclipse.actf.visualization.internal.engines.lowvision.image.Int2D)
+	private static final int[] PROBLEM_COLORS = { 0x00ffffff, 0x00ff0000, 0x0000ff00 };
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#drawSurroundingBox(org.eclipse.actf.visualization.
+	 * internal.engines.lowvision.image.Int2D)
 	 */
 	@Override
-	public void drawSurroundingBox( Int2D _img ){
+	public void drawSurroundingBox(Int2D _img) {
 		int x0 = getX();
 		int y0 = getY();
-		int x1 = x0+getWidth();
-		int y1 = y0+getHeight();
+		int x1 = x0 + getWidth();
+		int y1 = y0 + getHeight();
 		int color = PROBLEM_COLORS[problemType];
-		for( int i=x0; i<x1; i++ ){
+		for (int i = x0; i < x1; i++) {
 			_img.getData()[y0][i] = color;
-			_img.getData()[y1-1][i] = color;
+			_img.getData()[y1 - 1][i] = color;
 		}
-		for( int j=y0; j<y1; j++ ){
+		for (int j = y0; j < y1; j++) {
 			_img.getData()[j][x0] = color;
-			_img.getData()[j][x1-1] = color;
-		}
-	}
-	
-	public static void drawAllSurroundingBoxes( ILowVisionProblem[] _problems, Int2D _img ){
-		for( int k=0; k<_problems.length; k++ ){
-			_problems[k].drawSurroundingBox( _img );
+			_img.getData()[j][x1 - 1] = color;
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#getElement()
+	public static void drawAllSurroundingBoxes(ILowVisionProblem[] _problems, Int2D _img) {
+		for (int k = 0; k < _problems.length; k++) {
+			_problems[k].drawSurroundingBox(_img);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#getElement()
 	 */
 	@Override
 	public Element getElement() {
 		return element;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.ILowVisionProblem#setElement(org.w3c.dom.Element)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
+	 * ILowVisionProblem#setElement(org.w3c.dom.Element)
 	 */
 	@Override
 	public void setElement(Element element) {

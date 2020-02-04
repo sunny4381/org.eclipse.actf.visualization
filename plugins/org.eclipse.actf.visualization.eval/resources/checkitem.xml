@@ -755,6 +755,51 @@
             <desc>This text is too small and its font size might be fixed. （unsupported font-size definitions, etc.）</desc>
         </description>
     </checkitem>
+    <checkitem type="user" id="L_13.0">
+        <guideline>
+            <gItem id="2.2" name="WCAG"/>
+            <gItem techniques="G18,G145" id="1.4.3" name="JIS"/>
+            <gItem techniques="G17,G18" id="1.4.6" name="JIS"/>
+            <gItem techniques="G18,G145" id="1.4.3" name="WCAG 2.0"/>
+            <gItem techniques="G17,G18" id="1.4.6" name="WCAG 2.0"/>
+        </guideline>
+        <metrics>
+            <mItem name="Perceivable"/>
+        </metrics>
+        <description>
+            <desc>Font color is defined by using alpha (opacity). Please confirm color combination by using color check tool, etc.</desc>
+        </description>
+    </checkitem>
+    <checkitem type="user" id="L_13.1">
+        <guideline>
+            <gItem id="2.2" name="WCAG"/>
+            <gItem techniques="G18,G145" id="1.4.3" name="JIS"/>
+            <gItem techniques="G17,G18" id="1.4.6" name="JIS"/>
+            <gItem techniques="G18,G145" id="1.4.3" name="WCAG 2.0"/>
+            <gItem techniques="G17,G18" id="1.4.6" name="WCAG 2.0"/>
+        </guideline>
+        <metrics>
+            <mItem name="Perceivable"/>
+        </metrics>
+        <description>
+            <desc>Background color is defined by using alpha (opacity). Please confirm color combination by using color check tool, etc.</desc>
+        </description>
+    </checkitem>
+    <checkitem type="user" id="L_13.2">
+        <guideline>
+            <gItem id="2.2" name="WCAG"/>
+            <gItem techniques="G18,G145" id="1.4.3" name="JIS"/>
+            <gItem techniques="G17,G18" id="1.4.6" name="JIS"/>
+            <gItem techniques="G18,G145" id="1.4.3" name="WCAG 2.0"/>
+            <gItem techniques="G17,G18" id="1.4.6" name="WCAG 2.0"/>
+        </guideline>
+        <metrics>
+            <mItem name="Perceivable"/>
+        </metrics>
+        <description>
+            <desc>Font color and background color are defined by using alpha (opacity). Please confirm color combination by using color check tool, etc.</desc>
+        </description>
+    </checkitem>
     <checkitem type="error" id="B_38">
         <guideline>
             <gItem id="1.1" name="WCAG"/>

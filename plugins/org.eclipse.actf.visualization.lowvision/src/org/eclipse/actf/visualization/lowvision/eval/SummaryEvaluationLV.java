@@ -72,8 +72,8 @@ public class SummaryEvaluationLV {
 	public String getOverview() {
 		StringBuffer tmpSB = new StringBuffer(512);
 
-		int problemCount[] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-		int severeCount[] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int problemCount[] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		int severeCount[] = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 		for (int i = 0; i < _problems.length; i++) {
 			IProblemItemImage curProblem = _problems[i];

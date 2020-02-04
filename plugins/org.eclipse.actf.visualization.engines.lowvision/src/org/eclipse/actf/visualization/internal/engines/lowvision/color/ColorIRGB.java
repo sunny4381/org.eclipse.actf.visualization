@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2003, 2008 IBM Corporation and Others
+ * Copyright (c) 2003, 2020 IBM Corporation and Others
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Junji MAEDA - initial API and implementation
+ *    IBM Corporation - initial API and implementation
  *******************************************************************************/
 package org.eclipse.actf.visualization.internal.engines.lowvision.color;
 
@@ -40,8 +41,7 @@ public class ColorIRGB {
 		setB(_b);
 	}
 
-	public ColorIRGB(int _r, int _g, int _b, boolean _check)
-			throws ColorException {
+	public ColorIRGB(int _r, int _g, int _b, boolean _check) throws ColorException {
 		setR(_r, _check);
 		setG(_g, _check);
 		setB(_b, _check);
@@ -57,9 +57,7 @@ public class ColorIRGB {
 		Pattern patRemoveSpace = Pattern.compile("^\\s*(\\S.+\\S)\\s*$");
 		Matcher matRemoveSpace = patRemoveSpace.matcher(_str.toLowerCase());
 		if (!(matRemoveSpace.find())) {
-			throw new ColorException(
-					"There no color spacifications. Input string is \"" + _str
-							+ "\"");
+			throw new ColorException("There no color spacifications. Input string is \"" + _str + "\"");
 		}
 		String spec = matRemoveSpace.group(1);
 
@@ -80,8 +78,7 @@ public class ColorIRGB {
 					B = Integer.parseInt(bStr, 16);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					throw new ColorException("Bad color specification(1): #"
-							+ spec);
+					throw new ColorException("Bad color specification(1): #" + spec);
 				}
 			} else if (spec.length() == 3) {
 				String rStr = spec.substring(0, 1);
@@ -93,8 +90,7 @@ public class ColorIRGB {
 					B = Integer.parseInt(bStr + bStr, 16);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					throw new ColorException("Bad color specification(2): #"
-							+ spec);
+					throw new ColorException("Bad color specification(2): #" + spec);
 				}
 			} else {
 				throw new ColorException("Bad color specification(3): #" + spec);
@@ -107,8 +103,7 @@ public class ColorIRGB {
 						.compile("^\\s*([\\+\\-]?\\d+)\\s*\\,\\s*([\\+\\-]?\\d+)\\s*\\,\\s*([\\+\\-]?\\d+)\\s*$");
 				Matcher matRGB = patRGB.matcher(spec);
 				if (!(matRGB.find())) {
-					throw new ColorException("Bad color specification(4): rgb("
-							+ spec + ")");
+					throw new ColorException("Bad color specification(4): rgb(" + spec + ")");
 				}
 				try {
 					setR(Integer.parseInt(matRGB.group(1)), false);
@@ -116,31 +111,22 @@ public class ColorIRGB {
 					setB(Integer.parseInt(matRGB.group(3)), false);
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
-					throw new ColorException("Bad color specification(5): rgb("
-							+ spec + ")");
+					throw new ColorException("Bad color specification(5): rgb(" + spec + ")");
 				}
 			} else { // float value
-				Pattern patRGB = Pattern
-						.compile("^\\s*([\\+\\-]?\\d+(\\.\\d+)*)\\%\\s*\\,\\s*([\\+\\-]?\\d+(\\.\\d+)*)\\%\\s*\\,\\s*([\\+\\-]?\\d+(\\.\\d+)*)\\%\\s*$");
+				Pattern patRGB = Pattern.compile(
+						"^\\s*([\\+\\-]?\\d+(\\.\\d+)*)\\%\\s*\\,\\s*([\\+\\-]?\\d+(\\.\\d+)*)\\%\\s*\\,\\s*([\\+\\-]?\\d+(\\.\\d+)*)\\%\\s*$");
 				Matcher matRGB = patRGB.matcher(spec);
 				if (!(matRGB.find())) {
-					throw new ColorException("Bad color specification(6): rgb("
-							+ spec + ")");
+					throw new ColorException("Bad color specification(6): rgb(" + spec + ")");
 				}
 				try {
-					setR(
-							(int) ((Float.parseFloat(matRGB.group(1))) / 100.0f * 255.0f),
-							false);
-					setG(
-							(int) ((Float.parseFloat(matRGB.group(3))) / 100.0f * 255.0f),
-							false);
-					setB(
-							(int) ((Float.parseFloat(matRGB.group(5))) / 100.0f * 255.0f),
-							false);
+					setR((int) ((Float.parseFloat(matRGB.group(1))) / 100.0f * 255.0f), false);
+					setG((int) ((Float.parseFloat(matRGB.group(3))) / 100.0f * 255.0f), false);
+					setB((int) ((Float.parseFloat(matRGB.group(5))) / 100.0f * 255.0f), false);
 				} catch (Exception e) {
 					e.printStackTrace();
-					throw new ColorException("Bad color specification(7): rgb("
-							+ spec + ")");
+					throw new ColorException("Bad color specification(7): rgb(" + spec + ")");
 				}
 			}
 		} else if (spec.equals("transparent")) {
