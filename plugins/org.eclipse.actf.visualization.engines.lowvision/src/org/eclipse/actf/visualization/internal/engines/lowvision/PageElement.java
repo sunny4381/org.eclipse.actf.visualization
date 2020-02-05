@@ -131,15 +131,18 @@ public class PageElement {
 		String opacityStr = style.getOpacity();
 
 		try {
-			double opacity = Double.parseDouble(opacityStr);
-			if (opacity < 1) {
-				bOpacity = true;
+			if (opacityStr != null) {
+				double opacity = Double.parseDouble(opacityStr);
+				if (opacity < 1) {
+					bOpacity = true;
+				}
 			}
-		} catch (NumberFormatException e1) {
+		} catch (Exception e1) {
 			DebugPrintUtil.devOrDebugPrintStackTrace(e1);
 		}
 
-		//System.out.println(style.getXPath() + ":\t" + fgStr + " / " + bgStr + " / " + opacityStr);
+		// System.out.println(style.getXPath() + ":\t" + fgStr + " / " + bgStr +
+		// " / " + opacityStr);
 
 		try {
 			foregroundColor = (new ColorCSS(fgStr)).toInt();
