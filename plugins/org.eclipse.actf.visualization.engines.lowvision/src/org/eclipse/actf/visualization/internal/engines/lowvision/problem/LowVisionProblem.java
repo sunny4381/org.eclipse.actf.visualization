@@ -105,7 +105,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getType()
 	 */
-	@Override
 	public short getType() {
 		return (LOWVISION_PROBLEM);
 	}
@@ -116,7 +115,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getLowVisionType()
 	 */
-	@Override
 	public LowVisionType getLowVisionType() {
 		return (lowVisionType);
 	}
@@ -128,7 +126,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getLowVisionProblemType()
 	 */
-	@Override
 	public int getLowVisionProblemType() {
 		return (problemType);
 	}
@@ -139,7 +136,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getDescription()
 	 */
-	@Override
 	public String getDescription() throws LowVisionProblemException {
 		return (description);
 	}
@@ -150,7 +146,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getPageImage()
 	 */
-	@Override
 	public IPageImage getPageImage() {
 		return (pageImage);
 	}
@@ -161,7 +156,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getX()
 	 */
-	@Override
 	public int getX() {
 		return (left);
 	}
@@ -172,7 +166,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getY()
 	 */
-	@Override
 	public int getY() {
 		return (top);
 	}
@@ -183,7 +176,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getWidth()
 	 */
-	@Override
 	public int getWidth() {
 		return (width);
 	}
@@ -194,7 +186,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getHeight()
 	 */
-	@Override
 	public int getHeight() {
 		return (height);
 	}
@@ -205,7 +196,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getPriority()
 	 */
-	@Override
 	public int getPriority() {
 		return (priority);
 	}
@@ -216,7 +206,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getProbability()
 	 */
-	@Override
 	public double getProbability() {
 		return (probability);
 	}
@@ -227,7 +216,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getIntProbability()
 	 */
-	@Override
 	public int getIntProbability() {
 		return ((int) (Math.rint(probability * 100.0)));
 	}
@@ -238,7 +226,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getCharacterScore()
 	 */
-	@Override
 	public double getCharacterScore() {
 		return (characterScore);
 	}
@@ -249,7 +236,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getRecommendations()
 	 */
-	@Override
 	public LowVisionRecommendation[] getRecommendations() {
 		return (recommendations);
 	}
@@ -260,7 +246,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#isGroup()
 	 */
-	@Override
 	public boolean isGroup() {
 		return (isGroupFlag);
 	}
@@ -271,7 +256,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getComponentType()
 	 */
-	@Override
 	public short getComponentType() throws LowVisionProblemException {
 		if (!isGroupFlag) {
 			return (componentType);
@@ -286,7 +270,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getPageComponent()
 	 */
-	@Override
 	public PageComponent getPageComponent() throws LowVisionProblemException {
 		if (!isGroupFlag) {
 			return (pageComponent);
@@ -301,7 +284,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getPageElement()
 	 */
-	@Override
 	public PageElement getPageElement() {
 		return (pageElement);
 	}
@@ -312,7 +294,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#toString()
 	 */
-	@Override
 	@SuppressWarnings("nls")
 	public String toString() {
 		String compTypeString = null;
@@ -345,7 +326,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#dump(java.io.PrintStream, boolean)
 	 */
-	@Override
 	public void dump(PrintStream _ps, boolean _doRecommendations) throws LowVisionProblemException {
 		PrintWriter pw = new PrintWriter(_ps, true);
 		dump(pw, _doRecommendations);
@@ -357,7 +337,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#dump(java.io.PrintWriter, boolean)
 	 */
-	@Override
 	@SuppressWarnings("nls")
 	public void dump(PrintWriter _pw, boolean _doRecommendations) throws LowVisionProblemException {
 		_pw.println("----------");
@@ -392,7 +371,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * ILowVisionProblem#drawSurroundingBox(org.eclipse.actf.visualization.
 	 * internal.engines.lowvision.image.Int2D)
 	 */
-	@Override
 	public void drawSurroundingBox(Int2D _img) {
 		int x0 = getX();
 		int y0 = getY();
@@ -421,7 +399,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#getElement()
 	 */
-	@Override
 	public Element getElement() {
 		return element;
 	}
@@ -432,7 +409,6 @@ public abstract class LowVisionProblem implements ILowVisionProblem {
 	 * @see org.eclipse.actf.visualization.internal.engines.lowvision.problem.
 	 * ILowVisionProblem#setElement(org.w3c.dom.Element)
 	 */
-	@Override
 	public void setElement(Element element) {
 		this.element = element;
 	}
