@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization/org.eclipse.actf.visualization.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization/org.eclipse.actf.visualization.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.blind/org.eclipse.actf.visualization.blind.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.blind/org.eclipse.actf.visualization.blind.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.blind.html/org.eclipse.actf.visualization.blind.html.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.blind.html/org.eclipse.actf.visualization.blind.html.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.blind/org.eclipse.actf.visualization.engines.blind.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.blind/org.eclipse.actf.visualization.engines.blind.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.blind.html/org.eclipse.actf.visualization.engines.blind.html.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.blind.html/org.eclipse.actf.visualization.engines.blind.html.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.lowvision/org.eclipse.actf.visualization.engines.lowvision.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.lowvision/org.eclipse.actf.visualization.engines.lowvision.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.voicebrowser/org.eclipse.actf.visualization.engines.voicebrowser.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.voicebrowser/org.eclipse.actf.visualization.engines.voicebrowser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.eval/org.eclipse.actf.visualization.eval.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.eval/org.eclipse.actf.visualization.eval.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.lowvision/org.eclipse.actf.visualization.lowvision.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.lowvision/org.eclipse.actf.visualization.lowvision.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.ui.report/org.eclipse.actf.visualization.ui.report.iml" filepath="$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.ui.report/org.eclipse.actf.visualization.ui.report.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.blind.html/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.blind/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.blind.html/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.blind/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.lowvision/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.engines.voicebrowser/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.eval/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.eval/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.lowvision/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization.ui.report/src" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/plugins/org.eclipse.actf.visualization/src" charset="UTF-8" />
+  </component>
+</project>

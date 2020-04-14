@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="org.eclipse.actf.visualization.engines.lowvision" />
+        <module name="org.eclipse.actf.visualization.engines.blind.html" />
+        <module name="org.eclipse.actf.visualization.ui.report" />
+        <module name="org.eclipse.actf.visualization" />
+        <module name="org.eclipse.actf.visualization.blind.html" />
+        <module name="org.eclipse.actf.visualization.lowvision" />
+        <module name="org.eclipse.actf.visualization.engines.voicebrowser" />
+        <module name="org.eclipse.actf.visualization.blind" />
+        <module name="org.eclipse.actf.visualization.eval" />
+        <module name="org.eclipse.actf.visualization.engines.blind" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="org.eclipse.actf.visualization" target="1.8" />
+      <module name="org.eclipse.actf.visualization.blind" target="1.8" />
+      <module name="org.eclipse.actf.visualization.blind.html" target="1.8" />
+      <module name="org.eclipse.actf.visualization.engines.blind" target="1.8" />
+      <module name="org.eclipse.actf.visualization.engines.blind.html" target="1.8" />
+      <module name="org.eclipse.actf.visualization.engines.lowvision" target="1.8" />
+      <module name="org.eclipse.actf.visualization.engines.voicebrowser" target="1.8" />
+      <module name="org.eclipse.actf.visualization.eval" target="1.8" />
+      <module name="org.eclipse.actf.visualization.lowvision" target="1.8" />
+      <module name="org.eclipse.actf.visualization.ui.report" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
