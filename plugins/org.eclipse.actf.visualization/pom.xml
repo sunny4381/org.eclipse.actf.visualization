@@ -12,4 +12,19 @@
 
   <artifactId>org.eclipse.actf.visualization</artifactId>
   <name>org.eclipse.actf.visualization</name>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+          <include>about.ini</include>
+          <include>about.properties</include>
+          <include>eclipse32.png</include>
+          <include>plugin.xml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>

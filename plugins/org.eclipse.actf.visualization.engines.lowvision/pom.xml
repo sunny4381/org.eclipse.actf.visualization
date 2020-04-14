@@ -13,6 +13,23 @@
   <artifactId>org.eclipse.actf.visualization.engines.lowvision</artifactId>
   <name>org.eclipse.actf.visualization.engines.lowvision</name>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.eclipse.actf.visualization</groupId>

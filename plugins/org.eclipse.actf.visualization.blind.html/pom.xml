@@ -13,6 +13,17 @@
   <artifactId>org.eclipse.actf.visualization.blind.html</artifactId>
   <name>org.eclipse.actf.visualization.blind.html</name>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>fragment.xml</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
+
   <dependencies>
     <dependency>
       <groupId>org.eclipse.actf.visualization</groupId>

@@ -12,4 +12,15 @@
 
   <artifactId>org.eclipse.actf.visualization.engines.voicebrowser</artifactId>
   <name>org.eclipse.actf.visualization.engines.voicebrowser</name>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>.</directory>
+        <includes>
+          <include>about.html</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>
