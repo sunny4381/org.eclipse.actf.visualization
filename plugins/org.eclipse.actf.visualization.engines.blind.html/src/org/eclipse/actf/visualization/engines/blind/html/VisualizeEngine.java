@@ -485,7 +485,7 @@ public class VisualizeEngine {
 					tmpSB.append("%");
 				}
 			} else {
-				tmpSB.append(Messages.ProgressBar_1); // –¢Šm’è
+				tmpSB.append(Messages.ProgressBar_1); // æœªç¢ºå®š
 			}
 
 			tmpSB.append(")");

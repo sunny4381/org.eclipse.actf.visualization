@@ -56,7 +56,7 @@ public enum TextCheckResult {
 
 	/**
 	 * Flag means ALT string is Japanese and separated by in-word space
-	 * characters, e.g. "ˆ@—@ŠJ@n"@(start processing).
+	 * characters, e.g. "å‡¦ã€€ç†ã€€é–‹ã€€å§‹"ã€€(start processing).
 	 */
 	SPACE_SEPARATED_JP,
 
