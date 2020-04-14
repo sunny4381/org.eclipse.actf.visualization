@@ -18,6 +18,7 @@
       <resource>
         <directory>.</directory>
         <includes>
+          <include>META-INF/MANIFEST.MF</include>
           <include>about.html</include>
         </includes>
       </resource>
