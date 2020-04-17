@@ -613,9 +613,9 @@ public class VisualizeEngine {
 					BlindProblem prob = new BlindProblem(IBlindProblem.NO_ALT_INPUT);
 					Integer idObj = mapData.getIdOfNode(input);
 					if (idObj != null) {
-						prob.setNode(input, idObj.intValue());
+						prob.setNode(input, idObj.intValue(), mapData.getOrigNode(input));
 					} else {
-						prob.setNode(input);
+						prob.setNode(input, mapData.getOrigNode(input));
 					}
 					prob.setTargetNode(mapData.getOrigNode(input));
 					// (Node) result2documentMap.get(input));
@@ -643,9 +643,9 @@ public class VisualizeEngine {
 				if (prob != null) {
 					Integer idObj = mapData.getIdOfNode(input);
 					if (idObj != null) {
-						prob.setNode(input, idObj.intValue());
+						prob.setNode(input, idObj.intValue(), mapData.getOrigNode(input));
 					} else {
-						prob.setNode(input);
+						prob.setNode(input, mapData.getOrigNode(input));
 					}
 					prob.setTargetNode(mapData.getOrigNode(input));
 					tmpV.add(prob);

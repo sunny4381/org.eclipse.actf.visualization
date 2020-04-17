@@ -140,9 +140,9 @@ public class LinkAnalyzer {
 								prob.setTargetNode(mapData.getOrigNode(curEl));
 								Integer idObj = mapData.getIdOfNode(curEl);
 								if (idObj != null) {
-									prob.setNode(curEl, idObj.intValue());
+									prob.setNode(curEl, idObj.intValue(), mapData.getOrigNode(curEl));
 								} else {
-									prob.setNode(curEl);
+									prob.setNode(curEl, mapData.getOrigNode(curEl));
 								}
 								// skiplinkErrorCount++;
 								problems.add(prob);
@@ -203,9 +203,9 @@ public class LinkAnalyzer {
 						prob.setTargetNode(mapData.getOrigNode(curEl));
 						Integer idObj = mapData.getIdOfNode(curEl);
 						if (idObj != null) {
-							prob.setNode(curEl, idObj.intValue());
+							prob.setNode(curEl, idObj.intValue(), mapData.getOrigNode(curEl));
 						} else {
-							prob.setNode(curEl);
+							prob.setNode(curEl, mapData.getOrigNode(curEl));
 						}
 						// skiplinkErrorCount++;
 						problems.add(prob);
@@ -243,9 +243,9 @@ public class LinkAnalyzer {
 					prob.setTargetNode(mapData.getOrigNode(lel));
 					Integer idObj = mapData.getIdOfNode(lel);
 					if (idObj != null) {
-						prob.setNode(lel, idObj.intValue());
+						prob.setNode(lel, idObj.intValue(), mapData.getOrigNode(lel));
 					} else {
-						prob.setNode(lel);
+						prob.setNode(lel, mapData.getOrigNode(lel));
 					}
 
 					intralinkErrorCount++;
@@ -323,9 +323,9 @@ public class LinkAnalyzer {
 					prob.setTargetNode(mapData.getOrigNode(lel));
 					Integer idObj = mapData.getIdOfNode(lel);
 					if (idObj != null) {
-						prob.setNode(lel, idObj.intValue());
+						prob.setNode(lel, idObj.intValue(), mapData.getOrigNode(lel));
 					} else {
-						prob.setNode(lel);
+						prob.setNode(lel, mapData.getOrigNode(lel));
 					}
 					problems.add(prob);
 				}
@@ -494,9 +494,9 @@ public class LinkAnalyzer {
 					IBlindProblem.TOOFAR_SKIPTOMAIN_LINK, minSkipLinkTime + " "); //$NON-NLS-1$
 			Integer idObj = mapData.getIdOfNode(skipLinkNodeInfo.getNode());
 			if (idObj != null) {
-				prob.setNode(skipLinkNodeInfo.getNode(), idObj.intValue());
+				prob.setNode(skipLinkNodeInfo.getNode(), idObj.intValue(), mapData.getOrigNode(skipLinkNodeInfo.getNode()));
 			} else {
-				prob.setNode(skipLinkNodeInfo.getNode());
+				prob.setNode(skipLinkNodeInfo.getNode(), mapData.getOrigNode(skipLinkNodeInfo.getNode()));
 			}
 			prob.setTargetNode(mapData.getOrigNode(skipLinkNodeInfo.getNode()));
 			problemV.add(prob);

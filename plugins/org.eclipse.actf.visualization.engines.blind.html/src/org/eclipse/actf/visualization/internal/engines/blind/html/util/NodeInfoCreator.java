@@ -148,7 +148,7 @@ public class NodeInfoCreator {
 					String nodeName = p.getNode().getNodeName();
 					if (!nodeName.matches("img|input|area")) {// already checked
 						BlindProblem prob = new BlindProblem(IBlindProblem.WRONG_TEXT, curText);
-						prob.setNode(p.getNode());
+						prob.setNode(p.getNode(), mapData.getOrigNode(p.getNode()));
 						prob.setTargetNode(mapData.getOrigNode(p.getNode()));
 						problems.add(prob);
 					}
@@ -174,8 +174,8 @@ public class NodeInfoCreator {
 
 								BlindProblem prob = new BlindProblem(IBlindProblem.REDUNDANT_ALT,
 										"\"" + prevText + "\" & \"" + curText + "\"");
-								prob.setNode(prevNode);
-								prob.addNode(curNode);
+								prob.setNode(prevNode, mapData.getOrigNode(prevNode));
+								prob.addNode(curNode, mapData.getOrigNode(curNode));
 
 								// TODO insideAnchor -> check same target?
 								if (prevNode.getNodeName().equals("img")) {

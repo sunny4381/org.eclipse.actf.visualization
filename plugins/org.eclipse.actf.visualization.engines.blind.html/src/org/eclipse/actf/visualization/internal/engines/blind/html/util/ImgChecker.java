@@ -160,9 +160,9 @@ public class ImgChecker {
 					if (prob != null) {
 						idObj = mapData.getIdOfNode(img);
 						if (idObj != null) {
-							prob.setNode(areaE, idObj.intValue());
+							prob.setNode(areaE, idObj.intValue(), mapData.getOrigNode(areaE));
 						} else {
-							prob.setNode(areaE);
+							prob.setNode(areaE, mapData.getOrigNode(areaE));
 						}
 						problemV.add(prob);
 
@@ -235,9 +235,9 @@ public class ImgChecker {
 			prob.setTargetNode(mapData.getOrigNode(img));
 			Integer idObj = mapData.getIdOfNode(img);
 			if (idObj != null) {
-				prob.setNode(img, idObj.intValue());
+				prob.setNode(img, idObj.intValue(), mapData.getOrigNode(img));
 			} else {
-				prob.setNode(img);
+				prob.setNode(img, mapData.getOrigNode(img));
 			}
 			problemV.add(prob);
 		}
