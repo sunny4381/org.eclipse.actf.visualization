@@ -12,9 +12,7 @@
 package org.eclipse.actf.visualization.eval.problem;
 
 import java.io.PrintWriter;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.TreeSet;
+import java.util.*;
 
 import org.eclipse.actf.util.FileUtils;
 import org.eclipse.actf.visualization.eval.IEvaluationItem;
@@ -22,6 +20,7 @@ import org.eclipse.actf.visualization.eval.IGuidelineItem;
 import org.eclipse.actf.visualization.eval.ITechniquesItem;
 import org.eclipse.actf.visualization.eval.guideline.GuidelineHolder;
 import org.eclipse.actf.visualization.eval.guideline.IGuidelineData;
+import org.w3c.dom.Node;
 
 public class ReportUtil implements IProblemItemVisitor {
 
@@ -104,6 +103,10 @@ public class ReportUtil implements IProblemItemVisitor {
 				+ prep(IProblemConst.TITLE_TECHNIQUS + "("
 						+ IProblemConst.TITLE_HELP + ")")
 				+ separator
+				+ prep("Can Highlight")
+				+ separator
+				+ prep("CSS Path")
+				+ separator
 				+ prep(IProblemConst.TITLE_LINE)
 				+ separator
 				+ prep(IProblemConst.TITLE_DESCRIPTION));
@@ -128,6 +131,61 @@ public class ReportUtil implements IProblemItemVisitor {
 		}else{
 			return(target.replaceAll(TAB_STRING, "    "));
 		}
+	}
+
+	private String nodePath(Node node) {
+		if (node == null) {
+			return "";
+		}
+
+//		Document document = node.getOwnerDocument();
+
+		ArrayList<String> paths = new ArrayList<String>(10);
+		Node current = node;
+		while (current != null) {
+			String selector = current.getNodeName().toLowerCase();
+//			Node idAttribute = current.getAttributes().getNamedItem("id");
+//			if (idAttribute != null && idAttribute.getNodeValue() != null) {
+//				// TODO: id の重複チェック。HTML によっては id 属性が重複している。安易に id 属性を信用するなかれ。
+//				selector += "#" + idAttribute.getNodeValue();
+//				paths.add(selector);
+//				break;
+//			}
+
+			Node sib = current.getPreviousSibling();
+			int nth = 1;
+			while (sib != null) {
+				if (sib.getNodeName().toLowerCase().equals(selector))
+					nth++;
+
+				sib = sib.getPreviousSibling();
+			}
+			if (nth != 1) {
+				selector += ":nth-of-type(" + nth + ")";
+			}
+			paths.add(selector);
+			current = current.getParentNode();
+		}
+
+		Collections.reverse(paths);
+		return String.join(" > ", paths);
+	}
+
+	private String nodePaths(List<Node> nodes) {
+		if (nodes == null || nodes.size() == 0) {
+			return "";
+		}
+
+		ArrayList<String> paths = new ArrayList<String>(nodes.size());
+		for (Node node: nodes) {
+			if (node == null) {
+				continue;
+			}
+
+			paths.add(nodePath(node));
+		}
+
+		return String.join("\n", paths);
 	}
 
 	public String toString(IProblemItem item) {
@@ -197,6 +255,11 @@ public class ReportUtil implements IProblemItemVisitor {
 				tmpS = tmpS.substring(0, tmpS.length() - 2);
 			}
 			tmpSB.append(prep(tmpS) + separator);
+
+			tmpSB.append(prep(item.isCanHighlight() ? "1" : "0") + separator);
+//			tmpSB.append(prep(item.getClass().getCanonicalName()) + separator);
+
+			tmpSB.append(prep(nodePaths(item.getOrigNodeList())) + separator);
 
 			csvStr = tmpSB.toString();
 			cacheMap.put(evalItem, csvStr);
