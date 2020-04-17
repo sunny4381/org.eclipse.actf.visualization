@@ -13,6 +13,7 @@
 package org.eclipse.actf.visualization.internal.engines.blind.html;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
@@ -36,6 +37,7 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 	private static final String ID = "id"; //$NON-NLS-1$
 
 	private List<Node> nodeList = null;
+	private List<Node> origNodeList = null;
 
 	private int nodeId = -1;
 
@@ -67,6 +69,7 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 		subType = _subtype;
 
 		nodeList = new Vector<Node>();
+		origNodeList = new Vector<Node>();
 		setTargetString(targetString);
 
 		switch (_subtype) {
@@ -110,8 +113,9 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 	 * @param node
 	 *            target Node
 	 */
-	public void setNode(Node node) {
+	public void setNode(Node node, Node origNode) {
 		nodeList.add(0, node);
+		origNodeList.add(0, origNode);
 	}
 
 	/**
@@ -120,8 +124,9 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 	 * @param node
 	 *            additional target Node
 	 */
-	public void addNode(Node node) {
+	public void addNode(Node node, Node origNode) {
 		nodeList.add(node);
+		origNodeList.add(origNode);
 	}
 
 	/**
@@ -132,9 +137,10 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 	 * @param id
 	 *            target ID
 	 */
-	public void setNode(Node node, int id) {
+	public void setNode(Node node, int id, Node origNode) {
 		nodeList.add(0, node);
 		this.nodeId = id;
+		origNodeList.add(0, origNode);
 	}
 
 	public String toString() {
@@ -287,5 +293,18 @@ public class BlindProblem extends ProblemItemImpl implements IBlindProblem {
 
 			}
 		}
+	}
+
+	public List<Node> getOrigNodeList() {
+		if (origNodeList.size() > 0) {
+			return origNodeList;
+		}
+
+		Node targetNode = getTargetNode();
+		if (targetNode != null) {
+			return Collections.singletonList(targetNode);
+		}
+
+		return Collections.emptyList();
 	}
 }

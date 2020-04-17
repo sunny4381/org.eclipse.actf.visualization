@@ -19,6 +19,9 @@ import org.eclipse.actf.visualization.util.html2view.Html2ViewMapData;
 import org.eclipse.swt.graphics.Image;
 import org.w3c.dom.Node;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Default implementation of {@link IProblemItem}
  */
@@ -286,4 +289,7 @@ public class ProblemItemImpl implements IProblemItem {
 		this.subType = subType;
 	}
 
+	public List<Node> getOrigNodeList() {
+		return targetNode == null ? Collections.emptyList() : Collections.singletonList(targetNode);
+	}
 }
